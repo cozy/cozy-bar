@@ -11,7 +11,7 @@ module.exports = {
     libraryTarget: 'umd'
   },
   resolve: {
-    extensions: ['', '.js', '.css', '.html', '.svelte']
+    extensions: ['', '.js', '.html', '.svelte', '.json', '.yaml', '.css']
   },
   devtool: '#cheap-module-source-map',
   module: {
@@ -22,8 +22,17 @@ module.exports = {
         loader: 'babel-loader'
       },
       {
+        test: /\.(html|svelte)$/,
+        exclude: /node_modules/,
+        loaders: ['babel-loader', 'svelte-loader']
+      },
+      {
         test: /\.json$/,
         loader: 'json-loader'
+      },
+      {
+        test: /\.yaml$/,
+        loaders: ['json-loader', 'yaml-loader']
       },
       {
         test: /\.css$/,
@@ -32,11 +41,6 @@ module.exports = {
           'css-loader',
           'postcss'
         ]
-      },
-      {
-        test: /\.(html|svelte)$/,
-        exclude: /node_modules/,
-        loaders: ['babel-loader', 'svelte-loader']
       }
     ]
   }

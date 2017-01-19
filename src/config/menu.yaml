@@ -1,0 +1,10 @@
+settings:
+  -
+    - label: help
+      external: true
+      href: https://docs.cozy.io/
+    - label: email
+      href: mailto:contact@cozycloud.cc
+  -
+    - label: logout
+      href: /logout

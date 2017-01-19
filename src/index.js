@@ -1,6 +1,6 @@
 'use strict'
 
-import BarView from './views/bar'
+import BarView from './components/Bar'
 
 const createElement = function CozyBarCreateElement () {
   const barNode = document.createElement('div')
