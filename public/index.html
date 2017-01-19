@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<title>Cozy Bar test</title>
+<script src="./cozy-bar.js" defer></script>
+<script>
+  document.addEventListener('DOMContentLoaded', ()=> {
+    const btnNode = document.querySelector('button')
+    btnNode.addEventListener('click', ()=> {
+      cozy.bar.init({
+        lang:'fr',
+        appName: 'Test App',
+        iconPath: 'assets/foo.svg'
+      })
+    })
+  })
+</script>
+<style>
+  * {
+      margin: 0;
+      padding: 0;
+  }
+
+  [role=application] {
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      width: 100vw;
+      height: 100vh;
+      padding: 1em;
+      border: 5px dashed red;
+      background-color: #fcfcfc
+  }
+
+  [role=application] button {
+      margin: 1em 0;
+  }
+
+  kbd,
+  code {
+      padding: .3em;
+      border: 1px solid #999;
+      border-radius: 3px;
+      background-color: #eee;
+  }
+</style>
+<div role="application">
+  <p>
+    This is a fake app used to test the CozyBar injection
+  </p>
+  <p>
+    <button>Click Me to inject it :]</button>
+    <br />
+    <small>or press <kbd>F12</kbd> to open the devtools, go to your console, and type <code>cozy.bar.init({lang:'fr', appName: 'Test App', iconPath: 'assets/foo.svg'})</code></small>
+  </p>
+</div>
