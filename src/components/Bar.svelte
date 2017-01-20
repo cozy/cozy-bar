@@ -1,5 +1,5 @@
 <h1>
-  <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="32" height="32" />
+  <img src='{{ iconPath }}' width='32' height='32' />
   cozy <strong>{{ appName }}</strong>
 </h1>
 
