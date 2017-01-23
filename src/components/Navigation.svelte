@@ -1,7 +1,7 @@
 <nav class='coz-nav'>
   <ul>
     {{#each sections as section}}
-      <NavigationSection label='{{section.label}}' icon='{{section.icon}}' items='{{section.items}}' />
+      <NavigationSection label='{{section.label}}' icon='{{section.icon}}' items='{{section.items}}' standalone='false' />
     {{/each}}
   </ul>
 </nav>
@@ -22,5 +22,11 @@
     padding: 0;
     height: 100%;
     list-style-type: none;
+  }
+
+  @media (max-width: 30em) {
+    .coz-nav {
+      display: none;
+    }
   }
 </style>
