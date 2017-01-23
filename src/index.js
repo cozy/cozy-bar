@@ -40,6 +40,9 @@ const getDefaultIcon = function GetDefaultIcon () {
 
 const init = function CozyBarInit ({lang = getDefaultLang(), appName, iconPath = getDefaultIcon()}) {
   injectDOM({lang, appName, iconPath})
+  document.body.addEventListener('click', () => {
+    cozy.bar.__view__.fire('clickOutside')
+  })
 }
 
 const Cozy = window.Cozy || class Cozy {}

@@ -1,4 +1,4 @@
-<li class='coz-nav-section'>
+<li class='coz-nav-section' on:click='event.stopPropagation()'>
   <a on:click='set({hidden: !hidden})' aria-controls='{{`coz-nav-pop-${hash}`}}'>
     <svg class='coz-nav-icon' width='16' height='16'>
       <use xlink:href='{{ icon }}'></use>
@@ -23,6 +23,8 @@
 
   const SHA1 = new jsSHA('SHA-1', 'TEXT')
 
+  let clickOutsideListener
+
   export default {
     data() {
       return {
@@ -34,6 +36,16 @@
         SHA1.update(label)
         return SHA1.getHash('HEX').slice(0, 6)
       }
+    },
+
+    onrender () {
+      clickOutsideListener = this._root.on('clickOutside', () => {
+        this.set({hidden: true})
+      })
+    },
+
+    onteardown () {
+      clickOutsideListener.cancel()
     },
 
     components: {
