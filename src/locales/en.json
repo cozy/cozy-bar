@@ -1,3 +1,7 @@
 {
-
+  "settings": "Settings",
+  "menu": "Show menu drawer",
+  "help": "Help",
+  "email": "Send an email to support",
+  "logout": "Sign out"
 }

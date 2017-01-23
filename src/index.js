@@ -1,5 +1,7 @@
 'use strict'
 
+import i18n from './lib/i18n'
+
 import BarView from './components/Bar'
 
 const createElement = function CozyBarCreateElement () {
@@ -39,6 +41,7 @@ const getDefaultIcon = function GetDefaultIcon () {
 }
 
 const init = function CozyBarInit ({lang = getDefaultLang(), appName, iconPath = getDefaultIcon()}) {
+  i18n(lang)
   injectDOM({lang, appName, iconPath})
   document.body.addEventListener('click', () => {
     cozy.bar.__view__.fire('clickOutside')
