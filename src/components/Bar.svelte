@@ -1,5 +1,5 @@
-<h1>
-  <img src='{{ iconPath }}' width='32' height='32' />
+<h1 class='coz-bar-title'>
+  <img src='{{ iconPath }}' width='32' />
   cozy <strong>{{ appName }}</strong>
 </h1>
 
