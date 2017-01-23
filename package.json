@@ -33,8 +33,12 @@
     "style-loader": "^0.13.1",
     "svelte": "^1.6.5",
     "svelte-loader": "^1.2.1",
+    "svg-sprite-loader": "^0.2.0",
     "webpack": "^1.14.0",
     "webpack-dev-server": "^1.16.2",
     "yaml-loader": "^0.4.0"
+  },
+  "dependencies": {
+    "jssha": "^2.2.0"
   }
 }

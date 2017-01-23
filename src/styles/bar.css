@@ -5,7 +5,22 @@ body {
   height: 100vh;
 }
 
+
 [role=application] {
   height: initial;
   flex: 1 100vh;
+}
+
+
+[role=banner] {
+  --silver: #d6d8da;
+  --slate-grey: #5d6165;
+  --charcoal-grey: #32363f;
+
+  display: flex;
+  align-items: stretch;
+  padding: .5em 2.5em .5em 1em;
+  box-shadow: inset 0 -1px 0 0 var(--silver);
+  font-family: Lato, sans-serif;
+  font-size: 1rem;
 }

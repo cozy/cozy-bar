@@ -41,6 +41,11 @@ module.exports = {
           'css-loader',
           'postcss'
         ]
+      },
+      {
+        test: /\.svg$/,
+        // include: /icons/,
+        loader: 'svg-sprite'
       }
     ]
   }

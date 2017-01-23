@@ -1,15 +1,26 @@
-<nav>
+<nav class='coz-nav'>
   <ul>
-    <NavigationGroup name='settings' items='{{items.settings}}' />
+    {{#each sections as section}}
+      <NavigationSection label='{{section.label}}' icon='{{section.icon}}' items='{{section.items}}' />
+    {{/each}}
   </ul>
 </nav>
 
 <script>
-  import NavigationGroup from './NavigationGroup'
+  import NavigationSection from './NavigationSection'
 
   export default {
     components: {
-      NavigationGroup
+      NavigationSection
     }
   }
 </script>
+
+<style>
+  .coz-nav ul {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    list-style-type: none;
+  }
+</style>
