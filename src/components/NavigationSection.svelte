@@ -4,19 +4,14 @@
   </a>
   <div class='coz-nav-pop' id='{{`coz-nav-pop-${hash}`}}' aria-hidden={{hidden}}>
     {{#each items as group}}
-    <ul class='coz-nav-group'>
-      {{#each group as item}}
-        <NavigationItem item='{{item}}' />
-      {{/each}}
-    </ul>
-    <hr />
+    <NavigationGroup group='{{group}}' separator='bottom' />
     {{/each}}
   </div>
 </li>
 
 <script>
   import jsSHA from 'jssha'
-  import NavigationItem from './NavigationItem'
+  import NavigationGroup from './NavigationGroup'
 
   const SHA1 = new jsSHA('SHA-1', 'TEXT')
 
@@ -46,7 +41,7 @@
     },
 
     components: {
-      NavigationItem
+      NavigationGroup
     }
   }
 </script>
@@ -68,8 +63,6 @@
   }
 
   .coz-nav-icon {
-    width: 16px;
-    height: 16px;
     margin-right: .5em;
   }
 

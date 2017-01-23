@@ -25,6 +25,17 @@ body {
   font-size: 1rem;
 }
 
+@media (max-width: 30em) {
+  [role=banner] {
+    padding: .75em 1em;
+  }
+}
+
+[role=banner] .coz-sep-flex {
+  border: none;
+  flex: 1 0;
+}
+
 [role=banner] [data-icon] {
   background-repeat: no-repeat;
   background-position: 0 50%;
