@@ -1,1 +1,28 @@
-node_modules
+# NPM
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Locales
+**/locales/*
+!**/locales/en.json
+
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+
+# Editors / IDEs
+.floo
+.flooignore
+
+
+# Default
+!.gitkeep

@@ -37,7 +37,10 @@ window.cozy.bar.init({
 })
 ```
 
-`appName` and `iconPath` params in hash are mandatory when `lang` is optional. If not passed, its values is detected from the `lang` attribute of the `<html>` tag.
+`appName` param in hash is mandatory when `lang` and `iconPath` are optionals. If not passed, their values are detected into the DOM:
+
+- `lang` is extracted from the `lang` attribute of the `<html>` tag. Defaults to 'en'
+- `iconPath` uses the favicon 32px. Defaults to a blank GIF
 
 
 Contribute
