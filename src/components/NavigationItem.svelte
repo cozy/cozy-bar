@@ -1,12 +1,10 @@
 <li class='coz-nav-item'>
   {{#if item.external}}
-    <a href='{{item.href}}' target='_blank'>
-      <svg class='coz-nav-icon' viewBox='0 0 16 16'><use xlink:href='{{icon}}'/></svg>
+    <a href='{{item.href}}' target='_blank' data-icon='{{icon}}'>
       {{ item.label }}
     </a>
   {{else}}
-    <a href='{{item.href}}'>
-      <svg class='coz-nav-icon' viewBox='0 0 16 16'><use xlink:href='{{icon}}'/></svg>
+    <a href='{{item.href}}' data-icon='{{icon}}'>
       {{ item.label }}
     </a>
   {{/if}}
@@ -15,7 +13,7 @@
 <script>
   export default {
     computed: {
-      icon: item => require(`../assets/icons/icon-${item.label}.svg`)
+      icon: item => `icon-${item.label}`
     }
   }
 </script>
@@ -23,7 +21,8 @@
 <style>
   .coz-nav-item a {
     display: flex;
-    padding: .5em 1.5em;
+    padding: .5em 1.5em .5em calc(1.5em + 16px + .5em);
+    background-position: 1.5em 50%;
     align-items: center;
     white-space: nowrap;
     color: var(--charcoal-grey);

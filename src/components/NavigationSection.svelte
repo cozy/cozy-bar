@@ -1,8 +1,5 @@
 <li class='coz-nav-section' on:click='event.stopPropagation()'>
-  <a on:click='set({hidden: !hidden})' aria-controls='{{`coz-nav-pop-${hash}`}}'>
-    <svg class='coz-nav-icon' width='16' height='16'>
-      <use xlink:href='{{ icon }}'></use>
-    </svg>
+  <a on:click='set({hidden: !hidden})' aria-controls='{{`coz-nav-pop-${hash}`}}' data-icon='{{icon}}'>
     {{ label }}
   </a>
   <div class='coz-nav-pop' id='{{`coz-nav-pop-${hash}`}}' aria-hidden={{hidden}}>

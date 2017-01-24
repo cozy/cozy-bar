@@ -44,8 +44,8 @@ module.exports = {
       },
       {
         test: /\.svg$/,
-        // include: /icons/,
-        loader: 'svg-sprite'
+        include: /icons/,
+        loader: 'url-loader'
       }
     ]
   }

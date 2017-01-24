@@ -16,7 +16,7 @@
       return {
         sections: [{
           label: 'settings',
-          icon: require('../assets/icons/icon-cog.svg'),
+          icon: 'icon-cog',
           items: MENU_CONFIG.settings
         }]
       }
