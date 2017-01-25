@@ -1,6 +1,6 @@
 <li class='coz-nav-section' on:click='event.stopPropagation()'>
   <a on:click='set({hidden: !hidden})' aria-controls='{{`coz-nav-pop-${hash}`}}' data-icon='{{icon}}'>
-    {{ t(label) }}
+    {{t(label)}}
   </a>
   <div class='coz-nav-pop' id='{{`coz-nav-pop-${hash}`}}' aria-hidden={{hidden}}>
     {{#each items as group}}

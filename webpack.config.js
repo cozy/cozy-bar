@@ -39,7 +39,7 @@ module.exports = {
         loaders: [
           'style-loader',
           'css-loader',
-          'postcss'
+          'postcss-loader'
         ]
       },
       {

@@ -1,15 +1,15 @@
 <button class='coz-bar-burger' on:click='toggleDrawer()' data-icon='icon-hamburger'>
-  {{ t('menu') }}
+  {{t('menu')}}
 </button>
 
 <h1 class='coz-bar-title'>
-  <img class='coz-bar-hide-sm' src='{{ iconPath }}' width='32' />
-  <span class='coz-bar-hide-sm'>cozy </span><strong>{{ appName }}</strong>
+  <img class='coz-bar-hide-sm' src='{{iconPath}}' width='32' />
+  <span class='coz-bar-hide-sm'>cozy </span><strong>{{appName}}</strong>
 </h1>
 
 <hr class='coz-sep-flex' />
 
-<Navigation sections='{{ sections }}' />
+<Navigation sections='{{sections}}' />
 
 <Drawer ref:drawer groups='{{sections[0].items}}' />
 
