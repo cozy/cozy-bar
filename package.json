@@ -9,7 +9,9 @@
   ],
   "license": "MIT",
   "scripts": {
-    "build": "NODE_ENV=production webpack --config webpack.config.js",
+    "build": "npm-run-all --parallel 'build:*'",
+    "build:lib": "webpack --config webpack.config.js",
+    "build:min": "NODE_ENV=production webpack --config webpack.config.js",
     "clean": "rm -rf ./dist",
     "lint": "standard 'src/**/*.js'",
     "prebuild": "npm-run-all lint clean",
