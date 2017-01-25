@@ -15,7 +15,7 @@ const createElement = function CozyBarCreateElement () {
 const injectDOM = function CozyBarInjectDOM ({lang, appName, iconPath}) {
   if (document.getElementById('coz-bar') !== null) { return }
 
-  require('./styles/bar')
+  require('./styles/index.css')
 
   const barNode = createElement()
   const appNode = document.querySelector('[role=application]')

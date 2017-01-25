@@ -10,8 +10,6 @@
 </li>
 
 <script>
-  import '../styles/navigation_section.css'
-
   import jsSHA from 'jssha'
   import NavigationGroup from './NavigationGroup'
   import { t } from '../lib/i18n'

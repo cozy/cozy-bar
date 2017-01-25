@@ -10,8 +10,6 @@
 </div>
 
 <script>
-  import '../styles/drawer.css'
-
   import NavigationGroup from './NavigationGroup'
 
   let toggleDrawerObserver

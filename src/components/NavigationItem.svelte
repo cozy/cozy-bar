@@ -11,8 +11,6 @@
 </li>
 
 <script>
-  import '../styles/navigation_item.css'
-
   import { t } from '../lib/i18n'
 
   export default {

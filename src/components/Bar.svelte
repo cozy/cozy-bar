@@ -14,8 +14,6 @@
 <Drawer ref:drawer groups='{{sections[0].items}}' />
 
 <script>
-  import '../styles/index.css'
-
   import { t } from '../lib/i18n'
 
   import Navigation from './Navigation'

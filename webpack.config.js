@@ -41,8 +41,8 @@ const base = {
       {
         test: /\.(css)$/,
         loaders: [
-          'style-loader?singleton',
-          'css-loader?importLoaders=1&minimize=true',
+          'style-loader',
+          'css-loader?importLoaders=1',
           'postcss-loader'
         ]
       },
@@ -51,6 +51,23 @@ const base = {
         include: /icons/,
         loader: 'url-loader'
       }
+    ]
+  },
+  postcss: () => {
+    return [
+      require('postcss-import')({
+        path: [path.resolve(__dirname, 'src/styles/')],
+        plugins: [
+          require('autoprefixer')(['last 2 versions']),
+          require('postcss-discard-empty')
+        ]
+      }),
+      require('postcss-css-variables'),
+      require('postcss-discard-duplicates'),
+      require('css-mqpacker'),
+      require('csswring')({
+        removeAllComments: true
+      })
     ]
   }
 }

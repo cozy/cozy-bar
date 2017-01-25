@@ -7,8 +7,6 @@
 </nav>
 
 <script>
-  import '../styles/navigation.css'
-
   import NavigationSection from './NavigationSection'
 
   export default {
