@@ -1,0 +1,79 @@
+[role=banner] .coz-drawer-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
+[role=banner] .coz-drawer-wrapper[aria-hidden=true] {
+  display: none;
+}
+
+@media (min-width: 30.0625em) {
+  [role=banner] .coz-drawer-wrapper {
+    display: none;
+  }
+}
+
+[role=banner] .coz-drawer-wrapper::before {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--charcoal-grey);
+  opacity: 0;
+  transition: opacity 250ms ease-out;
+}
+
+[role=banner] .coz-drawer-wrapper.visible::before {
+  opacity: .5;
+}
+
+[role=banner] .coz-drawer-wrapper aside {
+  transform: translateX(-100vw);
+  transition: transform 500ms ease-out;
+}
+
+[role=banner] .coz-drawer-wrapper.visible aside {
+  transform: translateX(0);
+}
+
+[role=banner] .coz-drawer-wrapper aside {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 90%;
+  height: 100%;
+  background-color: #fff;
+}
+
+[role=banner] .coz-drawer-wrapper aside {
+  display: flex;
+  flex-direction: column;
+}
+
+[role=banner] .coz-drawer-wrapper ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+[role=banner] .coz-drawer-wrapper ul {
+  margin: 0;
+  padding: .8em 0;
+  list-style-type: none;
+}
+
+[role=banner] .coz-drawer-wrapper hr {
+  margin: 0;
+  border: none;
+  border-bottom: solid 1px var(--silver);
+}
+
+[role=banner] .coz-drawer-wrapper .coz-nav-icon {
+  margin-right: .5em;
+}

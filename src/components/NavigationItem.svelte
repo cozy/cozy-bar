@@ -11,6 +11,8 @@
 </li>
 
 <script>
+  import '../styles/navigation_item.css'
+
   import { t } from '../lib/i18n'
 
   export default {
@@ -21,15 +23,3 @@
     helpers: { t }
   }
 </script>
-
-<style>
-  .coz-nav-item a {
-    display: flex;
-    padding: .5em 1.5em .5em calc(1.5em + 16px + .5em);
-    background-position: 1.5em 50%;
-    align-items: center;
-    white-space: nowrap;
-    color: var(--charcoal-grey);
-    text-decoration: none;
-  }
-</style>

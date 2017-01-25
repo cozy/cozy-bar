@@ -7,6 +7,8 @@
 </nav>
 
 <script>
+  import '../styles/navigation.css'
+
   import NavigationSection from './NavigationSection'
 
   export default {
@@ -15,18 +17,3 @@
     }
   }
 </script>
-
-<style>
-  .coz-nav ul {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    list-style-type: none;
-  }
-
-  @media (max-width: 30em) {
-    .coz-nav {
-      display: none;
-    }
-  }
-</style>

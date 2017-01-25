@@ -1,63 +1,52 @@
-body {
+[role=banner] .coz-bar-title {
   display: flex;
-  flex-direction: column;
-  width: 100vw;
-  height: 100vh;
-}
-
-
-[role=application] {
-  height: initial;
-  flex: 1 100vh;
-}
-
-
-[role=banner] {
-  --silver: #d6d8da;
-  --slate-grey: #5d6165;
-  --charcoal-grey: #32363f;
-
-  display: flex;
-  align-items: stretch;
-  padding: .5em 2.5em .5em 1em;
-  box-shadow: inset 0 -1px 0 0 var(--silver);
-  font-family: Lato, sans-serif;
-  font-size: 1rem;
+  margin: 0;
+  align-items: center;
+  font-size: 1.5em;
+  font-weight: normal;
+  text-transform: lowercase;
+  color: var(--charcoal-grey);
 }
 
 @media (max-width: 30em) {
-  [role=banner] {
-    padding: 0 1em 0 0;
+  [role=banner] .coz-bar-title {
+    font-size: 1.25em
   }
 }
 
-[role=banner] .coz-sep-flex {
+[role=banner] .coz-bar-title img {
+  margin-right: .45em;
+}
+
+[role=banner] .coz-bar-title strong {
+  padding-left: .25em;
+  font-weight: bold;
+}
+
+@media (max-width: 30em) {
+  [role=banner] .coz-bar-hide-sm {
+    display: none;
+  }
+
+  [role=banner] .coz-bar-title strong {
+    margin: 0;
+    text-transform: capitalize;
+  }
+}
+
+[role=banner] .coz-bar-burger {
+  width: 2.5em;
+  height: 2.5em;
+  margin: auto .25em auto 0;
+  padding: 0;
   border: none;
-  flex: 1 0;
+  background-color: transparent;
+  background-position: center;
+  text-indent: -9999em;
 }
 
-[role=banner] [data-icon] {
-  background-repeat: no-repeat;
-  background-position: 0 50%;
-  padding-left: calc(16px + .5em)
-}
-
-[role=banner] [data-icon='icon-help'] {
-  background-image: url(../assets/icons/icon-help.svg)
-}
-
-[role=banner] [data-icon='icon-logout'] {
-  background-image: url(../assets/icons/icon-logout.svg)
-}
-
-[role=banner] [data-icon='icon-email'] {
-  background-image: url(../assets/icons/icon-email.svg)
-}
-
-[role=banner] [data-icon='icon-cog'] {
-  background-image: url(../assets/icons/icon-cog.svg)
-}
-
-[role=banner] [data-icon='icon-hamburger'] {
-  background-image: url(../assets/icons/icon-hamburger.svg)
+@media (min-width: 30.0625em) {
+  [role=banner] .coz-bar-burger {
+    display: none;
+  }
 }
