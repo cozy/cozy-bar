@@ -41,6 +41,7 @@
     "yaml-loader": "^0.4.0"
   },
   "dependencies": {
-    "jssha": "^2.2.0"
+    "jssha": "^2.2.0",
+    "node-polyglot": "^2.2.2"
   }
 }

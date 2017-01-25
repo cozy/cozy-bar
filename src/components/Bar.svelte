@@ -1,5 +1,5 @@
 <button class='coz-bar-burger' on:click='toggleDrawer()' data-icon='icon-hamburger'>
-  menu
+  {{ t('menu') }}
 </button>
 
 <h1 class='coz-bar-title'>
@@ -14,6 +14,8 @@
 <Drawer ref:drawer groups='{{sections[0].items}}' />
 
 <script>
+  import { t } from '../lib/i18n'
+
   import Navigation from './Navigation'
   import Drawer from './Drawer'
 
@@ -34,6 +36,8 @@
       Navigation,
       Drawer
     },
+
+    helpers: { t },
 
     methods: {
       toggleDrawer() {

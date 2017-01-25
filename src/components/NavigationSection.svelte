@@ -1,6 +1,6 @@
 <li class='coz-nav-section' on:click='event.stopPropagation()'>
   <a on:click='set({hidden: !hidden})' aria-controls='{{`coz-nav-pop-${hash}`}}' data-icon='{{icon}}'>
-    {{ label }}
+    {{ t(label) }}
   </a>
   <div class='coz-nav-pop' id='{{`coz-nav-pop-${hash}`}}' aria-hidden={{hidden}}>
     {{#each items as group}}
@@ -12,6 +12,7 @@
 <script>
   import jsSHA from 'jssha'
   import NavigationGroup from './NavigationGroup'
+  import { t } from '../lib/i18n'
 
   const SHA1 = new jsSHA('SHA-1', 'TEXT')
 
@@ -42,7 +43,9 @@
 
     components: {
       NavigationGroup
-    }
+    },
+
+    helpers: { t }
   }
 </script>
 
