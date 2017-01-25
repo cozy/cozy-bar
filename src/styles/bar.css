@@ -27,7 +27,7 @@ body {
 
 @media (max-width: 30em) {
   [role=banner] {
-    padding: .75em 1em;
+    padding: 0 1em 0 0;
   }
 }
 
@@ -56,4 +56,8 @@ body {
 
 [role=banner] [data-icon='icon-cog'] {
   background-image: url(../assets/icons/icon-cog.svg)
+}
+
+[role=banner] [data-icon='icon-hamburger'] {
+  background-image: url(../assets/icons/icon-hamburger.svg)
 }
