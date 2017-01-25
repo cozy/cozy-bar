@@ -1,5 +1,5 @@
-<button class='coz-bar-burger' on:click='toggleDrawer()'>
-  <svg class='coz-nav-icon'><use xlink:href='{{burgerIcon}}' /></svg>
+<button class='coz-bar-burger' on:click='toggleDrawer()' data-icon='icon-hamburger'>
+  menu
 </button>
 
 <h1 class='coz-bar-title'>
@@ -22,7 +22,6 @@
   export default {
     data () {
       return {
-        burgerIcon: require('../assets/icons/icon-hamburger.svg'),
         sections: [{
           label: 'settings',
           icon: 'icon-cog',
@@ -82,11 +81,14 @@
   }
 
   .coz-bar-burger {
-    width: 16px;
-    height: 16px;
+    width: 2.5em;
+    height: 2.5em;
     margin: auto 1em auto 0;
     padding: 0;
     border: none;
+    background-color: transparent;
+    background-position: center;
+    text-indent: -9999em;
   }
 
   @media (min-width: 30.0625em) {
