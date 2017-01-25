@@ -7,7 +7,7 @@ const merge = require('webpack-merge')
 const build = process.env.NODE_ENV === 'production'
 
 const base = {
-  entry: path.resolve(__dirname, 'src/index'),
+  entry: path.resolve(__dirname, 'src/'),
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'cozy-bar.js',
@@ -52,28 +52,14 @@ const base = {
         loader: 'url-loader'
       }
     ]
-  },
-  postcss: () => {
-    return [
-      require('postcss-import')({
-        path: [path.resolve(__dirname, 'src/styles/')],
-        plugins: [
-          require('autoprefixer')(['last 2 versions']),
-          require('postcss-discard-empty')
-        ]
-      }),
-      require('postcss-css-variables'),
-      require('postcss-discard-duplicates'),
-      require('css-mqpacker'),
-      require('csswring')({
-        removeAllComments: true
-      })
-    ]
   }
 }
 
 if (build) {
   module.exports = merge(base, {
+    output: {
+      filename: 'cozy-bar.min.js',
+    },
     plugins: [
       new webpack.optimize.DedupePlugin(),
       new webpack.optimize.OccurenceOrderPlugin(),
