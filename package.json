@@ -1,6 +1,6 @@
 {
   "name": "cozy-bar",
-  "version": "3.0.0",
+  "version": "3.0.0-beta1",
   "description": "cozy-bar.js library, a small lib provided by cozy-stack to inject the Cozy-bar component into each app",
   "main": "dist/cozy-bar.js",
   "author": "Cozy Cloud <contact@cozycloud.cc> (https://cozy.io/)",
@@ -9,7 +9,9 @@
   ],
   "license": "MIT",
   "scripts": {
-    "build": "NODE_ENV=production webpack --config webpack.config.js",
+    "build": "npm-run-all --parallel 'build:*'",
+    "build:lib": "webpack --config webpack.config.js",
+    "build:min": "NODE_ENV=production webpack --config webpack.config.js",
     "clean": "rm -rf ./dist",
     "lint": "standard 'src/**/*.js'",
     "prebuild": "npm-run-all lint clean",
@@ -24,11 +26,14 @@
     "babel-preset-env": "^1.1.8",
     "css-loader": "^0.26.1",
     "css-mqpacker": "^5.0.1",
+    "csswring": "^5.1.1",
     "file-loader": "^0.9.0",
     "json-loader": "^0.5.4",
     "npm-run-all": "^4.0.1",
     "postcss": "^5.2.10",
+    "postcss-css-variables": "^0.6.0",
     "postcss-discard-duplicates": "^2.0.2",
+    "postcss-import": "^9.1.0",
     "postcss-loader": "^1.2.2",
     "standard": "^8.6.0",
     "style-loader": "^0.13.1",
@@ -38,6 +43,7 @@
     "url-loader": "^0.5.7",
     "webpack": "^1.14.0",
     "webpack-dev-server": "^1.16.2",
+    "webpack-merge": "^2.4.0",
     "yaml-loader": "^0.4.0"
   },
   "dependencies": {

@@ -1,9 +1,13 @@
 'use strict'
 
 const path = require('path')
+const webpack = require('webpack')
+const merge = require('webpack-merge')
 
-module.exports = {
-  entry: path.resolve(__dirname, 'src/index'),
+const build = process.env.NODE_ENV === 'production'
+
+const base = {
+  entry: path.resolve(__dirname, 'src/'),
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'cozy-bar.js',
@@ -17,14 +21,14 @@ module.exports = {
   module: {
     loaders: [
       {
-        test: /\.js$/,
+        test: /\.(svelte|js)$/,
         exclude: /node_modules/,
         loader: 'babel-loader'
       },
       {
-        test: /\.(html|svelte)$/,
+        test: /\.(svelte)$/,
         exclude: /node_modules/,
-        loaders: ['babel-loader', 'svelte-loader']
+        loader: 'svelte-loader'
       },
       {
         test: /\.json$/,
@@ -35,11 +39,11 @@ module.exports = {
         loaders: ['json-loader', 'yaml-loader']
       },
       {
-        test: /\.css$/,
+        test: /\.(css)$/,
         loaders: [
           'style-loader',
-          'css-loader',
-          'postcss'
+          'css-loader?importLoaders=1',
+          'postcss-loader'
         ]
       },
       {
@@ -49,4 +53,29 @@ module.exports = {
       }
     ]
   }
+}
+
+if (build) {
+  module.exports = merge(base, {
+    output: {
+      filename: 'cozy-bar.min.js',
+    },
+    plugins: [
+      new webpack.optimize.DedupePlugin(),
+      new webpack.optimize.OccurenceOrderPlugin(),
+      new webpack.optimize.UglifyJsPlugin({
+        mangle: true,
+        compress: {
+          warnings: false
+        }
+      }),
+      new webpack.DefinePlugin({
+        __SERVER__: false,
+        __DEVELOPMENT__: false,
+        __DEVTOOLS__: false
+      })
+    ]
+  })
+} else {
+  module.exports = base
 }
