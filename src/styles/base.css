@@ -8,7 +8,7 @@ body {
 
 
 [role=application] {
-  height: initial;
+  height: inherit;
   flex: 1 100vh;
 }
 
