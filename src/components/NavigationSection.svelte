@@ -1,4 +1,4 @@
-<li class='coz-nav-section' on:click='event.stopPropagation()'>
+<li class='coz-nav-section' on:click='dispatch(event)'>
   <a on:click='togglePop()' aria-controls='{{`coz-nav-pop--${slug}`}}' data-icon='{{icon}}'>
     {{t(label)}}
   </a>
@@ -30,8 +30,8 @@
     },
 
     onrender () {
-      clickOutsideListener = this._root.on('clickOutside', () => {
-        this.set({hidden: true})
+      clickOutsideListener = this._root.on('clickOutside', event => {
+        if (!event || event.source != this) { this.set({hidden: true}) }
       })
     },
 
@@ -53,6 +53,10 @@
         if (!hidden) {
           this.fire('open', { panel: this.get('label') })
         }
+      },
+      dispatch (event) {
+        event.stopPropagation()
+        this._root.fire('clickOutside', { source: this })
       }
     }
   }
