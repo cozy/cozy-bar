@@ -4,6 +4,10 @@
   list-style-type: none;
 }
 
+[role=banner] .coz-nav > ul {
+  display: flex;
+}
+
 @media (max-width: 30em) {
   [role=banner] .coz-nav {
     display: none;
