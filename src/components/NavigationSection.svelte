@@ -1,20 +1,21 @@
 <li class='coz-nav-section' on:click='event.stopPropagation()'>
-  <a on:click='set({hidden: !hidden})' aria-controls='{{`coz-nav-pop-${hash}`}}' data-icon='{{icon}}'>
+  <a on:click='togglePop()' aria-controls='{{`coz-nav-pop--${slug}`}}' data-icon='{{icon}}'>
     {{t(label)}}
   </a>
-  <div class='coz-nav-pop' id='{{`coz-nav-pop-${hash}`}}' aria-hidden={{hidden}}>
+  {{#if items.length}}
+  <div class='{{`coz-nav-pop coz-nav-pop--${slug}`}}' id='{{`coz-nav-pop--${slug}`}}' aria-hidden={{hidden}}>
     {{#each items as group}}
     <NavigationGroup group='{{group}}' separator='bottom' />
     {{/each}}
   </div>
+  {{/if}}
 </li>
 
 <script>
-  import jsSHA from 'jssha'
-  import NavigationGroup from './NavigationGroup'
+  import slug from 'slug'
   import { t } from '../lib/i18n'
 
-  const SHA1 = new jsSHA('SHA-1', 'TEXT')
+  import NavigationGroup from './NavigationGroup'
 
   let clickOutsideListener
 
@@ -25,10 +26,7 @@
       }
     },
     computed: {
-      hash: label => {
-        SHA1.update(label)
-        return SHA1.getHash('HEX').slice(0, 6)
-      }
+      slug: label => slug(label)
     },
 
     onrender () {
@@ -45,6 +43,17 @@
       NavigationGroup
     },
 
-    helpers: { t }
+    helpers: { t },
+
+    methods: {
+      togglePop () {
+        const hidden = !this.get('hidden')
+
+        this.set({ hidden })
+        if (!hidden) {
+          this.fire('open', { panel: this.get('label') })
+        }
+      }
+    }
   }
 </script>

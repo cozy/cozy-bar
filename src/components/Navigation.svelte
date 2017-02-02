@@ -1,7 +1,7 @@
 <nav class='coz-nav'>
   <ul>
     {{#each sections as section}}
-      <NavigationSection label='{{section.label}}' icon='{{section.icon}}' items='{{section.items}}' standalone='false' />
+      <NavigationSection on:open='fire("open", {panel: event.panel})' label='{{section.label}}' icon='{{section.icon}}' items='{{section.items}}' standalone='false' />
     {{/each}}
   </ul>
 </nav>
