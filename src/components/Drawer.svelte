@@ -1,9 +1,11 @@
 <div ref:wrapper class='coz-drawer-wrapper' on:click='set({folded: true})'>
   <aside on:click='event.stopPropagation()'>
+    {{#if content}}
     <nav class='coz-drawer--apps'>
       <h1>{{t('drawer apps')}}</h1>
       <NavigationGroup group='{{content}}' />
     </nav>
+    {{/if}}
     <hr class='coz-sep-flex' />
     <nav>
       {{#each footer as group}}
