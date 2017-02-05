@@ -1,14 +1,27 @@
 <li class='coz-nav-item'>
+  {{#if item.disabled_link}}
+  <a data-icon='{{dataIcon?dataIcon:""}}'>
+    {{#if fileIcon}}
+    <img src='{{fileIcon}}' alt='' width='64' height='64' class='blurry' />
+    {{/if}}
+    {{label}}
+  </a>
+  {{else}}
   <a href='{{item.href}}' target='{{item.external?"_blank":"_self"}}' data-icon='{{dataIcon?dataIcon:""}}'>
     {{#if fileIcon}}
     <img src='{{fileIcon}}' alt='' width='64' height='64' class='blurry' />
     {{/if}}
     {{label}}
   </a>
+  {{/if}}
+  {{#if item.storage}}
+  <Storage />
+  {{/if}}
 </li>
 
 <script>
   import { t } from '../lib/i18n'
+  import Storage from './Storage'
 
   export default {
     computed: {
@@ -25,6 +38,10 @@
         else { return item.label }
       }
     },
+
+    components: {
+        Storage
+      },
 
     helpers: { t }
   }

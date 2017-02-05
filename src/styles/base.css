@@ -61,6 +61,10 @@ body {
   background-image: url(../assets/icons/16/icon-email-16.svg)
 }
 
+[role=banner] [data-icon='icon-storage'] {
+  background-image: url(../assets/icons/icon-storage.svg)
+}
+
 [role=banner] [data-icon='icon-cog'] {
   background-image: url(../assets/icons/16/icon-cog-16.svg)
 }

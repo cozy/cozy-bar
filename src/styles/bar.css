@@ -50,3 +50,29 @@
     display: none;
   }
 }
+
+/* Progress bar */
+[role=banner] progress[value] {
+  /* Reset the default appearance */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: #F5F6F7;
+  border: solid 1px #D6D8DA;
+  border-radius: 2px;
+  color: #297EF2;
+}
+
+[role=banner] progress[value]::-webkit-progress-bar {
+  background: #F5F6F7;
+  border-radius: 2px;
+}
+
+[role=banner] progress[value]::-webkit-progress-value {
+  background: #297EF2;
+  border-radius: 1px;
+}
+
+[role=banner] progress[value]::-moz-progress-bar {
+  background: #297EF2;
+  border-radius: 1px;
+}

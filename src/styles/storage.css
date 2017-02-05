@@ -1,0 +1,22 @@
+[role=banner] a[data-icon='icon-storage'] {
+  padding-bottom: .3em;
+}
+
+[role=banner] .coz-nav-storage {
+  margin-left: 3em;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  color: #95999d;
+}
+
+[role=banner] .coz-nav-storage-text {
+  margin: 0 0 .1em 0;
+  font-weight: normal;
+  font-size: 14px;
+}
+
+[role=banner] .cozy-nav-storage-bar {
+    height: .5em;
+    margin: .2em 0 .1em 0;
+}
