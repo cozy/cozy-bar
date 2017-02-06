@@ -17,10 +17,16 @@
   export default {
     data() {
       return {
-        currentStorage: 42,
+        storageFromStack: 42083672908,
         totalStorage: 60 // TODO grab it from the cozy stack
       }
-  },
+    },
+
+    computed: {
+      currentStorage: (storageFromStack) => {
+        return (storageFromStack/1000000000).toFixed(2)
+      }
+    },
 
     helpers: { t }
   }
