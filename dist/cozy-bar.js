@@ -11,41 +11,41 @@
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
-
+/******/
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
-
+/******/
 /******/ 		// Check if module is in cache
 /******/ 		if(installedModules[moduleId])
 /******/ 			return installedModules[moduleId].exports;
-
+/******/
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = installedModules[moduleId] = {
 /******/ 			exports: {},
 /******/ 			id: moduleId,
 /******/ 			loaded: false
 /******/ 		};
-
+/******/
 /******/ 		// Execute the module function
 /******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-
+/******/
 /******/ 		// Flag the module as loaded
 /******/ 		module.loaded = true;
-
+/******/
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
 /******/ 	}
-
-
+/******/
+/******/
 /******/ 	// expose the modules object (__webpack_modules__)
 /******/ 	__webpack_require__.m = modules;
-
+/******/
 /******/ 	// expose the module cache
 /******/ 	__webpack_require__.c = installedModules;
-
+/******/
 /******/ 	// __webpack_public_path__
 /******/ 	__webpack_require__.p = "";
-
+/******/
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(0);
 /******/ })
@@ -55,57 +55,57 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-
+	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 	exports.Cozy = undefined;
-
+	
 	var _i18n = __webpack_require__(1);
-
+	
 	var _i18n2 = _interopRequireDefault(_i18n);
-
+	
 	var _Bar = __webpack_require__(28);
-
+	
 	var _Bar2 = _interopRequireDefault(_Bar);
-
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
+	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
+	
 	var createElement = function CozyBarCreateElement() {
 	  var barNode = document.createElement('div');
 	  barNode.setAttribute('id', 'coz-bar');
 	  barNode.setAttribute('role', 'banner');
-
+	
 	  return barNode;
 	};
-
+	
 	var injectDOM = function CozyBarInjectDOM(_ref) {
 	  var lang = _ref.lang,
 	      appName = _ref.appName,
 	      iconPath = _ref.iconPath;
-
+	
 	  if (document.getElementById('coz-bar') !== null) {
 	    return;
 	  }
-
+	
 	  __webpack_require__(36);
-
+	
 	  var barNode = createElement();
 	  var appNode = document.querySelector('[role=application]');
 	  document.body.insertBefore(barNode, appNode);
-
+	
 	  cozy.bar.__view__ = new _Bar2.default({
 	    target: barNode,
 	    data: { lang: lang, appName: appName, iconPath: iconPath }
 	  });
 	};
-
+	
 	var getDefaultLang = function GetDefaultLang() {
 	  return document.documentElement.getAttribute('lang') || 'en';
 	};
-
+	
 	var getDefaultIcon = function GetDefaultIcon() {
 	  var linkNode = document.querySelector('link[rel="icon"][sizes^="32"]');
 	  if (linkNode !== null) {
@@ -114,38 +114,38 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
 	  }
 	};
-
+	
 	var init = function CozyBarInit(_ref2) {
 	  var _ref2$lang = _ref2.lang,
 	      lang = _ref2$lang === undefined ? getDefaultLang() : _ref2$lang,
 	      appName = _ref2.appName,
 	      _ref2$iconPath = _ref2.iconPath,
 	      iconPath = _ref2$iconPath === undefined ? getDefaultIcon() : _ref2$iconPath;
-
+	
 	  (0, _i18n2.default)(lang);
 	  injectDOM({ lang: lang, appName: appName, iconPath: iconPath });
 	  document.body.addEventListener('click', function () {
 	    cozy.bar.__view__.fire('clickOutside');
 	  });
 	};
-
+	
 	var Cozy = window.Cozy || function Cozy() {
 	  _classCallCheck(this, Cozy);
 	};
-
+	
 	Object.assign(Cozy.prototype, {
 	  bar: {
 	    init: init
 	  }
 	});
-
+	
 	var cozy = window.cozy || new Cozy();
-
+	
 	if (typeof window !== 'undefined' && window.cozy == null) {
 	  window.cozy = cozy;
 	  window.Cozy = Cozy;
 	}
-
+	
 	exports.default = cozy;
 	exports.Cozy = Cozy;
 
@@ -154,27 +154,27 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-
+	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 	exports.locale = exports.t = undefined;
-
+	
 	var _nodePolyglot = __webpack_require__(2);
-
+	
 	var _nodePolyglot2 = _interopRequireDefault(_nodePolyglot);
-
+	
 	var _en = __webpack_require__(26);
-
+	
 	var _en2 = _interopRequireDefault(_en);
-
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
+	
 	var polyglot = new _nodePolyglot2.default({
 	  phrases: _en2.default,
 	  locale: 'en'
 	});
-
+	
 	var init = function I18nInit(lang) {
 	  if (lang && lang !== 'en') {
 	    try {
@@ -186,13 +186,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	  }
 	};
-
+	
 	var t = polyglot.t.bind(polyglot);
 	var locale = polyglot.locale.bind(polyglot);
-
+	
 	exports.default = init;
 	exports.t = t;
-		exports.locale = locale;
+	exports.locale = locale;
 
 /***/ },
 /* 2 */
@@ -214,25 +214,25 @@ return /******/ (function(modules) { // webpackBootstrap
 	// translation; it simply gives you a way to manage translated phrases from
 	// your client- or server-side JavaScript application.
 	//
-
+	
 	'use strict';
-
+	
 	var forEach = __webpack_require__(3);
 	var warning = __webpack_require__(5);
 	var has = __webpack_require__(7);
 	var trim = __webpack_require__(10);
-
+	
 	var warn = function warn(message) {
 	  warning(false, message);
 	};
-
+	
 	var replace = String.prototype.replace;
 	var split = String.prototype.split;
-
+	
 	// #### Pluralization methods
 	// The string that separates the different phrase possibilities.
 	var delimeter = '||||';
-
+	
 	// Mapping from pluralization group plural logic.
 	var pluralTypes = {
 	  arabic: function (n) {
@@ -258,7 +258,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  },
 	  icelandic: function (n) { return (n % 10 !== 1 || n % 100 === 11) ? 1 : 0; }
 	};
-
+	
 	// Mapping from pluralization group to individual locales.
 	var pluralTypeToLanguages = {
 	  arabic: ['ar'],
@@ -270,7 +270,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  polish: ['pl'],
 	  icelandic: ['is']
 	};
-
+	
 	function langToTypeMap(mapping) {
 	  var ret = {};
 	  forEach(mapping, function (langs, type) {
@@ -280,22 +280,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	  });
 	  return ret;
 	}
-
+	
 	function pluralTypeName(locale) {
 	  var langToPluralType = langToTypeMap(pluralTypeToLanguages);
 	  return langToPluralType[locale]
 	    || langToPluralType[split.call(locale, /-/, 1)[0]]
 	    || langToPluralType.en;
 	}
-
+	
 	function pluralTypeIndex(locale, count) {
 	  return pluralTypes[pluralTypeName(locale)](count);
 	}
-
+	
 	var dollarRegex = /\$/g;
 	var dollarBillsYall = '$$';
 	var tokenRegex = /%\{(.*?)\}/g;
-
+	
 	// ### transformPhrase(phrase, substitutions, locale)
 	//
 	// Takes a phrase string and transforms it by choosing the correct
@@ -323,16 +323,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	  if (typeof phrase !== 'string') {
 	    throw new TypeError('Polyglot.transformPhrase expects argument #1 to be string');
 	  }
-
+	
 	  if (substitutions == null) {
 	    return phrase;
 	  }
-
+	
 	  var result = phrase;
-
+	
 	  // allow number as a pluralization shortcut
 	  var options = typeof substitutions === 'number' ? { smart_count: substitutions } : substitutions;
-
+	
 	  // Select plural form: based on a phrase text that contains `n`
 	  // plural forms separated by `delimeter`, a `locale`, and a `substitutions.smart_count`,
 	  // choose the correct plural form. This is only done if `count` is set.
@@ -340,17 +340,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var texts = split.call(result, delimeter);
 	    result = trim(texts[pluralTypeIndex(locale || 'en', options.smart_count)] || texts[0]);
 	  }
-
+	
 	  // Interpolate: Creates a `RegExp` object for each interpolation placeholder.
 	  result = replace.call(result, tokenRegex, function (expression, argument) {
 	    if (!has(options, argument) || options[argument] == null) { return expression; }
 	    // Ensure replacement value is escaped to prevent special $-prefixed regex replace tokens.
 	    return replace.call(options[argument], dollarRegex, dollarBillsYall);
 	  });
-
+	
 	  return result;
 	}
-
+	
 	// ### Polyglot class constructor
 	function Polyglot(options) {
 	  var opts = options || {};
@@ -361,7 +361,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  this.onMissingKey = typeof opts.onMissingKey === 'function' ? opts.onMissingKey : allowMissing;
 	  this.warn = opts.warn || warn;
 	}
-
+	
 	// ### polyglot.locale([locale])
 	//
 	// Get or set locale. Internally, Polyglot only uses locale for pluralization.
@@ -369,7 +369,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  if (newLocale) this.currentLocale = newLocale;
 	  return this.currentLocale;
 	};
-
+	
 	// ### polyglot.extend(phrases)
 	//
 	// Use `extend` to tell Polyglot how to translate a given key.
@@ -429,7 +429,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	  }, this);
 	};
-
+	
 	// ### polyglot.unset(phrases)
 	// Use `unset` to selectively remove keys from a polyglot instance.
 	//
@@ -455,7 +455,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }, this);
 	  }
 	};
-
+	
 	// ### polyglot.clear()
 	//
 	// Clears all phrases. Useful for special cases, such as freeing
@@ -464,7 +464,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	Polyglot.prototype.clear = function () {
 	  this.phrases = {};
 	};
-
+	
 	// ### polyglot.replace(phrases)
 	//
 	// Completely replace the existing phrases with a new set of phrases.
@@ -474,8 +474,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  this.clear();
 	  this.extend(newPhrases);
 	};
-
-
+	
+	
 	// ### polyglot.t(key, options)
 	//
 	// The most-used method. Provide a key, and `t` will return the
@@ -520,18 +520,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 	  return result;
 	};
-
-
+	
+	
 	// ### polyglot.has(key)
 	//
 	// Check if polyglot has a translation for given key
 	Polyglot.prototype.has = function (key) {
 	  return has(this.phrases, key);
 	};
-
+	
 	// export transformPhrase
 	Polyglot.transformPhrase = transformPhrase;
-
+	
 	module.exports = Polyglot;
 
 
@@ -540,17 +540,17 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	var isFunction = __webpack_require__(4)
-
+	
 	module.exports = forEach
-
+	
 	var toString = Object.prototype.toString
 	var hasOwnProperty = Object.prototype.hasOwnProperty
-
+	
 	function forEach(list, iterator, context) {
 	    if (!isFunction(iterator)) {
 	        throw new TypeError('iterator must be a function')
 	    }
-
+	
 	    if (arguments.length < 3) {
 	        context = this
 	    }
@@ -562,7 +562,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    else
 	        forEachObject(list, iterator, context)
 	}
-
+	
 	function forEachArray(array, iterator, context) {
 	    for (var i = 0, len = array.length; i < len; i++) {
 	        if (hasOwnProperty.call(array, i)) {
@@ -570,14 +570,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	    }
 	}
-
+	
 	function forEachString(string, iterator, context) {
 	    for (var i = 0, len = string.length; i < len; i++) {
 	        // no such thing as a sparse string.
 	        iterator.call(context, string.charAt(i), i, string)
 	    }
 	}
-
+	
 	function forEachObject(object, iterator, context) {
 	    for (var k in object) {
 	        if (hasOwnProperty.call(object, k)) {
@@ -592,9 +592,9 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	module.exports = isFunction
-
+	
 	var toString = Object.prototype.toString
-
+	
 	function isFunction (fn) {
 	  var string = toString.call(fn)
 	  return string === '[object Function]' ||
@@ -620,18 +620,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 */
-
+	
 	'use strict';
-
+	
 	/**
 	 * Similar to invariant but only logs a warning if the condition is not met.
 	 * This can be used to log issues in development environments in critical
 	 * paths. Removing the logging code for production environments will keep the
 	 * same logic and follow the same code paths.
 	 */
-
+	
 	var warning = function() {};
-
+	
 	if (process.env.NODE_ENV !== 'production') {
 	  warning = function(condition, format, args) {
 	    var len = arguments.length;
@@ -645,14 +645,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	        'message argument'
 	      );
 	    }
-
+	
 	    if (format.length < 10 || (/^[s\W]*$/).test(format)) {
 	      throw new Error(
 	        'The warning format should be able to uniquely identify this ' +
 	        'warning. Please, use a more descriptive format than: ' + format
 	      );
 	    }
-
+	
 	    if (!condition) {
 	      var argIndex = 0;
 	      var message = 'Warning: ' +
@@ -670,9 +670,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	  };
 	}
-
+	
 	module.exports = warning;
-
+	
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
 
 /***/ },
@@ -681,15 +681,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	// shim for using process in browser
 	var process = module.exports = {};
-
+	
 	// cached from whatever global is present so that test runners that stub it
 	// don't break things.  But we need to wrap it in a try catch in case it is
 	// wrapped in strict mode code which doesn't define any globals.  It's inside a
 	// function because try/catches deoptimize in certain engines.
-
+	
 	var cachedSetTimeout;
 	var cachedClearTimeout;
-
+	
 	function defaultSetTimout() {
 	    throw new Error('setTimeout has not been defined');
 	}
@@ -738,8 +738,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	            return cachedSetTimeout.call(this, fun, 0);
 	        }
 	    }
-
-
+	
+	
 	}
 	function runClearTimeout(marker) {
 	    if (cachedClearTimeout === clearTimeout) {
@@ -764,15 +764,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	            return cachedClearTimeout.call(this, marker);
 	        }
 	    }
-
-
-
+	
+	
+	
 	}
 	var queue = [];
 	var draining = false;
 	var currentQueue;
 	var queueIndex = -1;
-
+	
 	function cleanUpNextTick() {
 	    if (!draining || !currentQueue) {
 	        return;
@@ -787,14 +787,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	        drainQueue();
 	    }
 	}
-
+	
 	function drainQueue() {
 	    if (draining) {
 	        return;
 	    }
 	    var timeout = runTimeout(cleanUpNextTick);
 	    draining = true;
-
+	
 	    var len = queue.length;
 	    while(len) {
 	        currentQueue = queue;
@@ -811,7 +811,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    draining = false;
 	    runClearTimeout(timeout);
 	}
-
+	
 	process.nextTick = function (fun) {
 	    var args = new Array(arguments.length - 1);
 	    if (arguments.length > 1) {
@@ -824,7 +824,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        runTimeout(drainQueue);
 	    }
 	};
-
+	
 	// v8 likes predictible objects
 	function Item(fun, array) {
 	    this.fun = fun;
@@ -839,9 +839,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	process.argv = [];
 	process.version = ''; // empty string to avoid regexp issues
 	process.versions = {};
-
+	
 	function noop() {}
-
+	
 	process.on = noop;
 	process.addListener = noop;
 	process.once = noop;
@@ -849,11 +849,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	process.removeListener = noop;
 	process.removeAllListeners = noop;
 	process.emit = noop;
-
+	
 	process.binding = function (name) {
 	    throw new Error('process.binding is not supported');
 	};
-
+	
 	process.cwd = function () { return '/' };
 	process.chdir = function (dir) {
 	    throw new Error('process.chdir is not supported');
@@ -866,7 +866,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	var bind = __webpack_require__(8);
-
+	
 	module.exports = bind.call(Function.call, Object.prototype.hasOwnProperty);
 
 
@@ -875,7 +875,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	var implementation = __webpack_require__(9);
-
+	
 	module.exports = Function.prototype.bind || implementation;
 
 
@@ -887,14 +887,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	var slice = Array.prototype.slice;
 	var toStr = Object.prototype.toString;
 	var funcType = '[object Function]';
-
+	
 	module.exports = function bind(that) {
 	    var target = this;
 	    if (typeof target !== 'function' || toStr.call(target) !== funcType) {
 	        throw new TypeError(ERROR_MESSAGE + target);
 	    }
 	    var args = slice.call(arguments, 1);
-
+	
 	    var bound;
 	    var binder = function () {
 	        if (this instanceof bound) {
@@ -913,22 +913,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	            );
 	        }
 	    };
-
+	
 	    var boundLength = Math.max(0, target.length - args.length);
 	    var boundArgs = [];
 	    for (var i = 0; i < boundLength; i++) {
 	        boundArgs.push('$' + i);
 	    }
-
+	
 	    bound = Function('binder', 'return function (' + boundArgs.join(',') + '){ return binder.apply(this,arguments); }')(binder);
-
+	
 	    if (target.prototype) {
 	        var Empty = function Empty() {};
 	        Empty.prototype = target.prototype;
 	        bound.prototype = new Empty();
 	        Empty.prototype = null;
 	    }
-
+	
 	    return bound;
 	};
 
@@ -938,22 +938,22 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-
+	
 	var bind = __webpack_require__(8);
 	var define = __webpack_require__(11);
-
+	
 	var implementation = __webpack_require__(15);
 	var getPolyfill = __webpack_require__(24);
 	var shim = __webpack_require__(25);
-
+	
 	var boundTrim = bind.call(Function.call, getPolyfill());
-
+	
 	define(boundTrim, {
 		getPolyfill: getPolyfill,
 		implementation: implementation,
 		shim: shim
 	});
-
+	
 	module.exports = boundTrim;
 
 
@@ -962,17 +962,17 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-
+	
 	var keys = __webpack_require__(12);
 	var foreach = __webpack_require__(14);
 	var hasSymbols = typeof Symbol === 'function' && typeof Symbol() === 'symbol';
-
+	
 	var toStr = Object.prototype.toString;
-
+	
 	var isFunction = function (fn) {
 		return typeof fn === 'function' && toStr.call(fn) === '[object Function]';
 	};
-
+	
 	var arePropertyDescriptorsSupported = function () {
 		var obj = {};
 		try {
@@ -986,7 +986,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		}
 	};
 	var supportsDescriptors = Object.defineProperty && arePropertyDescriptorsSupported();
-
+	
 	var defineProperty = function (object, name, value, predicate) {
 		if (name in object && (!isFunction(predicate) || !predicate())) {
 			return;
@@ -1002,7 +1002,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			object[name] = value;
 		}
 	};
-
+	
 	var defineProperties = function (object, map) {
 		var predicates = arguments.length > 2 ? arguments[2] : {};
 		var props = keys(map);
@@ -1013,9 +1013,9 @@ return /******/ (function(modules) { // webpackBootstrap
 			defineProperty(object, name, map[name], predicates[name]);
 		});
 	};
-
+	
 	defineProperties.supportsDescriptors = !!supportsDescriptors;
-
+	
 	module.exports = defineProperties;
 
 
@@ -1024,7 +1024,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-
+	
 	// modified from https://github.com/es-shims/es5-shim
 	var has = Object.prototype.hasOwnProperty;
 	var toStr = Object.prototype.toString;
@@ -1097,25 +1097,25 @@ return /******/ (function(modules) { // webpackBootstrap
 			return false;
 		}
 	};
-
+	
 	var keysShim = function keys(object) {
 		var isObject = object !== null && typeof object === 'object';
 		var isFunction = toStr.call(object) === '[object Function]';
 		var isArguments = isArgs(object);
 		var isString = isObject && toStr.call(object) === '[object String]';
 		var theKeys = [];
-
+	
 		if (!isObject && !isFunction && !isArguments) {
 			throw new TypeError('Object.keys called on a non-object');
 		}
-
+	
 		var skipProto = hasProtoEnumBug && isFunction;
 		if (isString && object.length > 0 && !has.call(object, 0)) {
 			for (var i = 0; i < object.length; ++i) {
 				theKeys.push(String(i));
 			}
 		}
-
+	
 		if (isArguments && object.length > 0) {
 			for (var j = 0; j < object.length; ++j) {
 				theKeys.push(String(j));
@@ -1127,10 +1127,10 @@ return /******/ (function(modules) { // webpackBootstrap
 				}
 			}
 		}
-
+	
 		if (hasDontEnumBug) {
 			var skipConstructor = equalsConstructorPrototypeIfNotBuggy(object);
-
+	
 			for (var k = 0; k < dontEnums.length; ++k) {
 				if (!(skipConstructor && dontEnums[k] === 'constructor') && has.call(object, dontEnums[k])) {
 					theKeys.push(dontEnums[k]);
@@ -1139,7 +1139,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		}
 		return theKeys;
 	};
-
+	
 	keysShim.shim = function shimObjectKeys() {
 		if (Object.keys) {
 			var keysWorksWithArguments = (function () {
@@ -1161,7 +1161,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		}
 		return Object.keys || keysShim;
 	};
-
+	
 	module.exports = keysShim;
 
 
@@ -1170,9 +1170,9 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	'use strict';
-
+	
 	var toStr = Object.prototype.toString;
-
+	
 	module.exports = function isArguments(value) {
 		var str = toStr.call(value);
 		var isArgs = str === '[object Arguments]';
@@ -1195,7 +1195,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var hasOwn = Object.prototype.hasOwnProperty;
 	var toString = Object.prototype.toString;
-
+	
 	module.exports = function forEach (obj, fn, ctx) {
 	    if (toString.call(fn) !== '[object Function]') {
 	        throw new TypeError('iterator must be a function');
@@ -1213,7 +1213,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	    }
 	};
-
+	
 
 
 /***/ },
@@ -1221,14 +1221,14 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-
+	
 	var bind = __webpack_require__(8);
 	var ES = __webpack_require__(16);
 	var replace = bind.call(Function.call, String.prototype.replace);
-
+	
 	var leftWhitespace = /^[\x09\x0A\x0B\x0C\x0D\x20\xA0\u1680\u180E\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200A\u202F\u205F\u3000\u2028\u2029\uFEFF]+/;
 	var rightWhitespace = /[\x09\x0A\x0B\x0C\x0D\x20\xA0\u1680\u180E\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200A\u202F\u205F\u3000\u2028\u2029\uFEFF]+$/;
-
+	
 	module.exports = function trim() {
 		var S = ES.ToString(ES.CheckObjectCoercible(this));
 		return replace(replace(S, leftWhitespace, ''), rightWhitespace, '');
@@ -1240,20 +1240,20 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-
+	
 	var $isNaN = __webpack_require__(17);
 	var $isFinite = __webpack_require__(18);
-
+	
 	var sign = __webpack_require__(19);
 	var mod = __webpack_require__(20);
-
+	
 	var IsCallable = __webpack_require__(21);
 	var toPrimitive = __webpack_require__(22);
-
+	
 	// https://es5.github.io/#x9
 	var ES5 = {
 		ToPrimitive: toPrimitive,
-
+	
 		ToBoolean: function ToBoolean(value) {
 			return Boolean(value);
 		},
@@ -1300,7 +1300,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			}
 			return $isNaN(x) && $isNaN(y);
 		},
-
+	
 		// http://www.ecma-international.org/ecma-262/5.1/#sec-8
 		Type: function Type(x) {
 			if (x === null) {
@@ -1323,7 +1323,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			}
 		}
 	};
-
+	
 	module.exports = ES5;
 
 
@@ -1341,7 +1341,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	var $isNaN = Number.isNaN || function (a) { return a !== a; };
-
+	
 	module.exports = Number.isFinite || function (x) { return typeof x === 'number' && !$isNaN(x) && x !== Infinity && x !== -Infinity; };
 
 
@@ -1369,9 +1369,9 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	'use strict';
-
+	
 	var fnToStr = Function.prototype.toString;
-
+	
 	var constructorRegex = /^\s*class /;
 	var isES6ClassFn = function isES6ClassFn(value) {
 		try {
@@ -1384,7 +1384,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			return false; // not a function
 		}
 	};
-
+	
 	var tryFunctionObject = function tryFunctionObject(value) {
 		try {
 			if (isES6ClassFn(value)) { return false; }
@@ -1398,7 +1398,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var fnClass = '[object Function]';
 	var genClass = '[object GeneratorFunction]';
 	var hasToStringTag = typeof Symbol === 'function' && typeof Symbol.toStringTag === 'symbol';
-
+	
 	module.exports = function isCallable(value) {
 		if (!value) { return false; }
 		if (typeof value !== 'function' && typeof value !== 'object') { return false; }
@@ -1414,18 +1414,18 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-
+	
 	var toStr = Object.prototype.toString;
-
+	
 	var isPrimitive = __webpack_require__(23);
-
+	
 	var isCallable = __webpack_require__(21);
-
+	
 	// https://es5.github.io/#x8.12
 	var ES5internalSlots = {
 		'[[DefaultValue]]': function (O, hint) {
 			var actualHint = hint || (toStr.call(O) === '[object Date]' ? String : Number);
-
+	
 			if (actualHint === String || actualHint === Number) {
 				var methods = actualHint === String ? ['toString', 'valueOf'] : ['valueOf', 'toString'];
 				var value, i;
@@ -1442,7 +1442,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			throw new TypeError('invalid [[DefaultValue]] hint supplied');
 		}
 	};
-
+	
 	// https://es5.github.io/#x9
 	module.exports = function ToPrimitive(input, PreferredType) {
 		if (isPrimitive(input)) {
@@ -1466,11 +1466,11 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-
+	
 	var implementation = __webpack_require__(15);
-
+	
 	var zeroWidthSpace = '\u200b';
-
+	
 	module.exports = function getPolyfill() {
 		if (String.prototype.trim && zeroWidthSpace.trim() === zeroWidthSpace) {
 			return String.prototype.trim;
@@ -1484,10 +1484,10 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-
+	
 	var define = __webpack_require__(11);
 	var getPolyfill = __webpack_require__(24);
-
+	
 	module.exports = function shimStringTrim() {
 		var polyfill = getPolyfill();
 		define(String.prototype, { trim: polyfill }, { trim: function () { return String.prototype.trim !== polyfill; } });
@@ -1534,29 +1534,29 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-
+	
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
-
+	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
+	
 	var _i18n = __webpack_require__(1);
-
+	
 	var _Navigation = __webpack_require__(29);
-
+	
 	var _Navigation2 = _interopRequireDefault(_Navigation);
-
+	
 	var _Drawer = __webpack_require__(34);
-
+	
 	var _Drawer2 = _interopRequireDefault(_Drawer);
-
+	
 	var _menu = __webpack_require__(35);
-
+	
 	var _menu2 = _interopRequireDefault(_menu);
-
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
+	
 	var template = function () {
 		return {
 			data: function data() {
@@ -1568,15 +1568,15 @@ return /******/ (function(modules) { // webpackBootstrap
 					}]
 				};
 			},
-
-
+	
+	
 			components: {
 				Navigation: _Navigation2.default,
 				Drawer: _Drawer2.default
 			},
-
+	
 			helpers: { t: _i18n.t },
-
+	
 			methods: {
 				toggleDrawer: function toggleDrawer() {
 					this.refs.drawer.set({ folded: false });
@@ -1584,52 +1584,52 @@ return /******/ (function(modules) { // webpackBootstrap
 			}
 		};
 	}();
-
+	
 	function renderMainFragment(root, component) {
 		var button = createElement('button');
 		button.className = "coz-bar-burger";
-
+	
 		function clickHandler(event) {
 			component.toggleDrawer();
 		}
-
+	
 		addEventListener(button, 'click', clickHandler);
-
+	
 		setAttribute(button, 'data-icon', "icon-hamburger");
-
+	
 		var text = createText(template.helpers.t('menu'));
 		appendNode(text, button);
 		var text1 = createText("\n\n");
-
+	
 		var h1 = createElement('h1');
 		h1.className = "coz-bar-title";
-
+	
 		var img = createElement('img');
 		img.className = "coz-bar-hide-sm";
 		img.src = root.iconPath;
 		img.width = "32";
-
+	
 		appendNode(img, h1);
 		appendNode(createText("\n  "), h1);
-
+	
 		var span = createElement('span');
 		span.className = "coz-bar-hide-sm";
-
+	
 		appendNode(span, h1);
 		appendNode(createText("cozy"), span);
-
+	
 		var strong = createElement('strong');
-
+	
 		appendNode(strong, h1);
 		var text4 = createText(root.appName);
 		appendNode(text4, strong);
 		var text5 = createText("\n\n");
-
+	
 		var hr = createElement('hr');
 		hr.className = "coz-sep-flex";
-
+	
 		var text6 = createText("\n\n");
-
+	
 		var navigation_initialData = {
 			sections: root.sections
 		};
@@ -1638,9 +1638,9 @@ return /******/ (function(modules) { // webpackBootstrap
 			_root: component._root || component,
 			data: navigation_initialData
 		});
-
+	
 		var text7 = createText("\n\n");
-
+	
 		var drawer_initialData = {
 			groups: root.sections[0].items
 		};
@@ -1649,9 +1649,9 @@ return /******/ (function(modules) { // webpackBootstrap
 			_root: component._root || component,
 			data: drawer_initialData
 		});
-
+	
 		component.refs.drawer = drawer;
-
+	
 		return {
 			mount: function mount(target, anchor) {
 				insertNode(button, target, anchor);
@@ -1664,14 +1664,14 @@ return /******/ (function(modules) { // webpackBootstrap
 				insertNode(text7, target, anchor);
 				drawer._fragment.mount(target, anchor);
 			},
-
+	
 			update: function update(changed, root) {
 				text.data = template.helpers.t('menu');
-
+	
 				img.src = root.iconPath;
-
+	
 				text4.data = root.appName;
-
+	
 				var navigation_changes = {};
 
 				if ('sections' in changed) navigation_changes.sections = root.sections;
@@ -1862,19 +1862,19 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-
+	
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
-
+	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
+	
 	var _NavigationSection = __webpack_require__(30);
-
+	
 	var _NavigationSection2 = _interopRequireDefault(_NavigationSection);
-
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
+	
 	var template = function () {
 		return {
 			components: {
@@ -1882,32 +1882,32 @@ return /******/ (function(modules) { // webpackBootstrap
 			}
 		};
 	}();
-
+	
 	function renderMainFragment(root, component) {
 		var nav = createElement('nav');
 		nav.className = "coz-nav";
-
+	
 		var ul = createElement('ul');
-
+	
 		appendNode(ul, nav);
 		var eachBlock_anchor = createComment("#each sections");
 		appendNode(eachBlock_anchor, ul);
 		var eachBlock_value = root.sections;
 		var eachBlock_iterations = [];
-
+	
 		for (var i = 0; i < eachBlock_value.length; i += 1) {
 			eachBlock_iterations[i] = renderEachBlock(root, eachBlock_value, eachBlock_value[i], i, component);
 			eachBlock_iterations[i].mount(eachBlock_anchor.parentNode, eachBlock_anchor);
 		}
-
+	
 		return {
 			mount: function mount(target, anchor) {
 				insertNode(nav, target, anchor);
 			},
-
+	
 			update: function update(changed, root) {
 				var eachBlock_value = root.sections;
-
+	
 				for (var i = 0; i < eachBlock_value.length; i += 1) {
 					if (!eachBlock_iterations[i]) {
 						eachBlock_iterations[i] = renderEachBlock(root, eachBlock_value, eachBlock_value[i], i, component);
@@ -2115,53 +2115,53 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-
+	
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
-
+	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
+	
 	var _jssha = __webpack_require__(31);
-
+	
 	var _jssha2 = _interopRequireDefault(_jssha);
-
+	
 	var _NavigationGroup = __webpack_require__(32);
-
+	
 	var _NavigationGroup2 = _interopRequireDefault(_NavigationGroup);
-
+	
 	var _i18n = __webpack_require__(1);
-
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
+	
 	function applyComputations(state, newState, oldState) {
 		if ('label' in newState && _typeof(state.label) === 'object' || state.label !== oldState.label) {
 			state.hash = newState.hash = template.computed.hash(state.label);
 		}
 	}
-
+	
 	var template = function () {
 		var SHA1 = new _jssha2.default('SHA-1', 'TEXT');
-
+	
 		var clickOutsideListener = void 0;
-
+	
 		return {
 			data: function data() {
 				return {
 					hidden: true
 				};
 			},
-
+	
 			computed: {
 				hash: function hash(label) {
 					SHA1.update(label);
 					return SHA1.getHash('HEX').slice(0, 6);
 				}
 			},
-
+	
 			onrender: function onrender() {
 				var _this = this;
-
+	
 				clickOutsideListener = this._root.on('clickOutside', function () {
 					_this.set({ hidden: true });
 				});
@@ -2169,82 +2169,82 @@ return /******/ (function(modules) { // webpackBootstrap
 			onteardown: function onteardown() {
 				clickOutsideListener.cancel();
 			},
-
-
+	
+	
 			components: {
 				NavigationGroup: _NavigationGroup2.default
 			},
-
+	
 			helpers: { t: _i18n.t }
 		};
 	}();
-
+	
 	function renderMainFragment(root, component) {
 		var li = createElement('li');
 		li.className = "coz-nav-section";
-
+	
 		function clickHandler(event) {
 			event.stopPropagation();
 		}
-
+	
 		addEventListener(li, 'click', clickHandler);
-
+	
 		var a = createElement('a');
-
+	
 		function clickHandler1(event) {
 			var root = this.__svelte.root;
-
+	
 			component.set({ hidden: !root.hidden });
 		}
-
+	
 		addEventListener(a, 'click', clickHandler1);
-
+	
 		setAttribute(a, 'aria-controls', 'coz-nav-pop-' + root.hash);
 		setAttribute(a, 'data-icon', root.icon);
-
+	
 		a.__svelte = {
 			root: root
 		};
-
+	
 		appendNode(a, li);
 		var text = createText(template.helpers.t(root.label));
 		appendNode(text, a);
 		appendNode(createText("\n  "), li);
-
+	
 		var div = createElement('div');
 		div.className = "coz-nav-pop";
 		div.id = 'coz-nav-pop-' + root.hash;
 		setAttribute(div, 'aria-hidden', root.hidden);
-
+	
 		appendNode(div, li);
 		var eachBlock_anchor = createComment("#each items");
 		appendNode(eachBlock_anchor, div);
 		var eachBlock_value = root.items;
 		var eachBlock_iterations = [];
-
+	
 		for (var i = 0; i < eachBlock_value.length; i += 1) {
 			eachBlock_iterations[i] = renderEachBlock(root, eachBlock_value, eachBlock_value[i], i, component);
 			eachBlock_iterations[i].mount(eachBlock_anchor.parentNode, eachBlock_anchor);
 		}
-
+	
 		return {
 			mount: function mount(target, anchor) {
 				insertNode(li, target, anchor);
 			},
-
+	
 			update: function update(changed, root) {
 				setAttribute(a, 'aria-controls', 'coz-nav-pop-' + root.hash);
 				setAttribute(a, 'data-icon', root.icon);
-
+	
 				a.__svelte.root = root;
-
+	
 				text.data = template.helpers.t(root.label);
-
+	
 				div.id = 'coz-nav-pop-' + root.hash;
 				setAttribute(div, 'aria-hidden', root.hidden);
-
+	
 				var eachBlock_value = root.items;
-
+	
 				for (var i = 0; i < eachBlock_value.length; i += 1) {
 					if (!eachBlock_iterations[i]) {
 						eachBlock_iterations[i] = renderEachBlock(root, eachBlock_value, eachBlock_value[i], i, component);
@@ -2479,11 +2479,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	 A JavaScript implementation of the SHA family of hashes, as
 	 defined in FIPS PUB 180-4 and FIPS PUB 202, as well as the corresponding
 	 HMAC implementation as defined in FIPS PUB 198a
-
+	
 	 Copyright Brian Turek 2008-2016
 	 Distributed under the BSD License
 	 See http://caligatio.github.com/jsSHA/ for more information
-
+	
 	 Several functions taken from Paul Johnston
 	*/
 	'use strict';(function(X){function C(f,b,c){var d=0,a=[],k=0,g,e,n,h,m,r,t,q,v=!1,u=[],w=[],x,y=!1,z=!1;c=c||{};g=c.encoding||"UTF8";x=c.numRounds||1;n=J(b,g);if(x!==parseInt(x,10)||1>x)throw Error("numRounds must a integer >= 1");if("SHA-1"===f)m=512,r=K,t=Y,h=160,q=function(b){return b.slice()};else if(0===f.lastIndexOf("SHA-",0))if(r=function(b,d){return L(b,d,f)},t=function(b,d,c,a){var l,k;if("SHA-224"===f||"SHA-256"===f)l=(d+65>>>9<<4)+15,k=16;else if("SHA-384"===f||"SHA-512"===f)l=(d+129>>>
@@ -2527,19 +2527,19 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-
+	
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
-
+	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
+	
 	var _NavigationItem = __webpack_require__(33);
-
+	
 	var _NavigationItem2 = _interopRequireDefault(_NavigationItem);
-
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
+	
 	var template = function () {
 		return {
 			components: {
@@ -2547,44 +2547,44 @@ return /******/ (function(modules) { // webpackBootstrap
 			}
 		};
 	}();
-
+	
 	function renderMainFragment(root, component) {
 		var ifBlock_anchor = createComment("#if separator == 'top'");
-
+	
 		function getBlock(root) {
 			if (root.separator == 'top') return renderIfBlock_0;
 			return null;
 		}
-
+	
 		var currentBlock = getBlock(root);
 		var ifBlock = currentBlock && currentBlock(root, component);
-
+	
 		var text = createText("\n");
-
+	
 		var ul = createElement('ul');
 		ul.className = "coz-nav-group";
-
+	
 		var eachBlock_anchor = createComment("#each group");
 		appendNode(eachBlock_anchor, ul);
 		var eachBlock_value = root.group;
 		var eachBlock_iterations = [];
-
+	
 		for (var i = 0; i < eachBlock_value.length; i += 1) {
 			eachBlock_iterations[i] = renderEachBlock(root, eachBlock_value, eachBlock_value[i], i, component);
 			eachBlock_iterations[i].mount(eachBlock_anchor.parentNode, eachBlock_anchor);
 		}
-
+	
 		var text1 = createText("\n");
 		var ifBlock1_anchor = createComment("#if separator == 'bottom'");
-
+	
 		function getBlock1(root) {
 			if (root.separator == 'bottom') return renderIfBlock1_0;
 			return null;
 		}
-
+	
 		var currentBlock1 = getBlock1(root);
 		var ifBlock1 = currentBlock1 && currentBlock1(root, component);
-
+	
 		return {
 			mount: function mount(target, anchor) {
 				insertNode(ifBlock_anchor, target, anchor);
@@ -2595,7 +2595,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				insertNode(ifBlock1_anchor, target, anchor);
 				if (ifBlock1) ifBlock1.mount(ifBlock1_anchor.parentNode, ifBlock1_anchor);
 			},
-
+	
 			update: function update(changed, root) {
 				var _currentBlock = currentBlock;
 				currentBlock = getBlock(root);
@@ -2606,9 +2606,9 @@ return /******/ (function(modules) { // webpackBootstrap
 					ifBlock = currentBlock && currentBlock(root, component);
 					if (ifBlock) ifBlock.mount(ifBlock_anchor.parentNode, ifBlock_anchor);
 				}
-
+	
 				var eachBlock_value = root.group;
-
+	
 				for (var i = 0; i < eachBlock_value.length; i += 1) {
 					if (!eachBlock_iterations[i]) {
 						eachBlock_iterations[i] = renderEachBlock(root, eachBlock_value, eachBlock_value[i], i, component);
@@ -2871,21 +2871,21 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-
+	
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
-
+	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
+	
 	var _i18n = __webpack_require__(1);
-
+	
 	function applyComputations(state, newState, oldState) {
 		if ('item' in newState && _typeof(state.item) === 'object' || state.item !== oldState.item) {
 			state.icon = newState.icon = template.computed.icon(state.item);
 		}
 	}
-
+	
 	var template = function () {
 		return {
 			computed: {
@@ -2893,33 +2893,33 @@ return /******/ (function(modules) { // webpackBootstrap
 					return 'icon-' + item.label;
 				}
 			},
-
+	
 			helpers: { t: _i18n.t }
 		};
 	}();
-
+	
 	function renderMainFragment(root, component) {
 		var li = createElement('li');
 		li.className = "coz-nav-item";
-
+	
 		var ifBlock_anchor = createComment("#if item.external");
 		appendNode(ifBlock_anchor, li);
-
+	
 		function getBlock(root) {
 			if (root.item.external) return renderIfBlock_0;
 			return renderIfBlock_1;
 		}
-
+	
 		var currentBlock = getBlock(root);
 		var ifBlock = currentBlock && currentBlock(root, component);
-
+	
 		if (ifBlock) ifBlock.mount(ifBlock_anchor.parentNode, ifBlock_anchor);
-
+	
 		return {
 			mount: function mount(target, anchor) {
 				insertNode(li, target, anchor);
 			},
-
+	
 			update: function update(changed, root) {
 				var _currentBlock = currentBlock;
 				currentBlock = getBlock(root);
@@ -2931,37 +2931,37 @@ return /******/ (function(modules) { // webpackBootstrap
 					if (ifBlock) ifBlock.mount(ifBlock_anchor.parentNode, ifBlock_anchor);
 				}
 			},
-
+	
 			teardown: function teardown(detach) {
 				if (ifBlock) ifBlock.teardown(false);
-
+	
 				if (detach) {
 					detachNode(li);
 				}
 			}
 		};
 	}
-
+	
 	function renderIfBlock_1(root, component) {
 		var a = createElement('a');
 		a.href = root.item.href;
 		setAttribute(a, 'data-icon', root.icon);
-
+	
 		var text = createText(template.helpers.t(root.item.label));
 		appendNode(text, a);
-
+	
 		return {
 			mount: function mount(target, anchor) {
 				insertNode(a, target, anchor);
 			},
-
+	
 			update: function update(changed, root) {
 				a.href = root.item.href;
 				setAttribute(a, 'data-icon', root.icon);
-
+	
 				text.data = template.helpers.t(root.item.label);
 			},
-
+	
 			teardown: function teardown(detach) {
 				if (detach) {
 					detachNode(a);
@@ -2969,25 +2969,25 @@ return /******/ (function(modules) { // webpackBootstrap
 			}
 		};
 	}
-
+	
 	function renderIfBlock_0(root, component) {
 		var a = createElement('a');
 		a.href = root.item.href;
 		a.target = "_blank";
 		setAttribute(a, 'data-icon', root.icon);
-
+	
 		var text = createText(template.helpers.t(root.item.label));
 		appendNode(text, a);
-
+	
 		return {
 			mount: function mount(target, anchor) {
 				insertNode(a, target, anchor);
 			},
-
+	
 			update: function update(changed, root) {
 				a.href = root.item.href;
 				setAttribute(a, 'data-icon', root.icon);
-
+	
 				text.data = template.helpers.t(root.item.label);
 			},
 
@@ -3140,22 +3140,22 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-
+	
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
-
+	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
+	
 	var _NavigationGroup = __webpack_require__(32);
-
+	
 	var _NavigationGroup2 = _interopRequireDefault(_NavigationGroup);
-
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
+	
 	var template = function () {
 		var toggleDrawerObserver = void 0;
-
+	
 		return {
 			data: function data() {
 				return {
@@ -3164,7 +3164,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			},
 			onrender: function onrender() {
 				var _this = this;
-
+	
 				toggleDrawerObserver = this.observe('folded', function (folded) {
 					if (folded) {
 						_this.refs.wrapper.classList.toggle('visible', false);
@@ -3182,62 +3182,62 @@ return /******/ (function(modules) { // webpackBootstrap
 			onteardown: function onteardown() {
 				toggleDrawerObserver.cancel();
 			},
-
-
+	
+	
 			components: {
 				NavigationGroup: _NavigationGroup2.default
 			}
 		};
 	}();
-
+	
 	function renderMainFragment(root, component) {
 		var div = createElement('div');
 		component.refs.wrapper = div;
 		div.className = "coz-drawer-wrapper";
-
+	
 		function clickHandler(event) {
 			component.set({ folded: true });
 		}
-
+	
 		addEventListener(div, 'click', clickHandler);
-
+	
 		var aside = createElement('aside');
-
+	
 		function clickHandler1(event) {
 			event.stopPropagation();
 		}
-
+	
 		addEventListener(aside, 'click', clickHandler1);
-
+	
 		appendNode(aside, div);
-
+	
 		var hr = createElement('hr');
 		hr.className = "coz-sep-flex";
-
+	
 		appendNode(hr, aside);
 		appendNode(createText("\n    "), aside);
-
+	
 		var nav = createElement('nav');
-
+	
 		appendNode(nav, aside);
 		var eachBlock_anchor = createComment("#each groups");
 		appendNode(eachBlock_anchor, nav);
 		var eachBlock_value = root.groups;
 		var eachBlock_iterations = [];
-
+	
 		for (var i = 0; i < eachBlock_value.length; i += 1) {
 			eachBlock_iterations[i] = renderEachBlock(root, eachBlock_value, eachBlock_value[i], i, component);
 			eachBlock_iterations[i].mount(eachBlock_anchor.parentNode, eachBlock_anchor);
 		}
-
+	
 		return {
 			mount: function mount(target, anchor) {
 				insertNode(div, target, anchor);
 			},
-
+	
 			update: function update(changed, root) {
 				var eachBlock_value = root.groups;
-
+	
 				for (var i = 0; i < eachBlock_value.length; i += 1) {
 					if (!eachBlock_iterations[i]) {
 						eachBlock_iterations[i] = renderEachBlock(root, eachBlock_value, eachBlock_value[i], i, component);
@@ -3488,381 +3488,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 36 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-
-	// load the styles
-	var content = __webpack_require__(37);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(44)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/css-loader/index.js?importLoaders=1!./../../node_modules/postcss-loader/index.js!./index.css", function() {
-				var newContent = require("!!./../../node_modules/css-loader/index.js?importLoaders=1!./../../node_modules/postcss-loader/index.js!./index.css");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-/* 37 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(38)();
-	// imports
-
-
-	// module
-	exports.push([module.id, "body{display:-ms-flexbox;display:flex;-ms-flex-direction:column;flex-direction:column;-ms-flex-align:stretch;align-items:stretch;width:100vw;height:100vh}[role=application]{height:initial;-ms-flex:1 100vh;flex:1 100vh}[role=banner]{position:relative;z-index:99;-ms-flex-negative:0;flex-shrink:0;display:-ms-flexbox;display:flex;-ms-flex-align:stretch;align-items:stretch;padding:0 2.5em 0 1em;box-shadow:inset 0 -1px 0 0 #d6d8da;font-family:Lato,sans-serif;font-size:1rem}[role=banner] .coz-sep-flex{margin:0;border:none;-ms-flex:1 0;flex:1 0}[role=banner] [data-icon]{background-repeat:no-repeat;background-position:0 50%;padding-left:calc(16px + .5em)}[role=banner] [data-icon=icon-help]{background-image:url(" + __webpack_require__(39) + ")}[role=banner] [data-icon=icon-logout]{background-image:url(" + __webpack_require__(40) + ")}[role=banner] [data-icon=icon-email]{background-image:url(" + __webpack_require__(41) + ")}[role=banner] [data-icon=icon-cog]{background-image:url(" + __webpack_require__(42) + ")}[role=banner] [data-icon=icon-hamburger]{background-image:url(" + __webpack_require__(43) + ")}[role=banner] .coz-bar-title{display:-ms-flexbox;display:flex;margin:0;-ms-flex-align:center;align-items:center;font-size:1.5em;font-weight:400;text-transform:lowercase;color:#32363f}[role=banner] .coz-bar-title img{margin-right:.45em}[role=banner] .coz-bar-title strong{padding-left:.25em;font-weight:700}[role=banner] .coz-bar-burger{width:2.5em;height:2.5em;margin:auto .25em auto 0;padding:0;border:none;background-color:transparent;background-position:center;text-indent:-9999em}[role=banner] .coz-drawer-wrapper{position:absolute;top:0;left:0;width:100vw;height:100vh}[role=banner] .coz-drawer-wrapper[aria-hidden=true]{display:none}[role=banner] .coz-drawer-wrapper:before{content:'';display:block;position:absolute;top:0;left:0;width:100%;height:100%;background-color:#32363f;opacity:0;transition:opacity .25s ease-out}[role=banner] .coz-drawer-wrapper.visible:before{opacity:.5}[role=banner] .coz-drawer-wrapper aside{transform:translateX(-100vw);transition:transform .5s ease-out}[role=banner] .coz-drawer-wrapper.visible aside{transform:translateX(0)}[role=banner] .coz-drawer-wrapper aside{position:absolute;top:0;left:0;width:90%;height:100%;background-color:#fff}[role=banner] .coz-drawer-wrapper aside{display:-ms-flexbox;display:flex;-ms-flex-direction:column;flex-direction:column}[role=banner] .coz-drawer-wrapper ul{margin:0;padding:0;list-style-type:none}[role=banner] .coz-drawer-wrapper ul{margin:0;padding:.8em 0;list-style-type:none}[role=banner] .coz-drawer-wrapper hr{margin:0;border:none;border-bottom:solid 1px #d6d8da}[role=banner] .coz-drawer-wrapper .coz-nav-icon{margin-right:.5em}[role=banner] .coz-nav ul{margin:0;padding:0;list-style-type:none}[role=banner] .coz-nav-item a{display:-ms-flexbox;display:flex;padding:.5em 1.5em .5em calc(1.5em + 16px + .5em);background-position:1.5em 50%;-ms-flex-align:center;align-items:center;white-space:nowrap;color:#32363f;text-decoration:none}[role=banner] .coz-nav-section{position:relative}[role=banner] .coz-nav-section [aria-controls]{display:-ms-flexbox;display:flex;-ms-flex-align:center;align-items:center;padding-top:1.285em;padding-bottom:1.285em;font-size:.875em;font-weight:700;text-transform:uppercase;color:#5d6165;cursor:pointer}[role=banner] .coz-nav-icon{margin-right:.5em}[role=banner] .coz-nav-pop[aria-hidden=true]{display:none}[role=banner] .coz-nav-pop{position:absolute;top:calc(100% - .5em);right:-1.5em;box-sizing:border-box;min-width:100%;background-color:#fff;border-radius:8px;border:solid 1px rgba(50,54,63,.12);box-shadow:0 1px 3px 0 rgba(50,54,63,.19),0 6px 18px 0 rgba(50,54,63,.19)}[role=banner] .coz-nav-pop ul{padding:.5em 0}[role=banner] .coz-nav-pop hr{border:none;border-bottom:solid 1px #d6d8da}[role=banner] .coz-nav-pop ul:last-of-type+hr{display:none}@media(max-width:30em){[role=banner]{padding:0 1em 0 0}[role=banner] .coz-bar-title{font-size:1.25em}[role=banner] .coz-bar-hide-sm{display:none}[role=banner] .coz-bar-title strong{margin:0;text-transform:capitalize}[role=banner] .coz-nav{display:none}}@media(min-width:30.0625em){[role=banner] .coz-bar-burger{display:none}[role=banner] .coz-drawer-wrapper{display:none}}", ""]);
-
-	// exports
-
-
-/***/ },
-/* 38 */
 /***/ function(module, exports) {
 
-	/*
-		MIT License http://www.opensource.org/licenses/mit-license.php
-		Author Tobias Koppers @sokra
-	*/
-	// css base code, injected by the css-loader
-	module.exports = function() {
-		var list = [];
-
-		// return the list of modules as css string
-		list.toString = function toString() {
-			var result = [];
-			for(var i = 0; i < this.length; i++) {
-				var item = this[i];
-				if(item[2]) {
-					result.push("@media " + item[2] + "{" + item[1] + "}");
-				} else {
-					result.push(item[1]);
-				}
-			}
-			return result.join("");
-		};
-
-		// import a list of modules into the list
-		list.i = function(modules, mediaQuery) {
-			if(typeof modules === "string")
-				modules = [[null, modules, ""]];
-			var alreadyImportedModules = {};
-			for(var i = 0; i < this.length; i++) {
-				var id = this[i][0];
-				if(typeof id === "number")
-					alreadyImportedModules[id] = true;
-			}
-			for(i = 0; i < modules.length; i++) {
-				var item = modules[i];
-				// skip already imported module
-				// this implementation is not 100% perfect for weird media query combinations
-				//  when a module is imported multiple times with different media queries.
-				//  I hope this will never occur (Hey this way we have smaller bundles)
-				if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
-					if(mediaQuery && !item[2]) {
-						item[2] = mediaQuery;
-					} else if(mediaQuery) {
-						item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
-					}
-					list.push(item);
-				}
-			}
-		};
-		return list;
-	};
-
-
-/***/ },
-/* 39 */
-/***/ function(module, exports) {
-
-	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICA8cGF0aCBmaWxsPSIjOTU5OTlEIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0yOTYsODAgQzMwMC40MTgyNzgsODAgMzA0LDc2LjQxODI3OCAzMDQsNzIgQzMwNCw2Ny41ODE3MjIgMzAwLjQxODI3OCw2NCAyOTYsNjQgQzI5MS41ODE3MjIsNjQgMjg4LDY3LjU4MTcyMiAyODgsNzIgQzI4OCw3Ni40MTgyNzggMjkxLjU4MTcyMiw4MCAyOTYsODAgWiBNMjk3LDcyLjgwMjExMyBDMjk4LjEyMTgwOSw3Mi4zNTQ1NTY4IDI5OSw3MS4yMDg5OTQ2IDI5OSw3MCBDMjk5LDY4LjQ0NzcxNTMgMjk3LjU1MjI4NSw2NyAyOTYsNjcgQzI5NC40NDc3MTUsNjcgMjkzLDY4LjQ0NzcxNTMgMjkzLDcwIEwyOTUsNzAgQzI5NSw2OS41NTIyODQ3IDI5NS41NTIyODUsNjkgMjk2LDY5IEMyOTYuNDQ3NzE1LDY5IDI5Nyw2OS41NTIyODQ3IDI5Nyw3MCBDMjk3LDcwLjQ0NzcxNTMgMjk2LjQ0NzcxNSw3MSAyOTYsNzEgQzI5NS40NDc3MTUsNzEgMjk1LDcxLjQ0NzcxNTMgMjk1LDcyIEwyOTUsNzQgTDI5Nyw3NCBMMjk3LDcyLjgwMjExMyBaIE0yOTUsNzUgTDI5Nyw3NSBMMjk3LDc3IEwyOTUsNzcgTDI5NSw3NSBaIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMjg4IC02NCkiLz4KPC9zdmc+Cg=="
-
-/***/ },
-/* 40 */
-/***/ function(module, exports) {
-
-	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICA8cGF0aCBmaWxsPSIjOTU5OTlEIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0zMjcsOTkuNDE0MjEzNiBMMzI1LjcwNzEwNywxMDAuNzA3MTA3IEMzMjUuMzE2NTgyLDEwMS4wOTc2MzEgMzI0LjY4MzQxOCwxMDEuMDk3NjMxIDMyNC4yOTI4OTMsMTAwLjcwNzEwNyBDMzIzLjkwMjM2OSwxMDAuMzE2NTgyIDMyMy45MDIzNjksOTkuNjgzNDE3NSAzMjQuMjkyODkzLDk5LjI5Mjg5MzIgTDMyNy4yOTI4OTMsOTYuMjkyODkzMiBDMzI3LjY4MzQxOCw5NS45MDIzNjg5IDMyOC4zMTY1ODIsOTUuOTAyMzY4OSAzMjguNzA3MTA3LDk2LjI5Mjg5MzIgTDMzMS43MDcxMDcsOTkuMjkyODkzMiBDMzMyLjA5NzYzMSw5OS42ODM0MTc1IDMzMi4wOTc2MzEsMTAwLjMxNjU4MiAzMzEuNzA3MTA3LDEwMC43MDcxMDcgQzMzMS4zMTY1ODIsMTAxLjA5NzYzMSAzMzAuNjgzNDE4LDEwMS4wOTc2MzEgMzMwLjI5Mjg5MywxMDAuNzA3MTA3IEwzMjksOTkuNDE0MjEzNiBMMzI5LDEwNyBDMzI5LDEwNy41NTIyODUgMzI4LjU1MjI4NSwxMDggMzI4LDEwOCBDMzI3LjQ0NzcxNSwxMDggMzI3LDEwNy41NTIyODUgMzI3LDEwNyBMMzI3LDk5LjQxNDIxMzYgWiBNMzIxLDExMiBMMzM1LDExMiBDMzM1LjU1MjI4NSwxMTIgMzM2LDExMS41NTIyODUgMzM2LDExMSBDMzM2LDExMC40NDc3MTUgMzM1LjU1MjI4NSwxMTAgMzM1LDExMCBMMzIxLDExMCBDMzIwLjQ0NzcxNSwxMTAgMzIwLDExMC40NDc3MTUgMzIwLDExMSBDMzIwLDExMS41NTIyODUgMzIwLjQ0NzcxNSwxMTIgMzIxLDExMiBaIiB0cmFuc2Zvcm09InJvdGF0ZSg5MCAyMTYgLTEwNCkiLz4KPC9zdmc+Cg=="
-
-/***/ },
-/* 41 */
-/***/ function(module, exports) {
-
-	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICA8cG9seWdvbiBmaWxsPSIjOTU5OTlEIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHBvaW50cz0iMjcyIDY0IDI2NiA3OSAyNjMuNSA3Ni41IDI2MCA3OSAyNTkgNzUgMjY5IDY2LjUgMjU5IDcyLjUgMjU2IDcwIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMjU2IC02NCkiLz4KPC9zdmc+Cg=="
-
-/***/ },
-/* 42 */
-/***/ function(module, exports) {
-
-	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICA8ZyBmaWxsPSIjOTU5OTlEIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0yMjQgLTMyKSI+CiAgICA8cGF0aCBkPSJNMjM4LjI0OTM1NiwzOS4wNzgyOTczIEMyMzguMzAxNDA3LDM5LjMzNzE0MzYgMjM4LjMyNzQzMiwzOS42NDU5NjAyIDIzOC4zMjc0MzIsNDAuMDAzNzQ3OCBDMjM4LjMyNzQzMiw0MC4zNjE1MzUzIDIzOC4zMDE0MDcsNDAuNjY5MzUyNiAyMzguMjQ5MzU2LDQwLjkyOTE5ODMgTDIzOS44Njk5NDYsNDIuMjYyNDA2NyBDMjQwLjAwMDA3NCw0Mi4zNDgzNTU3IDI0MC4wMzIxMDUsNDIuNDY1Mjg2MiAyMzkuOTY4MDQyLDQyLjYxNDE5NzggQzIzOS42NDI3MjMsNDMuNTY0NjMzNSAyMzkuMTA5MTk5LDQ0LjQ0MDExMzcgMjM4LjM2NjQ3LDQ1LjI0MTYzNzggQzIzOC4yNjIzNjgsNDUuMzY1NTY0MiAyMzguMTM3MjQ2LDQ1LjM5NjU0NTggMjM3Ljk5NTEwNiw0NS4zMzU1ODIgTDIzNS45NjQxMTMsNDQuNjY3OTc4NCBDMjM1LjQ0MzYwMiw0NS4wNjM3NDM0IDIzNC44ODQwNTMsNDUuMzcyNTYgMjM0LjI4NDQ2NCw0NS41OTQ0MjgzIEwyMzMuODc1MDYyLDQ3LjU5MzI0MTUgQzIzMy44NDkwMzcsNDcuNzQwMTU0MyAyMzMuNzU3OTQ4LDQ3LjgyNzEwMjcgMjMzLjYwMTc5NCw0Ny44NTIwODc4IEMyMzMuMDQxMjQ0LDQ3Ljk1MjAyODUgMjMyLjUwNzcyMSw0OCAyMzIuMDAwMjIyLDQ4IEMyMzEuNDkyNzI0LDQ4IDIzMC45NTgyLDQ3Ljk1MTAyOTEgMjMwLjM5ODY1MSw0Ny44NTIwODc4IEMyMzAuMjQyNDk3LDQ3LjgyODEwMjEgMjMwLjE1MTQwOCw0Ny43NDExNTM3IDIzMC4xMjUzODIsNDcuNTkzMjQxNSBMMjI5LjcxNTk4MSw0NS41OTQ0MjgzIEMyMjkuMDc3MzU0LDQ1LjM2MDU2NzIgMjI4LjUxNzgwNSw0NS4wNTA3NTExIDIyOC4wMzYzMzIsNDQuNjY3OTc4NCBMMjI2LjAwNTMzOSw0NS4zMzU1ODIgQzIyNS44NjExOTcsNDUuMzk3NTQ1MiAyMjUuNzM4MDc3LDQ1LjM2NTU2NDIgMjI1LjYzMzk3NCw0NS4yNDE2Mzc4IEMyMjQuODkyMjQ2LDQ0LjQ0MDExMzcgMjI0LjM1ODcyMyw0My41NjQ2MzM1IDIyNC4wMzI0MDMsNDIuNjE0MTk3OCBDMjIzLjk2NzMzOSw0Mi40NjYyODU2IDIyNC4wMDAzNzEsNDIuMzQ4MzU1NyAyMjQuMTMwNDk5LDQyLjI2MjQwNjcgTDIyNS43NTEwODksNDAuOTI5MTk4MyBDMjI1LjY5OTAzOCw0MC42NjkzNTI2IDIyNS42NzMwMTMsNDAuMzYyNTM0NyAyMjUuNjczMDEzLDQwLjAwMzc0NzggQzIyNS42NzMwMTMsMzkuNjQ1OTYwMiAyMjUuNjk5MDM4LDM5LjMzNzE0MzYgMjI1Ljc1MTA4OSwzOS4wNzgyOTczIEwyMjQuMTMwNDk5LDM3Ljc0NjA4ODMgQzIyNC4wMDAzNzEsMzcuNjYwMTM5MyAyMjMuOTY3MzM5LDM3LjU0MjIwOTMgMjI0LjAzMjQwMywzNy4zOTQyOTcxIEMyMjQuMzU3NzIyLDM2LjQ0NDg2MDkgMjI0Ljg5MTI0NSwzNS41NjgzODEzIDIyNS42MzM5NzQsMzQuNzY2ODU3MiBDMjI1LjczODA3NywzNC42NDM5MzAyIDIyNS44NjIxOTgsMzQuNjEyOTQ4NiAyMjYuMDA1MzM5LDM0LjY3MzkxMjQgTDIyOC4wMzYzMzIsMzUuMzQwNTE2NiBDMjI4LjUxNjgwNCwzNC45NTc3NDM4IDIyOS4wNzczNTQsMzQuNjQ5OTI2NiAyMjkuNzE1OTgxLDM0LjQxNTA2NjEgTDIzMC4xMjUzODIsMzIuNDE2MjUyOCBDMjMwLjE1MTQwOCwzMi4yNjgzNDA3IDIzMC4yNDI0OTcsMzIuMTgyMzkxNyAyMzAuMzk4NjUxLDMyLjE1NzQwNjUgQzIzMS40NjU2OTgsMzEuOTQ3NTMxMiAyMzIuNTMzNzQ2LDMxLjk0NzUzMTIgMjMzLjYwMDc5MywzMi4xNTc0MDY1IEMyMzMuNzU2OTQ3LDMyLjE4MTM5MjMgMjMzLjg0ODAzNiwzMi4yNjgzNDA3IDIzMy44NzQwNjEsMzIuNDE2MjUyOCBMMjM0LjI4MzQ2MywzNC40MTUwNjYxIEMyMzQuODgzMDUyLDM0LjYzNzkzMzcgMjM1LjQ0MjYwMSwzNC45NDU3NTEgMjM1Ljk2MzExMiwzNS4zNDA1MTY2IEwyMzcuOTk0MTA1LDM0LjY3MzkxMjQgQzIzOC4xMzcyNDYsMzQuNjExOTQ5MiAyMzguMjYxMzY3LDM0LjY0MzkzMDIgMjM4LjM2NTQ3LDM0Ljc2Njg1NzIgQzIzOS4xMDcxOTcsMzUuNTY5MzgwNyAyMzkuNjQwNzIxLDM2LjQ0NDg2MDkgMjM5Ljk2NzA0MSwzNy4zOTQyOTcxIEMyNDAuMDMxMTA0LDM3LjU0MjIwOTMgMjM5Ljk5OTA3MywzNy42NjAxMzkzIDIzOS44Njg5NDUsMzcuNzQ2MDg4MyBMMjM4LjI0OTM1NiwzOS4wNzgyOTczIEwyMzguMjQ5MzU2LDM5LjA3ODI5NzMgWiBNMjMyLDM2LjUgQzIzMC4wNjcxMjUsMzYuNSAyMjguNSwzOC4wNjcxMjUgMjI4LjUsNDAgQzIyOC41LDQxLjkzMjg3NSAyMzAuMDY3MTI1LDQzLjUgMjMyLDQzLjUgQzIzMy45MzI4NzUsNDMuNSAyMzUuNSw0MS45MzI4NzUgMjM1LjUsNDAgQzIzNS41LDM4LjA2NzEyNSAyMzMuOTMyODc1LDM2LjUgMjMyLDM2LjUgTDIzMiwzNi41IFoiLz4KICAgIDxwYXRoIGQ9Ik0yMzguMjQ5MzU2LDM5LjA3ODI5NzMgQzIzOC4zMDE0MDcsMzkuMzM3MTQzNiAyMzguMzI3NDMyLDM5LjY0NTk2MDIgMjM4LjMyNzQzMiw0MC4wMDM3NDc4IEMyMzguMzI3NDMyLDQwLjM2MTUzNTMgMjM4LjMwMTQwNyw0MC42NjkzNTI2IDIzOC4yNDkzNTYsNDAuOTI5MTk4MyBMMjM5Ljg2OTk0Niw0Mi4yNjI0MDY3IEMyNDAuMDAwMDc0LDQyLjM0ODM1NTcgMjQwLjAzMjEwNSw0Mi40NjUyODYyIDIzOS45NjgwNDIsNDIuNjE0MTk3OCBDMjM5LjY0MjcyMyw0My41NjQ2MzM1IDIzOS4xMDkxOTksNDQuNDQwMTEzNyAyMzguMzY2NDcsNDUuMjQxNjM3OCBDMjM4LjI2MjM2OCw0NS4zNjU1NjQyIDIzOC4xMzcyNDYsNDUuMzk2NTQ1OCAyMzcuOTk1MTA2LDQ1LjMzNTU4MiBMMjM1Ljk2NDExMyw0NC42Njc5Nzg0IEMyMzUuNDQzNjAyLDQ1LjA2Mzc0MzQgMjM0Ljg4NDA1Myw0NS4zNzI1NiAyMzQuMjg0NDY0LDQ1LjU5NDQyODMgTDIzMy44NzUwNjIsNDcuNTkzMjQxNSBDMjMzLjg0OTAzNyw0Ny43NDAxNTQzIDIzMy43NTc5NDgsNDcuODI3MTAyNyAyMzMuNjAxNzk0LDQ3Ljg1MjA4NzggQzIzMy4wNDEyNDQsNDcuOTUyMDI4NSAyMzIuNTA3NzIxLDQ4IDIzMi4wMDAyMjIsNDggQzIzMS40OTI3MjQsNDggMjMwLjk1ODIsNDcuOTUxMDI5MSAyMzAuMzk4NjUxLDQ3Ljg1MjA4NzggQzIzMC4yNDI0OTcsNDcuODI4MTAyMSAyMzAuMTUxNDA4LDQ3Ljc0MTE1MzcgMjMwLjEyNTM4Miw0Ny41OTMyNDE1IEwyMjkuNzE1OTgxLDQ1LjU5NDQyODMgQzIyOS4wNzczNTQsNDUuMzYwNTY3MiAyMjguNTE3ODA1LDQ1LjA1MDc1MTEgMjI4LjAzNjMzMiw0NC42Njc5Nzg0IEwyMjYuMDA1MzM5LDQ1LjMzNTU4MiBDMjI1Ljg2MTE5Nyw0NS4zOTc1NDUyIDIyNS43MzgwNzcsNDUuMzY1NTY0MiAyMjUuNjMzOTc0LDQ1LjI0MTYzNzggQzIyNC44OTIyNDYsNDQuNDQwMTEzNyAyMjQuMzU4NzIzLDQzLjU2NDYzMzUgMjI0LjAzMjQwMyw0Mi42MTQxOTc4IEMyMjMuOTY3MzM5LDQyLjQ2NjI4NTYgMjI0LjAwMDM3MSw0Mi4zNDgzNTU3IDIyNC4xMzA0OTksNDIuMjYyNDA2NyBMMjI1Ljc1MTA4OSw0MC45MjkxOTgzIEMyMjUuNjk5MDM4LDQwLjY2OTM1MjYgMjI1LjY3MzAxMyw0MC4zNjI1MzQ3IDIyNS42NzMwMTMsNDAuMDAzNzQ3OCBDMjI1LjY3MzAxMywzOS42NDU5NjAyIDIyNS42OTkwMzgsMzkuMzM3MTQzNiAyMjUuNzUxMDg5LDM5LjA3ODI5NzMgTDIyNC4xMzA0OTksMzcuNzQ2MDg4MyBDMjI0LjAwMDM3MSwzNy42NjAxMzkzIDIyMy45NjczMzksMzcuNTQyMjA5MyAyMjQuMDMyNDAzLDM3LjM5NDI5NzEgQzIyNC4zNTc3MjIsMzYuNDQ0ODYwOSAyMjQuODkxMjQ1LDM1LjU2ODM4MTMgMjI1LjYzMzk3NCwzNC43NjY4NTcyIEMyMjUuNzM4MDc3LDM0LjY0MzkzMDIgMjI1Ljg2MjE5OCwzNC42MTI5NDg2IDIyNi4wMDUzMzksMzQuNjczOTEyNCBMMjI4LjAzNjMzMiwzNS4zNDA1MTY2IEMyMjguNTE2ODA0LDM0Ljk1Nzc0MzggMjI5LjA3NzM1NCwzNC42NDk5MjY2IDIyOS43MTU5ODEsMzQuNDE1MDY2MSBMMjMwLjEyNTM4MiwzMi40MTYyNTI4IEMyMzAuMTUxNDA4LDMyLjI2ODM0MDcgMjMwLjI0MjQ5NywzMi4xODIzOTE3IDIzMC4zOTg2NTEsMzIuMTU3NDA2NSBDMjMxLjQ2NTY5OCwzMS45NDc1MzEyIDIzMi41MzM3NDYsMzEuOTQ3NTMxMiAyMzMuNjAwNzkzLDMyLjE1NzQwNjUgQzIzMy43NTY5NDcsMzIuMTgxMzkyMyAyMzMuODQ4MDM2LDMyLjI2ODM0MDcgMjMzLjg3NDA2MSwzMi40MTYyNTI4IEwyMzQuMjgzNDYzLDM0LjQxNTA2NjEgQzIzNC44ODMwNTIsMzQuNjM3OTMzNyAyMzUuNDQyNjAxLDM0Ljk0NTc1MSAyMzUuOTYzMTEyLDM1LjM0MDUxNjYgTDIzNy45OTQxMDUsMzQuNjczOTEyNCBDMjM4LjEzNzI0NiwzNC42MTE5NDkyIDIzOC4yNjEzNjcsMzQuNjQzOTMwMiAyMzguMzY1NDcsMzQuNzY2ODU3MiBDMjM5LjEwNzE5NywzNS41NjkzODA3IDIzOS42NDA3MjEsMzYuNDQ0ODYwOSAyMzkuOTY3MDQxLDM3LjM5NDI5NzEgQzI0MC4wMzExMDQsMzcuNTQyMjA5MyAyMzkuOTk5MDczLDM3LjY2MDEzOTMgMjM5Ljg2ODk0NSwzNy43NDYwODgzIEwyMzguMjQ5MzU2LDM5LjA3ODI5NzMgTDIzOC4yNDkzNTYsMzkuMDc4Mjk3MyBaIE0yMzIsMzYuNSBDMjMwLjA2NzEyNSwzNi41IDIyOC41LDM4LjA2NzEyNSAyMjguNSw0MCBDMjI4LjUsNDEuOTMyODc1IDIzMC4wNjcxMjUsNDMuNSAyMzIsNDMuNSBDMjMzLjkzMjg3NSw0My41IDIzNS41LDQxLjkzMjg3NSAyMzUuNSw0MCBDMjM1LjUsMzguMDY3MTI1IDIzMy45MzI4NzUsMzYuNSAyMzIsMzYuNSBMMjMyLDM2LjUgWiIvPgogIDwvZz4KPC9zdmc+Cg=="
-
-/***/ },
-/* 43 */
-/***/ function(module, exports) {
-
-	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICA8cGF0aCBmaWxsPSIjOTU5OTlEIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0yMjQsMTMxIEMyMjQsMTMwLjQ0NzcxNSAyMjQuNDQ0NjMxLDEzMCAyMjUuMDAwODcyLDEzMCBMMjM4Ljk5OTEyOCwxMzAgQzIzOS41NTE4OTQsMTMwIDI0MCwxMzAuNDQzODY1IDI0MCwxMzEgQzI0MCwxMzEuNTUyMjg1IDIzOS41NTUzNjksMTMyIDIzOC45OTkxMjgsMTMyIEwyMjUuMDAwODcyLDEzMiBDMjI0LjQ0ODEwNiwxMzIgMjI0LDEzMS41NTYxMzUgMjI0LDEzMSBaIE0yMjQsMTQxIEMyMjQsMTQwLjQ0NzcxNSAyMjQuNDQ0NjMxLDE0MCAyMjUuMDAwODcyLDE0MCBMMjM4Ljk5OTEyOCwxNDAgQzIzOS41NTE4OTQsMTQwIDI0MCwxNDAuNDQzODY1IDI0MCwxNDEgQzI0MCwxNDEuNTUyMjg1IDIzOS41NTUzNjksMTQyIDIzOC45OTkxMjgsMTQyIEwyMjUuMDAwODcyLDE0MiBDMjI0LjQ0ODEwNiwxNDIgMjI0LDE0MS41NTYxMzUgMjI0LDE0MSBaIE0yMjQsMTM2IEMyMjQsMTM1LjQ0NzcxNSAyMjQuNDQ0NjMxLDEzNSAyMjUuMDAwODcyLDEzNSBMMjM4Ljk5OTEyOCwxMzUgQzIzOS41NTE4OTQsMTM1IDI0MCwxMzUuNDQzODY1IDI0MCwxMzYgQzI0MCwxMzYuNTUyMjg1IDIzOS41NTUzNjksMTM3IDIzOC45OTkxMjgsMTM3IEwyMjUuMDAwODcyLDEzNyBDMjI0LjQ0ODEwNiwxMzcgMjI0LDEzNi41NTYxMzUgMjI0LDEzNiBaIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMjI0IC0xMjgpIi8+Cjwvc3ZnPgo="
-
-/***/ },
-/* 44 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/*
-		MIT License http://www.opensource.org/licenses/mit-license.php
-		Author Tobias Koppers @sokra
-	*/
-	var stylesInDom = {},
-		memoize = function(fn) {
-			var memo;
-			return function () {
-				if (typeof memo === "undefined") memo = fn.apply(this, arguments);
-				return memo;
-			};
-		},
-		isOldIE = memoize(function() {
-			return /msie [6-9]\b/.test(window.navigator.userAgent.toLowerCase());
-		}),
-		getHeadElement = memoize(function () {
-			return document.head || document.getElementsByTagName("head")[0];
-		}),
-		singletonElement = null,
-		singletonCounter = 0,
-		styleElementsInsertedAtTop = [];
-
-	module.exports = function(list, options) {
-		if(false) {
-			if(typeof document !== "object") throw new Error("The style-loader cannot be used in a non-browser environment");
-		}
-
-		options = options || {};
-		// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
-		// tags it will allow on a page
-		if (typeof options.singleton === "undefined") options.singleton = isOldIE();
-
-		// By default, add <style> tags to the bottom of <head>.
-		if (typeof options.insertAt === "undefined") options.insertAt = "bottom";
-
-		var styles = listToStyles(list);
-		addStylesToDom(styles, options);
-
-		return function update(newList) {
-			var mayRemove = [];
-			for(var i = 0; i < styles.length; i++) {
-				var item = styles[i];
-				var domStyle = stylesInDom[item.id];
-				domStyle.refs--;
-				mayRemove.push(domStyle);
-			}
-			if(newList) {
-				var newStyles = listToStyles(newList);
-				addStylesToDom(newStyles, options);
-			}
-			for(var i = 0; i < mayRemove.length; i++) {
-				var domStyle = mayRemove[i];
-				if(domStyle.refs === 0) {
-					for(var j = 0; j < domStyle.parts.length; j++)
-						domStyle.parts[j]();
-					delete stylesInDom[domStyle.id];
-				}
-			}
-		};
-	}
-
-	function addStylesToDom(styles, options) {
-		for(var i = 0; i < styles.length; i++) {
-			var item = styles[i];
-			var domStyle = stylesInDom[item.id];
-			if(domStyle) {
-				domStyle.refs++;
-				for(var j = 0; j < domStyle.parts.length; j++) {
-					domStyle.parts[j](item.parts[j]);
-				}
-				for(; j < item.parts.length; j++) {
-					domStyle.parts.push(addStyle(item.parts[j], options));
-				}
-			} else {
-				var parts = [];
-				for(var j = 0; j < item.parts.length; j++) {
-					parts.push(addStyle(item.parts[j], options));
-				}
-				stylesInDom[item.id] = {id: item.id, refs: 1, parts: parts};
-			}
-		}
-	}
-
-	function listToStyles(list) {
-		var styles = [];
-		var newStyles = {};
-		for(var i = 0; i < list.length; i++) {
-			var item = list[i];
-			var id = item[0];
-			var css = item[1];
-			var media = item[2];
-			var sourceMap = item[3];
-			var part = {css: css, media: media, sourceMap: sourceMap};
-			if(!newStyles[id])
-				styles.push(newStyles[id] = {id: id, parts: [part]});
-			else
-				newStyles[id].parts.push(part);
-		}
-		return styles;
-	}
-
-	function insertStyleElement(options, styleElement) {
-		var head = getHeadElement();
-		var lastStyleElementInsertedAtTop = styleElementsInsertedAtTop[styleElementsInsertedAtTop.length - 1];
-		if (options.insertAt === "top") {
-			if(!lastStyleElementInsertedAtTop) {
-				head.insertBefore(styleElement, head.firstChild);
-			} else if(lastStyleElementInsertedAtTop.nextSibling) {
-				head.insertBefore(styleElement, lastStyleElementInsertedAtTop.nextSibling);
-			} else {
-				head.appendChild(styleElement);
-			}
-			styleElementsInsertedAtTop.push(styleElement);
-		} else if (options.insertAt === "bottom") {
-			head.appendChild(styleElement);
-		} else {
-			throw new Error("Invalid value for parameter 'insertAt'. Must be 'top' or 'bottom'.");
-		}
-	}
-
-	function removeStyleElement(styleElement) {
-		styleElement.parentNode.removeChild(styleElement);
-		var idx = styleElementsInsertedAtTop.indexOf(styleElement);
-		if(idx >= 0) {
-			styleElementsInsertedAtTop.splice(idx, 1);
-		}
-	}
-
-	function createStyleElement(options) {
-		var styleElement = document.createElement("style");
-		styleElement.type = "text/css";
-		insertStyleElement(options, styleElement);
-		return styleElement;
-	}
-
-	function createLinkElement(options) {
-		var linkElement = document.createElement("link");
-		linkElement.rel = "stylesheet";
-		insertStyleElement(options, linkElement);
-		return linkElement;
-	}
-
-	function addStyle(obj, options) {
-		var styleElement, update, remove;
-
-		if (options.singleton) {
-			var styleIndex = singletonCounter++;
-			styleElement = singletonElement || (singletonElement = createStyleElement(options));
-			update = applyToSingletonTag.bind(null, styleElement, styleIndex, false);
-			remove = applyToSingletonTag.bind(null, styleElement, styleIndex, true);
-		} else if(obj.sourceMap &&
-			typeof URL === "function" &&
-			typeof URL.createObjectURL === "function" &&
-			typeof URL.revokeObjectURL === "function" &&
-			typeof Blob === "function" &&
-			typeof btoa === "function") {
-			styleElement = createLinkElement(options);
-			update = updateLink.bind(null, styleElement);
-			remove = function() {
-				removeStyleElement(styleElement);
-				if(styleElement.href)
-					URL.revokeObjectURL(styleElement.href);
-			};
-		} else {
-			styleElement = createStyleElement(options);
-			update = applyToTag.bind(null, styleElement);
-			remove = function() {
-				removeStyleElement(styleElement);
-			};
-		}
-
-		update(obj);
-
-		return function updateStyle(newObj) {
-			if(newObj) {
-				if(newObj.css === obj.css && newObj.media === obj.media && newObj.sourceMap === obj.sourceMap)
-					return;
-				update(obj = newObj);
-			} else {
-				remove();
-			}
-		};
-	}
-
-	var replaceText = (function () {
-		var textStore = [];
-
-		return function (index, replacement) {
-			textStore[index] = replacement;
-			return textStore.filter(Boolean).join('\n');
-		};
-	})();
-
-	function applyToSingletonTag(styleElement, index, remove, obj) {
-		var css = remove ? "" : obj.css;
-
-		if (styleElement.styleSheet) {
-			styleElement.styleSheet.cssText = replaceText(index, css);
-		} else {
-			var cssNode = document.createTextNode(css);
-			var childNodes = styleElement.childNodes;
-			if (childNodes[index]) styleElement.removeChild(childNodes[index]);
-			if (childNodes.length) {
-				styleElement.insertBefore(cssNode, childNodes[index]);
-			} else {
-				styleElement.appendChild(cssNode);
-			}
-		}
-	}
-
-	function applyToTag(styleElement, obj) {
-		var css = obj.css;
-		var media = obj.media;
-
-		if(media) {
-			styleElement.setAttribute("media", media)
-		}
-
-		if(styleElement.styleSheet) {
-			styleElement.styleSheet.cssText = css;
-		} else {
-			while(styleElement.firstChild) {
-				styleElement.removeChild(styleElement.firstChild);
-			}
-			styleElement.appendChild(document.createTextNode(css));
-		}
-	}
-
-	function updateLink(linkElement, obj) {
-		var css = obj.css;
-		var sourceMap = obj.sourceMap;
-
-		if(sourceMap) {
-			// http://stackoverflow.com/a/26603875
-			css += "\n/*# sourceMappingURL=data:application/json;base64," + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + " */";
-		}
-
-		var blob = new Blob([css], { type: "text/css" });
-
-		var oldSrc = linkElement.href;
-
-		linkElement.href = URL.createObjectURL(blob);
-
-		if(oldSrc)
-			URL.revokeObjectURL(oldSrc);
-	}
-
+	// removed by extract-text-webpack-plugin
 
 /***/ }
 /******/ ])
