@@ -9,14 +9,16 @@
   ],
   "license": "MIT",
   "scripts": {
-    "build": "npm-run-all --parallel 'build:*'",
-    "build:lib": "webpack --config webpack.config.js",
-    "build:min": "NODE_ENV=production webpack --config webpack.config.js",
+    "build": "npm-run-all --parallel 'build:*' 'build:*:*'",
+    "build:lib": "webpack --config ./config/webpack.target.split.js",
+    "build:lib:min": "NODE_ENV=production webpack --config ./config/webpack.target.split.js",
+    "build:standalone": "webpack --config ./config/webpack.target.standalone.js",
+    "build:standalone:min": "NODE_ENV=production webpack --config ./config/webpack.target.standalone.js",
     "clean": "rm -rf ./dist",
     "lint": "standard 'src/**/*.js'",
     "prebuild": "npm-run-all lint clean",
     "prewatch": "npm-run-all clean",
-    "watch": "NODE_ENV=development webpack-dev-server --config webpack.config.js --port 8082 --display-modules --display-chunks --inline --hot --content-base public"
+    "watch": "NODE_ENV=development webpack-dev-server --config ./config/webpack.target.standalone.js  --content-base public --port 8082 --display-modules --display-chunks --inline --hot"
   },
   "devDependencies": {
     "autoprefixer": "^6.6.1",
@@ -27,6 +29,7 @@
     "css-loader": "^0.26.1",
     "css-mqpacker": "^5.0.1",
     "csswring": "^5.1.1",
+    "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.9.0",
     "json-loader": "^0.5.4",
     "npm-run-all": "^4.0.1",
