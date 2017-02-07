@@ -24,9 +24,11 @@
 }
 
 [role=banner] .coz-nav-storage .blue-spinner {
-    width: 1.5em;
-    height: 1.5em;
-    margin: -1.65em 0 0 5em;
+    position: absolute;
+    right: 1em;
+    top: 1em;
+    width: 1em;
+    height: 1em;
 }
 
 [role=banner] .cozy-nav-storage-bar {
