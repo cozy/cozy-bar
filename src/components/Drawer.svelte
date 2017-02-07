@@ -1,8 +1,14 @@
 <div ref:wrapper class='coz-drawer-wrapper' on:click='set({folded: true})'>
   <aside on:click='event.stopPropagation()'>
+    {{#if content}}
+    <nav class='coz-drawer--apps'>
+      <h1>{{t('drawer apps')}}</h1>
+      <NavigationGroup group='{{content}}' />
+    </nav>
+    {{/if}}
     <hr class='coz-sep-flex' />
     <nav>
-      {{#each groups as group}}
+      {{#each footer as group}}
       <NavigationGroup group='{{group}}' separator='top' />
       {{/each}}
     </nav>
@@ -10,6 +16,8 @@
 </div>
 
 <script>
+  import { t } from '../lib/i18n'
+
   import NavigationGroup from './NavigationGroup'
 
   let toggleDrawerObserver
@@ -43,6 +51,8 @@
 
     components: {
       NavigationGroup
-    }
+    },
+
+    helpers: { t }
   }
 </script>

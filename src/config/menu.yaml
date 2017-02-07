@@ -8,3 +8,4 @@ settings:
   -
     - label: logout
       href: /logout
+apps: false

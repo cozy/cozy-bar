@@ -6,14 +6,14 @@
   height: 100vh;
 }
 
-[role=banner] .coz-drawer-wrapper[aria-hidden=true] {
-  display: none;
-}
-
 @media (min-width: 30.0625em) {
   [role=banner] .coz-drawer-wrapper {
     display: none;
   }
+}
+
+[role=banner] .coz-drawer-wrapper[aria-hidden=true] {
+  display: none;
 }
 
 [role=banner] .coz-drawer-wrapper::before {
@@ -34,6 +34,14 @@
 }
 
 [role=banner] .coz-drawer-wrapper aside {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 90%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
   transform: translateX(-100vw);
   transition: transform 500ms ease-out;
 }
@@ -42,33 +50,13 @@
   transform: translateX(0);
 }
 
-[role=banner] .coz-drawer-wrapper aside {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 90%;
-  height: 100%;
-  background-color: #fff;
-}
-
-[role=banner] .coz-drawer-wrapper aside {
-  display: flex;
-  flex-direction: column;
-}
-
-[role=banner] .coz-drawer-wrapper ul {
-  margin: 0;
-  padding: 0;
-  list-style-type: none;
-}
-
 [role=banner] .coz-drawer-wrapper ul {
   margin: 0;
   padding: .8em 0;
   list-style-type: none;
 }
 
-[role=banner] .coz-drawer-wrapper hr {
+[role=banner] .coz-drawer-wrapper nav hr {
   margin: 0;
   border: none;
   border-bottom: solid 1px var(--silver);
@@ -76,4 +64,29 @@
 
 [role=banner] .coz-drawer-wrapper .coz-nav-icon {
   margin-right: .5em;
+}
+
+[role=banner] .coz-drawer--apps h1 {
+  margin: 1.125em 1em 0;
+  font-size: 1em;
+  text-transform: capitalize;
+}
+
+[role=banner] .coz-drawer--apps ul {
+  display: flex;
+}
+
+[role=banner] .coz-drawer--apps li a {
+  display: flex;
+  flex-direction: column;
+  padding: 1em;
+  border-radius: 2px;
+}
+
+[role=banner] .coz-drawer--apps li a:hover {
+  background-color: rgba(25, 123, 255, 0.1);
+}
+
+[role=banner] .coz-drawer--apps li img {
+  margin-bottom: 1.125em;
 }

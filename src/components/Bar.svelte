@@ -9,25 +9,54 @@
 
 <hr class='coz-sep-flex' />
 
-<Navigation sections='{{sections}}' />
+<Navigation sections='{{sections}}' on:open='onPopOpen(event.panel)' />
 
-<Drawer ref:drawer groups='{{sections[0].items}}' />
+<Drawer ref:drawer content='{{config.apps.length?config.apps[0]:false}}' footer='{{sections[1].items}}' />
 
 <script>
   import { t } from '../lib/i18n'
+  import stack from '../lib/stack'
 
   import Navigation from './Navigation'
   import Drawer from './Drawer'
 
   import MENU_CONFIG from '../config/menu'
 
+  async function updateAppsItems () {
+    try {
+      let apps = await stack.get.apps()
+      apps = [await apps.map(app => {
+        return {
+          label: app.attributes.name,
+          external: true,
+          l10n: false,
+          href: `https://${app.attributes.slug}.cozy.local/`,
+          icon: `https://${app.attributes.slug}.cozy.local/${app.attributes.icon}`
+        }
+      })]
+      this.set({ config: Object.assign({}, this.get('config'), {apps}) })
+    } catch (e) {
+      console.warn(e.message)
+    }
+  }
+
   export default {
-    data () {
+    data() {
       return {
-        sections: [{
+        config: MENU_CONFIG
+      }
+    },
+
+    computed: {
+      sections: config => {
+        return [{
+          label: 'apps',
+          icon: 'icon-cube',
+          items: config.apps
+        }, {
           label: 'settings',
           icon: 'icon-cog',
-          items: MENU_CONFIG.settings
+          items: config.settings
         }]
       }
     },
@@ -42,6 +71,12 @@
     methods: {
       toggleDrawer() {
         this.refs.drawer.set({folded: false})
+        updateAppsItems.call(this)
+      },
+      onPopOpen (panel) {
+        if (panel === 'apps') {
+          updateAppsItems.call(this)
+        }
       }
     }
   }
