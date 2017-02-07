@@ -19,6 +19,9 @@ body {
   --silver: #d6d8da;
   --slate-grey: #5d6165;
   --charcoal-grey: #32363f;
+  --cool-grey: #95999d;
+  --pale-grey: #f5f6f7;
+  --clear-blue: #297ef2;
 
   position: relative;
   z-index: 99;

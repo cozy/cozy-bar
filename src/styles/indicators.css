@@ -1,0 +1,53 @@
+/* Spinner */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}
+
+[role=banner] [aria-busy=true] {
+  position: relative;
+}
+
+[role=banner] [aria-busy=true]::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 0;
+  display: block;
+  width: 1em;
+  height: 1em;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: url("../assets/icons/spinner.svg");
+  animation: 1s linear infinite spin;
+}
+
+/* Progress bar */
+[role=banner] progress[value] {
+  /* Reset the default appearance */
+  appearance: none;
+  background-color: var(--pale-grey);
+  border: solid 1px var(--silver);
+  border-radius: 2px;
+  color: var(--clear-blue);
+}
+
+[role=banner] progress[value]::-webkit-progress-bar {
+  background: var(--pale-grey);
+  border-radius: 2px;
+}
+
+[role=banner] progress[value]::-webkit-progress-value {
+  background: var(--clear-blue);
+  border-radius: 1px;
+}
+
+[role=banner] progress[value]::-moz-progress-bar {
+  background: var(--clear-blue);
+  border-radius: 1px;
+}

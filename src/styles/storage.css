@@ -7,7 +7,7 @@
   display: flex;
   flex-direction: column;
   align-items: left;
-  color: #95999d;
+  color: var(--cool-grey);
 }
 
 [role=banner] .coz-nav-storage-text {
@@ -21,14 +21,6 @@
   font-weight: normal;
   font-size: 14px;
   color: #F52D2D;
-}
-
-[role=banner] .coz-nav-storage .blue-spinner {
-    position: absolute;
-    right: 1em;
-    top: 1em;
-    width: 1em;
-    height: 1em;
 }
 
 [role=banner] .cozy-nav-storage-bar {
