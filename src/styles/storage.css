@@ -1,0 +1,37 @@
+[role=banner] a[data-icon='icon-storage'] {
+  padding-bottom: .3em;
+}
+
+[role=banner] .coz-nav-storage {
+  margin-left: 3em;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  color: #95999d;
+}
+
+[role=banner] .coz-nav-storage-text {
+  margin: 0 0 .1em 0;
+  font-weight: normal;
+  font-size: 14px;
+}
+
+[role=banner] .coz-nav-storage-error {
+  margin: 0 0 .1em 0;
+  font-weight: normal;
+  font-size: 14px;
+  color: #F52D2D;
+}
+
+[role=banner] .coz-nav-storage .blue-spinner {
+    position: absolute;
+    right: 1em;
+    top: 1em;
+    width: 1em;
+    height: 1em;
+}
+
+[role=banner] .cozy-nav-storage-bar {
+    height: .5em;
+    margin: .2em 0 .1em 0;
+}

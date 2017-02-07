@@ -1,7 +1,12 @@
 {
+  "drawer apps": "Your apps",
+  "apps": "Apps",
   "settings": "Settings",
   "menu": "Show menu drawer",
+  "storage": "Storage",
+  "storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
   "help": "Help",
   "email": "Send an email to support",
-  "logout": "Sign out"
+  "logout": "Sign out",
+  "error_UnavailableStack": "The stack is unreachable (connection timed-out)."
 }

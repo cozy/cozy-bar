@@ -1,5 +1,10 @@
 settings:
   -
+    - label: storage
+      storage: true
+      disabled_link: true
+      currentDiskUsage: null
+  -
     - label: help
       external: true
       href: https://docs.cozy.io/
@@ -8,3 +13,4 @@ settings:
   -
     - label: logout
       href: /logout
+apps: false
