@@ -3,6 +3,7 @@ settings:
     - label: storage
       storage: true
       disabled_link: true
+      currentDiskUsage: null
   -
     - label: help
       external: true

@@ -16,6 +16,13 @@
   font-size: 14px;
 }
 
+[role=banner] .coz-nav-storage-error {
+  margin: 0 0 .1em 0;
+  font-weight: normal;
+  font-size: 14px;
+  color: #F52D2D;
+}
+
 [role=banner] .cozy-nav-storage-bar {
     height: .5em;
     margin: .2em 0 .1em 0;

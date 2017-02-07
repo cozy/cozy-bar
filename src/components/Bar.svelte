@@ -36,27 +36,28 @@
       })]
       this.set({ config: Object.assign({}, this.get('config'), {apps}) })
     } catch (e) {
-      console.warn(e.message)
+      console.error(e.message)
     }
   }
 
   async function updateDiskUsage () {
+      let currentDiskUsage
     try {
       let data = await stack.get.diskUsage()
-      const currentDiskUsage = parseInt(data.attributes.used)
-      // copy settings section to update storage item
-      const newSettings = this.get('config').settings.slice()
-      newSettings.forEach(section => {
-        let storageItem = section.find(item => item.label === 'storage')
-        if (storageItem) {
-          storageItem.currentDiskUsage = currentDiskUsage
-        }
-      })
-
-      this.set({ config: Object.assign({}, this.get('config'), {settings: newSettings}) })
+      currentDiskUsage = parseInt(data.attributes.used)
     } catch (e) {
-      console.warn(e.message)
+      console.error(e.message)
+      currentDiskUsage = { error: e.name }
     }
+    // copy settings section to update storage item
+    const newSettings = this.get('config').settings.slice()
+    newSettings.forEach(section => {
+      let storageItem = section.find(item => item.label === 'storage')
+      if (storageItem) {
+        storageItem.currentDiskUsage = currentDiskUsage
+      }
+    })
+    this.set({ config: Object.assign({}, this.get('config'), {settings: newSettings}) })
   }
 
   export default {

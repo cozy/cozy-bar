@@ -1,5 +1,5 @@
 <div class='coz-nav-storage'>
-  {{#if diskUsage}}
+  {{#if diskUsage && !diskUsage.error}}
   <p class='coz-nav-storage-text'>
     {{t('storage_phrase', {
       diskUsage: diskUsage,
@@ -10,6 +10,10 @@
     class='cozy-nav-storage-bar'
     value='{{diskUsage}}' max='{{totalStorage}}' min='0'
   />
+  {{elseif diskUsage && diskUsage.error}}
+  <p class='coz-nav-storage-error'>
+    {{t(`error_${diskUsage.error}`)}}
+  </p>
   {{/if}}
 </div>
 
@@ -28,7 +32,7 @@
         if (Number.isInteger(diskUsageFromStack)) {
             return (diskUsageFromStack/1000000000).toFixed(2)
         }
-        return false
+        return diskUsageFromStack
       }
     },
 
