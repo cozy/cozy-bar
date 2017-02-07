@@ -40,6 +40,25 @@
     }
   }
 
+  async function updateDiskUsage () {
+    try {
+      let data = await stack.get.diskUsage()
+      const currentDiskUsage = parseInt(data.attributes.used)
+      // copy settings section to update storage item
+      const newSettings = this.get('config').settings.slice()
+      newSettings.forEach(section => {
+        let storageItem = section.find(item => item.label === 'storage')
+        if (storageItem) {
+          storageItem.currentDiskUsage = currentDiskUsage
+        }
+      })
+
+      this.set({ config: Object.assign({}, this.get('config'), {settings: newSettings}) })
+    } catch (e) {
+      console.warn(e.message)
+    }
+  }
+
   export default {
     data() {
       return {
@@ -76,6 +95,8 @@
       onPopOpen (panel) {
         if (panel === 'apps') {
           updateAppsItems.call(this)
+        } else if (panel === 'settings') {
+          updateDiskUsage.call(this)
         }
       }
     }

@@ -15,7 +15,7 @@
   </a>
   {{/if}}
   {{#if item.storage}}
-  <Storage />
+    <Storage diskUsageFromStack='{{item.currentDiskUsage}}' />
   {{/if}}
 </li>
 

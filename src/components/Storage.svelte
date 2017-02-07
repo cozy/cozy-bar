@@ -1,14 +1,16 @@
 <div class='coz-nav-storage'>
+  {{#if diskUsage}}
   <p class='coz-nav-storage-text'>
     {{t('storage_phrase', {
-      currentStorage: currentStorage,
+      diskUsage: diskUsage,
       totalStorage: totalStorage
     })}}
   </p>
   <progress
     class='cozy-nav-storage-bar'
-    value='{{currentStorage}}' max='{{totalStorage}}' min='0'
+    value='{{diskUsage}}' max='{{totalStorage}}' min='0'
   />
+  {{/if}}
 </div>
 
 <script>
@@ -17,14 +19,16 @@
   export default {
     data() {
       return {
-        storageFromStack: 42083672908,
         totalStorage: 60 // TODO grab it from the cozy stack
       }
     },
 
     computed: {
-      currentStorage: (storageFromStack) => {
-        return (storageFromStack/1000000000).toFixed(2)
+      diskUsage: diskUsageFromStack => {
+        if (Number.isInteger(diskUsageFromStack)) {
+            return (diskUsageFromStack/1000000000).toFixed(2)
+        }
+        return false
       }
     },
 

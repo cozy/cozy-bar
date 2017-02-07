@@ -4,7 +4,7 @@
   "settings": "Settings",
   "menu": "Show menu drawer",
   "storage": "Storage",
-  "storage_phrase": "%{currentStorage} GB of %{totalStorage} GB used",
+  "storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
   "help": "Help",
   "email": "Send an email to support",
   "logout": "Sign out"
