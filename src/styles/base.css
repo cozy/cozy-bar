@@ -62,7 +62,7 @@ body {
 }
 
 [role=banner] [data-icon='icon-storage'] {
-  background-image: url(../assets/icons/icon-storage.svg)
+  background-image: url(../assets/icons/16/icon-storage-16.svg)
 }
 
 [role=banner] [data-icon='icon-cog'] {
