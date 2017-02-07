@@ -7,7 +7,9 @@
     <hr class='coz-sep-flex' />
     <nav>
       {{#each footer as group}}
-      <NavigationGroup group='{{group}}' separator='top' />
+        {{#if group[0].label !== 'storage'}}
+        <NavigationGroup group='{{group}}' separator='top' />
+        {{/if}}
       {{/each}}
     </nav>
   </aside>

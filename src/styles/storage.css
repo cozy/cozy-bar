@@ -23,6 +23,12 @@
   color: #F52D2D;
 }
 
+[role=banner] .coz-nav-storage .blue-spinner {
+    width: 1.5em;
+    height: 1.5em;
+    margin: -1.65em 0 0 5em;
+}
+
 [role=banner] .cozy-nav-storage-bar {
     height: .5em;
     margin: .2em 0 .1em 0;
