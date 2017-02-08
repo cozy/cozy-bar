@@ -1,5 +1,5 @@
 <li class='coz-nav-section' on:click='dispatch(event)'>
-  <a on:click='togglePop()' aria-controls='{{`coz-nav-pop--${slug}`}}' data-icon='{{icon}}'>
+  <a on:click='togglePop()' aria-controls='{{`coz-nav-pop--${slug}`}}' aria-busy='{{busy}}' data-icon='{{icon}}'>
     {{t(label)}}
   </a>
   {{#if items.length}}
@@ -26,7 +26,10 @@
       }
     },
     computed: {
-      slug: label => slug(label)
+      slug: label => slug(label),
+      busy: label => {
+        return (label  === 'apps')
+      }
     },
 
     onrender () {
