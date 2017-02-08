@@ -31,8 +31,8 @@
           label: app.attributes.name,
           external: true,
           l10n: false,
-          href: `https://${app.attributes.slug}.cozy.local/`,
-          icon: `https://${app.attributes.slug}.cozy.local/${app.attributes.icon}`
+          href: app.links.related,
+          icon: app.links.icon
         }
       })]
     } catch (e) {
