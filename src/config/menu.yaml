@@ -1,8 +1,7 @@
 settings:
   -
     - label: storage
-      storage: true
-      disabled_link: true
+      component: storage
       currentDiskUsage: null
   -
     - label: help

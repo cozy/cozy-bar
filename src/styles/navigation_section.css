@@ -44,6 +44,7 @@
 }
 
 [role=banner] .coz-nav-pop hr {
+  margin: 0;
   border: none;
   border-bottom: solid 1px var(--silver);
 }
