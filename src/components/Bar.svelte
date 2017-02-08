@@ -72,6 +72,7 @@
         return [{
           label: 'apps',
           icon: 'icon-cube',
+          async: true,
           items: config.apps
         }, {
           label: 'settings',
