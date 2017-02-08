@@ -2,11 +2,17 @@
   <a on:click='toggle()' aria-controls='{{`coz-nav-pop--${slug}`}}' aria-busy='{{busy}}' data-icon='{{icon}}'>
     {{t(label)}}
   </a>
-  {{#if items.length}}
+  {{#if items}}
   <div class='{{`coz-nav-pop coz-nav-pop--${slug}`}}' id='{{`coz-nav-pop--${slug}`}}' aria-hidden={{closed}}>
+    {{#if items.error}}
+    <p class='coz-nav--error coz-nav-group'>
+      {{t(`error_${items.error.name}`)}}
+    </p>
+    {{elseif items.length}}
     {{#each items as group}}
     <NavigationGroup group='{{group}}' separator='bottom' />
     {{/each}}
+    {{/if}}
   </div>
   {{/if}}
 </li>
@@ -81,7 +87,7 @@
 
       if (this.get('async')) {
         this.asyncObserver = this.observe('items', items => {
-          this.set({valve: false})
+          this.set({ valve: false })
         });
       }
     },
