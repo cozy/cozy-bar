@@ -11,11 +11,9 @@
     value='{{diskUsage}}' max='{{totalStorage}}' min='0'
   />
   {{elseif diskUsage && diskUsage.error}}
-  <p class='coz-nav-storage-error'>
+  <p class='coz-nav--error'>
     {{t(`error_${diskUsage.error}`)}}
   </p>
-  {{else}}
-  <div class='blue-spinner'></div>
   {{/if}}
 </div>
 

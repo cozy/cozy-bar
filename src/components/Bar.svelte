@@ -23,41 +23,45 @@
   import MENU_CONFIG from '../config/menu'
 
   async function updateAppsItems () {
+    let apps
+
     try {
-      let apps = await stack.get.apps()
-      apps = [await apps.map(app => {
+      apps = [(await stack.get.apps()).map(app => {
         return {
           label: app.attributes.name,
           external: true,
           l10n: false,
-          href: `https://${app.attributes.slug}.cozy.local/`,
-          icon: `https://${app.attributes.slug}.cozy.local/${app.attributes.icon}`
+          href: app.links.related,
+          icon: app.links.icon
         }
       })]
-      this.set({ config: Object.assign({}, this.get('config'), {apps}) })
     } catch (e) {
       console.error(e.message)
+      apps = {error: e}
     }
+
+    this.set({ config: Object.assign({}, this.get('config'), {apps}) })
   }
 
   async function updateDiskUsage () {
-      let currentDiskUsage
+    let currentDiskUsage
+
     try {
-      let data = await stack.get.diskUsage()
-      currentDiskUsage = parseInt(data.attributes.used)
+      currentDiskUsage = +(await stack.get.diskUsage()).attributes.used
     } catch (e) {
       console.error(e.message)
       currentDiskUsage = { error: e.name }
     }
+
     // copy settings section to update storage item
-    const newSettings = this.get('config').settings.slice()
-    newSettings.forEach(section => {
+    const settings = this.get('config').settings.slice()
+    settings.forEach(section => {
       let storageItem = section.find(item => item.label === 'storage')
       if (storageItem) {
         storageItem.currentDiskUsage = currentDiskUsage
       }
     })
-    this.set({ config: Object.assign({}, this.get('config'), {settings: newSettings}) })
+    this.set({ config: Object.assign({}, this.get('config'), {settings}) })
   }
 
   export default {
@@ -72,6 +76,7 @@
         return [{
           label: 'apps',
           icon: 'icon-cube',
+          async: true,
           items: config.apps
         }, {
           label: 'settings',

@@ -5,13 +5,23 @@
 
 [role=banner] .coz-nav-section [aria-controls] {
   display: flex;
-  align-items: center;
-  padding: 1.285em 1.25em;
+  align-items: baseline;
+  padding: 1.285em 1.5em;
   font-size: .875em;
   font-weight: bold;
   text-transform: uppercase;
   color: var(--slate-grey);
   cursor: pointer;
+}
+
+[role=banner] [aria-controls][aria-busy]::after {
+  position: relative;
+  top: .12em;
+  margin-left: .5em;
+}
+
+[role=banner] [aria-controls][aria-busy=true] {
+  padding-right: 0;
 }
 
 [role=banner] .coz-nav-section [aria-controls][data-icon] {
@@ -44,6 +54,7 @@
 }
 
 [role=banner] .coz-nav-pop hr {
+  margin: 0;
   border: none;
   border-bottom: solid 1px var(--silver);
 }

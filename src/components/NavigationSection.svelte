@@ -1,12 +1,18 @@
 <li class='coz-nav-section' on:click='dispatch(event)'>
-  <a on:click='togglePop()' aria-controls='{{`coz-nav-pop--${slug}`}}' data-icon='{{icon}}'>
+  <a on:click='toggle()' aria-controls='{{`coz-nav-pop--${slug}`}}' aria-busy='{{busy}}' data-icon='{{icon}}'>
     {{t(label)}}
   </a>
-  {{#if items.length}}
-  <div class='{{`coz-nav-pop coz-nav-pop--${slug}`}}' id='{{`coz-nav-pop--${slug}`}}' aria-hidden={{hidden}}>
+  {{#if items}}
+  <div class='{{`coz-nav-pop coz-nav-pop--${slug}`}}' id='{{`coz-nav-pop--${slug}`}}' aria-hidden={{closed}}>
+    {{#if items.error}}
+    <p class='coz-nav--error coz-nav-group'>
+      {{t(`error_${items.error.name}`)}}
+    </p>
+    {{elseif items.length}}
     {{#each items as group}}
     <NavigationGroup group='{{group}}' separator='bottom' />
     {{/each}}
+    {{/if}}
   </div>
   {{/if}}
 </li>
@@ -17,12 +23,57 @@
 
   import NavigationGroup from './NavigationGroup'
 
-  let clickOutsideListener
+  const BUSY_DELAY = 450
+
+  function open () {
+    let valveObserver, busyTimer
+
+    const show = () => {
+      clearTimeout(busyTimer)
+      this.set({closed: false, busy: false})
+      if (valveObserver) {
+        valveObserver.cancel()
+      }
+    }
+
+    busyTimer = setTimeout(() => {
+      this.set({busy: true})
+    }, BUSY_DELAY)
+
+    this.fire('open', { panel: this.get('label') })
+
+    if (this.get('async')) {
+      this.set({valve: true})
+      valveObserver = this.observe('valve', valve => {
+        if (!valve) {
+          setTimeout(() => { show() }, 0)
+        }
+      })
+    } else {
+      show()
+    }
+  }
+
+  function close () {
+    this.set({closed: true})
+  }
+
+
+  function toggle () {
+    const closed = this.get('closed')
+    if (closed) {
+      open.call(this)
+    } else {
+      close.call(this)
+    }
+  }
 
   export default {
     data() {
       return {
-        hidden: true
+        busy: false,
+        closed: true,
+        valve: false
       }
     },
     computed: {
@@ -30,13 +81,20 @@
     },
 
     onrender () {
-      clickOutsideListener = this._root.on('clickOutside', event => {
-        if (!event || event.source != this) { this.set({hidden: true}) }
+      this.clickOutsideListener = this._root.on('clickOutside', event => {
+        if (!event || event.source != this) { this.set({closed: true}) }
       })
+
+      if (this.get('async')) {
+        this.asyncObserver = this.observe('items', items => {
+          this.set({ valve: false })
+        });
+      }
     },
 
     onteardown () {
-      clickOutsideListener.cancel()
+      this.clickOutsideListener.cancel()
+      this.asyncObserver.cancel()
     },
 
     components: {
@@ -46,13 +104,8 @@
     helpers: { t },
 
     methods: {
-      togglePop () {
-        const hidden = !this.get('hidden')
-
-        this.set({ hidden })
-        if (!hidden) {
-          this.fire('open', { panel: this.get('label') })
-        }
+      toggle () {
+        toggle.call(this)
       },
       dispatch (event) {
         event.stopPropagation()

@@ -1,34 +1,19 @@
-[role=banner] a[data-icon='icon-storage'] {
-  padding-bottom: .3em;
+[role=banner] [role=menuitem][data-icon=icon-storage] {
+  background-position: 1.5em calc(.5em + 1px);
 }
 
 [role=banner] .coz-nav-storage {
-  margin-left: 3em;
   display: flex;
   flex-direction: column;
   align-items: left;
-  color: #95999d;
+  padding-top: .5em;
+  color: var(--cool-grey);
 }
 
 [role=banner] .coz-nav-storage-text {
   margin: 0 0 .1em 0;
   font-weight: normal;
-  font-size: 14px;
-}
-
-[role=banner] .coz-nav-storage-error {
-  margin: 0 0 .1em 0;
-  font-weight: normal;
-  font-size: 14px;
-  color: #F52D2D;
-}
-
-[role=banner] .coz-nav-storage .blue-spinner {
-    position: absolute;
-    right: 1em;
-    top: 1em;
-    width: 1em;
-    height: 1em;
+  font-size: .875em;
 }
 
 [role=banner] .cozy-nav-storage-bar {
