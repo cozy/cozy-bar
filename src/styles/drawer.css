@@ -76,14 +76,14 @@
   display: flex;
 }
 
-[role=banner] .coz-drawer--apps li a {
+[role=banner] .coz-drawer--apps [role=menuitem] {
   display: flex;
   flex-direction: column;
   padding: 1em;
   border-radius: 2px;
 }
 
-[role=banner] .coz-drawer--apps li a:hover {
+[role=banner] .coz-drawer--apps [role=menuitem]:hover {
   background-color: rgba(25, 123, 255, 0.1);
 }
 
