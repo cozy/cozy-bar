@@ -18,7 +18,8 @@
     "lint": "standard 'src/**/*.js'",
     "prebuild": "npm-run-all lint clean",
     "prewatch": "npm-run-all clean",
-    "watch": "NODE_ENV=development webpack-dev-server --config ./config/webpack.target.standalone.js  --content-base public --port 8082 --display-modules --display-chunks --inline --hot"
+    "watch": "NODE_ENV=development webpack --config ./config/webpack.target.split.js --watch --display-chunks",
+    "watch:standalone": "NODE_ENV=development webpack-dev-server --config ./config/webpack.target.standalone.js  --content-base public --port 8082 --display-modules --display-chunks --inline --hot"
   },
   "devDependencies": {
     "autoprefixer": "^6.6.1",
