@@ -13,7 +13,7 @@ const createElement = function CozyBarCreateElement () {
   return barNode
 }
 
-const injectDOM = function CozyBarInjectDOM ({lang, appName, iconPath}) {
+const injectDOM = function CozyBarInjectDOM (data) {
   if (document.getElementById('coz-bar') !== null) { return }
 
   require('./styles/index.css')
@@ -22,10 +22,19 @@ const injectDOM = function CozyBarInjectDOM ({lang, appName, iconPath}) {
   const appNode = document.querySelector('[role=application]')
   document.body.insertBefore(barNode, appNode)
 
-  bar.__view__ = new BarView({
+  return new BarView({
     target: barNode,
-    data: {lang, appName, iconPath}
+    data
   })
+}
+
+const bindEvents = function CozyBarBindEvents () {
+  this._clickOutsideListener = () => this.fire('clickOutside')
+  document.body.addEventListener('click', this._clickOutsideListener)
+}
+
+const unbindEvents = function CozyBarUnbindEvents () {
+  document.body.removeEventListener('click', this._clickOutsideListener)
 }
 
 const getDefaultStackURL = function GetDefaultCozyURL () {
@@ -52,13 +61,10 @@ const init = function CozyBarInit ({
   cozyURL = getDefaultStackURL()
 } = {}) {
   i18n(lang)
-  injectDOM({lang, appName, iconPath})
-  document.body.addEventListener('click', () => {
-    bar.__view__.fire('clickOutside')
-  })
   stack.init({cozyURL})
+  const view = injectDOM({lang, appName, iconPath})
+  bindEvents.call(view)
+  view.on('teardown', unbindEvents.bind(view))
 }
 
-const bar = { init }
-
-module.exports = bar
+module.exports = { init }
