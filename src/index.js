@@ -1,6 +1,7 @@
 'use strict'
 
 import i18n from './lib/i18n'
+import stack from './lib/stack'
 
 import BarView from './components/Bar'
 
@@ -27,6 +28,10 @@ const injectDOM = function CozyBarInjectDOM ({lang, appName, iconPath}) {
   })
 }
 
+const getDefaultStackURL = function GetDefaultCozyURL () {
+  return document.querySelector('[role=application]').dataset.cozyDomain
+}
+
 const getDefaultLang = function GetDefaultLang () {
   return document.documentElement.getAttribute('lang') || 'en'
 }
@@ -40,13 +45,18 @@ const getDefaultIcon = function GetDefaultIcon () {
   }
 }
 
-const init = function CozyBarInit ({lang = getDefaultLang(), appName, iconPath = getDefaultIcon()}) {
+const init = function CozyBarInit ({
+  lang = getDefaultLang(),
+  appName,
+  iconPath = getDefaultIcon(),
+  cozyURL = getDefaultStackURL()
+} = {}) {
   i18n(lang)
   injectDOM({lang, appName, iconPath})
   document.body.addEventListener('click', () => {
     bar.__view__.fire('clickOutside')
   })
-  console.debug('HELLO WORLD!')
+  stack.init({cozyURL})
 }
 
 const bar = { init }
