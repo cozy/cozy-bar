@@ -5,8 +5,9 @@ const path = require('path')
 module.exports = {
   entry: path.resolve(__dirname, '../src/'),
   output: {
-    library: 'cozy-bar',
-    libraryTarget: 'umd'
+    library: ['cozy', 'bar'],
+    libraryTarget: 'umd',
+    umdNamedDefine: true
   },
   resolve: {
     extensions: ['', '.js', '.svelte', '.json', '.yaml', '.css']

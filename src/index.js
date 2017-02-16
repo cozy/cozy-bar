@@ -21,7 +21,7 @@ const injectDOM = function CozyBarInjectDOM ({lang, appName, iconPath}) {
   const appNode = document.querySelector('[role=application]')
   document.body.insertBefore(barNode, appNode)
 
-  cozy.bar.__view__ = new BarView({
+  bar.__view__ = new BarView({
     target: barNode,
     data: {lang, appName, iconPath}
   })
@@ -44,24 +44,11 @@ const init = function CozyBarInit ({lang = getDefaultLang(), appName, iconPath =
   i18n(lang)
   injectDOM({lang, appName, iconPath})
   document.body.addEventListener('click', () => {
-    cozy.bar.__view__.fire('clickOutside')
+    bar.__view__.fire('clickOutside')
   })
+  console.debug('HELLO WORLD!')
 }
 
-const Cozy = window.Cozy || class Cozy {}
+const bar = { init }
 
-Object.assign(Cozy.prototype, {
-  bar: {
-    init
-  }
-})
-
-const cozy = window.cozy || new Cozy()
-
-if ((typeof window) !== 'undefined' && window.cozy == null) {
-  window.cozy = cozy
-  window.Cozy = Cozy
-}
-
-export default cozy
-export { Cozy }
+module.exports = bar
