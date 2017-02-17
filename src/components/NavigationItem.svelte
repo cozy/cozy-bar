@@ -44,8 +44,8 @@
     },
 
     components: {
-        Storage
-      },
+      Storage
+    },
 
     helpers: { t }
   }
