@@ -51,7 +51,6 @@
     "yaml-loader": "^0.4.0"
   },
   "dependencies": {
-    "node-polyglot": "^2.2.2",
-    "slug": "^0.9.1"
+    "node-polyglot": "^2.2.2"
   }
 }
