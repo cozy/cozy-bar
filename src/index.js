@@ -18,6 +18,12 @@ const injectDOM = function CozyBarInjectDOM (data) {
 
   require('./styles/index.css')
 
+  try {
+    document.matches('[role=foo]')
+  } catch (e) {
+    return console.warn("Cozy-bar is looking for a `[role=application]` tag that contains your application and can't find it :'(… The BAR is now disabled")
+  }
+
   const barNode = createElement()
   const appNode = document.querySelector('[role=application]')
   document.body.insertBefore(barNode, appNode)
@@ -63,8 +69,11 @@ const init = function CozyBarInit ({
   i18n(lang)
   stack.init({cozyURL})
   const view = injectDOM({lang, appName, iconPath})
-  bindEvents.call(view)
-  view.on('teardown', unbindEvents.bind(view))
+
+  if (view) {
+    bindEvents.call(view)
+    view.on('teardown', unbindEvents.bind(view))
+  }
 }
 
 module.exports = { init }
