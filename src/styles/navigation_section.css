@@ -63,18 +63,19 @@
   display: none;
 }
 
-[role=banner] .coz-nav-pop--apps .coz-nav-group {
+/* coz-nav-pop--apps label is hashed coz-nav-pop--1612761714 */
+[role=banner] .coz-nav-pop--1612761714 .coz-nav-group {
   display: flex;
   padding: 0.75em;
 }
 
-[role=banner] .coz-nav-pop--apps .coz-nav-group a {
+[role=banner] .coz-nav-pop--1612761714 .coz-nav-group a {
   display: flex;
   flex-direction: column;
   padding: 1.25em;
 }
 
-[role=banner] .coz-nav-pop--apps .coz-nav-group a img {
+[role=banner] .coz-nav-pop--1612761714 .coz-nav-group a img {
   margin-bottom: .75em;
 }
 

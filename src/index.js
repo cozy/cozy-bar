@@ -1,6 +1,7 @@
 'use strict'
 
 import i18n from './lib/i18n'
+import stack from './lib/stack'
 
 import BarView from './components/Bar'
 
@@ -12,19 +13,38 @@ const createElement = function CozyBarCreateElement () {
   return barNode
 }
 
-const injectDOM = function CozyBarInjectDOM ({lang, appName, iconPath}) {
+const injectDOM = function CozyBarInjectDOM (data) {
   if (document.getElementById('coz-bar') !== null) { return }
 
   require('./styles/index.css')
+
+  try {
+    document.matches('[role=foo]')
+  } catch (e) {
+    return console.warn("Cozy-bar is looking for a `[role=application]` tag that contains your application and can't find it :'(… The BAR is now disabled")
+  }
 
   const barNode = createElement()
   const appNode = document.querySelector('[role=application]')
   document.body.insertBefore(barNode, appNode)
 
-  bar.__view__ = new BarView({
+  return new BarView({
     target: barNode,
-    data: {lang, appName, iconPath}
+    data
   })
+}
+
+const bindEvents = function CozyBarBindEvents () {
+  this._clickOutsideListener = () => this.fire('clickOutside')
+  document.body.addEventListener('click', this._clickOutsideListener)
+}
+
+const unbindEvents = function CozyBarUnbindEvents () {
+  document.body.removeEventListener('click', this._clickOutsideListener)
+}
+
+const getDefaultStackURL = function GetDefaultCozyURL () {
+  return document.querySelector('[role=application]').dataset.cozyDomain
 }
 
 const getDefaultLang = function GetDefaultLang () {
@@ -40,15 +60,20 @@ const getDefaultIcon = function GetDefaultIcon () {
   }
 }
 
-const init = function CozyBarInit ({lang = getDefaultLang(), appName, iconPath = getDefaultIcon()}) {
+const init = function CozyBarInit ({
+  lang = getDefaultLang(),
+  appName,
+  iconPath = getDefaultIcon(),
+  cozyURL = getDefaultStackURL()
+} = {}) {
   i18n(lang)
-  injectDOM({lang, appName, iconPath})
-  document.body.addEventListener('click', () => {
-    bar.__view__.fire('clickOutside')
-  })
-  console.debug('HELLO WORLD!')
+  stack.init({cozyURL})
+  const view = injectDOM({lang, appName, iconPath})
+
+  if (view) {
+    bindEvents.call(view)
+    view.on('teardown', unbindEvents.bind(view))
+  }
 }
 
-const bar = { init }
-
-module.exports = bar
+module.exports = { init }

@@ -3,14 +3,11 @@
 const path = require('path')
 const merge = require('webpack-merge')
 const {filename, production} = require('./webpack.vars')
-const baseConfig = require('./webpack.config.base.js')
-const productionConfig = require('./webpack.config.prod')
-const extractConfig = require('./webpack.config.extract')
 
 module.exports = merge(
-  baseConfig,
-  production ? productionConfig : {},
-  extractConfig,
+  require('./webpack.config.base.js'),
+  require(production ? './webpack.config.prod' : './webpack.config.dev'),
+  require('./webpack.config.extract'),
   {
     output: {
       filename: filename('js'),

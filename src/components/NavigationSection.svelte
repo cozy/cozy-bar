@@ -1,9 +1,9 @@
 <li class='coz-nav-section' on:click='dispatch(event)'>
-  <a on:click='toggle()' aria-controls='{{`coz-nav-pop--${slug}`}}' aria-busy='{{busy}}' data-icon='{{icon}}'>
+  <a on:click='toggle()' aria-controls='{{`coz-nav-pop--${hash}`}}' aria-busy='{{busy}}' data-icon='{{icon}}'>
     {{t(label)}}
   </a>
   {{#if items}}
-  <div class='{{`coz-nav-pop coz-nav-pop--${slug}`}}' id='{{`coz-nav-pop--${slug}`}}' aria-hidden={{closed}}>
+  <div class='{{`coz-nav-pop coz-nav-pop--${hash}`}}' id='{{`coz-nav-pop--${hash}`}}' aria-hidden={{closed}}>
     {{#if items.error}}
     <p class='coz-nav--error coz-nav-group'>
       {{t(`error_${items.error.name}`)}}
@@ -18,7 +18,6 @@
 </li>
 
 <script>
-  import slug from 'slug'
   import { t } from '../lib/i18n'
 
   import NavigationGroup from './NavigationGroup'
@@ -77,7 +76,7 @@
       }
     },
     computed: {
-      slug: label => slug(label)
+      hash: label => Math.abs([].reduce.call(label, (hash, char) => char.charCodeAt(0) + (hash << 5) + (hash << 16) - hash, 0))
     },
 
     onrender () {
