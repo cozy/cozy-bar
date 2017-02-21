@@ -18,14 +18,13 @@ const injectDOM = function CozyBarInjectDOM (data) {
 
   require('./styles/index.css')
 
-  try {
-    document.matches('[role=foo]')
-  } catch (e) {
-    return console.warn("Cozy-bar is looking for a `[role=application]` tag that contains your application and can't find it :'(… The BAR is now disabled")
+  const selector = '[role=application]'
+  const barNode = createElement()
+  const appNode = document.querySelector(selector)
+  if (!appNode) {
+    return console.warn("Cozy-bar is looking for a `" + selector + "` tag that contains your application and can't find it :'(… The BAR is now disabled")
   }
 
-  const barNode = createElement()
-  const appNode = document.querySelector('[role=application]')
   document.body.insertBefore(barNode, appNode)
 
   return new BarView({
