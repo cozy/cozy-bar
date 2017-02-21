@@ -22,7 +22,7 @@ const injectDOM = function CozyBarInjectDOM (data) {
   const barNode = createElement()
   const appNode = document.querySelector(selector)
   if (!appNode) {
-    return console.warn("Cozy-bar is looking for a `" + selector + "` tag that contains your application and can't find it :'(… The BAR is now disabled")
+    return console.warn(`Cozy-bar is looking for a "${selector}" tag that contains your application and can't find it :'(… The BAR is now disabled`)
   }
 
   document.body.insertBefore(barNode, appNode)
