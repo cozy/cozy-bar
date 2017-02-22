@@ -15,7 +15,7 @@ const init = function I18nInit (lang) {
       polyglot.extend(dict)
       polyglot.locale(lang)
     } catch (e) {
-      console.warning(`The dict phrases for "${lang}" can't be loaded`)
+      console.warn(`The dict phrases for "${lang}" can't be loaded`)
     }
   }
 }
