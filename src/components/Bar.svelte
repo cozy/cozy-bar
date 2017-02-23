@@ -22,19 +22,23 @@
 
   import MENU_CONFIG from '../config/menu'
 
+  const EXCLUDES = ['settings']
+
   async function updateAppsItems () {
     let apps
 
     try {
-      apps = [(await stack.get.apps()).map(app => {
-        return {
-          label: app.attributes.name,
-          external: true,
-          l10n: false,
-          href: app.links.related,
-          icon: app.links.icon
-        }
-      })]
+      apps = [(await stack.get.apps())
+        .filter(app => !EXCLUDES.includes(app.attributes.slug))
+        .map(app => {
+          return {
+            label: app.attributes.name,
+            l10n: false,
+            href: app.links.related,
+            icon: app.links.icon
+          }
+        })
+      ]
     } catch (e) {
       console.error(e.message)
       apps = {error: e}
