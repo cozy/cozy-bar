@@ -1,6 +1,8 @@
 'use strict'
 
 const path = require('path')
+const webpack = require('webpack')
+const pkg = require('../package.json')
 
 module.exports = {
   entry: path.resolve(__dirname, '../src/'),
@@ -38,5 +40,10 @@ module.exports = {
         loader: 'url-loader'
       }
     ]
-  }
+  },
+  plugins: [
+    new webpack.DefinePlugin({
+      __VERSION__: JSON.stringify(pkg.version)
+    })
+  ]
 }
