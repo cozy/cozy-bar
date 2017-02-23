@@ -16,8 +16,9 @@
     "build:standalone:min": "NODE_ENV=production webpack --config ./config/webpack.target.standalone.js",
     "clean": "rm -rf ./dist",
     "lint": "standard 'src/**/*.js'",
-    "prebuild": "npm-run-all lint clean",
+    "prebuild": "npm-run-all lint clean tx",
     "prewatch": "npm-run-all clean",
+    "tx": "tx pull --all || true",
     "watch": "NODE_ENV=development webpack --config ./config/webpack.target.split.js --watch --display-chunks",
     "watch:standalone": "NODE_ENV=development webpack-dev-server --config ./config/webpack.target.standalone.js  --content-base public --port 8082 --display-modules --display-chunks --inline --hot"
   },
