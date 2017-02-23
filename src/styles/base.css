@@ -22,29 +22,15 @@ body {
   --cool-grey: #95999d;
   --pale-grey: #f5f6f7;
   --clear-blue: #297ef2;
-
-  position: relative;
-  z-index: 99;
-  flex-shrink: 0;
-  display: flex;
-  align-items: stretch;
-  padding: 0 1.25em 0 1em;
-  box-shadow: inset 0 -1px 0 0 var(--silver);
-  font-family: Lato, sans-serif;
-  font-size: 1rem;
 }
 
-@media (max-width: 30em) {
-  [role=banner] {
-    padding: 0 1em 0 0;
-  }
-}
 
 [role=banner] .coz-sep-flex {
   margin: 0;
   border: none;
   flex: 1 0;
 }
+
 
 [role=banner] [data-icon] {
   background-repeat: no-repeat;

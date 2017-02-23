@@ -1,6 +1,8 @@
+{{#if target !== 'mobile'}}
 <button class='coz-bar-burger' on:click='toggleDrawer()' data-icon='icon-hamburger'>
   {{t('menu')}}
 </button>
+{{/if}}
 
 <h1 class='coz-bar-title'>
   <img class='coz-bar-hide-sm' src='{{iconPath}}' width='32' />
@@ -11,7 +13,9 @@
 
 <Navigation sections='{{sections}}' on:open='onPopOpen(event.panel)' />
 
+{{#if target !== 'mobile'}}
 <Drawer ref:drawer content='{{config.apps.length?config.apps[0]:false}}' footer='{{sections[1].items}}' />
+{{/if}}
 
 <script>
   import { t } from '../lib/i18n'
@@ -71,6 +75,7 @@
   export default {
     data() {
       return {
+        target: __TARGET__,
         config: MENU_CONFIG
       }
     },

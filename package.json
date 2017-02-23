@@ -14,6 +14,8 @@
     "build:lib:min": "NODE_ENV=production webpack --config ./config/webpack.target.split.js",
     "build:standalone": "webpack --config ./config/webpack.target.standalone.js",
     "build:standalone:min": "NODE_ENV=production webpack --config ./config/webpack.target.standalone.js",
+    "build:mobile": "webpack --config ./config/webpack.target.mobile.js",
+    "build:mobile:min": "NODE_ENV=production webpack --config ./config/webpack.target.mobile.js",
     "clean": "rm -rf ./dist",
     "lint": "standard 'src/**/*.js'",
     "prebuild": "npm-run-all lint clean tx",

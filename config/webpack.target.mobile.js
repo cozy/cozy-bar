@@ -11,12 +11,12 @@ module.exports = merge(
   require('./webpack.config.inline-styles.js'),
   {
     output: {
-      filename: filename('js', 'standalone'),
+      filename: filename('js', 'mobile'),
       path: path.resolve(__dirname, '../dist')
     },
     plugins: [
       new webpack.DefinePlugin({
-        __TARGET__: JSON.stringify('browser')
+        __TARGET__: JSON.stringify('mobile')
       })
     ]
   }

@@ -1,6 +1,7 @@
 'use strict'
 
 const path = require('path')
+const webpack = require('webpack')
 const merge = require('webpack-merge')
 const {filename, production} = require('./webpack.vars')
 
@@ -12,6 +13,11 @@ module.exports = merge(
     output: {
       filename: filename('js'),
       path: path.resolve(__dirname, '../dist')
-    }
+    },
+    plugins: [
+      new webpack.DefinePlugin({
+        __TARGET__: JSON.stringify('browser')
+      })
+    ]
   }
 )
