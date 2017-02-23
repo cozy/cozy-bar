@@ -1,3 +1,5 @@
+/* global __TARGET__, __VERSION__ */
+
 'use strict'
 
 import i18n from './lib/i18n'
@@ -9,6 +11,7 @@ const createElement = function CozyBarCreateElement () {
   const barNode = document.createElement('div')
   barNode.setAttribute('id', 'coz-bar')
   barNode.setAttribute('role', 'banner')
+  barNode.classList.add(`coz-target--${__TARGET__}`)
 
   return barNode
 }
@@ -75,4 +78,4 @@ const init = function CozyBarInit ({
   }
 }
 
-module.exports = { init }
+module.exports = { init, version: __VERSION__ }
