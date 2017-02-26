@@ -1,6 +1,6 @@
 [role=banner] {
   position: relative;
-  z-index: 99;
+  z-index: 20;
   min-height: 2.5em;
   flex-shrink: 0;
   display: flex;
