@@ -153,7 +153,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 	};
 	
-	module.exports = { init: init, version: ("3.0.0-beta7") };
+	module.exports = { init: init, version: ("3.0.0-beta9") };
 
 /***/ },
 /* 1 */
