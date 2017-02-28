@@ -15,6 +15,7 @@ const fetchOptions = {
 }
 
 let COZY_URL = __SERVER__
+let COZY_TOKEN
 
 async function getApps () {
   try {
@@ -45,8 +46,9 @@ async function hasApp (slug) {
 }
 
 module.exports = {
-  init ({cozyURL}) {
+  init ({cozyURL, token}) {
     COZY_URL = `//${cozyURL}`
+    COZY_TOKEN = token
   },
   has: {
     async settings () {
@@ -66,6 +68,19 @@ module.exports = {
         throw new UnavailableSettingsException()
       }
       return settings ? settings.links.related : false
+    }
+  },
+  async logout () {
+    try {
+      const options = Object.assign({}, fetchOptions, {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${COZY_TOKEN}`
+        }
+      })
+      const response = await fetch(`${COZY_URL}/auth/login`, options)
+    } catch (e) {
+      throw new UnavailableStackException()
     }
   }
 }
