@@ -36,7 +36,7 @@
         .filter(app => !EXCLUDES.includes(app.attributes.slug))
         .map(app => {
           return {
-            label: app.attributes.name,
+            slug: app.attributes.slug,
             l10n: false,
             href: app.links.related,
             icon: app.links.icon
@@ -64,7 +64,7 @@
     // copy settings section to update storage item
     const settings = this.get('config').settings.slice()
     settings.forEach(section => {
-      let storageItem = section.find(item => item.label === 'storage')
+      let storageItem = section.find(item => item.slug === 'storage')
       if (storageItem) {
         storageItem.currentDiskUsage = currentDiskUsage
       }
@@ -83,12 +83,12 @@
     computed: {
       sections: config => {
         return [{
-          label: 'apps',
+          slug: 'apps',
           icon: 'icon-cube',
           async: true,
           items: config.apps
         }, {
-          label: 'settings',
+          slug: 'settings',
           icon: 'icon-cog',
           items: config.settings
         }]

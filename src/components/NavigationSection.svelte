@@ -1,6 +1,6 @@
 <li class='coz-nav-section' on:click='dispatch(event)'>
   <a on:click='toggle()' aria-controls='{{`coz-nav-pop--${hash}`}}' aria-busy='{{busy}}' data-icon='{{icon}}'>
-    {{t(label)}}
+    {{label}}
   </a>
   {{#if items}}
   <div class='{{`coz-nav-pop coz-nav-pop--${hash}`}}' id='{{`coz-nav-pop--${hash}`}}' aria-hidden={{closed}}>
@@ -39,7 +39,7 @@
       this.set({busy: true})
     }, BUSY_DELAY)
 
-    this.fire('open', { panel: this.get('label') })
+    this.fire('open', { panel: this.get('slug') })
 
     if (this.get('async')) {
       this.set({valve: true})
@@ -76,7 +76,8 @@
       }
     },
     computed: {
-      hash: label => Math.abs([].reduce.call(label, (hash, char) => char.charCodeAt(0) + (hash << 5) + (hash << 16) - hash, 0))
+      hash: slug => Math.abs([].reduce.call(slug, (hash, char) => char.charCodeAt(0) + (hash << 5) + (hash << 16) - hash, 0)),
+      label: slug => t(slug)
     },
 
     onrender () {

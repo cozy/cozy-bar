@@ -46,11 +46,11 @@
         }
       },
       dataIcon: item => {
-        if (!item.icon) { return `icon-${item.label}` }
+        if (!item.icon) { return `icon-${item.slug}` }
       },
       label: item => {
-        if (item.l10n == null || item.l10n) { return t(item.label) }
-        else { return item.label }
+        if (item.l10n == null || item.l10n) { return t(item.slug) }
+        else { return item.slug }
       }
     },
 

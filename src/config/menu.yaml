@@ -1,15 +1,15 @@
 settings:
   -
-    - label: storage
+    - slug: storage
       component: storage
       currentDiskUsage: null
   -
-    - label: help
+    - slug: help
       external: true
       href: https://docs.cozy.io/
-    - label: email
+    - slug: email
       href: mailto:contact@cozycloud.cc
   -
-    - label: logout
+    - slug: logout
       href: /logout
-apps: false
+apps: []
