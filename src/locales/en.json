@@ -3,6 +3,8 @@
   "apps": "Apps",
   "settings": "Settings",
   "menu": "Show menu drawer",
+  "profile": "Profile",
+  "connectedDevices": "Connected devices",
   "storage": "Storage",
   "storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
   "help": "Help",

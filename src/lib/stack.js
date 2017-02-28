@@ -30,6 +30,9 @@ module.exports = {
         throw new UnavailableStackException()
       }
     },
+    async settingsBaseURI () {
+      return (await this.apps()).find(item => item.attributes.slug === 'settings').links.related
+    },
     async diskUsage () {
       try {
         const response = await fetch(`${COZY_URL}/settings/disk-usage`, fetchOptions)

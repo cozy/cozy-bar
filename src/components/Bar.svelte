@@ -51,6 +51,13 @@
     this.set({ config: Object.assign({}, this.get('config'), {apps}) })
   }
 
+  async function updateSettingsURIs () {
+    const baseURI = await stack.get.settingsBaseURI()
+
+    // Assume all Settings' links are all located in first index
+    this.get('config').settings[0].map(item => item.href = `${baseURI}#${item.href}`)
+  }
+
   async function updateDiskUsage () {
     let currentDiskUsage
 
@@ -111,6 +118,7 @@
         if (panel === 'apps') {
           updateAppsItems.call(this)
         } else if (panel === 'settings') {
+          updateSettingsURIs.call(this)
           updateDiskUsage.call(this)
         }
       }

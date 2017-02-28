@@ -1,5 +1,10 @@
 settings:
   -
+    - slug: profile
+      href: /profile
+    - slug: connectedDevices
+      href: /connectedDevices
+  -
     - slug: storage
       component: storage
       currentDiskUsage: null
