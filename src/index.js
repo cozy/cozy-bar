@@ -2,6 +2,8 @@
 
 'use strict'
 
+import 'babel-polyfill'
+
 import i18n from './lib/i18n'
 import stack from './lib/stack'
 

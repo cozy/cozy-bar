@@ -2,14 +2,12 @@
   <aside on:click='event.stopPropagation()'>
     <nav class='coz-drawer--apps'>
       <h1>{{t('drawer apps')}}</h1>
-      <NavigationGroup group='{{content||[]}}' />
+      <NavigationGroup group='{{content}}' />
     </nav>
     <hr class='coz-sep-flex' />
     <nav>
       {{#each footer as group}}
-        {{#if group[0].label !== 'storage'}}
         <NavigationGroup group='{{group}}' separator='top' />
-        {{/if}}
       {{/each}}
     </nav>
   </aside>

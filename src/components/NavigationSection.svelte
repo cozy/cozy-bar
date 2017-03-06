@@ -2,17 +2,19 @@
   <a on:click='toggle()' aria-controls='{{`coz-nav-pop--${hash}`}}' aria-busy='{{busy}}' data-icon='{{icon}}'>
     {{label}}
   </a>
-  {{#if items}}
+  {{#if items && items.length}}
   <div class='{{`coz-nav-pop coz-nav-pop--${hash}`}}' id='{{`coz-nav-pop--${hash}`}}' aria-hidden={{closed}}>
-    {{#if items.error}}
+  {{#if items[0].error}}
     <p class='coz-nav--error coz-nav-group'>
       {{t(`error_${items.error.name}`)}}
     </p>
-    {{elseif items.length}}
+  {{elseif grouped}}
     {{#each items as group}}
     <NavigationGroup group='{{group}}' separator='bottom' />
     {{/each}}
-    {{/if}}
+  {{else}}
+    <NavigationGroup group='{{items}}' />
+  {{/if}}
   </div>
   {{/if}}
 </li>
@@ -77,7 +79,8 @@
     },
     computed: {
       hash: slug => Math.abs([].reduce.call(slug, (hash, char) => char.charCodeAt(0) + (hash << 5) + (hash << 16) - hash, 0)),
-      label: slug => t(slug)
+      label: slug => t(slug),
+      grouped: items => items[0] instanceof Array
     },
 
     onrender () {

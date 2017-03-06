@@ -11,15 +11,16 @@
 
 <hr class='coz-sep-flex' />
 
-<Navigation sections='{{sections}}' on:open='onPopOpen(event.panel)' />
+<Navigation sections='{{config.sections.bar}}' on:open='onPopOpen(event.panel)' />
 
 {{#if target !== 'mobile'}}
-<Drawer ref:drawer content='{{config.apps.length?config.apps[0]:false}}' footer='{{sections[1].items}}' />
+<Drawer ref:drawer content='{{config.apps}}' footer='{{config.sections.drawer}}' />
 {{/if}}
 
 <script>
   import { t } from '../lib/i18n'
   import stack from '../lib/stack'
+  import { UnavailableSettingsException } from '../lib/exceptions'
 
   import Navigation from './Navigation'
   import Drawer from './Drawer'
@@ -30,32 +31,29 @@
 
   async function updateAppsItems () {
     let apps
+    const config = this.get('config')
 
     try {
-      apps = [(await stack.get.apps())
-        .filter(app => !EXCLUDES.includes(app.attributes.slug))
-        .map(app => {
-          return {
-            slug: app.attributes.slug,
-            l10n: false,
-            href: app.links.related,
-            icon: app.links.icon
-          }
-        })
-      ]
+      apps = (await stack.get.apps())
+      .filter(app => !EXCLUDES.includes(app.attributes.slug))
+      .map(app => {
+        return {
+          slug: app.attributes.slug,
+          l10n: false,
+          href: app.links.related,
+          icon: app.links.icon
+        }
+      })
     } catch (e) {
       console.error(e.message)
-      apps = {error: e}
+      apps = [{error: e}]
     }
 
-    this.set({ config: Object.assign({}, this.get('config'), {apps}) })
-  }
+    config.apps.length = 0
+    Array.prototype.push.apply(config.apps, apps)
 
-  async function updateSettingsURIs () {
-    const baseURI = await stack.get.settingsBaseURI()
-
-    // Assume all Settings' links are all located in first index
-    this.get('config').settings[0].map(item => item.href = `${baseURI}#${item.href}`)
+    /** Ugly hack to force re-render by triggering `set` method on config */
+    this.set({ config })
   }
 
   async function updateDiskUsage () {
@@ -68,37 +66,73 @@
       currentDiskUsage = { error: e.name }
     }
 
-    // copy settings section to update storage item
-    const settings = this.get('config').settings.slice()
-    settings.forEach(section => {
-      let storageItem = section.find(item => item.slug === 'storage')
-      if (storageItem) {
-        storageItem.currentDiskUsage = currentDiskUsage
+    this.get('config').components.storage.currentDiskUsage = currentDiskUsage
+
+    /** Ugly hack to force re-render by triggering `set` method on config */
+    this.set({ config: this.get('config') })
+  }
+
+  /**
+   * Replace in the given tree the base URIs for settings' app items
+   * @param  {Object}  tree The JSON defined menu entries
+   * @return {Promise}      The parsed tree
+   */
+  async function updateSettingsURIs (items) {
+    try {
+      const baseURI = await stack.get.settingsBaseURI()
+      items.forEach(item => item.href = `${baseURI}#${item.href}`)
+    } catch (e) {
+      console.warn(e.message)
+    }
+    return items
+  }
+
+  /**
+   * This function parse a root node from a JSON definition tree (aka 'menu')
+   * and recursively replace string definitions `_.(group).(entry)` (e.g.
+   * `_.components.storage`) with a pointer to the given object in the tree
+   * (here, `tree[components][entry]`)
+   *
+   * @param  {Object} tree                  The tree containing root node and
+   *                                        definitions
+   * @param  {String} [rootItem='settings'] The root node to parse
+   * @return {Object}                       The parsed tree containing pointers
+   */
+  function createMenuPointers (tree) {
+    const clone = Object.assign({}, tree)
+
+    function parse (item) {
+      let path
+
+      if (!item) { return undefined }
+
+      if (item.map) {
+        return item.map(parse)
+      } else if (item.match && (path = item.match(/_\.(\w+)(?:\.(\w+))?/i))) {
+        if (path[2]) {
+          return clone[path[1]][path[2]]
+        } else {
+          return clone[path[1]]
+        }
+      } else if (item === Object(item)) {
+        Object.keys(item).forEach(key => item[key] = parse(item[key]))
+        return item
+      } else {
+        return item
       }
-    })
-    this.set({ config: Object.assign({}, this.get('config'), {settings}) })
+    }
+
+    return parse(clone)
   }
 
   export default {
     data() {
+      const config = createMenuPointers(MENU_CONFIG)
+      config.subsections.settings = updateSettingsURIs(config.subsections.settings)
+
       return {
         target: __TARGET__,
-        config: MENU_CONFIG
-      }
-    },
-
-    computed: {
-      sections: config => {
-        return [{
-          slug: 'apps',
-          icon: 'icon-cube',
-          async: true,
-          items: config.apps
-        }, {
-          slug: 'settings',
-          icon: 'icon-cog',
-          items: config.settings
-        }]
+        config
       }
     },
 
@@ -118,7 +152,6 @@
         if (panel === 'apps') {
           updateAppsItems.call(this)
         } else if (panel === 'settings') {
-          updateSettingsURIs.call(this)
           updateDiskUsage.call(this)
         }
       }
