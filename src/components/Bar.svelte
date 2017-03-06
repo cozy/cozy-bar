@@ -14,7 +14,7 @@
 <Navigation sections='{{config.sections.bar}}' on:open='onPopOpen(event.panel)' />
 
 {{#if target !== 'mobile'}}
-<Drawer ref:drawer content='{{config.apps}}' footer='{{config.sections.drawer}}' />
+<Drawer content='{{config.apps}}' footer='{{config.sections.drawer}}' visible={{drawerVisible}} on:close='toggleDrawer(true)'/>
 {{/if}}
 
 <script>
@@ -143,7 +143,8 @@
     data () {
       return {
         target: __TARGET__,
-        config: createMenuPointers(MENU_CONFIG)
+        config: createMenuPointers(MENU_CONFIG),
+        drawerVisible: false
       }
     },
 
@@ -160,9 +161,12 @@
     helpers: { t },
 
     methods: {
-      toggleDrawer() {
-        this.refs.drawer.set({folded: false})
-        this.updateApps()
+      toggleDrawer(force) {
+        const toggle = force ? false : !this.get('drawerVisible')
+
+        if (toggle) { this.updateApps() }
+
+        this.set({drawerVisible: toggle})
       },
       onPopOpen (panel) {
         switch (panel) {
