@@ -41,7 +41,7 @@ async function getApp (slug) {
 }
 
 async function hasApp (slug) {
-  return !!getApp(slug)
+  return !!(await getApp(slug))
 }
 
 module.exports = {

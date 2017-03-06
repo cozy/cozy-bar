@@ -18,6 +18,9 @@
 {{/if}}
 
 <script>
+  import deepClone from 'deep-clone'
+  import deepEqual from 'deep-equal'
+
   import { t } from '../lib/i18n'
   import stack from '../lib/stack'
   import { UnavailableSettingsException } from '../lib/exceptions'
@@ -30,8 +33,8 @@
   const EXCLUDES = ['settings']
 
   async function updateAppsItems () {
-    let apps
     const config = this.get('config')
+    let apps
 
     try {
       apps = (await stack.get.apps())
@@ -51,12 +54,10 @@
 
     config.apps.length = 0
     Array.prototype.push.apply(config.apps, apps)
-
-    /** Ugly hack to force re-render by triggering `set` method on config */
-    this.set({ config })
   }
 
   async function updateDiskUsage () {
+    const config = this.get('config')
     let currentDiskUsage
 
     try {
@@ -66,10 +67,26 @@
       currentDiskUsage = { error: e.name }
     }
 
-    this.get('config').components.storage.currentDiskUsage = currentDiskUsage
+    config.components.storage.currentDiskUsage = currentDiskUsage
+  }
 
-    /** Ugly hack to force re-render by triggering `set` method on config */
-    this.set({ config: this.get('config') })
+  /**
+   * Add / Remove settings' links items regarding the status of
+   * the `settings` app
+   * @return {Promise}
+   */
+  async function toggleSettingsItems () {
+    const config = this.get('config')
+
+    // We reset the settings' links array
+    config.subsections.settings.length = 0
+
+    // If the `settings` app is available, we restore links from the root
+    // MENU_CONFIG tree, updating the links' URLs with the app URI at same time.
+    if (await stack.has.settings()) {
+      const items = await updateSettingsURIs(MENU_CONFIG.subsections.settings)
+      Array.prototype.push.apply(config.subsections.settings, items)
+    }
   }
 
   /**
@@ -80,15 +97,14 @@
   async function updateSettingsURIs (items) {
     try {
       const baseURI = await stack.get.settingsBaseURI()
-      items.forEach(item => item.href = `${baseURI}#${item.href}`)
+      return items.map(item => Object.assign({}, item, {href: `${baseURI}#${item.href}`}))
     } catch (e) {
       console.warn(e.message)
     }
-    return items
   }
 
   /**
-   * This function parse a root node from a JSON definition tree (aka 'menu')
+   * Clone and parse a root node from a JSON definition tree (aka 'menu')
    * and recursively replace string definitions `_.(group).(entry)` (e.g.
    * `_.components.storage`) with a pointer to the given object in the tree
    * (here, `tree[components][entry]`)
@@ -99,41 +115,41 @@
    * @return {Object}                       The parsed tree containing pointers
    */
   function createMenuPointers (tree) {
-    const clone = Object.assign({}, tree)
-
-    function parse (item) {
+    function parse (value, index, array) {
       let path
 
-      if (!item) { return undefined }
+      if (!value) { return }
 
-      if (item.map) {
-        return item.map(parse)
-      } else if (item.match && (path = item.match(/_\.(\w+)(?:\.(\w+))?/i))) {
+      if (Array.isArray(value)) {
+        value.forEach(parse)
+      } else if (value === Object(value)) {
+        Object.keys(value).forEach(key => parse(value[key], key, value))
+      } else if (value.match && (path = value.match(/_\.(\w+)(?:\.(\w+))?/i))) {
         if (path[2]) {
-          return clone[path[1]][path[2]]
+          array[index] = clone[path[1]][path[2]]
         } else {
-          return clone[path[1]]
+          array[index] = clone[path[1]]
         }
-      } else if (item === Object(item)) {
-        Object.keys(item).forEach(key => item[key] = parse(item[key]))
-        return item
-      } else {
-        return item
       }
     }
 
-    return parse(clone)
+    const clone = deepClone(tree)
+    parse(clone)
+
+    return clone
   }
 
   export default {
-    data() {
-      const config = createMenuPointers(MENU_CONFIG)
-      config.subsections.settings = updateSettingsURIs(config.subsections.settings)
-
+    data () {
       return {
         target: __TARGET__,
-        config
+        config: createMenuPointers(MENU_CONFIG)
       }
+    },
+
+    onrender () {
+      this.updateApps()
+      this.updateSettings()
     },
 
     components: {
@@ -146,14 +162,35 @@
     methods: {
       toggleDrawer() {
         this.refs.drawer.set({folded: false})
-        updateAppsItems.call(this)
+        this.updateApps()
       },
       onPopOpen (panel) {
-        if (panel === 'apps') {
-          updateAppsItems.call(this)
-        } else if (panel === 'settings') {
-          updateDiskUsage.call(this)
+        switch (panel) {
+          case 'apps':
+            this.updateApps()
+            break
+          case 'settings':
+            this.updateSettings()
+            break
         }
+      },
+      async updateApps () {
+        const config = this.get('config')
+        await updateAppsItems.call(this)
+        /** Ugly hack to force re-render by triggering `set` method on config */
+        this.set({ config })
+      },
+      async updateSettings () {
+        const config = this.get('config')
+        const oldDiskUsage = config.components.storage.currentDiskUsage
+        const oldSettingsItems = config.subsections.settings.slice()
+
+        await updateDiskUsage.call(this)
+        await toggleSettingsItems.call(this)
+
+        /** Ugly hack to force re-render by triggering `set` method on config */
+        if (oldDiskUsage != config.components.storage.currentDiskUsage ||
+            !deepEqual(oldSettingsItems, config.subsections.settings)) { this.set({ config }) }
       }
     }
   }
