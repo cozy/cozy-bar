@@ -12,7 +12,7 @@ subsections:
       href: mailto:contact@cozycloud.cc
   logout:
     - slug: logout
-      href: /logout
+      action: logout
 
 components:
   storage:

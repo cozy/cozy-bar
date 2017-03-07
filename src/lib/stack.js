@@ -93,13 +93,18 @@ module.exports = {
     }
   },
   async logout () {
-    try {
-      const options = Object.assign({}, fetchOptions(), {
-        method: 'DELETE'
-      })
-      const response = await fetch(`${COZY_URL}/auth/login`, options)
-    } catch (e) {
+    const options = Object.assign({}, fetchOptions(), {
+      method: 'DELETE'
+    })
+
+    const res = await fetch(`${COZY_URL}/auth/login`, options).catch(e => {
       throw new UnavailableStackException()
+    })
+
+    if (res.status === 401) {
+      throw new UnauthorizedStackException()
+    } else if (res.status === 204) {
+      window.location.reload()
     }
   }
 }
