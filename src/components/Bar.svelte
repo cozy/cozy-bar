@@ -11,15 +11,19 @@
 
 <hr class='coz-sep-flex' />
 
-<Navigation sections='{{sections}}' on:open='onPopOpen(event.panel)' />
+<Navigation sections='{{config.sections.bar}}' on:open='onPopOpen(event.panel)' />
 
 {{#if target !== 'mobile'}}
-<Drawer ref:drawer content='{{config.apps.length?config.apps[0]:false}}' footer='{{sections[1].items}}' />
+<Drawer content='{{config.apps}}' footer='{{config.sections.drawer}}' visible={{drawerVisible}} on:close='toggleDrawer(true)'/>
 {{/if}}
 
 <script>
+  import deepClone from 'deep-clone'
+  import deepEqual from 'deep-equal'
+
   import { t } from '../lib/i18n'
   import stack from '../lib/stack'
+  import { UnavailableSettingsException } from '../lib/exceptions'
 
   import Navigation from './Navigation'
   import Drawer from './Drawer'
@@ -29,29 +33,31 @@
   const EXCLUDES = ['settings']
 
   async function updateAppsItems () {
+    const config = this.get('config')
     let apps
 
     try {
-      apps = [(await stack.get.apps())
-        .filter(app => !EXCLUDES.includes(app.attributes.slug))
-        .map(app => {
-          return {
-            label: app.attributes.name,
-            l10n: false,
-            href: app.links.related,
-            icon: app.links.icon
-          }
-        })
-      ]
+      apps = (await stack.get.apps())
+      .filter(app => !EXCLUDES.includes(app.attributes.slug))
+      .map(app => {
+        return {
+          slug: app.attributes.slug,
+          l10n: false,
+          href: app.links.related,
+          icon: app.links.icon
+        }
+      })
     } catch (e) {
       console.error(e.message)
-      apps = {error: e}
+      apps = [{error: e}]
     }
 
-    this.set({ config: Object.assign({}, this.get('config'), {apps}) })
+    config.apps.length = 0
+    Array.prototype.push.apply(config.apps, apps)
   }
 
   async function updateDiskUsage () {
+    const config = this.get('config')
     let currentDiskUsage
 
     try {
@@ -61,38 +67,90 @@
       currentDiskUsage = { error: e.name }
     }
 
-    // copy settings section to update storage item
-    const settings = this.get('config').settings.slice()
-    settings.forEach(section => {
-      let storageItem = section.find(item => item.label === 'storage')
-      if (storageItem) {
-        storageItem.currentDiskUsage = currentDiskUsage
+    config.components.storage.currentDiskUsage = currentDiskUsage
+  }
+
+  /**
+   * Add / Remove settings' links items regarding the status of
+   * the `settings` app
+   * @return {Promise}
+   */
+  async function toggleSettingsItems () {
+    const config = this.get('config')
+
+    // We reset the settings' links array
+    config.subsections.settings.length = 0
+
+    // If the `settings` app is available, we restore links from the root
+    // MENU_CONFIG tree, updating the links' URLs with the app URI at same time.
+    if (await stack.has.settings()) {
+      const items = await updateSettingsURIs(MENU_CONFIG.subsections.settings)
+      Array.prototype.push.apply(config.subsections.settings, items)
+    }
+  }
+
+  /**
+   * Replace in the given tree the base URIs for settings' app items
+   * @param  {Object}  tree The JSON defined menu entries
+   * @return {Promise}      The parsed tree
+   */
+  async function updateSettingsURIs (items) {
+    try {
+      const baseURI = await stack.get.settingsBaseURI()
+      return items.map(item => Object.assign({}, item, {href: `${baseURI}#${item.href}`}))
+    } catch (e) {
+      console.warn(e.message)
+    }
+  }
+
+  /**
+   * Clone and parse a root node from a JSON definition tree (aka 'menu')
+   * and recursively replace string definitions `_.(group).(entry)` (e.g.
+   * `_.components.storage`) with a pointer to the given object in the tree
+   * (here, `tree[components][entry]`)
+   *
+   * @param  {Object} tree                  The tree containing root node and
+   *                                        definitions
+   * @param  {String} [rootItem='settings'] The root node to parse
+   * @return {Object}                       The parsed tree containing pointers
+   */
+  function createMenuPointers (tree) {
+    function parse (value, index, array) {
+      let path
+
+      if (!value) { return }
+
+      if (Array.isArray(value)) {
+        value.forEach(parse)
+      } else if (value === Object(value)) {
+        Object.keys(value).forEach(key => parse(value[key], key, value))
+      } else if (value.match && (path = value.match(/_\.(\w+)(?:\.(\w+))?/i))) {
+        if (path[2]) {
+          array[index] = clone[path[1]][path[2]]
+        } else {
+          array[index] = clone[path[1]]
+        }
       }
-    })
-    this.set({ config: Object.assign({}, this.get('config'), {settings}) })
+    }
+
+    const clone = deepClone(tree)
+    parse(clone)
+
+    return clone
   }
 
   export default {
-    data() {
+    data () {
       return {
         target: __TARGET__,
-        config: MENU_CONFIG
+        config: createMenuPointers(MENU_CONFIG),
+        drawerVisible: false
       }
     },
 
-    computed: {
-      sections: config => {
-        return [{
-          label: 'apps',
-          icon: 'icon-cube',
-          async: true,
-          items: config.apps
-        }, {
-          label: 'settings',
-          icon: 'icon-cog',
-          items: config.settings
-        }]
-      }
+    onrender () {
+      this.updateApps()
+      this.updateSettings()
     },
 
     components: {
@@ -103,16 +161,40 @@
     helpers: { t },
 
     methods: {
-      toggleDrawer() {
-        this.refs.drawer.set({folded: false})
-        updateAppsItems.call(this)
+      toggleDrawer(force) {
+        const toggle = force ? false : !this.get('drawerVisible')
+
+        if (toggle) { this.updateApps() }
+
+        this.set({drawerVisible: toggle})
       },
       onPopOpen (panel) {
-        if (panel === 'apps') {
-          updateAppsItems.call(this)
-        } else if (panel === 'settings') {
-          updateDiskUsage.call(this)
+        switch (panel) {
+          case 'apps':
+            this.updateApps()
+            break
+          case 'settings':
+            this.updateSettings()
+            break
         }
+      },
+      async updateApps () {
+        const config = this.get('config')
+        await updateAppsItems.call(this)
+        /** Ugly hack to force re-render by triggering `set` method on config */
+        this.set({ config })
+      },
+      async updateSettings () {
+        const config = this.get('config')
+        const oldDiskUsage = config.components.storage.currentDiskUsage
+        const oldSettingsItems = config.subsections.settings.slice()
+
+        await updateDiskUsage.call(this)
+        await toggleSettingsItems.call(this)
+
+        /** Ugly hack to force re-render by triggering `set` method on config */
+        if (oldDiskUsage != config.components.storage.currentDiskUsage ||
+            !deepEqual(oldSettingsItems, config.subsections.settings)) { this.set({ config }) }
       }
     }
   }

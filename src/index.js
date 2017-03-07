@@ -2,10 +2,14 @@
 
 'use strict'
 
+import 'babel-polyfill'
+
 import i18n from './lib/i18n'
 import stack from './lib/stack'
 
 import BarView from './components/Bar'
+
+const APP_SELECTOR = '[role=application]'
 
 const createElement = function CozyBarCreateElement () {
   const barNode = document.createElement('div')
@@ -21,11 +25,10 @@ const injectDOM = function CozyBarInjectDOM (data) {
 
   require('./styles/index.css')
 
-  const selector = '[role=application]'
   const barNode = createElement()
-  const appNode = document.querySelector(selector)
+  const appNode = document.querySelector(APP_SELECTOR)
   if (!appNode) {
-    return console.warn(`Cozy-bar is looking for a "${selector}" tag that contains your application and can't find it :'(… The BAR is now disabled`)
+    return console.warn(`Cozy-bar is looking for a "${APP_SELECTOR}" tag that contains your application and can't find it :'(… The BAR is now disabled`)
   }
 
   document.body.insertBefore(barNode, appNode)
@@ -39,10 +42,15 @@ const injectDOM = function CozyBarInjectDOM (data) {
 const bindEvents = function CozyBarBindEvents () {
   this._clickOutsideListener = () => this.fire('clickOutside')
   document.body.addEventListener('click', this._clickOutsideListener)
+
+  this._drawerObserver = this.observe('drawerVisible', drawerVisible => {
+    document.querySelector('[role=banner]').dataset.drawerVisible = drawerVisible
+  })
 }
 
 const unbindEvents = function CozyBarUnbindEvents () {
   document.body.removeEventListener('click', this._clickOutsideListener)
+  this._drawerObserver.cancel()
 }
 
 const getDefaultStackURL = function GetDefaultCozyURL () {

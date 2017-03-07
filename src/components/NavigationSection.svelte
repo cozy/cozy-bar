@@ -1,18 +1,20 @@
 <li class='coz-nav-section' on:click='dispatch(event)'>
   <a on:click='toggle()' aria-controls='{{`coz-nav-pop--${hash}`}}' aria-busy='{{busy}}' data-icon='{{icon}}'>
-    {{t(label)}}
+    {{label}}
   </a>
-  {{#if items}}
+  {{#if items && items.length}}
   <div class='{{`coz-nav-pop coz-nav-pop--${hash}`}}' id='{{`coz-nav-pop--${hash}`}}' aria-hidden={{closed}}>
-    {{#if items.error}}
+  {{#if items[0].error}}
     <p class='coz-nav--error coz-nav-group'>
       {{t(`error_${items.error.name}`)}}
     </p>
-    {{elseif items.length}}
+  {{elseif grouped}}
     {{#each items as group}}
     <NavigationGroup group='{{group}}' separator='bottom' />
     {{/each}}
-    {{/if}}
+  {{else}}
+    <NavigationGroup group='{{items}}' />
+  {{/if}}
   </div>
   {{/if}}
 </li>
@@ -39,7 +41,7 @@
       this.set({busy: true})
     }, BUSY_DELAY)
 
-    this.fire('open', { panel: this.get('label') })
+    this.fire('open', { panel: this.get('slug') })
 
     if (this.get('async')) {
       this.set({valve: true})
@@ -76,7 +78,9 @@
       }
     },
     computed: {
-      hash: label => Math.abs([].reduce.call(label, (hash, char) => char.charCodeAt(0) + (hash << 5) + (hash << 16) - hash, 0))
+      hash: slug => Math.abs([].reduce.call(slug, (hash, char) => char.charCodeAt(0) + (hash << 5) + (hash << 16) - hash, 0)),
+      label: slug => t(slug),
+      grouped: items => items[0] instanceof Array
     },
 
     onrender () {

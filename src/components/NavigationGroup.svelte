@@ -1,9 +1,11 @@
 {{#if separator == 'top'}}<hr />{{/if}}
+{{#if group.length}}
 <ul class='coz-nav-group'>
   {{#each group as item}}
     <NavigationItem item='{{item}}' />
   {{/each}}
 </ul>
+{{/if}}
 {{#if separator == 'bottom'}}<hr />{{/if}}
 
 <script>

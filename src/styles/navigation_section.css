@@ -8,7 +8,6 @@
   align-items: baseline;
   padding: 1.285em 1.5em;
   font-size: .875em;
-  font-weight: bold;
   text-transform: uppercase;
   color: var(--slate-grey);
   cursor: pointer;
@@ -63,7 +62,7 @@
   display: none;
 }
 
-/* coz-nav-pop--apps label is hashed coz-nav-pop--1612761714 */
+/* coz-nav-pop--apps slug is hashed coz-nav-pop--1612761714 */
 [role=banner] .coz-nav-pop--1612761714 .coz-nav-group {
   display: flex;
   padding: 0.75em;

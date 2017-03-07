@@ -1,15 +1,13 @@
-<div ref:wrapper class='coz-drawer-wrapper' on:click='set({folded: true})'>
+<div ref:wrapper class='coz-drawer-wrapper' on:click='fire("close")'>
   <aside on:click='event.stopPropagation()'>
     <nav class='coz-drawer--apps'>
       <h1>{{t('drawer apps')}}</h1>
-      <NavigationGroup group='{{content||[]}}' />
+      <NavigationGroup group='{{content}}' />
     </nav>
     <hr class='coz-sep-flex' />
     <nav>
       {{#each footer as group}}
-        {{#if group[0].label !== 'storage'}}
         <NavigationGroup group='{{group}}' separator='top' />
-        {{/if}}
       {{/each}}
     </nav>
   </aside>
@@ -23,21 +21,15 @@
   let toggleDrawerObserver
 
   export default {
-    data() {
-      return {
-        folded: true
-      }
-    },
-
     onrender() {
-      toggleDrawerObserver = this.observe('folded', folded => {
-        if (folded) {
+      toggleDrawerObserver = this.observe('visible', visible => {
+        if (!visible) {
           this.refs.wrapper.classList.toggle('visible', false)
           setTimeout(() => {
             this.refs.wrapper.setAttribute('aria-hidden', true)
           }, 530)
         } else {
-          this.refs.wrapper.setAttribute('aria-hidden', 'false')
+          this.refs.wrapper.setAttribute('aria-hidden', false)
           setTimeout(() => {
             this.refs.wrapper.classList.toggle('visible', true)
           }, 30)
