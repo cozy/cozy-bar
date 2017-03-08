@@ -62,6 +62,13 @@ module.exports = {
     COZY_TOKEN = token
   },
   has: {
+    /**
+     * has.settings() allow to check if the Settings app is available in the
+     * stack or not. It returns a boolean.
+     * Exceptionnally, as the Settings app is a critical app (w/o it, no
+     * password update, language change, etc), it also throw an exception if
+     * the Settings app isn't available.
+     */
     async settings () {
       let hasSettings
 
