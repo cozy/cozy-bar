@@ -10,6 +10,7 @@ import stack from './lib/stack'
 import BarView from './components/Bar'
 
 const APP_SELECTOR = '[role=application]'
+const BANNER_SELECTOR = '[role=banner]'
 
 const createElement = function CozyBarCreateElement () {
   const barNode = document.createElement('div')
@@ -28,7 +29,8 @@ const injectDOM = function CozyBarInjectDOM (data) {
   const barNode = createElement()
   const appNode = document.querySelector(APP_SELECTOR)
   if (!appNode) {
-    return console.warn(`Cozy-bar is looking for a "${APP_SELECTOR}" tag that contains your application and can't find it :'(… The BAR is now disabled`)
+    console.warn(`Cozy-bar is looking for a "${APP_SELECTOR}" tag that contains your application and can't find it :'(… The BAR is now disabled`)
+    return null
   }
 
   document.body.insertBefore(barNode, appNode)
@@ -44,7 +46,12 @@ const bindEvents = function CozyBarBindEvents () {
   document.body.addEventListener('click', this._clickOutsideListener)
 
   this._drawerObserver = this.observe('drawerVisible', drawerVisible => {
-    document.querySelector('[role=banner]').dataset.drawerVisible = drawerVisible
+    const bannerNode = document.querySelector(BANNER_SELECTOR)
+    if (!bannerNode) {
+      console.warn(`Cozy-bar is looking for a "${BANNER_SELECTOR}" tag that contains your banner and can't find it :'(…`)
+    } else {
+      bannerNode.dataset.drawerVisible = drawerVisible
+    }
   })
 }
 
@@ -54,11 +61,21 @@ const unbindEvents = function CozyBarUnbindEvents () {
 }
 
 const getDefaultStackURL = function GetDefaultCozyURL () {
-  return document.querySelector('[role=application]').dataset.cozyDomain
+  const appNode = document.querySelector(APP_SELECTOR)
+  if (!appNode) {
+    console.warn(`Cozy-bar is looking for a "${APP_SELECTOR}" tag that contains your application and can't find it :'(… The BAR is now disabled`)
+    return ''
+  }
+  return appNode.dataset.cozyDomain
 }
 
 const getDefaultToken = function GetDefaultToken () {
-  return document.querySelector('[role=application]').dataset.cozyToken
+  const appNode = document.querySelector(APP_SELECTOR)
+  if (!appNode) {
+    console.warn(`Cozy-bar is looking for a "${APP_SELECTOR}" tag that contains your application and can't find it :'(… The BAR is now disabled`)
+    return ''
+  }
+  return appNode.dataset.cozyToken
 }
 
 const getDefaultLang = function GetDefaultLang () {

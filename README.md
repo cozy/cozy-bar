@@ -24,8 +24,10 @@ What's cozy-bar.js?
 Use
 ---
 
-`cozy-bar.js` is an asset directly served by the [cozy-stack](https://github.com/cozy/cozy-stack). To use it, simply add `<script src="/js/cozy-bar.js" defer></script>` in the `<head>` section of
-the `index.html` of your application. It exposes an API behind the `window.cozy.bar` namespace, that let you interact with the _CozyBar_ itself.
+`cozy-bar.js` is an asset directly served by the [cozy-stack](https://github.com/cozy/cozy-stack). To use it, simply add `<script src="/js/cozy-bar.js" defer></script>` in the `<head>` section of the `index.html` of your application. It exposes an API behind the `window.cozy.bar` namespace, that let you interact with the _CozyBar_ itself.
+
+The library requires your markup to contain an element with `role=application` and attributes `data-cozy-domain` and `data-cozy-token`. The DOM of the banner will be added before this element.
+
 
 Once you have the library included in your application, starts by intialize it in your app bootstrap:
 
