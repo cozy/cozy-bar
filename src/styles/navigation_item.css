@@ -1,11 +1,17 @@
 [role=banner] .coz-nav-item [role=menuitem] {
   display: block;
+  box-sizing: border-box;
+  width: 100%;
   padding: .5em 1.5em .5em calc(1.5em + 16px + .5em);
-  background-position: 1.5em 50%;
+  border: none;
   align-items: center;
+  background-position: 1.5em 50%;
+  background-color: transparent;
+  text-align: left;
   white-space: nowrap;
   color: var(--charcoal-grey);
   text-decoration: none;
+  cursor: pointer;
 }
 
 [role=banner] [role=menuitem][aria-busy=true]::after {

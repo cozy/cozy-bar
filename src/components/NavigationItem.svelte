@@ -6,13 +6,20 @@
     <Storage diskUsageFromStack='{{item.currentDiskUsage}}' />
     {{/if}}
   </div>
-  {{else}}
+  {{elseif item.href}}
   <a role='menuitem' href='{{item.href}}' target='{{item.external?"_blank":"_self"}}' data-icon='{{dataIcon?dataIcon:""}}'>
     {{#if fileIcon}}
     <img src='{{fileIcon.src}}' alt='' width='64' height='64' class='{{fileIcon.class ? fileIcon.class : ''}}' />
     {{/if}}
     {{label}}
   </a>
+  {{elseif item.action}}
+  <button role='menuitem' data-icon='{{dataIcon?dataIcon:""}}' on:click='proxy(item.action)'>
+    {{#if fileIcon}}
+    <img src='{{fileIcon.src}}' alt='' width='64' height='64' class='{{fileIcon.class ? fileIcon.class : ''}}' />
+    {{/if}}
+    {{label}}
+  </button>
   {{/if}}
 </li>
 
@@ -49,7 +56,8 @@
         if (!item.icon) { return `icon-${item.slug}` }
       },
       label: item => {
-        if (item.l10n == null || item.l10n) { return t(item.slug) }
+        if (!item.slug) { return }
+        else if (item.l10n == null || item.l10n) { return t(item.slug) }
         else { return item.slug }
       }
     },
@@ -87,6 +95,12 @@
       Storage
     },
 
-    helpers: { t }
+    helpers: { t },
+
+    methods: {
+      proxy (actionName) {
+        stack[actionName]()
+      }
+    }
   }
 </script>

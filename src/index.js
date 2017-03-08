@@ -57,6 +57,10 @@ const getDefaultStackURL = function GetDefaultCozyURL () {
   return document.querySelector('[role=application]').dataset.cozyDomain
 }
 
+const getDefaultToken = function GetDefaultToken () {
+  return document.querySelector('[role=application]').dataset.cozyToken
+}
+
 const getDefaultLang = function GetDefaultLang () {
   return document.documentElement.getAttribute('lang') || 'en'
 }
@@ -74,10 +78,11 @@ const init = function CozyBarInit ({
   lang = getDefaultLang(),
   appName,
   iconPath = getDefaultIcon(),
-  cozyURL = getDefaultStackURL()
+  cozyURL = getDefaultStackURL(),
+  token = getDefaultToken()
 } = {}) {
   i18n(lang)
-  stack.init({cozyURL})
+  stack.init({cozyURL, token})
   const view = injectDOM({lang, appName, iconPath})
 
   if (view) {

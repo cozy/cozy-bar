@@ -48,7 +48,6 @@
         }
       })
     } catch (e) {
-      console.error(e.message)
       apps = [{error: e}]
     }
 
@@ -61,9 +60,8 @@
     let currentDiskUsage
 
     try {
-      currentDiskUsage = +(await stack.get.diskUsage()).attributes.used
+      currentDiskUsage = await stack.get.diskUsage()
     } catch (e) {
-      console.error(e.message)
       currentDiskUsage = { error: e.name }
     }
 
@@ -83,10 +81,15 @@
 
     // If the `settings` app is available, we restore links from the root
     // MENU_CONFIG tree, updating the links' URLs with the app URI at same time.
-    if (await stack.has.settings()) {
-      const items = await updateSettingsURIs(MENU_CONFIG.subsections.settings)
-      Array.prototype.push.apply(config.subsections.settings, items)
+    try {
+      await stack.has.settings()
+    } catch (e) {
+      console.warn('Settings app is unavailable, links are disabled')
+      return
     }
+
+    const items = await updateSettingsURIs(MENU_CONFIG.subsections.settings)
+    Array.prototype.push.apply(config.subsections.settings, items)
   }
 
   /**
@@ -95,12 +98,8 @@
    * @return {Promise}      The parsed tree
    */
   async function updateSettingsURIs (items) {
-    try {
-      const baseURI = await stack.get.settingsBaseURI()
-      return items.map(item => Object.assign({}, item, {href: `${baseURI}#${item.href}`}))
-    } catch (e) {
-      console.warn(e.message)
-    }
+    const baseURI = await stack.get.settingsBaseURI()
+    return items.map(item => Object.assign({}, item, {href: `${baseURI}#${item.href}`}))
   }
 
   /**

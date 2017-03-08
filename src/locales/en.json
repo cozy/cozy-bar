@@ -10,5 +10,6 @@
   "help": "Help",
   "email": "Send an email to support",
   "logout": "Sign out",
-  "error_UnavailableStack": "The stack is unreachable (connection timed-out)."
+  "error_UnavailableStack": "The stack is unreachable (connection timed-out).",
+  "error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack."
 }

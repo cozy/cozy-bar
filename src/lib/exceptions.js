@@ -8,6 +8,16 @@ class UnavailableStackException extends Error {
   }
 }
 
+class UnauthorizedStackException extends Error {
+  constructor (message) {
+    super()
+
+    this.name = 'UnauthorizedStack'
+    this.message = message || 'The app is not allowed to access to the requested resource'
+    this.stack = (new Error()).stack
+  }
+}
+
 class UnavailableSettingsException extends Error {
   constructor (message) {
     super()
@@ -20,5 +30,6 @@ class UnavailableSettingsException extends Error {
 
 export {
   UnavailableStackException,
-  UnavailableSettingsException
+  UnavailableSettingsException,
+  UnauthorizedStackException
 }

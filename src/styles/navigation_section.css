@@ -63,9 +63,14 @@
 }
 
 /* coz-nav-pop--apps slug is hashed coz-nav-pop--1612761714 */
-[role=banner] .coz-nav-pop--1612761714 .coz-nav-group {
+[role=banner] .coz-nav-pop--1612761714 .coz-nav-group:not(.coz-nav--error) {
   display: flex;
   padding: 0.75em;
+}
+
+[role=banner] .coz-nav-group.coz-nav--error {
+  padding: 0.75em;
+  min-width: 20em;
 }
 
 [role=banner] .coz-nav-pop--1612761714 .coz-nav-group a {

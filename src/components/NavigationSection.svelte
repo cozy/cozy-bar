@@ -6,7 +6,7 @@
   <div class='{{`coz-nav-pop coz-nav-pop--${hash}`}}' id='{{`coz-nav-pop--${hash}`}}' aria-hidden={{closed}}>
   {{#if items[0].error}}
     <p class='coz-nav--error coz-nav-group'>
-      {{t(`error_${items.error.name}`)}}
+      {{t(`error_${items[0].error.name}`)}}
     </p>
   {{elseif grouped}}
     {{#each items as group}}
