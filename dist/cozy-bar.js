@@ -234,11 +234,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _i18n2 = _interopRequireDefault(_i18n);
 	
-	var _stack = __webpack_require__(251);
+	var _stack = __webpack_require__(215);
 	
 	var _stack2 = _interopRequireDefault(_stack);
 	
-	var _Bar = __webpack_require__(253);
+	var _Bar = __webpack_require__(217);
 	
 	var _Bar2 = _interopRequireDefault(_Bar);
 	
@@ -260,7 +260,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return;
 	  }
 	
-	  __webpack_require__(267);
+	  __webpack_require__(231);
 	
 	  var barNode = createElement();
 	  var appNode = document.querySelector(APP_SELECTOR);
@@ -337,7 +337,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 	};
 	
-	module.exports = { init: init, version: ("3.0.0-beta9") };
+	module.exports = { init: init, version: ("3.0.0-beta10") };
 
 /***/ },
 /* 1 */
@@ -7352,80 +7352,8 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	var map = {
-		"./ar": 215,
-		"./ar.json": 215,
-		"./ca": 216,
-		"./ca.json": 216,
-		"./ca_ES": 217,
-		"./ca_ES.json": 217,
-		"./cs": 218,
-		"./cs.json": 218,
-		"./cs_CZ": 219,
-		"./cs_CZ.json": 219,
-		"./da": 220,
-		"./da.json": 220,
-		"./de": 221,
-		"./de.json": 221,
-		"./de_DE": 222,
-		"./de_DE.json": 222,
-		"./el": 223,
-		"./el.json": 223,
 		"./en": 213,
-		"./en.json": 213,
-		"./eo": 224,
-		"./eo.json": 224,
-		"./es": 225,
-		"./es.json": 225,
-		"./es_CO": 226,
-		"./es_CO.json": 226,
-		"./es_ES": 227,
-		"./es_ES.json": 227,
-		"./fr": 228,
-		"./fr.json": 228,
-		"./it": 229,
-		"./it.json": 229,
-		"./ja": 230,
-		"./ja.json": 230,
-		"./ko": 231,
-		"./ko.json": 231,
-		"./nl": 232,
-		"./nl.json": 232,
-		"./nl_NL": 233,
-		"./nl_NL.json": 233,
-		"./pl": 234,
-		"./pl.json": 234,
-		"./pt": 235,
-		"./pt.json": 235,
-		"./pt_BR": 236,
-		"./pt_BR.json": 236,
-		"./ro": 237,
-		"./ro.json": 237,
-		"./ro_RO": 238,
-		"./ro_RO.json": 238,
-		"./ru": 239,
-		"./ru.json": 239,
-		"./ru_RU": 240,
-		"./ru_RU.json": 240,
-		"./sk": 241,
-		"./sk.json": 241,
-		"./sk_SK": 242,
-		"./sk_SK.json": 242,
-		"./sq": 243,
-		"./sq.json": 243,
-		"./sq_AL": 244,
-		"./sq_AL.json": 244,
-		"./sv": 245,
-		"./sv.json": 245,
-		"./tr": 246,
-		"./tr.json": 246,
-		"./uk_UA": 247,
-		"./uk_UA.json": 247,
-		"./zh": 248,
-		"./zh.json": 248,
-		"./zh_CN": 249,
-		"./zh_CN.json": 249,
-		"./zh_TW": 250,
-		"./zh_TW.json": 250
+		"./en.json": 213
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -7443,726 +7371,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 215 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"drawer apps": "Your apps",
-		"apps": "Apps",
-		"settings": "Settings",
-		"menu": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
-		"help": "Help",
-		"email": "Send an email to support",
-		"logout": "Sign out",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack."
-	};
-
-/***/ },
-/* 216 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"drawer apps": "Your apps",
-		"apps": "Apps",
-		"settings": "Settings",
-		"menu": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
-		"help": "Help",
-		"email": "Send an email to support",
-		"logout": "Sign out",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack."
-	};
-
-/***/ },
-/* 217 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"drawer apps": "Your apps",
-		"apps": "Apps",
-		"settings": "Settings",
-		"menu": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
-		"help": "Help",
-		"email": "Send an email to support",
-		"logout": "Sign out",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack."
-	};
-
-/***/ },
-/* 218 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"drawer apps": "Your apps",
-		"apps": "Apps",
-		"settings": "Settings",
-		"menu": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
-		"help": "Help",
-		"email": "Send an email to support",
-		"logout": "Sign out",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack."
-	};
-
-/***/ },
-/* 219 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"drawer apps": "Your apps",
-		"apps": "Apps",
-		"settings": "Settings",
-		"menu": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
-		"help": "Help",
-		"email": "Send an email to support",
-		"logout": "Sign out",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack."
-	};
-
-/***/ },
-/* 220 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"drawer apps": "Your apps",
-		"apps": "Apps",
-		"settings": "Settings",
-		"menu": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
-		"help": "Help",
-		"email": "Send an email to support",
-		"logout": "Sign out",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack."
-	};
-
-/***/ },
-/* 221 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"drawer apps": "Your apps",
-		"apps": "Apps",
-		"settings": "Settings",
-		"menu": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
-		"help": "Help",
-		"email": "Send an email to support",
-		"logout": "Sign out",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack."
-	};
-
-/***/ },
-/* 222 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"drawer apps": "Your apps",
-		"apps": "Apps",
-		"settings": "Settings",
-		"menu": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
-		"help": "Help",
-		"email": "Send an email to support",
-		"logout": "Sign out",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack."
-	};
-
-/***/ },
-/* 223 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"drawer apps": "Your apps",
-		"apps": "Apps",
-		"settings": "Settings",
-		"menu": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
-		"help": "Help",
-		"email": "Send an email to support",
-		"logout": "Sign out",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack."
-	};
-
-/***/ },
-/* 224 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"drawer apps": "Your apps",
-		"apps": "Apps",
-		"settings": "Settings",
-		"menu": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
-		"help": "Help",
-		"email": "Send an email to support",
-		"logout": "Sign out",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack."
-	};
-
-/***/ },
-/* 225 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"drawer apps": "Sus apps",
-		"apps": "Apps",
-		"settings": "Configuración",
-		"menu": "Mostrar menú de bandejas",
-		"profile": "Perfil",
-		"connectedDevices": "Periféricos conectados",
-		"storage": "Almacenamiento",
-		"storage_phrase": "%{diskUsage} GO de %{totalStorage} GO usados",
-		"help": "Ayuda",
-		"email": "Enviar un email a asistencia",
-		"logout": "Finalizar sesión",
-		"error_UnavailableStack": "La pila es inaccesible ( se agotó el tiempo de la conexión ).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack."
-	};
-
-/***/ },
-/* 226 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"drawer apps": "Your apps",
-		"apps": "Apps",
-		"settings": "Settings",
-		"menu": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
-		"help": "Help",
-		"email": "Send an email to support",
-		"logout": "Sign out",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack."
-	};
-
-/***/ },
-/* 227 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"drawer apps": "Your apps",
-		"apps": "Apps",
-		"settings": "Settings",
-		"menu": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
-		"help": "Help",
-		"email": "Send an email to support",
-		"logout": "Sign out",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack."
-	};
-
-/***/ },
-/* 228 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"drawer apps": "Vos applications",
-		"apps": "Applications",
-		"settings": "Paramètres",
-		"menu": "Afficher le menu latéral",
-		"profile": "Profil",
-		"connectedDevices": "Appareils connectés",
-		"storage": "Espace disque",
-		"storage_phrase": "%{diskUsage} GB sur %{totalStorage} GB",
-		"help": "Aide",
-		"email": "Envoyer un email au support",
-		"logout": "Déconnexion",
-		"error_UnavailableStack": "Connexion à la stack impossible (interrompue après délai)",
-		"error_UnauthorizedStack": "Des permissions sont manquante, l'application ne peut accéder aux ressources demandées."
-	};
-
-/***/ },
-/* 229 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"drawer apps": "Your apps",
-		"apps": "Apps",
-		"settings": "Settings",
-		"menu": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
-		"help": "Help",
-		"email": "Send an email to support",
-		"logout": "Sign out",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack."
-	};
-
-/***/ },
-/* 230 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"drawer apps": "あなたのアプリ",
-		"apps": "アプリ",
-		"settings": "設定",
-		"menu": "メニュードロワーを表示",
-		"profile": "プロフィール",
-		"connectedDevices": "接続されたデバイス",
-		"storage": "ストレージ",
-		"storage_phrase": "%{diskUsage} GB / %{totalStorage} GB 使用",
-		"help": "ヘルプ",
-		"email": "サポートにメールを送信",
-		"logout": "サインアウト",
-		"error_UnavailableStack": "スタックに到達できません (接続タイムアウト)。",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack."
-	};
-
-/***/ },
-/* 231 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"drawer apps": "Your apps",
-		"apps": "Apps",
-		"settings": "Settings",
-		"menu": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
-		"help": "Help",
-		"email": "Send an email to support",
-		"logout": "Sign out",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack."
-	};
-
-/***/ },
-/* 232 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"drawer apps": "Jouw toepassingen",
-		"apps": "Toepassingen",
-		"settings": "Instellingen",
-		"menu": "Toon menu",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Opslag",
-		"storage_phrase": "%{diskUsage} GB van %{totalStorage} GB gebruikt",
-		"help": "Hulp",
-		"email": "Stuur de helpdesk een e-mail",
-		"logout": "Log uit",
-		"error_UnavailableStack": "De stapel is onbereikbaar (verbinding verlopen)",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack."
-	};
-
-/***/ },
-/* 233 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"drawer apps": "Your apps",
-		"apps": "Apps",
-		"settings": "Settings",
-		"menu": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
-		"help": "Help",
-		"email": "Send an email to support",
-		"logout": "Sign out",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack."
-	};
-
-/***/ },
-/* 234 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"drawer apps": "Your apps",
-		"apps": "Apps",
-		"settings": "Settings",
-		"menu": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
-		"help": "Help",
-		"email": "Send an email to support",
-		"logout": "Sign out",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack."
-	};
-
-/***/ },
-/* 235 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"drawer apps": "Your apps",
-		"apps": "Apps",
-		"settings": "Settings",
-		"menu": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
-		"help": "Help",
-		"email": "Send an email to support",
-		"logout": "Sign out",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack."
-	};
-
-/***/ },
-/* 236 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"drawer apps": "Your apps",
-		"apps": "Apps",
-		"settings": "Settings",
-		"menu": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
-		"help": "Help",
-		"email": "Send an email to support",
-		"logout": "Sign out",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack."
-	};
-
-/***/ },
-/* 237 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"drawer apps": "Your apps",
-		"apps": "Apps",
-		"settings": "Settings",
-		"menu": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
-		"help": "Help",
-		"email": "Send an email to support",
-		"logout": "Sign out",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack."
-	};
-
-/***/ },
-/* 238 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"drawer apps": "Your apps",
-		"apps": "Apps",
-		"settings": "Settings",
-		"menu": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
-		"help": "Help",
-		"email": "Send an email to support",
-		"logout": "Sign out",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack."
-	};
-
-/***/ },
-/* 239 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"drawer apps": "Your apps",
-		"apps": "Apps",
-		"settings": "Settings",
-		"menu": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
-		"help": "Help",
-		"email": "Send an email to support",
-		"logout": "Sign out",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack."
-	};
-
-/***/ },
-/* 240 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"drawer apps": "Your apps",
-		"apps": "Apps",
-		"settings": "Settings",
-		"menu": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
-		"help": "Help",
-		"email": "Send an email to support",
-		"logout": "Sign out",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack."
-	};
-
-/***/ },
-/* 241 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"drawer apps": "Your apps",
-		"apps": "Apps",
-		"settings": "Settings",
-		"menu": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
-		"help": "Help",
-		"email": "Send an email to support",
-		"logout": "Sign out",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack."
-	};
-
-/***/ },
-/* 242 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"drawer apps": "Your apps",
-		"apps": "Apps",
-		"settings": "Settings",
-		"menu": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
-		"help": "Help",
-		"email": "Send an email to support",
-		"logout": "Sign out",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack."
-	};
-
-/***/ },
-/* 243 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"drawer apps": "Your apps",
-		"apps": "Apps",
-		"settings": "Settings",
-		"menu": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
-		"help": "Help",
-		"email": "Send an email to support",
-		"logout": "Sign out",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack."
-	};
-
-/***/ },
-/* 244 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"drawer apps": "Your apps",
-		"apps": "Apps",
-		"settings": "Settings",
-		"menu": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
-		"help": "Help",
-		"email": "Send an email to support",
-		"logout": "Sign out",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack."
-	};
-
-/***/ },
-/* 245 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"drawer apps": "Your apps",
-		"apps": "Apps",
-		"settings": "Settings",
-		"menu": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
-		"help": "Help",
-		"email": "Send an email to support",
-		"logout": "Sign out",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack."
-	};
-
-/***/ },
-/* 246 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"drawer apps": "Your apps",
-		"apps": "Apps",
-		"settings": "Settings",
-		"menu": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
-		"help": "Help",
-		"email": "Send an email to support",
-		"logout": "Sign out",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack."
-	};
-
-/***/ },
-/* 247 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"drawer apps": "Your apps",
-		"apps": "Apps",
-		"settings": "Settings",
-		"menu": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
-		"help": "Help",
-		"email": "Send an email to support",
-		"logout": "Sign out",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack."
-	};
-
-/***/ },
-/* 248 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"drawer apps": "Your apps",
-		"apps": "Apps",
-		"settings": "Settings",
-		"menu": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
-		"help": "Help",
-		"email": "Send an email to support",
-		"logout": "Sign out",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack."
-	};
-
-/***/ },
-/* 249 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"drawer apps": "你的应用",
-		"apps": "应用",
-		"settings": "设置",
-		"menu": "显示菜单抽屉",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "储存",
-		"storage_phrase": "使用了 %{diskUsage} GB / %{totalStorage} GB",
-		"help": "帮助",
-		"email": "发送邮件到客服",
-		"logout": "登出",
-		"error_UnavailableStack": "此堆栈无法连接 (连接超时)",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack."
-	};
-
-/***/ },
-/* 250 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"drawer apps": "Your apps",
-		"apps": "Apps",
-		"settings": "Settings",
-		"menu": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
-		"help": "Help",
-		"email": "Send an email to support",
-		"logout": "Sign out",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack."
-	};
-
-/***/ },
-/* 251 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -8481,7 +7689,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	__webpack_require__(187);
 	
-	var _exceptions = __webpack_require__(252);
+	var _exceptions = __webpack_require__(216);
 	
 	function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; } /* eslint-env browser */
 	/* global __SERVER__ */
@@ -8659,7 +7867,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 252 */
+/* 216 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -8730,7 +7938,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.UnauthorizedStackException = UnauthorizedStackException;
 
 /***/ },
-/* 253 */
+/* 217 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -8741,31 +7949,31 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 	
-	var _deepClone = __webpack_require__(254);
+	var _deepClone = __webpack_require__(218);
 	
 	var _deepClone2 = _interopRequireDefault(_deepClone);
 	
-	var _deepEqual = __webpack_require__(256);
+	var _deepEqual = __webpack_require__(220);
 	
 	var _deepEqual2 = _interopRequireDefault(_deepEqual);
 	
 	var _i18n = __webpack_require__(189);
 	
-	var _stack = __webpack_require__(251);
+	var _stack = __webpack_require__(215);
 	
 	var _stack2 = _interopRequireDefault(_stack);
 	
-	var _exceptions = __webpack_require__(252);
+	var _exceptions = __webpack_require__(216);
 	
-	var _Navigation = __webpack_require__(259);
+	var _Navigation = __webpack_require__(223);
 	
 	var _Navigation2 = _interopRequireDefault(_Navigation);
 	
-	var _Drawer = __webpack_require__(265);
+	var _Drawer = __webpack_require__(229);
 	
 	var _Drawer2 = _interopRequireDefault(_Drawer);
 	
-	var _menu = __webpack_require__(266);
+	var _menu = __webpack_require__(230);
 	
 	var _menu2 = _interopRequireDefault(_menu);
 	
@@ -9487,14 +8695,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = SvelteComponent;
 
 /***/ },
-/* 254 */
+/* 218 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(255).default
+	module.exports = __webpack_require__(219).default
 
 
 /***/ },
-/* 255 */
+/* 219 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -9538,12 +8746,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	deepClone.formatKeys = formatKeys;
 
 /***/ },
-/* 256 */
+/* 220 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var pSlice = Array.prototype.slice;
-	var objectKeys = __webpack_require__(257);
-	var isArguments = __webpack_require__(258);
+	var objectKeys = __webpack_require__(221);
+	var isArguments = __webpack_require__(222);
 	
 	var deepEqual = module.exports = function (actual, expected, opts) {
 	  if (!opts) opts = {};
@@ -9638,7 +8846,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 257 */
+/* 221 */
 /***/ function(module, exports) {
 
 	exports = module.exports = typeof Object.keys === 'function'
@@ -9653,7 +8861,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 258 */
+/* 222 */
 /***/ function(module, exports) {
 
 	var supportsArgumentsClass = (function(){
@@ -9679,7 +8887,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 259 */
+/* 223 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9690,7 +8898,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 	
-	var _NavigationSection = __webpack_require__(260);
+	var _NavigationSection = __webpack_require__(224);
 	
 	var _NavigationSection2 = _interopRequireDefault(_NavigationSection);
 	
@@ -9938,7 +9146,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = SvelteComponent;
 
 /***/ },
-/* 260 */
+/* 224 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9951,7 +9159,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _i18n = __webpack_require__(189);
 	
-	var _NavigationGroup = __webpack_require__(261);
+	var _NavigationGroup = __webpack_require__(225);
 	
 	var _NavigationGroup2 = _interopRequireDefault(_NavigationGroup);
 	
@@ -10508,7 +9716,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = SvelteComponent;
 
 /***/ },
-/* 261 */
+/* 225 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -10519,7 +9727,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 	
-	var _NavigationItem = __webpack_require__(262);
+	var _NavigationItem = __webpack_require__(226);
 	
 	var _NavigationItem2 = _interopRequireDefault(_NavigationItem);
 	
@@ -10888,7 +10096,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = SvelteComponent;
 
 /***/ },
-/* 262 */
+/* 226 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -10901,11 +10109,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _i18n = __webpack_require__(189);
 	
-	var _stack = __webpack_require__(251);
+	var _stack = __webpack_require__(215);
 	
 	var _stack2 = _interopRequireDefault(_stack);
 	
-	var _Storage = __webpack_require__(263);
+	var _Storage = __webpack_require__(227);
 	
 	var _Storage2 = _interopRequireDefault(_Storage);
 	
@@ -10952,7 +10160,7 @@ return /******/ (function(modules) { // webpackBootstrap
 						};
 					} else {
 						return {
-							src: __webpack_require__(264),
+							src: __webpack_require__(228),
 							class: 'blurry'
 						};
 					}
@@ -11490,7 +10698,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = SvelteComponent;
 
 /***/ },
-/* 263 */
+/* 227 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -11781,13 +10989,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = SvelteComponent;
 
 /***/ },
-/* 264 */
+/* 228 */
 /***/ function(module, exports) {
 
 	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICA8ZyBmaWxsPSIjOTU5OTlEIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0yODggLTMyKSI+CiAgICA8cGF0aCBkPSJNMjg5LDQzLjAwODYyOTYgQzI4OSw0My41NTg2NzMyIDI4OS4zOTY0MDcsNDQuMjMxMDg5OSAyODkuODcyNDAxLDQ0LjUwMzA4NjggTDI5NS4xMjc1OTksNDcuNTA2MDU2NiBDMjk1LjYwOTQxMyw0Ny43ODEzNzg5IDI5Niw0Ny41NTc4NzMgMjk2LDQ3LjAwODYyOTYgTDI5Niw0MS41MDA1MTM4IEMyOTYsNDAuOTUwNDcwMiAyOTUuNjAzNTkzLDQwLjI3ODA1MzUgMjk1LjEyNzU5OSw0MC4wMDYwNTY2IEwyODkuODcyNDAxLDM3LjAwMzA4NjggQzI4OS4zOTA1ODcsMzYuNzI3NzY0NSAyODksMzYuOTUxMjcwNCAyODksMzcuNTAwNTEzOCBMMjg5LDQzLjAwODYyOTYgWiBNMzA0LDQzLjAwODYyOTYgQzMwNCw0My41NTg2NzMyIDMwMy42MDM1OTMsNDQuMjMxMDg5OSAzMDMuMTI3NTk5LDQ0LjUwMzA4NjggTDI5Ny44NzI0MDEsNDcuNTA2MDU2NiBDMjk3LjM5MDU4Nyw0Ny43ODEzNzg5IDI5Nyw0Ny41NTc4NzMgMjk3LDQ3LjAwODYyOTYgTDI5Nyw0MS41MDA1MTM4IEMyOTcsNDAuOTUwNDcwMiAyOTcuMzk2NDA3LDQwLjI3ODA1MzUgMjk3Ljg3MjQwMSw0MC4wMDYwNTY2IEwzMDMuMTI3NTk5LDM3LjAwMzA4NjggQzMwMy42MDk0MTMsMzYuNzI3NzY0NSAzMDQsMzYuOTUxMjcwNCAzMDQsMzcuNTAwNTEzOCBMMzA0LDQzLjAwODYyOTYgWiBNMjk3LjM0OTc2MSwzOC45ODE2NDE2IEMyOTYuODgwNDUxLDM5LjI3MDQ0NzkgMjk2LjExMjg2MSwzOS4yNjYzMzI0IDI5NS42NTAyMzksMzguOTgxNjQxNiBMMjkwLjg0OTc2MSwzNi4wMjc1MDE4IEMyOTAuMzgwNDUxLDM1LjczODY5NTUgMjkwLjM4NzEzOSwzNS4yOTYxMTIzIDI5MC44NzY2MTksMzUuMDMyNTQ2MSBMMjk1LjYyMzM4MSwzMi40NzY1OTczIEMyOTYuMTA3NTI0LDMyLjIxNTkwNDggMjk2Ljg4NzEzOSwzMi4yMTMwMzExIDI5Ny4zNzY2MTksMzIuNDc2NTk3MyBMMzAyLjEyMzM4MSwzNS4wMzI1NDYxIEMzMDIuNjA3NTI0LDM1LjI5MzIzODcgMzAyLjYxMjg2MSwzNS43NDI4MTEgMzAyLjE1MDIzOSwzNi4wMjc1MDE4IEwyOTcuMzQ5NzYxLDM4Ljk4MTY0MTYgWiIvPgogICAgPHBhdGggZD0iTTI4OSw0My4wMDg2Mjk2IEMyODksNDMuNTU4NjczMiAyODkuMzk2NDA3LDQ0LjIzMTA4OTkgMjg5Ljg3MjQwMSw0NC41MDMwODY4IEwyOTUuMTI3NTk5LDQ3LjUwNjA1NjYgQzI5NS42MDk0MTMsNDcuNzgxMzc4OSAyOTYsNDcuNTU3ODczIDI5Niw0Ny4wMDg2Mjk2IEwyOTYsNDEuNTAwNTEzOCBDMjk2LDQwLjk1MDQ3MDIgMjk1LjYwMzU5Myw0MC4yNzgwNTM1IDI5NS4xMjc1OTksNDAuMDA2MDU2NiBMMjg5Ljg3MjQwMSwzNy4wMDMwODY4IEMyODkuMzkwNTg3LDM2LjcyNzc2NDUgMjg5LDM2Ljk1MTI3MDQgMjg5LDM3LjUwMDUxMzggTDI4OSw0My4wMDg2Mjk2IFogTTMwNCw0My4wMDg2Mjk2IEMzMDQsNDMuNTU4NjczMiAzMDMuNjAzNTkzLDQ0LjIzMTA4OTkgMzAzLjEyNzU5OSw0NC41MDMwODY4IEwyOTcuODcyNDAxLDQ3LjUwNjA1NjYgQzI5Ny4zOTA1ODcsNDcuNzgxMzc4OSAyOTcsNDcuNTU3ODczIDI5Nyw0Ny4wMDg2Mjk2IEwyOTcsNDEuNTAwNTEzOCBDMjk3LDQwLjk1MDQ3MDIgMjk3LjM5NjQwNyw0MC4yNzgwNTM1IDI5Ny44NzI0MDEsNDAuMDA2MDU2NiBMMzAzLjEyNzU5OSwzNy4wMDMwODY4IEMzMDMuNjA5NDEzLDM2LjcyNzc2NDUgMzA0LDM2Ljk1MTI3MDQgMzA0LDM3LjUwMDUxMzggTDMwNCw0My4wMDg2Mjk2IFogTTI5Ny4zNDk3NjEsMzguOTgxNjQxNiBDMjk2Ljg4MDQ1MSwzOS4yNzA0NDc5IDI5Ni4xMTI4NjEsMzkuMjY2MzMyNCAyOTUuNjUwMjM5LDM4Ljk4MTY0MTYgTDI5MC44NDk3NjEsMzYuMDI3NTAxOCBDMjkwLjM4MDQ1MSwzNS43Mzg2OTU1IDI5MC4zODcxMzksMzUuMjk2MTEyMyAyOTAuODc2NjE5LDM1LjAzMjU0NjEgTDI5NS42MjMzODEsMzIuNDc2NTk3MyBDMjk2LjEwNzUyNCwzMi4yMTU5MDQ4IDI5Ni44ODcxMzksMzIuMjEzMDMxMSAyOTcuMzc2NjE5LDMyLjQ3NjU5NzMgTDMwMi4xMjMzODEsMzUuMDMyNTQ2MSBDMzAyLjYwNzUyNCwzNS4yOTMyMzg3IDMwMi42MTI4NjEsMzUuNzQyODExIDMwMi4xNTAyMzksMzYuMDI3NTAxOCBMMjk3LjM0OTc2MSwzOC45ODE2NDE2IFoiLz4KICA8L2c+Cjwvc3ZnPgo="
 
 /***/ },
-/* 265 */
+/* 229 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -11800,7 +11008,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _i18n = __webpack_require__(189);
 	
-	var _NavigationGroup = __webpack_require__(261);
+	var _NavigationGroup = __webpack_require__(225);
 	
 	var _NavigationGroup2 = _interopRequireDefault(_NavigationGroup);
 	
@@ -12143,7 +11351,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = SvelteComponent;
 
 /***/ },
-/* 266 */
+/* 230 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -12214,7 +11422,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 267 */
+/* 231 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
