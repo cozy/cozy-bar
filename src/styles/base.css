@@ -9,8 +9,9 @@ body {
 
 
 [role=application] {
+  display: flex;
   height: inherit;
-  flex: 1 100vh;
+  flex: 1 1 100vh;
   overflow-y: auto;
 }
 
