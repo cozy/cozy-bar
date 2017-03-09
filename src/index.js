@@ -10,7 +10,6 @@ import stack from './lib/stack'
 import BarView from './components/Bar'
 
 const APP_SELECTOR = '[role=application]'
-const BANNER_SELECTOR = '[role=banner]'
 
 const createElement = function CozyBarCreateElement () {
   const barNode = document.createElement('div')
@@ -46,12 +45,7 @@ const bindEvents = function CozyBarBindEvents () {
   document.body.addEventListener('click', this._clickOutsideListener)
 
   this._drawerObserver = this.observe('drawerVisible', drawerVisible => {
-    const bannerNode = document.querySelector(BANNER_SELECTOR)
-    if (!bannerNode) {
-      console.warn(`Cozy-bar is looking for a "${BANNER_SELECTOR}" tag that contains your banner and can't find it :'(…`)
-    } else {
-      bannerNode.dataset.drawerVisible = drawerVisible
-    }
+    document.querySelector('[role=banner]').dataset.drawerVisible = drawerVisible
   })
 }
 
@@ -63,7 +57,7 @@ const unbindEvents = function CozyBarUnbindEvents () {
 const getDefaultStackURL = function GetDefaultCozyURL () {
   const appNode = document.querySelector(APP_SELECTOR)
   if (!appNode) {
-    console.warn(`Cozy-bar is looking for a "${APP_SELECTOR}" tag that contains your application and can't find it :'(… The BAR is now disabled`)
+    console.warn(`Cozy-bar can't discover the cozy's URL, and will probably fail to initialize the connection with the stack.`)
     return ''
   }
   return appNode.dataset.cozyDomain
@@ -72,7 +66,7 @@ const getDefaultStackURL = function GetDefaultCozyURL () {
 const getDefaultToken = function GetDefaultToken () {
   const appNode = document.querySelector(APP_SELECTOR)
   if (!appNode) {
-    console.warn(`Cozy-bar is looking for a "${APP_SELECTOR}" tag that contains your application and can't find it :'(… The BAR is now disabled`)
+    console.warn(`Cozy-bar can't discover the app's token, and will probably fail to initialize the connection with the stack.`)
     return ''
   }
   return appNode.dataset.cozyToken
