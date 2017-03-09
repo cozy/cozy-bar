@@ -66,24 +66,22 @@
       this.lazyloader = this.observe('item', item => {
         if (!item.icon || item.icon.onload || item.icon.cached) { return }
 
-        const uri = `${stack.get.cozyURL()}${item.icon}`
+        const src = item.icon
 
         item = Object.assign({}, item, { icon: {
-          src: uri,
+          src,
           cached: false,
           onload: true
         }})
 
         this.set({item})
 
-        const loader = new Image()
-        loader.onload = () => {
+        stack.get.icon(src).then(icon => {
+          item.icon.src = icon
           item.icon.cached = true
           item.icon.onload = false
           this.set({item})
-        }
-
-        loader.src = uri
+        })
       })
     },
 
