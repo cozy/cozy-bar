@@ -32,8 +32,7 @@
 
   const EXCLUDES = ['settings']
 
-  async function updateAppsItems () {
-    const config = this.get('config')
+  async function updateAppsItems (config) {
     let apps
 
     try {
@@ -55,8 +54,7 @@
     Array.prototype.push.apply(config.apps, apps)
   }
 
-  async function updateDiskUsage () {
-    const config = this.get('config')
+  async function updateDiskUsage (config) {
     let currentDiskUsage
 
     try {
@@ -73,9 +71,7 @@
    * the `settings` app
    * @return {Promise}
    */
-  async function toggleSettingsItems () {
-    const config = this.get('config')
-
+  async function toggleSettingsItems (config) {
     // We reset the settings' links array
     config.subsections.settings.length = 0
 
@@ -138,18 +134,59 @@
     return clone
   }
 
+  /**
+   * Helper function to update apps in CONFIG tree
+   * @param  {Object}           config the JSON CONFIG tree source
+   * @return {Promise(boolean)} a valve that allow to trigger update or not
+   */
+  async function updateApps (config) {
+    const oldApps = config.apps.slice()
+
+    await updateAppsItems(config)
+
+    return !deepEqual(oldApps, config.apps)
+  }
+
+  /**
+   * Helper function to update all settings related in CONFIG tree
+   * @param  {Object}           config the JSON CONFIG tree source
+   * @param  {Object}           options
+   *                            - storage {Boolean} update the storage component
+   *                            - items {Boolean} update settings items list
+   * @return {Promise(boolean)} a valve that allow to trigger update or not
+   */
+  async function updateSettings (config, {storage = true, items = true} = {}) {
+    let valve = false
+
+    if (storage) {
+      const oldDiskUsage = config.components.storage.currentDiskUsage
+      await updateDiskUsage(config)
+      valve = valve || oldDiskUsage != config.components.storage.currentDiskUsage
+    }
+
+    if (items) {
+      const oldSettingsItems = config.subsections.settings.slice()
+      await toggleSettingsItems(config)
+      valve = valve || !deepEqual(oldSettingsItems, config.subsections.settings)
+    }
+
+    return valve
+  }
+
   export default {
     data () {
+      const config = createMenuPointers(MENU_CONFIG)
+
+      updateSettings(config)
+      updateApps(config)
+
       return {
         target: __TARGET__,
-        config: createMenuPointers(MENU_CONFIG),
+        config,
         drawerVisible: false
       }
     },
 
-    onrender () {
-      this.updateApps()
-      this.updateSettings()
     },
 
     components: {
@@ -160,40 +197,40 @@
     helpers: { t },
 
     methods: {
-      toggleDrawer(force) {
+      async toggleDrawer(force) {
+        const config = this.get('config')
         const toggle = force ? false : !this.get('drawerVisible')
 
-        if (toggle) { this.updateApps() }
+        if (toggle) {
+          // we only update settings items, and lets the `updateApps`
+          // as the settings items directly rely on the presence of the
+          // _settings_ app
+          const settingsValve = await updateSettings(config, {storage: false})
+          const appsValve = await updateApps(config)
+
+          /** Ugly hack to force re-render by triggering `set` method on config */
+          if ( settingsValve || appsValve ) { this.set({ config }) }
+        }
 
         this.set({drawerVisible: toggle})
       },
-      onPopOpen (panel) {
+      async onPopOpen (panel) {
+        const config = this.get('config')
+        let valve
+
         switch (panel) {
           case 'apps':
-            this.updateApps()
+            await updateApps(config)
+            // we force config update as the menu dropdown opening depends on it
+            valve = true
             break
           case 'settings':
-            this.updateSettings()
+            valve = await updateSettings(config)
             break
         }
-      },
-      async updateApps () {
-        const config = this.get('config')
-        await updateAppsItems.call(this)
-        /** Ugly hack to force re-render by triggering `set` method on config */
-        this.set({ config })
-      },
-      async updateSettings () {
-        const config = this.get('config')
-        const oldDiskUsage = config.components.storage.currentDiskUsage
-        const oldSettingsItems = config.subsections.settings.slice()
-
-        await updateDiskUsage.call(this)
-        await toggleSettingsItems.call(this)
 
         /** Ugly hack to force re-render by triggering `set` method on config */
-        if (oldDiskUsage != config.components.storage.currentDiskUsage ||
-            !deepEqual(oldSettingsItems, config.subsections.settings)) { this.set({ config }) }
+        if ( valve ) { this.set({ config }); }
       }
     }
   }
