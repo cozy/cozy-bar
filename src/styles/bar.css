@@ -11,7 +11,7 @@
   font-size: 1rem;
 }
 
-@media (max-width: 48em) {
+@media (max-width: 30em) {
   [role=banner] {
     padding: 0 1em 0 0;
   }
@@ -34,7 +34,7 @@
   color: var(--charcoal-grey);
 }
 
-@media (max-width: 48em) {
+@media (max-width: 30em) {
   [role=banner] .coz-bar-title {
     font-size: 1.25em
   }
@@ -49,7 +49,11 @@
   font-weight: bold;
 }
 
-@media (max-width: 48em) {
+@media (max-width: 30em) {
+  [role=banner] .coz-bar-hide-sm {
+    display: none;
+  }
+
   [role=banner] .coz-bar-title strong {
     padding: 0;
     text-transform: capitalize;
