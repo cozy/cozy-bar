@@ -6,6 +6,8 @@
 [Cozy] Bar Library
 ==================
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/cozy/cozy-bar.svg)](https://greenkeeper.io/)
+
 
 What's Cozy?
 ------------
