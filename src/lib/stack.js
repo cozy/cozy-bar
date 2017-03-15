@@ -51,6 +51,18 @@ async function getApp (slug) {
   return (await getApps()).find(item => item.attributes.slug === slug)
 }
 
+function getIcon (url) {
+  return fetch(`${COZY_URL}${url}`, fetchOptions())
+  .then(res => res.blob())
+  .then(blob => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader()
+      reader.addEventListener('load', event => resolve(event.target.result))
+      reader.readAsDataURL(blob)
+    })
+  })
+}
+
 async function hasApp (slug) {
   const app = await getApp(slug)
   return !!(app && app.attributes.state === 'ready')
@@ -90,6 +102,7 @@ module.exports = {
     app: getApp,
     apps: getApps,
     diskUsage: getDiskUsage,
+    icon: getIcon,
     cozyURL () {
       return COZY_URL
     },
