@@ -4,7 +4,7 @@
 </button>
 {{/if}}
 
-<h1 class='coz-bar-title'>
+<h1 class='{{titleClass}}'>
   <img class='coz-bar-hide-sm' src='{{iconPath}}' width='32' />
   <span class='coz-bar-hide-sm'>cozy </span><strong>{{appName}}</strong>
 </h1>
@@ -187,6 +187,8 @@
       }
     },
 
+    computed : {
+      titleClass: replaceTitleOnMobile => `coz-bar-title ${replaceTitleOnMobile ? 'coz-bar-hide-sm' : ''}`
     },
 
     components: {
@@ -197,11 +199,11 @@
     helpers: { t },
 
     methods: {
-      async toggleDrawer(force) {
+      async toggleDrawer() {
         const config = this.get('config')
-        const toggle = force ? false : !this.get('drawerVisible')
+        const drawerVisible = !this.get('drawerVisible')
 
-        if (toggle) {
+        if (drawerVisible) {
           // we only update settings items, and lets the `updateApps`
           // as the settings items directly rely on the presence of the
           // _settings_ app
@@ -212,7 +214,7 @@
           if ( settingsValve || appsValve ) { this.set({ config }) }
         }
 
-        this.set({drawerVisible: toggle})
+        this.set({ drawerVisible })
       },
       async onPopOpen (panel) {
         const config = this.get('config')

@@ -4,16 +4,30 @@
   left: 0;
   width: 100vw;
   height: 100vh;
+  /* Prepare for transitions */
+  display: none;
+  /* Fix unwanted `!important` in
+   * https://github.com/cozy/cozy-ui/blob/v3/stylus/ui-base/boxes.styl#L9
+   *
+   * FIXME: remove it when hide() method is removed from cozy-ui
+   */
+  visibility: visible;
 }
 
-@media (min-width: 30.0625em) {
+/*@media (min-width: 30.0625em) {
   [role=banner] .coz-drawer-wrapper {
     display: none;
   }
-}
+}*/
 
-[role=banner] .coz-drawer-wrapper[aria-hidden=true] {
-  display: none;
+[role=banner] .coz-drawer-wrapper[aria-hidden=false],
+[role=banner] .coz-drawer-wrapper.swipe-active {
+  /* Fix unwanted `!important` in
+   * https://github.com/cozy/cozy-ui/blob/v3/stylus/ui-base/boxes.styl#L9
+   *
+   * FIXME: remove it when hide() method is removed from cozy-ui
+   */
+  display: block !important;
 }
 
 [role=banner] .coz-drawer-wrapper::before {
@@ -29,7 +43,7 @@
   transition: opacity 250ms ease-out;
 }
 
-[role=banner] .coz-drawer-wrapper.visible::before {
+[role=banner] .coz-drawer-wrapper[aria-hidden=false]::before {
   opacity: .5;
 }
 
@@ -46,7 +60,7 @@
   transition: transform 500ms ease-out;
 }
 
-[role=banner] .coz-drawer-wrapper.visible aside {
+[role=banner] .coz-drawer-wrapper[aria-hidden=false] aside {
   transform: translateX(0);
 }
 

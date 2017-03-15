@@ -1,6 +1,6 @@
 [role=banner] {
   position: relative;
-  z-index: 20;
+  z-index: var(--z-index-bar);
   min-height: 2.5em;
   flex-shrink: 0;
   display: flex;
@@ -11,9 +11,16 @@
   font-size: 1rem;
 }
 
-@media (max-width: 30em) {
+@media (max-width: 48em) {
   [role=banner] {
     padding: 0 1em 0 0;
+  }
+
+  [role=banner][data-drawer-visible=true] {
+    /* Force the BAR to be above selection bar in mobile mode,
+     * only when drawer is opened
+     */
+    z-index: var(--z-index-over-selection);
   }
 }
 
@@ -27,7 +34,7 @@
   color: var(--charcoal-grey);
 }
 
-@media (max-width: 30em) {
+@media (max-width: 48em) {
   [role=banner] .coz-bar-title {
     font-size: 1.25em
   }
@@ -42,11 +49,7 @@
   font-weight: bold;
 }
 
-@media (max-width: 30em) {
-  [role=banner] .coz-bar-hide-sm {
-    display: none;
-  }
-
+@media (max-width: 48em) {
   [role=banner] .coz-bar-title strong {
     padding: 0;
     text-transform: capitalize;
@@ -63,8 +66,21 @@
   text-indent: -9999em;
 }
 
-@media (min-width: 30.0625em) {
-  [role=banner] .coz-bar-burger {
+@media (min-width: 48.0625em) {
+  [role=banner] .coz-bar-burger,
+  [role=banner] .coz-drawer-wrapper {
+    /* Fix unwanted `!important` in
+     * https://github.com/cozy/cozy-ui/blob/v3/stylus/ui-base/boxes.styl#L9
+     *
+     * FIXME: remove it when hide() method is removed from cozy-ui
+     */
+    display: none !important;
+  }
+}
+
+
+@media (max-width: 48em) {
+  [role=banner] .coz-bar-hide-sm {
     display: none;
   }
 }

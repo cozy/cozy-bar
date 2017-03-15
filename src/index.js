@@ -33,7 +33,6 @@ const injectDOM = function CozyBarInjectDOM (data) {
   }
 
   document.body.insertBefore(barNode, appNode)
-
   return new BarView({
     target: barNode,
     data
@@ -41,17 +40,49 @@ const injectDOM = function CozyBarInjectDOM (data) {
 }
 
 const bindEvents = function CozyBarBindEvents () {
-  this._clickOutsideListener = () => this.fire('clickOutside')
-  document.body.addEventListener('click', this._clickOutsideListener)
+  const body = document.body
+  const root = document.querySelector('[role=banner]')
+  const aside = document.querySelector('.coz-drawer-wrapper aside')
 
-  this._drawerObserver = this.observe('drawerVisible', drawerVisible => {
-    document.querySelector('[role=banner]').dataset.drawerVisible = drawerVisible
+  /** Fire a `clickOutside` event when clcking everywhere in the viewport */
+  this._clickOutsideListener = () => this.fire('clickOutside')
+  body.addEventListener('click', this._clickOutsideListener)
+
+  /** Define update status helper, wrapped in a next frame to keep DOM clean */
+  const updateVisibleStatus = () => {
+    setTimeout(() => { root.dataset.drawerVisible = this.get('drawerVisible') }, 10)
+  }
+
+  const listener = () => {
+    updateVisibleStatus()
+    aside.removeEventListener('transitionend', listener)
+  }
+
+  /** Set default value for drawerVisible */
+  updateVisibleStatus()
+
+  /**
+   * Set dataset attribute in mirror of drawerVisible state:
+   * - immediately when switch to true
+   * - after aside transition when switch to false
+   */
+  this._drawerVisibleObserver = this.observe('drawerVisible', drawerVisible => {
+    if (drawerVisible) {
+      updateVisibleStatus()
+    } else {
+      aside.addEventListener('transitionend', listener)
+    }
   })
 }
 
 const unbindEvents = function CozyBarUnbindEvents () {
-  document.body.removeEventListener('click', this._clickOutsideListener)
+  const body = document.body
+  const aside = document.querySelector('.coz-drawer-wrapper aside')
+
+  body.removeEventListener('click', this._clickOutsideListener)
   this._drawerObserver.cancel()
+
+  this._drawerVisibleObserver.cancel()
 }
 
 const getDefaultStackURL = function GetDefaultCozyURL () {
@@ -90,11 +121,12 @@ const init = function CozyBarInit ({
   appName,
   iconPath = getDefaultIcon(),
   cozyURL = getDefaultStackURL(),
-  token = getDefaultToken()
+  token = getDefaultToken(),
+  replaceTitleOnMobile = false
 } = {}) {
   i18n(lang)
   stack.init({cozyURL, token})
-  const view = injectDOM({lang, appName, iconPath})
+  const view = injectDOM({lang, appName, iconPath, replaceTitleOnMobile})
 
   if (view) {
     bindEvents.call(view)

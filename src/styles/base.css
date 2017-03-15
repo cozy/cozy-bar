@@ -1,3 +1,14 @@
+/**
+ * TODO: Import z-index values directly from
+ * https://github.com/cozy/cozy-ui/blob/v3/stylus/ui-base/z-index.styl
+ */
+:root {
+  --z-index-bar: 20;
+  --z-index-selection: 30;
+  --z-index-over-selection: 31;
+}
+
+
 body {
   display: flex;
   flex-direction: column;
