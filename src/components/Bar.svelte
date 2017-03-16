@@ -30,9 +30,6 @@
     data () {
       const config = createMenuPointers(MENU_CONFIG)
 
-      updateSettings(config)
-      updateApps(config)
-
       return {
         target: __TARGET__,
         config,
@@ -42,6 +39,19 @@
 
     computed : {
       titleClass: replaceTitleOnMobile => `coz-bar-title ${replaceTitleOnMobile ? 'coz-bar-hide-sm' : ''}`
+    },
+
+    /**
+     * When loading the Bar component, we once force a first update of config
+     * w/ settings and apps
+     */
+    async onrender () {
+      const config = this.get('config')
+
+      await updateSettings(config)
+      await updateApps(config)
+
+      this.set({ config })
     },
 
     components: {

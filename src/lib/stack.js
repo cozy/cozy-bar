@@ -23,16 +23,18 @@ function fetchOptions () {
 let COZY_URL = __SERVER__
 let COZY_TOKEN
 
-async function getApps () {
-  const res = await fetch(`${COZY_URL}/apps/`, fetchOptions()).catch(e => {
+function getApps () {
+  return fetch(`${COZY_URL}/apps/`, fetchOptions())
+  .then(res => {
+    if (res.status === 401) {
+      throw new UnauthorizedStackException()
+    }
+    return res.json()
+  })
+  .then(json => json.data)
+  .catch(e => {
     throw new UnavailableStackException()
   })
-
-  if (res.status === 401) {
-    throw new UnauthorizedStackException()
-  }
-
-  return (await res.json()).data
 }
 
 async function getDiskUsage () {

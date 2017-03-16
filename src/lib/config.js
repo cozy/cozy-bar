@@ -2,7 +2,6 @@ import deepClone from 'deep-clone'
 import deepEqual from 'deep-equal'
 
 import stack from '../lib/stack'
-import { UnavailableSettingsException } from '../lib/exceptions'
 
 import MENU_CONFIG from '../config/menu'
 
@@ -12,16 +11,29 @@ async function updateAppsItems (config) {
   let apps
 
   try {
-    apps = (await stack.get.apps())
-    .filter(app => !EXCLUDES.includes(app.attributes.slug))
-    .map(app => {
-      return {
-        slug: app.attributes.slug,
-        l10n: false,
-        href: app.links.related,
-        icon: app.links.icon
-      }
-    })
+    apps = await Promise.all((await stack.get.apps())
+      .filter(app => !EXCLUDES.includes(app.attributes.slug))
+      .map(async app => {
+        const oldApp = config.apps.find(item => item.slug === app.attributes.slug)
+        let icon
+
+        if (oldApp && oldApp.icon.cached) {
+          icon = oldApp.icon
+        } else {
+          icon = {
+            src: await stack.get.icon(app.links.icon),
+            cached: true
+          }
+        }
+
+        return {
+          slug: app.attributes.slug,
+          l10n: false,
+          href: app.links.related,
+          icon
+        }
+      })
+    )
   } catch (e) {
     apps = [{error: e}]
   }
