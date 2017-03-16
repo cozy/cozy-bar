@@ -28,7 +28,8 @@ const injectDOM = function CozyBarInjectDOM (data) {
   const barNode = createElement()
   const appNode = document.querySelector(APP_SELECTOR)
   if (!appNode) {
-    return console.warn(`Cozy-bar is looking for a "${APP_SELECTOR}" tag that contains your application and can't find it :'(… The BAR is now disabled`)
+    console.warn(`Cozy-bar is looking for a "${APP_SELECTOR}" tag that contains your application and can't find it :'(… The BAR is now disabled`)
+    return null
   }
 
   document.body.insertBefore(barNode, appNode)
@@ -54,11 +55,21 @@ const unbindEvents = function CozyBarUnbindEvents () {
 }
 
 const getDefaultStackURL = function GetDefaultCozyURL () {
-  return document.querySelector('[role=application]').dataset.cozyDomain
+  const appNode = document.querySelector(APP_SELECTOR)
+  if (!appNode) {
+    console.warn(`Cozy-bar can't discover the cozy's URL, and will probably fail to initialize the connection with the stack.`)
+    return ''
+  }
+  return appNode.dataset.cozyDomain
 }
 
 const getDefaultToken = function GetDefaultToken () {
-  return document.querySelector('[role=application]').dataset.cozyToken
+  const appNode = document.querySelector(APP_SELECTOR)
+  if (!appNode) {
+    console.warn(`Cozy-bar can't discover the app's token, and will probably fail to initialize the connection with the stack.`)
+    return ''
+  }
+  return appNode.dataset.cozyToken
 }
 
 const getDefaultLang = function GetDefaultLang () {
