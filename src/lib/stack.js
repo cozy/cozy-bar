@@ -37,20 +37,23 @@ function getApps () {
   })
 }
 
-async function getDiskUsage () {
-  const res = await fetch(`${COZY_URL}/settings/disk-usage`, fetchOptions()).catch(e => {
+function getDiskUsage () {
+  return fetch(`${COZY_URL}/settings/disk-usage`, fetchOptions())
+  .then(res => {
+    if (res.status === 401) {
+      throw new UnauthorizedStackException()
+    }
+
+    return res.json()
+  })
+  .then(json => parseInt(json.data.attributes.used, 10))
+  .catch(e => {
     throw new UnavailableStackException()
   })
-
-  if (res.status === 401) {
-    throw new UnauthorizedStackException()
-  }
-
-  return parseInt((await res.json()).data.attributes.used, 10)
 }
 
-async function getApp (slug) {
-  return (await getApps()).find(item => item.attributes.slug === slug)
+function getApp (slug) {
+  return getApps().then(apps => apps.find(item => item.attributes.slug === slug))
 }
 
 function getIcon (url) {
@@ -65,9 +68,8 @@ function getIcon (url) {
   })
 }
 
-async function hasApp (slug) {
-  const app = await getApp(slug)
-  return !!(app && app.attributes.state === 'ready')
+function hasApp (slug) {
+  return getApp(slug).then(app => !!(app && app.attributes.state === 'ready'))
 }
 
 module.exports = {
@@ -108,25 +110,29 @@ module.exports = {
     cozyURL () {
       return COZY_URL
     },
-    async settingsBaseURI () {
-      const settings = await getApp('settings')
-      if (!settings) { throw new UnavailableSettingsException() }
-      return settings.links.related
+    settingsBaseURI () {
+      return getApp('settings')
+      .then(settings => {
+        if (!settings) { throw new UnavailableSettingsException() }
+        return settings.links.related
+      })
     }
   },
-  async logout () {
+  logout () {
     const options = Object.assign({}, fetchOptions(), {
       method: 'DELETE'
     })
 
-    const res = await fetch(`${COZY_URL}/auth/login`, options).catch(e => {
+    return fetch(`${COZY_URL}/auth/login`, options)
+    .then(res => {
+      if (res.status === 401) {
+        throw new UnauthorizedStackException()
+      } else if (res.status === 204) {
+        window.location.reload()
+      }
+    })
+    .catch(e => {
       throw new UnavailableStackException()
     })
-
-    if (res.status === 401) {
-      throw new UnauthorizedStackException()
-    } else if (res.status === 204) {
-      window.location.reload()
-    }
   }
 }
