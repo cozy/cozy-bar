@@ -1,14 +1,3 @@
-/**
- * TODO: Import z-index values directly from
- * https://github.com/cozy/cozy-ui/blob/v3/stylus/ui-base/z-index.styl
- */
-:root {
-  --z-index-bar: 20;
-  --z-index-selection: 30;
-  --z-index-over-selection: 31;
-}
-
-
 body {
   display: flex;
   flex-direction: column;
@@ -24,16 +13,6 @@ body {
   height: inherit;
   flex: 1 1 100vh;
   overflow-y: auto;
-}
-
-
-[role=banner] {
-  --silver: #d6d8da;
-  --slate-grey: #5d6165;
-  --charcoal-grey: #32363f;
-  --cool-grey: #95999d;
-  --pale-grey: #f5f6f7;
-  --clear-blue: #297ef2;
 }
 
 

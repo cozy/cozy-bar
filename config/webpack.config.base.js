@@ -12,7 +12,7 @@ module.exports = {
     umdNamedDefine: true
   },
   resolve: {
-    extensions: ['', '.js', '.svelte', '.json', '.yaml', '.css']
+    extensions: ['', '.js', '.svelte', '.json', '.yaml']
   },
   devtool: '#source-map',
   module: {

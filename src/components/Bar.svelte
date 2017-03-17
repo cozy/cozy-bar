@@ -1,6 +1,6 @@
 {{#if target !== 'mobile'}}
 <button class='coz-bar-burger' on:click='toggleDrawer()' data-icon='icon-hamburger'>
-  {{t('menu')}}
+  <span class='coz-bar-hidden'>{{t('menu')}}</span>
 </button>
 {{/if}}
 

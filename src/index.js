@@ -23,7 +23,7 @@ const createElement = function CozyBarCreateElement () {
 const injectDOM = function CozyBarInjectDOM (data) {
   if (document.getElementById('coz-bar') !== null) { return }
 
-  require('./styles/index.css')
+  require('./styles')
 
   const barNode = createElement()
   const appNode = document.querySelector(APP_SELECTOR)
