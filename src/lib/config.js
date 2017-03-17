@@ -5,7 +5,7 @@ import stack from '../lib/stack'
 
 import MENU_CONFIG from '../config/menu'
 
-const EXCLUDES = ['settings']
+const EXCLUDES = ['settings', 'onboarding']
 
 async function updateAppsItems (config) {
   let apps
