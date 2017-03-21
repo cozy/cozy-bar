@@ -149,7 +149,7 @@ async function updateSettings (config, {storage = true, items = true} = {}) {
   if (storage) {
     const oldDiskUsage = config.components.storage.currentDiskUsage
     await updateDiskUsage(config)
-    valve = valve || oldDiskUsage != config.components.storage.currentDiskUsage
+    valve = valve || oldDiskUsage !== config.components.storage.currentDiskUsage
   }
 
   if (items) {

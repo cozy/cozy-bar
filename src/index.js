@@ -44,7 +44,7 @@ const bindEvents = function CozyBarBindEvents () {
   const root = document.querySelector('[role=banner]')
   const aside = document.querySelector('.coz-drawer-wrapper aside')
 
-  /** Fire a `clickOutside` event when clcking everywhere in the viewport */
+  /** Fire a `clickOutside` event when clicking anywhere in the viewport */
   this._clickOutsideListener = () => this.fire('clickOutside')
   body.addEventListener('click', this._clickOutsideListener)
 
@@ -77,7 +77,6 @@ const bindEvents = function CozyBarBindEvents () {
 
 const unbindEvents = function CozyBarUnbindEvents () {
   const body = document.body
-  const aside = document.querySelector('.coz-drawer-wrapper aside')
 
   body.removeEventListener('click', this._clickOutsideListener)
   this._drawerObserver.cancel()
