@@ -59,13 +59,7 @@ function getApp (slug) {
 function getIcon (url) {
   return fetch(`${COZY_URL}${url}`, fetchOptions())
   .then(res => res.blob())
-  .then(blob => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader()
-      reader.addEventListener('load', event => resolve(event.target.result))
-      reader.readAsDataURL(blob)
-    })
-  })
+  .then(blob => URL.createObjectURL(blob))
 }
 
 function hasApp (slug) {
