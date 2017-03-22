@@ -260,16 +260,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return;
 	  }
 	
-	  __webpack_require__(267);
+	  __webpack_require__(268);
 	
 	  var barNode = createElement();
 	  var appNode = document.querySelector(APP_SELECTOR);
 	  if (!appNode) {
-	    return console.warn('Cozy-bar is looking for a "' + APP_SELECTOR + '" tag that contains your application and can\'t find it :\'(\u2026 The BAR is now disabled');
+	    console.warn('Cozy-bar is looking for a "' + APP_SELECTOR + '" tag that contains your application and can\'t find it :\'(\u2026 The BAR is now disabled');
+	    return null;
 	  }
 	
 	  document.body.insertBefore(barNode, appNode);
-	
 	  return new _Bar2.default({
 	    target: barNode,
 	    data: data
@@ -279,27 +279,70 @@ return /******/ (function(modules) { // webpackBootstrap
 	var bindEvents = function CozyBarBindEvents() {
 	  var _this = this;
 	
+	  var body = document.body;
+	  var root = document.querySelector('[role=banner]');
+	  var aside = document.querySelector('.coz-drawer-wrapper aside');
+	
+	  /** Fire a `clickOutside` event when clicking anywhere in the viewport */
 	  this._clickOutsideListener = function () {
 	    return _this.fire('clickOutside');
 	  };
-	  document.body.addEventListener('click', this._clickOutsideListener);
+	  body.addEventListener('click', this._clickOutsideListener);
 	
-	  this._drawerObserver = this.observe('drawerVisible', function (drawerVisible) {
-	    document.querySelector('[role=banner]').dataset.drawerVisible = drawerVisible;
+	  /** Define update status helper, wrapped in a next frame to keep DOM clean */
+	  var updateVisibleStatus = function updateVisibleStatus() {
+	    setTimeout(function () {
+	      root.dataset.drawerVisible = _this.get('drawerVisible');
+	    }, 10);
+	  };
+	
+	  var listener = function listener() {
+	    updateVisibleStatus();
+	    aside.removeEventListener('transitionend', listener);
+	  };
+	
+	  /** Set default value for drawerVisible */
+	  updateVisibleStatus();
+	
+	  /**
+	   * Set dataset attribute in mirror of drawerVisible state:
+	   * - immediately when switch to true
+	   * - after aside transition when switch to false
+	   */
+	  this._drawerVisibleObserver = this.observe('drawerVisible', function (drawerVisible) {
+	    if (drawerVisible) {
+	      updateVisibleStatus();
+	    } else {
+	      aside.addEventListener('transitionend', listener);
+	    }
 	  });
 	};
 	
 	var unbindEvents = function CozyBarUnbindEvents() {
-	  document.body.removeEventListener('click', this._clickOutsideListener);
+	  var body = document.body;
+	
+	  body.removeEventListener('click', this._clickOutsideListener);
 	  this._drawerObserver.cancel();
+	
+	  this._drawerVisibleObserver.cancel();
 	};
 	
 	var getDefaultStackURL = function GetDefaultCozyURL() {
-	  return document.querySelector('[role=application]').dataset.cozyDomain;
+	  var appNode = document.querySelector(APP_SELECTOR);
+	  if (!appNode) {
+	    console.warn('Cozy-bar can\'t discover the cozy\'s URL, and will probably fail to initialize the connection with the stack.');
+	    return '';
+	  }
+	  return appNode.dataset.cozyDomain;
 	};
 	
 	var getDefaultToken = function GetDefaultToken() {
-	  return document.querySelector('[role=application]').dataset.cozyToken;
+	  var appNode = document.querySelector(APP_SELECTOR);
+	  if (!appNode) {
+	    console.warn('Cozy-bar can\'t discover the app\'s token, and will probably fail to initialize the connection with the stack.');
+	    return '';
+	  }
+	  return appNode.dataset.cozyToken;
 	};
 	
 	var getDefaultLang = function GetDefaultLang() {
@@ -325,11 +368,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	      _ref$cozyURL = _ref.cozyURL,
 	      cozyURL = _ref$cozyURL === undefined ? getDefaultStackURL() : _ref$cozyURL,
 	      _ref$token = _ref.token,
-	      token = _ref$token === undefined ? getDefaultToken() : _ref$token;
+	      token = _ref$token === undefined ? getDefaultToken() : _ref$token,
+	      _ref$replaceTitleOnMo = _ref.replaceTitleOnMobile,
+	      replaceTitleOnMobile = _ref$replaceTitleOnMo === undefined ? false : _ref$replaceTitleOnMo;
 	
 	  (0, _i18n2.default)(lang);
 	  _stack2.default.init({ cozyURL: cozyURL, token: token });
-	  var view = injectDOM({ lang: lang, appName: appName, iconPath: iconPath });
+	  var view = injectDOM({ lang: lang, appName: appName, iconPath: iconPath, replaceTitleOnMobile: replaceTitleOnMobile });
 	
 	  if (view) {
 	    bindEvents.call(view);
@@ -337,7 +382,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 	};
 	
-	module.exports = { init: init, version: ("3.0.0-beta11") };
+	module.exports = { init: init, version: ("3.0.0-beta12") };
 
 /***/ },
 /* 1 */
@@ -7658,7 +7703,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"email": "Enviar un email a asistencia",
 		"logout": "Finalizar sesión",
 		"error_UnavailableStack": "La pila es inaccesible ( se agotó el tiempo de la conexión ).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack."
+		"error_UnauthorizedStack": "Faltan algunos permisos, la aplicación no puede acceder al recurso solicitado en la pila."
 	};
 
 /***/ },
@@ -7713,11 +7758,11 @@ return /******/ (function(modules) { // webpackBootstrap
 		"profile": "Profil",
 		"connectedDevices": "Appareils connectés",
 		"storage": "Espace disque",
-		"storage_phrase": "%{diskUsage} GB sur %{totalStorage} GB",
+		"storage_phrase": "%{diskUsage} Go sur %{totalStorage} Go",
 		"help": "Aide",
 		"email": "Envoyer un email au support",
 		"logout": "Déconnexion",
-		"error_UnavailableStack": "Connexion à la stack impossible (interrompue après délai)",
+		"error_UnavailableStack": "Connexion à la stack impossible (connection timed-out)",
 		"error_UnauthorizedStack": "Des permissions sont manquante, l'application ne peut accéder aux ressources demandées."
 	};
 
@@ -8167,148 +8212,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 	
-	var getApps = function () {
-	  var _ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee() {
-	    var res;
-	    return regeneratorRuntime.wrap(function _callee$(_context) {
-	      while (1) {
-	        switch (_context.prev = _context.next) {
-	          case 0:
-	            _context.next = 2;
-	            return fetch(COZY_URL + '/apps/', fetchOptions()).catch(function (e) {
-	              throw new _exceptions.UnavailableStackException();
-	            });
-	
-	          case 2:
-	            res = _context.sent;
-	
-	            if (!(res.status === 401)) {
-	              _context.next = 5;
-	              break;
-	            }
-	
-	            throw new _exceptions.UnauthorizedStackException();
-	
-	          case 5:
-	            _context.next = 7;
-	            return res.json();
-	
-	          case 7:
-	            return _context.abrupt('return', _context.sent.data);
-	
-	          case 8:
-	          case 'end':
-	            return _context.stop();
-	        }
-	      }
-	    }, _callee, this);
-	  }));
-	
-	  return function getApps() {
-	    return _ref.apply(this, arguments);
-	  };
-	}();
-	
-	var getDiskUsage = function () {
-	  var _ref2 = _asyncToGenerator(regeneratorRuntime.mark(function _callee2() {
-	    var res;
-	    return regeneratorRuntime.wrap(function _callee2$(_context2) {
-	      while (1) {
-	        switch (_context2.prev = _context2.next) {
-	          case 0:
-	            _context2.next = 2;
-	            return fetch(COZY_URL + '/settings/disk-usage', fetchOptions()).catch(function (e) {
-	              throw new _exceptions.UnavailableStackException();
-	            });
-	
-	          case 2:
-	            res = _context2.sent;
-	
-	            if (!(res.status === 401)) {
-	              _context2.next = 5;
-	              break;
-	            }
-	
-	            throw new _exceptions.UnauthorizedStackException();
-	
-	          case 5:
-	            _context2.t0 = parseInt;
-	            _context2.next = 8;
-	            return res.json();
-	
-	          case 8:
-	            _context2.t1 = _context2.sent.data.attributes.used;
-	            return _context2.abrupt('return', (0, _context2.t0)(_context2.t1, 10));
-	
-	          case 10:
-	          case 'end':
-	            return _context2.stop();
-	        }
-	      }
-	    }, _callee2, this);
-	  }));
-	
-	  return function getDiskUsage() {
-	    return _ref2.apply(this, arguments);
-	  };
-	}();
-	
-	var getApp = function () {
-	  var _ref3 = _asyncToGenerator(regeneratorRuntime.mark(function _callee3(slug) {
-	    return regeneratorRuntime.wrap(function _callee3$(_context3) {
-	      while (1) {
-	        switch (_context3.prev = _context3.next) {
-	          case 0:
-	            _context3.next = 2;
-	            return getApps();
-	
-	          case 2:
-	            _context3.t0 = function (item) {
-	              return item.attributes.slug === slug;
-	            };
-	
-	            return _context3.abrupt('return', _context3.sent.find(_context3.t0));
-	
-	          case 4:
-	          case 'end':
-	            return _context3.stop();
-	        }
-	      }
-	    }, _callee3, this);
-	  }));
-	
-	  return function getApp(_x) {
-	    return _ref3.apply(this, arguments);
-	  };
-	}();
-	
-	var hasApp = function () {
-	  var _ref4 = _asyncToGenerator(regeneratorRuntime.mark(function _callee4(slug) {
-	    var app;
-	    return regeneratorRuntime.wrap(function _callee4$(_context4) {
-	      while (1) {
-	        switch (_context4.prev = _context4.next) {
-	          case 0:
-	            _context4.next = 2;
-	            return getApp(slug);
-	
-	          case 2:
-	            app = _context4.sent;
-	            return _context4.abrupt('return', !!(app && app.attributes.state === 'ready'));
-	
-	          case 4:
-	          case 'end':
-	            return _context4.stop();
-	        }
-	      }
-	    }, _callee4, this);
-	  }));
-	
-	  return function hasApp(_x2) {
-	    return _ref4.apply(this, arguments);
-	  };
-	}();
-	
 	__webpack_require__(1);
 	
 	__webpack_require__(42);
@@ -8500,10 +8403,65 @@ return /******/ (function(modules) { // webpackBootstrap
 	var COZY_URL = ("http://cozy.local:8080");
 	var COZY_TOKEN = void 0;
 	
+	function getApps() {
+	  return fetch(COZY_URL + '/apps/', fetchOptions()).then(function (res) {
+	    if (res.status === 401) {
+	      throw new _exceptions.UnauthorizedStackException();
+	    }
+	    return res.json();
+	  }).then(function (json) {
+	    return json.data;
+	  }).catch(function (e) {
+	    throw new _exceptions.UnavailableStackException();
+	  });
+	}
+	
+	function getDiskUsage() {
+	  return fetch(COZY_URL + '/settings/disk-usage', fetchOptions()).then(function (res) {
+	    if (res.status === 401) {
+	      throw new _exceptions.UnauthorizedStackException();
+	    }
+	
+	    return res.json();
+	  }).then(function (json) {
+	    return parseInt(json.data.attributes.used, 10);
+	  }).catch(function (e) {
+	    throw new _exceptions.UnavailableStackException();
+	  });
+	}
+	
+	function getApp(slug) {
+	  return getApps().then(function (apps) {
+	    return apps.find(function (item) {
+	      return item.attributes.slug === slug;
+	    });
+	  });
+	}
+	
+	function getIcon(url) {
+	  return fetch('' + COZY_URL + url, fetchOptions()).then(function (res) {
+	    return res.blob();
+	  }).then(function (blob) {
+	    return new Promise(function (resolve, reject) {
+	      var reader = new FileReader();
+	      reader.addEventListener('load', function (event) {
+	        return resolve(event.target.result);
+	      });
+	      reader.readAsDataURL(blob);
+	    });
+	  });
+	}
+	
+	function hasApp(slug) {
+	  return getApp(slug).then(function (app) {
+	    return !!(app && app.attributes.state === 'ready');
+	  });
+	}
+	
 	module.exports = {
-	  init: function init(_ref5) {
-	    var cozyURL = _ref5.cozyURL,
-	        token = _ref5.token;
+	  init: function init(_ref) {
+	    var cozyURL = _ref.cozyURL,
+	        token = _ref.token;
 	
 	    COZY_URL = '//' + cozyURL;
 	    COZY_TOKEN = token;
@@ -8518,50 +8476,50 @@ return /******/ (function(modules) { // webpackBootstrap
 	     * the Settings app isn't available.
 	     */
 	    settings: function () {
-	      var _ref6 = _asyncToGenerator(regeneratorRuntime.mark(function _callee5() {
+	      var _ref2 = _asyncToGenerator(regeneratorRuntime.mark(function _callee() {
 	        var hasSettings;
-	        return regeneratorRuntime.wrap(function _callee5$(_context5) {
+	        return regeneratorRuntime.wrap(function _callee$(_context) {
 	          while (1) {
-	            switch (_context5.prev = _context5.next) {
+	            switch (_context.prev = _context.next) {
 	              case 0:
 	                hasSettings = void 0;
-	                _context5.prev = 1;
-	                _context5.next = 4;
+	                _context.prev = 1;
+	                _context.next = 4;
 	                return hasApp('settings');
 	
 	              case 4:
-	                hasSettings = _context5.sent;
-	                _context5.next = 11;
+	                hasSettings = _context.sent;
+	                _context.next = 11;
 	                break;
 	
 	              case 7:
-	                _context5.prev = 7;
-	                _context5.t0 = _context5['catch'](1);
+	                _context.prev = 7;
+	                _context.t0 = _context['catch'](1);
 	
 	                hasSettings = false;
 	                throw new _exceptions.UnavailableSettingsException();
 	
 	              case 11:
 	                if (hasSettings) {
-	                  _context5.next = 13;
+	                  _context.next = 13;
 	                  break;
 	                }
 	
 	                throw new _exceptions.UnavailableSettingsException();
 	
 	              case 13:
-	                return _context5.abrupt('return', hasSettings);
+	                return _context.abrupt('return', hasSettings);
 	
 	              case 14:
 	              case 'end':
-	                return _context5.stop();
+	                return _context.stop();
 	            }
 	          }
-	        }, _callee5, this, [[1, 7]]);
+	        }, _callee, this, [[1, 7]]);
 	      }));
 	
 	      function settings() {
-	        return _ref6.apply(this, arguments);
+	        return _ref2.apply(this, arguments);
 	      }
 	
 	      return settings;
@@ -8571,91 +8529,34 @@ return /******/ (function(modules) { // webpackBootstrap
 	    app: getApp,
 	    apps: getApps,
 	    diskUsage: getDiskUsage,
+	    icon: getIcon,
 	    cozyURL: function cozyURL() {
 	      return COZY_URL;
 	    },
-	    settingsBaseURI: function () {
-	      var _ref7 = _asyncToGenerator(regeneratorRuntime.mark(function _callee6() {
-	        var settings;
-	        return regeneratorRuntime.wrap(function _callee6$(_context6) {
-	          while (1) {
-	            switch (_context6.prev = _context6.next) {
-	              case 0:
-	                _context6.next = 2;
-	                return getApp('settings');
-	
-	              case 2:
-	                settings = _context6.sent;
-	
-	                if (settings) {
-	                  _context6.next = 5;
-	                  break;
-	                }
-	
-	                throw new _exceptions.UnavailableSettingsException();
-	
-	              case 5:
-	                return _context6.abrupt('return', settings.links.related);
-	
-	              case 6:
-	              case 'end':
-	                return _context6.stop();
-	            }
-	          }
-	        }, _callee6, this);
-	      }));
-	
-	      function settingsBaseURI() {
-	        return _ref7.apply(this, arguments);
-	      }
-	
-	      return settingsBaseURI;
-	    }()
-	  },
-	  logout: function () {
-	    var _ref8 = _asyncToGenerator(regeneratorRuntime.mark(function _callee7() {
-	      var options, res;
-	      return regeneratorRuntime.wrap(function _callee7$(_context7) {
-	        while (1) {
-	          switch (_context7.prev = _context7.next) {
-	            case 0:
-	              options = Object.assign({}, fetchOptions(), {
-	                method: 'DELETE'
-	              });
-	              _context7.next = 3;
-	              return fetch(COZY_URL + '/auth/login', options).catch(function (e) {
-	                throw new _exceptions.UnavailableStackException();
-	              });
-	
-	            case 3:
-	              res = _context7.sent;
-	
-	              if (!(res.status === 401)) {
-	                _context7.next = 8;
-	                break;
-	              }
-	
-	              throw new _exceptions.UnauthorizedStackException();
-	
-	            case 8:
-	              if (res.status === 204) {
-	                window.location.reload();
-	              }
-	
-	            case 9:
-	            case 'end':
-	              return _context7.stop();
-	          }
+	    settingsBaseURI: function settingsBaseURI() {
+	      return getApp('settings').then(function (settings) {
+	        if (!settings) {
+	          throw new _exceptions.UnavailableSettingsException();
 	        }
-	      }, _callee7, this);
-	    }));
-	
-	    function logout() {
-	      return _ref8.apply(this, arguments);
+	        return settings.links.related;
+	      });
 	    }
+	  },
+	  logout: function logout() {
+	    var options = Object.assign({}, fetchOptions(), {
+	      method: 'DELETE'
+	    });
 	
-	    return logout;
-	  }()
+	    return fetch(COZY_URL + '/auth/login', options).then(function (res) {
+	      if (res.status === 401) {
+	        throw new _exceptions.UnauthorizedStackException();
+	      } else if (res.status === 204) {
+	        window.location.reload();
+	      }
+	    }).catch(function (e) {
+	      throw new _exceptions.UnavailableStackException();
+	    });
+	  }
 	};
 
 /***/ },
@@ -8741,31 +8642,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 	
-	var _deepClone = __webpack_require__(254);
-	
-	var _deepClone2 = _interopRequireDefault(_deepClone);
-	
-	var _deepEqual = __webpack_require__(256);
-	
-	var _deepEqual2 = _interopRequireDefault(_deepEqual);
-	
 	var _i18n = __webpack_require__(189);
 	
-	var _stack = __webpack_require__(251);
+	var _config = __webpack_require__(254);
 	
-	var _stack2 = _interopRequireDefault(_stack);
-	
-	var _exceptions = __webpack_require__(252);
-	
-	var _Navigation = __webpack_require__(259);
+	var _Navigation = __webpack_require__(261);
 	
 	var _Navigation2 = _interopRequireDefault(_Navigation);
 	
-	var _Drawer = __webpack_require__(265);
+	var _Drawer = __webpack_require__(267);
 	
 	var _Drawer2 = _interopRequireDefault(_Drawer);
 	
-	var _menu = __webpack_require__(266);
+	var _menu = __webpack_require__(260);
 	
 	var _menu2 = _interopRequireDefault(_menu);
 	
@@ -8773,254 +8662,68 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 	
-	var template = function () {
-		var updateAppsItems = function () {
-			var _ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee() {
-				var config, apps;
-				return regeneratorRuntime.wrap(function _callee$(_context) {
-					while (1) {
-						switch (_context.prev = _context.next) {
-							case 0:
-								config = this.get('config');
-								apps = void 0;
-								_context.prev = 2;
-								_context.next = 5;
-								return _stack2.default.get.apps();
-	
-							case 5:
-								_context.t0 = function (app) {
-									return !EXCLUDES.includes(app.attributes.slug);
-								};
-	
-								_context.t1 = function (app) {
-									return {
-										slug: app.attributes.slug,
-										l10n: false,
-										href: app.links.related,
-										icon: app.links.icon
-									};
-								};
-	
-								apps = _context.sent.filter(_context.t0).map(_context.t1);
-								_context.next = 13;
-								break;
-	
-							case 10:
-								_context.prev = 10;
-								_context.t2 = _context['catch'](2);
-	
-								apps = [{ error: _context.t2 }];
-	
-							case 13:
-	
-								config.apps.length = 0;
-								Array.prototype.push.apply(config.apps, apps);
-	
-							case 15:
-							case 'end':
-								return _context.stop();
-						}
-					}
-				}, _callee, this, [[2, 10]]);
-			}));
-	
-			return function updateAppsItems() {
-				return _ref.apply(this, arguments);
-			};
-		}();
-	
-		var updateDiskUsage = function () {
-			var _ref2 = _asyncToGenerator(regeneratorRuntime.mark(function _callee2() {
-				var config, currentDiskUsage;
-				return regeneratorRuntime.wrap(function _callee2$(_context2) {
-					while (1) {
-						switch (_context2.prev = _context2.next) {
-							case 0:
-								config = this.get('config');
-								currentDiskUsage = void 0;
-								_context2.prev = 2;
-								_context2.next = 5;
-								return _stack2.default.get.diskUsage();
-	
-							case 5:
-								currentDiskUsage = _context2.sent;
-								_context2.next = 11;
-								break;
-	
-							case 8:
-								_context2.prev = 8;
-								_context2.t0 = _context2['catch'](2);
-	
-								currentDiskUsage = { error: _context2.t0.name };
-	
-							case 11:
-	
-								config.components.storage.currentDiskUsage = currentDiskUsage;
-	
-							case 12:
-							case 'end':
-								return _context2.stop();
-						}
-					}
-				}, _callee2, this, [[2, 8]]);
-			}));
-	
-			return function updateDiskUsage() {
-				return _ref2.apply(this, arguments);
-			};
-		}();
-	
-		/**
-	  * Add / Remove settings' links items regarding the status of
-	  * the `settings` app
-	  * @return {Promise}
-	  */
-	
-	
-		var toggleSettingsItems = function () {
-			var _ref3 = _asyncToGenerator(regeneratorRuntime.mark(function _callee3() {
-				var config, items;
-				return regeneratorRuntime.wrap(function _callee3$(_context3) {
-					while (1) {
-						switch (_context3.prev = _context3.next) {
-							case 0:
-								config = this.get('config');
-	
-								// We reset the settings' links array
-	
-								config.subsections.settings.length = 0;
-	
-								// If the `settings` app is available, we restore links from the root
-								// MENU_CONFIG tree, updating the links' URLs with the app URI at same time.
-								_context3.prev = 2;
-								_context3.next = 5;
-								return _stack2.default.has.settings();
-	
-							case 5:
-								_context3.next = 11;
-								break;
-	
-							case 7:
-								_context3.prev = 7;
-								_context3.t0 = _context3['catch'](2);
-	
-								console.warn('Settings app is unavailable, links are disabled');
-								return _context3.abrupt('return');
-	
-							case 11:
-								_context3.next = 13;
-								return updateSettingsURIs(_menu2.default.subsections.settings);
-	
-							case 13:
-								items = _context3.sent;
-	
-								Array.prototype.push.apply(config.subsections.settings, items);
-	
-							case 15:
-							case 'end':
-								return _context3.stop();
-						}
-					}
-				}, _callee3, this, [[2, 7]]);
-			}));
-	
-			return function toggleSettingsItems() {
-				return _ref3.apply(this, arguments);
-			};
-		}();
-	
-		/**
-	  * Replace in the given tree the base URIs for settings' app items
-	  * @param  {Object}  tree The JSON defined menu entries
-	  * @return {Promise}      The parsed tree
-	  */
-	
-	
-		var updateSettingsURIs = function () {
-			var _ref4 = _asyncToGenerator(regeneratorRuntime.mark(function _callee4(items) {
-				var baseURI;
-				return regeneratorRuntime.wrap(function _callee4$(_context4) {
-					while (1) {
-						switch (_context4.prev = _context4.next) {
-							case 0:
-								_context4.next = 2;
-								return _stack2.default.get.settingsBaseURI();
-	
-							case 2:
-								baseURI = _context4.sent;
-								return _context4.abrupt('return', items.map(function (item) {
-									return Object.assign({}, item, { href: baseURI + '#' + item.href });
-								}));
-	
-							case 4:
-							case 'end':
-								return _context4.stop();
-						}
-					}
-				}, _callee4, this);
-			}));
-	
-			return function updateSettingsURIs(_x) {
-				return _ref4.apply(this, arguments);
-			};
-		}();
-	
-		/**
-	  * Clone and parse a root node from a JSON definition tree (aka 'menu')
-	  * and recursively replace string definitions `_.(group).(entry)` (e.g.
-	  * `_.components.storage`) with a pointer to the given object in the tree
-	  * (here, `tree[components][entry]`)
-	  *
-	  * @param  {Object} tree                  The tree containing root node and
-	  *                                        definitions
-	  * @param  {String} [rootItem='settings'] The root node to parse
-	  * @return {Object}                       The parsed tree containing pointers
-	  */
-	
-	
-		var EXCLUDES = ['settings'];
-	
-		function createMenuPointers(tree) {
-			function parse(value, index, array) {
-				var path = void 0;
-	
-				if (!value) {
-					return;
-				}
-	
-				if (Array.isArray(value)) {
-					value.forEach(parse);
-				} else if (value === Object(value)) {
-					Object.keys(value).forEach(function (key) {
-						return parse(value[key], key, value);
-					});
-				} else if (value.match && (path = value.match(/_\.(\w+)(?:\.(\w+))?/i))) {
-					if (path[2]) {
-						array[index] = clone[path[1]][path[2]];
-					} else {
-						array[index] = clone[path[1]];
-					}
-				}
-			}
-	
-			var clone = (0, _deepClone2.default)(tree);
-			parse(clone);
-	
-			return clone;
+	function applyComputations(state, newState, oldState) {
+		if ('replaceTitleOnMobile' in newState && _typeof(state.replaceTitleOnMobile) === 'object' || state.replaceTitleOnMobile !== oldState.replaceTitleOnMobile) {
+			state.titleClass = newState.titleClass = template.computed.titleClass(state.replaceTitleOnMobile);
 		}
+	}
 	
+	var template = function () {
 		return {
 			data: function data() {
+				var config = (0, _config.createMenuPointers)(_menu2.default);
+	
 				return {
 					target: ("mobile"),
-					config: createMenuPointers(_menu2.default),
+					config: config,
 					drawerVisible: false
 				};
 			},
-			onrender: function onrender() {
-				this.updateApps();
-				this.updateSettings();
+	
+	
+			computed: {
+				titleClass: function titleClass(replaceTitleOnMobile) {
+					return 'coz-bar-title ' + (replaceTitleOnMobile ? 'coz-bar-hide-sm' : '');
+				}
 			},
+	
+			/**
+	   * When loading the Bar component, we once force a first update of config
+	   * w/ settings and apps
+	   */
+			onrender: function () {
+				var _ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee() {
+					var config;
+					return regeneratorRuntime.wrap(function _callee$(_context) {
+						while (1) {
+							switch (_context.prev = _context.next) {
+								case 0:
+									config = this.get('config');
+									_context.next = 3;
+									return (0, _config.updateSettings)(config);
+	
+								case 3:
+									_context.next = 5;
+									return (0, _config.updateApps)(config);
+	
+								case 5:
+	
+									this.set({ config: config });
+	
+								case 6:
+								case 'end':
+									return _context.stop();
+							}
+						}
+					}, _callee, this);
+				}));
+	
+				function onrender() {
+					return _ref.apply(this, arguments);
+				}
+	
+				return onrender;
+			}(),
 	
 	
 			components: {
@@ -9031,91 +8734,106 @@ return /******/ (function(modules) { // webpackBootstrap
 			helpers: { t: _i18n.t },
 	
 			methods: {
-				toggleDrawer: function toggleDrawer(force) {
-					var toggle = force ? false : !this.get('drawerVisible');
-	
-					if (toggle) {
-						this.updateApps();
-					}
-	
-					this.set({ drawerVisible: toggle });
-				},
-				onPopOpen: function onPopOpen(panel) {
-					switch (panel) {
-						case 'apps':
-							this.updateApps();
-							break;
-						case 'settings':
-							this.updateSettings();
-							break;
-					}
-				},
-				updateApps: function () {
-					var _ref5 = _asyncToGenerator(regeneratorRuntime.mark(function _callee5() {
-						var config;
-						return regeneratorRuntime.wrap(function _callee5$(_context5) {
+				toggleDrawer: function () {
+					var _ref2 = _asyncToGenerator(regeneratorRuntime.mark(function _callee2() {
+						var config, drawerVisible, settingsValve, appsValve;
+						return regeneratorRuntime.wrap(function _callee2$(_context2) {
 							while (1) {
-								switch (_context5.prev = _context5.next) {
+								switch (_context2.prev = _context2.next) {
 									case 0:
 										config = this.get('config');
-										_context5.next = 3;
-										return updateAppsItems.call(this);
+										drawerVisible = !this.get('drawerVisible');
 	
-									case 3:
-										/** Ugly hack to force re-render by triggering `set` method on config */
-										this.set({ config: config });
+										if (!drawerVisible) {
+											_context2.next = 10;
+											break;
+										}
 	
-									case 4:
-									case 'end':
-										return _context5.stop();
-								}
-							}
-						}, _callee5, this);
-					}));
-	
-					function updateApps() {
-						return _ref5.apply(this, arguments);
-					}
-	
-					return updateApps;
-				}(),
-				updateSettings: function () {
-					var _ref6 = _asyncToGenerator(regeneratorRuntime.mark(function _callee6() {
-						var config, oldDiskUsage, oldSettingsItems;
-						return regeneratorRuntime.wrap(function _callee6$(_context6) {
-							while (1) {
-								switch (_context6.prev = _context6.next) {
-									case 0:
-										config = this.get('config');
-										oldDiskUsage = config.components.storage.currentDiskUsage;
-										oldSettingsItems = config.subsections.settings.slice();
-										_context6.next = 5;
-										return updateDiskUsage.call(this);
+										_context2.next = 5;
+										return (0, _config.updateSettings)(config, { storage: false });
 	
 									case 5:
-										_context6.next = 7;
-										return toggleSettingsItems.call(this);
+										settingsValve = _context2.sent;
+										_context2.next = 8;
+										return (0, _config.updateApps)(config);
 	
-									case 7:
+									case 8:
+										appsValve = _context2.sent;
+	
 	
 										/** Ugly hack to force re-render by triggering `set` method on config */
-										if (oldDiskUsage != config.components.storage.currentDiskUsage || !(0, _deepEqual2.default)(oldSettingsItems, config.subsections.settings)) {
+										if (settingsValve || appsValve) {
 											this.set({ config: config });
 										}
 	
-									case 8:
+									case 10:
+	
+										this.set({ drawerVisible: drawerVisible });
+	
+									case 11:
 									case 'end':
-										return _context6.stop();
+										return _context2.stop();
 								}
 							}
-						}, _callee6, this);
+						}, _callee2, this);
 					}));
 	
-					function updateSettings() {
-						return _ref6.apply(this, arguments);
+					function toggleDrawer() {
+						return _ref2.apply(this, arguments);
 					}
 	
-					return updateSettings;
+					return toggleDrawer;
+				}(),
+				onPopOpen: function () {
+					var _ref3 = _asyncToGenerator(regeneratorRuntime.mark(function _callee3(panel) {
+						var config, valve;
+						return regeneratorRuntime.wrap(function _callee3$(_context3) {
+							while (1) {
+								switch (_context3.prev = _context3.next) {
+									case 0:
+										config = this.get('config');
+										valve = void 0;
+										_context3.t0 = panel;
+										_context3.next = _context3.t0 === 'apps' ? 5 : _context3.t0 === 'settings' ? 9 : 13;
+										break;
+	
+									case 5:
+										_context3.next = 7;
+										return (0, _config.updateApps)(config);
+	
+									case 7:
+										// we force config update as the menu dropdown opening depends on it
+										valve = true;
+										return _context3.abrupt('break', 13);
+	
+									case 9:
+										_context3.next = 11;
+										return (0, _config.updateSettings)(config);
+	
+									case 11:
+										valve = _context3.sent;
+										return _context3.abrupt('break', 13);
+	
+									case 13:
+	
+										/** Ugly hack to force re-render by triggering `set` method on config */
+										if (valve) {
+											this.set({ config: config });
+										}
+	
+									case 14:
+									case 'end':
+										return _context3.stop();
+								}
+							}
+						}, _callee3, this);
+					}));
+	
+					function onPopOpen(_x) {
+						return _ref3.apply(this, arguments);
+					}
+	
+					return onPopOpen;
 				}()
 			}
 		};
@@ -9135,7 +8853,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		var text = createText("\n\n");
 	
 		var h1 = createElement('h1');
-		h1.className = "coz-bar-title";
+		h1.className = root.titleClass;
 	
 		var img = createElement('img');
 		img.className = "coz-bar-hide-sm";
@@ -9212,6 +8930,8 @@ return /******/ (function(modules) { // webpackBootstrap
 					ifBlock = currentBlock && currentBlock(root, component);
 					if (ifBlock) ifBlock.mount(ifBlock_anchor.parentNode, ifBlock_anchor);
 				}
+	
+				h1.className = root.titleClass;
 	
 				img.src = root.iconPath;
 	
@@ -9302,8 +9022,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 		setAttribute(button, 'data-icon', "icon-hamburger");
 	
+		var span = createElement('span');
+		span.className = "coz-bar-hidden";
+	
+		appendNode(span, button);
 		var text = createText(template.helpers.t('menu'));
-		appendNode(text, button);
+		appendNode(text, span);
 	
 		return {
 			mount: function mount(target, anchor) {
@@ -9328,6 +9052,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		options = options || {};
 
 		this._state = Object.assign(template.data(), options.data);
+		applyComputations(this._state, this._state, {});
 
 		this._observers = {
 			pre: Object.create(null),
@@ -9405,6 +9130,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	SvelteComponent.prototype.set = function set(newState) {
 		var oldState = this._state;
 		this._state = Object.assign({}, oldState, newState);
+		applyComputations(this._state, newState, oldState);
 
 		dispatchObservers(this, this._observers.pre, newState, oldState);
 		if (this._fragment) this._fragment.update(newState, this._state);
@@ -9472,12 +9198,12 @@ return /******/ (function(modules) { // webpackBootstrap
 		target.insertBefore(node, anchor);
 	}
 
-	function createText(data) {
-		return document.createTextNode(data);
-	}
-
 	function appendNode(node, target) {
 		target.appendChild(node);
+	}
+
+	function createText(data) {
+		return document.createTextNode(data);
 	}
 
 	function createComment(data) {
@@ -9490,11 +9216,424 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 254 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(255).default
-
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.updateApps = exports.updateSettings = exports.createMenuPointers = undefined;
+	
+	var updateAppsItems = function () {
+	  var _ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee2(config) {
+	    var _this = this;
+	
+	    var apps;
+	    return regeneratorRuntime.wrap(function _callee2$(_context2) {
+	      while (1) {
+	        switch (_context2.prev = _context2.next) {
+	          case 0:
+	            apps = void 0;
+	            _context2.prev = 1;
+	            _context2.t0 = Promise;
+	            _context2.next = 5;
+	            return _stack2.default.get.apps();
+	
+	          case 5:
+	            _context2.t1 = function (app) {
+	              return !EXCLUDES.includes(app.attributes.slug);
+	            };
+	
+	            _context2.t2 = function () {
+	              var _ref2 = _asyncToGenerator(regeneratorRuntime.mark(function _callee(app) {
+	                var oldApp, icon;
+	                return regeneratorRuntime.wrap(function _callee$(_context) {
+	                  while (1) {
+	                    switch (_context.prev = _context.next) {
+	                      case 0:
+	                        oldApp = config.apps.find(function (item) {
+	                          return item.slug === app.attributes.slug;
+	                        });
+	                        icon = void 0;
+	
+	                        if (!(oldApp && oldApp.icon.cached)) {
+	                          _context.next = 6;
+	                          break;
+	                        }
+	
+	                        icon = oldApp.icon;
+	                        _context.next = 10;
+	                        break;
+	
+	                      case 6:
+	                        _context.next = 8;
+	                        return _stack2.default.get.icon(app.links.icon);
+	
+	                      case 8:
+	                        _context.t0 = _context.sent;
+	                        icon = {
+	                          src: _context.t0,
+	                          cached: true
+	                        };
+	
+	                      case 10:
+	                        return _context.abrupt('return', {
+	                          slug: app.attributes.slug,
+	                          l10n: false,
+	                          href: app.links.related,
+	                          icon: icon
+	                        });
+	
+	                      case 11:
+	                      case 'end':
+	                        return _context.stop();
+	                    }
+	                  }
+	                }, _callee, _this);
+	              }));
+	
+	              return function (_x2) {
+	                return _ref2.apply(this, arguments);
+	              };
+	            }();
+	
+	            _context2.t3 = _context2.sent.filter(_context2.t1).map(_context2.t2);
+	            _context2.next = 10;
+	            return _context2.t0.all.call(_context2.t0, _context2.t3);
+	
+	          case 10:
+	            apps = _context2.sent;
+	            _context2.next = 16;
+	            break;
+	
+	          case 13:
+	            _context2.prev = 13;
+	            _context2.t4 = _context2['catch'](1);
+	
+	            apps = [{ error: _context2.t4 }];
+	
+	          case 16:
+	
+	            config.apps.length = 0;
+	            Array.prototype.push.apply(config.apps, apps);
+	
+	          case 18:
+	          case 'end':
+	            return _context2.stop();
+	        }
+	      }
+	    }, _callee2, this, [[1, 13]]);
+	  }));
+	
+	  return function updateAppsItems(_x) {
+	    return _ref.apply(this, arguments);
+	  };
+	}();
+	
+	var updateDiskUsage = function () {
+	  var _ref3 = _asyncToGenerator(regeneratorRuntime.mark(function _callee3(config) {
+	    var currentDiskUsage;
+	    return regeneratorRuntime.wrap(function _callee3$(_context3) {
+	      while (1) {
+	        switch (_context3.prev = _context3.next) {
+	          case 0:
+	            currentDiskUsage = void 0;
+	            _context3.prev = 1;
+	            _context3.next = 4;
+	            return _stack2.default.get.diskUsage();
+	
+	          case 4:
+	            currentDiskUsage = _context3.sent;
+	            _context3.next = 10;
+	            break;
+	
+	          case 7:
+	            _context3.prev = 7;
+	            _context3.t0 = _context3['catch'](1);
+	
+	            currentDiskUsage = { error: _context3.t0.name };
+	
+	          case 10:
+	
+	            config.components.storage.currentDiskUsage = currentDiskUsage;
+	
+	          case 11:
+	          case 'end':
+	            return _context3.stop();
+	        }
+	      }
+	    }, _callee3, this, [[1, 7]]);
+	  }));
+	
+	  return function updateDiskUsage(_x3) {
+	    return _ref3.apply(this, arguments);
+	  };
+	}();
+	
+	/**
+	 * Add / Remove settings' links items regarding the status of
+	 * the `settings` app
+	 * @return {Promise}
+	 */
+	
+	
+	var toggleSettingsItems = function () {
+	  var _ref4 = _asyncToGenerator(regeneratorRuntime.mark(function _callee4(config) {
+	    var items;
+	    return regeneratorRuntime.wrap(function _callee4$(_context4) {
+	      while (1) {
+	        switch (_context4.prev = _context4.next) {
+	          case 0:
+	            // We reset the settings' links array
+	            config.subsections.settings.length = 0;
+	
+	            // If the `settings` app is available, we restore links from the root
+	            // MENU_CONFIG tree, updating the links' URLs with the app URI at same time.
+	            _context4.prev = 1;
+	            _context4.next = 4;
+	            return _stack2.default.has.settings();
+	
+	          case 4:
+	            _context4.next = 10;
+	            break;
+	
+	          case 6:
+	            _context4.prev = 6;
+	            _context4.t0 = _context4['catch'](1);
+	
+	            console.warn('Settings app is unavailable, links are disabled');
+	            return _context4.abrupt('return');
+	
+	          case 10:
+	            _context4.next = 12;
+	            return updateSettingsURIs(_menu2.default.subsections.settings);
+	
+	          case 12:
+	            items = _context4.sent;
+	
+	            Array.prototype.push.apply(config.subsections.settings, items);
+	
+	          case 14:
+	          case 'end':
+	            return _context4.stop();
+	        }
+	      }
+	    }, _callee4, this, [[1, 6]]);
+	  }));
+	
+	  return function toggleSettingsItems(_x4) {
+	    return _ref4.apply(this, arguments);
+	  };
+	}();
+	
+	/**
+	 * Replace in the given tree the base URIs for settings' app items
+	 * @param  {Object}  tree The JSON defined menu entries
+	 * @return {Promise}      The parsed tree
+	 */
+	
+	
+	var updateSettingsURIs = function () {
+	  var _ref5 = _asyncToGenerator(regeneratorRuntime.mark(function _callee5(items) {
+	    var baseURI;
+	    return regeneratorRuntime.wrap(function _callee5$(_context5) {
+	      while (1) {
+	        switch (_context5.prev = _context5.next) {
+	          case 0:
+	            _context5.next = 2;
+	            return _stack2.default.get.settingsBaseURI();
+	
+	          case 2:
+	            baseURI = _context5.sent;
+	            return _context5.abrupt('return', items.map(function (item) {
+	              return Object.assign({}, item, { href: baseURI + '#' + item.href });
+	            }));
+	
+	          case 4:
+	          case 'end':
+	            return _context5.stop();
+	        }
+	      }
+	    }, _callee5, this);
+	  }));
+	
+	  return function updateSettingsURIs(_x5) {
+	    return _ref5.apply(this, arguments);
+	  };
+	}();
+	
+	/**
+	 * Clone and parse a root node from a JSON definition tree (aka 'menu')
+	 * and recursively replace string definitions `_.(group).(entry)` (e.g.
+	 * `_.components.storage`) with a pointer to the given object in the tree
+	 * (here, `tree[components][entry]`)
+	 *
+	 * @param  {Object} tree                  The tree containing root node and
+	 *                                        definitions
+	 * @param  {String} [rootItem='settings'] The root node to parse
+	 * @return {Object}                       The parsed tree containing pointers
+	 */
+	
+	
+	/**
+	 * Helper function to update apps in CONFIG tree
+	 * @param  {Object}           config the JSON CONFIG tree source
+	 * @return {Promise(boolean)} a valve that allow to trigger update or not
+	 */
+	var updateApps = function () {
+	  var _ref6 = _asyncToGenerator(regeneratorRuntime.mark(function _callee6(config) {
+	    var oldApps;
+	    return regeneratorRuntime.wrap(function _callee6$(_context6) {
+	      while (1) {
+	        switch (_context6.prev = _context6.next) {
+	          case 0:
+	            oldApps = config.apps.slice();
+	            _context6.next = 3;
+	            return updateAppsItems(config);
+	
+	          case 3:
+	            return _context6.abrupt('return', !(0, _deepEqual2.default)(oldApps, config.apps));
+	
+	          case 4:
+	          case 'end':
+	            return _context6.stop();
+	        }
+	      }
+	    }, _callee6, this);
+	  }));
+	
+	  return function updateApps(_x6) {
+	    return _ref6.apply(this, arguments);
+	  };
+	}();
+	
+	/**
+	 * Helper function to update all settings related in CONFIG tree
+	 * @param  {Object}           config the JSON CONFIG tree source
+	 * @param  {Object}           options
+	 *                            - storage {Boolean} update the storage component
+	 *                            - items {Boolean} update settings items list
+	 * @return {Promise(boolean)} a valve that allow to trigger update or not
+	 */
+	
+	
+	var updateSettings = function () {
+	  var _ref7 = _asyncToGenerator(regeneratorRuntime.mark(function _callee7(config) {
+	    var _ref8 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
+	        _ref8$storage = _ref8.storage,
+	        storage = _ref8$storage === undefined ? true : _ref8$storage,
+	        _ref8$items = _ref8.items,
+	        items = _ref8$items === undefined ? true : _ref8$items;
+	
+	    var valve, oldDiskUsage, oldSettingsItems;
+	    return regeneratorRuntime.wrap(function _callee7$(_context7) {
+	      while (1) {
+	        switch (_context7.prev = _context7.next) {
+	          case 0:
+	            valve = false;
+	
+	            if (!storage) {
+	              _context7.next = 6;
+	              break;
+	            }
+	
+	            oldDiskUsage = config.components.storage.currentDiskUsage;
+	            _context7.next = 5;
+	            return updateDiskUsage(config);
+	
+	          case 5:
+	            valve = valve || oldDiskUsage !== config.components.storage.currentDiskUsage;
+	
+	          case 6:
+	            if (!items) {
+	              _context7.next = 11;
+	              break;
+	            }
+	
+	            oldSettingsItems = config.subsections.settings.slice();
+	            _context7.next = 10;
+	            return toggleSettingsItems(config);
+	
+	          case 10:
+	            valve = valve || !(0, _deepEqual2.default)(oldSettingsItems, config.subsections.settings);
+	
+	          case 11:
+	            return _context7.abrupt('return', valve);
+	
+	          case 12:
+	          case 'end':
+	            return _context7.stop();
+	        }
+	      }
+	    }, _callee7, this);
+	  }));
+	
+	  return function updateSettings(_x8) {
+	    return _ref7.apply(this, arguments);
+	  };
+	}();
+	
+	var _deepClone = __webpack_require__(255);
+	
+	var _deepClone2 = _interopRequireDefault(_deepClone);
+	
+	var _deepEqual = __webpack_require__(257);
+	
+	var _deepEqual2 = _interopRequireDefault(_deepEqual);
+	
+	var _stack = __webpack_require__(251);
+	
+	var _stack2 = _interopRequireDefault(_stack);
+	
+	var _menu = __webpack_require__(260);
+	
+	var _menu2 = _interopRequireDefault(_menu);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+	
+	var EXCLUDES = ['settings', 'onboarding'];
+	
+	function createMenuPointers(tree) {
+	  function parse(value, index, array) {
+	    var path = void 0;
+	
+	    if (!value) {
+	      return;
+	    }
+	
+	    if (Array.isArray(value)) {
+	      value.forEach(parse);
+	    } else if (value === Object(value)) {
+	      Object.keys(value).forEach(function (key) {
+	        return parse(value[key], key, value);
+	      });
+	    } else if (value.match && (path = value.match(/_\.(\w+)(?:\.(\w+))?/i))) {
+	      if (path[2]) {
+	        array[index] = clone[path[1]][path[2]];
+	      } else {
+	        array[index] = clone[path[1]];
+	      }
+	    }
+	  }
+	
+	  var clone = (0, _deepClone2.default)(tree);
+	  parse(clone);
+	
+	  return clone;
+	}exports.createMenuPointers = createMenuPointers;
+	exports.updateSettings = updateSettings;
+	exports.updateApps = updateApps;
 
 /***/ },
 /* 255 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__(256).default
+
+
+/***/ },
+/* 256 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -9538,12 +9677,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	deepClone.formatKeys = formatKeys;
 
 /***/ },
-/* 256 */
+/* 257 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var pSlice = Array.prototype.slice;
-	var objectKeys = __webpack_require__(257);
-	var isArguments = __webpack_require__(258);
+	var objectKeys = __webpack_require__(258);
+	var isArguments = __webpack_require__(259);
 	
 	var deepEqual = module.exports = function (actual, expected, opts) {
 	  if (!opts) opts = {};
@@ -9638,7 +9777,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 257 */
+/* 258 */
 /***/ function(module, exports) {
 
 	exports = module.exports = typeof Object.keys === 'function'
@@ -9653,7 +9792,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 258 */
+/* 259 */
 /***/ function(module, exports) {
 
 	var supportsArgumentsClass = (function(){
@@ -9679,7 +9818,79 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 259 */
+/* 260 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"subsections": {
+			"settings": [
+				{
+					"slug": "profile",
+					"href": "/profile"
+				},
+				{
+					"slug": "connectedDevices",
+					"href": "/connectedDevices"
+				}
+			],
+			"help": [
+				{
+					"slug": "help",
+					"external": true,
+					"href": "https://docs.cozy.io/"
+				},
+				{
+					"slug": "email",
+					"href": "mailto:contact@cozycloud.cc"
+				}
+			],
+			"logout": [
+				{
+					"slug": "logout",
+					"action": "logout"
+				}
+			]
+		},
+		"components": {
+			"storage": {
+				"slug": "storage",
+				"component": "storage",
+				"currentDiskUsage": null
+			}
+		},
+		"settings": [
+			"_.subsections.settings",
+			[
+				"_.components.storage"
+			],
+			"_.subsections.help",
+			"_.subsections.logout"
+		],
+		"apps": [],
+		"sections": {
+			"bar": [
+				{
+					"slug": "apps",
+					"icon": "icon-cube",
+					"async": true,
+					"items": "_.apps"
+				},
+				{
+					"slug": "settings",
+					"icon": "icon-cog",
+					"items": "_.settings"
+				}
+			],
+			"drawer": [
+				"_.subsections.settings",
+				"_.subsections.help",
+				"_.subsections.logout"
+			]
+		}
+	};
+
+/***/ },
+/* 261 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9690,7 +9901,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 	
-	var _NavigationSection = __webpack_require__(260);
+	var _NavigationSection = __webpack_require__(262);
 	
 	var _NavigationSection2 = _interopRequireDefault(_NavigationSection);
 	
@@ -9938,7 +10149,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = SvelteComponent;
 
 /***/ },
-/* 260 */
+/* 262 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9951,7 +10162,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _i18n = __webpack_require__(189);
 	
-	var _NavigationGroup = __webpack_require__(261);
+	var _NavigationGroup = __webpack_require__(263);
 	
 	var _NavigationGroup2 = _interopRequireDefault(_NavigationGroup);
 	
@@ -10508,7 +10719,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = SvelteComponent;
 
 /***/ },
-/* 261 */
+/* 263 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -10519,7 +10730,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 	
-	var _NavigationItem = __webpack_require__(262);
+	var _NavigationItem = __webpack_require__(264);
 	
 	var _NavigationItem2 = _interopRequireDefault(_NavigationItem);
 	
@@ -10888,7 +11099,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = SvelteComponent;
 
 /***/ },
-/* 262 */
+/* 264 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -10905,7 +11116,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _stack2 = _interopRequireDefault(_stack);
 	
-	var _Storage = __webpack_require__(263);
+	var _Storage = __webpack_require__(265);
 	
 	var _Storage2 = _interopRequireDefault(_Storage);
 	
@@ -10952,7 +11163,7 @@ return /******/ (function(modules) { // webpackBootstrap
 						};
 					} else {
 						return {
-							src: __webpack_require__(264),
+							src: __webpack_require__(266),
 							class: 'blurry'
 						};
 					}
@@ -10972,39 +11183,6 @@ return /******/ (function(modules) { // webpackBootstrap
 					}
 				}
 			},
-	
-			onrender: function onrender() {
-				var _this = this;
-	
-				this.lazyloader = this.observe('item', function (item) {
-					if (!item.icon || item.icon.onload || item.icon.cached) {
-						return;
-					}
-	
-					var uri = '' + _stack2.default.get.cozyURL() + item.icon;
-	
-					item = Object.assign({}, item, { icon: {
-							src: uri,
-							cached: false,
-							onload: true
-						} });
-	
-					_this.set({ item: item });
-	
-					var loader = new Image();
-					loader.onload = function () {
-						item.icon.cached = true;
-						item.icon.onload = false;
-						_this.set({ item: item });
-					};
-	
-					loader.src = uri;
-				});
-			},
-			onteardown: function onteardown() {
-				this.lazyloader.cancel();
-			},
-	
 	
 			components: {
 				Storage: _Storage2.default
@@ -11349,12 +11527,6 @@ return /******/ (function(modules) { // webpackBootstrap
 			var hook = this._renderHooks.pop();
 			hook.fn.call(hook.context);
 		}
-
-		if (options._root) {
-			options._root._renderHooks.push({ fn: template.onrender, context: this });
-		} else {
-			template.onrender.call(this);
-		}
 	}
 
 	SvelteComponent.prototype = template.methods;
@@ -11420,7 +11592,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	SvelteComponent.prototype.teardown = function teardown(detach) {
 		this.fire('teardown');
-		template.onteardown.call(this);
 
 		this._fragment.teardown(detach !== false);
 		this._fragment = null;
@@ -11490,7 +11661,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = SvelteComponent;
 
 /***/ },
-/* 263 */
+/* 265 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -11781,13 +11952,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = SvelteComponent;
 
 /***/ },
-/* 264 */
+/* 266 */
 /***/ function(module, exports) {
 
 	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICA8ZyBmaWxsPSIjOTU5OTlEIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0yODggLTMyKSI+CiAgICA8cGF0aCBkPSJNMjg5LDQzLjAwODYyOTYgQzI4OSw0My41NTg2NzMyIDI4OS4zOTY0MDcsNDQuMjMxMDg5OSAyODkuODcyNDAxLDQ0LjUwMzA4NjggTDI5NS4xMjc1OTksNDcuNTA2MDU2NiBDMjk1LjYwOTQxMyw0Ny43ODEzNzg5IDI5Niw0Ny41NTc4NzMgMjk2LDQ3LjAwODYyOTYgTDI5Niw0MS41MDA1MTM4IEMyOTYsNDAuOTUwNDcwMiAyOTUuNjAzNTkzLDQwLjI3ODA1MzUgMjk1LjEyNzU5OSw0MC4wMDYwNTY2IEwyODkuODcyNDAxLDM3LjAwMzA4NjggQzI4OS4zOTA1ODcsMzYuNzI3NzY0NSAyODksMzYuOTUxMjcwNCAyODksMzcuNTAwNTEzOCBMMjg5LDQzLjAwODYyOTYgWiBNMzA0LDQzLjAwODYyOTYgQzMwNCw0My41NTg2NzMyIDMwMy42MDM1OTMsNDQuMjMxMDg5OSAzMDMuMTI3NTk5LDQ0LjUwMzA4NjggTDI5Ny44NzI0MDEsNDcuNTA2MDU2NiBDMjk3LjM5MDU4Nyw0Ny43ODEzNzg5IDI5Nyw0Ny41NTc4NzMgMjk3LDQ3LjAwODYyOTYgTDI5Nyw0MS41MDA1MTM4IEMyOTcsNDAuOTUwNDcwMiAyOTcuMzk2NDA3LDQwLjI3ODA1MzUgMjk3Ljg3MjQwMSw0MC4wMDYwNTY2IEwzMDMuMTI3NTk5LDM3LjAwMzA4NjggQzMwMy42MDk0MTMsMzYuNzI3NzY0NSAzMDQsMzYuOTUxMjcwNCAzMDQsMzcuNTAwNTEzOCBMMzA0LDQzLjAwODYyOTYgWiBNMjk3LjM0OTc2MSwzOC45ODE2NDE2IEMyOTYuODgwNDUxLDM5LjI3MDQ0NzkgMjk2LjExMjg2MSwzOS4yNjYzMzI0IDI5NS42NTAyMzksMzguOTgxNjQxNiBMMjkwLjg0OTc2MSwzNi4wMjc1MDE4IEMyOTAuMzgwNDUxLDM1LjczODY5NTUgMjkwLjM4NzEzOSwzNS4yOTYxMTIzIDI5MC44NzY2MTksMzUuMDMyNTQ2MSBMMjk1LjYyMzM4MSwzMi40NzY1OTczIEMyOTYuMTA3NTI0LDMyLjIxNTkwNDggMjk2Ljg4NzEzOSwzMi4yMTMwMzExIDI5Ny4zNzY2MTksMzIuNDc2NTk3MyBMMzAyLjEyMzM4MSwzNS4wMzI1NDYxIEMzMDIuNjA3NTI0LDM1LjI5MzIzODcgMzAyLjYxMjg2MSwzNS43NDI4MTEgMzAyLjE1MDIzOSwzNi4wMjc1MDE4IEwyOTcuMzQ5NzYxLDM4Ljk4MTY0MTYgWiIvPgogICAgPHBhdGggZD0iTTI4OSw0My4wMDg2Mjk2IEMyODksNDMuNTU4NjczMiAyODkuMzk2NDA3LDQ0LjIzMTA4OTkgMjg5Ljg3MjQwMSw0NC41MDMwODY4IEwyOTUuMTI3NTk5LDQ3LjUwNjA1NjYgQzI5NS42MDk0MTMsNDcuNzgxMzc4OSAyOTYsNDcuNTU3ODczIDI5Niw0Ny4wMDg2Mjk2IEwyOTYsNDEuNTAwNTEzOCBDMjk2LDQwLjk1MDQ3MDIgMjk1LjYwMzU5Myw0MC4yNzgwNTM1IDI5NS4xMjc1OTksNDAuMDA2MDU2NiBMMjg5Ljg3MjQwMSwzNy4wMDMwODY4IEMyODkuMzkwNTg3LDM2LjcyNzc2NDUgMjg5LDM2Ljk1MTI3MDQgMjg5LDM3LjUwMDUxMzggTDI4OSw0My4wMDg2Mjk2IFogTTMwNCw0My4wMDg2Mjk2IEMzMDQsNDMuNTU4NjczMiAzMDMuNjAzNTkzLDQ0LjIzMTA4OTkgMzAzLjEyNzU5OSw0NC41MDMwODY4IEwyOTcuODcyNDAxLDQ3LjUwNjA1NjYgQzI5Ny4zOTA1ODcsNDcuNzgxMzc4OSAyOTcsNDcuNTU3ODczIDI5Nyw0Ny4wMDg2Mjk2IEwyOTcsNDEuNTAwNTEzOCBDMjk3LDQwLjk1MDQ3MDIgMjk3LjM5NjQwNyw0MC4yNzgwNTM1IDI5Ny44NzI0MDEsNDAuMDA2MDU2NiBMMzAzLjEyNzU5OSwzNy4wMDMwODY4IEMzMDMuNjA5NDEzLDM2LjcyNzc2NDUgMzA0LDM2Ljk1MTI3MDQgMzA0LDM3LjUwMDUxMzggTDMwNCw0My4wMDg2Mjk2IFogTTI5Ny4zNDk3NjEsMzguOTgxNjQxNiBDMjk2Ljg4MDQ1MSwzOS4yNzA0NDc5IDI5Ni4xMTI4NjEsMzkuMjY2MzMyNCAyOTUuNjUwMjM5LDM4Ljk4MTY0MTYgTDI5MC44NDk3NjEsMzYuMDI3NTAxOCBDMjkwLjM4MDQ1MSwzNS43Mzg2OTU1IDI5MC4zODcxMzksMzUuMjk2MTEyMyAyOTAuODc2NjE5LDM1LjAzMjU0NjEgTDI5NS42MjMzODEsMzIuNDc2NTk3MyBDMjk2LjEwNzUyNCwzMi4yMTU5MDQ4IDI5Ni44ODcxMzksMzIuMjEzMDMxMSAyOTcuMzc2NjE5LDMyLjQ3NjU5NzMgTDMwMi4xMjMzODEsMzUuMDMyNTQ2MSBDMzAyLjYwNzUyNCwzNS4yOTMyMzg3IDMwMi42MTI4NjEsMzUuNzQyODExIDMwMi4xNTAyMzksMzYuMDI3NTAxOCBMMjk3LjM0OTc2MSwzOC45ODE2NDE2IFoiLz4KICA8L2c+Cjwvc3ZnPgo="
 
 /***/ },
-/* 265 */
+/* 267 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -11800,7 +11971,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _i18n = __webpack_require__(189);
 	
-	var _NavigationGroup = __webpack_require__(261);
+	var _NavigationGroup = __webpack_require__(263);
 	
 	var _NavigationGroup2 = _interopRequireDefault(_NavigationGroup);
 	
@@ -11813,18 +11984,55 @@ return /******/ (function(modules) { // webpackBootstrap
 			onrender: function onrender() {
 				var _this = this;
 	
-				toggleDrawerObserver = this.observe('visible', function (visible) {
-					if (!visible) {
-						_this.refs.wrapper.classList.toggle('visible', false);
-						setTimeout(function () {
-							_this.refs.wrapper.setAttribute('aria-hidden', true);
-						}, 530);
-					} else {
-						_this.refs.wrapper.setAttribute('aria-hidden', false);
-						setTimeout(function () {
-							_this.refs.wrapper.classList.toggle('visible', true);
-						}, 30);
+				var SWIPE_CLASS = 'swipe-active';
+	
+				/**
+	    * We manage the [aria-hidden] attribute manually, as it serves for CSS
+	    * transitions, and needs to be wrapped in next frames ticks to ensure
+	    * smooth movements.
+	    */
+				this.refs.wrapper.setAttribute('aria-hidden', !this.get('visible'));
+	
+				/**
+	    * Animation engine, based on CSS transitions
+	    *
+	    * This is how it works :
+	    * 1. it first adds the `SWIPE_CLASS` class on wrapper
+	    * 2. it register a `transitionend` listener that:
+	    *    - remove the SWIPE_CLASS on frame after transition's last one
+	    *    - unregister the listener to prevent memory leaks
+	    * 3. on next frame after adding SWIPE_CLASS, it starts animation by
+	    *    setting aria-hidden attribute
+	    *
+	    * So animation lifecycle is:
+	    * | Frame id          | Action                                          |
+	    * | :---------------- | ----------------------------------------------- |
+	    * | 1                 | Add SWIPE_CLASS                                 |
+	    * | 2                 | Set aria-hidden attribute                       |
+	    * | transitionEnd + 1 | Remove SWIPE_CLASS                              |
+	    */
+				var animateTo = function animateTo(target) {
+					if (_this.refs.wrapper.getAttribute('aria-hidden') === target.toString()) {
+						return;
 					}
+	
+					var startState = function startState() {
+						_this.refs.wrapper.setAttribute('aria-hidden', target);
+					};
+					var endState = function endState() {
+						setTimeout(function () {
+							_this.refs.wrapper.classList.remove(SWIPE_CLASS);
+						}, 10);
+						_this.refs.aside.removeEventListener('transitionend', endState);
+					};
+	
+					_this.refs.wrapper.classList.add(SWIPE_CLASS);
+					_this.refs.aside.addEventListener('transitionend', endState);
+					setTimeout(startState, 10);
+				};
+	
+				toggleDrawerObserver = this.observe('visible', function (visible) {
+					animateTo(!visible);
 				});
 			},
 			onteardown: function onteardown() {
@@ -11852,6 +12060,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		addEventListener(div, 'click', clickHandler);
 	
 		var aside = createElement('aside');
+		component.refs.aside = aside;
 	
 		function clickHandler1(event) {
 			event.stopPropagation();
@@ -11936,6 +12145,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			teardown: function teardown(detach) {
 				if (component.refs.wrapper === div) component.refs.wrapper = null;
 				removeEventListener(div, 'click', clickHandler);
+				if (component.refs.aside === aside) component.refs.aside = null;
 				removeEventListener(aside, 'click', clickHandler1);
 				navigationGroup.teardown(false);
 
@@ -12143,94 +12353,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = SvelteComponent;
 
 /***/ },
-/* 266 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"subsections": {
-			"settings": [
-				{
-					"slug": "profile",
-					"href": "/profile"
-				},
-				{
-					"slug": "connectedDevices",
-					"href": "/connectedDevices"
-				}
-			],
-			"help": [
-				{
-					"slug": "help",
-					"external": true,
-					"href": "https://docs.cozy.io/"
-				},
-				{
-					"slug": "email",
-					"href": "mailto:contact@cozycloud.cc"
-				}
-			],
-			"logout": [
-				{
-					"slug": "logout",
-					"action": "logout"
-				}
-			]
-		},
-		"components": {
-			"storage": {
-				"slug": "storage",
-				"component": "storage",
-				"currentDiskUsage": null
-			}
-		},
-		"settings": [
-			"_.subsections.settings",
-			[
-				"_.components.storage"
-			],
-			"_.subsections.help",
-			"_.subsections.logout"
-		],
-		"apps": [],
-		"sections": {
-			"bar": [
-				{
-					"slug": "apps",
-					"icon": "icon-cube",
-					"async": true,
-					"items": "_.apps"
-				},
-				{
-					"slug": "settings",
-					"icon": "icon-cog",
-					"items": "_.settings"
-				}
-			],
-			"drawer": [
-				"_.subsections.help",
-				"_.subsections.logout"
-			]
-		}
-	};
-
-/***/ },
-/* 267 */
+/* 268 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(268);
+	var content = __webpack_require__(269);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(279)(content, {});
+	var update = __webpack_require__(280)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/css-loader/index.js?importLoaders=1!./../../node_modules/postcss-loader/index.js!./index.css", function() {
-				var newContent = require("!!./../../node_modules/css-loader/index.js?importLoaders=1!./../../node_modules/postcss-loader/index.js!./index.css");
+			module.hot.accept("!!./../../node_modules/css-loader/index.js?importLoaders=1!./../../node_modules/postcss-loader/index.js!./../../node_modules/stylus-loader/index.js?paths=node_modules/cozy-ui/stylus!./index.styl", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js?importLoaders=1!./../../node_modules/postcss-loader/index.js!./../../node_modules/stylus-loader/index.js?paths=node_modules/cozy-ui/stylus!./index.styl");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -12240,21 +12379,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 268 */
+/* 269 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(269)();
+	exports = module.exports = __webpack_require__(270)();
 	// imports
 	
 	
 	// module
-	exports.push([module.id, "body{display:-ms-flexbox;display:flex;-ms-flex-direction:column;flex-direction:column;-ms-flex-align:stretch;align-items:stretch;width:100vw;height:100vh;overflow:hidden}[role=application]{display:-ms-flexbox;display:flex;height:inherit;-ms-flex:1 1 100vh;flex:1 1 100vh;overflow-y:auto}[role=banner] .coz-sep-flex{margin:0;border:none;-ms-flex:1 0;flex:1 0}[role=banner] [data-icon]{background-repeat:no-repeat;background-position:0 50%;padding-left:calc(16px + .5em)}[role=banner] [data-icon=icon-profile]{background-image:url(" + __webpack_require__(270) + ")}[role=banner] [data-icon=icon-connectedDevices]{background-image:url(" + __webpack_require__(271) + ")}[role=banner] [data-icon=icon-help]{background-image:url(" + __webpack_require__(272) + ")}[role=banner] [data-icon=icon-logout]{background-image:url(" + __webpack_require__(273) + ")}[role=banner] [data-icon=icon-email]{background-image:url(" + __webpack_require__(274) + ")}[role=banner] [data-icon=icon-storage]{background-image:url(" + __webpack_require__(275) + ")}[role=banner] [data-icon=icon-cog]{background-image:url(" + __webpack_require__(276) + ")}[role=banner] [data-icon=icon-hamburger]{background-image:url(" + __webpack_require__(277) + ")}[role=banner] [data-icon=icon-cube]{background-image:url(" + __webpack_require__(264) + ")}@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(359deg)}}[role=banner] [aria-busy=true]{position:relative}[role=banner] [aria-busy=true]:after{content:\"\";position:absolute;right:0;top:0;display:block;width:1em;height:1em;background-position:center;background-repeat:no-repeat;background-size:cover;background-image:url(" + __webpack_require__(278) + ");animation:1s linear infinite spin}[role=banner] progress[value]{-webkit-appearance:none;-moz-appearance:none;appearance:none;background-color:#f5f6f7;border:solid 1px #d6d8da;border-radius:2px;color:#297ef2}[role=banner] progress[value]::-webkit-progress-bar{background:#f5f6f7;border-radius:2px}[role=banner] progress[value]::-webkit-progress-value{background:#297ef2;border-radius:1px}[role=banner] progress[value]::-moz-progress-bar{background:#297ef2;border-radius:1px}[role=banner] .coz-nav--error{margin:0 0 .1em;font-weight:400;font-size:.875em;color:#f52d2d}[role=banner]{position:relative;z-index:20;min-height:2.5em;-ms-flex-negative:0;flex-shrink:0;display:-ms-flexbox;display:flex;-ms-flex-align:stretch;align-items:stretch;padding:0 1.25em 0 1em;box-shadow:inset 0 -1px 0 0 #d6d8da;font-family:Lato,sans-serif;font-size:1rem}[role=banner] .coz-bar-title{display:-ms-flexbox;display:flex;margin:0;-ms-flex-align:center;align-items:center;font-size:1.5em;font-weight:400;text-transform:lowercase;color:#32363f}[role=banner] .coz-bar-title img{margin-right:.45em}[role=banner] .coz-bar-title strong{padding-left:.25em;font-weight:700}[role=banner] .coz-bar-burger{width:2.5em;margin-right:.25em;padding:0;border:none;background-color:transparent;background-position:center;text-indent:-9999em}[role=banner] .coz-nav ul{margin:0;padding:0;list-style-type:none}[role=banner] .coz-nav>ul{display:-ms-flexbox;display:flex}[role=banner] .coz-nav-section{position:relative}[role=banner] .coz-nav-section [aria-controls]{display:-ms-flexbox;display:flex;-ms-flex-align:baseline;align-items:baseline;padding:1.285em 1.5em;font-size:.875em;text-transform:uppercase;color:#5d6165;cursor:pointer}[role=banner] [aria-controls][aria-busy]:after{position:relative;top:.12em;margin-left:.5em}[role=banner] [aria-controls][aria-busy=true]{padding-right:0}[role=banner] .coz-nav-section [aria-controls][data-icon]{padding-left:calc(1.25em + 16px + .5em);background-position:1.25em calc(50% - 1px)}[role=banner] .coz-nav-icon{margin-right:.5em}[role=banner] .coz-nav-pop[aria-hidden=true]{display:none}[role=banner] .coz-nav-pop{position:absolute;top:calc(100% - .5em);right:0;box-sizing:border-box;min-width:100%;background-color:#fff;border-radius:8px;border:solid 1px rgba(50,54,63,.12);box-shadow:0 1px 3px 0 rgba(50,54,63,.19),0 6px 18px 0 rgba(50,54,63,.19)}[role=banner] .coz-nav-pop ul{padding:.5em 0}[role=banner] .coz-nav-pop hr{margin:0;border:none;border-bottom:solid 1px #d6d8da}[role=banner] .coz-nav-pop ul:last-of-type+hr{display:none}[role=banner] .coz-nav-pop--1612761714 .coz-nav-group:not(.coz-nav--error){display:-ms-flexbox;display:flex;padding:.75em}[role=banner] .coz-nav-group.coz-nav--error{padding:.75em;min-width:20em}[role=banner] .coz-nav-pop--1612761714 .coz-nav-group a{display:-ms-flexbox;display:flex;-ms-flex-direction:column;flex-direction:column;padding:1.25em}[role=banner] .coz-nav-pop--1612761714 .coz-nav-group a img{margin-bottom:.75em}[role=banner] .blurry{opacity:.5;filter:blur(5px)}[role=banner] .coz-nav-item [role=menuitem]{display:block;box-sizing:border-box;width:100%;padding:.5em 1.5em .5em calc(1.5em + 16px + .5em);border:none;-ms-flex-align:center;align-items:center;background-position:1.5em 50%;background-color:transparent;text-align:left;white-space:nowrap;color:#32363f;text-decoration:none;cursor:pointer}[role=banner] [role=menuitem][aria-busy=true]:after{right:1.5em;top:.5em}[role=banner] [role=menuitem][data-icon=icon-storage]{background-position:1.5em calc(.5em + 1px)}[role=banner] .coz-nav-storage{display:-ms-flexbox;display:flex;-ms-flex-direction:column;flex-direction:column;-ms-flex-align:left;align-items:left;padding-top:.5em;color:#95999d}[role=banner] .coz-nav-storage-text{margin:0 0 .1em;font-weight:400;font-size:.875em}[role=banner] .cozy-nav-storage-bar{height:.5em;margin:.2em 0 .1em}[role=banner] .coz-drawer-wrapper{position:absolute;top:0;left:0;width:100vw;height:100vh}[role=banner] .coz-drawer-wrapper[aria-hidden=true]{display:none}[role=banner] .coz-drawer-wrapper:before{content:'';display:block;position:absolute;top:0;left:0;width:100%;height:100%;background-color:#32363f;opacity:0;transition:opacity .25s ease-out}[role=banner] .coz-drawer-wrapper.visible:before{opacity:.5}[role=banner] .coz-drawer-wrapper aside{position:absolute;top:0;left:0;width:90%;height:100%;display:-ms-flexbox;display:flex;-ms-flex-direction:column;flex-direction:column;background-color:#fff;transform:translateX(-100vw);transition:transform .5s ease-out}[role=banner] .coz-drawer-wrapper.visible aside{transform:translateX(0)}[role=banner] .coz-drawer-wrapper ul{margin:0;padding:.8em 0;list-style-type:none}[role=banner] .coz-drawer-wrapper nav hr{margin:0;border:none;border-bottom:solid 1px #d6d8da}[role=banner] .coz-drawer-wrapper .coz-nav-icon{margin-right:.5em}[role=banner] .coz-drawer--apps h1{margin:1.125em 1em 0;font-size:1em;text-transform:capitalize}[role=banner] .coz-drawer--apps ul{display:-ms-flexbox;display:flex}[role=banner] .coz-drawer--apps [role=menuitem]{display:-ms-flexbox;display:flex;-ms-flex-direction:column;flex-direction:column;padding:1em;border-radius:2px}[role=banner] .coz-drawer--apps [role=menuitem]:hover{background-color:rgba(25,123,255,.1)}[role=banner] .coz-drawer--apps li img{margin-bottom:1.125em}[role=banner].coz-target--mobile{padding-left:1em}@media(max-width:30em){[role=banner]{padding:0 1em 0 0}[role=banner] .coz-bar-title{font-size:1.25em}[role=banner] .coz-bar-hide-sm{display:none}[role=banner] .coz-bar-title strong{padding:0;text-transform:capitalize}[role=banner] .coz-nav{display:none}}@media(min-width:30.0625em){[role=banner] .coz-bar-burger{display:none}[role=banner] .coz-drawer-wrapper{display:none}}", ""]);
+	exports.push([module.id, "body {\n  display: flex;\n  flex-direction: column;\n  align-items: stretch;\n  width: 100vw;\n  height: 100vh;\n  overflow: hidden;\n}\n\n\n[role=application] {\n  display: flex;\n  height: inherit;\n  flex: 1 1 100vh;\n  overflow-y: auto;\n}\n\n\n[role=banner] .coz-sep-flex {\n  margin: 0;\n  border: none;\n  flex: 1 0;\n}\n\n\n[role=banner] [data-icon] {\n  background-repeat: no-repeat;\n  background-position: 0 50%;\n  padding-left: calc(16px + .5em)\n}\n\n\n[role=banner] [data-icon='icon-profile'] {\n  background-image: url(" + __webpack_require__(271) + ")\n}\n\n\n[role=banner] [data-icon='icon-connectedDevices'] {\n  background-image: url(" + __webpack_require__(272) + ")\n}\n\n\n[role=banner] [data-icon='icon-help'] {\n  background-image: url(" + __webpack_require__(273) + ")\n}\n\n\n[role=banner] [data-icon='icon-logout'] {\n  background-image: url(" + __webpack_require__(274) + ")\n}\n\n\n[role=banner] [data-icon='icon-email'] {\n  background-image: url(" + __webpack_require__(275) + ")\n}\n\n\n[role=banner] [data-icon='icon-storage'] {\n  background-image: url(" + __webpack_require__(276) + ")\n}\n\n\n[role=banner] [data-icon='icon-cog'] {\n  background-image: url(" + __webpack_require__(277) + ")\n}\n\n\n[role=banner] [data-icon='icon-hamburger'] {\n  background-image: url(" + __webpack_require__(278) + ")\n}\n\n\n[role=banner] [data-icon='icon-cube'] {\n  background-image: url(" + __webpack_require__(266) + ")\n}\n\n\n/* Spinner */\n\n\n@keyframes spin {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(359deg);\n  }\n}\n\n\n[role=banner] [aria-busy=true] {\n  position: relative;\n}\n\n\n[role=banner] [aria-busy=true]::after {\n  content: \"\";\n  position: absolute;\n  right: 0;\n  top: 0;\n  display: block;\n  width: 1em;\n  height: 1em;\n  background-position: center;\n  background-repeat: no-repeat;\n  background-size: cover;\n  background-image: url(" + __webpack_require__(279) + ");\n  animation: 1s linear infinite spin;\n}\n\n\n/* Progress bar */\n\n\n[role=banner] progress[value] {\n  /* Reset the default appearance */\n  appearance: none;\n  background-color: grey-10;\n  border: solid 1px grey-09;\n  border-radius: 2px;\n  color: dodger-blue;\n}\n\n\n[role=banner] progress[value]::-webkit-progress-bar {\n  background: grey-10;\n  border-radius: 2px;\n}\n\n\n[role=banner] progress[value]::-webkit-progress-value {\n  background: dodger-blue;\n  border-radius: 1px;\n}\n\n\n[role=banner] progress[value]::-moz-progress-bar {\n  background: dodger-blue;\n  border-radius: 1px;\n}\n\n\n/* Errors */\n\n\n[role=banner] .coz-nav--error {\n  margin: 0 0 .1em 0;\n  font-weight: normal;\n  font-size: .875em;\n  color: #F52D2D;\n}\n\n\n[role=banner] {\n  position: relative;\n  z-index: 20;\n  min-height: 2.5em;\n  flex-shrink: 0;\n  display: flex;\n  align-items: stretch;\n  padding: 0 1.25em 0 1em;\n  box-shadow: inset 0 -1px 0 0 grey-09;\n  font-family: Lato, sans-serif;\n  font-size: 1rem;\n}\n\n\n@media (max-width: 30em) {\n  [role=banner] {\n    padding: 0 1em 0 0;\n  }\n\n  [role=banner][data-drawer-visible=true] {\n    /* Force the BAR to be above selection bar in mobile mode,\n     * only when drawer is opened\n     */\n    z-index: 31;\n  }\n}\n\n\n[role=banner] .coz-bar-title {\n  display: flex;\n  margin: 0;\n  align-items: center;\n  font-size: 1.5em;\n  font-weight: normal;\n  text-transform: lowercase;\n  color: grey-08;\n}\n\n\n@media (max-width: 30em) {\n  [role=banner] .coz-bar-title {\n    font-size: 1.25em\n  }\n}\n\n\n[role=banner] .coz-bar-title img {\n  margin-right: .45em;\n}\n\n\n[role=banner] .coz-bar-title strong {\n  padding-left: .25em;\n  font-weight: bold;\n}\n\n\n@media (max-width: 30em) {\n  [role=banner] .coz-bar-hide-sm {\n    display: none;\n  }\n\n  [role=banner] .coz-bar-title strong {\n    padding: 0;\n    text-transform: capitalize;\n  }\n}\n\n\n[role=banner] .coz-bar-burger {\n  width: 2.5em;\n  margin-right: 0.25em;\n  padding: 0;\n  border: none;\n  background-color: transparent;\n  background-position: center;\n}\n\n\n@media (min-width: 48.0625em) {\n  [role=banner] .coz-bar-burger,\n  [role=banner] .coz-drawer-wrapper {\n    display: none;\n  }\n}\n\n\n@media (max-width: 48em) {\n  [role=banner] .coz-bar-hide-sm {\n    display: none;\n  }\n}\n\n\n[role=banner] .coz-nav ul {\n  margin: 0;\n  padding: 0;\n  list-style-type: none;\n}\n\n\n[role=banner] .coz-nav > ul {\n  display: flex;\n}\n\n\n@media (max-width: 48em) {\n  [role=banner] .coz-nav {\n    display: none;\n  }\n}\n\n\n[role=banner] .coz-nav-section {\n  position: relative;\n}\n\n\n[role=banner] .coz-nav-section [aria-controls] {\n  display: flex;\n  align-items: baseline;\n  padding: 1.285em 1.5em;\n  font-size: .875em;\n  text-transform: uppercase;\n  color: grey-12;\n  cursor: pointer;\n}\n\n\n[role=banner] [aria-controls][aria-busy]::after {\n  position: relative;\n  top: .12em;\n  margin-left: .5em;\n}\n\n\n[role=banner] [aria-controls][aria-busy=true] {\n  padding-right: 0;\n}\n\n\n[role=banner] .coz-nav-section [aria-controls][data-icon] {\n  padding-left: calc(1.25em + 16px + .5em);\n  background-position: 1.25em calc(50% - 1px);\n}\n\n\n[role=banner] .coz-nav-icon {\n  margin-right: .5em;\n}\n\n\n[role=banner] .coz-nav-pop[aria-hidden=true] {\n  display: none;\n}\n\n\n[role=banner] .coz-nav-pop {\n  position: absolute;\n  top: calc(100% - .5em);\n  right: 0;\n  box-sizing: border-box;\n  min-width: 100%;\n  background-color: #fff;\n  border-radius: 8px;\n  border: solid 1px rgba(50, 54, 63, 0.12);\n  box-shadow: 0 1px 3px 0 rgba(50, 54, 63, 0.19), 0 6px 18px 0 rgba(50, 54, 63, 0.19);\n}\n\n\n[role=banner] .coz-nav-pop ul {\n  padding: .5em 0;\n}\n\n\n[role=banner] .coz-nav-pop hr {\n  margin: 0;\n  border: none;\n  border-bottom: solid 1px grey-09;\n}\n\n\n[role=banner] .coz-nav-pop ul:last-of-type + hr {\n  display: none;\n}\n\n\n/* coz-nav-pop--apps slug is hashed coz-nav-pop--1612761714 */\n\n\n[role=banner] .coz-nav-pop--1612761714 .coz-nav-group:not(.coz-nav--error) {\n  display: flex;\n  padding: 0.75em;\n}\n\n\n[role=banner] .coz-nav-group.coz-nav--error {\n  padding: 0.75em;\n  min-width: 20em;\n}\n\n\n[role=banner] .coz-nav-pop--1612761714 .coz-nav-group a {\n  display: flex;\n  flex-direction: column;\n  padding: 1.25em;\n}\n\n\n[role=banner] .coz-nav-pop--1612761714 .coz-nav-group a img {\n  margin-bottom: .75em;\n}\n\n\n[role=banner] .blurry {\n  opacity: .5;\n  filter: blur(5px);\n}\n\n\n[role=banner] .coz-nav-item [role=menuitem] {\n  display: block;\n  box-sizing: border-box;\n  width: 100%;\n  padding: .5em 1.5em .5em calc(1.5em + 16px + .5em);\n  border: none;\n  align-items: center;\n  background-position: 1.5em 50%;\n  background-color: transparent;\n  text-align: left;\n  white-space: nowrap;\n  color: grey-08;\n  text-decoration: none;\n  cursor: pointer;\n}\n\n\n[role=banner] [role=menuitem][aria-busy=true]::after {\n  right: 1.5em;\n  top: .5em;\n}\n\n\n[role=banner] [role=menuitem][data-icon=icon-storage] {\n  background-position: 1.5em calc(.5em + 1px);\n}\n\n\n[role=banner] .coz-nav-storage {\n  display: flex;\n  flex-direction: column;\n  align-items: left;\n  padding-top: .5em;\n  color: grey-11;\n}\n\n\n[role=banner] .coz-nav-storage-text {\n  margin: 0 0 .1em 0;\n  font-weight: normal;\n  font-size: .875em;\n}\n\n\n[role=banner] .cozy-nav-storage-bar {\n    height: .5em;\n    margin: .2em 0 .1em 0;\n}\n\n\n[role=banner] .coz-drawer-wrapper {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100vw;\n  height: 100vh;\n  /* Prepare for transitions */\n  display: none;\n  visibility: visible;\n}\n\n\n[role=banner] .coz-drawer-wrapper[aria-hidden=false],\n[role=banner] .coz-drawer-wrapper.swipe-active {\n  display: block;\n}\n\n\n[role=banner] .coz-drawer-wrapper::before {\n  content: '';\n  display: block;\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background-color: grey-08;\n  opacity: 0;\n  transition: opacity 250ms ease-out;\n}\n\n\n[role=banner] .coz-drawer-wrapper[aria-hidden=false]::before {\n  opacity: .5;\n}\n\n\n[role=banner] .coz-drawer-wrapper aside {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 90%;\n  height: 100%;\n  display: flex;\n  flex-direction: column;\n  background-color: #fff;\n  transform: translateX(-100vw);\n  transition: transform 500ms ease-out;\n}\n\n\n[role=banner] .coz-drawer-wrapper[aria-hidden=false] aside {\n  transform: translateX(0);\n}\n\n\n[role=banner] .coz-drawer-wrapper ul {\n  margin: 0;\n  padding: .8em 0;\n  list-style-type: none;\n}\n\n\n[role=banner] .coz-drawer-wrapper nav hr {\n  margin: 0;\n  border: none;\n  border-bottom: solid 1px grey-09;\n}\n\n\n[role=banner] .coz-drawer-wrapper .coz-nav-icon {\n  margin-right: .5em;\n}\n\n\n[role=banner] .coz-drawer--apps h1 {\n  margin: 1.125em 1em 0;\n  font-size: 1em;\n  text-transform: capitalize;\n}\n\n\n[role=banner] .coz-drawer--apps ul {\n  display: flex;\n}\n\n\n[role=banner] .coz-drawer--apps [role=menuitem] {\n  display: flex;\n  flex-direction: column;\n  padding: 1em;\n  border-radius: 2px;\n}\n\n\n[role=banner] .coz-drawer--apps [role=menuitem]:hover {\n  background-color: rgba(25, 123, 255, 0.1);\n}\n\n\n[role=banner] .coz-drawer--apps li img {\n  margin-bottom: 1.125em;\n}\n\n\n[role=banner].coz-target--mobile {\n  padding-left: 1em;\n}\n\n\n.coz-bar-hidden {\n  position: absolute !important;\n  border: 0 !important;\n  width: 1px !important;\n  height: 1px !important;\n  overflow: hidden !important;\n  padding: 0 !important;\n  white-space: nowrap !important;\n  clip: rect(1px, 1px, 1px, 1px) !important;\n  clip-path: inset(50%) !important;\n}\n", ""]);
 	
 	// exports
 
 
 /***/ },
-/* 269 */
+/* 270 */
 /***/ function(module, exports) {
 
 	/*
@@ -12310,61 +12449,61 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 270 */
+/* 271 */
 /***/ function(module, exports) {
 
 	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICA8cGF0aCBmaWxsPSIjNUQ2MTY1IiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xMzYsNzMgQzEzOC4yMDkxMzksNzMgMTQwLDcwLjk4NTI4MTQgMTQwLDY4LjUgQzE0MCw2Ni4wMTQ3MTg2IDEzOC4yMDkxMzksNjQgMTM2LDY0IEMxMzMuNzkwODYxLDY0IDEzMiw2Ni4wMTQ3MTg2IDEzMiw2OC41IEMxMzIsNzAuOTg1MjgxNCAxMzMuNzkwODYxLDczIDEzNiw3MyBaIE0xMjgsNzggQzEyOCw3NyAxMzAsNzQgMTMyLDc0IEMxMzQsNzQgMTMzLDc1IDEzNiw3NSBDMTM5LDc1IDEzOCw3NCAxNDAsNzQgQzE0Miw3NCAxNDQsNzcgMTQ0LDc4IEMxNDQsNzkgMTQ0LDgwIDE0Myw4MCBMMTI5LDgwIEMxMjgsODAgMTI4LDc5IDEyOCw3OCBaIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMTI4IC02NCkiLz4KPC9zdmc+Cg=="
 
 /***/ },
-/* 271 */
+/* 272 */
 /***/ function(module, exports) {
 
 	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICA8cGF0aCBmaWxsPSIjNUQ2MTY1IiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xNjIsNjUuMDAwODcxNyBDMTYyLDY0LjQ0ODEwNTUgMTYyLjQ1NTc2MSw2NCAxNjMuMDAyNDczLDY0IEwxNzIuOTk3NTI3LDY0IEMxNzMuNTUxMTc3LDY0IDE3NCw2NC40NDQ2MzA5IDE3NCw2NS4wMDA4NzE3IEwxNzQsNzguOTk5MTI4MyBDMTc0LDc5LjU1MTg5NDUgMTczLjU0NDIzOSw4MCAxNzIuOTk3NTI3LDgwIEwxNjMuMDAyNDczLDgwIEMxNjIuNDQ4ODIzLDgwIDE2Miw3OS41NTUzNjkxIDE2Miw3OC45OTkxMjgzIEwxNjIsNjUuMDAwODcxNyBaIE0xNjQsNjYgTDE3Miw2NiBMMTcyLDc2IEwxNjQsNzYgTDE2NCw2NiBaIE0xNjgsNzkgQzE2OC41NTIyODUsNzkgMTY5LDc4LjU1MjI4NDcgMTY5LDc4IEMxNjksNzcuNDQ3NzE1MyAxNjguNTUyMjg1LDc3IDE2OCw3NyBDMTY3LjQ0NzcxNSw3NyAxNjcsNzcuNDQ3NzE1MyAxNjcsNzggQzE2Nyw3OC41NTIyODQ3IDE2Ny40NDc3MTUsNzkgMTY4LDc5IFoiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0xNjAgLTY0KSIvPgo8L3N2Zz4K"
 
 /***/ },
-/* 272 */
+/* 273 */
 /***/ function(module, exports) {
 
 	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICA8cGF0aCBmaWxsPSIjNUQ2MTY1IiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0yOTYsODAgQzMwMC40MTgyNzgsODAgMzA0LDc2LjQxODI3OCAzMDQsNzIgQzMwNCw2Ny41ODE3MjIgMzAwLjQxODI3OCw2NCAyOTYsNjQgQzI5MS41ODE3MjIsNjQgMjg4LDY3LjU4MTcyMiAyODgsNzIgQzI4OCw3Ni40MTgyNzggMjkxLjU4MTcyMiw4MCAyOTYsODAgWiBNMjk3LDcyLjgwMjExMyBDMjk4LjEyMTgwOSw3Mi4zNTQ1NTY4IDI5OSw3MS4yMDg5OTQ2IDI5OSw3MCBDMjk5LDY4LjQ0NzcxNTMgMjk3LjU1MjI4NSw2NyAyOTYsNjcgQzI5NC40NDc3MTUsNjcgMjkzLDY4LjQ0NzcxNTMgMjkzLDcwIEwyOTUsNzAgQzI5NSw2OS41NTIyODQ3IDI5NS41NTIyODUsNjkgMjk2LDY5IEMyOTYuNDQ3NzE1LDY5IDI5Nyw2OS41NTIyODQ3IDI5Nyw3MCBDMjk3LDcwLjQ0NzcxNTMgMjk2LjQ0NzcxNSw3MSAyOTYsNzEgQzI5NS40NDc3MTUsNzEgMjk1LDcxLjQ0NzcxNTMgMjk1LDcyIEwyOTUsNzQgTDI5Nyw3NCBMMjk3LDcyLjgwMjExMyBaIE0yOTUsNzUgTDI5Nyw3NSBMMjk3LDc3IEwyOTUsNzcgTDI5NSw3NSBaIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMjg4IC02NCkiLz4KPC9zdmc+Cg=="
 
 /***/ },
-/* 273 */
+/* 274 */
 /***/ function(module, exports) {
 
 	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICA8cGF0aCBmaWxsPSIjNUQ2MTY1IiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0zMjcsOTkuNDE0MjEzNiBMMzI1LjcwNzEwNywxMDAuNzA3MTA3IEMzMjUuMzE2NTgyLDEwMS4wOTc2MzEgMzI0LjY4MzQxOCwxMDEuMDk3NjMxIDMyNC4yOTI4OTMsMTAwLjcwNzEwNyBDMzIzLjkwMjM2OSwxMDAuMzE2NTgyIDMyMy45MDIzNjksOTkuNjgzNDE3NSAzMjQuMjkyODkzLDk5LjI5Mjg5MzIgTDMyNy4yOTI4OTMsOTYuMjkyODkzMiBDMzI3LjY4MzQxOCw5NS45MDIzNjg5IDMyOC4zMTY1ODIsOTUuOTAyMzY4OSAzMjguNzA3MTA3LDk2LjI5Mjg5MzIgTDMzMS43MDcxMDcsOTkuMjkyODkzMiBDMzMyLjA5NzYzMSw5OS42ODM0MTc1IDMzMi4wOTc2MzEsMTAwLjMxNjU4MiAzMzEuNzA3MTA3LDEwMC43MDcxMDcgQzMzMS4zMTY1ODIsMTAxLjA5NzYzMSAzMzAuNjgzNDE4LDEwMS4wOTc2MzEgMzMwLjI5Mjg5MywxMDAuNzA3MTA3IEwzMjksOTkuNDE0MjEzNiBMMzI5LDEwNyBDMzI5LDEwNy41NTIyODUgMzI4LjU1MjI4NSwxMDggMzI4LDEwOCBDMzI3LjQ0NzcxNSwxMDggMzI3LDEwNy41NTIyODUgMzI3LDEwNyBMMzI3LDk5LjQxNDIxMzYgWiBNMzIxLDExMiBMMzM1LDExMiBDMzM1LjU1MjI4NSwxMTIgMzM2LDExMS41NTIyODUgMzM2LDExMSBDMzM2LDExMC40NDc3MTUgMzM1LjU1MjI4NSwxMTAgMzM1LDExMCBMMzIxLDExMCBDMzIwLjQ0NzcxNSwxMTAgMzIwLDExMC40NDc3MTUgMzIwLDExMSBDMzIwLDExMS41NTIyODUgMzIwLjQ0NzcxNSwxMTIgMzIxLDExMiBaIiB0cmFuc2Zvcm09InJvdGF0ZSg5MCAyMTYgLTEwNCkiLz4KPC9zdmc+Cg=="
 
 /***/ },
-/* 274 */
+/* 275 */
 /***/ function(module, exports) {
 
 	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICA8cG9seWdvbiBmaWxsPSIjNUQ2MTY1IiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHBvaW50cz0iMjcyIDY0IDI2NiA3OSAyNjMuNSA3Ni41IDI2MCA3OSAyNTkgNzUgMjY5IDY2LjUgMjU5IDcyLjUgMjU2IDcwIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMjU2IC02NCkiLz4KPC9zdmc+Cg=="
 
 /***/ },
-/* 275 */
+/* 276 */
 /***/ function(module, exports) {
 
 	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICA8cGF0aCBmaWxsPSIjNUQ2MTY1IiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0yMjUsNjggTDIzOSw2OCBMMjM5LDc4LjAwNDQyMjUgQzIzOSw3OC41NTQyNjQ4IDIzOC41NTAwNTEsNzkgMjM3Ljk5MzE1NSw3OSBMMjI2LjAwNjg0NSw3OSBDMjI1LjQ1MDc4LDc5IDIyNSw3OC41NTUxNjMgMjI1LDc4LjAwNDQyMjUgTDIyNSw2OCBaIE0yMjQsNjYgQzIyNCw2NS40NDc3MTUzIDIyNC40NDQ2MzEsNjUgMjI1LjAwMDg3Miw2NSBMMjM4Ljk5OTEyOCw2NSBDMjM5LjU1MTg5NCw2NSAyNDAsNjUuNDQzODY0OCAyNDAsNjYgTDI0MCw2NyBMMjI0LDY3IEwyMjQsNjYgWiBNMjI5LDcwIEwyMzUsNzAgTDIzNSw3MiBMMjI5LDcyIEwyMjksNzAgWiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTIyNCAtNjQpIi8+Cjwvc3ZnPgo="
 
 /***/ },
-/* 276 */
+/* 277 */
 /***/ function(module, exports) {
 
 	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICA8ZyBmaWxsPSIjOTU5OTlEIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0yMjQgLTMyKSI+CiAgICA8cGF0aCBkPSJNMjM4LjI0OTM1NiwzOS4wNzgyOTczIEMyMzguMzAxNDA3LDM5LjMzNzE0MzYgMjM4LjMyNzQzMiwzOS42NDU5NjAyIDIzOC4zMjc0MzIsNDAuMDAzNzQ3OCBDMjM4LjMyNzQzMiw0MC4zNjE1MzUzIDIzOC4zMDE0MDcsNDAuNjY5MzUyNiAyMzguMjQ5MzU2LDQwLjkyOTE5ODMgTDIzOS44Njk5NDYsNDIuMjYyNDA2NyBDMjQwLjAwMDA3NCw0Mi4zNDgzNTU3IDI0MC4wMzIxMDUsNDIuNDY1Mjg2MiAyMzkuOTY4MDQyLDQyLjYxNDE5NzggQzIzOS42NDI3MjMsNDMuNTY0NjMzNSAyMzkuMTA5MTk5LDQ0LjQ0MDExMzcgMjM4LjM2NjQ3LDQ1LjI0MTYzNzggQzIzOC4yNjIzNjgsNDUuMzY1NTY0MiAyMzguMTM3MjQ2LDQ1LjM5NjU0NTggMjM3Ljk5NTEwNiw0NS4zMzU1ODIgTDIzNS45NjQxMTMsNDQuNjY3OTc4NCBDMjM1LjQ0MzYwMiw0NS4wNjM3NDM0IDIzNC44ODQwNTMsNDUuMzcyNTYgMjM0LjI4NDQ2NCw0NS41OTQ0MjgzIEwyMzMuODc1MDYyLDQ3LjU5MzI0MTUgQzIzMy44NDkwMzcsNDcuNzQwMTU0MyAyMzMuNzU3OTQ4LDQ3LjgyNzEwMjcgMjMzLjYwMTc5NCw0Ny44NTIwODc4IEMyMzMuMDQxMjQ0LDQ3Ljk1MjAyODUgMjMyLjUwNzcyMSw0OCAyMzIuMDAwMjIyLDQ4IEMyMzEuNDkyNzI0LDQ4IDIzMC45NTgyLDQ3Ljk1MTAyOTEgMjMwLjM5ODY1MSw0Ny44NTIwODc4IEMyMzAuMjQyNDk3LDQ3LjgyODEwMjEgMjMwLjE1MTQwOCw0Ny43NDExNTM3IDIzMC4xMjUzODIsNDcuNTkzMjQxNSBMMjI5LjcxNTk4MSw0NS41OTQ0MjgzIEMyMjkuMDc3MzU0LDQ1LjM2MDU2NzIgMjI4LjUxNzgwNSw0NS4wNTA3NTExIDIyOC4wMzYzMzIsNDQuNjY3OTc4NCBMMjI2LjAwNTMzOSw0NS4zMzU1ODIgQzIyNS44NjExOTcsNDUuMzk3NTQ1MiAyMjUuNzM4MDc3LDQ1LjM2NTU2NDIgMjI1LjYzMzk3NCw0NS4yNDE2Mzc4IEMyMjQuODkyMjQ2LDQ0LjQ0MDExMzcgMjI0LjM1ODcyMyw0My41NjQ2MzM1IDIyNC4wMzI0MDMsNDIuNjE0MTk3OCBDMjIzLjk2NzMzOSw0Mi40NjYyODU2IDIyNC4wMDAzNzEsNDIuMzQ4MzU1NyAyMjQuMTMwNDk5LDQyLjI2MjQwNjcgTDIyNS43NTEwODksNDAuOTI5MTk4MyBDMjI1LjY5OTAzOCw0MC42NjkzNTI2IDIyNS42NzMwMTMsNDAuMzYyNTM0NyAyMjUuNjczMDEzLDQwLjAwMzc0NzggQzIyNS42NzMwMTMsMzkuNjQ1OTYwMiAyMjUuNjk5MDM4LDM5LjMzNzE0MzYgMjI1Ljc1MTA4OSwzOS4wNzgyOTczIEwyMjQuMTMwNDk5LDM3Ljc0NjA4ODMgQzIyNC4wMDAzNzEsMzcuNjYwMTM5MyAyMjMuOTY3MzM5LDM3LjU0MjIwOTMgMjI0LjAzMjQwMywzNy4zOTQyOTcxIEMyMjQuMzU3NzIyLDM2LjQ0NDg2MDkgMjI0Ljg5MTI0NSwzNS41NjgzODEzIDIyNS42MzM5NzQsMzQuNzY2ODU3MiBDMjI1LjczODA3NywzNC42NDM5MzAyIDIyNS44NjIxOTgsMzQuNjEyOTQ4NiAyMjYuMDA1MzM5LDM0LjY3MzkxMjQgTDIyOC4wMzYzMzIsMzUuMzQwNTE2NiBDMjI4LjUxNjgwNCwzNC45NTc3NDM4IDIyOS4wNzczNTQsMzQuNjQ5OTI2NiAyMjkuNzE1OTgxLDM0LjQxNTA2NjEgTDIzMC4xMjUzODIsMzIuNDE2MjUyOCBDMjMwLjE1MTQwOCwzMi4yNjgzNDA3IDIzMC4yNDI0OTcsMzIuMTgyMzkxNyAyMzAuMzk4NjUxLDMyLjE1NzQwNjUgQzIzMS40NjU2OTgsMzEuOTQ3NTMxMiAyMzIuNTMzNzQ2LDMxLjk0NzUzMTIgMjMzLjYwMDc5MywzMi4xNTc0MDY1IEMyMzMuNzU2OTQ3LDMyLjE4MTM5MjMgMjMzLjg0ODAzNiwzMi4yNjgzNDA3IDIzMy44NzQwNjEsMzIuNDE2MjUyOCBMMjM0LjI4MzQ2MywzNC40MTUwNjYxIEMyMzQuODgzMDUyLDM0LjYzNzkzMzcgMjM1LjQ0MjYwMSwzNC45NDU3NTEgMjM1Ljk2MzExMiwzNS4zNDA1MTY2IEwyMzcuOTk0MTA1LDM0LjY3MzkxMjQgQzIzOC4xMzcyNDYsMzQuNjExOTQ5MiAyMzguMjYxMzY3LDM0LjY0MzkzMDIgMjM4LjM2NTQ3LDM0Ljc2Njg1NzIgQzIzOS4xMDcxOTcsMzUuNTY5MzgwNyAyMzkuNjQwNzIxLDM2LjQ0NDg2MDkgMjM5Ljk2NzA0MSwzNy4zOTQyOTcxIEMyNDAuMDMxMTA0LDM3LjU0MjIwOTMgMjM5Ljk5OTA3MywzNy42NjAxMzkzIDIzOS44Njg5NDUsMzcuNzQ2MDg4MyBMMjM4LjI0OTM1NiwzOS4wNzgyOTczIEwyMzguMjQ5MzU2LDM5LjA3ODI5NzMgWiBNMjMyLDM2LjUgQzIzMC4wNjcxMjUsMzYuNSAyMjguNSwzOC4wNjcxMjUgMjI4LjUsNDAgQzIyOC41LDQxLjkzMjg3NSAyMzAuMDY3MTI1LDQzLjUgMjMyLDQzLjUgQzIzMy45MzI4NzUsNDMuNSAyMzUuNSw0MS45MzI4NzUgMjM1LjUsNDAgQzIzNS41LDM4LjA2NzEyNSAyMzMuOTMyODc1LDM2LjUgMjMyLDM2LjUgTDIzMiwzNi41IFoiLz4KICAgIDxwYXRoIGQ9Ik0yMzguMjQ5MzU2LDM5LjA3ODI5NzMgQzIzOC4zMDE0MDcsMzkuMzM3MTQzNiAyMzguMzI3NDMyLDM5LjY0NTk2MDIgMjM4LjMyNzQzMiw0MC4wMDM3NDc4IEMyMzguMzI3NDMyLDQwLjM2MTUzNTMgMjM4LjMwMTQwNyw0MC42NjkzNTI2IDIzOC4yNDkzNTYsNDAuOTI5MTk4MyBMMjM5Ljg2OTk0Niw0Mi4yNjI0MDY3IEMyNDAuMDAwMDc0LDQyLjM0ODM1NTcgMjQwLjAzMjEwNSw0Mi40NjUyODYyIDIzOS45NjgwNDIsNDIuNjE0MTk3OCBDMjM5LjY0MjcyMyw0My41NjQ2MzM1IDIzOS4xMDkxOTksNDQuNDQwMTEzNyAyMzguMzY2NDcsNDUuMjQxNjM3OCBDMjM4LjI2MjM2OCw0NS4zNjU1NjQyIDIzOC4xMzcyNDYsNDUuMzk2NTQ1OCAyMzcuOTk1MTA2LDQ1LjMzNTU4MiBMMjM1Ljk2NDExMyw0NC42Njc5Nzg0IEMyMzUuNDQzNjAyLDQ1LjA2Mzc0MzQgMjM0Ljg4NDA1Myw0NS4zNzI1NiAyMzQuMjg0NDY0LDQ1LjU5NDQyODMgTDIzMy44NzUwNjIsNDcuNTkzMjQxNSBDMjMzLjg0OTAzNyw0Ny43NDAxNTQzIDIzMy43NTc5NDgsNDcuODI3MTAyNyAyMzMuNjAxNzk0LDQ3Ljg1MjA4NzggQzIzMy4wNDEyNDQsNDcuOTUyMDI4NSAyMzIuNTA3NzIxLDQ4IDIzMi4wMDAyMjIsNDggQzIzMS40OTI3MjQsNDggMjMwLjk1ODIsNDcuOTUxMDI5MSAyMzAuMzk4NjUxLDQ3Ljg1MjA4NzggQzIzMC4yNDI0OTcsNDcuODI4MTAyMSAyMzAuMTUxNDA4LDQ3Ljc0MTE1MzcgMjMwLjEyNTM4Miw0Ny41OTMyNDE1IEwyMjkuNzE1OTgxLDQ1LjU5NDQyODMgQzIyOS4wNzczNTQsNDUuMzYwNTY3MiAyMjguNTE3ODA1LDQ1LjA1MDc1MTEgMjI4LjAzNjMzMiw0NC42Njc5Nzg0IEwyMjYuMDA1MzM5LDQ1LjMzNTU4MiBDMjI1Ljg2MTE5Nyw0NS4zOTc1NDUyIDIyNS43MzgwNzcsNDUuMzY1NTY0MiAyMjUuNjMzOTc0LDQ1LjI0MTYzNzggQzIyNC44OTIyNDYsNDQuNDQwMTEzNyAyMjQuMzU4NzIzLDQzLjU2NDYzMzUgMjI0LjAzMjQwMyw0Mi42MTQxOTc4IEMyMjMuOTY3MzM5LDQyLjQ2NjI4NTYgMjI0LjAwMDM3MSw0Mi4zNDgzNTU3IDIyNC4xMzA0OTksNDIuMjYyNDA2NyBMMjI1Ljc1MTA4OSw0MC45MjkxOTgzIEMyMjUuNjk5MDM4LDQwLjY2OTM1MjYgMjI1LjY3MzAxMyw0MC4zNjI1MzQ3IDIyNS42NzMwMTMsNDAuMDAzNzQ3OCBDMjI1LjY3MzAxMywzOS42NDU5NjAyIDIyNS42OTkwMzgsMzkuMzM3MTQzNiAyMjUuNzUxMDg5LDM5LjA3ODI5NzMgTDIyNC4xMzA0OTksMzcuNzQ2MDg4MyBDMjI0LjAwMDM3MSwzNy42NjAxMzkzIDIyMy45NjczMzksMzcuNTQyMjA5MyAyMjQuMDMyNDAzLDM3LjM5NDI5NzEgQzIyNC4zNTc3MjIsMzYuNDQ0ODYwOSAyMjQuODkxMjQ1LDM1LjU2ODM4MTMgMjI1LjYzMzk3NCwzNC43NjY4NTcyIEMyMjUuNzM4MDc3LDM0LjY0MzkzMDIgMjI1Ljg2MjE5OCwzNC42MTI5NDg2IDIyNi4wMDUzMzksMzQuNjczOTEyNCBMMjI4LjAzNjMzMiwzNS4zNDA1MTY2IEMyMjguNTE2ODA0LDM0Ljk1Nzc0MzggMjI5LjA3NzM1NCwzNC42NDk5MjY2IDIyOS43MTU5ODEsMzQuNDE1MDY2MSBMMjMwLjEyNTM4MiwzMi40MTYyNTI4IEMyMzAuMTUxNDA4LDMyLjI2ODM0MDcgMjMwLjI0MjQ5NywzMi4xODIzOTE3IDIzMC4zOTg2NTEsMzIuMTU3NDA2NSBDMjMxLjQ2NTY5OCwzMS45NDc1MzEyIDIzMi41MzM3NDYsMzEuOTQ3NTMxMiAyMzMuNjAwNzkzLDMyLjE1NzQwNjUgQzIzMy43NTY5NDcsMzIuMTgxMzkyMyAyMzMuODQ4MDM2LDMyLjI2ODM0MDcgMjMzLjg3NDA2MSwzMi40MTYyNTI4IEwyMzQuMjgzNDYzLDM0LjQxNTA2NjEgQzIzNC44ODMwNTIsMzQuNjM3OTMzNyAyMzUuNDQyNjAxLDM0Ljk0NTc1MSAyMzUuOTYzMTEyLDM1LjM0MDUxNjYgTDIzNy45OTQxMDUsMzQuNjczOTEyNCBDMjM4LjEzNzI0NiwzNC42MTE5NDkyIDIzOC4yNjEzNjcsMzQuNjQzOTMwMiAyMzguMzY1NDcsMzQuNzY2ODU3MiBDMjM5LjEwNzE5NywzNS41NjkzODA3IDIzOS42NDA3MjEsMzYuNDQ0ODYwOSAyMzkuOTY3MDQxLDM3LjM5NDI5NzEgQzI0MC4wMzExMDQsMzcuNTQyMjA5MyAyMzkuOTk5MDczLDM3LjY2MDEzOTMgMjM5Ljg2ODk0NSwzNy43NDYwODgzIEwyMzguMjQ5MzU2LDM5LjA3ODI5NzMgTDIzOC4yNDkzNTYsMzkuMDc4Mjk3MyBaIE0yMzIsMzYuNSBDMjMwLjA2NzEyNSwzNi41IDIyOC41LDM4LjA2NzEyNSAyMjguNSw0MCBDMjI4LjUsNDEuOTMyODc1IDIzMC4wNjcxMjUsNDMuNSAyMzIsNDMuNSBDMjMzLjkzMjg3NSw0My41IDIzNS41LDQxLjkzMjg3NSAyMzUuNSw0MCBDMjM1LjUsMzguMDY3MTI1IDIzMy45MzI4NzUsMzYuNSAyMzIsMzYuNSBMMjMyLDM2LjUgWiIvPgogIDwvZz4KPC9zdmc+Cg=="
 
 /***/ },
-/* 277 */
+/* 278 */
 /***/ function(module, exports) {
 
 	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICA8cGF0aCBmaWxsPSIjOTU5OTlEIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0yMjQsMTMxIEMyMjQsMTMwLjQ0NzcxNSAyMjQuNDQ0NjMxLDEzMCAyMjUuMDAwODcyLDEzMCBMMjM4Ljk5OTEyOCwxMzAgQzIzOS41NTE4OTQsMTMwIDI0MCwxMzAuNDQzODY1IDI0MCwxMzEgQzI0MCwxMzEuNTUyMjg1IDIzOS41NTUzNjksMTMyIDIzOC45OTkxMjgsMTMyIEwyMjUuMDAwODcyLDEzMiBDMjI0LjQ0ODEwNiwxMzIgMjI0LDEzMS41NTYxMzUgMjI0LDEzMSBaIE0yMjQsMTQxIEMyMjQsMTQwLjQ0NzcxNSAyMjQuNDQ0NjMxLDE0MCAyMjUuMDAwODcyLDE0MCBMMjM4Ljk5OTEyOCwxNDAgQzIzOS41NTE4OTQsMTQwIDI0MCwxNDAuNDQzODY1IDI0MCwxNDEgQzI0MCwxNDEuNTUyMjg1IDIzOS41NTUzNjksMTQyIDIzOC45OTkxMjgsMTQyIEwyMjUuMDAwODcyLDE0MiBDMjI0LjQ0ODEwNiwxNDIgMjI0LDE0MS41NTYxMzUgMjI0LDE0MSBaIE0yMjQsMTM2IEMyMjQsMTM1LjQ0NzcxNSAyMjQuNDQ0NjMxLDEzNSAyMjUuMDAwODcyLDEzNSBMMjM4Ljk5OTEyOCwxMzUgQzIzOS41NTE4OTQsMTM1IDI0MCwxMzUuNDQzODY1IDI0MCwxMzYgQzI0MCwxMzYuNTUyMjg1IDIzOS41NTUzNjksMTM3IDIzOC45OTkxMjgsMTM3IEwyMjUuMDAwODcyLDEzNyBDMjI0LjQ0ODEwNiwxMzcgMjI0LDEzNi41NTYxMzUgMjI0LDEzNiBaIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMjI0IC0xMjgpIi8+Cjwvc3ZnPgo="
 
 /***/ },
-/* 278 */
+/* 279 */
 /***/ function(module, exports) {
 
 	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAzMiAzMicgd2lkdGg9JzEyJyBoZWlnaHQ9JzEyJyBmaWxsPScjMjk3RUYyJz4KICA8cGF0aCBvcGFjaXR5PScuMjUnIGQ9J00xNiAwYTE2IDE2IDAgMCAwIDAgMzIgMTYgMTYgMCAwIDAgMC0zMm0wIDRhMTIgMTIgMCAwIDEgMCAyNCAxMiAxMiAwIDAgMSAwLTI0Jy8+CiAgPHBhdGggZD0nTTE2IDBhMTYgMTYgMCAwIDEgMTYgMTZoLTRhMTIgMTIgMCAwIDAtMTItMTJ6Jy8+Cjwvc3ZnPgo="
 
 /***/ },
-/* 279 */
+/* 280 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*

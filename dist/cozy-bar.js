@@ -260,16 +260,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return;
 	  }
 	
-	  __webpack_require__(267);
+	  __webpack_require__(268);
 	
 	  var barNode = createElement();
 	  var appNode = document.querySelector(APP_SELECTOR);
 	  if (!appNode) {
-	    return console.warn('Cozy-bar is looking for a "' + APP_SELECTOR + '" tag that contains your application and can\'t find it :\'(\u2026 The BAR is now disabled');
+	    console.warn('Cozy-bar is looking for a "' + APP_SELECTOR + '" tag that contains your application and can\'t find it :\'(\u2026 The BAR is now disabled');
+	    return null;
 	  }
 	
 	  document.body.insertBefore(barNode, appNode);
-	
 	  return new _Bar2.default({
 	    target: barNode,
 	    data: data
@@ -279,27 +279,70 @@ return /******/ (function(modules) { // webpackBootstrap
 	var bindEvents = function CozyBarBindEvents() {
 	  var _this = this;
 	
+	  var body = document.body;
+	  var root = document.querySelector('[role=banner]');
+	  var aside = document.querySelector('.coz-drawer-wrapper aside');
+	
+	  /** Fire a `clickOutside` event when clicking anywhere in the viewport */
 	  this._clickOutsideListener = function () {
 	    return _this.fire('clickOutside');
 	  };
-	  document.body.addEventListener('click', this._clickOutsideListener);
+	  body.addEventListener('click', this._clickOutsideListener);
 	
-	  this._drawerObserver = this.observe('drawerVisible', function (drawerVisible) {
-	    document.querySelector('[role=banner]').dataset.drawerVisible = drawerVisible;
+	  /** Define update status helper, wrapped in a next frame to keep DOM clean */
+	  var updateVisibleStatus = function updateVisibleStatus() {
+	    setTimeout(function () {
+	      root.dataset.drawerVisible = _this.get('drawerVisible');
+	    }, 10);
+	  };
+	
+	  var listener = function listener() {
+	    updateVisibleStatus();
+	    aside.removeEventListener('transitionend', listener);
+	  };
+	
+	  /** Set default value for drawerVisible */
+	  updateVisibleStatus();
+	
+	  /**
+	   * Set dataset attribute in mirror of drawerVisible state:
+	   * - immediately when switch to true
+	   * - after aside transition when switch to false
+	   */
+	  this._drawerVisibleObserver = this.observe('drawerVisible', function (drawerVisible) {
+	    if (drawerVisible) {
+	      updateVisibleStatus();
+	    } else {
+	      aside.addEventListener('transitionend', listener);
+	    }
 	  });
 	};
 	
 	var unbindEvents = function CozyBarUnbindEvents() {
-	  document.body.removeEventListener('click', this._clickOutsideListener);
+	  var body = document.body;
+	
+	  body.removeEventListener('click', this._clickOutsideListener);
 	  this._drawerObserver.cancel();
+	
+	  this._drawerVisibleObserver.cancel();
 	};
 	
 	var getDefaultStackURL = function GetDefaultCozyURL() {
-	  return document.querySelector('[role=application]').dataset.cozyDomain;
+	  var appNode = document.querySelector(APP_SELECTOR);
+	  if (!appNode) {
+	    console.warn('Cozy-bar can\'t discover the cozy\'s URL, and will probably fail to initialize the connection with the stack.');
+	    return '';
+	  }
+	  return appNode.dataset.cozyDomain;
 	};
 	
 	var getDefaultToken = function GetDefaultToken() {
-	  return document.querySelector('[role=application]').dataset.cozyToken;
+	  var appNode = document.querySelector(APP_SELECTOR);
+	  if (!appNode) {
+	    console.warn('Cozy-bar can\'t discover the app\'s token, and will probably fail to initialize the connection with the stack.');
+	    return '';
+	  }
+	  return appNode.dataset.cozyToken;
 	};
 	
 	var getDefaultLang = function GetDefaultLang() {
@@ -325,11 +368,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	      _ref$cozyURL = _ref.cozyURL,
 	      cozyURL = _ref$cozyURL === undefined ? getDefaultStackURL() : _ref$cozyURL,
 	      _ref$token = _ref.token,
-	      token = _ref$token === undefined ? getDefaultToken() : _ref$token;
+	      token = _ref$token === undefined ? getDefaultToken() : _ref$token,
+	      _ref$replaceTitleOnMo = _ref.replaceTitleOnMobile,
+	      replaceTitleOnMobile = _ref$replaceTitleOnMo === undefined ? false : _ref$replaceTitleOnMo;
 	
 	  (0, _i18n2.default)(lang);
 	  _stack2.default.init({ cozyURL: cozyURL, token: token });
-	  var view = injectDOM({ lang: lang, appName: appName, iconPath: iconPath });
+	  var view = injectDOM({ lang: lang, appName: appName, iconPath: iconPath, replaceTitleOnMobile: replaceTitleOnMobile });
 	
 	  if (view) {
 	    bindEvents.call(view);
@@ -337,7 +382,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 	};
 	
-	module.exports = { init: init, version: ("3.0.0-beta11") };
+	module.exports = { init: init, version: ("3.0.0-beta12") };
 
 /***/ },
 /* 1 */
@@ -7658,7 +7703,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"email": "Enviar un email a asistencia",
 		"logout": "Finalizar sesión",
 		"error_UnavailableStack": "La pila es inaccesible ( se agotó el tiempo de la conexión ).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack."
+		"error_UnauthorizedStack": "Faltan algunos permisos, la aplicación no puede acceder al recurso solicitado en la pila."
 	};
 
 /***/ },
@@ -7713,11 +7758,11 @@ return /******/ (function(modules) { // webpackBootstrap
 		"profile": "Profil",
 		"connectedDevices": "Appareils connectés",
 		"storage": "Espace disque",
-		"storage_phrase": "%{diskUsage} GB sur %{totalStorage} GB",
+		"storage_phrase": "%{diskUsage} Go sur %{totalStorage} Go",
 		"help": "Aide",
 		"email": "Envoyer un email au support",
 		"logout": "Déconnexion",
-		"error_UnavailableStack": "Connexion à la stack impossible (interrompue après délai)",
+		"error_UnavailableStack": "Connexion à la stack impossible (connection timed-out)",
 		"error_UnauthorizedStack": "Des permissions sont manquante, l'application ne peut accéder aux ressources demandées."
 	};
 
@@ -8167,148 +8212,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 	
-	var getApps = function () {
-	  var _ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee() {
-	    var res;
-	    return regeneratorRuntime.wrap(function _callee$(_context) {
-	      while (1) {
-	        switch (_context.prev = _context.next) {
-	          case 0:
-	            _context.next = 2;
-	            return fetch(COZY_URL + '/apps/', fetchOptions()).catch(function (e) {
-	              throw new _exceptions.UnavailableStackException();
-	            });
-	
-	          case 2:
-	            res = _context.sent;
-	
-	            if (!(res.status === 401)) {
-	              _context.next = 5;
-	              break;
-	            }
-	
-	            throw new _exceptions.UnauthorizedStackException();
-	
-	          case 5:
-	            _context.next = 7;
-	            return res.json();
-	
-	          case 7:
-	            return _context.abrupt('return', _context.sent.data);
-	
-	          case 8:
-	          case 'end':
-	            return _context.stop();
-	        }
-	      }
-	    }, _callee, this);
-	  }));
-	
-	  return function getApps() {
-	    return _ref.apply(this, arguments);
-	  };
-	}();
-	
-	var getDiskUsage = function () {
-	  var _ref2 = _asyncToGenerator(regeneratorRuntime.mark(function _callee2() {
-	    var res;
-	    return regeneratorRuntime.wrap(function _callee2$(_context2) {
-	      while (1) {
-	        switch (_context2.prev = _context2.next) {
-	          case 0:
-	            _context2.next = 2;
-	            return fetch(COZY_URL + '/settings/disk-usage', fetchOptions()).catch(function (e) {
-	              throw new _exceptions.UnavailableStackException();
-	            });
-	
-	          case 2:
-	            res = _context2.sent;
-	
-	            if (!(res.status === 401)) {
-	              _context2.next = 5;
-	              break;
-	            }
-	
-	            throw new _exceptions.UnauthorizedStackException();
-	
-	          case 5:
-	            _context2.t0 = parseInt;
-	            _context2.next = 8;
-	            return res.json();
-	
-	          case 8:
-	            _context2.t1 = _context2.sent.data.attributes.used;
-	            return _context2.abrupt('return', (0, _context2.t0)(_context2.t1, 10));
-	
-	          case 10:
-	          case 'end':
-	            return _context2.stop();
-	        }
-	      }
-	    }, _callee2, this);
-	  }));
-	
-	  return function getDiskUsage() {
-	    return _ref2.apply(this, arguments);
-	  };
-	}();
-	
-	var getApp = function () {
-	  var _ref3 = _asyncToGenerator(regeneratorRuntime.mark(function _callee3(slug) {
-	    return regeneratorRuntime.wrap(function _callee3$(_context3) {
-	      while (1) {
-	        switch (_context3.prev = _context3.next) {
-	          case 0:
-	            _context3.next = 2;
-	            return getApps();
-	
-	          case 2:
-	            _context3.t0 = function (item) {
-	              return item.attributes.slug === slug;
-	            };
-	
-	            return _context3.abrupt('return', _context3.sent.find(_context3.t0));
-	
-	          case 4:
-	          case 'end':
-	            return _context3.stop();
-	        }
-	      }
-	    }, _callee3, this);
-	  }));
-	
-	  return function getApp(_x) {
-	    return _ref3.apply(this, arguments);
-	  };
-	}();
-	
-	var hasApp = function () {
-	  var _ref4 = _asyncToGenerator(regeneratorRuntime.mark(function _callee4(slug) {
-	    var app;
-	    return regeneratorRuntime.wrap(function _callee4$(_context4) {
-	      while (1) {
-	        switch (_context4.prev = _context4.next) {
-	          case 0:
-	            _context4.next = 2;
-	            return getApp(slug);
-	
-	          case 2:
-	            app = _context4.sent;
-	            return _context4.abrupt('return', !!(app && app.attributes.state === 'ready'));
-	
-	          case 4:
-	          case 'end':
-	            return _context4.stop();
-	        }
-	      }
-	    }, _callee4, this);
-	  }));
-	
-	  return function hasApp(_x2) {
-	    return _ref4.apply(this, arguments);
-	  };
-	}();
-	
 	__webpack_require__(1);
 	
 	__webpack_require__(42);
@@ -8500,10 +8403,65 @@ return /******/ (function(modules) { // webpackBootstrap
 	var COZY_URL = ("http://cozy.local:8080");
 	var COZY_TOKEN = void 0;
 	
+	function getApps() {
+	  return fetch(COZY_URL + '/apps/', fetchOptions()).then(function (res) {
+	    if (res.status === 401) {
+	      throw new _exceptions.UnauthorizedStackException();
+	    }
+	    return res.json();
+	  }).then(function (json) {
+	    return json.data;
+	  }).catch(function (e) {
+	    throw new _exceptions.UnavailableStackException();
+	  });
+	}
+	
+	function getDiskUsage() {
+	  return fetch(COZY_URL + '/settings/disk-usage', fetchOptions()).then(function (res) {
+	    if (res.status === 401) {
+	      throw new _exceptions.UnauthorizedStackException();
+	    }
+	
+	    return res.json();
+	  }).then(function (json) {
+	    return parseInt(json.data.attributes.used, 10);
+	  }).catch(function (e) {
+	    throw new _exceptions.UnavailableStackException();
+	  });
+	}
+	
+	function getApp(slug) {
+	  return getApps().then(function (apps) {
+	    return apps.find(function (item) {
+	      return item.attributes.slug === slug;
+	    });
+	  });
+	}
+	
+	function getIcon(url) {
+	  return fetch('' + COZY_URL + url, fetchOptions()).then(function (res) {
+	    return res.blob();
+	  }).then(function (blob) {
+	    return new Promise(function (resolve, reject) {
+	      var reader = new FileReader();
+	      reader.addEventListener('load', function (event) {
+	        return resolve(event.target.result);
+	      });
+	      reader.readAsDataURL(blob);
+	    });
+	  });
+	}
+	
+	function hasApp(slug) {
+	  return getApp(slug).then(function (app) {
+	    return !!(app && app.attributes.state === 'ready');
+	  });
+	}
+	
 	module.exports = {
-	  init: function init(_ref5) {
-	    var cozyURL = _ref5.cozyURL,
-	        token = _ref5.token;
+	  init: function init(_ref) {
+	    var cozyURL = _ref.cozyURL,
+	        token = _ref.token;
 	
 	    COZY_URL = '//' + cozyURL;
 	    COZY_TOKEN = token;
@@ -8518,50 +8476,50 @@ return /******/ (function(modules) { // webpackBootstrap
 	     * the Settings app isn't available.
 	     */
 	    settings: function () {
-	      var _ref6 = _asyncToGenerator(regeneratorRuntime.mark(function _callee5() {
+	      var _ref2 = _asyncToGenerator(regeneratorRuntime.mark(function _callee() {
 	        var hasSettings;
-	        return regeneratorRuntime.wrap(function _callee5$(_context5) {
+	        return regeneratorRuntime.wrap(function _callee$(_context) {
 	          while (1) {
-	            switch (_context5.prev = _context5.next) {
+	            switch (_context.prev = _context.next) {
 	              case 0:
 	                hasSettings = void 0;
-	                _context5.prev = 1;
-	                _context5.next = 4;
+	                _context.prev = 1;
+	                _context.next = 4;
 	                return hasApp('settings');
 	
 	              case 4:
-	                hasSettings = _context5.sent;
-	                _context5.next = 11;
+	                hasSettings = _context.sent;
+	                _context.next = 11;
 	                break;
 	
 	              case 7:
-	                _context5.prev = 7;
-	                _context5.t0 = _context5['catch'](1);
+	                _context.prev = 7;
+	                _context.t0 = _context['catch'](1);
 	
 	                hasSettings = false;
 	                throw new _exceptions.UnavailableSettingsException();
 	
 	              case 11:
 	                if (hasSettings) {
-	                  _context5.next = 13;
+	                  _context.next = 13;
 	                  break;
 	                }
 	
 	                throw new _exceptions.UnavailableSettingsException();
 	
 	              case 13:
-	                return _context5.abrupt('return', hasSettings);
+	                return _context.abrupt('return', hasSettings);
 	
 	              case 14:
 	              case 'end':
-	                return _context5.stop();
+	                return _context.stop();
 	            }
 	          }
-	        }, _callee5, this, [[1, 7]]);
+	        }, _callee, this, [[1, 7]]);
 	      }));
 	
 	      function settings() {
-	        return _ref6.apply(this, arguments);
+	        return _ref2.apply(this, arguments);
 	      }
 	
 	      return settings;
@@ -8571,91 +8529,34 @@ return /******/ (function(modules) { // webpackBootstrap
 	    app: getApp,
 	    apps: getApps,
 	    diskUsage: getDiskUsage,
+	    icon: getIcon,
 	    cozyURL: function cozyURL() {
 	      return COZY_URL;
 	    },
-	    settingsBaseURI: function () {
-	      var _ref7 = _asyncToGenerator(regeneratorRuntime.mark(function _callee6() {
-	        var settings;
-	        return regeneratorRuntime.wrap(function _callee6$(_context6) {
-	          while (1) {
-	            switch (_context6.prev = _context6.next) {
-	              case 0:
-	                _context6.next = 2;
-	                return getApp('settings');
-	
-	              case 2:
-	                settings = _context6.sent;
-	
-	                if (settings) {
-	                  _context6.next = 5;
-	                  break;
-	                }
-	
-	                throw new _exceptions.UnavailableSettingsException();
-	
-	              case 5:
-	                return _context6.abrupt('return', settings.links.related);
-	
-	              case 6:
-	              case 'end':
-	                return _context6.stop();
-	            }
-	          }
-	        }, _callee6, this);
-	      }));
-	
-	      function settingsBaseURI() {
-	        return _ref7.apply(this, arguments);
-	      }
-	
-	      return settingsBaseURI;
-	    }()
-	  },
-	  logout: function () {
-	    var _ref8 = _asyncToGenerator(regeneratorRuntime.mark(function _callee7() {
-	      var options, res;
-	      return regeneratorRuntime.wrap(function _callee7$(_context7) {
-	        while (1) {
-	          switch (_context7.prev = _context7.next) {
-	            case 0:
-	              options = Object.assign({}, fetchOptions(), {
-	                method: 'DELETE'
-	              });
-	              _context7.next = 3;
-	              return fetch(COZY_URL + '/auth/login', options).catch(function (e) {
-	                throw new _exceptions.UnavailableStackException();
-	              });
-	
-	            case 3:
-	              res = _context7.sent;
-	
-	              if (!(res.status === 401)) {
-	                _context7.next = 8;
-	                break;
-	              }
-	
-	              throw new _exceptions.UnauthorizedStackException();
-	
-	            case 8:
-	              if (res.status === 204) {
-	                window.location.reload();
-	              }
-	
-	            case 9:
-	            case 'end':
-	              return _context7.stop();
-	          }
+	    settingsBaseURI: function settingsBaseURI() {
+	      return getApp('settings').then(function (settings) {
+	        if (!settings) {
+	          throw new _exceptions.UnavailableSettingsException();
 	        }
-	      }, _callee7, this);
-	    }));
-	
-	    function logout() {
-	      return _ref8.apply(this, arguments);
+	        return settings.links.related;
+	      });
 	    }
+	  },
+	  logout: function logout() {
+	    var options = Object.assign({}, fetchOptions(), {
+	      method: 'DELETE'
+	    });
 	
-	    return logout;
-	  }()
+	    return fetch(COZY_URL + '/auth/login', options).then(function (res) {
+	      if (res.status === 401) {
+	        throw new _exceptions.UnauthorizedStackException();
+	      } else if (res.status === 204) {
+	        window.location.reload();
+	      }
+	    }).catch(function (e) {
+	      throw new _exceptions.UnavailableStackException();
+	    });
+	  }
 	};
 
 /***/ },
@@ -8741,31 +8642,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 	
-	var _deepClone = __webpack_require__(254);
-	
-	var _deepClone2 = _interopRequireDefault(_deepClone);
-	
-	var _deepEqual = __webpack_require__(256);
-	
-	var _deepEqual2 = _interopRequireDefault(_deepEqual);
-	
 	var _i18n = __webpack_require__(189);
 	
-	var _stack = __webpack_require__(251);
+	var _config = __webpack_require__(254);
 	
-	var _stack2 = _interopRequireDefault(_stack);
-	
-	var _exceptions = __webpack_require__(252);
-	
-	var _Navigation = __webpack_require__(259);
+	var _Navigation = __webpack_require__(261);
 	
 	var _Navigation2 = _interopRequireDefault(_Navigation);
 	
-	var _Drawer = __webpack_require__(265);
+	var _Drawer = __webpack_require__(267);
 	
 	var _Drawer2 = _interopRequireDefault(_Drawer);
 	
-	var _menu = __webpack_require__(266);
+	var _menu = __webpack_require__(260);
 	
 	var _menu2 = _interopRequireDefault(_menu);
 	
@@ -8773,254 +8662,68 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 	
-	var template = function () {
-		var updateAppsItems = function () {
-			var _ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee() {
-				var config, apps;
-				return regeneratorRuntime.wrap(function _callee$(_context) {
-					while (1) {
-						switch (_context.prev = _context.next) {
-							case 0:
-								config = this.get('config');
-								apps = void 0;
-								_context.prev = 2;
-								_context.next = 5;
-								return _stack2.default.get.apps();
-	
-							case 5:
-								_context.t0 = function (app) {
-									return !EXCLUDES.includes(app.attributes.slug);
-								};
-	
-								_context.t1 = function (app) {
-									return {
-										slug: app.attributes.slug,
-										l10n: false,
-										href: app.links.related,
-										icon: app.links.icon
-									};
-								};
-	
-								apps = _context.sent.filter(_context.t0).map(_context.t1);
-								_context.next = 13;
-								break;
-	
-							case 10:
-								_context.prev = 10;
-								_context.t2 = _context['catch'](2);
-	
-								apps = [{ error: _context.t2 }];
-	
-							case 13:
-	
-								config.apps.length = 0;
-								Array.prototype.push.apply(config.apps, apps);
-	
-							case 15:
-							case 'end':
-								return _context.stop();
-						}
-					}
-				}, _callee, this, [[2, 10]]);
-			}));
-	
-			return function updateAppsItems() {
-				return _ref.apply(this, arguments);
-			};
-		}();
-	
-		var updateDiskUsage = function () {
-			var _ref2 = _asyncToGenerator(regeneratorRuntime.mark(function _callee2() {
-				var config, currentDiskUsage;
-				return regeneratorRuntime.wrap(function _callee2$(_context2) {
-					while (1) {
-						switch (_context2.prev = _context2.next) {
-							case 0:
-								config = this.get('config');
-								currentDiskUsage = void 0;
-								_context2.prev = 2;
-								_context2.next = 5;
-								return _stack2.default.get.diskUsage();
-	
-							case 5:
-								currentDiskUsage = _context2.sent;
-								_context2.next = 11;
-								break;
-	
-							case 8:
-								_context2.prev = 8;
-								_context2.t0 = _context2['catch'](2);
-	
-								currentDiskUsage = { error: _context2.t0.name };
-	
-							case 11:
-	
-								config.components.storage.currentDiskUsage = currentDiskUsage;
-	
-							case 12:
-							case 'end':
-								return _context2.stop();
-						}
-					}
-				}, _callee2, this, [[2, 8]]);
-			}));
-	
-			return function updateDiskUsage() {
-				return _ref2.apply(this, arguments);
-			};
-		}();
-	
-		/**
-	  * Add / Remove settings' links items regarding the status of
-	  * the `settings` app
-	  * @return {Promise}
-	  */
-	
-	
-		var toggleSettingsItems = function () {
-			var _ref3 = _asyncToGenerator(regeneratorRuntime.mark(function _callee3() {
-				var config, items;
-				return regeneratorRuntime.wrap(function _callee3$(_context3) {
-					while (1) {
-						switch (_context3.prev = _context3.next) {
-							case 0:
-								config = this.get('config');
-	
-								// We reset the settings' links array
-	
-								config.subsections.settings.length = 0;
-	
-								// If the `settings` app is available, we restore links from the root
-								// MENU_CONFIG tree, updating the links' URLs with the app URI at same time.
-								_context3.prev = 2;
-								_context3.next = 5;
-								return _stack2.default.has.settings();
-	
-							case 5:
-								_context3.next = 11;
-								break;
-	
-							case 7:
-								_context3.prev = 7;
-								_context3.t0 = _context3['catch'](2);
-	
-								console.warn('Settings app is unavailable, links are disabled');
-								return _context3.abrupt('return');
-	
-							case 11:
-								_context3.next = 13;
-								return updateSettingsURIs(_menu2.default.subsections.settings);
-	
-							case 13:
-								items = _context3.sent;
-	
-								Array.prototype.push.apply(config.subsections.settings, items);
-	
-							case 15:
-							case 'end':
-								return _context3.stop();
-						}
-					}
-				}, _callee3, this, [[2, 7]]);
-			}));
-	
-			return function toggleSettingsItems() {
-				return _ref3.apply(this, arguments);
-			};
-		}();
-	
-		/**
-	  * Replace in the given tree the base URIs for settings' app items
-	  * @param  {Object}  tree The JSON defined menu entries
-	  * @return {Promise}      The parsed tree
-	  */
-	
-	
-		var updateSettingsURIs = function () {
-			var _ref4 = _asyncToGenerator(regeneratorRuntime.mark(function _callee4(items) {
-				var baseURI;
-				return regeneratorRuntime.wrap(function _callee4$(_context4) {
-					while (1) {
-						switch (_context4.prev = _context4.next) {
-							case 0:
-								_context4.next = 2;
-								return _stack2.default.get.settingsBaseURI();
-	
-							case 2:
-								baseURI = _context4.sent;
-								return _context4.abrupt('return', items.map(function (item) {
-									return Object.assign({}, item, { href: baseURI + '#' + item.href });
-								}));
-	
-							case 4:
-							case 'end':
-								return _context4.stop();
-						}
-					}
-				}, _callee4, this);
-			}));
-	
-			return function updateSettingsURIs(_x) {
-				return _ref4.apply(this, arguments);
-			};
-		}();
-	
-		/**
-	  * Clone and parse a root node from a JSON definition tree (aka 'menu')
-	  * and recursively replace string definitions `_.(group).(entry)` (e.g.
-	  * `_.components.storage`) with a pointer to the given object in the tree
-	  * (here, `tree[components][entry]`)
-	  *
-	  * @param  {Object} tree                  The tree containing root node and
-	  *                                        definitions
-	  * @param  {String} [rootItem='settings'] The root node to parse
-	  * @return {Object}                       The parsed tree containing pointers
-	  */
-	
-	
-		var EXCLUDES = ['settings'];
-	
-		function createMenuPointers(tree) {
-			function parse(value, index, array) {
-				var path = void 0;
-	
-				if (!value) {
-					return;
-				}
-	
-				if (Array.isArray(value)) {
-					value.forEach(parse);
-				} else if (value === Object(value)) {
-					Object.keys(value).forEach(function (key) {
-						return parse(value[key], key, value);
-					});
-				} else if (value.match && (path = value.match(/_\.(\w+)(?:\.(\w+))?/i))) {
-					if (path[2]) {
-						array[index] = clone[path[1]][path[2]];
-					} else {
-						array[index] = clone[path[1]];
-					}
-				}
-			}
-	
-			var clone = (0, _deepClone2.default)(tree);
-			parse(clone);
-	
-			return clone;
+	function applyComputations(state, newState, oldState) {
+		if ('replaceTitleOnMobile' in newState && _typeof(state.replaceTitleOnMobile) === 'object' || state.replaceTitleOnMobile !== oldState.replaceTitleOnMobile) {
+			state.titleClass = newState.titleClass = template.computed.titleClass(state.replaceTitleOnMobile);
 		}
+	}
 	
+	var template = function () {
 		return {
 			data: function data() {
+				var config = (0, _config.createMenuPointers)(_menu2.default);
+	
 				return {
 					target: ("browser"),
-					config: createMenuPointers(_menu2.default),
+					config: config,
 					drawerVisible: false
 				};
 			},
-			onrender: function onrender() {
-				this.updateApps();
-				this.updateSettings();
+	
+	
+			computed: {
+				titleClass: function titleClass(replaceTitleOnMobile) {
+					return 'coz-bar-title ' + (replaceTitleOnMobile ? 'coz-bar-hide-sm' : '');
+				}
 			},
+	
+			/**
+	   * When loading the Bar component, we once force a first update of config
+	   * w/ settings and apps
+	   */
+			onrender: function () {
+				var _ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee() {
+					var config;
+					return regeneratorRuntime.wrap(function _callee$(_context) {
+						while (1) {
+							switch (_context.prev = _context.next) {
+								case 0:
+									config = this.get('config');
+									_context.next = 3;
+									return (0, _config.updateSettings)(config);
+	
+								case 3:
+									_context.next = 5;
+									return (0, _config.updateApps)(config);
+	
+								case 5:
+	
+									this.set({ config: config });
+	
+								case 6:
+								case 'end':
+									return _context.stop();
+							}
+						}
+					}, _callee, this);
+				}));
+	
+				function onrender() {
+					return _ref.apply(this, arguments);
+				}
+	
+				return onrender;
+			}(),
 	
 	
 			components: {
@@ -9031,91 +8734,106 @@ return /******/ (function(modules) { // webpackBootstrap
 			helpers: { t: _i18n.t },
 	
 			methods: {
-				toggleDrawer: function toggleDrawer(force) {
-					var toggle = force ? false : !this.get('drawerVisible');
-	
-					if (toggle) {
-						this.updateApps();
-					}
-	
-					this.set({ drawerVisible: toggle });
-				},
-				onPopOpen: function onPopOpen(panel) {
-					switch (panel) {
-						case 'apps':
-							this.updateApps();
-							break;
-						case 'settings':
-							this.updateSettings();
-							break;
-					}
-				},
-				updateApps: function () {
-					var _ref5 = _asyncToGenerator(regeneratorRuntime.mark(function _callee5() {
-						var config;
-						return regeneratorRuntime.wrap(function _callee5$(_context5) {
+				toggleDrawer: function () {
+					var _ref2 = _asyncToGenerator(regeneratorRuntime.mark(function _callee2() {
+						var config, drawerVisible, settingsValve, appsValve;
+						return regeneratorRuntime.wrap(function _callee2$(_context2) {
 							while (1) {
-								switch (_context5.prev = _context5.next) {
+								switch (_context2.prev = _context2.next) {
 									case 0:
 										config = this.get('config');
-										_context5.next = 3;
-										return updateAppsItems.call(this);
+										drawerVisible = !this.get('drawerVisible');
 	
-									case 3:
-										/** Ugly hack to force re-render by triggering `set` method on config */
-										this.set({ config: config });
+										if (!drawerVisible) {
+											_context2.next = 10;
+											break;
+										}
 	
-									case 4:
-									case 'end':
-										return _context5.stop();
-								}
-							}
-						}, _callee5, this);
-					}));
-	
-					function updateApps() {
-						return _ref5.apply(this, arguments);
-					}
-	
-					return updateApps;
-				}(),
-				updateSettings: function () {
-					var _ref6 = _asyncToGenerator(regeneratorRuntime.mark(function _callee6() {
-						var config, oldDiskUsage, oldSettingsItems;
-						return regeneratorRuntime.wrap(function _callee6$(_context6) {
-							while (1) {
-								switch (_context6.prev = _context6.next) {
-									case 0:
-										config = this.get('config');
-										oldDiskUsage = config.components.storage.currentDiskUsage;
-										oldSettingsItems = config.subsections.settings.slice();
-										_context6.next = 5;
-										return updateDiskUsage.call(this);
+										_context2.next = 5;
+										return (0, _config.updateSettings)(config, { storage: false });
 	
 									case 5:
-										_context6.next = 7;
-										return toggleSettingsItems.call(this);
+										settingsValve = _context2.sent;
+										_context2.next = 8;
+										return (0, _config.updateApps)(config);
 	
-									case 7:
+									case 8:
+										appsValve = _context2.sent;
+	
 	
 										/** Ugly hack to force re-render by triggering `set` method on config */
-										if (oldDiskUsage != config.components.storage.currentDiskUsage || !(0, _deepEqual2.default)(oldSettingsItems, config.subsections.settings)) {
+										if (settingsValve || appsValve) {
 											this.set({ config: config });
 										}
 	
-									case 8:
+									case 10:
+	
+										this.set({ drawerVisible: drawerVisible });
+	
+									case 11:
 									case 'end':
-										return _context6.stop();
+										return _context2.stop();
 								}
 							}
-						}, _callee6, this);
+						}, _callee2, this);
 					}));
 	
-					function updateSettings() {
-						return _ref6.apply(this, arguments);
+					function toggleDrawer() {
+						return _ref2.apply(this, arguments);
 					}
 	
-					return updateSettings;
+					return toggleDrawer;
+				}(),
+				onPopOpen: function () {
+					var _ref3 = _asyncToGenerator(regeneratorRuntime.mark(function _callee3(panel) {
+						var config, valve;
+						return regeneratorRuntime.wrap(function _callee3$(_context3) {
+							while (1) {
+								switch (_context3.prev = _context3.next) {
+									case 0:
+										config = this.get('config');
+										valve = void 0;
+										_context3.t0 = panel;
+										_context3.next = _context3.t0 === 'apps' ? 5 : _context3.t0 === 'settings' ? 9 : 13;
+										break;
+	
+									case 5:
+										_context3.next = 7;
+										return (0, _config.updateApps)(config);
+	
+									case 7:
+										// we force config update as the menu dropdown opening depends on it
+										valve = true;
+										return _context3.abrupt('break', 13);
+	
+									case 9:
+										_context3.next = 11;
+										return (0, _config.updateSettings)(config);
+	
+									case 11:
+										valve = _context3.sent;
+										return _context3.abrupt('break', 13);
+	
+									case 13:
+	
+										/** Ugly hack to force re-render by triggering `set` method on config */
+										if (valve) {
+											this.set({ config: config });
+										}
+	
+									case 14:
+									case 'end':
+										return _context3.stop();
+								}
+							}
+						}, _callee3, this);
+					}));
+	
+					function onPopOpen(_x) {
+						return _ref3.apply(this, arguments);
+					}
+	
+					return onPopOpen;
 				}()
 			}
 		};
@@ -9135,7 +8853,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		var text = createText("\n\n");
 	
 		var h1 = createElement('h1');
-		h1.className = "coz-bar-title";
+		h1.className = root.titleClass;
 	
 		var img = createElement('img');
 		img.className = "coz-bar-hide-sm";
@@ -9212,6 +8930,8 @@ return /******/ (function(modules) { // webpackBootstrap
 					ifBlock = currentBlock && currentBlock(root, component);
 					if (ifBlock) ifBlock.mount(ifBlock_anchor.parentNode, ifBlock_anchor);
 				}
+	
+				h1.className = root.titleClass;
 	
 				img.src = root.iconPath;
 	
@@ -9302,8 +9022,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 		setAttribute(button, 'data-icon', "icon-hamburger");
 	
+		var span = createElement('span');
+		span.className = "coz-bar-hidden";
+	
+		appendNode(span, button);
 		var text = createText(template.helpers.t('menu'));
-		appendNode(text, button);
+		appendNode(text, span);
 	
 		return {
 			mount: function mount(target, anchor) {
@@ -9328,6 +9052,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		options = options || {};
 
 		this._state = Object.assign(template.data(), options.data);
+		applyComputations(this._state, this._state, {});
 
 		this._observers = {
 			pre: Object.create(null),
@@ -9405,6 +9130,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	SvelteComponent.prototype.set = function set(newState) {
 		var oldState = this._state;
 		this._state = Object.assign({}, oldState, newState);
+		applyComputations(this._state, newState, oldState);
 
 		dispatchObservers(this, this._observers.pre, newState, oldState);
 		if (this._fragment) this._fragment.update(newState, this._state);
@@ -9472,12 +9198,12 @@ return /******/ (function(modules) { // webpackBootstrap
 		target.insertBefore(node, anchor);
 	}
 
-	function createText(data) {
-		return document.createTextNode(data);
-	}
-
 	function appendNode(node, target) {
 		target.appendChild(node);
+	}
+
+	function createText(data) {
+		return document.createTextNode(data);
 	}
 
 	function createComment(data) {
@@ -9490,11 +9216,424 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 254 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(255).default
-
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.updateApps = exports.updateSettings = exports.createMenuPointers = undefined;
+	
+	var updateAppsItems = function () {
+	  var _ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee2(config) {
+	    var _this = this;
+	
+	    var apps;
+	    return regeneratorRuntime.wrap(function _callee2$(_context2) {
+	      while (1) {
+	        switch (_context2.prev = _context2.next) {
+	          case 0:
+	            apps = void 0;
+	            _context2.prev = 1;
+	            _context2.t0 = Promise;
+	            _context2.next = 5;
+	            return _stack2.default.get.apps();
+	
+	          case 5:
+	            _context2.t1 = function (app) {
+	              return !EXCLUDES.includes(app.attributes.slug);
+	            };
+	
+	            _context2.t2 = function () {
+	              var _ref2 = _asyncToGenerator(regeneratorRuntime.mark(function _callee(app) {
+	                var oldApp, icon;
+	                return regeneratorRuntime.wrap(function _callee$(_context) {
+	                  while (1) {
+	                    switch (_context.prev = _context.next) {
+	                      case 0:
+	                        oldApp = config.apps.find(function (item) {
+	                          return item.slug === app.attributes.slug;
+	                        });
+	                        icon = void 0;
+	
+	                        if (!(oldApp && oldApp.icon.cached)) {
+	                          _context.next = 6;
+	                          break;
+	                        }
+	
+	                        icon = oldApp.icon;
+	                        _context.next = 10;
+	                        break;
+	
+	                      case 6:
+	                        _context.next = 8;
+	                        return _stack2.default.get.icon(app.links.icon);
+	
+	                      case 8:
+	                        _context.t0 = _context.sent;
+	                        icon = {
+	                          src: _context.t0,
+	                          cached: true
+	                        };
+	
+	                      case 10:
+	                        return _context.abrupt('return', {
+	                          slug: app.attributes.slug,
+	                          l10n: false,
+	                          href: app.links.related,
+	                          icon: icon
+	                        });
+	
+	                      case 11:
+	                      case 'end':
+	                        return _context.stop();
+	                    }
+	                  }
+	                }, _callee, _this);
+	              }));
+	
+	              return function (_x2) {
+	                return _ref2.apply(this, arguments);
+	              };
+	            }();
+	
+	            _context2.t3 = _context2.sent.filter(_context2.t1).map(_context2.t2);
+	            _context2.next = 10;
+	            return _context2.t0.all.call(_context2.t0, _context2.t3);
+	
+	          case 10:
+	            apps = _context2.sent;
+	            _context2.next = 16;
+	            break;
+	
+	          case 13:
+	            _context2.prev = 13;
+	            _context2.t4 = _context2['catch'](1);
+	
+	            apps = [{ error: _context2.t4 }];
+	
+	          case 16:
+	
+	            config.apps.length = 0;
+	            Array.prototype.push.apply(config.apps, apps);
+	
+	          case 18:
+	          case 'end':
+	            return _context2.stop();
+	        }
+	      }
+	    }, _callee2, this, [[1, 13]]);
+	  }));
+	
+	  return function updateAppsItems(_x) {
+	    return _ref.apply(this, arguments);
+	  };
+	}();
+	
+	var updateDiskUsage = function () {
+	  var _ref3 = _asyncToGenerator(regeneratorRuntime.mark(function _callee3(config) {
+	    var currentDiskUsage;
+	    return regeneratorRuntime.wrap(function _callee3$(_context3) {
+	      while (1) {
+	        switch (_context3.prev = _context3.next) {
+	          case 0:
+	            currentDiskUsage = void 0;
+	            _context3.prev = 1;
+	            _context3.next = 4;
+	            return _stack2.default.get.diskUsage();
+	
+	          case 4:
+	            currentDiskUsage = _context3.sent;
+	            _context3.next = 10;
+	            break;
+	
+	          case 7:
+	            _context3.prev = 7;
+	            _context3.t0 = _context3['catch'](1);
+	
+	            currentDiskUsage = { error: _context3.t0.name };
+	
+	          case 10:
+	
+	            config.components.storage.currentDiskUsage = currentDiskUsage;
+	
+	          case 11:
+	          case 'end':
+	            return _context3.stop();
+	        }
+	      }
+	    }, _callee3, this, [[1, 7]]);
+	  }));
+	
+	  return function updateDiskUsage(_x3) {
+	    return _ref3.apply(this, arguments);
+	  };
+	}();
+	
+	/**
+	 * Add / Remove settings' links items regarding the status of
+	 * the `settings` app
+	 * @return {Promise}
+	 */
+	
+	
+	var toggleSettingsItems = function () {
+	  var _ref4 = _asyncToGenerator(regeneratorRuntime.mark(function _callee4(config) {
+	    var items;
+	    return regeneratorRuntime.wrap(function _callee4$(_context4) {
+	      while (1) {
+	        switch (_context4.prev = _context4.next) {
+	          case 0:
+	            // We reset the settings' links array
+	            config.subsections.settings.length = 0;
+	
+	            // If the `settings` app is available, we restore links from the root
+	            // MENU_CONFIG tree, updating the links' URLs with the app URI at same time.
+	            _context4.prev = 1;
+	            _context4.next = 4;
+	            return _stack2.default.has.settings();
+	
+	          case 4:
+	            _context4.next = 10;
+	            break;
+	
+	          case 6:
+	            _context4.prev = 6;
+	            _context4.t0 = _context4['catch'](1);
+	
+	            console.warn('Settings app is unavailable, links are disabled');
+	            return _context4.abrupt('return');
+	
+	          case 10:
+	            _context4.next = 12;
+	            return updateSettingsURIs(_menu2.default.subsections.settings);
+	
+	          case 12:
+	            items = _context4.sent;
+	
+	            Array.prototype.push.apply(config.subsections.settings, items);
+	
+	          case 14:
+	          case 'end':
+	            return _context4.stop();
+	        }
+	      }
+	    }, _callee4, this, [[1, 6]]);
+	  }));
+	
+	  return function toggleSettingsItems(_x4) {
+	    return _ref4.apply(this, arguments);
+	  };
+	}();
+	
+	/**
+	 * Replace in the given tree the base URIs for settings' app items
+	 * @param  {Object}  tree The JSON defined menu entries
+	 * @return {Promise}      The parsed tree
+	 */
+	
+	
+	var updateSettingsURIs = function () {
+	  var _ref5 = _asyncToGenerator(regeneratorRuntime.mark(function _callee5(items) {
+	    var baseURI;
+	    return regeneratorRuntime.wrap(function _callee5$(_context5) {
+	      while (1) {
+	        switch (_context5.prev = _context5.next) {
+	          case 0:
+	            _context5.next = 2;
+	            return _stack2.default.get.settingsBaseURI();
+	
+	          case 2:
+	            baseURI = _context5.sent;
+	            return _context5.abrupt('return', items.map(function (item) {
+	              return Object.assign({}, item, { href: baseURI + '#' + item.href });
+	            }));
+	
+	          case 4:
+	          case 'end':
+	            return _context5.stop();
+	        }
+	      }
+	    }, _callee5, this);
+	  }));
+	
+	  return function updateSettingsURIs(_x5) {
+	    return _ref5.apply(this, arguments);
+	  };
+	}();
+	
+	/**
+	 * Clone and parse a root node from a JSON definition tree (aka 'menu')
+	 * and recursively replace string definitions `_.(group).(entry)` (e.g.
+	 * `_.components.storage`) with a pointer to the given object in the tree
+	 * (here, `tree[components][entry]`)
+	 *
+	 * @param  {Object} tree                  The tree containing root node and
+	 *                                        definitions
+	 * @param  {String} [rootItem='settings'] The root node to parse
+	 * @return {Object}                       The parsed tree containing pointers
+	 */
+	
+	
+	/**
+	 * Helper function to update apps in CONFIG tree
+	 * @param  {Object}           config the JSON CONFIG tree source
+	 * @return {Promise(boolean)} a valve that allow to trigger update or not
+	 */
+	var updateApps = function () {
+	  var _ref6 = _asyncToGenerator(regeneratorRuntime.mark(function _callee6(config) {
+	    var oldApps;
+	    return regeneratorRuntime.wrap(function _callee6$(_context6) {
+	      while (1) {
+	        switch (_context6.prev = _context6.next) {
+	          case 0:
+	            oldApps = config.apps.slice();
+	            _context6.next = 3;
+	            return updateAppsItems(config);
+	
+	          case 3:
+	            return _context6.abrupt('return', !(0, _deepEqual2.default)(oldApps, config.apps));
+	
+	          case 4:
+	          case 'end':
+	            return _context6.stop();
+	        }
+	      }
+	    }, _callee6, this);
+	  }));
+	
+	  return function updateApps(_x6) {
+	    return _ref6.apply(this, arguments);
+	  };
+	}();
+	
+	/**
+	 * Helper function to update all settings related in CONFIG tree
+	 * @param  {Object}           config the JSON CONFIG tree source
+	 * @param  {Object}           options
+	 *                            - storage {Boolean} update the storage component
+	 *                            - items {Boolean} update settings items list
+	 * @return {Promise(boolean)} a valve that allow to trigger update or not
+	 */
+	
+	
+	var updateSettings = function () {
+	  var _ref7 = _asyncToGenerator(regeneratorRuntime.mark(function _callee7(config) {
+	    var _ref8 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
+	        _ref8$storage = _ref8.storage,
+	        storage = _ref8$storage === undefined ? true : _ref8$storage,
+	        _ref8$items = _ref8.items,
+	        items = _ref8$items === undefined ? true : _ref8$items;
+	
+	    var valve, oldDiskUsage, oldSettingsItems;
+	    return regeneratorRuntime.wrap(function _callee7$(_context7) {
+	      while (1) {
+	        switch (_context7.prev = _context7.next) {
+	          case 0:
+	            valve = false;
+	
+	            if (!storage) {
+	              _context7.next = 6;
+	              break;
+	            }
+	
+	            oldDiskUsage = config.components.storage.currentDiskUsage;
+	            _context7.next = 5;
+	            return updateDiskUsage(config);
+	
+	          case 5:
+	            valve = valve || oldDiskUsage !== config.components.storage.currentDiskUsage;
+	
+	          case 6:
+	            if (!items) {
+	              _context7.next = 11;
+	              break;
+	            }
+	
+	            oldSettingsItems = config.subsections.settings.slice();
+	            _context7.next = 10;
+	            return toggleSettingsItems(config);
+	
+	          case 10:
+	            valve = valve || !(0, _deepEqual2.default)(oldSettingsItems, config.subsections.settings);
+	
+	          case 11:
+	            return _context7.abrupt('return', valve);
+	
+	          case 12:
+	          case 'end':
+	            return _context7.stop();
+	        }
+	      }
+	    }, _callee7, this);
+	  }));
+	
+	  return function updateSettings(_x8) {
+	    return _ref7.apply(this, arguments);
+	  };
+	}();
+	
+	var _deepClone = __webpack_require__(255);
+	
+	var _deepClone2 = _interopRequireDefault(_deepClone);
+	
+	var _deepEqual = __webpack_require__(257);
+	
+	var _deepEqual2 = _interopRequireDefault(_deepEqual);
+	
+	var _stack = __webpack_require__(251);
+	
+	var _stack2 = _interopRequireDefault(_stack);
+	
+	var _menu = __webpack_require__(260);
+	
+	var _menu2 = _interopRequireDefault(_menu);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+	
+	var EXCLUDES = ['settings', 'onboarding'];
+	
+	function createMenuPointers(tree) {
+	  function parse(value, index, array) {
+	    var path = void 0;
+	
+	    if (!value) {
+	      return;
+	    }
+	
+	    if (Array.isArray(value)) {
+	      value.forEach(parse);
+	    } else if (value === Object(value)) {
+	      Object.keys(value).forEach(function (key) {
+	        return parse(value[key], key, value);
+	      });
+	    } else if (value.match && (path = value.match(/_\.(\w+)(?:\.(\w+))?/i))) {
+	      if (path[2]) {
+	        array[index] = clone[path[1]][path[2]];
+	      } else {
+	        array[index] = clone[path[1]];
+	      }
+	    }
+	  }
+	
+	  var clone = (0, _deepClone2.default)(tree);
+	  parse(clone);
+	
+	  return clone;
+	}exports.createMenuPointers = createMenuPointers;
+	exports.updateSettings = updateSettings;
+	exports.updateApps = updateApps;
 
 /***/ },
 /* 255 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__(256).default
+
+
+/***/ },
+/* 256 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -9538,12 +9677,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	deepClone.formatKeys = formatKeys;
 
 /***/ },
-/* 256 */
+/* 257 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var pSlice = Array.prototype.slice;
-	var objectKeys = __webpack_require__(257);
-	var isArguments = __webpack_require__(258);
+	var objectKeys = __webpack_require__(258);
+	var isArguments = __webpack_require__(259);
 	
 	var deepEqual = module.exports = function (actual, expected, opts) {
 	  if (!opts) opts = {};
@@ -9638,7 +9777,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 257 */
+/* 258 */
 /***/ function(module, exports) {
 
 	exports = module.exports = typeof Object.keys === 'function'
@@ -9653,7 +9792,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 258 */
+/* 259 */
 /***/ function(module, exports) {
 
 	var supportsArgumentsClass = (function(){
@@ -9679,7 +9818,79 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 259 */
+/* 260 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"subsections": {
+			"settings": [
+				{
+					"slug": "profile",
+					"href": "/profile"
+				},
+				{
+					"slug": "connectedDevices",
+					"href": "/connectedDevices"
+				}
+			],
+			"help": [
+				{
+					"slug": "help",
+					"external": true,
+					"href": "https://docs.cozy.io/"
+				},
+				{
+					"slug": "email",
+					"href": "mailto:contact@cozycloud.cc"
+				}
+			],
+			"logout": [
+				{
+					"slug": "logout",
+					"action": "logout"
+				}
+			]
+		},
+		"components": {
+			"storage": {
+				"slug": "storage",
+				"component": "storage",
+				"currentDiskUsage": null
+			}
+		},
+		"settings": [
+			"_.subsections.settings",
+			[
+				"_.components.storage"
+			],
+			"_.subsections.help",
+			"_.subsections.logout"
+		],
+		"apps": [],
+		"sections": {
+			"bar": [
+				{
+					"slug": "apps",
+					"icon": "icon-cube",
+					"async": true,
+					"items": "_.apps"
+				},
+				{
+					"slug": "settings",
+					"icon": "icon-cog",
+					"items": "_.settings"
+				}
+			],
+			"drawer": [
+				"_.subsections.settings",
+				"_.subsections.help",
+				"_.subsections.logout"
+			]
+		}
+	};
+
+/***/ },
+/* 261 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9690,7 +9901,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 	
-	var _NavigationSection = __webpack_require__(260);
+	var _NavigationSection = __webpack_require__(262);
 	
 	var _NavigationSection2 = _interopRequireDefault(_NavigationSection);
 	
@@ -9938,7 +10149,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = SvelteComponent;
 
 /***/ },
-/* 260 */
+/* 262 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9951,7 +10162,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _i18n = __webpack_require__(189);
 	
-	var _NavigationGroup = __webpack_require__(261);
+	var _NavigationGroup = __webpack_require__(263);
 	
 	var _NavigationGroup2 = _interopRequireDefault(_NavigationGroup);
 	
@@ -10508,7 +10719,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = SvelteComponent;
 
 /***/ },
-/* 261 */
+/* 263 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -10519,7 +10730,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 	
-	var _NavigationItem = __webpack_require__(262);
+	var _NavigationItem = __webpack_require__(264);
 	
 	var _NavigationItem2 = _interopRequireDefault(_NavigationItem);
 	
@@ -10888,7 +11099,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = SvelteComponent;
 
 /***/ },
-/* 262 */
+/* 264 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -10905,7 +11116,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _stack2 = _interopRequireDefault(_stack);
 	
-	var _Storage = __webpack_require__(263);
+	var _Storage = __webpack_require__(265);
 	
 	var _Storage2 = _interopRequireDefault(_Storage);
 	
@@ -10952,7 +11163,7 @@ return /******/ (function(modules) { // webpackBootstrap
 						};
 					} else {
 						return {
-							src: __webpack_require__(264),
+							src: __webpack_require__(266),
 							class: 'blurry'
 						};
 					}
@@ -10972,39 +11183,6 @@ return /******/ (function(modules) { // webpackBootstrap
 					}
 				}
 			},
-	
-			onrender: function onrender() {
-				var _this = this;
-	
-				this.lazyloader = this.observe('item', function (item) {
-					if (!item.icon || item.icon.onload || item.icon.cached) {
-						return;
-					}
-	
-					var uri = '' + _stack2.default.get.cozyURL() + item.icon;
-	
-					item = Object.assign({}, item, { icon: {
-							src: uri,
-							cached: false,
-							onload: true
-						} });
-	
-					_this.set({ item: item });
-	
-					var loader = new Image();
-					loader.onload = function () {
-						item.icon.cached = true;
-						item.icon.onload = false;
-						_this.set({ item: item });
-					};
-	
-					loader.src = uri;
-				});
-			},
-			onteardown: function onteardown() {
-				this.lazyloader.cancel();
-			},
-	
 	
 			components: {
 				Storage: _Storage2.default
@@ -11349,12 +11527,6 @@ return /******/ (function(modules) { // webpackBootstrap
 			var hook = this._renderHooks.pop();
 			hook.fn.call(hook.context);
 		}
-
-		if (options._root) {
-			options._root._renderHooks.push({ fn: template.onrender, context: this });
-		} else {
-			template.onrender.call(this);
-		}
 	}
 
 	SvelteComponent.prototype = template.methods;
@@ -11420,7 +11592,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	SvelteComponent.prototype.teardown = function teardown(detach) {
 		this.fire('teardown');
-		template.onteardown.call(this);
 
 		this._fragment.teardown(detach !== false);
 		this._fragment = null;
@@ -11490,7 +11661,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = SvelteComponent;
 
 /***/ },
-/* 263 */
+/* 265 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -11781,13 +11952,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = SvelteComponent;
 
 /***/ },
-/* 264 */
+/* 266 */
 /***/ function(module, exports) {
 
 	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICA8ZyBmaWxsPSIjOTU5OTlEIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0yODggLTMyKSI+CiAgICA8cGF0aCBkPSJNMjg5LDQzLjAwODYyOTYgQzI4OSw0My41NTg2NzMyIDI4OS4zOTY0MDcsNDQuMjMxMDg5OSAyODkuODcyNDAxLDQ0LjUwMzA4NjggTDI5NS4xMjc1OTksNDcuNTA2MDU2NiBDMjk1LjYwOTQxMyw0Ny43ODEzNzg5IDI5Niw0Ny41NTc4NzMgMjk2LDQ3LjAwODYyOTYgTDI5Niw0MS41MDA1MTM4IEMyOTYsNDAuOTUwNDcwMiAyOTUuNjAzNTkzLDQwLjI3ODA1MzUgMjk1LjEyNzU5OSw0MC4wMDYwNTY2IEwyODkuODcyNDAxLDM3LjAwMzA4NjggQzI4OS4zOTA1ODcsMzYuNzI3NzY0NSAyODksMzYuOTUxMjcwNCAyODksMzcuNTAwNTEzOCBMMjg5LDQzLjAwODYyOTYgWiBNMzA0LDQzLjAwODYyOTYgQzMwNCw0My41NTg2NzMyIDMwMy42MDM1OTMsNDQuMjMxMDg5OSAzMDMuMTI3NTk5LDQ0LjUwMzA4NjggTDI5Ny44NzI0MDEsNDcuNTA2MDU2NiBDMjk3LjM5MDU4Nyw0Ny43ODEzNzg5IDI5Nyw0Ny41NTc4NzMgMjk3LDQ3LjAwODYyOTYgTDI5Nyw0MS41MDA1MTM4IEMyOTcsNDAuOTUwNDcwMiAyOTcuMzk2NDA3LDQwLjI3ODA1MzUgMjk3Ljg3MjQwMSw0MC4wMDYwNTY2IEwzMDMuMTI3NTk5LDM3LjAwMzA4NjggQzMwMy42MDk0MTMsMzYuNzI3NzY0NSAzMDQsMzYuOTUxMjcwNCAzMDQsMzcuNTAwNTEzOCBMMzA0LDQzLjAwODYyOTYgWiBNMjk3LjM0OTc2MSwzOC45ODE2NDE2IEMyOTYuODgwNDUxLDM5LjI3MDQ0NzkgMjk2LjExMjg2MSwzOS4yNjYzMzI0IDI5NS42NTAyMzksMzguOTgxNjQxNiBMMjkwLjg0OTc2MSwzNi4wMjc1MDE4IEMyOTAuMzgwNDUxLDM1LjczODY5NTUgMjkwLjM4NzEzOSwzNS4yOTYxMTIzIDI5MC44NzY2MTksMzUuMDMyNTQ2MSBMMjk1LjYyMzM4MSwzMi40NzY1OTczIEMyOTYuMTA3NTI0LDMyLjIxNTkwNDggMjk2Ljg4NzEzOSwzMi4yMTMwMzExIDI5Ny4zNzY2MTksMzIuNDc2NTk3MyBMMzAyLjEyMzM4MSwzNS4wMzI1NDYxIEMzMDIuNjA3NTI0LDM1LjI5MzIzODcgMzAyLjYxMjg2MSwzNS43NDI4MTEgMzAyLjE1MDIzOSwzNi4wMjc1MDE4IEwyOTcuMzQ5NzYxLDM4Ljk4MTY0MTYgWiIvPgogICAgPHBhdGggZD0iTTI4OSw0My4wMDg2Mjk2IEMyODksNDMuNTU4NjczMiAyODkuMzk2NDA3LDQ0LjIzMTA4OTkgMjg5Ljg3MjQwMSw0NC41MDMwODY4IEwyOTUuMTI3NTk5LDQ3LjUwNjA1NjYgQzI5NS42MDk0MTMsNDcuNzgxMzc4OSAyOTYsNDcuNTU3ODczIDI5Niw0Ny4wMDg2Mjk2IEwyOTYsNDEuNTAwNTEzOCBDMjk2LDQwLjk1MDQ3MDIgMjk1LjYwMzU5Myw0MC4yNzgwNTM1IDI5NS4xMjc1OTksNDAuMDA2MDU2NiBMMjg5Ljg3MjQwMSwzNy4wMDMwODY4IEMyODkuMzkwNTg3LDM2LjcyNzc2NDUgMjg5LDM2Ljk1MTI3MDQgMjg5LDM3LjUwMDUxMzggTDI4OSw0My4wMDg2Mjk2IFogTTMwNCw0My4wMDg2Mjk2IEMzMDQsNDMuNTU4NjczMiAzMDMuNjAzNTkzLDQ0LjIzMTA4OTkgMzAzLjEyNzU5OSw0NC41MDMwODY4IEwyOTcuODcyNDAxLDQ3LjUwNjA1NjYgQzI5Ny4zOTA1ODcsNDcuNzgxMzc4OSAyOTcsNDcuNTU3ODczIDI5Nyw0Ny4wMDg2Mjk2IEwyOTcsNDEuNTAwNTEzOCBDMjk3LDQwLjk1MDQ3MDIgMjk3LjM5NjQwNyw0MC4yNzgwNTM1IDI5Ny44NzI0MDEsNDAuMDA2MDU2NiBMMzAzLjEyNzU5OSwzNy4wMDMwODY4IEMzMDMuNjA5NDEzLDM2LjcyNzc2NDUgMzA0LDM2Ljk1MTI3MDQgMzA0LDM3LjUwMDUxMzggTDMwNCw0My4wMDg2Mjk2IFogTTI5Ny4zNDk3NjEsMzguOTgxNjQxNiBDMjk2Ljg4MDQ1MSwzOS4yNzA0NDc5IDI5Ni4xMTI4NjEsMzkuMjY2MzMyNCAyOTUuNjUwMjM5LDM4Ljk4MTY0MTYgTDI5MC44NDk3NjEsMzYuMDI3NTAxOCBDMjkwLjM4MDQ1MSwzNS43Mzg2OTU1IDI5MC4zODcxMzksMzUuMjk2MTEyMyAyOTAuODc2NjE5LDM1LjAzMjU0NjEgTDI5NS42MjMzODEsMzIuNDc2NTk3MyBDMjk2LjEwNzUyNCwzMi4yMTU5MDQ4IDI5Ni44ODcxMzksMzIuMjEzMDMxMSAyOTcuMzc2NjE5LDMyLjQ3NjU5NzMgTDMwMi4xMjMzODEsMzUuMDMyNTQ2MSBDMzAyLjYwNzUyNCwzNS4yOTMyMzg3IDMwMi42MTI4NjEsMzUuNzQyODExIDMwMi4xNTAyMzksMzYuMDI3NTAxOCBMMjk3LjM0OTc2MSwzOC45ODE2NDE2IFoiLz4KICA8L2c+Cjwvc3ZnPgo="
 
 /***/ },
-/* 265 */
+/* 267 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -11800,7 +11971,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _i18n = __webpack_require__(189);
 	
-	var _NavigationGroup = __webpack_require__(261);
+	var _NavigationGroup = __webpack_require__(263);
 	
 	var _NavigationGroup2 = _interopRequireDefault(_NavigationGroup);
 	
@@ -11813,18 +11984,55 @@ return /******/ (function(modules) { // webpackBootstrap
 			onrender: function onrender() {
 				var _this = this;
 	
-				toggleDrawerObserver = this.observe('visible', function (visible) {
-					if (!visible) {
-						_this.refs.wrapper.classList.toggle('visible', false);
-						setTimeout(function () {
-							_this.refs.wrapper.setAttribute('aria-hidden', true);
-						}, 530);
-					} else {
-						_this.refs.wrapper.setAttribute('aria-hidden', false);
-						setTimeout(function () {
-							_this.refs.wrapper.classList.toggle('visible', true);
-						}, 30);
+				var SWIPE_CLASS = 'swipe-active';
+	
+				/**
+	    * We manage the [aria-hidden] attribute manually, as it serves for CSS
+	    * transitions, and needs to be wrapped in next frames ticks to ensure
+	    * smooth movements.
+	    */
+				this.refs.wrapper.setAttribute('aria-hidden', !this.get('visible'));
+	
+				/**
+	    * Animation engine, based on CSS transitions
+	    *
+	    * This is how it works :
+	    * 1. it first adds the `SWIPE_CLASS` class on wrapper
+	    * 2. it register a `transitionend` listener that:
+	    *    - remove the SWIPE_CLASS on frame after transition's last one
+	    *    - unregister the listener to prevent memory leaks
+	    * 3. on next frame after adding SWIPE_CLASS, it starts animation by
+	    *    setting aria-hidden attribute
+	    *
+	    * So animation lifecycle is:
+	    * | Frame id          | Action                                          |
+	    * | :---------------- | ----------------------------------------------- |
+	    * | 1                 | Add SWIPE_CLASS                                 |
+	    * | 2                 | Set aria-hidden attribute                       |
+	    * | transitionEnd + 1 | Remove SWIPE_CLASS                              |
+	    */
+				var animateTo = function animateTo(target) {
+					if (_this.refs.wrapper.getAttribute('aria-hidden') === target.toString()) {
+						return;
 					}
+	
+					var startState = function startState() {
+						_this.refs.wrapper.setAttribute('aria-hidden', target);
+					};
+					var endState = function endState() {
+						setTimeout(function () {
+							_this.refs.wrapper.classList.remove(SWIPE_CLASS);
+						}, 10);
+						_this.refs.aside.removeEventListener('transitionend', endState);
+					};
+	
+					_this.refs.wrapper.classList.add(SWIPE_CLASS);
+					_this.refs.aside.addEventListener('transitionend', endState);
+					setTimeout(startState, 10);
+				};
+	
+				toggleDrawerObserver = this.observe('visible', function (visible) {
+					animateTo(!visible);
 				});
 			},
 			onteardown: function onteardown() {
@@ -11852,6 +12060,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		addEventListener(div, 'click', clickHandler);
 	
 		var aside = createElement('aside');
+		component.refs.aside = aside;
 	
 		function clickHandler1(event) {
 			event.stopPropagation();
@@ -11936,6 +12145,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			teardown: function teardown(detach) {
 				if (component.refs.wrapper === div) component.refs.wrapper = null;
 				removeEventListener(div, 'click', clickHandler);
+				if (component.refs.aside === aside) component.refs.aside = null;
 				removeEventListener(aside, 'click', clickHandler1);
 				navigationGroup.teardown(false);
 
@@ -12143,78 +12353,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = SvelteComponent;
 
 /***/ },
-/* 266 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"subsections": {
-			"settings": [
-				{
-					"slug": "profile",
-					"href": "/profile"
-				},
-				{
-					"slug": "connectedDevices",
-					"href": "/connectedDevices"
-				}
-			],
-			"help": [
-				{
-					"slug": "help",
-					"external": true,
-					"href": "https://docs.cozy.io/"
-				},
-				{
-					"slug": "email",
-					"href": "mailto:contact@cozycloud.cc"
-				}
-			],
-			"logout": [
-				{
-					"slug": "logout",
-					"action": "logout"
-				}
-			]
-		},
-		"components": {
-			"storage": {
-				"slug": "storage",
-				"component": "storage",
-				"currentDiskUsage": null
-			}
-		},
-		"settings": [
-			"_.subsections.settings",
-			[
-				"_.components.storage"
-			],
-			"_.subsections.help",
-			"_.subsections.logout"
-		],
-		"apps": [],
-		"sections": {
-			"bar": [
-				{
-					"slug": "apps",
-					"icon": "icon-cube",
-					"async": true,
-					"items": "_.apps"
-				},
-				{
-					"slug": "settings",
-					"icon": "icon-cog",
-					"items": "_.settings"
-				}
-			],
-			"drawer": [
-				"_.subsections.help",
-				"_.subsections.logout"
-			]
-		}
-	};
-
-/***/ },
-/* 267 */
+/* 268 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
