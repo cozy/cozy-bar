@@ -115,27 +115,27 @@ body {
 [role=banner] progress[value] {
   /* Reset the default appearance */
   appearance: none;
-  background-color: grey-10;
-  border: solid 1px grey-09;
+  background-color: #f5f6f7;
+  border: solid 1px #d6d8da;
   border-radius: 2px;
-  color: dodger-blue;
+  color: #297ef2;
 }
 
 
 [role=banner] progress[value]::-webkit-progress-bar {
-  background: grey-10;
+  background: #f5f6f7;
   border-radius: 2px;
 }
 
 
 [role=banner] progress[value]::-webkit-progress-value {
-  background: dodger-blue;
+  background: #297ef2;
   border-radius: 1px;
 }
 
 
 [role=banner] progress[value]::-moz-progress-bar {
-  background: dodger-blue;
+  background: #297ef2;
   border-radius: 1px;
 }
 
@@ -159,7 +159,7 @@ body {
   display: flex;
   align-items: stretch;
   padding: 0 1.25em 0 1em;
-  box-shadow: inset 0 -1px 0 0 grey-09;
+  box-shadow: inset 0 -1px 0 0 #d6d8da;
   font-family: Lato, sans-serif;
   font-size: 1rem;
 }
@@ -186,7 +186,7 @@ body {
   font-size: 1.5em;
   font-weight: normal;
   text-transform: lowercase;
-  color: grey-08;
+  color: #32363f;
 }
 
 
@@ -275,7 +275,7 @@ body {
   padding: 1.285em 1.5em;
   font-size: .875em;
   text-transform: uppercase;
-  color: grey-12;
+  color: #5d6165;
   cursor: pointer;
 }
 
@@ -329,7 +329,7 @@ body {
 [role=banner] .coz-nav-pop hr {
   margin: 0;
   border: none;
-  border-bottom: solid 1px grey-09;
+  border-bottom: solid 1px #d6d8da;
 }
 
 
@@ -382,7 +382,7 @@ body {
   background-color: transparent;
   text-align: left;
   white-space: nowrap;
-  color: grey-08;
+  color: #32363f;
   text-decoration: none;
   cursor: pointer;
 }
@@ -404,7 +404,7 @@ body {
   flex-direction: column;
   align-items: left;
   padding-top: .5em;
-  color: grey-11;
+  color: #95999d;
 }
 
 
@@ -447,7 +447,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: grey-08;
+  background-color: #32363f;
   opacity: 0;
   transition: opacity 250ms ease-out;
 }
@@ -487,7 +487,7 @@ body {
 [role=banner] .coz-drawer-wrapper nav hr {
   margin: 0;
   border: none;
-  border-bottom: solid 1px grey-09;
+  border-bottom: solid 1px #d6d8da;
 }
 
 

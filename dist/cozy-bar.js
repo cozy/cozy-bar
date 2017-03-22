@@ -382,7 +382,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 	};
 	
-	module.exports = { init: init, version: ("3.0.0-beta12") };
+	module.exports = { init: init, version: ("3.0.0-beta13") };
 
 /***/ },
 /* 1 */
@@ -8442,13 +8442,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  return fetch('' + COZY_URL + url, fetchOptions()).then(function (res) {
 	    return res.blob();
 	  }).then(function (blob) {
-	    return new Promise(function (resolve, reject) {
-	      var reader = new FileReader();
-	      reader.addEventListener('load', function (event) {
-	        return resolve(event.target.result);
-	      });
-	      reader.readAsDataURL(blob);
-	    });
+	    return URL.createObjectURL(blob);
 	  });
 	}
 	
