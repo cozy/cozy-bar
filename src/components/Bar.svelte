@@ -1,10 +1,10 @@
 {{#if target !== 'mobile'}}
 <button class='coz-bar-burger' on:click='toggleDrawer()' data-icon='icon-hamburger'>
-  {{t('menu')}}
+  <span class='coz-bar-hidden'>{{t('menu')}}</span>
 </button>
 {{/if}}
 
-<h1 class='coz-bar-title'>
+<h1 class='{{titleClass}}'>
   <img class='coz-bar-hide-sm' src='{{iconPath}}' width='32' />
   <span class='coz-bar-hide-sm'>cozy </span><strong>{{appName}}</strong>
 </h1>
@@ -18,138 +18,40 @@
 {{/if}}
 
 <script>
-  import deepClone from 'deep-clone'
-  import deepEqual from 'deep-equal'
-
   import { t } from '../lib/i18n'
-  import stack from '../lib/stack'
-  import { UnavailableSettingsException } from '../lib/exceptions'
+  import { createMenuPointers, updateSettings, updateApps } from '../lib/config'
 
   import Navigation from './Navigation'
   import Drawer from './Drawer'
 
   import MENU_CONFIG from '../config/menu'
 
-  const EXCLUDES = ['settings']
-
-  async function updateAppsItems () {
-    const config = this.get('config')
-    let apps
-
-    try {
-      apps = (await stack.get.apps())
-      .filter(app => !EXCLUDES.includes(app.attributes.slug))
-      .map(app => {
-        return {
-          slug: app.attributes.slug,
-          l10n: false,
-          href: app.links.related,
-          icon: app.links.icon
-        }
-      })
-    } catch (e) {
-      apps = [{error: e}]
-    }
-
-    config.apps.length = 0
-    Array.prototype.push.apply(config.apps, apps)
-  }
-
-  async function updateDiskUsage () {
-    const config = this.get('config')
-    let currentDiskUsage
-
-    try {
-      currentDiskUsage = await stack.get.diskUsage()
-    } catch (e) {
-      currentDiskUsage = { error: e.name }
-    }
-
-    config.components.storage.currentDiskUsage = currentDiskUsage
-  }
-
-  /**
-   * Add / Remove settings' links items regarding the status of
-   * the `settings` app
-   * @return {Promise}
-   */
-  async function toggleSettingsItems () {
-    const config = this.get('config')
-
-    // We reset the settings' links array
-    config.subsections.settings.length = 0
-
-    // If the `settings` app is available, we restore links from the root
-    // MENU_CONFIG tree, updating the links' URLs with the app URI at same time.
-    try {
-      await stack.has.settings()
-    } catch (e) {
-      console.warn('Settings app is unavailable, links are disabled')
-      return
-    }
-
-    const items = await updateSettingsURIs(MENU_CONFIG.subsections.settings)
-    Array.prototype.push.apply(config.subsections.settings, items)
-  }
-
-  /**
-   * Replace in the given tree the base URIs for settings' app items
-   * @param  {Object}  tree The JSON defined menu entries
-   * @return {Promise}      The parsed tree
-   */
-  async function updateSettingsURIs (items) {
-    const baseURI = await stack.get.settingsBaseURI()
-    return items.map(item => Object.assign({}, item, {href: `${baseURI}#${item.href}`}))
-  }
-
-  /**
-   * Clone and parse a root node from a JSON definition tree (aka 'menu')
-   * and recursively replace string definitions `_.(group).(entry)` (e.g.
-   * `_.components.storage`) with a pointer to the given object in the tree
-   * (here, `tree[components][entry]`)
-   *
-   * @param  {Object} tree                  The tree containing root node and
-   *                                        definitions
-   * @param  {String} [rootItem='settings'] The root node to parse
-   * @return {Object}                       The parsed tree containing pointers
-   */
-  function createMenuPointers (tree) {
-    function parse (value, index, array) {
-      let path
-
-      if (!value) { return }
-
-      if (Array.isArray(value)) {
-        value.forEach(parse)
-      } else if (value === Object(value)) {
-        Object.keys(value).forEach(key => parse(value[key], key, value))
-      } else if (value.match && (path = value.match(/_\.(\w+)(?:\.(\w+))?/i))) {
-        if (path[2]) {
-          array[index] = clone[path[1]][path[2]]
-        } else {
-          array[index] = clone[path[1]]
-        }
-      }
-    }
-
-    const clone = deepClone(tree)
-    parse(clone)
-
-    return clone
-  }
-
   export default {
     data () {
+      const config = createMenuPointers(MENU_CONFIG)
+
       return {
         target: __TARGET__,
-        config: createMenuPointers(MENU_CONFIG),
+        config,
         drawerVisible: false
       }
     },
 
-    onrender () {
-      this.updateApps()
-      this.updateSettings()
+    computed : {
+      titleClass: replaceTitleOnMobile => `coz-bar-title ${replaceTitleOnMobile ? 'coz-bar-hide-sm' : ''}`
+    },
+
+    /**
+     * When loading the Bar component, we once force a first update of config
+     * w/ settings and apps
+     */
+    async onrender () {
+      const config = this.get('config')
+
+      await updateSettings(config)
+      await updateApps(config)
+
+      this.set({ config })
     },
 
     components: {
@@ -160,40 +62,40 @@
     helpers: { t },
 
     methods: {
-      toggleDrawer(force) {
-        const toggle = force ? false : !this.get('drawerVisible')
+      async toggleDrawer() {
+        const config = this.get('config')
+        const drawerVisible = !this.get('drawerVisible')
 
-        if (toggle) { this.updateApps() }
+        if (drawerVisible) {
+          // we only update settings items, and lets the `updateApps`
+          // as the settings items directly rely on the presence of the
+          // _settings_ app
+          const settingsValve = await updateSettings(config, {storage: false})
+          const appsValve = await updateApps(config)
 
-        this.set({drawerVisible: toggle})
+          /** Ugly hack to force re-render by triggering `set` method on config */
+          if ( settingsValve || appsValve ) { this.set({ config }) }
+        }
+
+        this.set({ drawerVisible })
       },
-      onPopOpen (panel) {
+      async onPopOpen (panel) {
+        const config = this.get('config')
+        let valve
+
         switch (panel) {
           case 'apps':
-            this.updateApps()
+            await updateApps(config)
+            // we force config update as the menu dropdown opening depends on it
+            valve = true
             break
           case 'settings':
-            this.updateSettings()
+            valve = await updateSettings(config)
             break
         }
-      },
-      async updateApps () {
-        const config = this.get('config')
-        await updateAppsItems.call(this)
-        /** Ugly hack to force re-render by triggering `set` method on config */
-        this.set({ config })
-      },
-      async updateSettings () {
-        const config = this.get('config')
-        const oldDiskUsage = config.components.storage.currentDiskUsage
-        const oldSettingsItems = config.subsections.settings.slice()
-
-        await updateDiskUsage.call(this)
-        await toggleSettingsItems.call(this)
 
         /** Ugly hack to force re-render by triggering `set` method on config */
-        if (oldDiskUsage != config.components.storage.currentDiskUsage ||
-            !deepEqual(oldSettingsItems, config.subsections.settings)) { this.set({ config }) }
+        if ( valve ) { this.set({ config }); }
       }
     }
   }

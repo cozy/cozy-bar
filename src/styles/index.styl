@@ -1,0 +1,30 @@
+@import 'base.css'
+@import 'indicators.css'
+@import 'bar.css'
+@import 'navigation.css'
+@import 'navigation_section.css'
+@import 'navigation_item.css'
+@import 'storage.css'
+@import 'drawer.css'
+@import 'mobile_app.css'
+
+@import 'ui-base/mixins'
+@import 'ui-base/z-index'
+
+:root {
+  --z-index-bar: $bar-index;
+  --z-index-selection: $selection-index;
+  --z-index-over-selection: $selection-index + 1;
+}
+
+[role=banner] {
+  --grey-08: grey-08;
+  --grey-09: grey-09;
+  --grey-10: grey-10;
+  --grey-11: grey-11;
+  --grey-12: grey-12;
+  --dodger-blue: dodger-blue;
+}
+
+.coz-bar-hidden
+  @extend $hidden

@@ -31,24 +31,24 @@
 [role=banner] progress[value] {
   /* Reset the default appearance */
   appearance: none;
-  background-color: var(--pale-grey);
-  border: solid 1px var(--silver);
+  background-color: var(--grey-10);
+  border: solid 1px var(--grey-09);
   border-radius: 2px;
-  color: var(--clear-blue);
+  color: var(--dodger-blue);
 }
 
 [role=banner] progress[value]::-webkit-progress-bar {
-  background: var(--pale-grey);
+  background: var(--grey-10);
   border-radius: 2px;
 }
 
 [role=banner] progress[value]::-webkit-progress-value {
-  background: var(--clear-blue);
+  background: var(--dodger-blue);
   border-radius: 1px;
 }
 
 [role=banner] progress[value]::-moz-progress-bar {
-  background: var(--clear-blue);
+  background: var(--dodger-blue);
   border-radius: 1px;
 }
 

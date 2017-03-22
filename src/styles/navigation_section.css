@@ -9,7 +9,7 @@
   padding: 1.285em 1.5em;
   font-size: .875em;
   text-transform: uppercase;
-  color: var(--slate-grey);
+  color: var(--grey-12);
   cursor: pointer;
 }
 
@@ -55,7 +55,7 @@
 [role=banner] .coz-nav-pop hr {
   margin: 0;
   border: none;
-  border-bottom: solid 1px var(--silver);
+  border-bottom: solid 1px var(--grey-09);
 }
 
 [role=banner] .coz-nav-pop ul:last-of-type + hr {

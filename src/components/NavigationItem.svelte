@@ -62,33 +62,6 @@
       }
     },
 
-    onrender() {
-      this.lazyloader = this.observe('item', item => {
-        if (!item.icon || item.icon.onload || item.icon.cached) { return }
-
-        const src = item.icon
-
-        item = Object.assign({}, item, { icon: {
-          src,
-          cached: false,
-          onload: true
-        }})
-
-        this.set({item})
-
-        stack.get.icon(src).then(icon => {
-          item.icon.src = icon
-          item.icon.cached = true
-          item.icon.onload = false
-          this.set({item})
-        })
-      })
-    },
-
-    onteardown() {
-      this.lazyloader.cancel()
-    },
-
     components: {
       Storage
     },

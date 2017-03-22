@@ -9,7 +9,7 @@
   background-color: transparent;
   text-align: left;
   white-space: nowrap;
-  color: var(--charcoal-grey);
+  color: var(--grey-08);
   text-decoration: none;
   cursor: pointer;
 }

@@ -1,12 +1,12 @@
 [role=banner] {
   position: relative;
-  z-index: 20;
+  z-index: var(--z-index-bar);
   min-height: 2.5em;
   flex-shrink: 0;
   display: flex;
   align-items: stretch;
   padding: 0 1.25em 0 1em;
-  box-shadow: inset 0 -1px 0 0 var(--silver);
+  box-shadow: inset 0 -1px 0 0 var(--grey-09);
   font-family: Lato, sans-serif;
   font-size: 1rem;
 }
@@ -14,6 +14,13 @@
 @media (max-width: 30em) {
   [role=banner] {
     padding: 0 1em 0 0;
+  }
+
+  [role=banner][data-drawer-visible=true] {
+    /* Force the BAR to be above selection bar in mobile mode,
+     * only when drawer is opened
+     */
+    z-index: var(--z-index-over-selection);
   }
 }
 
@@ -24,7 +31,7 @@
   font-size: 1.5em;
   font-weight: normal;
   text-transform: lowercase;
-  color: var(--charcoal-grey);
+  color: var(--grey-08);
 }
 
 @media (max-width: 30em) {
@@ -60,11 +67,18 @@
   border: none;
   background-color: transparent;
   background-position: center;
-  text-indent: -9999em;
 }
 
-@media (min-width: 30.0625em) {
-  [role=banner] .coz-bar-burger {
+@media (min-width: 48.0625em) {
+  [role=banner] .coz-bar-burger,
+  [role=banner] .coz-drawer-wrapper {
+    display: none;
+  }
+}
+
+
+@media (max-width: 48em) {
+  [role=banner] .coz-bar-hide-sm {
     display: none;
   }
 }
