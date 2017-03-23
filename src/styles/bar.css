@@ -11,7 +11,7 @@
   font-size: 1rem;
 }
 
-@media (max-width: 30em) {
+@media (max-width: 48em) {
   [role=banner] {
     padding: 0 1em 0 0;
   }
@@ -34,7 +34,7 @@
   color: var(--grey-08);
 }
 
-@media (max-width: 30em) {
+@media (max-width: 48em) {
   [role=banner] .coz-bar-title {
     font-size: 1.25em
   }

@@ -11,6 +11,7 @@
   white-space: nowrap;
   color: var(--grey-08);
   text-decoration: none;
+  text-transform: capitalize;
   cursor: pointer;
 }
 
