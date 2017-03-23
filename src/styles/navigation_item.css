@@ -13,6 +13,7 @@
   text-decoration: none;
   text-transform: capitalize;
   cursor: pointer;
+  outline: none;
 }
 
 [role=banner] [role=menuitem][aria-busy=true]::after {
