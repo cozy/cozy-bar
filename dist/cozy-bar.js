@@ -382,7 +382,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 	};
 	
-	module.exports = { init: init, version: ("3.0.0-beta13") };
+	module.exports = { init: init, version: ("3.0.0-beta14") };
 
 /***/ },
 /* 1 */
