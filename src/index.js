@@ -41,47 +41,54 @@ const injectDOM = function CozyBarInjectDOM (data) {
 
 const bindEvents = function CozyBarBindEvents () {
   const body = document.body
-  const root = document.querySelector('[role=banner]')
-  const aside = document.querySelector('.coz-drawer-wrapper aside')
 
   /** Fire a `clickOutside` event when clicking anywhere in the viewport */
   this._clickOutsideListener = () => this.fire('clickOutside')
   body.addEventListener('click', this._clickOutsideListener)
 
-  /** Define update status helper, wrapped in a next frame to keep DOM clean */
-  const updateVisibleStatus = () => {
-    setTimeout(() => { root.dataset.drawerVisible = this.get('drawerVisible') }, 10)
-  }
+  if (__TARGET__ !== 'mobile') {
+    const root = document.querySelector('[role=banner]')
+    const aside = document.querySelector('.coz-drawer-wrapper aside')
 
-  const listener = () => {
-    updateVisibleStatus()
-    aside.removeEventListener('transitionend', listener)
-  }
-
-  /** Set default value for drawerVisible */
-  updateVisibleStatus()
-
-  /**
-   * Set dataset attribute in mirror of drawerVisible state:
-   * - immediately when switch to true
-   * - after aside transition when switch to false
-   */
-  this._drawerVisibleObserver = this.observe('drawerVisible', drawerVisible => {
-    if (drawerVisible) {
-      updateVisibleStatus()
-    } else {
-      aside.addEventListener('transitionend', listener)
+    /**
+     * Define update status helper, wrapped in a next frame to let the DOM
+     * breathe
+     */
+    const updateVisibleStatus = () => {
+      setTimeout(() => { root.dataset.drawerVisible = this.get('drawerVisible') }, 10)
     }
-  })
+
+    const listener = () => {
+      updateVisibleStatus()
+      aside.removeEventListener('transitionend', listener)
+    }
+
+    /**
+     * Set dataset attribute in mirror of drawerVisible state:
+     * - immediately when switch to true
+     * - after aside transition when switch to false
+     */
+    this._drawerVisibleObserver = this.observe('drawerVisible', drawerVisible => {
+      if (drawerVisible) {
+        updateVisibleStatus()
+      } else {
+        aside.addEventListener('transitionend', listener)
+      }
+    })
+
+    /** Force default value update for drawerVisible */
+    updateVisibleStatus()
+  }
 }
 
 const unbindEvents = function CozyBarUnbindEvents () {
   const body = document.body
 
   body.removeEventListener('click', this._clickOutsideListener)
-  this._drawerObserver.cancel()
 
-  this._drawerVisibleObserver.cancel()
+  if (__TARGET__ !== 'mobile') {
+    this._drawerVisibleObserver.cancel()
+  }
 }
 
 const getDefaultStackURL = function GetDefaultCozyURL () {
