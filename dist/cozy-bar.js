@@ -280,8 +280,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var _this = this;
 	
 	  var body = document.body;
-	  var root = document.querySelector('[role=banner]');
-	  var aside = document.querySelector('.coz-drawer-wrapper aside');
 	
 	  /** Fire a `clickOutside` event when clicking anywhere in the viewport */
 	  this._clickOutsideListener = function () {
@@ -289,42 +287,53 @@ return /******/ (function(modules) { // webpackBootstrap
 	  };
 	  body.addEventListener('click', this._clickOutsideListener);
 	
-	  /** Define update status helper, wrapped in a next frame to keep DOM clean */
-	  var updateVisibleStatus = function updateVisibleStatus() {
-	    setTimeout(function () {
-	      root.dataset.drawerVisible = _this.get('drawerVisible');
-	    }, 10);
-	  };
+	  if (true) {
+	    (function () {
+	      var root = document.querySelector('[role=banner]');
+	      var aside = document.querySelector('.coz-drawer-wrapper aside');
 	
-	  var listener = function listener() {
-	    updateVisibleStatus();
-	    aside.removeEventListener('transitionend', listener);
-	  };
+	      /**
+	       * Define update status helper, wrapped in a next frame to let the DOM
+	       * breathe
+	       */
+	      var updateVisibleStatus = function updateVisibleStatus() {
+	        setTimeout(function () {
+	          root.dataset.drawerVisible = _this.get('drawerVisible');
+	        }, 10);
+	      };
 	
-	  /** Set default value for drawerVisible */
-	  updateVisibleStatus();
+	      var listener = function listener() {
+	        updateVisibleStatus();
+	        aside.removeEventListener('transitionend', listener);
+	      };
 	
-	  /**
-	   * Set dataset attribute in mirror of drawerVisible state:
-	   * - immediately when switch to true
-	   * - after aside transition when switch to false
-	   */
-	  this._drawerVisibleObserver = this.observe('drawerVisible', function (drawerVisible) {
-	    if (drawerVisible) {
+	      /**
+	       * Set dataset attribute in mirror of drawerVisible state:
+	       * - immediately when switch to true
+	       * - after aside transition when switch to false
+	       */
+	      _this._drawerVisibleObserver = _this.observe('drawerVisible', function (drawerVisible) {
+	        if (drawerVisible) {
+	          updateVisibleStatus();
+	        } else {
+	          aside.addEventListener('transitionend', listener);
+	        }
+	      });
+	
+	      /** Force default value update for drawerVisible */
 	      updateVisibleStatus();
-	    } else {
-	      aside.addEventListener('transitionend', listener);
-	    }
-	  });
+	    })();
+	  }
 	};
 	
 	var unbindEvents = function CozyBarUnbindEvents() {
 	  var body = document.body;
 	
 	  body.removeEventListener('click', this._clickOutsideListener);
-	  this._drawerObserver.cancel();
 	
-	  this._drawerVisibleObserver.cancel();
+	  if (true) {
+	    this._drawerVisibleObserver.cancel();
+	  }
 	};
 	
 	var getDefaultStackURL = function GetDefaultCozyURL() {
@@ -382,7 +391,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 	};
 	
-	module.exports = { init: init, version: ("3.0.0-beta14") };
+	module.exports = { init: init, version: ("3.0.0-beta15") };
 
 /***/ },
 /* 1 */
