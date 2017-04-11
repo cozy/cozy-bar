@@ -3,12 +3,12 @@
   <p class='coz-nav-storage-text'>
     {{t('storage_phrase', {
       diskUsage: diskUsage,
-      totalStorage: totalStorage
+      diskQuota: diskQuota
     })}}
   </p>
   <progress
     class='cozy-nav-storage-bar'
-    value='{{diskUsage}}' max='{{totalStorage}}' min='0'
+    value='{{diskUsage}}' max='{{diskQuota}}' min='0'
   />
   {{elseif diskUsage && diskUsage.error}}
   <p class='coz-nav--error'>
@@ -21,13 +21,13 @@
   import { t } from '../lib/i18n'
 
   export default {
-    data() {
-      return {
-        totalStorage: 60 // TODO grab it from the cozy stack
-      }
-    },
-
     computed: {
+      diskQuota: diskQuotaFromStack => {
+        if (Number.isInteger(diskQuotaFromStack)) {
+            return (diskQuotaFromStack/1000000000).toFixed(2)
+        }
+        return diskQuotaFromStack
+    },
       diskUsage: diskUsageFromStack => {
         if (Number.isInteger(diskUsageFromStack)) {
             return (diskUsageFromStack/1000000000).toFixed(2)

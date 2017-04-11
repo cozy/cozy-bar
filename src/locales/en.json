@@ -6,7 +6,7 @@
   "profile": "Profile",
   "connectedDevices": "Connected devices",
   "storage": "Storage",
-  "storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
+  "storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
   "help": "Help",
   "email": "Send an email to support",
   "logout": "Sign out",
