@@ -61,7 +61,13 @@ function getDiskQuota () {
 
     return res.json()
   })
-  .then(json => parseInt(json.data.attributes.quota, 10))
+  .then(json => {
+    if (Number.isInteger(json.data.attributes.quota)) {
+      return parseInt(json.data.attributes.quota, 10)
+    } else {
+      return 100000000000 // @TODO Waiting for instructions about how to deal with limitless instances
+    }
+  })
   .catch(e => {
     throw new UnavailableStackException()
   })
