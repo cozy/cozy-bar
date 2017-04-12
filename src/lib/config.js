@@ -54,6 +54,18 @@ async function updateDiskUsage (config) {
   config.components.storage.currentDiskUsage = currentDiskUsage
 }
 
+async function updateDiskQuota (config) {
+  let currentDiskQuota
+
+  try {
+    currentDiskQuota = await stack.get.diskQuota()
+  } catch (e) {
+    currentDiskQuota = { error: e.name }
+  }
+
+  config.components.storage.currentDiskQuota = currentDiskQuota
+}
+
 /**
  * Add / Remove settings' links items regarding the status of
  * the `settings` app
@@ -149,6 +161,7 @@ async function updateSettings (config, {storage = true, items = true} = {}) {
   if (storage) {
     const oldDiskUsage = config.components.storage.currentDiskUsage
     await updateDiskUsage(config)
+    await updateDiskQuota(config)
     valve = valve || oldDiskUsage !== config.components.storage.currentDiskUsage
   }
 

@@ -3,7 +3,7 @@
   <div role='menuitem' data-icon='{{dataIcon?dataIcon:""}}' aria-busy='{{isBusy}}'>
     {{label}}
     {{#if item.component === 'storage'}}
-    <Storage diskUsageFromStack='{{item.currentDiskUsage}}' />
+    <Storage diskUsageFromStack='{{item.currentDiskUsage}}' diskQuotaFromStack='{{item.currentDiskQuota}}' />
     {{/if}}
   </div>
   {{elseif item.href}}

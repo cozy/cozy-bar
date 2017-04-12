@@ -52,6 +52,27 @@ function getDiskUsage () {
   })
 }
 
+function getDiskQuota () {
+  return fetch(`${COZY_URL}/settings/disk-usage`, fetchOptions())
+  .then(res => {
+    if (res.status === 401) {
+      throw new UnauthorizedStackException()
+    }
+
+    return res.json()
+  })
+  .then(json => {
+    if (Number.isInteger(json.data.attributes.quota)) {
+      return parseInt(json.data.attributes.quota, 10)
+    } else {
+      return 100000000000 // @TODO Waiting for instructions about how to deal with limitless instances
+    }
+  })
+  .catch(e => {
+    throw new UnavailableStackException()
+  })
+}
+
 function getApp (slug) {
   return getApps().then(apps => apps.find(item => item.attributes.slug === slug))
 }
@@ -100,6 +121,7 @@ module.exports = {
     app: getApp,
     apps: getApps,
     diskUsage: getDiskUsage,
+    diskQuota: getDiskQuota,
     icon: getIcon,
     cozyURL () {
       return COZY_URL
