@@ -12,6 +12,12 @@
   color: var(--grey-12);
   cursor: pointer;
 }
+[role=banner] .coz-nav-section [aria-controls]:hover,
+[role=banner] .coz-nav-section [aria-controls]:focus {
+  background-color: var(--grey-10);
+  box-shadow: inset 0 -1px 0 0 var(--grey-09);
+  color: var(--grey-08);
+}
 
 [role=banner] [aria-controls][aria-busy]::after {
   position: relative;

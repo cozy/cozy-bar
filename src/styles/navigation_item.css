@@ -1,4 +1,6 @@
 [role=banner] .coz-nav-item [role=menuitem] {
+  position: relative;
+  z-index: 0;
   display: block;
   box-sizing: border-box;
   width: 100%;
@@ -11,9 +13,31 @@
   white-space: nowrap;
   color: var(--grey-08);
   text-decoration: none;
-  text-transform: capitalize;
-  cursor: pointer;
   outline: none;
+}
+
+/* Force pointer on clickable elements*/
+[role=banner] .coz-nav-item a[role=menuitem],
+[role=banner] .coz-nav-item button[role=menuitem] {
+  cursor: pointer;
+}
+
+/* Hover effect */
+[role=banner] .coz-nav-item a[role=menuitem]:hover:before,
+[role=banner] .coz-nav-item a[role=menuitem]:focus:before,
+[role=banner] .coz-nav-item button[role=menuitem]:hover:before,
+[role=banner] .coz-nav-item button[role=menuitem]:focus:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  background-color: var(--grey-10);
+  background-image: inherit;
+  background-position: inherit;
+  background-repeat: inherit;
 }
 
 [role=banner] [role=menuitem][aria-busy=true]::after {
