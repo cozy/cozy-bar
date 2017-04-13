@@ -391,7 +391,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 	};
 	
-	module.exports = { init: init, version: ("3.0.0-beta15") };
+	module.exports = { init: init, version: ("3.0.0-beta16") };
 
 /***/ },
 /* 1 */
@@ -7393,7 +7393,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"profile": "Profile",
 		"connectedDevices": "Connected devices",
 		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
 		"email": "Send an email to support",
 		"logout": "Sign out",
@@ -8439,6 +8439,24 @@ return /******/ (function(modules) { // webpackBootstrap
 	  });
 	}
 	
+	function getDiskQuota() {
+	  return fetch(COZY_URL + '/settings/disk-usage', fetchOptions()).then(function (res) {
+	    if (res.status === 401) {
+	      throw new _exceptions.UnauthorizedStackException();
+	    }
+	
+	    return res.json();
+	  }).then(function (json) {
+	    if (Number.isInteger(json.data.attributes.quota)) {
+	      return parseInt(json.data.attributes.quota, 10);
+	    } else {
+	      return 100000000000; // @TODO Waiting for instructions about how to deal with limitless instances
+	    }
+	  }).catch(function (e) {
+	    throw new _exceptions.UnavailableStackException();
+	  });
+	}
+	
 	function getApp(slug) {
 	  return getApps().then(function (apps) {
 	    return apps.find(function (item) {
@@ -8532,6 +8550,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    app: getApp,
 	    apps: getApps,
 	    diskUsage: getDiskUsage,
+	    diskQuota: getDiskQuota,
 	    icon: getIcon,
 	    cozyURL: function cozyURL() {
 	      return COZY_URL;
@@ -9372,6 +9391,46 @@ return /******/ (function(modules) { // webpackBootstrap
 	  };
 	}();
 	
+	var updateDiskQuota = function () {
+	  var _ref4 = _asyncToGenerator(regeneratorRuntime.mark(function _callee4(config) {
+	    var currentDiskQuota;
+	    return regeneratorRuntime.wrap(function _callee4$(_context4) {
+	      while (1) {
+	        switch (_context4.prev = _context4.next) {
+	          case 0:
+	            currentDiskQuota = void 0;
+	            _context4.prev = 1;
+	            _context4.next = 4;
+	            return _stack2.default.get.diskQuota();
+	
+	          case 4:
+	            currentDiskQuota = _context4.sent;
+	            _context4.next = 10;
+	            break;
+	
+	          case 7:
+	            _context4.prev = 7;
+	            _context4.t0 = _context4['catch'](1);
+	
+	            currentDiskQuota = { error: _context4.t0.name };
+	
+	          case 10:
+	
+	            config.components.storage.currentDiskQuota = currentDiskQuota;
+	
+	          case 11:
+	          case 'end':
+	            return _context4.stop();
+	        }
+	      }
+	    }, _callee4, this, [[1, 7]]);
+	  }));
+	
+	  return function updateDiskQuota(_x4) {
+	    return _ref4.apply(this, arguments);
+	  };
+	}();
+	
 	/**
 	 * Add / Remove settings' links items regarding the status of
 	 * the `settings` app
@@ -9380,51 +9439,51 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	
 	var toggleSettingsItems = function () {
-	  var _ref4 = _asyncToGenerator(regeneratorRuntime.mark(function _callee4(config) {
+	  var _ref5 = _asyncToGenerator(regeneratorRuntime.mark(function _callee5(config) {
 	    var items;
-	    return regeneratorRuntime.wrap(function _callee4$(_context4) {
+	    return regeneratorRuntime.wrap(function _callee5$(_context5) {
 	      while (1) {
-	        switch (_context4.prev = _context4.next) {
+	        switch (_context5.prev = _context5.next) {
 	          case 0:
 	            // We reset the settings' links array
 	            config.subsections.settings.length = 0;
 	
 	            // If the `settings` app is available, we restore links from the root
 	            // MENU_CONFIG tree, updating the links' URLs with the app URI at same time.
-	            _context4.prev = 1;
-	            _context4.next = 4;
+	            _context5.prev = 1;
+	            _context5.next = 4;
 	            return _stack2.default.has.settings();
 	
 	          case 4:
-	            _context4.next = 10;
+	            _context5.next = 10;
 	            break;
 	
 	          case 6:
-	            _context4.prev = 6;
-	            _context4.t0 = _context4['catch'](1);
+	            _context5.prev = 6;
+	            _context5.t0 = _context5['catch'](1);
 	
 	            console.warn('Settings app is unavailable, links are disabled');
-	            return _context4.abrupt('return');
+	            return _context5.abrupt('return');
 	
 	          case 10:
-	            _context4.next = 12;
+	            _context5.next = 12;
 	            return updateSettingsURIs(_menu2.default.subsections.settings);
 	
 	          case 12:
-	            items = _context4.sent;
+	            items = _context5.sent;
 	
 	            Array.prototype.push.apply(config.subsections.settings, items);
 	
 	          case 14:
 	          case 'end':
-	            return _context4.stop();
+	            return _context5.stop();
 	        }
 	      }
-	    }, _callee4, this, [[1, 6]]);
+	    }, _callee5, this, [[1, 6]]);
 	  }));
 	
-	  return function toggleSettingsItems(_x4) {
-	    return _ref4.apply(this, arguments);
+	  return function toggleSettingsItems(_x5) {
+	    return _ref5.apply(this, arguments);
 	  };
 	}();
 	
@@ -9436,31 +9495,31 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	
 	var updateSettingsURIs = function () {
-	  var _ref5 = _asyncToGenerator(regeneratorRuntime.mark(function _callee5(items) {
+	  var _ref6 = _asyncToGenerator(regeneratorRuntime.mark(function _callee6(items) {
 	    var baseURI;
-	    return regeneratorRuntime.wrap(function _callee5$(_context5) {
+	    return regeneratorRuntime.wrap(function _callee6$(_context6) {
 	      while (1) {
-	        switch (_context5.prev = _context5.next) {
+	        switch (_context6.prev = _context6.next) {
 	          case 0:
-	            _context5.next = 2;
+	            _context6.next = 2;
 	            return _stack2.default.get.settingsBaseURI();
 	
 	          case 2:
-	            baseURI = _context5.sent;
-	            return _context5.abrupt('return', items.map(function (item) {
+	            baseURI = _context6.sent;
+	            return _context6.abrupt('return', items.map(function (item) {
 	              return Object.assign({}, item, { href: baseURI + '#' + item.href });
 	            }));
 	
 	          case 4:
 	          case 'end':
-	            return _context5.stop();
+	            return _context6.stop();
 	        }
 	      }
-	    }, _callee5, this);
+	    }, _callee6, this);
 	  }));
 	
-	  return function updateSettingsURIs(_x5) {
-	    return _ref5.apply(this, arguments);
+	  return function updateSettingsURIs(_x6) {
+	    return _ref6.apply(this, arguments);
 	  };
 	}();
 	
@@ -9483,29 +9542,29 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @return {Promise(boolean)} a valve that allow to trigger update or not
 	 */
 	var updateApps = function () {
-	  var _ref6 = _asyncToGenerator(regeneratorRuntime.mark(function _callee6(config) {
+	  var _ref7 = _asyncToGenerator(regeneratorRuntime.mark(function _callee7(config) {
 	    var oldApps;
-	    return regeneratorRuntime.wrap(function _callee6$(_context6) {
+	    return regeneratorRuntime.wrap(function _callee7$(_context7) {
 	      while (1) {
-	        switch (_context6.prev = _context6.next) {
+	        switch (_context7.prev = _context7.next) {
 	          case 0:
 	            oldApps = config.apps.slice();
-	            _context6.next = 3;
+	            _context7.next = 3;
 	            return updateAppsItems(config);
 	
 	          case 3:
-	            return _context6.abrupt('return', !(0, _deepEqual2.default)(oldApps, config.apps));
+	            return _context7.abrupt('return', !(0, _deepEqual2.default)(oldApps, config.apps));
 	
 	          case 4:
 	          case 'end':
-	            return _context6.stop();
+	            return _context7.stop();
 	        }
 	      }
-	    }, _callee6, this);
+	    }, _callee7, this);
 	  }));
 	
-	  return function updateApps(_x6) {
-	    return _ref6.apply(this, arguments);
+	  return function updateApps(_x7) {
+	    return _ref7.apply(this, arguments);
 	  };
 	}();
 	
@@ -9520,58 +9579,62 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	
 	var updateSettings = function () {
-	  var _ref7 = _asyncToGenerator(regeneratorRuntime.mark(function _callee7(config) {
-	    var _ref8 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
-	        _ref8$storage = _ref8.storage,
-	        storage = _ref8$storage === undefined ? true : _ref8$storage,
-	        _ref8$items = _ref8.items,
-	        items = _ref8$items === undefined ? true : _ref8$items;
+	  var _ref8 = _asyncToGenerator(regeneratorRuntime.mark(function _callee8(config) {
+	    var _ref9 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
+	        _ref9$storage = _ref9.storage,
+	        storage = _ref9$storage === undefined ? true : _ref9$storage,
+	        _ref9$items = _ref9.items,
+	        items = _ref9$items === undefined ? true : _ref9$items;
 	
 	    var valve, oldDiskUsage, oldSettingsItems;
-	    return regeneratorRuntime.wrap(function _callee7$(_context7) {
+	    return regeneratorRuntime.wrap(function _callee8$(_context8) {
 	      while (1) {
-	        switch (_context7.prev = _context7.next) {
+	        switch (_context8.prev = _context8.next) {
 	          case 0:
 	            valve = false;
 	
 	            if (!storage) {
-	              _context7.next = 6;
+	              _context8.next = 8;
 	              break;
 	            }
 	
 	            oldDiskUsage = config.components.storage.currentDiskUsage;
-	            _context7.next = 5;
+	            _context8.next = 5;
 	            return updateDiskUsage(config);
 	
 	          case 5:
+	            _context8.next = 7;
+	            return updateDiskQuota(config);
+	
+	          case 7:
 	            valve = valve || oldDiskUsage !== config.components.storage.currentDiskUsage;
 	
-	          case 6:
+	          case 8:
 	            if (!items) {
-	              _context7.next = 11;
+	              _context8.next = 13;
 	              break;
 	            }
 	
 	            oldSettingsItems = config.subsections.settings.slice();
-	            _context7.next = 10;
+	            _context8.next = 12;
 	            return toggleSettingsItems(config);
 	
-	          case 10:
+	          case 12:
 	            valve = valve || !(0, _deepEqual2.default)(oldSettingsItems, config.subsections.settings);
 	
-	          case 11:
-	            return _context7.abrupt('return', valve);
+	          case 13:
+	            return _context8.abrupt('return', valve);
 	
-	          case 12:
+	          case 14:
 	          case 'end':
-	            return _context7.stop();
+	            return _context8.stop();
 	        }
 	      }
-	    }, _callee7, this);
+	    }, _callee8, this);
 	  }));
 	
-	  return function updateSettings(_x8) {
-	    return _ref7.apply(this, arguments);
+	  return function updateSettings(_x9) {
+	    return _ref8.apply(this, arguments);
 	  };
 	}();
 	
@@ -11478,7 +11541,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function renderIfBlock1_0(root, component) {
 		var storage_initialData = {
-			diskUsageFromStack: root.item.currentDiskUsage
+			diskUsageFromStack: root.item.currentDiskUsage,
+			diskQuotaFromStack: root.item.currentDiskQuota
 		};
 		var storage = new template.components.Storage({
 			target: null,
@@ -11495,6 +11559,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				var storage_changes = {};
 
 				if ('item' in changed) storage_changes.diskUsageFromStack = root.item.currentDiskUsage;
+				if ('item' in changed) storage_changes.diskQuotaFromStack = root.item.currentDiskQuota;
 
 				if (Object.keys(storage_changes).length) storage.set(storage_changes);
 			},
@@ -11678,6 +11743,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _i18n = __webpack_require__(189);
 	
 	function applyComputations(state, newState, oldState) {
+		if ('diskQuotaFromStack' in newState && _typeof(state.diskQuotaFromStack) === 'object' || state.diskQuotaFromStack !== oldState.diskQuotaFromStack) {
+			state.diskQuota = newState.diskQuota = template.computed.diskQuota(state.diskQuotaFromStack);
+		}
+	
 		if ('diskUsageFromStack' in newState && _typeof(state.diskUsageFromStack) === 'object' || state.diskUsageFromStack !== oldState.diskUsageFromStack) {
 			state.diskUsage = newState.diskUsage = template.computed.diskUsage(state.diskUsageFromStack);
 		}
@@ -11685,14 +11754,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var template = function () {
 		return {
-			data: function data() {
-				return {
-					totalStorage: 60 // TODO grab it from the cozy stack
-				};
-			},
-	
-	
 			computed: {
+				diskQuota: function diskQuota(diskQuotaFromStack) {
+					if (Number.isInteger(diskQuotaFromStack)) {
+						return (diskQuotaFromStack / 1000000000).toFixed(2);
+					}
+					return diskQuotaFromStack;
+				},
 				diskUsage: function diskUsage(diskUsageFromStack) {
 					if (Number.isInteger(diskUsageFromStack)) {
 						return (diskUsageFromStack / 1000000000).toFixed(2);
@@ -11780,7 +11848,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 		var text = createText(template.helpers.t('storage_phrase', {
 			diskUsage: root.diskUsage,
-			totalStorage: root.totalStorage
+			diskQuota: root.diskQuota
 		}));
 		appendNode(text, p);
 		var text1 = createText("\n  ");
@@ -11788,7 +11856,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		var progress = createElement('progress');
 		progress.className = "cozy-nav-storage-bar";
 		progress.value = root.diskUsage;
-		progress.max = root.totalStorage;
+		progress.max = root.diskQuota;
 		setAttribute(progress, 'min', "0");
 	
 		return {
@@ -11801,11 +11869,11 @@ return /******/ (function(modules) { // webpackBootstrap
 			update: function update(changed, root) {
 				text.data = template.helpers.t('storage_phrase', {
 					diskUsage: root.diskUsage,
-					totalStorage: root.totalStorage
+					diskQuota: root.diskQuota
 				});
 	
 				progress.value = root.diskUsage;
-				progress.max = root.totalStorage;
+				progress.max = root.diskQuota;
 			},
 
 			teardown: function teardown(detach) {
@@ -11821,7 +11889,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function SvelteComponent(options) {
 		options = options || {};
 
-		this._state = Object.assign(template.data(), options.data);
+		this._state = options.data || {};
 		applyComputations(this._state, this._state, {});
 
 		this._observers = {
@@ -12390,7 +12458,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	
 	// module
-	exports.push([module.id, "body {\n  display: flex;\n  flex-direction: column;\n  align-items: stretch;\n  width: 100vw;\n  height: 100vh;\n  overflow: hidden;\n}\n\n\n[role=application] {\n  display: flex;\n  height: inherit;\n  flex: 1 1 100vh;\n  overflow-y: auto;\n}\n\n\n[role=banner] .coz-sep-flex {\n  margin: 0;\n  border: none;\n  flex: 1 0;\n}\n\n\n[role=banner] [data-icon] {\n  background-repeat: no-repeat;\n  background-position: 0 50%;\n  padding-left: calc(16px + .5em)\n}\n\n\n[role=banner] [data-icon='icon-profile'] {\n  background-image: url(" + __webpack_require__(271) + ")\n}\n\n\n[role=banner] [data-icon='icon-connectedDevices'] {\n  background-image: url(" + __webpack_require__(272) + ")\n}\n\n\n[role=banner] [data-icon='icon-help'] {\n  background-image: url(" + __webpack_require__(273) + ")\n}\n\n\n[role=banner] [data-icon='icon-logout'] {\n  background-image: url(" + __webpack_require__(274) + ")\n}\n\n\n[role=banner] [data-icon='icon-email'] {\n  background-image: url(" + __webpack_require__(275) + ")\n}\n\n\n[role=banner] [data-icon='icon-storage'] {\n  background-image: url(" + __webpack_require__(276) + ")\n}\n\n\n[role=banner] [data-icon='icon-cog'] {\n  background-image: url(" + __webpack_require__(277) + ")\n}\n\n\n[role=banner] [data-icon='icon-hamburger'] {\n  background-image: url(" + __webpack_require__(278) + ")\n}\n\n\n[role=banner] [data-icon='icon-cube'] {\n  background-image: url(" + __webpack_require__(266) + ")\n}\n\n\n/* Spinner */\n\n\n@keyframes spin {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(359deg);\n  }\n}\n\n\n[role=banner] [aria-busy=true] {\n  position: relative;\n}\n\n\n[role=banner] [aria-busy=true]::after {\n  content: \"\";\n  position: absolute;\n  right: 0;\n  top: 0;\n  display: block;\n  width: 1em;\n  height: 1em;\n  background-position: center;\n  background-repeat: no-repeat;\n  background-size: cover;\n  background-image: url(" + __webpack_require__(279) + ");\n  animation: 1s linear infinite spin;\n}\n\n\n/* Progress bar */\n\n\n[role=banner] progress[value] {\n  /* Reset the default appearance */\n  appearance: none;\n  background-color: #f5f6f7;\n  border: solid 1px #d6d8da;\n  border-radius: 2px;\n  color: #297ef2;\n}\n\n\n[role=banner] progress[value]::-webkit-progress-bar {\n  background: #f5f6f7;\n  border-radius: 2px;\n}\n\n\n[role=banner] progress[value]::-webkit-progress-value {\n  background: #297ef2;\n  border-radius: 1px;\n}\n\n\n[role=banner] progress[value]::-moz-progress-bar {\n  background: #297ef2;\n  border-radius: 1px;\n}\n\n\n/* Errors */\n\n\n[role=banner] .coz-nav--error {\n  margin: 0 0 .1em 0;\n  font-weight: normal;\n  font-size: .875em;\n  color: #F52D2D;\n}\n\n\n[role=banner] {\n  position: relative;\n  z-index: 20;\n  min-height: 2.5em;\n  flex-shrink: 0;\n  display: flex;\n  align-items: stretch;\n  padding: 0 1.25em 0 1em;\n  box-shadow: inset 0 -1px 0 0 #d6d8da;\n  font-family: Lato, sans-serif;\n  font-size: 1rem;\n}\n\n\n@media (max-width: 48em) {\n  [role=banner] {\n    padding: 0 1em 0 0;\n  }\n\n  [role=banner][data-drawer-visible=true] {\n    /* Force the BAR to be above selection bar in mobile mode,\n     * only when drawer is opened\n     */\n    z-index: 31;\n  }\n}\n\n\n[role=banner] .coz-bar-title {\n  display: flex;\n  margin: 0;\n  align-items: center;\n  font-size: 1.5em;\n  font-weight: normal;\n  text-transform: lowercase;\n  color: #32363f;\n}\n\n\n@media (max-width: 48em) {\n  [role=banner] .coz-bar-title {\n    font-size: 1.25em\n  }\n}\n\n\n[role=banner] .coz-bar-title img {\n  margin-right: .45em;\n}\n\n\n[role=banner] .coz-bar-title strong {\n  padding-left: .25em;\n  font-weight: bold;\n}\n\n\n@media (max-width: 30em) {\n  [role=banner] .coz-bar-hide-sm {\n    display: none;\n  }\n\n  [role=banner] .coz-bar-title strong {\n    padding: 0;\n    text-transform: capitalize;\n  }\n}\n\n\n[role=banner] .coz-bar-burger {\n  width: 2.5em;\n  margin-right: 0.25em;\n  padding: 0;\n  border: none;\n  background-color: transparent;\n  background-position: center;\n}\n\n\n@media (min-width: 48.0625em) {\n  [role=banner] .coz-bar-burger,\n  [role=banner] .coz-drawer-wrapper {\n    display: none;\n  }\n}\n\n\n@media (max-width: 48em) {\n  [role=banner] .coz-bar-hide-sm {\n    display: none;\n  }\n}\n\n\n[role=banner] .coz-nav ul {\n  margin: 0;\n  padding: 0;\n  list-style-type: none;\n}\n\n\n[role=banner] .coz-nav > ul {\n  display: flex;\n}\n\n\n@media (max-width: 48em) {\n  [role=banner] .coz-nav {\n    display: none;\n  }\n}\n\n\n[role=banner] .coz-nav-section {\n  position: relative;\n}\n\n\n[role=banner] .coz-nav-section [aria-controls] {\n  display: flex;\n  align-items: baseline;\n  padding: 1.285em 1.5em;\n  font-size: .875em;\n  text-transform: uppercase;\n  color: #5d6165;\n  cursor: pointer;\n}\n\n\n[role=banner] [aria-controls][aria-busy]::after {\n  position: relative;\n  top: .12em;\n  margin-left: .5em;\n}\n\n\n[role=banner] [aria-controls][aria-busy=true] {\n  padding-right: 0;\n}\n\n\n[role=banner] .coz-nav-section [aria-controls][data-icon] {\n  padding-left: calc(1.25em + 16px + .5em);\n  background-position: 1.25em calc(50% - 1px);\n}\n\n\n[role=banner] .coz-nav-icon {\n  margin-right: .5em;\n}\n\n\n[role=banner] .coz-nav-pop[aria-hidden=true] {\n  display: none;\n}\n\n\n[role=banner] .coz-nav-pop {\n  position: absolute;\n  top: calc(100% - .5em);\n  right: 0;\n  box-sizing: border-box;\n  min-width: 100%;\n  background-color: #fff;\n  border-radius: 8px;\n  border: solid 1px rgba(50, 54, 63, 0.12);\n  box-shadow: 0 1px 3px 0 rgba(50, 54, 63, 0.19), 0 6px 18px 0 rgba(50, 54, 63, 0.19);\n}\n\n\n[role=banner] .coz-nav-pop ul {\n  padding: .5em 0;\n}\n\n\n[role=banner] .coz-nav-pop hr {\n  margin: 0;\n  border: none;\n  border-bottom: solid 1px #d6d8da;\n}\n\n\n[role=banner] .coz-nav-pop ul:last-of-type + hr {\n  display: none;\n}\n\n\n/* coz-nav-pop--apps slug is hashed coz-nav-pop--1612761714 */\n\n\n[role=banner] .coz-nav-pop--1612761714 .coz-nav-group:not(.coz-nav--error) {\n  display: flex;\n  padding: 0.75em;\n}\n\n\n[role=banner] .coz-nav-group.coz-nav--error {\n  padding: 0.75em;\n  min-width: 20em;\n}\n\n\n[role=banner] .coz-nav-pop--1612761714 .coz-nav-group a {\n  display: flex;\n  flex-direction: column;\n  padding: 1.25em;\n}\n\n\n[role=banner] .coz-nav-pop--1612761714 .coz-nav-group a img {\n  margin-bottom: .75em;\n}\n\n\n[role=banner] .blurry {\n  opacity: .5;\n  filter: blur(5px);\n}\n\n\n[role=banner] .coz-nav-item [role=menuitem] {\n  display: block;\n  box-sizing: border-box;\n  width: 100%;\n  padding: .5em 1.5em .5em calc(1.5em + 16px + .5em);\n  border: none;\n  align-items: center;\n  background-position: 1.5em 50%;\n  background-color: transparent;\n  text-align: left;\n  white-space: nowrap;\n  color: #32363f;\n  text-decoration: none;\n  text-transform: capitalize;\n  cursor: pointer;\n  outline: none;\n}\n\n\n[role=banner] [role=menuitem][aria-busy=true]::after {\n  right: 1.5em;\n  top: .5em;\n}\n\n\n[role=banner] [role=menuitem][data-icon=icon-storage] {\n  background-position: 1.5em calc(.5em + 1px);\n}\n\n\n[role=banner] .coz-nav-storage {\n  display: flex;\n  flex-direction: column;\n  align-items: left;\n  padding-top: .5em;\n  color: #95999d;\n}\n\n\n[role=banner] .coz-nav-storage-text {\n  margin: 0 0 .1em 0;\n  font-weight: normal;\n  font-size: .875em;\n}\n\n\n[role=banner] .cozy-nav-storage-bar {\n    height: .5em;\n    margin: .2em 0 .1em 0;\n}\n\n\n[role=banner] .coz-drawer-wrapper {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100vw;\n  height: 100vh;\n  /* Prepare for transitions */\n  display: none;\n  visibility: visible;\n}\n\n\n[role=banner] .coz-drawer-wrapper[aria-hidden=false],\n[role=banner] .coz-drawer-wrapper.swipe-active {\n  display: block;\n}\n\n\n[role=banner] .coz-drawer-wrapper::before {\n  content: '';\n  display: block;\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background-color: #32363f;\n  opacity: 0;\n  transition: opacity 250ms ease-out;\n}\n\n\n[role=banner] .coz-drawer-wrapper[aria-hidden=false]::before {\n  opacity: .5;\n}\n\n\n[role=banner] .coz-drawer-wrapper aside {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 90%;\n  height: 100%;\n  display: flex;\n  flex-direction: column;\n  background-color: #fff;\n  transform: translateX(-100vw);\n  transition: transform 500ms ease-out;\n}\n\n\n[role=banner] .coz-drawer-wrapper[aria-hidden=false] aside {\n  transform: translateX(0);\n}\n\n\n[role=banner] .coz-drawer-wrapper ul {\n  margin: 0;\n  padding: .8em 0;\n  list-style-type: none;\n}\n\n\n[role=banner] .coz-drawer-wrapper nav hr {\n  margin: 0;\n  border: none;\n  border-bottom: solid 1px #d6d8da;\n}\n\n\n[role=banner] .coz-drawer-wrapper .coz-nav-icon {\n  margin-right: .5em;\n}\n\n\n[role=banner] .coz-drawer--apps h1 {\n  margin: 1.125em 1em 0;\n  font-size: 1em;\n  text-transform: capitalize;\n}\n\n\n[role=banner] .coz-drawer--apps ul {\n  display: flex;\n}\n\n\n[role=banner] .coz-drawer--apps [role=menuitem] {\n  display: flex;\n  flex-direction: column;\n  padding: 1em;\n  border-radius: 2px;\n}\n\n\n[role=banner] .coz-drawer--apps [role=menuitem]:hover {\n  background-color: rgba(25, 123, 255, 0.1);\n}\n\n\n[role=banner] .coz-drawer--apps li img {\n  margin-bottom: 1.125em;\n}\n\n\n[role=banner].coz-target--mobile {\n  padding-left: 1em;\n}\n\n\n.coz-bar-hidden {\n  position: absolute !important;\n  border: 0 !important;\n  width: 1px !important;\n  height: 1px !important;\n  overflow: hidden !important;\n  padding: 0 !important;\n  white-space: nowrap !important;\n  clip: rect(1px, 1px, 1px, 1px) !important;\n  clip-path: inset(50%) !important;\n}\n", ""]);
+	exports.push([module.id, "body {\n  display: flex;\n  flex-direction: column;\n  align-items: stretch;\n  width: 100vw;\n  height: 100vh;\n  overflow: hidden;\n}\n\n\n[role=application] {\n  display: flex;\n  height: inherit;\n  flex: 1 1 100vh;\n  overflow-y: auto;\n}\n\n\n[role=banner] .coz-sep-flex {\n  margin: 0;\n  border: none;\n  flex: 1 0;\n}\n\n\n[role=banner] [data-icon] {\n  background-repeat: no-repeat;\n  background-position: 0 50%;\n  padding-left: calc(16px + .5em)\n}\n\n\n[role=banner] [data-icon='icon-profile'] {\n  background-image: url(" + __webpack_require__(271) + ")\n}\n\n\n[role=banner] [data-icon='icon-connectedDevices'] {\n  background-image: url(" + __webpack_require__(272) + ")\n}\n\n\n[role=banner] [data-icon='icon-help'] {\n  background-image: url(" + __webpack_require__(273) + ")\n}\n\n\n[role=banner] [data-icon='icon-logout'] {\n  background-image: url(" + __webpack_require__(274) + ")\n}\n\n\n[role=banner] [data-icon='icon-email'] {\n  background-image: url(" + __webpack_require__(275) + ")\n}\n\n\n[role=banner] [data-icon='icon-storage'] {\n  background-image: url(" + __webpack_require__(276) + ")\n}\n\n\n[role=banner] [data-icon='icon-cog'] {\n  background-image: url(" + __webpack_require__(277) + ")\n}\n\n\n[role=banner] [data-icon='icon-hamburger'] {\n  background-image: url(" + __webpack_require__(278) + ")\n}\n\n\n[role=banner] [data-icon='icon-cube'] {\n  background-image: url(" + __webpack_require__(266) + ")\n}\n\n\n/* Spinner */\n\n\n@keyframes spin {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(359deg);\n  }\n}\n\n\n[role=banner] [aria-busy=true] {\n  position: relative;\n}\n\n\n[role=banner] [aria-busy=true]::after {\n  content: \"\";\n  position: absolute;\n  right: 0;\n  top: 0;\n  display: block;\n  width: 1em;\n  height: 1em;\n  background-position: center;\n  background-repeat: no-repeat;\n  background-size: cover;\n  background-image: url(" + __webpack_require__(279) + ");\n  animation: 1s linear infinite spin;\n}\n\n\n/* Progress bar */\n\n\n[role=banner] progress[value] {\n  /* Reset the default appearance */\n  appearance: none;\n  background-color: #f5f6f7;\n  border: solid 1px #d6d8da;\n  border-radius: 2px;\n  color: #297ef2;\n}\n\n\n[role=banner] progress[value]::-webkit-progress-bar {\n  background: #f5f6f7;\n  border-radius: 2px;\n}\n\n\n[role=banner] progress[value]::-webkit-progress-value {\n  background: #297ef2;\n  border-radius: 1px;\n}\n\n\n[role=banner] progress[value]::-moz-progress-bar {\n  background: #297ef2;\n  border-radius: 1px;\n}\n\n\n/* Errors */\n\n\n[role=banner] .coz-nav--error {\n  margin: 0 0 .1em 0;\n  font-weight: normal;\n  font-size: .875em;\n  color: #F52D2D;\n}\n\n\n[role=banner] {\n  position: relative;\n  z-index: 20;\n  min-height: 2.5em;\n  flex-shrink: 0;\n  display: flex;\n  align-items: stretch;\n  padding: 0 1.25em 0 1em;\n  box-shadow: inset 0 -1px 0 0 #d6d8da;\n  font-family: Lato, sans-serif;\n  font-size: 1rem;\n}\n\n\n@media (max-width: 48em) {\n  [role=banner] {\n    padding: 0 1em 0 0;\n  }\n\n  [role=banner][data-drawer-visible=true] {\n    /* Force the BAR to be above selection bar in mobile mode,\n     * only when drawer is opened\n     */\n    z-index: 31;\n  }\n}\n\n\n[role=banner] .coz-bar-title {\n  display: flex;\n  margin: 0;\n  align-items: center;\n  font-size: 1.5em;\n  font-weight: normal;\n  text-transform: lowercase;\n  color: #32363f;\n}\n\n\n@media (max-width: 48em) {\n  [role=banner] .coz-bar-title {\n    font-size: 1.25em\n  }\n}\n\n\n[role=banner] .coz-bar-title img {\n  margin-right: .45em;\n}\n\n\n[role=banner] .coz-bar-title strong {\n  padding-left: .25em;\n  font-weight: bold;\n}\n\n\n@media (max-width: 30em) {\n  [role=banner] .coz-bar-hide-sm {\n    display: none;\n  }\n\n  [role=banner] .coz-bar-title strong {\n    padding: 0;\n    text-transform: capitalize;\n  }\n}\n\n\n[role=banner] .coz-bar-burger {\n  width: 2.5em;\n  margin-right: 0.25em;\n  padding: 0;\n  border: none;\n  background-color: transparent;\n  background-position: center;\n}\n\n\n@media (min-width: 48.0625em) {\n  [role=banner] .coz-bar-burger,\n  [role=banner] .coz-drawer-wrapper {\n    display: none;\n  }\n}\n\n\n@media (max-width: 48em) {\n  [role=banner] .coz-bar-hide-sm {\n    display: none;\n  }\n}\n\n\n[role=banner] .coz-nav ul {\n  margin: 0;\n  padding: 0;\n  list-style-type: none;\n}\n\n\n[role=banner] .coz-nav > ul {\n  display: flex;\n}\n\n\n@media (max-width: 48em) {\n  [role=banner] .coz-nav {\n    display: none;\n  }\n}\n\n\n[role=banner] .coz-nav-section {\n  position: relative;\n}\n\n\n[role=banner] .coz-nav-section [aria-controls] {\n  display: flex;\n  align-items: baseline;\n  padding: 1.285em 1.5em;\n  font-size: .875em;\n  text-transform: uppercase;\n  color: #5d6165;\n  cursor: pointer;\n}\n\n\n[role=banner] .coz-nav-section [aria-controls]:hover {\n  background-color: #f5f6f7;\n  box-shadow: inset 0 -1px 0 0 #d6d8da;\n  color: #32363f;\n}\n\n\n[role=banner] .coz-nav-section [aria-controls]:focus {\n  background-color: #f5f6f7;\n  box-shadow: inset 0 -1px 0 0 #d6d8da;\n  color: #32363f;\n}\n\n\n[role=banner] [aria-controls][aria-busy]::after {\n  position: relative;\n  top: .12em;\n  margin-left: .5em;\n}\n\n\n[role=banner] [aria-controls][aria-busy=true] {\n  padding-right: 0;\n}\n\n\n[role=banner] .coz-nav-section [aria-controls][data-icon] {\n  padding-left: calc(1.25em + 16px + .5em);\n  background-position: 1.25em calc(50% - 1px);\n}\n\n\n[role=banner] .coz-nav-icon {\n  margin-right: .5em;\n}\n\n\n[role=banner] .coz-nav-pop[aria-hidden=true] {\n  display: none;\n}\n\n\n[role=banner] .coz-nav-pop {\n  position: absolute;\n  top: calc(100% - .5em);\n  right: 0;\n  box-sizing: border-box;\n  min-width: 100%;\n  background-color: #fff;\n  border-radius: 8px;\n  border: solid 1px rgba(50, 54, 63, 0.12);\n  box-shadow: 0 1px 3px 0 rgba(50, 54, 63, 0.19), 0 6px 18px 0 rgba(50, 54, 63, 0.19);\n}\n\n\n[role=banner] .coz-nav-pop ul {\n  padding: .5em 0;\n}\n\n\n[role=banner] .coz-nav-pop hr {\n  margin: 0;\n  border: none;\n  border-bottom: solid 1px #d6d8da;\n}\n\n\n[role=banner] .coz-nav-pop ul:last-of-type + hr {\n  display: none;\n}\n\n\n/* coz-nav-pop--apps slug is hashed coz-nav-pop--1612761714 */\n\n\n[role=banner] .coz-nav-pop--1612761714 .coz-nav-group:not(.coz-nav--error) {\n  display: flex;\n  padding: 0.75em;\n}\n\n\n[role=banner] .coz-nav-group.coz-nav--error {\n  padding: 0.75em;\n  min-width: 20em;\n}\n\n\n[role=banner] .coz-nav-pop--1612761714 .coz-nav-group a {\n  display: flex;\n  flex-direction: column;\n  padding: 1.25em;\n}\n\n\n[role=banner] .coz-nav-pop--1612761714 .coz-nav-group a img {\n  margin-bottom: .75em;\n}\n\n\n[role=banner] .blurry {\n  opacity: .5;\n  filter: blur(5px);\n}\n\n\n[role=banner] .coz-nav-item [role=menuitem] {\n  position: relative;\n  z-index: 0;\n  display: block;\n  box-sizing: border-box;\n  width: 100%;\n  padding: .5em 1.5em .5em calc(1.5em + 16px + .5em);\n  border: none;\n  align-items: center;\n  background-position: 1.5em 50%;\n  background-color: transparent;\n  text-align: left;\n  white-space: nowrap;\n  color: #32363f;\n  text-decoration: none;\n  outline: none;\n}\n\n\n/* Force pointer on clickable elements*/\n\n\n[role=banner] .coz-nav-item a[role=menuitem],\n[role=banner] .coz-nav-item button[role=menuitem] {\n  cursor: pointer;\n}\n\n\n/* Hover effect */\n\n\n[role=banner] .coz-nav-item a[role=menuitem]:hover:before {\n  content: '';\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  z-index: -1;\n  background-color: #f5f6f7;\n  background-image: inherit;\n  background-position: inherit;\n  background-repeat: inherit;\n}\n\n\n[role=banner] .coz-nav-item a[role=menuitem]:focus:before {\n  content: '';\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  z-index: -1;\n  background-color: #f5f6f7;\n  background-image: inherit;\n  background-position: inherit;\n  background-repeat: inherit;\n}\n\n\n[role=banner] .coz-nav-item button[role=menuitem]:hover:before {\n  content: '';\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  z-index: -1;\n  background-color: #f5f6f7;\n  background-image: inherit;\n  background-position: inherit;\n  background-repeat: inherit;\n}\n\n\n[role=banner] .coz-nav-item button[role=menuitem]:focus:before {\n  content: '';\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  z-index: -1;\n  background-color: #f5f6f7;\n  background-image: inherit;\n  background-position: inherit;\n  background-repeat: inherit;\n}\n\n\n[role=banner] [role=menuitem][aria-busy=true]::after {\n  right: 1.5em;\n  top: .5em;\n}\n\n\n[role=banner] [role=menuitem][data-icon=icon-storage] {\n  background-position: 1.5em calc(.5em + 1px);\n}\n\n\n[role=banner] .coz-nav-storage {\n  display: flex;\n  flex-direction: column;\n  align-items: left;\n  padding-top: .5em;\n  color: #95999d;\n}\n\n\n[role=banner] .coz-nav-storage-text {\n  margin: 0 0 .1em 0;\n  font-weight: normal;\n  font-size: .875em;\n}\n\n\n[role=banner] .cozy-nav-storage-bar {\n    height: .5em;\n    margin: .2em 0 .1em 0;\n}\n\n\n[role=banner] .coz-drawer-wrapper {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100vw;\n  height: 100vh;\n  /* Prepare for transitions */\n  display: none;\n  visibility: visible;\n}\n\n\n[role=banner] .coz-drawer-wrapper[aria-hidden=false],\n[role=banner] .coz-drawer-wrapper.swipe-active {\n  display: block;\n}\n\n\n[role=banner] .coz-drawer-wrapper::before {\n  content: '';\n  display: block;\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background-color: #32363f;\n  opacity: 0;\n  transition: opacity 250ms ease-out;\n}\n\n\n[role=banner] .coz-drawer-wrapper[aria-hidden=false]::before {\n  opacity: .5;\n}\n\n\n[role=banner] .coz-drawer-wrapper aside {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 90%;\n  height: 100%;\n  display: flex;\n  flex-direction: column;\n  background-color: #fff;\n  transform: translateX(-100vw);\n  transition: transform 500ms ease-out;\n}\n\n\n[role=banner] .coz-drawer-wrapper[aria-hidden=false] aside {\n  transform: translateX(0);\n}\n\n\n[role=banner] .coz-drawer-wrapper ul {\n  margin: 0;\n  padding: .8em 0;\n  list-style-type: none;\n}\n\n\n[role=banner] .coz-drawer-wrapper nav hr {\n  margin: 0;\n  border: none;\n  border-bottom: solid 1px #d6d8da;\n}\n\n\n[role=banner] .coz-drawer-wrapper .coz-nav-icon {\n  margin-right: .5em;\n}\n\n\n[role=banner] .coz-drawer--apps h1 {\n  margin: 1.125em 1em 0;\n  font-size: 1em;\n  text-transform: capitalize;\n}\n\n\n[role=banner] .coz-drawer--apps ul {\n  display: flex;\n}\n\n\n[role=banner] .coz-drawer--apps [role=menuitem] {\n  display: flex;\n  flex-direction: column;\n  padding: 1em;\n  border-radius: 2px;\n}\n\n\n[role=banner] .coz-drawer--apps [role=menuitem]:hover {\n  background-color: rgba(25, 123, 255, 0.1);\n}\n\n\n[role=banner] .coz-drawer--apps li img {\n  margin-bottom: 1.125em;\n}\n\n\n[role=banner].coz-target--mobile {\n  padding-left: 1em;\n}\n\n\n.coz-bar-hidden {\n  position: absolute !important;\n  border: 0 !important;\n  width: 1px !important;\n  height: 1px !important;\n  overflow: hidden !important;\n  padding: 0 !important;\n  white-space: nowrap !important;\n  clip: rect(1px, 1px, 1px, 1px) !important;\n  clip-path: inset(50%) !important;\n}\n", ""]);
 	
 	// exports
 

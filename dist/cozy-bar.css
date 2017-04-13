@@ -280,6 +280,20 @@ body {
 }
 
 
+[role=banner] .coz-nav-section [aria-controls]:hover {
+  background-color: #f5f6f7;
+  box-shadow: inset 0 -1px 0 0 #d6d8da;
+  color: #32363f;
+}
+
+
+[role=banner] .coz-nav-section [aria-controls]:focus {
+  background-color: #f5f6f7;
+  box-shadow: inset 0 -1px 0 0 #d6d8da;
+  color: #32363f;
+}
+
+
 [role=banner] [aria-controls][aria-busy]::after {
   position: relative;
   top: .12em;
@@ -372,6 +386,8 @@ body {
 
 
 [role=banner] .coz-nav-item [role=menuitem] {
+  position: relative;
+  z-index: 0;
   display: block;
   box-sizing: border-box;
   width: 100%;
@@ -384,9 +400,79 @@ body {
   white-space: nowrap;
   color: #32363f;
   text-decoration: none;
-  text-transform: capitalize;
-  cursor: pointer;
   outline: none;
+}
+
+
+/* Force pointer on clickable elements*/
+
+
+[role=banner] .coz-nav-item a[role=menuitem],
+[role=banner] .coz-nav-item button[role=menuitem] {
+  cursor: pointer;
+}
+
+
+/* Hover effect */
+
+
+[role=banner] .coz-nav-item a[role=menuitem]:hover:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  background-color: #f5f6f7;
+  background-image: inherit;
+  background-position: inherit;
+  background-repeat: inherit;
+}
+
+
+[role=banner] .coz-nav-item a[role=menuitem]:focus:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  background-color: #f5f6f7;
+  background-image: inherit;
+  background-position: inherit;
+  background-repeat: inherit;
+}
+
+
+[role=banner] .coz-nav-item button[role=menuitem]:hover:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  background-color: #f5f6f7;
+  background-image: inherit;
+  background-position: inherit;
+  background-repeat: inherit;
+}
+
+
+[role=banner] .coz-nav-item button[role=menuitem]:focus:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  background-color: #f5f6f7;
+  background-image: inherit;
+  background-position: inherit;
+  background-repeat: inherit;
 }
 
 
