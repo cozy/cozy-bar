@@ -62,8 +62,9 @@ function getDiskQuota () {
     return res.json()
   })
   .then(json => {
-    if (Number.isInteger(json.data.attributes.quota)) {
-      return parseInt(json.data.attributes.quota, 10)
+    const quota = parseInt(json.data.attributes.quota, 10)
+    if (Number.isInteger(quota)) {
+      return quota
     } else {
       return 100000000000 // @TODO Waiting for instructions about how to deal with limitless instances
     }
