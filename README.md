@@ -34,13 +34,15 @@ Once you have the library included in your application, starts by intialize it i
 ```js
 window.cozy.bar.init({
   appName: MY_APP_NAME,
+  appEditor: APP_EDITOR
   iconPath: PATH_TO_SVG_ICON,
   lang: LOCALE
 })
 ```
 
-`appName` param in hash is mandatory when `lang` and `iconPath` are optionals. If not passed, their values are detected into the DOM:
+`appName` param in hash is mandatory when `appEditor`, `lang` and `iconPath` are optionals. If not passed, their values are detected into the DOM:
 
+- `appEditor` is extracted from the manifest. Originally used for apps maintained by Cozy Cloud teams.
 - `lang` is extracted from the `lang` attribute of the `<html>` tag. Defaults to 'en'
 - `iconPath` uses the favicon 32px. Defaults to a blank GIF
 
