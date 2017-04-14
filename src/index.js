@@ -113,6 +113,11 @@ const getDefaultLang = function GetDefaultLang () {
   return document.documentElement.getAttribute('lang') || 'en'
 }
 
+const getEditor = function GetEditor () {
+  const appNode = document.querySelector(APP_SELECTOR)
+  return appNode.dataset.cozyEditor || undefined
+}
+
 const getDefaultIcon = function GetDefaultIcon () {
   const linkNode = document.querySelector('link[rel="icon"][sizes^="32"]')
   if (linkNode !== null) {
@@ -125,6 +130,7 @@ const getDefaultIcon = function GetDefaultIcon () {
 const init = function CozyBarInit ({
   lang = getDefaultLang(),
   appName,
+  appEditor = getEditor(),
   iconPath = getDefaultIcon(),
   cozyURL = getDefaultStackURL(),
   token = getDefaultToken(),
@@ -132,7 +138,7 @@ const init = function CozyBarInit ({
 } = {}) {
   i18n(lang)
   stack.init({cozyURL, token})
-  const view = injectDOM({lang, appName, iconPath, replaceTitleOnMobile})
+  const view = injectDOM({lang, appName, appEditor, iconPath, replaceTitleOnMobile})
 
   if (view) {
     bindEvents.call(view)
