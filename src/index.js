@@ -115,11 +115,7 @@ const getDefaultLang = function GetDefaultLang () {
 
 const getEditor = function GetEditor () {
   const appNode = document.querySelector(APP_SELECTOR)
-  if (!appNode) {
-    console.warn(`Cozy-bar can't discover the app's Editor, and will probably fail to initialize the connection with the stack.`)
-    return ''
-  }
-  return appNode.dataset.cozyEditor || ''
+  return appNode.dataset.cozyEditor || undefined
 }
 
 const getDefaultIcon = function GetDefaultIcon () {
