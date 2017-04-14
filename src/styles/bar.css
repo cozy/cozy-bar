@@ -30,7 +30,6 @@
   align-items: center;
   font-size: 1.5em;
   font-weight: normal;
-  text-transform: lowercase;
   color: var(--grey-08);
 }
 

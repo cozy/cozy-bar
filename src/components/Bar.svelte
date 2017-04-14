@@ -6,7 +6,7 @@
 
 <h1 class='{{titleClass}}'>
   <img class='coz-bar-hide-sm' src='{{iconPath}}' width='32' />
-  <span class='coz-bar-hide-sm'>cozy </span><strong>{{appName}}</strong>
+  <span class='coz-bar-hide-sm'>{{appEditor}} </span><strong>{{appName}}</strong>
 </h1>
 
 <hr class='coz-sep-flex' />
