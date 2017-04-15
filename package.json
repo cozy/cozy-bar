@@ -22,6 +22,7 @@
     "prewatch": "npm-run-all clean",
     "tx": "tx pull --all || true",
     "watch": "NODE_ENV=development webpack --config ./config/webpack.target.split.js --watch --display-chunks",
+    "watch:mobile": "NODE_ENV=development webpack --config ./config/webpack.target.mobile.js --watch --display-chunks",
     "watch:standalone": "NODE_ENV=development webpack-dev-server --config ./config/webpack.target.standalone.js  --content-base public --port 8082 --display-modules --display-chunks --inline --hot"
   },
   "devDependencies": {
