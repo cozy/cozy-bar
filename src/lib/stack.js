@@ -1,5 +1,5 @@
 /* eslint-env browser */
-/* global __SERVER__ */
+/* global __SERVER__, __TARGET__ */
 
 import 'babel-polyfill'
 
@@ -24,6 +24,9 @@ let COZY_URL = __SERVER__
 let COZY_TOKEN
 
 function getApps () {
+  if (__TARGET__ === 'mobile') {
+    return Promise.resolve([])
+  }
   return fetch(`${COZY_URL}/apps/`, fetchOptions())
   .then(res => {
     if (res.status === 401) {
@@ -38,6 +41,9 @@ function getApps () {
 }
 
 function getDiskUsage () {
+  if (__TARGET__ === 'mobile') {
+    return Promise.resolve([])
+  }
   return fetch(`${COZY_URL}/settings/disk-usage`, fetchOptions())
   .then(res => {
     if (res.status === 401) {
