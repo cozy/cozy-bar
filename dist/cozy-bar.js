@@ -358,6 +358,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	  return document.documentElement.getAttribute('lang') || 'en';
 	};
 	
+	var getEditor = function GetEditor() {
+	  var appNode = document.querySelector(APP_SELECTOR);
+	  return appNode.dataset.cozyEditor || undefined;
+	};
+	
 	var getDefaultIcon = function GetDefaultIcon() {
 	  var linkNode = document.querySelector('link[rel="icon"][sizes^="32"]');
 	  if (linkNode !== null) {
@@ -372,6 +377,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	      _ref$lang = _ref.lang,
 	      lang = _ref$lang === undefined ? getDefaultLang() : _ref$lang,
 	      appName = _ref.appName,
+	      _ref$appEditor = _ref.appEditor,
+	      appEditor = _ref$appEditor === undefined ? getEditor() : _ref$appEditor,
 	      _ref$iconPath = _ref.iconPath,
 	      iconPath = _ref$iconPath === undefined ? getDefaultIcon() : _ref$iconPath,
 	      _ref$cozyURL = _ref.cozyURL,
@@ -383,7 +390,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	  (0, _i18n2.default)(lang);
 	  _stack2.default.init({ cozyURL: cozyURL, token: token });
-	  var view = injectDOM({ lang: lang, appName: appName, iconPath: iconPath, replaceTitleOnMobile: replaceTitleOnMobile });
+	  var view = injectDOM({ lang: lang, appName: appName, appEditor: appEditor, iconPath: iconPath, replaceTitleOnMobile: replaceTitleOnMobile });
 	
 	  if (view) {
 	    bindEvents.call(view);
@@ -391,7 +398,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 	};
 	
-	module.exports = { init: init, version: ("3.0.0-beta16") };
+	module.exports = { init: init, version: ("3.0.0-beta17") };
 
 /***/ },
 /* 1 */
@@ -7507,7 +7514,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"profile": "Profile",
 		"connectedDevices": "Connected devices",
 		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
 		"email": "Send an email to support",
 		"logout": "Sign out",
@@ -7527,7 +7534,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"profile": "Profile",
 		"connectedDevices": "Connected devices",
 		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
 		"email": "Send an email to support",
 		"logout": "Sign out",
@@ -7547,7 +7554,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"profile": "Profile",
 		"connectedDevices": "Connected devices",
 		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
 		"email": "Send an email to support",
 		"logout": "Sign out",
@@ -7567,7 +7574,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"profile": "Profile",
 		"connectedDevices": "Connected devices",
 		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
 		"email": "Send an email to support",
 		"logout": "Sign out",
@@ -7587,7 +7594,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"profile": "Profile",
 		"connectedDevices": "Connected devices",
 		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
 		"email": "Send an email to support",
 		"logout": "Sign out",
@@ -7607,7 +7614,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"profile": "Profile",
 		"connectedDevices": "Connected devices",
 		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
 		"email": "Send an email to support",
 		"logout": "Sign out",
@@ -7627,7 +7634,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"profile": "Profile",
 		"connectedDevices": "Connected devices",
 		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
 		"email": "Send an email to support",
 		"logout": "Sign out",
@@ -7647,7 +7654,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"profile": "Profile",
 		"connectedDevices": "Connected devices",
 		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
 		"email": "Send an email to support",
 		"logout": "Sign out",
@@ -7667,7 +7674,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"profile": "Profile",
 		"connectedDevices": "Connected devices",
 		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
 		"email": "Send an email to support",
 		"logout": "Sign out",
@@ -7687,7 +7694,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"profile": "Profile",
 		"connectedDevices": "Connected devices",
 		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
 		"email": "Send an email to support",
 		"logout": "Sign out",
@@ -7707,7 +7714,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"profile": "Perfil",
 		"connectedDevices": "Periféricos conectados",
 		"storage": "Almacenamiento",
-		"storage_phrase": "%{diskUsage} GO de %{totalStorage} GO usados",
+		"storage_phrase": "%{diskUsage} GO de %{diskQuota} GO usados",
 		"help": "Ayuda",
 		"email": "Enviar un email a asistencia",
 		"logout": "Finalizar sesión",
@@ -7727,7 +7734,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"profile": "Profile",
 		"connectedDevices": "Connected devices",
 		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
 		"email": "Send an email to support",
 		"logout": "Sign out",
@@ -7747,7 +7754,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"profile": "Profile",
 		"connectedDevices": "Connected devices",
 		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
 		"email": "Send an email to support",
 		"logout": "Sign out",
@@ -7767,7 +7774,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"profile": "Profil",
 		"connectedDevices": "Appareils connectés",
 		"storage": "Espace disque",
-		"storage_phrase": "%{diskUsage} Go sur %{totalStorage} Go",
+		"storage_phrase": "%{diskUsage} Go sur %{diskQuota} Go",
 		"help": "Aide",
 		"email": "Envoyer un email au support",
 		"logout": "Déconnexion",
@@ -7787,7 +7794,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"profile": "Profile",
 		"connectedDevices": "Connected devices",
 		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
 		"email": "Send an email to support",
 		"logout": "Sign out",
@@ -7807,7 +7814,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"profile": "プロフィール",
 		"connectedDevices": "接続されたデバイス",
 		"storage": "ストレージ",
-		"storage_phrase": "%{diskUsage} GB / %{totalStorage} GB 使用",
+		"storage_phrase": "%{diskUsage} GB / %{diskQuota} GB 使用",
 		"help": "ヘルプ",
 		"email": "サポートにメールを送信",
 		"logout": "サインアウト",
@@ -7827,7 +7834,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"profile": "Profile",
 		"connectedDevices": "Connected devices",
 		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
 		"email": "Send an email to support",
 		"logout": "Sign out",
@@ -7844,15 +7851,15 @@ return /******/ (function(modules) { // webpackBootstrap
 		"apps": "Toepassingen",
 		"settings": "Instellingen",
 		"menu": "Toon menu",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
+		"profile": "Profiel",
+		"connectedDevices": "Verbonden apparaten",
 		"storage": "Opslag",
-		"storage_phrase": "%{diskUsage} GB van %{totalStorage} GB gebruikt",
+		"storage_phrase": "%{diskUsage} GB van %{diskQuota} GB gebruikt",
 		"help": "Hulp",
 		"email": "Stuur de helpdesk een e-mail",
 		"logout": "Log uit",
 		"error_UnavailableStack": "De stapel is onbereikbaar (verbinding verlopen)",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack."
+		"error_UnauthorizedStack": "Sommige toestemmingen missen, de toepassing kan niet alles bereiken."
 	};
 
 /***/ },
@@ -7867,7 +7874,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"profile": "Profile",
 		"connectedDevices": "Connected devices",
 		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
 		"email": "Send an email to support",
 		"logout": "Sign out",
@@ -7887,7 +7894,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"profile": "Profile",
 		"connectedDevices": "Connected devices",
 		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
 		"email": "Send an email to support",
 		"logout": "Sign out",
@@ -7907,7 +7914,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"profile": "Profile",
 		"connectedDevices": "Connected devices",
 		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
 		"email": "Send an email to support",
 		"logout": "Sign out",
@@ -7927,7 +7934,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"profile": "Profile",
 		"connectedDevices": "Connected devices",
 		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
 		"email": "Send an email to support",
 		"logout": "Sign out",
@@ -7947,7 +7954,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"profile": "Profile",
 		"connectedDevices": "Connected devices",
 		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
 		"email": "Send an email to support",
 		"logout": "Sign out",
@@ -7967,7 +7974,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"profile": "Profile",
 		"connectedDevices": "Connected devices",
 		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
 		"email": "Send an email to support",
 		"logout": "Sign out",
@@ -7987,7 +7994,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"profile": "Profile",
 		"connectedDevices": "Connected devices",
 		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
 		"email": "Send an email to support",
 		"logout": "Sign out",
@@ -8007,7 +8014,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"profile": "Profile",
 		"connectedDevices": "Connected devices",
 		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
 		"email": "Send an email to support",
 		"logout": "Sign out",
@@ -8027,7 +8034,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"profile": "Profile",
 		"connectedDevices": "Connected devices",
 		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
 		"email": "Send an email to support",
 		"logout": "Sign out",
@@ -8047,7 +8054,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"profile": "Profile",
 		"connectedDevices": "Connected devices",
 		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
 		"email": "Send an email to support",
 		"logout": "Sign out",
@@ -8067,7 +8074,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"profile": "Profile",
 		"connectedDevices": "Connected devices",
 		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
 		"email": "Send an email to support",
 		"logout": "Sign out",
@@ -8087,7 +8094,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"profile": "Profile",
 		"connectedDevices": "Connected devices",
 		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
 		"email": "Send an email to support",
 		"logout": "Sign out",
@@ -8107,7 +8114,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"profile": "Profile",
 		"connectedDevices": "Connected devices",
 		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
 		"email": "Send an email to support",
 		"logout": "Sign out",
@@ -8127,7 +8134,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"profile": "Profile",
 		"connectedDevices": "Connected devices",
 		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
 		"email": "Send an email to support",
 		"logout": "Sign out",
@@ -8147,7 +8154,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"profile": "Profile",
 		"connectedDevices": "Connected devices",
 		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
 		"email": "Send an email to support",
 		"logout": "Sign out",
@@ -8167,7 +8174,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"profile": "Profile",
 		"connectedDevices": "Connected devices",
 		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
 		"email": "Send an email to support",
 		"logout": "Sign out",
@@ -8187,7 +8194,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"profile": "Profile",
 		"connectedDevices": "Connected devices",
 		"storage": "储存",
-		"storage_phrase": "使用了 %{diskUsage} GB / %{totalStorage} GB",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "帮助",
 		"email": "发送邮件到客服",
 		"logout": "登出",
@@ -8207,7 +8214,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"profile": "Profile",
 		"connectedDevices": "Connected devices",
 		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
 		"email": "Send an email to support",
 		"logout": "Sign out",
@@ -8447,8 +8454,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	    return res.json();
 	  }).then(function (json) {
-	    if (Number.isInteger(json.data.attributes.quota)) {
-	      return parseInt(json.data.attributes.quota, 10);
+	    var quota = parseInt(json.data.attributes.quota, 10);
+	    if (Number.isInteger(quota)) {
+	      return quota;
 	    } else {
 	      return 100000000000; // @TODO Waiting for instructions about how to deal with limitless instances
 	    }
@@ -8884,12 +8892,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 		appendNode(img, h1);
 		appendNode(createText("\n  "), h1);
+		var ifBlock1_anchor = createComment("#if appEditor");
+		appendNode(ifBlock1_anchor, h1);
 	
-		var span = createElement('span');
-		span.className = "coz-bar-hide-sm";
+		function getBlock1(root) {
+			if (root.appEditor) return renderIfBlock1_0;
+			return null;
+		}
 	
-		appendNode(span, h1);
-		appendNode(createText("cozy"), span);
+		var currentBlock1 = getBlock1(root);
+		var ifBlock1 = currentBlock1 && currentBlock1(root, component);
+	
+		if (ifBlock1) ifBlock1.mount(ifBlock1_anchor.parentNode, ifBlock1_anchor);
+		appendNode(createText("\n  "), h1);
 	
 		var strong = createElement('strong');
 	
@@ -8917,15 +8932,15 @@ return /******/ (function(modules) { // webpackBootstrap
 		});
 	
 		var text6 = createText("\n\n");
-		var ifBlock1_anchor = createComment("#if target !== 'mobile'");
+		var ifBlock2_anchor = createComment("#if target !== 'mobile'");
 	
-		function getBlock1(root) {
-			if (root.target !== 'mobile') return renderIfBlock1_0;
+		function getBlock2(root) {
+			if (root.target !== 'mobile') return renderIfBlock2_0;
 			return null;
 		}
 	
-		var currentBlock1 = getBlock1(root);
-		var ifBlock1 = currentBlock1 && currentBlock1(root, component);
+		var currentBlock2 = getBlock2(root);
+		var ifBlock2 = currentBlock2 && currentBlock2(root, component);
 	
 		return {
 			mount: function mount(target, anchor) {
@@ -8938,8 +8953,8 @@ return /******/ (function(modules) { // webpackBootstrap
 				insertNode(text5, target, anchor);
 				navigation._fragment.mount(target, anchor);
 				insertNode(text6, target, anchor);
-				insertNode(ifBlock1_anchor, target, anchor);
-				if (ifBlock1) ifBlock1.mount(ifBlock1_anchor.parentNode, ifBlock1_anchor);
+				insertNode(ifBlock2_anchor, target, anchor);
+				if (ifBlock2) ifBlock2.mount(ifBlock2_anchor.parentNode, ifBlock2_anchor);
 			},
 	
 			update: function update(changed, root) {
@@ -8957,14 +8972,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 				img.src = root.iconPath;
 	
-				text3.data = root.appName;
-	
-				var navigation_changes = {};
-	
-				if ('config' in changed) navigation_changes.sections = root.config.sections.bar;
-	
-				if (Object.keys(navigation_changes).length) navigation.set(navigation_changes);
-	
 				var _currentBlock1 = currentBlock1;
 				currentBlock1 = getBlock1(root);
 				if (_currentBlock1 === currentBlock1 && ifBlock1) {
@@ -8974,12 +8981,31 @@ return /******/ (function(modules) { // webpackBootstrap
 					ifBlock1 = currentBlock1 && currentBlock1(root, component);
 					if (ifBlock1) ifBlock1.mount(ifBlock1_anchor.parentNode, ifBlock1_anchor);
 				}
+	
+				text3.data = root.appName;
+	
+				var navigation_changes = {};
+	
+				if ('config' in changed) navigation_changes.sections = root.config.sections.bar;
+	
+				if (Object.keys(navigation_changes).length) navigation.set(navigation_changes);
+	
+				var _currentBlock2 = currentBlock2;
+				currentBlock2 = getBlock2(root);
+				if (_currentBlock2 === currentBlock2 && ifBlock2) {
+					ifBlock2.update(changed, root);
+				} else {
+					if (ifBlock2) ifBlock2.teardown(true);
+					ifBlock2 = currentBlock2 && currentBlock2(root, component);
+					if (ifBlock2) ifBlock2.mount(ifBlock2_anchor.parentNode, ifBlock2_anchor);
+				}
 			},
 	
 			teardown: function teardown(detach) {
 				if (ifBlock) ifBlock.teardown(detach);
+				if (ifBlock1) ifBlock1.teardown(false);
 				navigation.teardown(detach);
-				if (ifBlock1) ifBlock1.teardown(detach);
+				if (ifBlock2) ifBlock2.teardown(detach);
 	
 				if (detach) {
 					detachNode(ifBlock_anchor);
@@ -8989,13 +9015,13 @@ return /******/ (function(modules) { // webpackBootstrap
 					detachNode(hr);
 					detachNode(text5);
 					detachNode(text6);
-					detachNode(ifBlock1_anchor);
+					detachNode(ifBlock2_anchor);
 				}
 			}
 		};
 	}
 	
-	function renderIfBlock1_0(root, component) {
+	function renderIfBlock2_0(root, component) {
 		var drawer_initialData = {
 			content: root.config.apps,
 			footer: root.config.sections.drawer,
@@ -9028,6 +9054,30 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 			teardown: function teardown(detach) {
 				drawer.teardown(detach);
+			}
+		};
+	}
+	
+	function renderIfBlock1_0(root, component) {
+		var span = createElement('span');
+		span.className = "coz-bar-hide-sm";
+	
+		var text = createText(root.appEditor);
+		appendNode(text, span);
+	
+		return {
+			mount: function mount(target, anchor) {
+				insertNode(span, target, anchor);
+			},
+	
+			update: function update(changed, root) {
+				text.data = root.appEditor;
+			},
+	
+			teardown: function teardown(detach) {
+				if (detach) {
+					detachNode(span);
+				}
 			}
 		};
 	}

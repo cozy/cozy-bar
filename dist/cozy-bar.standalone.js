@@ -358,6 +358,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	  return document.documentElement.getAttribute('lang') || 'en';
 	};
 	
+	var getEditor = function GetEditor() {
+	  var appNode = document.querySelector(APP_SELECTOR);
+	  return appNode.dataset.cozyEditor || undefined;
+	};
+	
 	var getDefaultIcon = function GetDefaultIcon() {
 	  var linkNode = document.querySelector('link[rel="icon"][sizes^="32"]');
 	  if (linkNode !== null) {
@@ -372,6 +377,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	      _ref$lang = _ref.lang,
 	      lang = _ref$lang === undefined ? getDefaultLang() : _ref$lang,
 	      appName = _ref.appName,
+	      _ref$appEditor = _ref.appEditor,
+	      appEditor = _ref$appEditor === undefined ? getEditor() : _ref$appEditor,
 	      _ref$iconPath = _ref.iconPath,
 	      iconPath = _ref$iconPath === undefined ? getDefaultIcon() : _ref$iconPath,
 	      _ref$cozyURL = _ref.cozyURL,
@@ -383,7 +390,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	  (0, _i18n2.default)(lang);
 	  _stack2.default.init({ cozyURL: cozyURL, token: token });
-	  var view = injectDOM({ lang: lang, appName: appName, iconPath: iconPath, replaceTitleOnMobile: replaceTitleOnMobile });
+	  var view = injectDOM({ lang: lang, appName: appName, appEditor: appEditor, iconPath: iconPath, replaceTitleOnMobile: replaceTitleOnMobile });
 	
 	  if (view) {
 	    bindEvents.call(view);
@@ -391,7 +398,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 	};
 	
-	module.exports = { init: init, version: ("3.0.0-beta16") };
+	module.exports = { init: init, version: ("3.0.0-beta17") };
 
 /***/ },
 /* 1 */
@@ -7507,7 +7514,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"profile": "Profile",
 		"connectedDevices": "Connected devices",
 		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
 		"email": "Send an email to support",
 		"logout": "Sign out",
@@ -7527,7 +7534,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"profile": "Profile",
 		"connectedDevices": "Connected devices",
 		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
 		"email": "Send an email to support",
 		"logout": "Sign out",
@@ -7547,7 +7554,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"profile": "Profile",
 		"connectedDevices": "Connected devices",
 		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
 		"email": "Send an email to support",
 		"logout": "Sign out",
@@ -7567,7 +7574,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"profile": "Profile",
 		"connectedDevices": "Connected devices",
 		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
 		"email": "Send an email to support",
 		"logout": "Sign out",
@@ -7587,7 +7594,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"profile": "Profile",
 		"connectedDevices": "Connected devices",
 		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
 		"email": "Send an email to support",
 		"logout": "Sign out",
@@ -7607,7 +7614,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"profile": "Profile",
 		"connectedDevices": "Connected devices",
 		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
 		"email": "Send an email to support",
 		"logout": "Sign out",
@@ -7627,7 +7634,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"profile": "Profile",
 		"connectedDevices": "Connected devices",
 		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
 		"email": "Send an email to support",
 		"logout": "Sign out",
@@ -7647,7 +7654,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"profile": "Profile",
 		"connectedDevices": "Connected devices",
 		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
 		"email": "Send an email to support",
 		"logout": "Sign out",
@@ -7667,7 +7674,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"profile": "Profile",
 		"connectedDevices": "Connected devices",
 		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
 		"email": "Send an email to support",
 		"logout": "Sign out",
@@ -7687,7 +7694,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"profile": "Profile",
 		"connectedDevices": "Connected devices",
 		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
 		"email": "Send an email to support",
 		"logout": "Sign out",
@@ -7707,7 +7714,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"profile": "Perfil",
 		"connectedDevices": "Periféricos conectados",
 		"storage": "Almacenamiento",
-		"storage_phrase": "%{diskUsage} GO de %{totalStorage} GO usados",
+		"storage_phrase": "%{diskUsage} GO de %{diskQuota} GO usados",
 		"help": "Ayuda",
 		"email": "Enviar un email a asistencia",
 		"logout": "Finalizar sesión",
@@ -7727,7 +7734,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"profile": "Profile",
 		"connectedDevices": "Connected devices",
 		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
 		"email": "Send an email to support",
 		"logout": "Sign out",
@@ -7747,7 +7754,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"profile": "Profile",
 		"connectedDevices": "Connected devices",
 		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
 		"email": "Send an email to support",
 		"logout": "Sign out",
@@ -7767,7 +7774,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"profile": "Profil",
 		"connectedDevices": "Appareils connectés",
 		"storage": "Espace disque",
-		"storage_phrase": "%{diskUsage} Go sur %{totalStorage} Go",
+		"storage_phrase": "%{diskUsage} Go sur %{diskQuota} Go",
 		"help": "Aide",
 		"email": "Envoyer un email au support",
 		"logout": "Déconnexion",
@@ -7787,7 +7794,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"profile": "Profile",
 		"connectedDevices": "Connected devices",
 		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
 		"email": "Send an email to support",
 		"logout": "Sign out",
@@ -7807,7 +7814,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"profile": "プロフィール",
 		"connectedDevices": "接続されたデバイス",
 		"storage": "ストレージ",
-		"storage_phrase": "%{diskUsage} GB / %{totalStorage} GB 使用",
+		"storage_phrase": "%{diskUsage} GB / %{diskQuota} GB 使用",
 		"help": "ヘルプ",
 		"email": "サポートにメールを送信",
 		"logout": "サインアウト",
@@ -7827,7 +7834,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"profile": "Profile",
 		"connectedDevices": "Connected devices",
 		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
 		"email": "Send an email to support",
 		"logout": "Sign out",
@@ -7844,15 +7851,15 @@ return /******/ (function(modules) { // webpackBootstrap
 		"apps": "Toepassingen",
 		"settings": "Instellingen",
 		"menu": "Toon menu",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
+		"profile": "Profiel",
+		"connectedDevices": "Verbonden apparaten",
 		"storage": "Opslag",
-		"storage_phrase": "%{diskUsage} GB van %{totalStorage} GB gebruikt",
+		"storage_phrase": "%{diskUsage} GB van %{diskQuota} GB gebruikt",
 		"help": "Hulp",
 		"email": "Stuur de helpdesk een e-mail",
 		"logout": "Log uit",
 		"error_UnavailableStack": "De stapel is onbereikbaar (verbinding verlopen)",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack."
+		"error_UnauthorizedStack": "Sommige toestemmingen missen, de toepassing kan niet alles bereiken."
 	};
 
 /***/ },
@@ -7867,7 +7874,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"profile": "Profile",
 		"connectedDevices": "Connected devices",
 		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
 		"email": "Send an email to support",
 		"logout": "Sign out",
@@ -7887,7 +7894,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"profile": "Profile",
 		"connectedDevices": "Connected devices",
 		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
 		"email": "Send an email to support",
 		"logout": "Sign out",
@@ -7907,7 +7914,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"profile": "Profile",
 		"connectedDevices": "Connected devices",
 		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
 		"email": "Send an email to support",
 		"logout": "Sign out",
@@ -7927,7 +7934,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"profile": "Profile",
 		"connectedDevices": "Connected devices",
 		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
 		"email": "Send an email to support",
 		"logout": "Sign out",
@@ -7947,7 +7954,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"profile": "Profile",
 		"connectedDevices": "Connected devices",
 		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
 		"email": "Send an email to support",
 		"logout": "Sign out",
@@ -7967,7 +7974,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"profile": "Profile",
 		"connectedDevices": "Connected devices",
 		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
 		"email": "Send an email to support",
 		"logout": "Sign out",
@@ -7987,7 +7994,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"profile": "Profile",
 		"connectedDevices": "Connected devices",
 		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
 		"email": "Send an email to support",
 		"logout": "Sign out",
@@ -8007,7 +8014,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"profile": "Profile",
 		"connectedDevices": "Connected devices",
 		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
 		"email": "Send an email to support",
 		"logout": "Sign out",
@@ -8027,7 +8034,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"profile": "Profile",
 		"connectedDevices": "Connected devices",
 		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
 		"email": "Send an email to support",
 		"logout": "Sign out",
@@ -8047,7 +8054,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"profile": "Profile",
 		"connectedDevices": "Connected devices",
 		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
 		"email": "Send an email to support",
 		"logout": "Sign out",
@@ -8067,7 +8074,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"profile": "Profile",
 		"connectedDevices": "Connected devices",
 		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
 		"email": "Send an email to support",
 		"logout": "Sign out",
@@ -8087,7 +8094,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"profile": "Profile",
 		"connectedDevices": "Connected devices",
 		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
 		"email": "Send an email to support",
 		"logout": "Sign out",
@@ -8107,7 +8114,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"profile": "Profile",
 		"connectedDevices": "Connected devices",
 		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
 		"email": "Send an email to support",
 		"logout": "Sign out",
@@ -8127,7 +8134,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"profile": "Profile",
 		"connectedDevices": "Connected devices",
 		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
 		"email": "Send an email to support",
 		"logout": "Sign out",
@@ -8147,7 +8154,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"profile": "Profile",
 		"connectedDevices": "Connected devices",
 		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
 		"email": "Send an email to support",
 		"logout": "Sign out",
@@ -8167,7 +8174,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"profile": "Profile",
 		"connectedDevices": "Connected devices",
 		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
 		"email": "Send an email to support",
 		"logout": "Sign out",
@@ -8187,7 +8194,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"profile": "Profile",
 		"connectedDevices": "Connected devices",
 		"storage": "储存",
-		"storage_phrase": "使用了 %{diskUsage} GB / %{totalStorage} GB",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "帮助",
 		"email": "发送邮件到客服",
 		"logout": "登出",
@@ -8207,7 +8214,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"profile": "Profile",
 		"connectedDevices": "Connected devices",
 		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{totalStorage} GB used",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
 		"email": "Send an email to support",
 		"logout": "Sign out",
@@ -8447,8 +8454,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	    return res.json();
 	  }).then(function (json) {
-	    if (Number.isInteger(json.data.attributes.quota)) {
-	      return parseInt(json.data.attributes.quota, 10);
+	    var quota = parseInt(json.data.attributes.quota, 10);
+	    if (Number.isInteger(quota)) {
+	      return quota;
 	    } else {
 	      return 100000000000; // @TODO Waiting for instructions about how to deal with limitless instances
 	    }
@@ -8884,12 +8892,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 		appendNode(img, h1);
 		appendNode(createText("\n  "), h1);
+		var ifBlock1_anchor = createComment("#if appEditor");
+		appendNode(ifBlock1_anchor, h1);
 	
-		var span = createElement('span');
-		span.className = "coz-bar-hide-sm";
+		function getBlock1(root) {
+			if (root.appEditor) return renderIfBlock1_0;
+			return null;
+		}
 	
-		appendNode(span, h1);
-		appendNode(createText("cozy"), span);
+		var currentBlock1 = getBlock1(root);
+		var ifBlock1 = currentBlock1 && currentBlock1(root, component);
+	
+		if (ifBlock1) ifBlock1.mount(ifBlock1_anchor.parentNode, ifBlock1_anchor);
+		appendNode(createText("\n  "), h1);
 	
 		var strong = createElement('strong');
 	
@@ -8917,15 +8932,15 @@ return /******/ (function(modules) { // webpackBootstrap
 		});
 	
 		var text6 = createText("\n\n");
-		var ifBlock1_anchor = createComment("#if target !== 'mobile'");
+		var ifBlock2_anchor = createComment("#if target !== 'mobile'");
 	
-		function getBlock1(root) {
-			if (root.target !== 'mobile') return renderIfBlock1_0;
+		function getBlock2(root) {
+			if (root.target !== 'mobile') return renderIfBlock2_0;
 			return null;
 		}
 	
-		var currentBlock1 = getBlock1(root);
-		var ifBlock1 = currentBlock1 && currentBlock1(root, component);
+		var currentBlock2 = getBlock2(root);
+		var ifBlock2 = currentBlock2 && currentBlock2(root, component);
 	
 		return {
 			mount: function mount(target, anchor) {
@@ -8938,8 +8953,8 @@ return /******/ (function(modules) { // webpackBootstrap
 				insertNode(text5, target, anchor);
 				navigation._fragment.mount(target, anchor);
 				insertNode(text6, target, anchor);
-				insertNode(ifBlock1_anchor, target, anchor);
-				if (ifBlock1) ifBlock1.mount(ifBlock1_anchor.parentNode, ifBlock1_anchor);
+				insertNode(ifBlock2_anchor, target, anchor);
+				if (ifBlock2) ifBlock2.mount(ifBlock2_anchor.parentNode, ifBlock2_anchor);
 			},
 	
 			update: function update(changed, root) {
@@ -8957,14 +8972,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 				img.src = root.iconPath;
 	
-				text3.data = root.appName;
-	
-				var navigation_changes = {};
-	
-				if ('config' in changed) navigation_changes.sections = root.config.sections.bar;
-	
-				if (Object.keys(navigation_changes).length) navigation.set(navigation_changes);
-	
 				var _currentBlock1 = currentBlock1;
 				currentBlock1 = getBlock1(root);
 				if (_currentBlock1 === currentBlock1 && ifBlock1) {
@@ -8974,12 +8981,31 @@ return /******/ (function(modules) { // webpackBootstrap
 					ifBlock1 = currentBlock1 && currentBlock1(root, component);
 					if (ifBlock1) ifBlock1.mount(ifBlock1_anchor.parentNode, ifBlock1_anchor);
 				}
+	
+				text3.data = root.appName;
+	
+				var navigation_changes = {};
+	
+				if ('config' in changed) navigation_changes.sections = root.config.sections.bar;
+	
+				if (Object.keys(navigation_changes).length) navigation.set(navigation_changes);
+	
+				var _currentBlock2 = currentBlock2;
+				currentBlock2 = getBlock2(root);
+				if (_currentBlock2 === currentBlock2 && ifBlock2) {
+					ifBlock2.update(changed, root);
+				} else {
+					if (ifBlock2) ifBlock2.teardown(true);
+					ifBlock2 = currentBlock2 && currentBlock2(root, component);
+					if (ifBlock2) ifBlock2.mount(ifBlock2_anchor.parentNode, ifBlock2_anchor);
+				}
 			},
 	
 			teardown: function teardown(detach) {
 				if (ifBlock) ifBlock.teardown(detach);
+				if (ifBlock1) ifBlock1.teardown(false);
 				navigation.teardown(detach);
-				if (ifBlock1) ifBlock1.teardown(detach);
+				if (ifBlock2) ifBlock2.teardown(detach);
 	
 				if (detach) {
 					detachNode(ifBlock_anchor);
@@ -8989,13 +9015,13 @@ return /******/ (function(modules) { // webpackBootstrap
 					detachNode(hr);
 					detachNode(text5);
 					detachNode(text6);
-					detachNode(ifBlock1_anchor);
+					detachNode(ifBlock2_anchor);
 				}
 			}
 		};
 	}
 	
-	function renderIfBlock1_0(root, component) {
+	function renderIfBlock2_0(root, component) {
 		var drawer_initialData = {
 			content: root.config.apps,
 			footer: root.config.sections.drawer,
@@ -9028,6 +9054,30 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 			teardown: function teardown(detach) {
 				drawer.teardown(detach);
+			}
+		};
+	}
+	
+	function renderIfBlock1_0(root, component) {
+		var span = createElement('span');
+		span.className = "coz-bar-hide-sm";
+	
+		var text = createText(root.appEditor);
+		appendNode(text, span);
+	
+		return {
+			mount: function mount(target, anchor) {
+				insertNode(span, target, anchor);
+			},
+	
+			update: function update(changed, root) {
+				text.data = root.appEditor;
+			},
+	
+			teardown: function teardown(detach) {
+				if (detach) {
+					detachNode(span);
+				}
 			}
 		};
 	}
@@ -12458,7 +12508,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	
 	// module
-	exports.push([module.id, "body {\n  display: flex;\n  flex-direction: column;\n  align-items: stretch;\n  width: 100vw;\n  height: 100vh;\n  overflow: hidden;\n}\n\n\n[role=application] {\n  display: flex;\n  height: inherit;\n  flex: 1 1 100vh;\n  overflow-y: auto;\n}\n\n\n[role=banner] .coz-sep-flex {\n  margin: 0;\n  border: none;\n  flex: 1 0;\n}\n\n\n[role=banner] [data-icon] {\n  background-repeat: no-repeat;\n  background-position: 0 50%;\n  padding-left: calc(16px + .5em)\n}\n\n\n[role=banner] [data-icon='icon-profile'] {\n  background-image: url(" + __webpack_require__(271) + ")\n}\n\n\n[role=banner] [data-icon='icon-connectedDevices'] {\n  background-image: url(" + __webpack_require__(272) + ")\n}\n\n\n[role=banner] [data-icon='icon-help'] {\n  background-image: url(" + __webpack_require__(273) + ")\n}\n\n\n[role=banner] [data-icon='icon-logout'] {\n  background-image: url(" + __webpack_require__(274) + ")\n}\n\n\n[role=banner] [data-icon='icon-email'] {\n  background-image: url(" + __webpack_require__(275) + ")\n}\n\n\n[role=banner] [data-icon='icon-storage'] {\n  background-image: url(" + __webpack_require__(276) + ")\n}\n\n\n[role=banner] [data-icon='icon-cog'] {\n  background-image: url(" + __webpack_require__(277) + ")\n}\n\n\n[role=banner] [data-icon='icon-hamburger'] {\n  background-image: url(" + __webpack_require__(278) + ")\n}\n\n\n[role=banner] [data-icon='icon-cube'] {\n  background-image: url(" + __webpack_require__(266) + ")\n}\n\n\n/* Spinner */\n\n\n@keyframes spin {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(359deg);\n  }\n}\n\n\n[role=banner] [aria-busy=true] {\n  position: relative;\n}\n\n\n[role=banner] [aria-busy=true]::after {\n  content: \"\";\n  position: absolute;\n  right: 0;\n  top: 0;\n  display: block;\n  width: 1em;\n  height: 1em;\n  background-position: center;\n  background-repeat: no-repeat;\n  background-size: cover;\n  background-image: url(" + __webpack_require__(279) + ");\n  animation: 1s linear infinite spin;\n}\n\n\n/* Progress bar */\n\n\n[role=banner] progress[value] {\n  /* Reset the default appearance */\n  appearance: none;\n  background-color: #f5f6f7;\n  border: solid 1px #d6d8da;\n  border-radius: 2px;\n  color: #297ef2;\n}\n\n\n[role=banner] progress[value]::-webkit-progress-bar {\n  background: #f5f6f7;\n  border-radius: 2px;\n}\n\n\n[role=banner] progress[value]::-webkit-progress-value {\n  background: #297ef2;\n  border-radius: 1px;\n}\n\n\n[role=banner] progress[value]::-moz-progress-bar {\n  background: #297ef2;\n  border-radius: 1px;\n}\n\n\n/* Errors */\n\n\n[role=banner] .coz-nav--error {\n  margin: 0 0 .1em 0;\n  font-weight: normal;\n  font-size: .875em;\n  color: #F52D2D;\n}\n\n\n[role=banner] {\n  position: relative;\n  z-index: 20;\n  min-height: 2.5em;\n  flex-shrink: 0;\n  display: flex;\n  align-items: stretch;\n  padding: 0 1.25em 0 1em;\n  box-shadow: inset 0 -1px 0 0 #d6d8da;\n  font-family: Lato, sans-serif;\n  font-size: 1rem;\n}\n\n\n@media (max-width: 48em) {\n  [role=banner] {\n    padding: 0 1em 0 0;\n  }\n\n  [role=banner][data-drawer-visible=true] {\n    /* Force the BAR to be above selection bar in mobile mode,\n     * only when drawer is opened\n     */\n    z-index: 31;\n  }\n}\n\n\n[role=banner] .coz-bar-title {\n  display: flex;\n  margin: 0;\n  align-items: center;\n  font-size: 1.5em;\n  font-weight: normal;\n  text-transform: lowercase;\n  color: #32363f;\n}\n\n\n@media (max-width: 48em) {\n  [role=banner] .coz-bar-title {\n    font-size: 1.25em\n  }\n}\n\n\n[role=banner] .coz-bar-title img {\n  margin-right: .45em;\n}\n\n\n[role=banner] .coz-bar-title strong {\n  padding-left: .25em;\n  font-weight: bold;\n}\n\n\n@media (max-width: 30em) {\n  [role=banner] .coz-bar-hide-sm {\n    display: none;\n  }\n\n  [role=banner] .coz-bar-title strong {\n    padding: 0;\n    text-transform: capitalize;\n  }\n}\n\n\n[role=banner] .coz-bar-burger {\n  width: 2.5em;\n  margin-right: 0.25em;\n  padding: 0;\n  border: none;\n  background-color: transparent;\n  background-position: center;\n}\n\n\n@media (min-width: 48.0625em) {\n  [role=banner] .coz-bar-burger,\n  [role=banner] .coz-drawer-wrapper {\n    display: none;\n  }\n}\n\n\n@media (max-width: 48em) {\n  [role=banner] .coz-bar-hide-sm {\n    display: none;\n  }\n}\n\n\n[role=banner] .coz-nav ul {\n  margin: 0;\n  padding: 0;\n  list-style-type: none;\n}\n\n\n[role=banner] .coz-nav > ul {\n  display: flex;\n}\n\n\n@media (max-width: 48em) {\n  [role=banner] .coz-nav {\n    display: none;\n  }\n}\n\n\n[role=banner] .coz-nav-section {\n  position: relative;\n}\n\n\n[role=banner] .coz-nav-section [aria-controls] {\n  display: flex;\n  align-items: baseline;\n  padding: 1.285em 1.5em;\n  font-size: .875em;\n  text-transform: uppercase;\n  color: #5d6165;\n  cursor: pointer;\n}\n\n\n[role=banner] .coz-nav-section [aria-controls]:hover {\n  background-color: #f5f6f7;\n  box-shadow: inset 0 -1px 0 0 #d6d8da;\n  color: #32363f;\n}\n\n\n[role=banner] .coz-nav-section [aria-controls]:focus {\n  background-color: #f5f6f7;\n  box-shadow: inset 0 -1px 0 0 #d6d8da;\n  color: #32363f;\n}\n\n\n[role=banner] [aria-controls][aria-busy]::after {\n  position: relative;\n  top: .12em;\n  margin-left: .5em;\n}\n\n\n[role=banner] [aria-controls][aria-busy=true] {\n  padding-right: 0;\n}\n\n\n[role=banner] .coz-nav-section [aria-controls][data-icon] {\n  padding-left: calc(1.25em + 16px + .5em);\n  background-position: 1.25em calc(50% - 1px);\n}\n\n\n[role=banner] .coz-nav-icon {\n  margin-right: .5em;\n}\n\n\n[role=banner] .coz-nav-pop[aria-hidden=true] {\n  display: none;\n}\n\n\n[role=banner] .coz-nav-pop {\n  position: absolute;\n  top: calc(100% - .5em);\n  right: 0;\n  box-sizing: border-box;\n  min-width: 100%;\n  background-color: #fff;\n  border-radius: 8px;\n  border: solid 1px rgba(50, 54, 63, 0.12);\n  box-shadow: 0 1px 3px 0 rgba(50, 54, 63, 0.19), 0 6px 18px 0 rgba(50, 54, 63, 0.19);\n}\n\n\n[role=banner] .coz-nav-pop ul {\n  padding: .5em 0;\n}\n\n\n[role=banner] .coz-nav-pop hr {\n  margin: 0;\n  border: none;\n  border-bottom: solid 1px #d6d8da;\n}\n\n\n[role=banner] .coz-nav-pop ul:last-of-type + hr {\n  display: none;\n}\n\n\n/* coz-nav-pop--apps slug is hashed coz-nav-pop--1612761714 */\n\n\n[role=banner] .coz-nav-pop--1612761714 .coz-nav-group:not(.coz-nav--error) {\n  display: flex;\n  padding: 0.75em;\n}\n\n\n[role=banner] .coz-nav-group.coz-nav--error {\n  padding: 0.75em;\n  min-width: 20em;\n}\n\n\n[role=banner] .coz-nav-pop--1612761714 .coz-nav-group a {\n  display: flex;\n  flex-direction: column;\n  padding: 1.25em;\n}\n\n\n[role=banner] .coz-nav-pop--1612761714 .coz-nav-group a img {\n  margin-bottom: .75em;\n}\n\n\n[role=banner] .blurry {\n  opacity: .5;\n  filter: blur(5px);\n}\n\n\n[role=banner] .coz-nav-item [role=menuitem] {\n  position: relative;\n  z-index: 0;\n  display: block;\n  box-sizing: border-box;\n  width: 100%;\n  padding: .5em 1.5em .5em calc(1.5em + 16px + .5em);\n  border: none;\n  align-items: center;\n  background-position: 1.5em 50%;\n  background-color: transparent;\n  text-align: left;\n  white-space: nowrap;\n  color: #32363f;\n  text-decoration: none;\n  outline: none;\n}\n\n\n/* Force pointer on clickable elements*/\n\n\n[role=banner] .coz-nav-item a[role=menuitem],\n[role=banner] .coz-nav-item button[role=menuitem] {\n  cursor: pointer;\n}\n\n\n/* Hover effect */\n\n\n[role=banner] .coz-nav-item a[role=menuitem]:hover:before {\n  content: '';\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  z-index: -1;\n  background-color: #f5f6f7;\n  background-image: inherit;\n  background-position: inherit;\n  background-repeat: inherit;\n}\n\n\n[role=banner] .coz-nav-item a[role=menuitem]:focus:before {\n  content: '';\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  z-index: -1;\n  background-color: #f5f6f7;\n  background-image: inherit;\n  background-position: inherit;\n  background-repeat: inherit;\n}\n\n\n[role=banner] .coz-nav-item button[role=menuitem]:hover:before {\n  content: '';\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  z-index: -1;\n  background-color: #f5f6f7;\n  background-image: inherit;\n  background-position: inherit;\n  background-repeat: inherit;\n}\n\n\n[role=banner] .coz-nav-item button[role=menuitem]:focus:before {\n  content: '';\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  z-index: -1;\n  background-color: #f5f6f7;\n  background-image: inherit;\n  background-position: inherit;\n  background-repeat: inherit;\n}\n\n\n[role=banner] [role=menuitem][aria-busy=true]::after {\n  right: 1.5em;\n  top: .5em;\n}\n\n\n[role=banner] [role=menuitem][data-icon=icon-storage] {\n  background-position: 1.5em calc(.5em + 1px);\n}\n\n\n[role=banner] .coz-nav-storage {\n  display: flex;\n  flex-direction: column;\n  align-items: left;\n  padding-top: .5em;\n  color: #95999d;\n}\n\n\n[role=banner] .coz-nav-storage-text {\n  margin: 0 0 .1em 0;\n  font-weight: normal;\n  font-size: .875em;\n}\n\n\n[role=banner] .cozy-nav-storage-bar {\n    height: .5em;\n    margin: .2em 0 .1em 0;\n}\n\n\n[role=banner] .coz-drawer-wrapper {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100vw;\n  height: 100vh;\n  /* Prepare for transitions */\n  display: none;\n  visibility: visible;\n}\n\n\n[role=banner] .coz-drawer-wrapper[aria-hidden=false],\n[role=banner] .coz-drawer-wrapper.swipe-active {\n  display: block;\n}\n\n\n[role=banner] .coz-drawer-wrapper::before {\n  content: '';\n  display: block;\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background-color: #32363f;\n  opacity: 0;\n  transition: opacity 250ms ease-out;\n}\n\n\n[role=banner] .coz-drawer-wrapper[aria-hidden=false]::before {\n  opacity: .5;\n}\n\n\n[role=banner] .coz-drawer-wrapper aside {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 90%;\n  height: 100%;\n  display: flex;\n  flex-direction: column;\n  background-color: #fff;\n  transform: translateX(-100vw);\n  transition: transform 500ms ease-out;\n}\n\n\n[role=banner] .coz-drawer-wrapper[aria-hidden=false] aside {\n  transform: translateX(0);\n}\n\n\n[role=banner] .coz-drawer-wrapper ul {\n  margin: 0;\n  padding: .8em 0;\n  list-style-type: none;\n}\n\n\n[role=banner] .coz-drawer-wrapper nav hr {\n  margin: 0;\n  border: none;\n  border-bottom: solid 1px #d6d8da;\n}\n\n\n[role=banner] .coz-drawer-wrapper .coz-nav-icon {\n  margin-right: .5em;\n}\n\n\n[role=banner] .coz-drawer--apps h1 {\n  margin: 1.125em 1em 0;\n  font-size: 1em;\n  text-transform: capitalize;\n}\n\n\n[role=banner] .coz-drawer--apps ul {\n  display: flex;\n}\n\n\n[role=banner] .coz-drawer--apps [role=menuitem] {\n  display: flex;\n  flex-direction: column;\n  padding: 1em;\n  border-radius: 2px;\n}\n\n\n[role=banner] .coz-drawer--apps [role=menuitem]:hover {\n  background-color: rgba(25, 123, 255, 0.1);\n}\n\n\n[role=banner] .coz-drawer--apps li img {\n  margin-bottom: 1.125em;\n}\n\n\n[role=banner].coz-target--mobile {\n  padding-left: 1em;\n}\n\n\n.coz-bar-hidden {\n  position: absolute !important;\n  border: 0 !important;\n  width: 1px !important;\n  height: 1px !important;\n  overflow: hidden !important;\n  padding: 0 !important;\n  white-space: nowrap !important;\n  clip: rect(1px, 1px, 1px, 1px) !important;\n  clip-path: inset(50%) !important;\n}\n", ""]);
+	exports.push([module.id, "body {\n  display: flex;\n  flex-direction: column;\n  align-items: stretch;\n  width: 100vw;\n  height: 100vh;\n  overflow: hidden;\n}\n\n\n[role=application] {\n  display: flex;\n  height: inherit;\n  flex: 1 1 100vh;\n  overflow-y: auto;\n}\n\n\n[role=banner] .coz-sep-flex {\n  margin: 0;\n  border: none;\n  flex: 1 0;\n}\n\n\n[role=banner] [data-icon] {\n  background-repeat: no-repeat;\n  background-position: 0 50%;\n  padding-left: calc(16px + .5em)\n}\n\n\n[role=banner] [data-icon='icon-profile'] {\n  background-image: url(" + __webpack_require__(271) + ")\n}\n\n\n[role=banner] [data-icon='icon-connectedDevices'] {\n  background-image: url(" + __webpack_require__(272) + ")\n}\n\n\n[role=banner] [data-icon='icon-help'] {\n  background-image: url(" + __webpack_require__(273) + ")\n}\n\n\n[role=banner] [data-icon='icon-logout'] {\n  background-image: url(" + __webpack_require__(274) + ")\n}\n\n\n[role=banner] [data-icon='icon-email'] {\n  background-image: url(" + __webpack_require__(275) + ")\n}\n\n\n[role=banner] [data-icon='icon-storage'] {\n  background-image: url(" + __webpack_require__(276) + ")\n}\n\n\n[role=banner] [data-icon='icon-cog'] {\n  background-image: url(" + __webpack_require__(277) + ")\n}\n\n\n[role=banner] [data-icon='icon-hamburger'] {\n  background-image: url(" + __webpack_require__(278) + ")\n}\n\n\n[role=banner] [data-icon='icon-cube'] {\n  background-image: url(" + __webpack_require__(266) + ")\n}\n\n\n/* Spinner */\n\n\n@keyframes spin {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(359deg);\n  }\n}\n\n\n[role=banner] [aria-busy=true] {\n  position: relative;\n}\n\n\n[role=banner] [aria-busy=true]::after {\n  content: \"\";\n  position: absolute;\n  right: 0;\n  top: 0;\n  display: block;\n  width: 1em;\n  height: 1em;\n  background-position: center;\n  background-repeat: no-repeat;\n  background-size: cover;\n  background-image: url(" + __webpack_require__(279) + ");\n  animation: 1s linear infinite spin;\n}\n\n\n/* Progress bar */\n\n\n[role=banner] progress[value] {\n  /* Reset the default appearance */\n  appearance: none;\n  background-color: #f5f6f7;\n  border: solid 1px #d6d8da;\n  border-radius: 2px;\n  color: #297ef2;\n}\n\n\n[role=banner] progress[value]::-webkit-progress-bar {\n  background: #f5f6f7;\n  border-radius: 2px;\n}\n\n\n[role=banner] progress[value]::-webkit-progress-value {\n  background: #297ef2;\n  border-radius: 1px;\n}\n\n\n[role=banner] progress[value]::-moz-progress-bar {\n  background: #297ef2;\n  border-radius: 1px;\n}\n\n\n/* Errors */\n\n\n[role=banner] .coz-nav--error {\n  margin: 0 0 .1em 0;\n  font-weight: normal;\n  font-size: .875em;\n  color: #F52D2D;\n}\n\n\n[role=banner] {\n  position: relative;\n  z-index: 20;\n  min-height: 2.5em;\n  flex-shrink: 0;\n  display: flex;\n  align-items: stretch;\n  padding: 0 1.25em 0 1em;\n  box-shadow: inset 0 -1px 0 0 #d6d8da;\n  font-family: Lato, sans-serif;\n  font-size: 1rem;\n}\n\n\n@media (max-width: 48em) {\n  [role=banner] {\n    padding: 0 1em 0 0;\n  }\n\n  [role=banner][data-drawer-visible=true] {\n    /* Force the BAR to be above selection bar in mobile mode,\n     * only when drawer is opened\n     */\n    z-index: 31;\n  }\n}\n\n\n[role=banner] .coz-bar-title {\n  display: flex;\n  margin: 0;\n  align-items: center;\n  font-size: 1.5em;\n  font-weight: normal;\n  color: #32363f;\n}\n\n\n@media (max-width: 48em) {\n  [role=banner] .coz-bar-title {\n    font-size: 1.25em\n  }\n}\n\n\n[role=banner] .coz-bar-title img {\n  margin-right: .45em;\n}\n\n\n[role=banner] .coz-bar-title span {\n  margin-right: .25em;\n}\n\n\n[role=banner] .coz-bar-title strong {\n  font-weight: bold;\n}\n\n\n@media (max-width: 30em) {\n  [role=banner] .coz-bar-hide-sm {\n    display: none;\n  }\n\n  [role=banner] .coz-bar-title strong {\n    padding: 0;\n    text-transform: capitalize;\n  }\n}\n\n\n[role=banner] .coz-bar-burger {\n  width: 2.5em;\n  margin-right: 0.25em;\n  padding: 0;\n  border: none;\n  background-color: transparent;\n  background-position: center;\n}\n\n\n@media (min-width: 48.0625em) {\n  [role=banner] .coz-bar-burger,\n  [role=banner] .coz-drawer-wrapper {\n    display: none;\n  }\n}\n\n\n@media (max-width: 48em) {\n  [role=banner] .coz-bar-hide-sm {\n    display: none;\n  }\n}\n\n\n[role=banner] .coz-nav ul {\n  margin: 0;\n  padding: 0;\n  list-style-type: none;\n}\n\n\n[role=banner] .coz-nav > ul {\n  display: flex;\n}\n\n\n@media (max-width: 48em) {\n  [role=banner] .coz-nav {\n    display: none;\n  }\n}\n\n\n[role=banner] .coz-nav-section {\n  position: relative;\n}\n\n\n[role=banner] .coz-nav-section [aria-controls] {\n  display: flex;\n  align-items: baseline;\n  padding: 1.285em 1.5em;\n  font-size: .875em;\n  text-transform: uppercase;\n  color: #5d6165;\n  cursor: pointer;\n}\n\n\n[role=banner] .coz-nav-section [aria-controls]:hover {\n  background-color: #f5f6f7;\n  box-shadow: inset 0 -1px 0 0 #d6d8da;\n  color: #32363f;\n}\n\n\n[role=banner] .coz-nav-section [aria-controls]:focus {\n  background-color: #f5f6f7;\n  box-shadow: inset 0 -1px 0 0 #d6d8da;\n  color: #32363f;\n}\n\n\n[role=banner] [aria-controls][aria-busy]::after {\n  position: relative;\n  top: .12em;\n  margin-left: .5em;\n}\n\n\n[role=banner] [aria-controls][aria-busy=true] {\n  padding-right: 0;\n}\n\n\n[role=banner] .coz-nav-section [aria-controls][data-icon] {\n  padding-left: calc(1.25em + 16px + .5em);\n  background-position: 1.25em calc(50% - 1px);\n}\n\n\n[role=banner] .coz-nav-icon {\n  margin-right: .5em;\n}\n\n\n[role=banner] .coz-nav-pop[aria-hidden=true] {\n  display: none;\n}\n\n\n[role=banner] .coz-nav-pop {\n  position: absolute;\n  top: calc(100% - .5em);\n  right: 0;\n  box-sizing: border-box;\n  min-width: 100%;\n  background-color: #fff;\n  border-radius: 8px;\n  border: solid 1px rgba(50, 54, 63, 0.12);\n  box-shadow: 0 1px 3px 0 rgba(50, 54, 63, 0.19), 0 6px 18px 0 rgba(50, 54, 63, 0.19);\n}\n\n\n[role=banner] .coz-nav-pop ul {\n  padding: .5em 0;\n}\n\n\n[role=banner] .coz-nav-pop hr {\n  margin: 0;\n  border: none;\n  border-bottom: solid 1px #d6d8da;\n}\n\n\n[role=banner] .coz-nav-pop ul:last-of-type + hr {\n  display: none;\n}\n\n\n/* coz-nav-pop--apps slug is hashed coz-nav-pop--1612761714 */\n\n\n[role=banner] .coz-nav-pop--1612761714 .coz-nav-group:not(.coz-nav--error) {\n  display: flex;\n  padding: 0.75em;\n}\n\n\n[role=banner] .coz-nav-group.coz-nav--error {\n  padding: 0.75em;\n  min-width: 20em;\n}\n\n\n[role=banner] .coz-nav-pop--1612761714 .coz-nav-group a {\n  display: flex;\n  flex-direction: column;\n  padding: 1.25em;\n}\n\n\n[role=banner] .coz-nav-pop--1612761714 .coz-nav-group a img {\n  margin-bottom: .75em;\n}\n\n\n[role=banner] .blurry {\n  opacity: .5;\n  filter: blur(5px);\n}\n\n\n[role=banner] .coz-nav-item [role=menuitem] {\n  position: relative;\n  z-index: 0;\n  display: block;\n  box-sizing: border-box;\n  width: 100%;\n  padding: .5em 1.5em .5em calc(1.5em + 16px + .5em);\n  border: none;\n  align-items: center;\n  background-position: 1.5em 50%;\n  background-color: transparent;\n  text-align: left;\n  white-space: nowrap;\n  color: #32363f;\n  text-decoration: none;\n  outline: none;\n}\n\n\n/* Force pointer on clickable elements*/\n\n\n[role=banner] .coz-nav-item a[role=menuitem],\n[role=banner] .coz-nav-item button[role=menuitem] {\n  cursor: pointer;\n}\n\n\n/* Hover effect */\n\n\n[role=banner] .coz-nav-item a[role=menuitem]:hover:before {\n  content: '';\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  z-index: -1;\n  background-color: #f5f6f7;\n  background-image: inherit;\n  background-position: inherit;\n  background-repeat: inherit;\n}\n\n\n[role=banner] .coz-nav-item a[role=menuitem]:focus:before {\n  content: '';\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  z-index: -1;\n  background-color: #f5f6f7;\n  background-image: inherit;\n  background-position: inherit;\n  background-repeat: inherit;\n}\n\n\n[role=banner] .coz-nav-item button[role=menuitem]:hover:before {\n  content: '';\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  z-index: -1;\n  background-color: #f5f6f7;\n  background-image: inherit;\n  background-position: inherit;\n  background-repeat: inherit;\n}\n\n\n[role=banner] .coz-nav-item button[role=menuitem]:focus:before {\n  content: '';\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  z-index: -1;\n  background-color: #f5f6f7;\n  background-image: inherit;\n  background-position: inherit;\n  background-repeat: inherit;\n}\n\n\n[role=banner] [role=menuitem][aria-busy=true]::after {\n  right: 1.5em;\n  top: .5em;\n}\n\n\n[role=banner] [role=menuitem][data-icon=icon-storage] {\n  background-position: 1.5em calc(.5em + 1px);\n}\n\n\n[role=banner] .coz-nav-storage {\n  display: flex;\n  flex-direction: column;\n  align-items: left;\n  padding-top: .5em;\n  color: #95999d;\n}\n\n\n[role=banner] .coz-nav-storage-text {\n  margin: 0 0 .1em 0;\n  font-weight: normal;\n  font-size: .875em;\n}\n\n\n[role=banner] .cozy-nav-storage-bar {\n    height: .5em;\n    margin: .2em 0 .1em 0;\n}\n\n\n[role=banner] .coz-drawer-wrapper {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100vw;\n  height: 100vh;\n  /* Prepare for transitions */\n  display: none;\n  visibility: visible;\n}\n\n\n[role=banner] .coz-drawer-wrapper[aria-hidden=false],\n[role=banner] .coz-drawer-wrapper.swipe-active {\n  display: block;\n}\n\n\n[role=banner] .coz-drawer-wrapper::before {\n  content: '';\n  display: block;\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background-color: #32363f;\n  opacity: 0;\n  transition: opacity 250ms ease-out;\n}\n\n\n[role=banner] .coz-drawer-wrapper[aria-hidden=false]::before {\n  opacity: .5;\n}\n\n\n[role=banner] .coz-drawer-wrapper aside {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 90%;\n  height: 100%;\n  display: flex;\n  flex-direction: column;\n  background-color: #fff;\n  transform: translateX(-100vw);\n  transition: transform 500ms ease-out;\n}\n\n\n[role=banner] .coz-drawer-wrapper[aria-hidden=false] aside {\n  transform: translateX(0);\n}\n\n\n[role=banner] .coz-drawer-wrapper ul {\n  margin: 0;\n  padding: .8em 0;\n  list-style-type: none;\n}\n\n\n[role=banner] .coz-drawer-wrapper nav hr {\n  margin: 0;\n  border: none;\n  border-bottom: solid 1px #d6d8da;\n}\n\n\n[role=banner] .coz-drawer-wrapper .coz-nav-icon {\n  margin-right: .5em;\n}\n\n\n[role=banner] .coz-drawer--apps h1 {\n  margin: 1.125em 1em 0;\n  font-size: 1em;\n  text-transform: capitalize;\n}\n\n\n[role=banner] .coz-drawer--apps ul {\n  display: flex;\n}\n\n\n[role=banner] .coz-drawer--apps [role=menuitem] {\n  display: flex;\n  flex-direction: column;\n  padding: 1em;\n  border-radius: 2px;\n}\n\n\n[role=banner] .coz-drawer--apps [role=menuitem]:hover {\n  background-color: rgba(25, 123, 255, 0.1);\n}\n\n\n[role=banner] .coz-drawer--apps li img {\n  margin-bottom: 1.125em;\n}\n\n\n[role=banner].coz-target--mobile {\n  padding-left: 1em;\n}\n\n\n.coz-bar-hidden {\n  position: absolute !important;\n  border: 0 !important;\n  width: 1px !important;\n  height: 1px !important;\n  overflow: hidden !important;\n  padding: 0 !important;\n  white-space: nowrap !important;\n  clip: rect(1px, 1px, 1px, 1px) !important;\n  clip-path: inset(50%) !important;\n}\n", ""]);
 	
 	// exports
 

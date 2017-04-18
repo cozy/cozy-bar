@@ -185,7 +185,6 @@ body {
   align-items: center;
   font-size: 1.5em;
   font-weight: normal;
-  text-transform: lowercase;
   color: #32363f;
 }
 
@@ -202,8 +201,12 @@ body {
 }
 
 
+[role=banner] .coz-bar-title span {
+  margin-right: .25em;
+}
+
+
 [role=banner] .coz-bar-title strong {
-  padding-left: .25em;
   font-weight: bold;
 }
 
