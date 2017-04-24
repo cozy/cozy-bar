@@ -398,7 +398,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 	};
 	
-	module.exports = { init: init, version: ("3.0.0-beta17") };
+	module.exports = { init: init, version: ("3.0.0-beta18") };
 
 /***/ },
 /* 1 */
@@ -8729,18 +8729,24 @@ return /******/ (function(modules) { // webpackBootstrap
 							switch (_context.prev = _context.next) {
 								case 0:
 									config = this.get('config');
-									_context.next = 3;
+	
+									if (!(this.get('target') !== 'mobile')) {
+										_context.next = 6;
+										break;
+									}
+	
+									_context.next = 4;
 									return (0, _config.updateSettings)(config);
 	
-								case 3:
-									_context.next = 5;
+								case 4:
+									_context.next = 6;
 									return (0, _config.updateApps)(config);
 	
-								case 5:
+								case 6:
 	
 									this.set({ config: config });
 	
-								case 6:
+								case 7:
 								case 'end':
 									return _context.stop();
 							}
