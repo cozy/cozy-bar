@@ -49,8 +49,10 @@
     async onrender () {
       const config = this.get('config')
 
-      await updateSettings(config)
-      await updateApps(config)
+      if (this.get('target') !== 'mobile') {
+        await updateSettings(config)
+        await updateApps(config)
+      }
 
       this.set({ config })
     },
