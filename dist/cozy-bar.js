@@ -372,6 +372,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 	};
 	
+	var view = void 0;
+	
 	var init = function CozyBarInit() {
 	  var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
 	      _ref$lang = _ref.lang,
@@ -390,7 +392,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	  (0, _i18n2.default)(lang);
 	  _stack2.default.init({ cozyURL: cozyURL, token: token });
-	  var view = injectDOM({ lang: lang, appName: appName, appEditor: appEditor, iconPath: iconPath, replaceTitleOnMobile: replaceTitleOnMobile });
+	  view = injectDOM({ lang: lang, appName: appName, appEditor: appEditor, iconPath: iconPath, replaceTitleOnMobile: replaceTitleOnMobile });
 	
 	  if (view) {
 	    bindEvents.call(view);
@@ -398,7 +400,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 	};
 	
-	module.exports = { init: init, version: ("3.0.0-beta18") };
+	// set the cozy bar locale from the application
+	var setLocale = function SetLocale(lang) {
+	  if (!document.getElementById('coz-bar')) {
+	    return;
+	  }
+	  (0, _i18n.i18nSetLocale)(lang);
+	  view.set({ lang: lang });
+	};
+	
+	module.exports = { init: init, version: ("3.0.0-beta19"), setLocale: setLocale };
 
 /***/ },
 /* 1 */
@@ -6237,7 +6248,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.locale = exports.t = undefined;
+	exports.i18nSetLocale = exports.locale = exports.t = undefined;
 	
 	var _nodePolyglot = __webpack_require__(190);
 	
@@ -6266,12 +6277,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 	};
 	
+	var i18nSetLocale = function I18nSetLocale(lang) {
+	  try {
+	    var dict = __webpack_require__(214)("./" + lang);
+	    polyglot.extend(dict);
+	    polyglot.locale(lang);
+	  } catch (e) {
+	    console.warn('The dict phrases for "' + lang + '" can\'t be loaded');
+	  }
+	};
+	
 	var t = polyglot.t.bind(polyglot);
 	var locale = polyglot.locale.bind(polyglot);
 	
 	exports.default = init;
 	exports.t = t;
 	exports.locale = locale;
+	exports.i18nSetLocale = i18nSetLocale;
 
 /***/ },
 /* 190 */
@@ -8723,6 +8745,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	   */
 			onrender: function () {
 				var _ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee() {
+					var _this = this;
+	
 					var config;
 					return regeneratorRuntime.wrap(function _callee$(_context) {
 						while (1) {
@@ -8730,23 +8754,28 @@ return /******/ (function(modules) { // webpackBootstrap
 								case 0:
 									config = this.get('config');
 	
+	
+									this.observe('lang', function () {
+										_this.set({ config: config }); // force to rerender when locale change
+									});
+	
 									if (!(this.get('target') !== 'mobile')) {
-										_context.next = 6;
+										_context.next = 7;
 										break;
 									}
 	
-									_context.next = 4;
+									_context.next = 5;
 									return (0, _config.updateSettings)(config);
 	
-								case 4:
-									_context.next = 6;
+								case 5:
+									_context.next = 7;
 									return (0, _config.updateApps)(config);
 	
-								case 6:
+								case 7:
 	
 									this.set({ config: config });
 	
-								case 7:
+								case 8:
 								case 'end':
 									return _context.stop();
 							}
@@ -8889,6 +8918,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		var text = createText("\n\n");
 	
 		var h1 = createElement('h1');
+		h1.lang = root.lang;
 		h1.className = root.titleClass;
 	
 		var img = createElement('img');
@@ -8974,6 +9004,7 @@ return /******/ (function(modules) { // webpackBootstrap
 					if (ifBlock) ifBlock.mount(ifBlock_anchor.parentNode, ifBlock_anchor);
 				}
 	
+				h1.lang = root.lang;
 				h1.className = root.titleClass;
 	
 				img.src = root.iconPath;
@@ -10295,10 +10326,6 @@ return /******/ (function(modules) { // webpackBootstrap
 			state.hash = newState.hash = template.computed.hash(state.slug);
 		}
 	
-		if ('slug' in newState && _typeof(state.slug) === 'object' || state.slug !== oldState.slug) {
-			state.label = newState.label = template.computed.label(state.slug);
-		}
-	
 		if ('items' in newState && _typeof(state.items) === 'object' || state.items !== oldState.items) {
 			state.grouped = newState.grouped = template.computed.grouped(state.items);
 		}
@@ -10369,9 +10396,6 @@ return /******/ (function(modules) { // webpackBootstrap
 						return char.charCodeAt(0) + (hash << 5) + (hash << 16) - hash;
 					}, 0));
 				},
-				label: function label(slug) {
-					return (0, _i18n.t)(slug);
-				},
 				grouped: function grouped(items) {
 					return items[0] instanceof Array;
 				}
@@ -10439,7 +10463,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		setAttribute(a, 'data-icon', root.icon);
 	
 		appendNode(a, li);
-		var text = createText(root.label);
+		var text = createText(template.helpers.t(root.slug));
 		appendNode(text, a);
 		appendNode(createText("\n  "), li);
 		var ifBlock_anchor = createComment("#if items && items.length");
@@ -10465,7 +10489,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				setAttribute(a, 'aria-busy', root.busy);
 				setAttribute(a, 'data-icon', root.icon);
 	
-				text.data = root.label;
+				text.data = template.helpers.t(root.slug);
 	
 				var _currentBlock = currentBlock;
 				currentBlock = getBlock(root);
