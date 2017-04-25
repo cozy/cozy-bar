@@ -4,7 +4,7 @@
 </button>
 {{/if}}
 
-<h1 data-lang='{{lang}}' class='{{titleClass}}'>
+<h1 lang='{{lang}}' class='{{titleClass}}'>
   <img class='coz-bar-hide-sm' src='{{iconPath}}' width='32' />
   {{#if appEditor}}<span class='coz-bar-hide-sm'>{{appEditor}} </span>{{/if}}
   <strong>{{appName}}</strong>
