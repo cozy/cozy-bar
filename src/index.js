@@ -4,7 +4,7 @@
 
 import 'babel-polyfill'
 
-import i18n from './lib/i18n'
+import i18n, { i18nSetLocale } from './lib/i18n'
 import stack from './lib/stack'
 
 import BarView from './components/Bar'
@@ -127,6 +127,8 @@ const getDefaultIcon = function GetDefaultIcon () {
   }
 }
 
+let view
+
 const init = function CozyBarInit ({
   lang = getDefaultLang(),
   appName,
@@ -138,7 +140,7 @@ const init = function CozyBarInit ({
 } = {}) {
   i18n(lang)
   stack.init({cozyURL, token})
-  const view = injectDOM({lang, appName, appEditor, iconPath, replaceTitleOnMobile})
+  view = injectDOM({lang, appName, appEditor, iconPath, replaceTitleOnMobile})
 
   if (view) {
     bindEvents.call(view)
@@ -146,4 +148,11 @@ const init = function CozyBarInit ({
   }
 }
 
-module.exports = { init, version: __VERSION__ }
+// set the cozy bar locale from the application
+const setLocale = function SetLocale (lang) {
+  if (!document.getElementById('coz-bar')) { return }
+  i18nSetLocale(lang)
+  view.set({lang})
+}
+
+module.exports = { init, version: __VERSION__, setLocale }
