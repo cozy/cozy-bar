@@ -20,8 +20,18 @@ const init = function I18nInit (lang) {
   }
 }
 
+const i18nSetLocale = function I18nSetLocale (lang) {
+  try {
+    const dict = require(`../locales/${lang}`)
+    polyglot.extend(dict)
+    polyglot.locale(lang)
+  } catch (e) {
+    console.warn(`The dict phrases for "${lang}" can't be loaded`)
+  }
+}
+
 const t = polyglot.t.bind(polyglot)
 const locale = polyglot.locale.bind(polyglot)
 
 export default init
-export { t, locale }
+export { t, locale, i18nSetLocale }

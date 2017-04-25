@@ -4,7 +4,7 @@
 </button>
 {{/if}}
 
-<h1 class='{{titleClass}}'>
+<h1 data-lang='{{lang}}' class='{{titleClass}}'>
   <img class='coz-bar-hide-sm' src='{{iconPath}}' width='32' />
   {{#if appEditor}}<span class='coz-bar-hide-sm'>{{appEditor}} </span>{{/if}}
   <strong>{{appName}}</strong>
@@ -48,6 +48,10 @@
      */
     async onrender () {
       const config = this.get('config')
+
+      this.observe('lang', () => {
+        this.set({config}) // force to rerender when locale change
+      })
 
       if (this.get('target') !== 'mobile') {
         await updateSettings(config)

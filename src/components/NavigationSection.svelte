@@ -1,6 +1,6 @@
 <li class='coz-nav-section' on:click='dispatch(event)'>
   <a on:click='toggle()' aria-controls='{{`coz-nav-pop--${hash}`}}' aria-busy='{{busy}}' data-icon='{{icon}}'>
-    {{label}}
+    {{t(slug)}}
   </a>
   {{#if items && items.length}}
   <div class='{{`coz-nav-pop coz-nav-pop--${hash}`}}' id='{{`coz-nav-pop--${hash}`}}' aria-hidden={{closed}}>
@@ -79,7 +79,6 @@
     },
     computed: {
       hash: slug => Math.abs([].reduce.call(slug, (hash, char) => char.charCodeAt(0) + (hash << 5) + (hash << 16) - hash, 0)),
-      label: slug => t(slug),
       grouped: items => items[0] instanceof Array
     },
 
