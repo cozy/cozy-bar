@@ -409,7 +409,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  view.set({ lang: lang });
 	};
 	
-	module.exports = { init: init, version: ("3.0.0-beta20"), setLocale: setLocale };
+	module.exports = { init: init, version: ("3.0.0-beta21"), setLocale: setLocale };
 
 /***/ },
 /* 1 */
@@ -8009,19 +8009,19 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	module.exports = {
-		"drawer apps": "Your apps",
-		"apps": "Apps",
-		"settings": "Settings",
-		"menu": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
-		"help": "Help",
-		"email": "Send an email to support",
-		"logout": "Sign out",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack."
+		"drawer apps": "Ваши приложения",
+		"apps": "Приложения",
+		"settings": "Настройки",
+		"menu": "Показать панель меню",
+		"profile": "Профиль",
+		"connectedDevices": "Присоединённые устройства",
+		"storage": "Хранилище",
+		"storage_phrase": "%{diskUsage} ГБ из %{diskQuota} ГБ использовано",
+		"help": "Помощь",
+		"email": "Отправить письмо в поддержку",
+		"logout": "Выход",
+		"error_UnavailableStack": "Это стек не доступен (превышено время ожидания)",
+		"error_UnauthorizedStack": "Некоторые разрешения отсутствуют, получить доступ к запрашиваемому ресурсу в стеке не возможно."
 	};
 
 /***/ },
@@ -8029,19 +8029,19 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	module.exports = {
-		"drawer apps": "Your apps",
-		"apps": "Apps",
-		"settings": "Settings",
-		"menu": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
-		"help": "Help",
-		"email": "Send an email to support",
-		"logout": "Sign out",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack."
+		"drawer apps": "Ваши приложения",
+		"apps": "Приложения",
+		"settings": "Настройки",
+		"menu": "Показать панель меню",
+		"profile": "Профиль",
+		"connectedDevices": "Присоединённые устройства",
+		"storage": "Хранилище",
+		"storage_phrase": "%{diskUsage} ГБ из %{diskQuota} ГБ использовано",
+		"help": "Помощь",
+		"email": "Отправить письмо в поддержку",
+		"logout": "Выход",
+		"error_UnavailableStack": "Это стек не доступен (превышено время ожидания)",
+		"error_UnauthorizedStack": "Некоторые разрешения отсутствуют, получить доступ к запрашиваемому ресурсу в стеке не возможно."
 	};
 
 /***/ },
