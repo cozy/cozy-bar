@@ -68,8 +68,7 @@
   display: none;
 }
 
-/* coz-nav-pop--apps slug is hashed coz-nav-pop--1612761714 */
-[role=banner] .coz-nav-pop--1612761714 .coz-nav-group:not(.coz-nav--error) {
+[role=banner] .coz-nav-pop--apps .coz-nav-group:not(.coz-nav--error) {
   display: flex;
   padding: 0.75em;
 }
@@ -79,13 +78,13 @@
   min-width: 20em;
 }
 
-[role=banner] .coz-nav-pop--1612761714 .coz-nav-group a {
+[role=banner] .coz-nav-pop--apps .coz-nav-group a {
   display: flex;
   flex-direction: column;
   padding: 1.25em;
 }
 
-[role=banner] .coz-nav-pop--1612761714 .coz-nav-group a img {
+[role=banner] .coz-nav-pop--apps .coz-nav-group a img {
   margin-bottom: .75em;
 }
 
