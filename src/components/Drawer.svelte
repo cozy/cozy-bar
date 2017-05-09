@@ -2,7 +2,7 @@
   <aside ref:aside on:click='event.stopPropagation()'>
     <nav class='coz-drawer--apps'>
       <h1>{{t('drawer apps')}}</h1>
-      <NavigationGroup group='{{content}}' />
+      <NavigationGroup group='{{content}}' itemsLimit={{3}} />
     </nav>
     <hr class='coz-sep-flex' />
     <nav>

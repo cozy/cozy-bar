@@ -74,6 +74,14 @@
   display: flex;
 }
 
+[role=banner] .coz-drawer--apps ul li {
+  flex-basis: calc(100% / 3);
+}
+
+[role=banner] .coz-drawer--apps ul.--wrapping {
+  flex-wrap: wrap;
+}
+
 [role=banner] .coz-drawer--apps [role=menuitem] {
   display: flex;
   flex-direction: column;
