@@ -74,6 +74,17 @@
   display: flex;
 }
 
+[role=banner] .coz-drawer--apps .coz-drawer--apps-paginator {
+  display: flex;
+  flex-direction: row;
+  overflow: scroll;
+  padding-bottom: 1em;
+}
+
+[role=banner] .coz-drawer--apps .coz-drawer--apps-paginator ul {
+  min-width: 100%;
+}
+
 [role=banner] .coz-drawer--apps ul li {
   flex-basis: calc(100% / 3);
 }

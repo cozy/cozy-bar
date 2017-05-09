@@ -2,7 +2,16 @@
   <aside ref:aside on:click='event.stopPropagation()'>
     <nav class='coz-drawer--apps'>
       <h1>{{t('drawer apps')}}</h1>
-      <NavigationGroup group='{{content}}' itemsLimit={{3}} />
+      {{#if splitContentsArrays.length < 2}}
+        <NavigationGroup group='{{content}}' itemsLimit={{3}} />
+      {{else}}
+        <div class='coz-drawer--apps-paginator'>
+          {{#each splitContentsArrays as subgroup}}
+            <NavigationGroup group='{{subgroup}}' itemsLimit={{3}} />
+          {{/each}}
+        </div>
+      {{/if}}
+
     </nav>
     <hr class='coz-sep-flex' />
     <nav>
@@ -20,7 +29,21 @@
 
   let toggleDrawerObserver
 
+  const APPS_PAGINATION_LENGTH = 9
+
   export default {
+    computed: {
+      splitContentsArrays: content => {
+        let contentArrays = []
+        if (content.length > APPS_PAGINATION_LENGTH) {
+          while (content.length > 0) {
+            contentArrays.push(content.splice(0, APPS_PAGINATION_LENGTH))
+          }
+        }
+        return contentArrays
+      }
+    },
+
     onrender() {
       const SWIPE_CLASS = 'swipe-active'
 
