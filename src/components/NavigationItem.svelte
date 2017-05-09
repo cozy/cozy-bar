@@ -56,10 +56,14 @@
         if (!item.icon) { return `icon-${item.slug}` }
       },
       label: item => {
-        if (!item.name) { return }
-        const displayName = (item.editor ? (item.editor + ' ') : '') + item.name
-        if (item.l10n == null || item.l10n) { return t(displayName) }
-        else { return t(displayName) }
+        if (item.name) {
+            const displayName = (item.editor ? (item.editor + ' ') : '') + item.name
+            if (item.l10n == null || item.l10n) { return t(displayName) }
+            else { return displayName }
+        } else if (item.slug) {
+            if (item.l10n == null || item.l10n) { return t(item.slug) }
+            else { return item.slug }
+        }
       }
     },
 
