@@ -27,6 +27,8 @@ async function updateAppsItems (config) {
         }
 
         return {
+          editor: app.attributes.editor,
+          name: app.attributes.name,
           slug: app.attributes.slug,
           l10n: false,
           href: app.links.related,
