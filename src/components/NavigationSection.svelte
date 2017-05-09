@@ -13,7 +13,7 @@
     <NavigationGroup group='{{group}}' separator='bottom' />
     {{/each}}
   {{else}}
-    <NavigationGroup group='{{items}}' />
+    <NavigationGroup group='{{items}}' itemsLimit={{4}} />
   {{/if}}
   </div>
   {{/if}}
