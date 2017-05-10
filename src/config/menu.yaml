@@ -7,9 +7,7 @@ subsections:
   help:
     - slug: help
       external: true
-      href: https://docs.cozy.io/
-    - slug: email
-      href: mailto:contact@cozycloud.cc
+      href: https://mesinfos.fing.org/forum
   logout:
     - slug: logout
       action: logout
