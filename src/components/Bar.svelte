@@ -46,7 +46,7 @@
      * When loading the Bar component, we once force a first update of config
      * w/ settings and apps
      */
-    async onrender () {
+    async oncreate () {
       const config = this.get('config')
 
       this.observe('lang', () => {

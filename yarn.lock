@@ -2418,7 +2418,7 @@ loader-utils@0.2.x, loader-utils@^0.2.11, loader-utils@^0.2.16, loader-utils@^0.
     json5 "^0.5.0"
     object-assign "^4.0.1"
 
-loader-utils@^1.0.2:
+loader-utils@^1.0.2, loader-utils@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/loader-utils/-/loader-utils-1.1.0.tgz#c98aef488bcceda2ffb5e2de646d6a754429f5cd"
   dependencies:
@@ -2474,12 +2474,6 @@ lru-cache@^4.0.1:
 macaddress@^0.2.8:
   version "0.2.8"
   resolved "https://registry.yarnpkg.com/macaddress/-/macaddress-0.2.8.tgz#5904dc537c39ec6dbefeae902327135fa8511f12"
-
-magic-string@^0.19.0:
-  version "0.19.0"
-  resolved "https://registry.yarnpkg.com/magic-string/-/magic-string-0.19.0.tgz#198948217254e3e0b93080e01146b7c73b2a06b2"
-  dependencies:
-    vlq "^0.2.1"
 
 map-stream@~0.1.0:
   version "0.1.0"
@@ -3907,15 +3901,15 @@ supports-color@^3.1.0, supports-color@^3.1.1, supports-color@^3.1.2:
   dependencies:
     has-flag "^1.0.0"
 
-svelte-loader@^1.2.1:
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/svelte-loader/-/svelte-loader-1.2.1.tgz#727a9d80dbe1472d0291abef14493d5dab60aa93"
-
-svelte@^1.6.5:
-  version "1.6.5"
-  resolved "https://registry.yarnpkg.com/svelte/-/svelte-1.6.5.tgz#b7a9dcd29a654da498f6c8e439898b073ea0a983"
+svelte-loader@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/svelte-loader/-/svelte-loader-2.0.1.tgz#8a564690bb0c486389f798c5e5a5bdefdf56be86"
   dependencies:
-    magic-string "^0.19.0"
+    loader-utils "^1.1.0"
+
+svelte@^1.20.2:
+  version "1.20.2"
+  resolved "https://registry.yarnpkg.com/svelte/-/svelte-1.20.2.tgz#62cc3305414ca71197d00d846b970f79f9d21ae8"
 
 svg-sprite-loader@^0.2.0:
   version "0.2.0"
@@ -4148,10 +4142,6 @@ verror@1.3.6:
   resolved "https://registry.yarnpkg.com/verror/-/verror-1.3.6.tgz#cff5df12946d297d2baaefaa2689e25be01c005c"
   dependencies:
     extsprintf "1.0.2"
-
-vlq@^0.2.1:
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/vlq/-/vlq-0.2.1.tgz#14439d711891e682535467f8587c5630e4222a6c"
 
 vm-browserify@0.0.4:
   version "0.0.4"

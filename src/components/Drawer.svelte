@@ -44,7 +44,7 @@
       }
     },
 
-    onrender() {
+    oncreate() {
       const SWIPE_CLASS = 'swipe-active'
 
       /**
@@ -93,7 +93,7 @@
       toggleDrawerObserver = this.observe('visible', visible => { animateTo(!visible) })
     },
 
-    onteardown() {
+    ondestroy() {
       toggleDrawerObserver.cancel()
     },
 

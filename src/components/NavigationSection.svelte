@@ -81,7 +81,7 @@
       grouped: items => items[0] instanceof Array
     },
 
-    onrender () {
+    oncreate () {
       this.clickOutsideListener = this._root.on('clickOutside', event => {
         if (!event || event.source != this) { this.set({closed: true}) }
       })
@@ -93,7 +93,7 @@
       }
     },
 
-    onteardown () {
+    ondestroy () {
       this.clickOutsideListener.cancel()
       this.asyncObserver.cancel()
     },
