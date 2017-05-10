@@ -49,10 +49,6 @@ body {
   background-image: url(../assets/icons/16/icon-logout-16.svg)
 }
 
-[role=banner] [data-icon='icon-email'] {
-  background-image: url(../assets/icons/16/icon-email-16.svg)
-}
-
 [role=banner] [data-icon='icon-storage'] {
   background-image: url(../assets/icons/16/icon-storage-16.svg)
 }
