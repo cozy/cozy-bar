@@ -74,6 +74,26 @@
   display: flex;
 }
 
+[role=banner] .coz-drawer--apps .coz-drawer--apps-paginator {
+  display: flex;
+  flex-direction: row;
+  overflow: scroll;
+  padding-bottom: 1em;
+}
+
+[role=banner] .coz-drawer--apps .coz-drawer--apps-paginator ul {
+  min-width: 100%;
+}
+
+[role=banner] .coz-drawer--apps ul li {
+  flex: 0 0 calc(100% /3);
+  max-width: calc(100% / 3);
+}
+
+[role=banner] .coz-drawer--apps ul.coz-nav-group--wrapping {
+  flex-wrap: wrap;
+}
+
 [role=banner] .coz-drawer--apps [role=menuitem] {
   display: flex;
   flex-direction: column;
@@ -87,4 +107,14 @@
 
 [role=banner] .coz-drawer--apps li img {
   margin-bottom: 1.125em;
+}
+
+[role=banner] .coz-drawer--apps li p.coz-label {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  min-width: 0;
+  width: 100%;
+  text-align: center;
+  font-size: 14px;
 }

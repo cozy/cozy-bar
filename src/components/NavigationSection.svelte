@@ -1,9 +1,9 @@
 <li class='coz-nav-section' on:click='dispatch(event)'>
-  <a on:click='toggle()' aria-controls='{{`coz-nav-pop--${hash}`}}' aria-busy='{{busy}}' data-icon='{{icon}}'>
+  <a on:click='toggle()' aria-controls='{{`coz-nav-pop--${slug}`}}' aria-busy='{{busy}}' data-icon='{{icon}}'>
     {{t(slug)}}
   </a>
   {{#if items && items.length}}
-  <div class='{{`coz-nav-pop coz-nav-pop--${hash}`}}' id='{{`coz-nav-pop--${hash}`}}' aria-hidden={{closed}}>
+  <div class='{{`coz-nav-pop coz-nav-pop--${slug}`}}' id='{{`coz-nav-pop--${slug}`}}' aria-hidden={{closed}}>
   {{#if items[0].error}}
     <p class='coz-nav--error coz-nav-group'>
       {{t(`error_${items[0].error.name}`)}}
@@ -13,7 +13,7 @@
     <NavigationGroup group='{{group}}' separator='bottom' />
     {{/each}}
   {{else}}
-    <NavigationGroup group='{{items}}' />
+    <NavigationGroup group='{{items}}' itemsLimit={{4}} />
   {{/if}}
   </div>
   {{/if}}
@@ -78,7 +78,6 @@
       }
     },
     computed: {
-      hash: slug => Math.abs([].reduce.call(slug, (hash, char) => char.charCodeAt(0) + (hash << 5) + (hash << 16) - hash, 0)),
       grouped: items => items[0] instanceof Array
     },
 

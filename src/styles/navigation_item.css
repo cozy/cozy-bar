@@ -44,3 +44,8 @@
   right: 1.5em;
   top: .5em;
 }
+
+/* Remove default margin for p elements */
+[role=banner] .coz-nav-item a[role=menuitem] p.coz-label {
+    margin: 0;
+}

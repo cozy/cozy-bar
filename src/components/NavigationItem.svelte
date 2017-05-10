@@ -11,7 +11,7 @@
     {{#if fileIcon}}
     <img src='{{fileIcon.src}}' alt='' width='64' height='64' class='{{fileIcon.class ? fileIcon.class : ''}}' />
     {{/if}}
-    {{label}}
+    <p class='coz-label'>{{label}}</p>
   </a>
   {{elseif item.action}}
   <button role='menuitem' data-icon='{{dataIcon?dataIcon:""}}' on:click='proxy(item.action)'>
@@ -56,10 +56,14 @@
         if (!item.icon) { return `icon-${item.slug}` }
       },
       label: item => {
-        if (!item.name) { return }
-        const displayName = (item.editor ? (item.editor + ' ') : '') + item.name
-        if (item.l10n == null || item.l10n) { return t(displayName) }
-        else { return t(displayName) }
+        if (item.name) {
+            const displayName = (item.editor ? (item.editor + ' ') : '') + item.name
+            if (item.l10n == null || item.l10n) { return t(displayName) }
+            else { return displayName }
+        } else if (item.slug) {
+            if (item.l10n == null || item.l10n) { return t(item.slug) }
+            else { return item.slug }
+        }
       }
     },
 
