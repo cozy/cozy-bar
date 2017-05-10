@@ -78,6 +78,12 @@
   width: 40em;
 }
 
+@media (min-width: 48em) and (max-width: 51em) {
+    [role=banner] .coz-nav-pop.coz-nav-pop--apps {
+        right: -3em;
+    }
+}
+
 [role=banner] .coz-nav-pop--apps .coz-nav-group:not(.coz-nav--error) .coz-nav-item {
     width: 9em;
     padding: 0 .5em;
