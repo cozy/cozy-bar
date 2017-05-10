@@ -409,7 +409,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  view.set({ lang: lang });
 	};
 	
-	module.exports = { init: init, version: ("3.0.0-beta21"), setLocale: setLocale };
+	module.exports = { init: init, version: ("3.0.0-beta22"), setLocale: setLocale };
 
 /***/ },
 /* 1 */
@@ -7424,7 +7424,6 @@ return /******/ (function(modules) { // webpackBootstrap
 		"storage": "Storage",
 		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
-		"email": "Send an email to support",
 		"logout": "Sign out",
 		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
 		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack."
@@ -9386,6 +9385,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	                      case 10:
 	                        return _context.abrupt('return', {
+	                          editor: app.attributes.editor,
+	                          name: app.attributes.name,
 	                          slug: app.attributes.slug,
 	                          l10n: false,
 	                          href: app.links.related,
@@ -9990,11 +9991,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				{
 					"slug": "help",
 					"external": true,
-					"href": "https://docs.cozy.io/"
-				},
-				{
-					"slug": "email",
-					"href": "mailto:contact@cozycloud.cc"
+					"href": "https://mesinfos.fing.org/forum"
 				}
 			],
 			"logout": [
@@ -10322,10 +10319,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function applyComputations(state, newState, oldState) {
-		if ('slug' in newState && _typeof(state.slug) === 'object' || state.slug !== oldState.slug) {
-			state.hash = newState.hash = template.computed.hash(state.slug);
-		}
-	
 		if ('items' in newState && _typeof(state.items) === 'object' || state.items !== oldState.items) {
 			state.grouped = newState.grouped = template.computed.grouped(state.items);
 		}
@@ -10391,11 +10384,6 @@ return /******/ (function(modules) { // webpackBootstrap
 			},
 	
 			computed: {
-				hash: function hash(slug) {
-					return Math.abs([].reduce.call(slug, function (hash, char) {
-						return char.charCodeAt(0) + (hash << 5) + (hash << 16) - hash;
-					}, 0));
-				},
 				grouped: function grouped(items) {
 					return items[0] instanceof Array;
 				}
@@ -10458,7 +10446,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 		addEventListener(a, 'click', clickHandler1);
 	
-		setAttribute(a, 'aria-controls', 'coz-nav-pop--' + root.hash);
+		setAttribute(a, 'aria-controls', 'coz-nav-pop--' + root.slug);
 		setAttribute(a, 'aria-busy', root.busy);
 		setAttribute(a, 'data-icon', root.icon);
 	
@@ -10485,7 +10473,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			},
 	
 			update: function update(changed, root) {
-				setAttribute(a, 'aria-controls', 'coz-nav-pop--' + root.hash);
+				setAttribute(a, 'aria-controls', 'coz-nav-pop--' + root.slug);
 				setAttribute(a, 'aria-busy', root.busy);
 				setAttribute(a, 'data-icon', root.icon);
 	
@@ -10516,8 +10504,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	function renderIfBlock_0(root, component) {
 		var div = createElement('div');
-		div.className = 'coz-nav-pop coz-nav-pop--' + root.hash;
-		div.id = 'coz-nav-pop--' + root.hash;
+		div.className = 'coz-nav-pop coz-nav-pop--' + root.slug;
+		div.id = 'coz-nav-pop--' + root.slug;
 		setAttribute(div, 'aria-hidden', root.closed);
 	
 		var ifBlock1_anchor = createComment("#if items[0].error");
@@ -10540,8 +10528,8 @@ return /******/ (function(modules) { // webpackBootstrap
 			},
 	
 			update: function update(changed, root) {
-				div.className = 'coz-nav-pop coz-nav-pop--' + root.hash;
-				div.id = 'coz-nav-pop--' + root.hash;
+				div.className = 'coz-nav-pop coz-nav-pop--' + root.slug;
+				div.id = 'coz-nav-pop--' + root.slug;
 				setAttribute(div, 'aria-hidden', root.closed);
 	
 				var _currentBlock1 = currentBlock1;
@@ -10567,7 +10555,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	function renderIfBlock1_2(root, component) {
 		var navigationGroup_initialData = {
-			group: root.items
+			group: root.items,
+			itemsLimit: 4
 		};
 		var navigationGroup = new template.components.NavigationGroup({
 			target: null,
@@ -10584,6 +10573,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				var navigationGroup_changes = {};
 	
 				if ('items' in changed) navigationGroup_changes.group = root.items;
+				navigationGroup_changes.itemsLimit = 4;
 	
 				if (Object.keys(navigationGroup_changes).length) navigationGroup.set(navigationGroup_changes);
 			},
@@ -10882,10 +10872,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	function applyComputations(state, newState, oldState) {
+		if ('itemsLimit' in newState && _typeof(state.itemsLimit) === 'object' || state.itemsLimit !== oldState.itemsLimit || 'group' in newState && _typeof(state.group) === 'object' || state.group !== oldState.group) {
+			state.wrapping = newState.wrapping = template.computed.wrapping(state.itemsLimit, state.group);
+		}
+	}
+	
 	var template = function () {
 		return {
 			components: {
 				NavigationItem: _NavigationItem2.default
+			},
+			computed: {
+				wrapping: function wrapping(itemsLimit, group) {
+					if (!itemsLimit || !group.length) return false;
+					return group.length > itemsLimit;
+				}
 			}
 		};
 	}();
@@ -11003,7 +11005,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	function renderIfBlock1_0(root, component) {
 		var ul = createElement('ul');
-		ul.className = "coz-nav-group";
+		ul.className = '' + (root.wrapping ? "coz-nav-group coz-nav-group--wrapping" : "coz-nav-group");
 	
 		var eachBlock_anchor = createComment("#each group");
 		appendNode(eachBlock_anchor, ul);
@@ -11021,6 +11023,8 @@ return /******/ (function(modules) { // webpackBootstrap
 			},
 	
 			update: function update(changed, root) {
+				ul.className = '' + (root.wrapping ? "coz-nav-group coz-nav-group--wrapping" : "coz-nav-group");
+	
 				var eachBlock_value = root.group;
 	
 				for (var i = 0; i < eachBlock_value.length; i += 1) {
@@ -11098,6 +11102,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		options = options || {};
 
 		this._state = options.data || {};
+		applyComputations(this._state, this._state, {});
 
 		this._observers = {
 			pre: Object.create(null),
@@ -11167,6 +11172,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	SvelteComponent.prototype.set = function set(newState) {
 		var oldState = this._state;
 		this._state = Object.assign({}, oldState, newState);
+		applyComputations(this._state, newState, oldState);
 
 		dispatchObservers(this, this._observers.pre, newState, oldState);
 		if (this._fragment) this._fragment.update(newState, this._state);
@@ -11320,12 +11326,19 @@ return /******/ (function(modules) { // webpackBootstrap
 					}
 				},
 				label: function label(item) {
-					if (!item.slug) {
-						return;
-					} else if (item.l10n == null || item.l10n) {
-						return (0, _i18n.t)(item.slug);
-					} else {
-						return item.slug;
+					if (item.name) {
+						var displayName = (item.editor ? item.editor + ' ' : '') + item.name;
+						if (item.l10n == null || item.l10n) {
+							return (0, _i18n.t)(displayName);
+						} else {
+							return displayName;
+						}
+					} else if (item.slug) {
+						if (item.l10n == null || item.l10n) {
+							return (0, _i18n.t)(item.slug);
+						} else {
+							return item.slug;
+						}
 					}
 				}
 			},
@@ -11503,8 +11516,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 		if (ifBlock2) ifBlock2.mount(ifBlock2_anchor.parentNode, ifBlock2_anchor);
 		appendNode(createText("\n    "), a);
+	
+		var p = createElement('p');
+		p.className = "coz-label";
+	
+		appendNode(p, a);
 		var text1 = createText(root.label);
-		appendNode(text1, a);
+		appendNode(text1, p);
 	
 		return {
 			mount: function mount(target, anchor) {
@@ -12128,10 +12146,30 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	function applyComputations(state, newState, oldState) {
+		if ('content' in newState && _typeof(state.content) === 'object' || state.content !== oldState.content) {
+			state.splitContentsArrays = newState.splitContentsArrays = template.computed.splitContentsArrays(state.content);
+		}
+	}
+	
 	var template = function () {
 		var toggleDrawerObserver = void 0;
 	
+		var APPS_PAGINATION_LENGTH = 9;
+	
 		return {
+			computed: {
+				splitContentsArrays: function splitContentsArrays(content) {
+					var contentArrays = [];
+					if (content.length > APPS_PAGINATION_LENGTH) {
+						while (content.length > 0) {
+							contentArrays.push(content.splice(0, APPS_PAGINATION_LENGTH));
+						}
+					}
+					return contentArrays;
+				}
+			},
+	
 			onrender: function onrender() {
 				var _this = this;
 	
@@ -12232,16 +12270,18 @@ return /******/ (function(modules) { // webpackBootstrap
 		var text = createText(template.helpers.t('drawer apps'));
 		appendNode(text, h1);
 		appendNode(createText("\n      "), nav);
+		var ifBlock_anchor = createComment("#if splitContentsArrays.length < 2");
+		appendNode(ifBlock_anchor, nav);
 	
-		var navigationGroup_initialData = {
-			group: root.content
-		};
-		var navigationGroup = new template.components.NavigationGroup({
-			target: nav,
-			_root: component._root || component,
-			data: navigationGroup_initialData
-		});
+		function getBlock(root) {
+			if (root.splitContentsArrays.length < 2) return renderIfBlock_0;
+			return renderIfBlock_1;
+		}
 	
+		var currentBlock = getBlock(root);
+		var ifBlock = currentBlock && currentBlock(root, component);
+	
+		if (ifBlock) ifBlock.mount(ifBlock_anchor.parentNode, ifBlock_anchor);
 		appendNode(createText("\n    "), aside);
 	
 		var hr = createElement('hr');
@@ -12253,9 +12293,103 @@ return /******/ (function(modules) { // webpackBootstrap
 		var nav1 = createElement('nav');
 	
 		appendNode(nav1, aside);
-		var eachBlock_anchor = createComment("#each footer");
-		appendNode(eachBlock_anchor, nav1);
-		var eachBlock_value = root.footer;
+		var eachBlock1_anchor = createComment("#each footer");
+		appendNode(eachBlock1_anchor, nav1);
+		var eachBlock1_value = root.footer;
+		var eachBlock1_iterations = [];
+	
+		for (var i = 0; i < eachBlock1_value.length; i += 1) {
+			eachBlock1_iterations[i] = renderEachBlock1(root, eachBlock1_value, eachBlock1_value[i], i, component);
+			eachBlock1_iterations[i].mount(eachBlock1_anchor.parentNode, eachBlock1_anchor);
+		}
+	
+		return {
+			mount: function mount(target, anchor) {
+				insertNode(div, target, anchor);
+			},
+	
+			update: function update(changed, root) {
+				text.data = template.helpers.t('drawer apps');
+	
+				var _currentBlock = currentBlock;
+				currentBlock = getBlock(root);
+				if (_currentBlock === currentBlock && ifBlock) {
+					ifBlock.update(changed, root);
+				} else {
+					if (ifBlock) ifBlock.teardown(true);
+					ifBlock = currentBlock && currentBlock(root, component);
+					if (ifBlock) ifBlock.mount(ifBlock_anchor.parentNode, ifBlock_anchor);
+				}
+	
+				var eachBlock1_value = root.footer;
+	
+				for (var i = 0; i < eachBlock1_value.length; i += 1) {
+					if (!eachBlock1_iterations[i]) {
+						eachBlock1_iterations[i] = renderEachBlock1(root, eachBlock1_value, eachBlock1_value[i], i, component);
+						eachBlock1_iterations[i].mount(eachBlock1_anchor.parentNode, eachBlock1_anchor);
+					} else {
+						eachBlock1_iterations[i].update(changed, root, eachBlock1_value, eachBlock1_value[i], i);
+					}
+				}
+	
+				teardownEach(eachBlock1_iterations, true, eachBlock1_value.length);
+	
+				eachBlock1_iterations.length = eachBlock1_value.length;
+			},
+	
+			teardown: function teardown(detach) {
+				if (component.refs.wrapper === div) component.refs.wrapper = null;
+				removeEventListener(div, 'click', clickHandler);
+				if (component.refs.aside === aside) component.refs.aside = null;
+				removeEventListener(aside, 'click', clickHandler1);
+				if (ifBlock) ifBlock.teardown(false);
+	
+				teardownEach(eachBlock1_iterations, false);
+	
+				if (detach) {
+					detachNode(div);
+				}
+			}
+		};
+	}
+	
+	function renderEachBlock1(root, eachBlock1_value, group, group__index, component) {
+		var navigationGroup_initialData = {
+			separator: "top",
+			group: group
+		};
+		var navigationGroup = new template.components.NavigationGroup({
+			target: null,
+			_root: component._root || component,
+			data: navigationGroup_initialData
+		});
+	
+		return {
+			mount: function mount(target, anchor) {
+				navigationGroup._fragment.mount(target, anchor);
+			},
+	
+			update: function update(changed, root, eachBlock1_value, group, group__index) {
+				var navigationGroup_changes = {};
+	
+				if ('footer' in changed) navigationGroup_changes.group = group;
+	
+				if (Object.keys(navigationGroup_changes).length) navigationGroup.set(navigationGroup_changes);
+			},
+	
+			teardown: function teardown(detach) {
+				navigationGroup.teardown(detach);
+			}
+		};
+	}
+	
+	function renderIfBlock_1(root, component) {
+		var div = createElement('div');
+		div.className = "coz-drawer--apps-paginator";
+	
+		var eachBlock_anchor = createComment("#each splitContentsArrays");
+		appendNode(eachBlock_anchor, div);
+		var eachBlock_value = root.splitContentsArrays;
 		var eachBlock_iterations = [];
 	
 		for (var i = 0; i < eachBlock_value.length; i += 1) {
@@ -12269,15 +12403,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			},
 	
 			update: function update(changed, root) {
-				text.data = template.helpers.t('drawer apps');
-	
-				var navigationGroup_changes = {};
-	
-				if ('content' in changed) navigationGroup_changes.group = root.content;
-	
-				if (Object.keys(navigationGroup_changes).length) navigationGroup.set(navigationGroup_changes);
-	
-				var eachBlock_value = root.footer;
+				var eachBlock_value = root.splitContentsArrays;
 	
 				for (var i = 0; i < eachBlock_value.length; i += 1) {
 					if (!eachBlock_iterations[i]) {
@@ -12294,12 +12420,6 @@ return /******/ (function(modules) { // webpackBootstrap
 			},
 
 			teardown: function teardown(detach) {
-				if (component.refs.wrapper === div) component.refs.wrapper = null;
-				removeEventListener(div, 'click', clickHandler);
-				if (component.refs.aside === aside) component.refs.aside = null;
-				removeEventListener(aside, 'click', clickHandler1);
-				navigationGroup.teardown(false);
-
 				teardownEach(eachBlock_iterations, false);
 
 				if (detach) {
@@ -12309,10 +12429,10 @@ return /******/ (function(modules) { // webpackBootstrap
 		};
 	}
 
-	function renderEachBlock(root, eachBlock_value, group, group__index, component) {
+	function renderEachBlock(root, eachBlock_value, subgroup, subgroup__index, component) {
 		var navigationGroup_initialData = {
-			separator: "top",
-			group: group
+			group: subgroup,
+			itemsLimit: 3
 		};
 		var navigationGroup = new template.components.NavigationGroup({
 			target: null,
@@ -12325,10 +12445,42 @@ return /******/ (function(modules) { // webpackBootstrap
 				navigationGroup._fragment.mount(target, anchor);
 			},
 
-			update: function update(changed, root, eachBlock_value, group, group__index) {
+			update: function update(changed, root, eachBlock_value, subgroup, subgroup__index) {
 				var navigationGroup_changes = {};
 
-				if ('footer' in changed) navigationGroup_changes.group = group;
+				if ('splitContentsArrays' in changed) navigationGroup_changes.group = subgroup;
+				navigationGroup_changes.itemsLimit = 3;
+
+				if (Object.keys(navigationGroup_changes).length) navigationGroup.set(navigationGroup_changes);
+			},
+
+			teardown: function teardown(detach) {
+				navigationGroup.teardown(detach);
+			}
+		};
+	}
+
+	function renderIfBlock_0(root, component) {
+		var navigationGroup_initialData = {
+			group: root.content,
+			itemsLimit: 3
+		};
+		var navigationGroup = new template.components.NavigationGroup({
+			target: null,
+			_root: component._root || component,
+			data: navigationGroup_initialData
+		});
+
+		return {
+			mount: function mount(target, anchor) {
+				navigationGroup._fragment.mount(target, anchor);
+			},
+
+			update: function update(changed, root) {
+				var navigationGroup_changes = {};
+
+				if ('content' in changed) navigationGroup_changes.group = root.content;
+				navigationGroup_changes.itemsLimit = 3;
 
 				if (Object.keys(navigationGroup_changes).length) navigationGroup.set(navigationGroup_changes);
 			},
@@ -12344,6 +12496,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 		this.refs = {};
 		this._state = options.data || {};
+		applyComputations(this._state, this._state, {});
 
 		this._observers = {
 			pre: Object.create(null),
@@ -12419,6 +12572,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	SvelteComponent.prototype.set = function set(newState) {
 		var oldState = this._state;
 		this._state = Object.assign({}, oldState, newState);
+		applyComputations(this._state, newState, oldState);
 
 		dispatchObservers(this, this._observers.pre, newState, oldState);
 		if (this._fragment) this._fragment.update(newState, this._state);

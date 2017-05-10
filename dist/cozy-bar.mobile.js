@@ -409,7 +409,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  view.set({ lang: lang });
 	};
 	
-	module.exports = { init: init, version: ("3.0.0-beta21"), setLocale: setLocale };
+	module.exports = { init: init, version: ("3.0.0-beta22"), setLocale: setLocale };
 
 /***/ },
 /* 1 */
@@ -7424,7 +7424,6 @@ return /******/ (function(modules) { // webpackBootstrap
 		"storage": "Storage",
 		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
-		"email": "Send an email to support",
 		"logout": "Sign out",
 		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
 		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack."
@@ -9386,6 +9385,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	                      case 10:
 	                        return _context.abrupt('return', {
+	                          editor: app.attributes.editor,
+	                          name: app.attributes.name,
 	                          slug: app.attributes.slug,
 	                          l10n: false,
 	                          href: app.links.related,
@@ -9990,11 +9991,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				{
 					"slug": "help",
 					"external": true,
-					"href": "https://docs.cozy.io/"
-				},
-				{
-					"slug": "email",
-					"href": "mailto:contact@cozycloud.cc"
+					"href": "https://mesinfos.fing.org/forum"
 				}
 			],
 			"logout": [
@@ -10322,10 +10319,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function applyComputations(state, newState, oldState) {
-		if ('slug' in newState && _typeof(state.slug) === 'object' || state.slug !== oldState.slug) {
-			state.hash = newState.hash = template.computed.hash(state.slug);
-		}
-	
 		if ('items' in newState && _typeof(state.items) === 'object' || state.items !== oldState.items) {
 			state.grouped = newState.grouped = template.computed.grouped(state.items);
 		}
@@ -10391,11 +10384,6 @@ return /******/ (function(modules) { // webpackBootstrap
 			},
 	
 			computed: {
-				hash: function hash(slug) {
-					return Math.abs([].reduce.call(slug, function (hash, char) {
-						return char.charCodeAt(0) + (hash << 5) + (hash << 16) - hash;
-					}, 0));
-				},
 				grouped: function grouped(items) {
 					return items[0] instanceof Array;
 				}
@@ -10458,7 +10446,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 		addEventListener(a, 'click', clickHandler1);
 	
-		setAttribute(a, 'aria-controls', 'coz-nav-pop--' + root.hash);
+		setAttribute(a, 'aria-controls', 'coz-nav-pop--' + root.slug);
 		setAttribute(a, 'aria-busy', root.busy);
 		setAttribute(a, 'data-icon', root.icon);
 	
@@ -10485,7 +10473,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			},
 	
 			update: function update(changed, root) {
-				setAttribute(a, 'aria-controls', 'coz-nav-pop--' + root.hash);
+				setAttribute(a, 'aria-controls', 'coz-nav-pop--' + root.slug);
 				setAttribute(a, 'aria-busy', root.busy);
 				setAttribute(a, 'data-icon', root.icon);
 	
@@ -10516,8 +10504,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	function renderIfBlock_0(root, component) {
 		var div = createElement('div');
-		div.className = 'coz-nav-pop coz-nav-pop--' + root.hash;
-		div.id = 'coz-nav-pop--' + root.hash;
+		div.className = 'coz-nav-pop coz-nav-pop--' + root.slug;
+		div.id = 'coz-nav-pop--' + root.slug;
 		setAttribute(div, 'aria-hidden', root.closed);
 	
 		var ifBlock1_anchor = createComment("#if items[0].error");
@@ -10540,8 +10528,8 @@ return /******/ (function(modules) { // webpackBootstrap
 			},
 	
 			update: function update(changed, root) {
-				div.className = 'coz-nav-pop coz-nav-pop--' + root.hash;
-				div.id = 'coz-nav-pop--' + root.hash;
+				div.className = 'coz-nav-pop coz-nav-pop--' + root.slug;
+				div.id = 'coz-nav-pop--' + root.slug;
 				setAttribute(div, 'aria-hidden', root.closed);
 	
 				var _currentBlock1 = currentBlock1;
@@ -10567,7 +10555,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	function renderIfBlock1_2(root, component) {
 		var navigationGroup_initialData = {
-			group: root.items
+			group: root.items,
+			itemsLimit: 4
 		};
 		var navigationGroup = new template.components.NavigationGroup({
 			target: null,
@@ -10584,6 +10573,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				var navigationGroup_changes = {};
 	
 				if ('items' in changed) navigationGroup_changes.group = root.items;
+				navigationGroup_changes.itemsLimit = 4;
 	
 				if (Object.keys(navigationGroup_changes).length) navigationGroup.set(navigationGroup_changes);
 			},
@@ -10882,10 +10872,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	function applyComputations(state, newState, oldState) {
+		if ('itemsLimit' in newState && _typeof(state.itemsLimit) === 'object' || state.itemsLimit !== oldState.itemsLimit || 'group' in newState && _typeof(state.group) === 'object' || state.group !== oldState.group) {
+			state.wrapping = newState.wrapping = template.computed.wrapping(state.itemsLimit, state.group);
+		}
+	}
+	
 	var template = function () {
 		return {
 			components: {
 				NavigationItem: _NavigationItem2.default
+			},
+			computed: {
+				wrapping: function wrapping(itemsLimit, group) {
+					if (!itemsLimit || !group.length) return false;
+					return group.length > itemsLimit;
+				}
 			}
 		};
 	}();
@@ -11003,7 +11005,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	function renderIfBlock1_0(root, component) {
 		var ul = createElement('ul');
-		ul.className = "coz-nav-group";
+		ul.className = '' + (root.wrapping ? "coz-nav-group coz-nav-group--wrapping" : "coz-nav-group");
 	
 		var eachBlock_anchor = createComment("#each group");
 		appendNode(eachBlock_anchor, ul);
@@ -11021,6 +11023,8 @@ return /******/ (function(modules) { // webpackBootstrap
 			},
 	
 			update: function update(changed, root) {
+				ul.className = '' + (root.wrapping ? "coz-nav-group coz-nav-group--wrapping" : "coz-nav-group");
+	
 				var eachBlock_value = root.group;
 	
 				for (var i = 0; i < eachBlock_value.length; i += 1) {
@@ -11098,6 +11102,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		options = options || {};
 
 		this._state = options.data || {};
+		applyComputations(this._state, this._state, {});
 
 		this._observers = {
 			pre: Object.create(null),
@@ -11167,6 +11172,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	SvelteComponent.prototype.set = function set(newState) {
 		var oldState = this._state;
 		this._state = Object.assign({}, oldState, newState);
+		applyComputations(this._state, newState, oldState);
 
 		dispatchObservers(this, this._observers.pre, newState, oldState);
 		if (this._fragment) this._fragment.update(newState, this._state);
@@ -11320,12 +11326,19 @@ return /******/ (function(modules) { // webpackBootstrap
 					}
 				},
 				label: function label(item) {
-					if (!item.slug) {
-						return;
-					} else if (item.l10n == null || item.l10n) {
-						return (0, _i18n.t)(item.slug);
-					} else {
-						return item.slug;
+					if (item.name) {
+						var displayName = (item.editor ? item.editor + ' ' : '') + item.name;
+						if (item.l10n == null || item.l10n) {
+							return (0, _i18n.t)(displayName);
+						} else {
+							return displayName;
+						}
+					} else if (item.slug) {
+						if (item.l10n == null || item.l10n) {
+							return (0, _i18n.t)(item.slug);
+						} else {
+							return item.slug;
+						}
 					}
 				}
 			},
@@ -11503,8 +11516,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 		if (ifBlock2) ifBlock2.mount(ifBlock2_anchor.parentNode, ifBlock2_anchor);
 		appendNode(createText("\n    "), a);
+	
+		var p = createElement('p');
+		p.className = "coz-label";
+	
+		appendNode(p, a);
 		var text1 = createText(root.label);
-		appendNode(text1, a);
+		appendNode(text1, p);
 	
 		return {
 			mount: function mount(target, anchor) {
@@ -12128,10 +12146,30 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	function applyComputations(state, newState, oldState) {
+		if ('content' in newState && _typeof(state.content) === 'object' || state.content !== oldState.content) {
+			state.splitContentsArrays = newState.splitContentsArrays = template.computed.splitContentsArrays(state.content);
+		}
+	}
+	
 	var template = function () {
 		var toggleDrawerObserver = void 0;
 	
+		var APPS_PAGINATION_LENGTH = 9;
+	
 		return {
+			computed: {
+				splitContentsArrays: function splitContentsArrays(content) {
+					var contentArrays = [];
+					if (content.length > APPS_PAGINATION_LENGTH) {
+						while (content.length > 0) {
+							contentArrays.push(content.splice(0, APPS_PAGINATION_LENGTH));
+						}
+					}
+					return contentArrays;
+				}
+			},
+	
 			onrender: function onrender() {
 				var _this = this;
 	
@@ -12232,16 +12270,18 @@ return /******/ (function(modules) { // webpackBootstrap
 		var text = createText(template.helpers.t('drawer apps'));
 		appendNode(text, h1);
 		appendNode(createText("\n      "), nav);
+		var ifBlock_anchor = createComment("#if splitContentsArrays.length < 2");
+		appendNode(ifBlock_anchor, nav);
 	
-		var navigationGroup_initialData = {
-			group: root.content
-		};
-		var navigationGroup = new template.components.NavigationGroup({
-			target: nav,
-			_root: component._root || component,
-			data: navigationGroup_initialData
-		});
+		function getBlock(root) {
+			if (root.splitContentsArrays.length < 2) return renderIfBlock_0;
+			return renderIfBlock_1;
+		}
 	
+		var currentBlock = getBlock(root);
+		var ifBlock = currentBlock && currentBlock(root, component);
+	
+		if (ifBlock) ifBlock.mount(ifBlock_anchor.parentNode, ifBlock_anchor);
 		appendNode(createText("\n    "), aside);
 	
 		var hr = createElement('hr');
@@ -12253,9 +12293,103 @@ return /******/ (function(modules) { // webpackBootstrap
 		var nav1 = createElement('nav');
 	
 		appendNode(nav1, aside);
-		var eachBlock_anchor = createComment("#each footer");
-		appendNode(eachBlock_anchor, nav1);
-		var eachBlock_value = root.footer;
+		var eachBlock1_anchor = createComment("#each footer");
+		appendNode(eachBlock1_anchor, nav1);
+		var eachBlock1_value = root.footer;
+		var eachBlock1_iterations = [];
+	
+		for (var i = 0; i < eachBlock1_value.length; i += 1) {
+			eachBlock1_iterations[i] = renderEachBlock1(root, eachBlock1_value, eachBlock1_value[i], i, component);
+			eachBlock1_iterations[i].mount(eachBlock1_anchor.parentNode, eachBlock1_anchor);
+		}
+	
+		return {
+			mount: function mount(target, anchor) {
+				insertNode(div, target, anchor);
+			},
+	
+			update: function update(changed, root) {
+				text.data = template.helpers.t('drawer apps');
+	
+				var _currentBlock = currentBlock;
+				currentBlock = getBlock(root);
+				if (_currentBlock === currentBlock && ifBlock) {
+					ifBlock.update(changed, root);
+				} else {
+					if (ifBlock) ifBlock.teardown(true);
+					ifBlock = currentBlock && currentBlock(root, component);
+					if (ifBlock) ifBlock.mount(ifBlock_anchor.parentNode, ifBlock_anchor);
+				}
+	
+				var eachBlock1_value = root.footer;
+	
+				for (var i = 0; i < eachBlock1_value.length; i += 1) {
+					if (!eachBlock1_iterations[i]) {
+						eachBlock1_iterations[i] = renderEachBlock1(root, eachBlock1_value, eachBlock1_value[i], i, component);
+						eachBlock1_iterations[i].mount(eachBlock1_anchor.parentNode, eachBlock1_anchor);
+					} else {
+						eachBlock1_iterations[i].update(changed, root, eachBlock1_value, eachBlock1_value[i], i);
+					}
+				}
+	
+				teardownEach(eachBlock1_iterations, true, eachBlock1_value.length);
+	
+				eachBlock1_iterations.length = eachBlock1_value.length;
+			},
+	
+			teardown: function teardown(detach) {
+				if (component.refs.wrapper === div) component.refs.wrapper = null;
+				removeEventListener(div, 'click', clickHandler);
+				if (component.refs.aside === aside) component.refs.aside = null;
+				removeEventListener(aside, 'click', clickHandler1);
+				if (ifBlock) ifBlock.teardown(false);
+	
+				teardownEach(eachBlock1_iterations, false);
+	
+				if (detach) {
+					detachNode(div);
+				}
+			}
+		};
+	}
+	
+	function renderEachBlock1(root, eachBlock1_value, group, group__index, component) {
+		var navigationGroup_initialData = {
+			separator: "top",
+			group: group
+		};
+		var navigationGroup = new template.components.NavigationGroup({
+			target: null,
+			_root: component._root || component,
+			data: navigationGroup_initialData
+		});
+	
+		return {
+			mount: function mount(target, anchor) {
+				navigationGroup._fragment.mount(target, anchor);
+			},
+	
+			update: function update(changed, root, eachBlock1_value, group, group__index) {
+				var navigationGroup_changes = {};
+	
+				if ('footer' in changed) navigationGroup_changes.group = group;
+	
+				if (Object.keys(navigationGroup_changes).length) navigationGroup.set(navigationGroup_changes);
+			},
+	
+			teardown: function teardown(detach) {
+				navigationGroup.teardown(detach);
+			}
+		};
+	}
+	
+	function renderIfBlock_1(root, component) {
+		var div = createElement('div');
+		div.className = "coz-drawer--apps-paginator";
+	
+		var eachBlock_anchor = createComment("#each splitContentsArrays");
+		appendNode(eachBlock_anchor, div);
+		var eachBlock_value = root.splitContentsArrays;
 		var eachBlock_iterations = [];
 	
 		for (var i = 0; i < eachBlock_value.length; i += 1) {
@@ -12269,15 +12403,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			},
 	
 			update: function update(changed, root) {
-				text.data = template.helpers.t('drawer apps');
-	
-				var navigationGroup_changes = {};
-	
-				if ('content' in changed) navigationGroup_changes.group = root.content;
-	
-				if (Object.keys(navigationGroup_changes).length) navigationGroup.set(navigationGroup_changes);
-	
-				var eachBlock_value = root.footer;
+				var eachBlock_value = root.splitContentsArrays;
 	
 				for (var i = 0; i < eachBlock_value.length; i += 1) {
 					if (!eachBlock_iterations[i]) {
@@ -12294,12 +12420,6 @@ return /******/ (function(modules) { // webpackBootstrap
 			},
 
 			teardown: function teardown(detach) {
-				if (component.refs.wrapper === div) component.refs.wrapper = null;
-				removeEventListener(div, 'click', clickHandler);
-				if (component.refs.aside === aside) component.refs.aside = null;
-				removeEventListener(aside, 'click', clickHandler1);
-				navigationGroup.teardown(false);
-
 				teardownEach(eachBlock_iterations, false);
 
 				if (detach) {
@@ -12309,10 +12429,10 @@ return /******/ (function(modules) { // webpackBootstrap
 		};
 	}
 
-	function renderEachBlock(root, eachBlock_value, group, group__index, component) {
+	function renderEachBlock(root, eachBlock_value, subgroup, subgroup__index, component) {
 		var navigationGroup_initialData = {
-			separator: "top",
-			group: group
+			group: subgroup,
+			itemsLimit: 3
 		};
 		var navigationGroup = new template.components.NavigationGroup({
 			target: null,
@@ -12325,10 +12445,42 @@ return /******/ (function(modules) { // webpackBootstrap
 				navigationGroup._fragment.mount(target, anchor);
 			},
 
-			update: function update(changed, root, eachBlock_value, group, group__index) {
+			update: function update(changed, root, eachBlock_value, subgroup, subgroup__index) {
 				var navigationGroup_changes = {};
 
-				if ('footer' in changed) navigationGroup_changes.group = group;
+				if ('splitContentsArrays' in changed) navigationGroup_changes.group = subgroup;
+				navigationGroup_changes.itemsLimit = 3;
+
+				if (Object.keys(navigationGroup_changes).length) navigationGroup.set(navigationGroup_changes);
+			},
+
+			teardown: function teardown(detach) {
+				navigationGroup.teardown(detach);
+			}
+		};
+	}
+
+	function renderIfBlock_0(root, component) {
+		var navigationGroup_initialData = {
+			group: root.content,
+			itemsLimit: 3
+		};
+		var navigationGroup = new template.components.NavigationGroup({
+			target: null,
+			_root: component._root || component,
+			data: navigationGroup_initialData
+		});
+
+		return {
+			mount: function mount(target, anchor) {
+				navigationGroup._fragment.mount(target, anchor);
+			},
+
+			update: function update(changed, root) {
+				var navigationGroup_changes = {};
+
+				if ('content' in changed) navigationGroup_changes.group = root.content;
+				navigationGroup_changes.itemsLimit = 3;
 
 				if (Object.keys(navigationGroup_changes).length) navigationGroup.set(navigationGroup_changes);
 			},
@@ -12344,6 +12496,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 		this.refs = {};
 		this._state = options.data || {};
+		applyComputations(this._state, this._state, {});
 
 		this._observers = {
 			pre: Object.create(null),
@@ -12419,6 +12572,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	SvelteComponent.prototype.set = function set(newState) {
 		var oldState = this._state;
 		this._state = Object.assign({}, oldState, newState);
+		applyComputations(this._state, newState, oldState);
 
 		dispatchObservers(this, this._observers.pre, newState, oldState);
 		if (this._fragment) this._fragment.update(newState, this._state);
@@ -12513,7 +12667,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var content = __webpack_require__(269);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(280)(content, {});
+	var update = __webpack_require__(279)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -12538,7 +12692,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	
 	// module
-	exports.push([module.id, "html {\n  height: 100%;\n}\n\nbody {\n  display: flex;\n  flex-direction: column;\n  align-items: stretch;\n  width: 100vw;\n  height: 100%;\n  overflow: hidden;\n}\n\n[role=application] {\n  display: flex;\n  height: inherit;\n  flex: 1 1 100%;\n  overflow-y: auto;\n}\n\n[role=banner] .coz-sep-flex {\n  margin: 0;\n  border: none;\n  flex: 1 0;\n}\n\n[role=banner] [data-icon] {\n  background-repeat: no-repeat;\n  background-position: 0 50%;\n  padding-left: calc(16px + .5em)\n}\n\n[role=banner] [data-icon='icon-profile'] {\n  background-image: url(" + __webpack_require__(271) + ")\n}\n\n[role=banner] [data-icon='icon-connectedDevices'] {\n  background-image: url(" + __webpack_require__(272) + ")\n}\n\n[role=banner] [data-icon='icon-help'] {\n  background-image: url(" + __webpack_require__(273) + ")\n}\n\n[role=banner] [data-icon='icon-logout'] {\n  background-image: url(" + __webpack_require__(274) + ")\n}\n\n[role=banner] [data-icon='icon-email'] {\n  background-image: url(" + __webpack_require__(275) + ")\n}\n\n[role=banner] [data-icon='icon-storage'] {\n  background-image: url(" + __webpack_require__(276) + ")\n}\n\n[role=banner] [data-icon='icon-cog'] {\n  background-image: url(" + __webpack_require__(277) + ")\n}\n\n[role=banner] [data-icon='icon-hamburger'] {\n  background-image: url(" + __webpack_require__(278) + ")\n}\n\n[role=banner] [data-icon='icon-cube'] {\n  background-image: url(" + __webpack_require__(266) + ")\n}\n\n/* Spinner */\n\n@keyframes spin {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(359deg);\n  }\n}\n\n[role=banner] [aria-busy=true] {\n  position: relative;\n}\n\n[role=banner] [aria-busy=true]::after {\n  content: \"\";\n  position: absolute;\n  right: 0;\n  top: 0;\n  display: block;\n  width: 1em;\n  height: 1em;\n  background-position: center;\n  background-repeat: no-repeat;\n  background-size: cover;\n  background-image: url(" + __webpack_require__(279) + ");\n  animation: 1s linear infinite spin;\n}\n\n/* Progress bar */\n\n[role=banner] progress[value] {\n  /* Reset the default appearance */\n  appearance: none;\n  background-color: #f5f6f7;\n  border: solid 1px #d6d8da;\n  border-radius: 2px;\n  color: #297ef2;\n}\n\n[role=banner] progress[value]::-webkit-progress-bar {\n  background: #f5f6f7;\n  border-radius: 2px;\n}\n\n[role=banner] progress[value]::-webkit-progress-value {\n  background: #297ef2;\n  border-radius: 1px;\n}\n\n[role=banner] progress[value]::-moz-progress-bar {\n  background: #297ef2;\n  border-radius: 1px;\n}\n\n/* Errors */\n\n[role=banner] .coz-nav--error {\n  margin: 0 0 .1em 0;\n  font-weight: normal;\n  font-size: .875em;\n  color: #F52D2D;\n}\n\n[role=banner] {\n  position: relative;\n  z-index: 20;\n  min-height: 3em;\n  flex-shrink: 0;\n  display: flex;\n  align-items: stretch;\n  padding: 0 1.25em 0 1em;\n  box-shadow: inset 0 -1px 0 0 #d6d8da;\n  font-family: Lato, sans-serif;\n  font-size: 1rem;\n}\n\n@media (max-width: 48em) {\n  [role=banner] {\n    padding: 0 1em 0 0;\n  }\n\n  [role=banner][data-drawer-visible=true] {\n    /* Force the BAR to be above selection bar in mobile mode,\n     * only when drawer is opened\n     */\n    z-index: 31;\n  }\n}\n\n[role=banner] .coz-bar-title {\n  display: flex;\n  margin: 0;\n  align-items: center;\n  font-size: 1.5em;\n  font-weight: normal;\n  color: #32363f;\n}\n\n@media (max-width: 48em) {\n  [role=banner] .coz-bar-title {\n    font-size: 1.25em\n  }\n}\n\n[role=banner] .coz-bar-title img {\n  margin-right: .45em;\n}\n\n[role=banner] .coz-bar-title span {\n  margin-right: .25em;\n}\n\n[role=banner] .coz-bar-title strong {\n  font-weight: bold;\n}\n\n@media (max-width: 30em) {\n  [role=banner] .coz-bar-hide-sm {\n    display: none;\n  }\n\n  [role=banner] .coz-bar-title strong {\n    padding: 0;\n    text-transform: capitalize;\n  }\n}\n\n[role=banner] .coz-bar-burger {\n  width: 2.5em;\n  margin-right: 0.25em;\n  padding: 0;\n  border: none;\n  background-color: transparent;\n  background-position: center;\n}\n\n@media (min-width: 48.0625em) {\n  [role=banner] .coz-bar-burger,\n  [role=banner] .coz-drawer-wrapper {\n    display: none;\n  }\n}\n\n@media (max-width: 48em) {\n  [role=banner] .coz-bar-hide-sm {\n    display: none;\n  }\n}\n\n[role=banner] .coz-nav ul {\n  margin: 0;\n  padding: 0;\n  list-style-type: none;\n}\n\n[role=banner] .coz-nav > ul {\n  display: flex;\n}\n\n@media (max-width: 48em) {\n  [role=banner] .coz-nav {\n    display: none;\n  }\n}\n\n[role=banner] .coz-nav-section {\n  position: relative;\n}\n\n[role=banner] .coz-nav-section [aria-controls] {\n  display: flex;\n  align-items: baseline;\n  padding: 1.285em 1.5em;\n  font-size: .875em;\n  text-transform: uppercase;\n  color: #5d6165;\n  cursor: pointer;\n}\n\n[role=banner] .coz-nav-section [aria-controls]:hover {\n  background-color: #f5f6f7;\n  box-shadow: inset 0 -1px 0 0 #d6d8da;\n  color: #32363f;\n}\n\n[role=banner] .coz-nav-section [aria-controls]:focus {\n  background-color: #f5f6f7;\n  box-shadow: inset 0 -1px 0 0 #d6d8da;\n  color: #32363f;\n}\n\n[role=banner] [aria-controls][aria-busy]::after {\n  position: relative;\n  top: .12em;\n  margin-left: .5em;\n}\n\n[role=banner] [aria-controls][aria-busy=true] {\n  padding-right: 0;\n}\n\n[role=banner] .coz-nav-section [aria-controls][data-icon] {\n  padding-left: calc(1.25em + 16px + .5em);\n  background-position: 1.25em calc(50% - 1px);\n}\n\n[role=banner] .coz-nav-icon {\n  margin-right: .5em;\n}\n\n[role=banner] .coz-nav-pop[aria-hidden=true] {\n  display: none;\n}\n\n[role=banner] .coz-nav-pop {\n  position: absolute;\n  top: calc(100% - .5em);\n  right: 0;\n  box-sizing: border-box;\n  min-width: 100%;\n  background-color: #fff;\n  border-radius: 8px;\n  border: solid 1px rgba(50, 54, 63, 0.12);\n  box-shadow: 0 1px 3px 0 rgba(50, 54, 63, 0.19), 0 6px 18px 0 rgba(50, 54, 63, 0.19);\n}\n\n[role=banner] .coz-nav-pop ul {\n  padding: .5em 0;\n}\n\n[role=banner] .coz-nav-pop hr {\n  margin: 0;\n  border: none;\n  border-bottom: solid 1px #d6d8da;\n}\n\n[role=banner] .coz-nav-pop ul:last-of-type + hr {\n  display: none;\n}\n\n/* coz-nav-pop--apps slug is hashed coz-nav-pop--1612761714 */\n\n[role=banner] .coz-nav-pop--1612761714 .coz-nav-group:not(.coz-nav--error) {\n  display: flex;\n  padding: 0.75em;\n}\n\n[role=banner] .coz-nav-group.coz-nav--error {\n  padding: 0.75em;\n  min-width: 20em;\n}\n\n[role=banner] .coz-nav-pop--1612761714 .coz-nav-group a {\n  display: flex;\n  flex-direction: column;\n  padding: 1.25em;\n}\n\n[role=banner] .coz-nav-pop--1612761714 .coz-nav-group a img {\n  margin-bottom: .75em;\n}\n\n[role=banner] .blurry {\n  opacity: .5;\n  filter: blur(5px);\n}\n\n[role=banner] .coz-nav-item [role=menuitem] {\n  position: relative;\n  z-index: 0;\n  display: block;\n  box-sizing: border-box;\n  width: 100%;\n  padding: .5em 1.5em .5em calc(1.5em + 16px + .5em);\n  border: none;\n  align-items: center;\n  background-position: 1.5em 50%;\n  background-color: transparent;\n  text-align: left;\n  white-space: nowrap;\n  color: #32363f;\n  text-decoration: none;\n  outline: none;\n}\n\n/* Force pointer on clickable elements*/\n\n[role=banner] .coz-nav-item a[role=menuitem],\n[role=banner] .coz-nav-item button[role=menuitem] {\n  cursor: pointer;\n}\n\n/* Hover effect */\n\n[role=banner] .coz-nav-item a[role=menuitem]:hover:before {\n  content: '';\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  z-index: -1;\n  background-color: #f5f6f7;\n  background-image: inherit;\n  background-position: inherit;\n  background-repeat: inherit;\n}\n\n[role=banner] .coz-nav-item a[role=menuitem]:focus:before {\n  content: '';\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  z-index: -1;\n  background-color: #f5f6f7;\n  background-image: inherit;\n  background-position: inherit;\n  background-repeat: inherit;\n}\n\n[role=banner] .coz-nav-item button[role=menuitem]:hover:before {\n  content: '';\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  z-index: -1;\n  background-color: #f5f6f7;\n  background-image: inherit;\n  background-position: inherit;\n  background-repeat: inherit;\n}\n\n[role=banner] .coz-nav-item button[role=menuitem]:focus:before {\n  content: '';\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  z-index: -1;\n  background-color: #f5f6f7;\n  background-image: inherit;\n  background-position: inherit;\n  background-repeat: inherit;\n}\n\n[role=banner] [role=menuitem][aria-busy=true]::after {\n  right: 1.5em;\n  top: .5em;\n}\n\n[role=banner] [role=menuitem][data-icon=icon-storage] {\n  background-position: 1.5em calc(.5em + 1px);\n}\n\n[role=banner] .coz-nav-storage {\n  display: flex;\n  flex-direction: column;\n  align-items: left;\n  padding-top: .5em;\n  color: #95999d;\n}\n\n[role=banner] .coz-nav-storage-text {\n  margin: 0 0 .1em 0;\n  font-weight: normal;\n  font-size: .875em;\n}\n\n[role=banner] .cozy-nav-storage-bar {\n    height: .5em;\n    margin: .2em 0 .1em 0;\n}\n\n[role=banner] .coz-drawer-wrapper {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100vw;\n  height: 100vh;\n  /* Prepare for transitions */\n  display: none;\n  visibility: visible;\n}\n\n[role=banner] .coz-drawer-wrapper[aria-hidden=false],\n[role=banner] .coz-drawer-wrapper.swipe-active {\n  display: block;\n}\n\n[role=banner] .coz-drawer-wrapper::before {\n  content: '';\n  display: block;\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background-color: #32363f;\n  opacity: 0;\n  transition: opacity 250ms ease-out;\n}\n\n[role=banner] .coz-drawer-wrapper[aria-hidden=false]::before {\n  opacity: .5;\n}\n\n[role=banner] .coz-drawer-wrapper aside {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 90%;\n  height: 100%;\n  display: flex;\n  flex-direction: column;\n  background-color: #fff;\n  transform: translateX(-100vw);\n  transition: transform 500ms ease-out;\n}\n\n[role=banner] .coz-drawer-wrapper[aria-hidden=false] aside {\n  transform: translateX(0);\n}\n\n[role=banner] .coz-drawer-wrapper ul {\n  margin: 0;\n  padding: .8em 0;\n  list-style-type: none;\n}\n\n[role=banner] .coz-drawer-wrapper nav hr {\n  margin: 0;\n  border: none;\n  border-bottom: solid 1px #d6d8da;\n}\n\n[role=banner] .coz-drawer-wrapper .coz-nav-icon {\n  margin-right: .5em;\n}\n\n[role=banner] .coz-drawer--apps h1 {\n  margin: 1.125em 1em 0;\n  font-size: 1em;\n  text-transform: capitalize;\n}\n\n[role=banner] .coz-drawer--apps ul {\n  display: flex;\n}\n\n[role=banner] .coz-drawer--apps [role=menuitem] {\n  display: flex;\n  flex-direction: column;\n  padding: 1em;\n  border-radius: 2px;\n}\n\n[role=banner] .coz-drawer--apps [role=menuitem]:hover {\n  background-color: rgba(25, 123, 255, 0.1);\n}\n\n[role=banner] .coz-drawer--apps li img {\n  margin-bottom: 1.125em;\n}\n\n[role=banner].coz-target--mobile {\n  padding-left: 1em;\n}\n\n.coz-bar-hidden {\n  position: absolute !important;\n  border: 0 !important;\n  width: 1px !important;\n  height: 1px !important;\n  overflow: hidden !important;\n  padding: 0 !important;\n  white-space: nowrap !important;\n  clip: rect(1px, 1px, 1px, 1px) !important;\n  clip-path: inset(50%) !important;\n}\n", ""]);
+	exports.push([module.id, "[role=banner] .coz-sep-flex {\n  margin: 0;\n  border: none;\n  flex: 1 0;\n}\n\n\n[role=banner] [data-icon] {\n  background-repeat: no-repeat;\n  background-position: 0 50%;\n  padding-left: calc(16px + .5em)\n}\n\n\n[role=banner] [data-icon='icon-profile'] {\n  background-image: url(" + __webpack_require__(271) + ")\n}\n\n\n[role=banner] [data-icon='icon-connectedDevices'] {\n  background-image: url(" + __webpack_require__(272) + ")\n}\n\n\n[role=banner] [data-icon='icon-help'] {\n  background-image: url(" + __webpack_require__(273) + ")\n}\n\n\n[role=banner] [data-icon='icon-logout'] {\n  background-image: url(" + __webpack_require__(274) + ")\n}\n\n\n[role=banner] [data-icon='icon-storage'] {\n  background-image: url(" + __webpack_require__(275) + ")\n}\n\n\n[role=banner] [data-icon='icon-cog'] {\n  background-image: url(" + __webpack_require__(276) + ")\n}\n\n\n[role=banner] [data-icon='icon-hamburger'] {\n  background-image: url(" + __webpack_require__(277) + ")\n}\n\n\n[role=banner] [data-icon='icon-cube'] {\n  background-image: url(" + __webpack_require__(266) + ")\n}\n\n\n/* Spinner */\n\n\n@keyframes spin {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(359deg);\n  }\n}\n\n\n[role=banner] [aria-busy=true] {\n  position: relative;\n}\n\n\n[role=banner] [aria-busy=true]::after {\n  content: \"\";\n  position: absolute;\n  right: 0;\n  top: 0;\n  display: block;\n  width: 1em;\n  height: 1em;\n  background-position: center;\n  background-repeat: no-repeat;\n  background-size: cover;\n  background-image: url(" + __webpack_require__(278) + ");\n  animation: 1s linear infinite spin;\n}\n\n\n/* Progress bar */\n\n\n[role=banner] progress[value] {\n  /* Reset the default appearance */\n  appearance: none;\n  background-color: #f5f6f7;\n  border: solid 1px #d6d8da;\n  border-radius: 2px;\n  color: #297ef2;\n}\n\n\n[role=banner] progress[value]::-webkit-progress-bar {\n  background: #f5f6f7;\n  border-radius: 2px;\n}\n\n\n[role=banner] progress[value]::-webkit-progress-value {\n  background: #297ef2;\n  border-radius: 1px;\n}\n\n\n[role=banner] progress[value]::-moz-progress-bar {\n  background: #297ef2;\n  border-radius: 1px;\n}\n\n\n/* Errors */\n\n\n[role=banner] .coz-nav--error {\n  margin: 0 0 .1em 0;\n  font-weight: normal;\n  font-size: .875em;\n  color: #F52D2D;\n}\n\n\n[role=banner] {\n  position: relative;\n  z-index: 20;\n  min-height: 3em;\n  flex-shrink: 0;\n  display: flex;\n  align-items: stretch;\n  padding: 0 1.25em 0 1em;\n  box-shadow: inset 0 -1px 0 0 #d6d8da;\n  font-family: Lato, sans-serif;\n  font-size: 1rem;\n}\n\n\n@media (max-width: 48em) {\n  [role=banner] {\n    padding: 0 1em 0 0;\n  }\n\n  [role=banner][data-drawer-visible=true] {\n    /* Force the BAR to be above selection bar in mobile mode,\n     * only when drawer is opened\n     */\n    z-index: 31;\n  }\n}\n\n\n[role=banner] .coz-bar-title {\n  display: flex;\n  margin: 0;\n  align-items: center;\n  font-size: 1.5em;\n  font-weight: normal;\n  color: #32363f;\n}\n\n\n@media (max-width: 48em) {\n  [role=banner] .coz-bar-title {\n    font-size: 1.25em\n  }\n}\n\n\n[role=banner] .coz-bar-title img {\n  margin-right: .45em;\n}\n\n\n[role=banner] .coz-bar-title span {\n  margin-right: .25em;\n}\n\n\n[role=banner] .coz-bar-title strong {\n  font-weight: bold;\n}\n\n\n@media (max-width: 30em) {\n  [role=banner] .coz-bar-hide-sm {\n    display: none;\n  }\n\n  [role=banner] .coz-bar-title strong {\n    padding: 0;\n    text-transform: capitalize;\n  }\n}\n\n\n[role=banner] .coz-bar-burger {\n  width: 2.5em;\n  margin-right: 0.25em;\n  padding: 0;\n  border: none;\n  background-color: transparent;\n  background-position: center;\n}\n\n\n@media (min-width: 48.0625em) {\n  [role=banner] .coz-bar-burger,\n  [role=banner] .coz-drawer-wrapper {\n    display: none;\n  }\n}\n\n\n@media (max-width: 48em) {\n  [role=banner] .coz-bar-hide-sm {\n    display: none;\n  }\n}\n\n\n[role=banner] .coz-nav ul {\n  margin: 0;\n  padding: 0;\n  list-style-type: none;\n}\n\n\n[role=banner] .coz-nav > ul {\n  display: flex;\n}\n\n\n@media (max-width: 48em) {\n  [role=banner] .coz-nav {\n    display: none;\n  }\n}\n\n\n[role=banner] .coz-nav-section {\n  position: relative;\n}\n\n\n[role=banner] .coz-nav-section [aria-controls] {\n  display: flex;\n  align-items: baseline;\n  padding: 1.285em 1.5em;\n  font-size: .875em;\n  text-transform: uppercase;\n  color: #5d6165;\n  cursor: pointer;\n}\n\n\n[role=banner] .coz-nav-section [aria-controls]:hover {\n  background-color: #f5f6f7;\n  box-shadow: inset 0 -1px 0 0 #d6d8da;\n  color: #32363f;\n}\n\n\n[role=banner] .coz-nav-section [aria-controls]:focus {\n  background-color: #f5f6f7;\n  box-shadow: inset 0 -1px 0 0 #d6d8da;\n  color: #32363f;\n}\n\n\n[role=banner] [aria-controls][aria-busy]::after {\n  position: relative;\n  top: .12em;\n  margin-left: .5em;\n}\n\n\n[role=banner] [aria-controls][aria-busy=true] {\n  padding-right: 0;\n}\n\n\n[role=banner] .coz-nav-section [aria-controls][data-icon] {\n  padding-left: calc(1.25em + 16px + .5em);\n  background-position: 1.25em calc(50% - 1px);\n}\n\n\n[role=banner] .coz-nav-icon {\n  margin-right: .5em;\n}\n\n\n[role=banner] .coz-nav-pop[aria-hidden=true] {\n  display: none;\n}\n\n\n[role=banner] .coz-nav-pop {\n  position: absolute;\n  top: calc(100% - .5em);\n  right: 0;\n  box-sizing: border-box;\n  min-width: 100%;\n  background-color: #fff;\n  border-radius: 8px;\n  border: solid 1px rgba(50, 54, 63, 0.12);\n  box-shadow: 0 1px 3px 0 rgba(50, 54, 63, 0.19), 0 6px 18px 0 rgba(50, 54, 63, 0.19);\n}\n\n\n[role=banner] .coz-nav-pop ul {\n  padding: .5em 0;\n}\n\n\n[role=banner] .coz-nav-pop hr {\n  margin: 0;\n  border: none;\n  border-bottom: solid 1px #d6d8da;\n}\n\n\n[role=banner] .coz-nav-pop ul:last-of-type + hr {\n  display: none;\n}\n\n\n[role=banner] .coz-nav-pop--apps .coz-nav-group:not(.coz-nav--error) {\n  display: flex;\n  padding: 0.75em;\n}\n\n\n[role=banner] .coz-nav-pop--apps .coz-nav-group--wrapping.coz-nav-group:not(.coz-nav--error) {\n  flex-wrap: wrap;\n  width: 40em;\n}\n\n\n@media (min-width: 48em) and (max-width: 51em) {\n    [role=banner] .coz-nav-pop.coz-nav-pop--apps {\n        right: -3em;\n    }\n}\n\n\n[role=banner] .coz-nav-pop--apps .coz-nav-group:not(.coz-nav--error) .coz-nav-item {\n    width: 9em;\n    padding: 0 .5em;\n}\n\n\n[role=banner] .coz-nav-group.coz-nav--error {\n  padding: 0.75em;\n  min-width: 20em;\n}\n\n\n[role=banner] .coz-nav-pop--apps .coz-nav-group a {\n  display: flex;\n  flex-direction: column;\n  padding: 1.25em;\n}\n\n\n[role=banner] .coz-nav-pop--apps .coz-nav-group a img {\n  margin-bottom: .75em;\n}\n\n\n[role=banner] .blurry {\n  opacity: .5;\n  filter: blur(5px);\n}\n\n\n[role=banner] .coz-nav-item [role=menuitem] {\n  position: relative;\n  z-index: 0;\n  display: block;\n  box-sizing: border-box;\n  width: 100%;\n  padding: .5em 1.5em .5em calc(1.5em + 16px + .5em);\n  border: none;\n  align-items: center;\n  background-position: 1.5em 50%;\n  background-color: transparent;\n  text-align: left;\n  white-space: nowrap;\n  color: #32363f;\n  text-decoration: none;\n  outline: none;\n}\n\n\n/* Force pointer on clickable elements*/\n\n\n[role=banner] .coz-nav-item a[role=menuitem],\n[role=banner] .coz-nav-item button[role=menuitem] {\n  cursor: pointer;\n}\n\n\n/* Hover effect */\n\n\n[role=banner] .coz-nav-item a[role=menuitem]:hover:before {\n  content: '';\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  z-index: -1;\n  background-color: #f5f6f7;\n  background-image: inherit;\n  background-position: inherit;\n  background-repeat: inherit;\n}\n\n\n[role=banner] .coz-nav-item a[role=menuitem]:focus:before {\n  content: '';\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  z-index: -1;\n  background-color: #f5f6f7;\n  background-image: inherit;\n  background-position: inherit;\n  background-repeat: inherit;\n}\n\n\n[role=banner] .coz-nav-item button[role=menuitem]:hover:before {\n  content: '';\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  z-index: -1;\n  background-color: #f5f6f7;\n  background-image: inherit;\n  background-position: inherit;\n  background-repeat: inherit;\n}\n\n\n[role=banner] .coz-nav-item button[role=menuitem]:focus:before {\n  content: '';\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  z-index: -1;\n  background-color: #f5f6f7;\n  background-image: inherit;\n  background-position: inherit;\n  background-repeat: inherit;\n}\n\n\n[role=banner] [role=menuitem][aria-busy=true]::after {\n  right: 1.5em;\n  top: .5em;\n}\n\n\n/* Remove default margin for p elements */\n\n\n[role=banner] .coz-nav-item a[role=menuitem] p.coz-label {\n    margin: 0;\n}\n\n\n[role=banner] [role=menuitem][data-icon=icon-storage] {\n  background-position: 1.5em calc(.5em + 1px);\n}\n\n\n[role=banner] .coz-nav-storage {\n  display: flex;\n  flex-direction: column;\n  align-items: left;\n  padding-top: .5em;\n  color: #95999d;\n}\n\n\n[role=banner] .coz-nav-storage-text {\n  margin: 0 0 .1em 0;\n  font-weight: normal;\n  font-size: .875em;\n}\n\n\n[role=banner] .cozy-nav-storage-bar {\n    height: .5em;\n    margin: .2em 0 .1em 0;\n}\n\n\n[role=banner] .coz-drawer-wrapper {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100vw;\n  height: 100vh;\n  /* Prepare for transitions */\n  display: none;\n  visibility: visible;\n}\n\n\n[role=banner] .coz-drawer-wrapper[aria-hidden=false],\n[role=banner] .coz-drawer-wrapper.swipe-active {\n  display: block;\n}\n\n\n[role=banner] .coz-drawer-wrapper::before {\n  content: '';\n  display: block;\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background-color: #32363f;\n  opacity: 0;\n  transition: opacity 250ms ease-out;\n}\n\n\n[role=banner] .coz-drawer-wrapper[aria-hidden=false]::before {\n  opacity: .5;\n}\n\n\n[role=banner] .coz-drawer-wrapper aside {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 90%;\n  height: 100%;\n  display: flex;\n  flex-direction: column;\n  background-color: #fff;\n  transform: translateX(-100vw);\n  transition: transform 500ms ease-out;\n}\n\n\n[role=banner] .coz-drawer-wrapper[aria-hidden=false] aside {\n  transform: translateX(0);\n}\n\n\n[role=banner] .coz-drawer-wrapper ul {\n  margin: 0;\n  padding: .8em 0;\n  list-style-type: none;\n}\n\n\n[role=banner] .coz-drawer-wrapper nav hr {\n  margin: 0;\n  border: none;\n  border-bottom: solid 1px #d6d8da;\n}\n\n\n[role=banner] .coz-drawer-wrapper .coz-nav-icon {\n  margin-right: .5em;\n}\n\n\n[role=banner] .coz-drawer--apps h1 {\n  margin: 1.125em 1em 0;\n  font-size: 1em;\n  text-transform: capitalize;\n}\n\n\n[role=banner] .coz-drawer--apps ul {\n  display: flex;\n}\n\n\n[role=banner] .coz-drawer--apps .coz-drawer--apps-paginator {\n  display: flex;\n  flex-direction: row;\n  overflow: scroll;\n  padding-bottom: 1em;\n}\n\n\n[role=banner] .coz-drawer--apps .coz-drawer--apps-paginator ul {\n  min-width: 100%;\n}\n\n\n[role=banner] .coz-drawer--apps ul li {\n  flex: 0 0 calc(100% /3);\n  max-width: calc(100% / 3);\n}\n\n\n[role=banner] .coz-drawer--apps ul.coz-nav-group--wrapping {\n  flex-wrap: wrap;\n}\n\n\n[role=banner] .coz-drawer--apps [role=menuitem] {\n  display: flex;\n  flex-direction: column;\n  padding: 1em;\n  border-radius: 2px;\n}\n\n\n[role=banner] .coz-drawer--apps [role=menuitem]:hover {\n  background-color: rgba(25, 123, 255, 0.1);\n}\n\n\n[role=banner] .coz-drawer--apps li img {\n  margin-bottom: 1.125em;\n}\n\n\n[role=banner] .coz-drawer--apps li p.coz-label {\n  overflow: hidden;\n  white-space: nowrap;\n  text-overflow: ellipsis;\n  min-width: 0;\n  width: 100%;\n  text-align: center;\n  font-size: 14px;\n}\n\n\n[role=banner].coz-target--mobile {\n  padding-left: 1em;\n}\n\n\n.coz-bar-hidden {\n  position: absolute !important;\n  border: 0 !important;\n  width: 1px !important;\n  height: 1px !important;\n  overflow: hidden !important;\n  padding: 0 !important;\n  white-space: nowrap !important;\n  clip: rect(1px, 1px, 1px, 1px) !important;\n  clip-path: inset(50%) !important;\n}\n", ""]);
 	
 	// exports
 
@@ -12627,34 +12781,28 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 275 */
 /***/ function(module, exports) {
 
-	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICA8cG9seWdvbiBmaWxsPSIjNUQ2MTY1IiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHBvaW50cz0iMjcyIDY0IDI2NiA3OSAyNjMuNSA3Ni41IDI2MCA3OSAyNTkgNzUgMjY5IDY2LjUgMjU5IDcyLjUgMjU2IDcwIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMjU2IC02NCkiLz4KPC9zdmc+Cg=="
+	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICA8cGF0aCBmaWxsPSIjNUQ2MTY1IiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0yMjUsNjggTDIzOSw2OCBMMjM5LDc4LjAwNDQyMjUgQzIzOSw3OC41NTQyNjQ4IDIzOC41NTAwNTEsNzkgMjM3Ljk5MzE1NSw3OSBMMjI2LjAwNjg0NSw3OSBDMjI1LjQ1MDc4LDc5IDIyNSw3OC41NTUxNjMgMjI1LDc4LjAwNDQyMjUgTDIyNSw2OCBaIE0yMjQsNjYgQzIyNCw2NS40NDc3MTUzIDIyNC40NDQ2MzEsNjUgMjI1LjAwMDg3Miw2NSBMMjM4Ljk5OTEyOCw2NSBDMjM5LjU1MTg5NCw2NSAyNDAsNjUuNDQzODY0OCAyNDAsNjYgTDI0MCw2NyBMMjI0LDY3IEwyMjQsNjYgWiBNMjI5LDcwIEwyMzUsNzAgTDIzNSw3MiBMMjI5LDcyIEwyMjksNzAgWiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTIyNCAtNjQpIi8+Cjwvc3ZnPgo="
 
 /***/ },
 /* 276 */
 /***/ function(module, exports) {
 
-	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICA8cGF0aCBmaWxsPSIjNUQ2MTY1IiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0yMjUsNjggTDIzOSw2OCBMMjM5LDc4LjAwNDQyMjUgQzIzOSw3OC41NTQyNjQ4IDIzOC41NTAwNTEsNzkgMjM3Ljk5MzE1NSw3OSBMMjI2LjAwNjg0NSw3OSBDMjI1LjQ1MDc4LDc5IDIyNSw3OC41NTUxNjMgMjI1LDc4LjAwNDQyMjUgTDIyNSw2OCBaIE0yMjQsNjYgQzIyNCw2NS40NDc3MTUzIDIyNC40NDQ2MzEsNjUgMjI1LjAwMDg3Miw2NSBMMjM4Ljk5OTEyOCw2NSBDMjM5LjU1MTg5NCw2NSAyNDAsNjUuNDQzODY0OCAyNDAsNjYgTDI0MCw2NyBMMjI0LDY3IEwyMjQsNjYgWiBNMjI5LDcwIEwyMzUsNzAgTDIzNSw3MiBMMjI5LDcyIEwyMjksNzAgWiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTIyNCAtNjQpIi8+Cjwvc3ZnPgo="
+	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICA8ZyBmaWxsPSIjOTU5OTlEIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0yMjQgLTMyKSI+CiAgICA8cGF0aCBkPSJNMjM4LjI0OTM1NiwzOS4wNzgyOTczIEMyMzguMzAxNDA3LDM5LjMzNzE0MzYgMjM4LjMyNzQzMiwzOS42NDU5NjAyIDIzOC4zMjc0MzIsNDAuMDAzNzQ3OCBDMjM4LjMyNzQzMiw0MC4zNjE1MzUzIDIzOC4zMDE0MDcsNDAuNjY5MzUyNiAyMzguMjQ5MzU2LDQwLjkyOTE5ODMgTDIzOS44Njk5NDYsNDIuMjYyNDA2NyBDMjQwLjAwMDA3NCw0Mi4zNDgzNTU3IDI0MC4wMzIxMDUsNDIuNDY1Mjg2MiAyMzkuOTY4MDQyLDQyLjYxNDE5NzggQzIzOS42NDI3MjMsNDMuNTY0NjMzNSAyMzkuMTA5MTk5LDQ0LjQ0MDExMzcgMjM4LjM2NjQ3LDQ1LjI0MTYzNzggQzIzOC4yNjIzNjgsNDUuMzY1NTY0MiAyMzguMTM3MjQ2LDQ1LjM5NjU0NTggMjM3Ljk5NTEwNiw0NS4zMzU1ODIgTDIzNS45NjQxMTMsNDQuNjY3OTc4NCBDMjM1LjQ0MzYwMiw0NS4wNjM3NDM0IDIzNC44ODQwNTMsNDUuMzcyNTYgMjM0LjI4NDQ2NCw0NS41OTQ0MjgzIEwyMzMuODc1MDYyLDQ3LjU5MzI0MTUgQzIzMy44NDkwMzcsNDcuNzQwMTU0MyAyMzMuNzU3OTQ4LDQ3LjgyNzEwMjcgMjMzLjYwMTc5NCw0Ny44NTIwODc4IEMyMzMuMDQxMjQ0LDQ3Ljk1MjAyODUgMjMyLjUwNzcyMSw0OCAyMzIuMDAwMjIyLDQ4IEMyMzEuNDkyNzI0LDQ4IDIzMC45NTgyLDQ3Ljk1MTAyOTEgMjMwLjM5ODY1MSw0Ny44NTIwODc4IEMyMzAuMjQyNDk3LDQ3LjgyODEwMjEgMjMwLjE1MTQwOCw0Ny43NDExNTM3IDIzMC4xMjUzODIsNDcuNTkzMjQxNSBMMjI5LjcxNTk4MSw0NS41OTQ0MjgzIEMyMjkuMDc3MzU0LDQ1LjM2MDU2NzIgMjI4LjUxNzgwNSw0NS4wNTA3NTExIDIyOC4wMzYzMzIsNDQuNjY3OTc4NCBMMjI2LjAwNTMzOSw0NS4zMzU1ODIgQzIyNS44NjExOTcsNDUuMzk3NTQ1MiAyMjUuNzM4MDc3LDQ1LjM2NTU2NDIgMjI1LjYzMzk3NCw0NS4yNDE2Mzc4IEMyMjQuODkyMjQ2LDQ0LjQ0MDExMzcgMjI0LjM1ODcyMyw0My41NjQ2MzM1IDIyNC4wMzI0MDMsNDIuNjE0MTk3OCBDMjIzLjk2NzMzOSw0Mi40NjYyODU2IDIyNC4wMDAzNzEsNDIuMzQ4MzU1NyAyMjQuMTMwNDk5LDQyLjI2MjQwNjcgTDIyNS43NTEwODksNDAuOTI5MTk4MyBDMjI1LjY5OTAzOCw0MC42NjkzNTI2IDIyNS42NzMwMTMsNDAuMzYyNTM0NyAyMjUuNjczMDEzLDQwLjAwMzc0NzggQzIyNS42NzMwMTMsMzkuNjQ1OTYwMiAyMjUuNjk5MDM4LDM5LjMzNzE0MzYgMjI1Ljc1MTA4OSwzOS4wNzgyOTczIEwyMjQuMTMwNDk5LDM3Ljc0NjA4ODMgQzIyNC4wMDAzNzEsMzcuNjYwMTM5MyAyMjMuOTY3MzM5LDM3LjU0MjIwOTMgMjI0LjAzMjQwMywzNy4zOTQyOTcxIEMyMjQuMzU3NzIyLDM2LjQ0NDg2MDkgMjI0Ljg5MTI0NSwzNS41NjgzODEzIDIyNS42MzM5NzQsMzQuNzY2ODU3MiBDMjI1LjczODA3NywzNC42NDM5MzAyIDIyNS44NjIxOTgsMzQuNjEyOTQ4NiAyMjYuMDA1MzM5LDM0LjY3MzkxMjQgTDIyOC4wMzYzMzIsMzUuMzQwNTE2NiBDMjI4LjUxNjgwNCwzNC45NTc3NDM4IDIyOS4wNzczNTQsMzQuNjQ5OTI2NiAyMjkuNzE1OTgxLDM0LjQxNTA2NjEgTDIzMC4xMjUzODIsMzIuNDE2MjUyOCBDMjMwLjE1MTQwOCwzMi4yNjgzNDA3IDIzMC4yNDI0OTcsMzIuMTgyMzkxNyAyMzAuMzk4NjUxLDMyLjE1NzQwNjUgQzIzMS40NjU2OTgsMzEuOTQ3NTMxMiAyMzIuNTMzNzQ2LDMxLjk0NzUzMTIgMjMzLjYwMDc5MywzMi4xNTc0MDY1IEMyMzMuNzU2OTQ3LDMyLjE4MTM5MjMgMjMzLjg0ODAzNiwzMi4yNjgzNDA3IDIzMy44NzQwNjEsMzIuNDE2MjUyOCBMMjM0LjI4MzQ2MywzNC40MTUwNjYxIEMyMzQuODgzMDUyLDM0LjYzNzkzMzcgMjM1LjQ0MjYwMSwzNC45NDU3NTEgMjM1Ljk2MzExMiwzNS4zNDA1MTY2IEwyMzcuOTk0MTA1LDM0LjY3MzkxMjQgQzIzOC4xMzcyNDYsMzQuNjExOTQ5MiAyMzguMjYxMzY3LDM0LjY0MzkzMDIgMjM4LjM2NTQ3LDM0Ljc2Njg1NzIgQzIzOS4xMDcxOTcsMzUuNTY5MzgwNyAyMzkuNjQwNzIxLDM2LjQ0NDg2MDkgMjM5Ljk2NzA0MSwzNy4zOTQyOTcxIEMyNDAuMDMxMTA0LDM3LjU0MjIwOTMgMjM5Ljk5OTA3MywzNy42NjAxMzkzIDIzOS44Njg5NDUsMzcuNzQ2MDg4MyBMMjM4LjI0OTM1NiwzOS4wNzgyOTczIEwyMzguMjQ5MzU2LDM5LjA3ODI5NzMgWiBNMjMyLDM2LjUgQzIzMC4wNjcxMjUsMzYuNSAyMjguNSwzOC4wNjcxMjUgMjI4LjUsNDAgQzIyOC41LDQxLjkzMjg3NSAyMzAuMDY3MTI1LDQzLjUgMjMyLDQzLjUgQzIzMy45MzI4NzUsNDMuNSAyMzUuNSw0MS45MzI4NzUgMjM1LjUsNDAgQzIzNS41LDM4LjA2NzEyNSAyMzMuOTMyODc1LDM2LjUgMjMyLDM2LjUgTDIzMiwzNi41IFoiLz4KICAgIDxwYXRoIGQ9Ik0yMzguMjQ5MzU2LDM5LjA3ODI5NzMgQzIzOC4zMDE0MDcsMzkuMzM3MTQzNiAyMzguMzI3NDMyLDM5LjY0NTk2MDIgMjM4LjMyNzQzMiw0MC4wMDM3NDc4IEMyMzguMzI3NDMyLDQwLjM2MTUzNTMgMjM4LjMwMTQwNyw0MC42NjkzNTI2IDIzOC4yNDkzNTYsNDAuOTI5MTk4MyBMMjM5Ljg2OTk0Niw0Mi4yNjI0MDY3IEMyNDAuMDAwMDc0LDQyLjM0ODM1NTcgMjQwLjAzMjEwNSw0Mi40NjUyODYyIDIzOS45NjgwNDIsNDIuNjE0MTk3OCBDMjM5LjY0MjcyMyw0My41NjQ2MzM1IDIzOS4xMDkxOTksNDQuNDQwMTEzNyAyMzguMzY2NDcsNDUuMjQxNjM3OCBDMjM4LjI2MjM2OCw0NS4zNjU1NjQyIDIzOC4xMzcyNDYsNDUuMzk2NTQ1OCAyMzcuOTk1MTA2LDQ1LjMzNTU4MiBMMjM1Ljk2NDExMyw0NC42Njc5Nzg0IEMyMzUuNDQzNjAyLDQ1LjA2Mzc0MzQgMjM0Ljg4NDA1Myw0NS4zNzI1NiAyMzQuMjg0NDY0LDQ1LjU5NDQyODMgTDIzMy44NzUwNjIsNDcuNTkzMjQxNSBDMjMzLjg0OTAzNyw0Ny43NDAxNTQzIDIzMy43NTc5NDgsNDcuODI3MTAyNyAyMzMuNjAxNzk0LDQ3Ljg1MjA4NzggQzIzMy4wNDEyNDQsNDcuOTUyMDI4NSAyMzIuNTA3NzIxLDQ4IDIzMi4wMDAyMjIsNDggQzIzMS40OTI3MjQsNDggMjMwLjk1ODIsNDcuOTUxMDI5MSAyMzAuMzk4NjUxLDQ3Ljg1MjA4NzggQzIzMC4yNDI0OTcsNDcuODI4MTAyMSAyMzAuMTUxNDA4LDQ3Ljc0MTE1MzcgMjMwLjEyNTM4Miw0Ny41OTMyNDE1IEwyMjkuNzE1OTgxLDQ1LjU5NDQyODMgQzIyOS4wNzczNTQsNDUuMzYwNTY3MiAyMjguNTE3ODA1LDQ1LjA1MDc1MTEgMjI4LjAzNjMzMiw0NC42Njc5Nzg0IEwyMjYuMDA1MzM5LDQ1LjMzNTU4MiBDMjI1Ljg2MTE5Nyw0NS4zOTc1NDUyIDIyNS43MzgwNzcsNDUuMzY1NTY0MiAyMjUuNjMzOTc0LDQ1LjI0MTYzNzggQzIyNC44OTIyNDYsNDQuNDQwMTEzNyAyMjQuMzU4NzIzLDQzLjU2NDYzMzUgMjI0LjAzMjQwMyw0Mi42MTQxOTc4IEMyMjMuOTY3MzM5LDQyLjQ2NjI4NTYgMjI0LjAwMDM3MSw0Mi4zNDgzNTU3IDIyNC4xMzA0OTksNDIuMjYyNDA2NyBMMjI1Ljc1MTA4OSw0MC45MjkxOTgzIEMyMjUuNjk5MDM4LDQwLjY2OTM1MjYgMjI1LjY3MzAxMyw0MC4zNjI1MzQ3IDIyNS42NzMwMTMsNDAuMDAzNzQ3OCBDMjI1LjY3MzAxMywzOS42NDU5NjAyIDIyNS42OTkwMzgsMzkuMzM3MTQzNiAyMjUuNzUxMDg5LDM5LjA3ODI5NzMgTDIyNC4xMzA0OTksMzcuNzQ2MDg4MyBDMjI0LjAwMDM3MSwzNy42NjAxMzkzIDIyMy45NjczMzksMzcuNTQyMjA5MyAyMjQuMDMyNDAzLDM3LjM5NDI5NzEgQzIyNC4zNTc3MjIsMzYuNDQ0ODYwOSAyMjQuODkxMjQ1LDM1LjU2ODM4MTMgMjI1LjYzMzk3NCwzNC43NjY4NTcyIEMyMjUuNzM4MDc3LDM0LjY0MzkzMDIgMjI1Ljg2MjE5OCwzNC42MTI5NDg2IDIyNi4wMDUzMzksMzQuNjczOTEyNCBMMjI4LjAzNjMzMiwzNS4zNDA1MTY2IEMyMjguNTE2ODA0LDM0Ljk1Nzc0MzggMjI5LjA3NzM1NCwzNC42NDk5MjY2IDIyOS43MTU5ODEsMzQuNDE1MDY2MSBMMjMwLjEyNTM4MiwzMi40MTYyNTI4IEMyMzAuMTUxNDA4LDMyLjI2ODM0MDcgMjMwLjI0MjQ5NywzMi4xODIzOTE3IDIzMC4zOTg2NTEsMzIuMTU3NDA2NSBDMjMxLjQ2NTY5OCwzMS45NDc1MzEyIDIzMi41MzM3NDYsMzEuOTQ3NTMxMiAyMzMuNjAwNzkzLDMyLjE1NzQwNjUgQzIzMy43NTY5NDcsMzIuMTgxMzkyMyAyMzMuODQ4MDM2LDMyLjI2ODM0MDcgMjMzLjg3NDA2MSwzMi40MTYyNTI4IEwyMzQuMjgzNDYzLDM0LjQxNTA2NjEgQzIzNC44ODMwNTIsMzQuNjM3OTMzNyAyMzUuNDQyNjAxLDM0Ljk0NTc1MSAyMzUuOTYzMTEyLDM1LjM0MDUxNjYgTDIzNy45OTQxMDUsMzQuNjczOTEyNCBDMjM4LjEzNzI0NiwzNC42MTE5NDkyIDIzOC4yNjEzNjcsMzQuNjQzOTMwMiAyMzguMzY1NDcsMzQuNzY2ODU3MiBDMjM5LjEwNzE5NywzNS41NjkzODA3IDIzOS42NDA3MjEsMzYuNDQ0ODYwOSAyMzkuOTY3MDQxLDM3LjM5NDI5NzEgQzI0MC4wMzExMDQsMzcuNTQyMjA5MyAyMzkuOTk5MDczLDM3LjY2MDEzOTMgMjM5Ljg2ODk0NSwzNy43NDYwODgzIEwyMzguMjQ5MzU2LDM5LjA3ODI5NzMgTDIzOC4yNDkzNTYsMzkuMDc4Mjk3MyBaIE0yMzIsMzYuNSBDMjMwLjA2NzEyNSwzNi41IDIyOC41LDM4LjA2NzEyNSAyMjguNSw0MCBDMjI4LjUsNDEuOTMyODc1IDIzMC4wNjcxMjUsNDMuNSAyMzIsNDMuNSBDMjMzLjkzMjg3NSw0My41IDIzNS41LDQxLjkzMjg3NSAyMzUuNSw0MCBDMjM1LjUsMzguMDY3MTI1IDIzMy45MzI4NzUsMzYuNSAyMzIsMzYuNSBMMjMyLDM2LjUgWiIvPgogIDwvZz4KPC9zdmc+Cg=="
 
 /***/ },
 /* 277 */
 /***/ function(module, exports) {
 
-	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICA8ZyBmaWxsPSIjOTU5OTlEIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0yMjQgLTMyKSI+CiAgICA8cGF0aCBkPSJNMjM4LjI0OTM1NiwzOS4wNzgyOTczIEMyMzguMzAxNDA3LDM5LjMzNzE0MzYgMjM4LjMyNzQzMiwzOS42NDU5NjAyIDIzOC4zMjc0MzIsNDAuMDAzNzQ3OCBDMjM4LjMyNzQzMiw0MC4zNjE1MzUzIDIzOC4zMDE0MDcsNDAuNjY5MzUyNiAyMzguMjQ5MzU2LDQwLjkyOTE5ODMgTDIzOS44Njk5NDYsNDIuMjYyNDA2NyBDMjQwLjAwMDA3NCw0Mi4zNDgzNTU3IDI0MC4wMzIxMDUsNDIuNDY1Mjg2MiAyMzkuOTY4MDQyLDQyLjYxNDE5NzggQzIzOS42NDI3MjMsNDMuNTY0NjMzNSAyMzkuMTA5MTk5LDQ0LjQ0MDExMzcgMjM4LjM2NjQ3LDQ1LjI0MTYzNzggQzIzOC4yNjIzNjgsNDUuMzY1NTY0MiAyMzguMTM3MjQ2LDQ1LjM5NjU0NTggMjM3Ljk5NTEwNiw0NS4zMzU1ODIgTDIzNS45NjQxMTMsNDQuNjY3OTc4NCBDMjM1LjQ0MzYwMiw0NS4wNjM3NDM0IDIzNC44ODQwNTMsNDUuMzcyNTYgMjM0LjI4NDQ2NCw0NS41OTQ0MjgzIEwyMzMuODc1MDYyLDQ3LjU5MzI0MTUgQzIzMy44NDkwMzcsNDcuNzQwMTU0MyAyMzMuNzU3OTQ4LDQ3LjgyNzEwMjcgMjMzLjYwMTc5NCw0Ny44NTIwODc4IEMyMzMuMDQxMjQ0LDQ3Ljk1MjAyODUgMjMyLjUwNzcyMSw0OCAyMzIuMDAwMjIyLDQ4IEMyMzEuNDkyNzI0LDQ4IDIzMC45NTgyLDQ3Ljk1MTAyOTEgMjMwLjM5ODY1MSw0Ny44NTIwODc4IEMyMzAuMjQyNDk3LDQ3LjgyODEwMjEgMjMwLjE1MTQwOCw0Ny43NDExNTM3IDIzMC4xMjUzODIsNDcuNTkzMjQxNSBMMjI5LjcxNTk4MSw0NS41OTQ0MjgzIEMyMjkuMDc3MzU0LDQ1LjM2MDU2NzIgMjI4LjUxNzgwNSw0NS4wNTA3NTExIDIyOC4wMzYzMzIsNDQuNjY3OTc4NCBMMjI2LjAwNTMzOSw0NS4zMzU1ODIgQzIyNS44NjExOTcsNDUuMzk3NTQ1MiAyMjUuNzM4MDc3LDQ1LjM2NTU2NDIgMjI1LjYzMzk3NCw0NS4yNDE2Mzc4IEMyMjQuODkyMjQ2LDQ0LjQ0MDExMzcgMjI0LjM1ODcyMyw0My41NjQ2MzM1IDIyNC4wMzI0MDMsNDIuNjE0MTk3OCBDMjIzLjk2NzMzOSw0Mi40NjYyODU2IDIyNC4wMDAzNzEsNDIuMzQ4MzU1NyAyMjQuMTMwNDk5LDQyLjI2MjQwNjcgTDIyNS43NTEwODksNDAuOTI5MTk4MyBDMjI1LjY5OTAzOCw0MC42NjkzNTI2IDIyNS42NzMwMTMsNDAuMzYyNTM0NyAyMjUuNjczMDEzLDQwLjAwMzc0NzggQzIyNS42NzMwMTMsMzkuNjQ1OTYwMiAyMjUuNjk5MDM4LDM5LjMzNzE0MzYgMjI1Ljc1MTA4OSwzOS4wNzgyOTczIEwyMjQuMTMwNDk5LDM3Ljc0NjA4ODMgQzIyNC4wMDAzNzEsMzcuNjYwMTM5MyAyMjMuOTY3MzM5LDM3LjU0MjIwOTMgMjI0LjAzMjQwMywzNy4zOTQyOTcxIEMyMjQuMzU3NzIyLDM2LjQ0NDg2MDkgMjI0Ljg5MTI0NSwzNS41NjgzODEzIDIyNS42MzM5NzQsMzQuNzY2ODU3MiBDMjI1LjczODA3NywzNC42NDM5MzAyIDIyNS44NjIxOTgsMzQuNjEyOTQ4NiAyMjYuMDA1MzM5LDM0LjY3MzkxMjQgTDIyOC4wMzYzMzIsMzUuMzQwNTE2NiBDMjI4LjUxNjgwNCwzNC45NTc3NDM4IDIyOS4wNzczNTQsMzQuNjQ5OTI2NiAyMjkuNzE1OTgxLDM0LjQxNTA2NjEgTDIzMC4xMjUzODIsMzIuNDE2MjUyOCBDMjMwLjE1MTQwOCwzMi4yNjgzNDA3IDIzMC4yNDI0OTcsMzIuMTgyMzkxNyAyMzAuMzk4NjUxLDMyLjE1NzQwNjUgQzIzMS40NjU2OTgsMzEuOTQ3NTMxMiAyMzIuNTMzNzQ2LDMxLjk0NzUzMTIgMjMzLjYwMDc5MywzMi4xNTc0MDY1IEMyMzMuNzU2OTQ3LDMyLjE4MTM5MjMgMjMzLjg0ODAzNiwzMi4yNjgzNDA3IDIzMy44NzQwNjEsMzIuNDE2MjUyOCBMMjM0LjI4MzQ2MywzNC40MTUwNjYxIEMyMzQuODgzMDUyLDM0LjYzNzkzMzcgMjM1LjQ0MjYwMSwzNC45NDU3NTEgMjM1Ljk2MzExMiwzNS4zNDA1MTY2IEwyMzcuOTk0MTA1LDM0LjY3MzkxMjQgQzIzOC4xMzcyNDYsMzQuNjExOTQ5MiAyMzguMjYxMzY3LDM0LjY0MzkzMDIgMjM4LjM2NTQ3LDM0Ljc2Njg1NzIgQzIzOS4xMDcxOTcsMzUuNTY5MzgwNyAyMzkuNjQwNzIxLDM2LjQ0NDg2MDkgMjM5Ljk2NzA0MSwzNy4zOTQyOTcxIEMyNDAuMDMxMTA0LDM3LjU0MjIwOTMgMjM5Ljk5OTA3MywzNy42NjAxMzkzIDIzOS44Njg5NDUsMzcuNzQ2MDg4MyBMMjM4LjI0OTM1NiwzOS4wNzgyOTczIEwyMzguMjQ5MzU2LDM5LjA3ODI5NzMgWiBNMjMyLDM2LjUgQzIzMC4wNjcxMjUsMzYuNSAyMjguNSwzOC4wNjcxMjUgMjI4LjUsNDAgQzIyOC41LDQxLjkzMjg3NSAyMzAuMDY3MTI1LDQzLjUgMjMyLDQzLjUgQzIzMy45MzI4NzUsNDMuNSAyMzUuNSw0MS45MzI4NzUgMjM1LjUsNDAgQzIzNS41LDM4LjA2NzEyNSAyMzMuOTMyODc1LDM2LjUgMjMyLDM2LjUgTDIzMiwzNi41IFoiLz4KICAgIDxwYXRoIGQ9Ik0yMzguMjQ5MzU2LDM5LjA3ODI5NzMgQzIzOC4zMDE0MDcsMzkuMzM3MTQzNiAyMzguMzI3NDMyLDM5LjY0NTk2MDIgMjM4LjMyNzQzMiw0MC4wMDM3NDc4IEMyMzguMzI3NDMyLDQwLjM2MTUzNTMgMjM4LjMwMTQwNyw0MC42NjkzNTI2IDIzOC4yNDkzNTYsNDAuOTI5MTk4MyBMMjM5Ljg2OTk0Niw0Mi4yNjI0MDY3IEMyNDAuMDAwMDc0LDQyLjM0ODM1NTcgMjQwLjAzMjEwNSw0Mi40NjUyODYyIDIzOS45NjgwNDIsNDIuNjE0MTk3OCBDMjM5LjY0MjcyMyw0My41NjQ2MzM1IDIzOS4xMDkxOTksNDQuNDQwMTEzNyAyMzguMzY2NDcsNDUuMjQxNjM3OCBDMjM4LjI2MjM2OCw0NS4zNjU1NjQyIDIzOC4xMzcyNDYsNDUuMzk2NTQ1OCAyMzcuOTk1MTA2LDQ1LjMzNTU4MiBMMjM1Ljk2NDExMyw0NC42Njc5Nzg0IEMyMzUuNDQzNjAyLDQ1LjA2Mzc0MzQgMjM0Ljg4NDA1Myw0NS4zNzI1NiAyMzQuMjg0NDY0LDQ1LjU5NDQyODMgTDIzMy44NzUwNjIsNDcuNTkzMjQxNSBDMjMzLjg0OTAzNyw0Ny43NDAxNTQzIDIzMy43NTc5NDgsNDcuODI3MTAyNyAyMzMuNjAxNzk0LDQ3Ljg1MjA4NzggQzIzMy4wNDEyNDQsNDcuOTUyMDI4NSAyMzIuNTA3NzIxLDQ4IDIzMi4wMDAyMjIsNDggQzIzMS40OTI3MjQsNDggMjMwLjk1ODIsNDcuOTUxMDI5MSAyMzAuMzk4NjUxLDQ3Ljg1MjA4NzggQzIzMC4yNDI0OTcsNDcuODI4MTAyMSAyMzAuMTUxNDA4LDQ3Ljc0MTE1MzcgMjMwLjEyNTM4Miw0Ny41OTMyNDE1IEwyMjkuNzE1OTgxLDQ1LjU5NDQyODMgQzIyOS4wNzczNTQsNDUuMzYwNTY3MiAyMjguNTE3ODA1LDQ1LjA1MDc1MTEgMjI4LjAzNjMzMiw0NC42Njc5Nzg0IEwyMjYuMDA1MzM5LDQ1LjMzNTU4MiBDMjI1Ljg2MTE5Nyw0NS4zOTc1NDUyIDIyNS43MzgwNzcsNDUuMzY1NTY0MiAyMjUuNjMzOTc0LDQ1LjI0MTYzNzggQzIyNC44OTIyNDYsNDQuNDQwMTEzNyAyMjQuMzU4NzIzLDQzLjU2NDYzMzUgMjI0LjAzMjQwMyw0Mi42MTQxOTc4IEMyMjMuOTY3MzM5LDQyLjQ2NjI4NTYgMjI0LjAwMDM3MSw0Mi4zNDgzNTU3IDIyNC4xMzA0OTksNDIuMjYyNDA2NyBMMjI1Ljc1MTA4OSw0MC45MjkxOTgzIEMyMjUuNjk5MDM4LDQwLjY2OTM1MjYgMjI1LjY3MzAxMyw0MC4zNjI1MzQ3IDIyNS42NzMwMTMsNDAuMDAzNzQ3OCBDMjI1LjY3MzAxMywzOS42NDU5NjAyIDIyNS42OTkwMzgsMzkuMzM3MTQzNiAyMjUuNzUxMDg5LDM5LjA3ODI5NzMgTDIyNC4xMzA0OTksMzcuNzQ2MDg4MyBDMjI0LjAwMDM3MSwzNy42NjAxMzkzIDIyMy45NjczMzksMzcuNTQyMjA5MyAyMjQuMDMyNDAzLDM3LjM5NDI5NzEgQzIyNC4zNTc3MjIsMzYuNDQ0ODYwOSAyMjQuODkxMjQ1LDM1LjU2ODM4MTMgMjI1LjYzMzk3NCwzNC43NjY4NTcyIEMyMjUuNzM4MDc3LDM0LjY0MzkzMDIgMjI1Ljg2MjE5OCwzNC42MTI5NDg2IDIyNi4wMDUzMzksMzQuNjczOTEyNCBMMjI4LjAzNjMzMiwzNS4zNDA1MTY2IEMyMjguNTE2ODA0LDM0Ljk1Nzc0MzggMjI5LjA3NzM1NCwzNC42NDk5MjY2IDIyOS43MTU5ODEsMzQuNDE1MDY2MSBMMjMwLjEyNTM4MiwzMi40MTYyNTI4IEMyMzAuMTUxNDA4LDMyLjI2ODM0MDcgMjMwLjI0MjQ5NywzMi4xODIzOTE3IDIzMC4zOTg2NTEsMzIuMTU3NDA2NSBDMjMxLjQ2NTY5OCwzMS45NDc1MzEyIDIzMi41MzM3NDYsMzEuOTQ3NTMxMiAyMzMuNjAwNzkzLDMyLjE1NzQwNjUgQzIzMy43NTY5NDcsMzIuMTgxMzkyMyAyMzMuODQ4MDM2LDMyLjI2ODM0MDcgMjMzLjg3NDA2MSwzMi40MTYyNTI4IEwyMzQuMjgzNDYzLDM0LjQxNTA2NjEgQzIzNC44ODMwNTIsMzQuNjM3OTMzNyAyMzUuNDQyNjAxLDM0Ljk0NTc1MSAyMzUuOTYzMTEyLDM1LjM0MDUxNjYgTDIzNy45OTQxMDUsMzQuNjczOTEyNCBDMjM4LjEzNzI0NiwzNC42MTE5NDkyIDIzOC4yNjEzNjcsMzQuNjQzOTMwMiAyMzguMzY1NDcsMzQuNzY2ODU3MiBDMjM5LjEwNzE5NywzNS41NjkzODA3IDIzOS42NDA3MjEsMzYuNDQ0ODYwOSAyMzkuOTY3MDQxLDM3LjM5NDI5NzEgQzI0MC4wMzExMDQsMzcuNTQyMjA5MyAyMzkuOTk5MDczLDM3LjY2MDEzOTMgMjM5Ljg2ODk0NSwzNy43NDYwODgzIEwyMzguMjQ5MzU2LDM5LjA3ODI5NzMgTDIzOC4yNDkzNTYsMzkuMDc4Mjk3MyBaIE0yMzIsMzYuNSBDMjMwLjA2NzEyNSwzNi41IDIyOC41LDM4LjA2NzEyNSAyMjguNSw0MCBDMjI4LjUsNDEuOTMyODc1IDIzMC4wNjcxMjUsNDMuNSAyMzIsNDMuNSBDMjMzLjkzMjg3NSw0My41IDIzNS41LDQxLjkzMjg3NSAyMzUuNSw0MCBDMjM1LjUsMzguMDY3MTI1IDIzMy45MzI4NzUsMzYuNSAyMzIsMzYuNSBMMjMyLDM2LjUgWiIvPgogIDwvZz4KPC9zdmc+Cg=="
+	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICA8cGF0aCBmaWxsPSIjOTU5OTlEIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0yMjQsMTMxIEMyMjQsMTMwLjQ0NzcxNSAyMjQuNDQ0NjMxLDEzMCAyMjUuMDAwODcyLDEzMCBMMjM4Ljk5OTEyOCwxMzAgQzIzOS41NTE4OTQsMTMwIDI0MCwxMzAuNDQzODY1IDI0MCwxMzEgQzI0MCwxMzEuNTUyMjg1IDIzOS41NTUzNjksMTMyIDIzOC45OTkxMjgsMTMyIEwyMjUuMDAwODcyLDEzMiBDMjI0LjQ0ODEwNiwxMzIgMjI0LDEzMS41NTYxMzUgMjI0LDEzMSBaIE0yMjQsMTQxIEMyMjQsMTQwLjQ0NzcxNSAyMjQuNDQ0NjMxLDE0MCAyMjUuMDAwODcyLDE0MCBMMjM4Ljk5OTEyOCwxNDAgQzIzOS41NTE4OTQsMTQwIDI0MCwxNDAuNDQzODY1IDI0MCwxNDEgQzI0MCwxNDEuNTUyMjg1IDIzOS41NTUzNjksMTQyIDIzOC45OTkxMjgsMTQyIEwyMjUuMDAwODcyLDE0MiBDMjI0LjQ0ODEwNiwxNDIgMjI0LDE0MS41NTYxMzUgMjI0LDE0MSBaIE0yMjQsMTM2IEMyMjQsMTM1LjQ0NzcxNSAyMjQuNDQ0NjMxLDEzNSAyMjUuMDAwODcyLDEzNSBMMjM4Ljk5OTEyOCwxMzUgQzIzOS41NTE4OTQsMTM1IDI0MCwxMzUuNDQzODY1IDI0MCwxMzYgQzI0MCwxMzYuNTUyMjg1IDIzOS41NTUzNjksMTM3IDIzOC45OTkxMjgsMTM3IEwyMjUuMDAwODcyLDEzNyBDMjI0LjQ0ODEwNiwxMzcgMjI0LDEzNi41NTYxMzUgMjI0LDEzNiBaIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMjI0IC0xMjgpIi8+Cjwvc3ZnPgo="
 
 /***/ },
 /* 278 */
 /***/ function(module, exports) {
 
-	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICA8cGF0aCBmaWxsPSIjOTU5OTlEIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0yMjQsMTMxIEMyMjQsMTMwLjQ0NzcxNSAyMjQuNDQ0NjMxLDEzMCAyMjUuMDAwODcyLDEzMCBMMjM4Ljk5OTEyOCwxMzAgQzIzOS41NTE4OTQsMTMwIDI0MCwxMzAuNDQzODY1IDI0MCwxMzEgQzI0MCwxMzEuNTUyMjg1IDIzOS41NTUzNjksMTMyIDIzOC45OTkxMjgsMTMyIEwyMjUuMDAwODcyLDEzMiBDMjI0LjQ0ODEwNiwxMzIgMjI0LDEzMS41NTYxMzUgMjI0LDEzMSBaIE0yMjQsMTQxIEMyMjQsMTQwLjQ0NzcxNSAyMjQuNDQ0NjMxLDE0MCAyMjUuMDAwODcyLDE0MCBMMjM4Ljk5OTEyOCwxNDAgQzIzOS41NTE4OTQsMTQwIDI0MCwxNDAuNDQzODY1IDI0MCwxNDEgQzI0MCwxNDEuNTUyMjg1IDIzOS41NTUzNjksMTQyIDIzOC45OTkxMjgsMTQyIEwyMjUuMDAwODcyLDE0MiBDMjI0LjQ0ODEwNiwxNDIgMjI0LDE0MS41NTYxMzUgMjI0LDE0MSBaIE0yMjQsMTM2IEMyMjQsMTM1LjQ0NzcxNSAyMjQuNDQ0NjMxLDEzNSAyMjUuMDAwODcyLDEzNSBMMjM4Ljk5OTEyOCwxMzUgQzIzOS41NTE4OTQsMTM1IDI0MCwxMzUuNDQzODY1IDI0MCwxMzYgQzI0MCwxMzYuNTUyMjg1IDIzOS41NTUzNjksMTM3IDIzOC45OTkxMjgsMTM3IEwyMjUuMDAwODcyLDEzNyBDMjI0LjQ0ODEwNiwxMzcgMjI0LDEzNi41NTYxMzUgMjI0LDEzNiBaIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMjI0IC0xMjgpIi8+Cjwvc3ZnPgo="
-
-/***/ },
-/* 279 */
-/***/ function(module, exports) {
-
 	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAzMiAzMicgd2lkdGg9JzEyJyBoZWlnaHQ9JzEyJyBmaWxsPScjMjk3RUYyJz4KICA8cGF0aCBvcGFjaXR5PScuMjUnIGQ9J00xNiAwYTE2IDE2IDAgMCAwIDAgMzIgMTYgMTYgMCAwIDAgMC0zMm0wIDRhMTIgMTIgMCAwIDEgMCAyNCAxMiAxMiAwIDAgMSAwLTI0Jy8+CiAgPHBhdGggZD0nTTE2IDBhMTYgMTYgMCAwIDEgMTYgMTZoLTRhMTIgMTIgMCAwIDAtMTItMTJ6Jy8+Cjwvc3ZnPgo="
 
 /***/ },
-/* 280 */
+/* 279 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
