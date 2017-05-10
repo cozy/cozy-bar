@@ -86,11 +86,11 @@
 }
 
 [role=banner] .coz-drawer--apps ul li {
-  flex-basis: calc(100% / 3);
+  flex: 0 0 calc(100% /3);
   max-width: calc(100% / 3);
 }
 
-[role=banner] .coz-drawer--apps ul.--wrapping {
+[role=banner] .coz-drawer--apps ul.coz-nav-group--wrapping {
   flex-wrap: wrap;
 }
 
