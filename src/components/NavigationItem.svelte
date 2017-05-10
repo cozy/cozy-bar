@@ -11,7 +11,7 @@
     {{#if fileIcon}}
     <img src='{{fileIcon.src}}' alt='' width='64' height='64' class='{{fileIcon.class ? fileIcon.class : ''}}' />
     {{/if}}
-    {{label}}
+    <p class='coz-label'>{{label}}</p>
   </a>
   {{elseif item.action}}
   <button role='menuitem' data-icon='{{dataIcon?dataIcon:""}}' on:click='proxy(item.action)'>

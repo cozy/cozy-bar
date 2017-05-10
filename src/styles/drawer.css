@@ -87,6 +87,7 @@
 
 [role=banner] .coz-drawer--apps ul li {
   flex-basis: calc(100% / 3);
+  max-width: calc(100% / 3);
 }
 
 [role=banner] .coz-drawer--apps ul.--wrapping {
@@ -106,4 +107,14 @@
 
 [role=banner] .coz-drawer--apps li img {
   margin-bottom: 1.125em;
+}
+
+[role=banner] .coz-drawer--apps li p.coz-label {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  min-width: 0;
+  width: 100%;
+  text-align: center;
+  font-size: 14px;
 }
