@@ -27,13 +27,13 @@
   const BUSY_DELAY = 450
 
   function open () {
-    let valveObserver, busyTimer
+    let isFetchingObserver, busyTimer
 
     const show = () => {
       clearTimeout(busyTimer)
       this.set({closed: false, busy: false})
-      if (valveObserver) {
-        valveObserver.cancel()
+      if (isFetchingObserver) {
+        isFetchingObserver.cancel()
       }
     }
 
@@ -44,10 +44,9 @@
     this.fire('open', { panel: this.get('slug') })
 
     if (this.get('async')) {
-      this.set({valve: true})
-      valveObserver = this.observe('valve', valve => {
-        if (!valve) {
-          setTimeout(() => { show() }, 0)
+      isFetchingObserver = this.observe('isFetching', isFetching => {
+        if (!isFetching) {
+          show()
         }
       })
     } else {
@@ -74,7 +73,7 @@
       return {
         busy: false,
         closed: true,
-        valve: false
+        isFetching: true
       }
     },
     computed: {
@@ -88,7 +87,7 @@
 
       if (this.get('async')) {
         this.asyncObserver = this.observe('items', items => {
-          this.set({ valve: false })
+          this.set({ isFetching: false })
         });
       }
     },
