@@ -1,4 +1,4 @@
-{{#if target !== 'mobile'}}
+{{#if target !== 'mobile' && !isPublic}}
 <button class='coz-bar-burger' on:click='toggleDrawer()' data-icon='icon-hamburger'>
   <span class='coz-bar-hidden'>{{t('menu')}}</span>
 </button>
@@ -12,9 +12,11 @@
 
 <hr class='coz-sep-flex' />
 
+{{#if !isPublic}}
 <Navigation sections='{{config.sections.bar}}' on:open='onPopOpen(event.panel)' />
+{{/if}}
 
-{{#if target !== 'mobile'}}
+{{#if target !== 'mobile' && !isPublic}}
 <Drawer content='{{config.apps}}' footer='{{config.sections.drawer}}' visible={{drawerVisible}} on:close='toggleDrawer(true)'/>
 {{/if}}
 

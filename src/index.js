@@ -136,11 +136,17 @@ const init = function CozyBarInit ({
   iconPath = getDefaultIcon(),
   cozyURL = getDefaultStackURL(),
   token = getDefaultToken(),
-  replaceTitleOnMobile = false
+  replaceTitleOnMobile = false,
+  isPublic = false
 } = {}) {
+  // Force public mode in `/public` URLs
+  if (/^\/public/.test(window.location.pathname)) {
+    isPublic = true
+  }
+
   i18n(lang)
   stack.init({cozyURL, token})
-  view = injectDOM({lang, appName, appEditor, iconPath, replaceTitleOnMobile})
+  view = injectDOM({lang, appName, appEditor, iconPath, replaceTitleOnMobile, isPublic})
 
   if (view) {
     bindEvents.call(view)
