@@ -388,11 +388,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	      _ref$token = _ref.token,
 	      token = _ref$token === undefined ? getDefaultToken() : _ref$token,
 	      _ref$replaceTitleOnMo = _ref.replaceTitleOnMobile,
-	      replaceTitleOnMobile = _ref$replaceTitleOnMo === undefined ? false : _ref$replaceTitleOnMo;
+	      replaceTitleOnMobile = _ref$replaceTitleOnMo === undefined ? false : _ref$replaceTitleOnMo,
+	      _ref$isPublic = _ref.isPublic,
+	      isPublic = _ref$isPublic === undefined ? false : _ref$isPublic;
+	
+	  // Force public mode in `/public` URLs
+	  if (/^\/public/.test(window.location.pathname)) {
+	    isPublic = true;
+	  }
 	
 	  (0, _i18n2.default)(lang);
 	  _stack2.default.init({ cozyURL: cozyURL, token: token });
-	  view = injectDOM({ lang: lang, appName: appName, appEditor: appEditor, iconPath: iconPath, replaceTitleOnMobile: replaceTitleOnMobile });
+	  view = injectDOM({ lang: lang, appName: appName, appEditor: appEditor, iconPath: iconPath, replaceTitleOnMobile: replaceTitleOnMobile, isPublic: isPublic });
 	
 	  if (view) {
 	    bindEvents.call(view);
@@ -409,7 +416,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  view.set({ lang: lang });
 	};
 	
-	module.exports = { init: init, version: ("3.0.0-beta22"), setLocale: setLocale };
+	module.exports = { init: init, version: ("3.0.0-beta23"), setLocale: setLocale };
 
 /***/ },
 /* 1 */
@@ -8687,34 +8694,30 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-	
-	var _i18n = __webpack_require__(189);
-	
-	var _config = __webpack_require__(254);
-	
-	var _Navigation = __webpack_require__(261);
-	
-	var _Navigation2 = _interopRequireDefault(_Navigation);
-	
-	var _Drawer = __webpack_require__(267);
-	
-	var _Drawer2 = _interopRequireDefault(_Drawer);
-	
-	var _menu = __webpack_require__(260);
-	
-	var _menu2 = _interopRequireDefault(_menu);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 	
-	function applyComputations(state, newState, oldState) {
-		if ('replaceTitleOnMobile' in newState && _typeof(state.replaceTitleOnMobile) === 'object' || state.replaceTitleOnMobile !== oldState.replaceTitleOnMobile) {
+	var __import0 = __webpack_require__(189);
+	
+	var __import1 = __webpack_require__(254);
+	
+	var Navigation = __webpack_require__(261);
+	
+	var Drawer = __webpack_require__(267);
+	
+	var MENU_CONFIG = __webpack_require__(260);
+	
+	var t = __import0.t;
+	var createMenuPointers = __import1.createMenuPointers;
+	var updateSettings = __import1.updateSettings;
+	var updateApps = __import1.updateApps;
+	Navigation = Navigation && Navigation.__esModule ? Navigation['default'] : Navigation;
+	Drawer = Drawer && Drawer.__esModule ? Drawer['default'] : Drawer;
+	MENU_CONFIG = MENU_CONFIG && MENU_CONFIG.__esModule ? MENU_CONFIG['default'] : MENU_CONFIG;
+	
+	function recompute(state, newState, oldState, isInitial) {
+		if (isInitial || 'replaceTitleOnMobile' in newState && differs(state.replaceTitleOnMobile, oldState.replaceTitleOnMobile)) {
 			state.titleClass = newState.titleClass = template.computed.titleClass(state.replaceTitleOnMobile);
 		}
 	}
@@ -8722,7 +8725,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var template = function () {
 		return {
 			data: function data() {
-				var config = (0, _config.createMenuPointers)(_menu2.default);
+				var config = createMenuPointers(MENU_CONFIG);
 	
 				return {
 					target: ("mobile"),
@@ -8742,7 +8745,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	   * When loading the Bar component, we once force a first update of config
 	   * w/ settings and apps
 	   */
-			onrender: function () {
+			oncreate: function () {
 				var _ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee() {
 					var _this = this;
 	
@@ -8764,11 +8767,11 @@ return /******/ (function(modules) { // webpackBootstrap
 									}
 	
 									_context.next = 5;
-									return (0, _config.updateSettings)(config);
+									return updateSettings(config);
 	
 								case 5:
 									_context.next = 7;
-									return (0, _config.updateApps)(config);
+									return updateApps(config);
 	
 								case 7:
 	
@@ -8782,20 +8785,15 @@ return /******/ (function(modules) { // webpackBootstrap
 					}, _callee, this);
 				}));
 	
-				function onrender() {
+				function oncreate() {
 					return _ref.apply(this, arguments);
 				}
 	
-				return onrender;
+				return oncreate;
 			}(),
 	
 	
-			components: {
-				Navigation: _Navigation2.default,
-				Drawer: _Drawer2.default
-			},
-	
-			helpers: { t: _i18n.t },
+			helpers: { t: t },
 	
 			methods: {
 				toggleDrawer: function () {
@@ -8814,12 +8812,12 @@ return /******/ (function(modules) { // webpackBootstrap
 										}
 	
 										_context2.next = 5;
-										return (0, _config.updateSettings)(config, { storage: false });
+										return updateSettings(config, { storage: false });
 	
 									case 5:
 										settingsValve = _context2.sent;
 										_context2.next = 8;
-										return (0, _config.updateApps)(config);
+										return updateApps(config);
 	
 									case 8:
 										appsValve = _context2.sent;
@@ -8863,7 +8861,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 									case 5:
 										_context3.next = 7;
-										return (0, _config.updateApps)(config);
+										return updateApps(config);
 	
 									case 7:
 										// we force config update as the menu dropdown opening depends on it
@@ -8872,7 +8870,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 									case 9:
 										_context3.next = 11;
-										return (0, _config.updateSettings)(config);
+										return updateSettings(config);
 	
 									case 11:
 										valve = _context3.sent;
@@ -8903,170 +8901,240 @@ return /******/ (function(modules) { // webpackBootstrap
 		};
 	}();
 	
-	function renderMainFragment(root, component) {
-		var ifBlock_anchor = createComment("#if target !== 'mobile'");
+	function create_main_fragment(state, component) {
+		var h1_lang_value, h1_class_value, img_src_value, text_3_value;
 	
-		function getBlock(root) {
-			if (root.target !== 'mobile') return renderIfBlock_0;
-			return null;
-		}
-	
-		var currentBlock = getBlock(root);
-		var ifBlock = currentBlock && currentBlock(root, component);
+		var if_block = state.target !== 'mobile' && !state.isPublic && create_if_block(state, component);
 	
 		var text = createText("\n\n");
-	
 		var h1 = createElement('h1');
-		h1.lang = root.lang;
-		h1.className = root.titleClass;
-	
+		h1.lang = h1_lang_value = state.lang;
+		h1.className = h1_class_value = state.titleClass;
 		var img = createElement('img');
-		img.className = "coz-bar-hide-sm";
-		img.src = root.iconPath;
-		img.width = "32";
-	
 		appendNode(img, h1);
-		appendNode(createText("\n  "), h1);
-		var ifBlock1_anchor = createComment("#if appEditor");
-		appendNode(ifBlock1_anchor, h1);
-	
-		function getBlock1(root) {
-			if (root.appEditor) return renderIfBlock1_0;
-			return null;
-		}
-	
-		var currentBlock1 = getBlock1(root);
-		var ifBlock1 = currentBlock1 && currentBlock1(root, component);
-	
-		if (ifBlock1) ifBlock1.mount(ifBlock1_anchor.parentNode, ifBlock1_anchor);
+		img.className = "coz-bar-hide-sm";
+		img.src = img_src_value = state.iconPath;
+		img.width = "32";
 		appendNode(createText("\n  "), h1);
 	
+		var if_block_1 = state.appEditor && create_if_block_1(state, component);
+	
+		if (if_block_1) if_block_1.mount(h1, null);
+		var text_2 = createText("\n  ");
+		appendNode(text_2, h1);
 		var strong = createElement('strong');
-	
 		appendNode(strong, h1);
-		var text3 = createText(root.appName);
-		appendNode(text3, strong);
-		var text4 = createText("\n\n");
-	
+		var text_3 = createText(text_3_value = state.appName);
+		appendNode(text_3, strong);
+		var text_4 = createText("\n\n");
 		var hr = createElement('hr');
 		hr.className = "coz-sep-flex";
+		var text_5 = createText("\n\n");
 	
-		var text5 = createText("\n\n");
+		var if_block_2 = !state.isPublic && create_if_block_2(state, component);
 	
-		var navigation_initialData = {
-			sections: root.config.sections.bar
+		var text_6 = createText("\n\n");
+	
+		var if_block_3 = state.target !== 'mobile' && !state.isPublic && create_if_block_3(state, component);
+	
+		var if_block_3_anchor = createComment();
+	
+		return {
+			mount: function mount(target, anchor) {
+				if (if_block) if_block.mount(target, anchor);
+				insertNode(text, target, anchor);
+				insertNode(h1, target, anchor);
+				insertNode(text_4, target, anchor);
+				insertNode(hr, target, anchor);
+				insertNode(text_5, target, anchor);
+				if (if_block_2) if_block_2.mount(target, anchor);
+				insertNode(text_6, target, anchor);
+				if (if_block_3) if_block_3.mount(target, anchor);
+				insertNode(if_block_3_anchor, target, anchor);
+			},
+	
+			update: function update(changed, state) {
+				if (state.target !== 'mobile' && !state.isPublic) {
+					if (!if_block) {
+						if_block = create_if_block(state, component);
+						if_block.mount(text.parentNode, text);
+					}
+				} else if (if_block) {
+					if_block.destroy(true);
+					if_block = null;
+				}
+	
+				if (h1_lang_value !== (h1_lang_value = state.lang)) {
+					h1.lang = h1_lang_value;
+				}
+	
+				if (h1_class_value !== (h1_class_value = state.titleClass)) {
+					h1.className = h1_class_value;
+				}
+	
+				if (img_src_value !== (img_src_value = state.iconPath)) {
+					img.src = img_src_value;
+				}
+	
+				if (state.appEditor) {
+					if (if_block_1) {
+						if_block_1.update(changed, state);
+					} else {
+						if_block_1 = create_if_block_1(state, component);
+						if_block_1.mount(h1, text_2);
+					}
+				} else if (if_block_1) {
+					if_block_1.destroy(true);
+					if_block_1 = null;
+				}
+	
+				if (text_3_value !== (text_3_value = state.appName)) {
+					text_3.data = text_3_value;
+				}
+	
+				if (!state.isPublic) {
+					if (if_block_2) {
+						if_block_2.update(changed, state);
+					} else {
+						if_block_2 = create_if_block_2(state, component);
+						if_block_2.mount(text_6.parentNode, text_6);
+					}
+				} else if (if_block_2) {
+					if_block_2.destroy(true);
+					if_block_2 = null;
+				}
+	
+				if (state.target !== 'mobile' && !state.isPublic) {
+					if (if_block_3) {
+						if_block_3.update(changed, state);
+					} else {
+						if_block_3 = create_if_block_3(state, component);
+						if_block_3.mount(if_block_3_anchor.parentNode, if_block_3_anchor);
+					}
+				} else if (if_block_3) {
+					if_block_3.destroy(true);
+					if_block_3 = null;
+				}
+			},
+	
+			destroy: function destroy(detach) {
+				if (if_block) if_block.destroy(detach);
+				if (if_block_1) if_block_1.destroy(false);
+				if (if_block_2) if_block_2.destroy(detach);
+				if (if_block_3) if_block_3.destroy(detach);
+	
+				if (detach) {
+					detachNode(text);
+					detachNode(h1);
+					detachNode(text_4);
+					detachNode(hr);
+					detachNode(text_5);
+					detachNode(text_6);
+					detachNode(if_block_3_anchor);
+				}
+			}
 		};
-		var navigation = new template.components.Navigation({
+	}
+	
+	function create_if_block(state, component) {
+		var text_value;
+	
+		var button = createElement('button');
+		button.className = "coz-bar-burger";
+		setAttribute(button, 'data-icon', "icon-hamburger");
+	
+		function click_handler(event) {
+			component.toggleDrawer();
+		}
+	
+		addEventListener(button, 'click', click_handler);
+		var span = createElement('span');
+		appendNode(span, button);
+		span.className = "coz-bar-hidden";
+		var text = createText(text_value = template.helpers.t('menu'));
+		appendNode(text, span);
+	
+		return {
+			mount: function mount(target, anchor) {
+				insertNode(button, target, anchor);
+			},
+	
+			destroy: function destroy(detach) {
+				removeEventListener(button, 'click', click_handler);
+	
+				if (detach) {
+					detachNode(button);
+				}
+			}
+		};
+	}
+	
+	function create_if_block_1(state, component) {
+		var text_value;
+	
+		var span = createElement('span');
+		span.className = "coz-bar-hide-sm";
+		var text = createText(text_value = state.appEditor);
+		appendNode(text, span);
+	
+		return {
+			mount: function mount(target, anchor) {
+				insertNode(span, target, anchor);
+			},
+	
+			update: function update(changed, state) {
+				if (text_value !== (text_value = state.appEditor)) {
+					text.data = text_value;
+				}
+			},
+	
+			destroy: function destroy(detach) {
+				if (detach) {
+					detachNode(span);
+				}
+			}
+		};
+	}
+	
+	function create_if_block_2(state, component) {
+		var navigation = new Navigation({
 			target: null,
-			_root: component._root || component,
-			data: navigation_initialData
+			_root: component._root,
+			data: { sections: state.config.sections.bar }
 		});
 	
 		navigation.on('open', function (event) {
 			component.onPopOpen(event.panel);
 		});
 	
-		var text6 = createText("\n\n");
-		var ifBlock2_anchor = createComment("#if target !== 'mobile'");
-	
-		function getBlock2(root) {
-			if (root.target !== 'mobile') return renderIfBlock2_0;
-			return null;
-		}
-	
-		var currentBlock2 = getBlock2(root);
-		var ifBlock2 = currentBlock2 && currentBlock2(root, component);
-	
 		return {
 			mount: function mount(target, anchor) {
-				insertNode(ifBlock_anchor, target, anchor);
-				if (ifBlock) ifBlock.mount(ifBlock_anchor.parentNode, ifBlock_anchor);
-				insertNode(text, target, anchor);
-				insertNode(h1, target, anchor);
-				insertNode(text4, target, anchor);
-				insertNode(hr, target, anchor);
-				insertNode(text5, target, anchor);
 				navigation._fragment.mount(target, anchor);
-				insertNode(text6, target, anchor);
-				insertNode(ifBlock2_anchor, target, anchor);
-				if (ifBlock2) ifBlock2.mount(ifBlock2_anchor.parentNode, ifBlock2_anchor);
 			},
 	
-			update: function update(changed, root) {
-				var _currentBlock = currentBlock;
-				currentBlock = getBlock(root);
-				if (_currentBlock === currentBlock && ifBlock) {
-					ifBlock.update(changed, root);
-				} else {
-					if (ifBlock) ifBlock.teardown(true);
-					ifBlock = currentBlock && currentBlock(root, component);
-					if (ifBlock) ifBlock.mount(ifBlock_anchor.parentNode, ifBlock_anchor);
-				}
-	
-				h1.lang = root.lang;
-				h1.className = root.titleClass;
-	
-				img.src = root.iconPath;
-	
-				var _currentBlock1 = currentBlock1;
-				currentBlock1 = getBlock1(root);
-				if (_currentBlock1 === currentBlock1 && ifBlock1) {
-					ifBlock1.update(changed, root);
-				} else {
-					if (ifBlock1) ifBlock1.teardown(true);
-					ifBlock1 = currentBlock1 && currentBlock1(root, component);
-					if (ifBlock1) ifBlock1.mount(ifBlock1_anchor.parentNode, ifBlock1_anchor);
-				}
-	
-				text3.data = root.appName;
-	
+			update: function update(changed, state) {
 				var navigation_changes = {};
 	
-				if ('config' in changed) navigation_changes.sections = root.config.sections.bar;
+				if ('config' in changed) navigation_changes.sections = state.config.sections.bar;
 	
 				if (Object.keys(navigation_changes).length) navigation.set(navigation_changes);
-	
-				var _currentBlock2 = currentBlock2;
-				currentBlock2 = getBlock2(root);
-				if (_currentBlock2 === currentBlock2 && ifBlock2) {
-					ifBlock2.update(changed, root);
-				} else {
-					if (ifBlock2) ifBlock2.teardown(true);
-					ifBlock2 = currentBlock2 && currentBlock2(root, component);
-					if (ifBlock2) ifBlock2.mount(ifBlock2_anchor.parentNode, ifBlock2_anchor);
-				}
 			},
 	
-			teardown: function teardown(detach) {
-				if (ifBlock) ifBlock.teardown(detach);
-				if (ifBlock1) ifBlock1.teardown(false);
-				navigation.teardown(detach);
-				if (ifBlock2) ifBlock2.teardown(detach);
-	
-				if (detach) {
-					detachNode(ifBlock_anchor);
-					detachNode(text);
-					detachNode(h1);
-					detachNode(text4);
-					detachNode(hr);
-					detachNode(text5);
-					detachNode(text6);
-					detachNode(ifBlock2_anchor);
-				}
+			destroy: function destroy(detach) {
+				navigation.destroy(detach);
 			}
 		};
 	}
 	
-	function renderIfBlock2_0(root, component) {
-		var drawer_initialData = {
-			content: root.config.apps,
-			footer: root.config.sections.drawer,
-			visible: root.drawerVisible
-		};
-		var drawer = new template.components.Drawer({
+	function create_if_block_3(state, component) {
+		var drawer = new Drawer({
 			target: null,
-			_root: component._root || component,
-			data: drawer_initialData
+			_root: component._root,
+			data: {
+				content: state.config.apps,
+				footer: state.config.sections.drawer,
+				visible: state.drawerVisible
+			}
 		});
 	
 		drawer.on('close', function (event) {
@@ -9078,89 +9146,26 @@ return /******/ (function(modules) { // webpackBootstrap
 				drawer._fragment.mount(target, anchor);
 			},
 	
-			update: function update(changed, root) {
+			update: function update(changed, state) {
 				var drawer_changes = {};
 	
-				if ('config' in changed) drawer_changes.content = root.config.apps;
-				if ('config' in changed) drawer_changes.footer = root.config.sections.drawer;
-				if ('drawerVisible' in changed) drawer_changes.visible = root.drawerVisible;
+				if ('config' in changed) drawer_changes.content = state.config.apps;
+				if ('config' in changed) drawer_changes.footer = state.config.sections.drawer;
+				if ('drawerVisible' in changed) drawer_changes.visible = state.drawerVisible;
 	
 				if (Object.keys(drawer_changes).length) drawer.set(drawer_changes);
 			},
-	
-			teardown: function teardown(detach) {
-				drawer.teardown(detach);
-			}
-		};
-	}
-	
-	function renderIfBlock1_0(root, component) {
-		var span = createElement('span');
-		span.className = "coz-bar-hide-sm";
-	
-		var text = createText(root.appEditor);
-		appendNode(text, span);
-	
-		return {
-			mount: function mount(target, anchor) {
-				insertNode(span, target, anchor);
-			},
-	
-			update: function update(changed, root) {
-				text.data = root.appEditor;
-			},
-	
-			teardown: function teardown(detach) {
-				if (detach) {
-					detachNode(span);
-				}
-			}
-		};
-	}
-	
-	function renderIfBlock_0(root, component) {
-		var button = createElement('button');
-		button.className = "coz-bar-burger";
-	
-		function clickHandler(event) {
-			component.toggleDrawer();
-		}
-	
-		addEventListener(button, 'click', clickHandler);
-	
-		setAttribute(button, 'data-icon', "icon-hamburger");
-	
-		var span = createElement('span');
-		span.className = "coz-bar-hidden";
-	
-		appendNode(span, button);
-		var text = createText(template.helpers.t('menu'));
-		appendNode(text, span);
-	
-		return {
-			mount: function mount(target, anchor) {
-				insertNode(button, target, anchor);
-			},
-	
-			update: function update(changed, root) {
-				text.data = template.helpers.t('menu');
-			},
 
-			teardown: function teardown(detach) {
-				removeEventListener(button, 'click', clickHandler);
-
-				if (detach) {
-					detachNode(button);
-				}
+			destroy: function destroy(detach) {
+				drawer.destroy(detach);
 			}
 		};
 	}
 
-	function SvelteComponent(options) {
+	function Bar(options) {
 		options = options || {};
-
-		this._state = Object.assign(template.data(), options.data);
-		applyComputations(this._state, this._state, {});
+		this._state = assign(template.data(), options.data);
+		recompute(this._state, this._state, {}, true);
 
 		this._observers = {
 			pre: Object.create(null),
@@ -9169,43 +9174,141 @@ return /******/ (function(modules) { // webpackBootstrap
 
 		this._handlers = Object.create(null);
 
-		this._root = options._root;
+		this._root = options._root || this;
 		this._yield = options._yield;
 
+		this._torndown = false;
 		this._renderHooks = [];
 
-		this._fragment = renderMainFragment(this._state, this);
+		this._fragment = create_main_fragment(this._state, this);
 		if (options.target) this._fragment.mount(options.target, null);
-
-		while (this._renderHooks.length) {
-			var hook = this._renderHooks.pop();
-			hook.fn.call(hook.context);
-		}
+		this._flush();
 
 		if (options._root) {
-			options._root._renderHooks.push({ fn: template.onrender, context: this });
+			options._root._renderHooks.push(template.oncreate.bind(this));
 		} else {
-			template.onrender.call(this);
+			template.oncreate.call(this);
 		}
 	}
 
-	SvelteComponent.prototype = template.methods;
+	assign(Bar.prototype, template.methods, {
+		get: get,
+		fire: fire,
+		observe: observe,
+		on: on,
+		set: set,
+		_flush: _flush
+	});
 
-	SvelteComponent.prototype.get = function get(key) {
-		return key ? this._state[key] : this._state;
+	Bar.prototype._set = function _set(newState) {
+		var oldState = this._state;
+		this._state = assign({}, oldState, newState);
+		recompute(this._state, newState, oldState, false);
+		dispatchObservers(this, this._observers.pre, newState, oldState);
+		this._fragment.update(newState, this._state);
+		dispatchObservers(this, this._observers.post, newState, oldState);
+		this._flush();
 	};
 
-	SvelteComponent.prototype.fire = function fire(eventName, data) {
+	Bar.prototype.teardown = Bar.prototype.destroy = function destroy(detach) {
+		this.fire('destroy');
+
+		this._fragment.destroy(detach !== false);
+		this._fragment = null;
+
+		this._state = {};
+		this._torndown = true;
+	};
+
+	function createElement(name) {
+		return document.createElement(name);
+	}
+
+	function insertNode(node, target, anchor) {
+		target.insertBefore(node, anchor);
+	}
+
+	function detachNode(node) {
+		node.parentNode.removeChild(node);
+	}
+
+	function setAttribute(node, attribute, value) {
+		node.setAttribute(attribute, value);
+	}
+
+	function addEventListener(node, event, handler) {
+		node.addEventListener(event, handler, false);
+	}
+
+	function removeEventListener(node, event, handler) {
+		node.removeEventListener(event, handler, false);
+	}
+
+	function appendNode(node, target) {
+		target.appendChild(node);
+	}
+
+	function createText(data) {
+		return document.createTextNode(data);
+	}
+
+	function createComment() {
+		return document.createComment('');
+	}
+
+	function differs(a, b) {
+		return a !== b || a && (typeof a === 'undefined' ? 'undefined' : _typeof(a)) === 'object' || typeof a === 'function';
+	}
+
+	function assign(target) {
+		for (var i = 1; i < arguments.length; i += 1) {
+			var source = arguments[i];
+			for (var k in source) {
+				target[k] = source[k];
+			}
+		}
+
+		return target;
+	}
+
+	function dispatchObservers(component, group, newState, oldState) {
+		for (var key in group) {
+			if (!(key in newState)) continue;
+
+			var newValue = newState[key];
+			var oldValue = oldState[key];
+
+			if (differs(newValue, oldValue)) {
+				var callbacks = group[key];
+				if (!callbacks) continue;
+
+				for (var i = 0; i < callbacks.length; i += 1) {
+					var callback = callbacks[i];
+					if (callback.__calling) continue;
+
+					callback.__calling = true;
+					callback.call(component, newValue, oldValue);
+					callback.__calling = false;
+				}
+			}
+		}
+	}
+
+	function get(key) {
+		return key ? this._state[key] : this._state;
+	}
+
+	function fire(eventName, data) {
 		var handlers = eventName in this._handlers && this._handlers[eventName].slice();
 		if (!handlers) return;
 
 		for (var i = 0; i < handlers.length; i += 1) {
 			handlers[i].call(this, data);
 		}
-	};
+	}
 
-	SvelteComponent.prototype.observe = function observe(key, callback, options) {
-		var group = options && options.defer ? this._observers.pre : this._observers.post;
+	function observe(key, callback, options) {
+		var group = options && options.defer ? this._observers.post : this._observers.pre;
 
 		(group[key] || (group[key] = [])).push(callback);
 
@@ -9221,9 +9324,11 @@ return /******/ (function(modules) { // webpackBootstrap
 				if (~index) group[key].splice(index, 1);
 			}
 		};
-	};
+	}
 
-	SvelteComponent.prototype.on = function on(eventName, handler) {
+	function on(eventName, handler) {
+		if (eventName === 'teardown') return this.on('destroy', handler);
+
 		var handlers = this._handlers[eventName] || (this._handlers[eventName] = []);
 		handlers.push(handler);
 
@@ -9233,92 +9338,22 @@ return /******/ (function(modules) { // webpackBootstrap
 				if (~index) handlers.splice(index, 1);
 			}
 		};
-	};
+	}
 
-	SvelteComponent.prototype.set = function set(newState) {
-		var oldState = this._state;
-		this._state = Object.assign({}, oldState, newState);
-		applyComputations(this._state, newState, oldState);
+	function set(newState) {
+		this._set(assign({}, newState));
+		this._root._flush();
+	}
 
-		dispatchObservers(this, this._observers.pre, newState, oldState);
-		if (this._fragment) this._fragment.update(newState, this._state);
-		dispatchObservers(this, this._observers.post, newState, oldState);
+	function _flush() {
+		if (!this._renderHooks) return;
 
 		while (this._renderHooks.length) {
-			var hook = this._renderHooks.pop();
-			hook.fn.call(hook.context);
-		}
-	};
-
-	SvelteComponent.prototype.teardown = function teardown(detach) {
-		this.fire('teardown');
-
-		this._fragment.teardown(detach !== false);
-		this._fragment = null;
-
-		this._state = {};
-	};
-
-	function dispatchObservers(component, group, newState, oldState) {
-		for (var key in group) {
-			if (!(key in newState)) continue;
-
-			var newValue = newState[key];
-			var oldValue = oldState[key];
-
-			if (newValue === oldValue && (typeof newValue === 'undefined' ? 'undefined' : _typeof(newValue)) !== 'object') continue;
-
-			var callbacks = group[key];
-			if (!callbacks) continue;
-
-			for (var i = 0; i < callbacks.length; i += 1) {
-				var callback = callbacks[i];
-				if (callback.__calling) continue;
-
-				callback.__calling = true;
-				callback.call(component, newValue, oldValue);
-				callback.__calling = false;
-			}
+			this._renderHooks.pop()();
 		}
 	}
 
-	function addEventListener(node, event, handler) {
-		node.addEventListener(event, handler, false);
-	}
-
-	function removeEventListener(node, event, handler) {
-		node.removeEventListener(event, handler, false);
-	}
-
-	function setAttribute(node, attribute, value) {
-		node.setAttribute(attribute, value);
-	}
-
-	function createElement(name) {
-		return document.createElement(name);
-	}
-
-	function detachNode(node) {
-		node.parentNode.removeChild(node);
-	}
-
-	function insertNode(node, target, anchor) {
-		target.insertBefore(node, anchor);
-	}
-
-	function appendNode(node, target) {
-		target.appendChild(node);
-	}
-
-	function createText(data) {
-		return document.createTextNode(data);
-	}
-
-	function createComment(data) {
-		return document.createComment(data);
-	}
-
-	exports.default = SvelteComponent;
+	module.exports = Bar;
 
 /***/ },
 /* 254 */
@@ -10045,41 +10080,24 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 	
-	var _NavigationSection = __webpack_require__(262);
+	var NavigationSection = __webpack_require__(262);
 	
-	var _NavigationSection2 = _interopRequireDefault(_NavigationSection);
+	NavigationSection = NavigationSection && NavigationSection.__esModule ? NavigationSection['default'] : NavigationSection;
 	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var template = function () {
-		return {
-			components: {
-				NavigationSection: _NavigationSection2.default
-			}
-		};
-	}();
-	
-	function renderMainFragment(root, component) {
+	function create_main_fragment(state, component) {
 		var nav = createElement('nav');
 		nav.className = "coz-nav";
-	
 		var ul = createElement('ul');
-	
 		appendNode(ul, nav);
-		var eachBlock_anchor = createComment("#each sections");
-		appendNode(eachBlock_anchor, ul);
-		var eachBlock_value = root.sections;
-		var eachBlock_iterations = [];
+		var each_block_value = state.sections;
 	
-		for (var i = 0; i < eachBlock_value.length; i += 1) {
-			eachBlock_iterations[i] = renderEachBlock(root, eachBlock_value, eachBlock_value[i], i, component);
-			eachBlock_iterations[i].mount(eachBlock_anchor.parentNode, eachBlock_anchor);
+		var each_block_iterations = [];
+	
+		for (var i = 0; i < each_block_value.length; i += 1) {
+			each_block_iterations[i] = create_each_block(state, each_block_value, each_block_value[i], i, component);
+			each_block_iterations[i].mount(ul, null);
 		}
 	
 		return {
@@ -10087,25 +10105,26 @@ return /******/ (function(modules) { // webpackBootstrap
 				insertNode(nav, target, anchor);
 			},
 	
-			update: function update(changed, root) {
-				var eachBlock_value = root.sections;
+			update: function update(changed, state) {
+				var each_block_value = state.sections;
 	
-				for (var i = 0; i < eachBlock_value.length; i += 1) {
-					if (!eachBlock_iterations[i]) {
-						eachBlock_iterations[i] = renderEachBlock(root, eachBlock_value, eachBlock_value[i], i, component);
-						eachBlock_iterations[i].mount(eachBlock_anchor.parentNode, eachBlock_anchor);
-					} else {
-						eachBlock_iterations[i].update(changed, root, eachBlock_value, eachBlock_value[i], i);
+				if ('sections' in changed) {
+					for (var i = 0; i < each_block_value.length; i += 1) {
+						if (each_block_iterations[i]) {
+							each_block_iterations[i].update(changed, state, each_block_value, each_block_value[i], i);
+						} else {
+							each_block_iterations[i] = create_each_block(state, each_block_value, each_block_value[i], i, component);
+							each_block_iterations[i].mount(ul, null);
+						}
 					}
+	
+					destroyEach(each_block_iterations, true, each_block_value.length);
+					each_block_iterations.length = each_block_value.length;
 				}
-	
-				teardownEach(eachBlock_iterations, true, eachBlock_value.length);
-	
-				eachBlock_iterations.length = eachBlock_value.length;
 			},
 	
-			teardown: function teardown(detach) {
-				teardownEach(eachBlock_iterations, false);
+			destroy: function destroy(detach) {
+				destroyEach(each_block_iterations, false, 0);
 	
 				if (detach) {
 					detachNode(nav);
@@ -10114,49 +10133,47 @@ return /******/ (function(modules) { // webpackBootstrap
 		};
 	}
 	
-	function renderEachBlock(root, eachBlock_value, section, section__index, component) {
-		var navigationSection_initialData = {
-			standalone: "false",
-			slug: section.slug,
-			icon: section.icon,
-			items: section.items,
-			async: section.async
-		};
-		var navigationSection = new template.components.NavigationSection({
+	function create_each_block(state, each_block_value, section, section_index, component) {
+		var navigationsection = new NavigationSection({
 			target: null,
-			_root: component._root || component,
-			data: navigationSection_initialData
+			_root: component._root,
+			data: {
+				standalone: "false",
+				slug: section.slug,
+				icon: section.icon,
+				items: section.items,
+				async: section.async
+			}
 		});
 	
-		navigationSection.on('open', function (event) {
+		navigationsection.on('open', function (event) {
 			component.fire("open", { panel: event.panel });
 		});
-
+	
 		return {
 			mount: function mount(target, anchor) {
-				navigationSection._fragment.mount(target, anchor);
+				navigationsection._fragment.mount(target, anchor);
+			},
+	
+			update: function update(changed, state, each_block_value, section, section_index) {
+				var navigationsection_changes = {};
+	
+				if ('sections' in changed) navigationsection_changes.slug = section.slug;
+				if ('sections' in changed) navigationsection_changes.icon = section.icon;
+				if ('sections' in changed) navigationsection_changes.items = section.items;
+				if ('sections' in changed) navigationsection_changes.async = section.async;
+	
+				if (Object.keys(navigationsection_changes).length) navigationsection.set(navigationsection_changes);
 			},
 
-			update: function update(changed, root, eachBlock_value, section, section__index) {
-				var navigationSection_changes = {};
-
-				if ('sections' in changed) navigationSection_changes.slug = section.slug;
-				if ('sections' in changed) navigationSection_changes.icon = section.icon;
-				if ('sections' in changed) navigationSection_changes.items = section.items;
-				if ('sections' in changed) navigationSection_changes.async = section.async;
-
-				if (Object.keys(navigationSection_changes).length) navigationSection.set(navigationSection_changes);
-			},
-
-			teardown: function teardown(detach) {
-				navigationSection.teardown(detach);
+			destroy: function destroy(detach) {
+				navigationsection.destroy(detach);
 			}
 		};
 	}
 
-	function SvelteComponent(options) {
+	function Navigation(options) {
 		options = options || {};
-
 		this._state = options.data || {};
 
 		this._observers = {
@@ -10166,35 +10183,116 @@ return /******/ (function(modules) { // webpackBootstrap
 
 		this._handlers = Object.create(null);
 
-		this._root = options._root;
+		this._root = options._root || this;
 		this._yield = options._yield;
 
+		this._torndown = false;
 		this._renderHooks = [];
 
-		this._fragment = renderMainFragment(this._state, this);
+		this._fragment = create_main_fragment(this._state, this);
 		if (options.target) this._fragment.mount(options.target, null);
+		this._flush();
+	}
 
-		while (this._renderHooks.length) {
-			var hook = this._renderHooks.pop();
-			hook.fn.call(hook.context);
+	assign(Navigation.prototype, {
+		get: get,
+		fire: fire,
+		observe: observe,
+		on: on,
+		set: set,
+		_flush: _flush
+	});
+
+	Navigation.prototype._set = function _set(newState) {
+		var oldState = this._state;
+		this._state = assign({}, oldState, newState);
+		dispatchObservers(this, this._observers.pre, newState, oldState);
+		this._fragment.update(newState, this._state);
+		dispatchObservers(this, this._observers.post, newState, oldState);
+		this._flush();
+	};
+
+	Navigation.prototype.teardown = Navigation.prototype.destroy = function destroy(detach) {
+		this.fire('destroy');
+
+		this._fragment.destroy(detach !== false);
+		this._fragment = null;
+
+		this._state = {};
+		this._torndown = true;
+	};
+
+	function createElement(name) {
+		return document.createElement(name);
+	}
+
+	function insertNode(node, target, anchor) {
+		target.insertBefore(node, anchor);
+	}
+
+	function detachNode(node) {
+		node.parentNode.removeChild(node);
+	}
+
+	function appendNode(node, target) {
+		target.appendChild(node);
+	}
+
+	function destroyEach(iterations, detach, start) {
+		for (var i = start; i < iterations.length; i += 1) {
+			if (iterations[i]) iterations[i].destroy(detach);
 		}
 	}
 
-	SvelteComponent.prototype.get = function get(key) {
-		return key ? this._state[key] : this._state;
-	};
+	function assign(target) {
+		for (var i = 1; i < arguments.length; i += 1) {
+			var source = arguments[i];
+			for (var k in source) {
+				target[k] = source[k];
+			}
+		}
 
-	SvelteComponent.prototype.fire = function fire(eventName, data) {
+		return target;
+	}
+
+	function dispatchObservers(component, group, newState, oldState) {
+		for (var key in group) {
+			if (!(key in newState)) continue;
+
+			var newValue = newState[key];
+			var oldValue = oldState[key];
+
+			if (differs(newValue, oldValue)) {
+				var callbacks = group[key];
+				if (!callbacks) continue;
+
+				for (var i = 0; i < callbacks.length; i += 1) {
+					var callback = callbacks[i];
+					if (callback.__calling) continue;
+
+					callback.__calling = true;
+					callback.call(component, newValue, oldValue);
+					callback.__calling = false;
+				}
+			}
+		}
+	}
+
+	function get(key) {
+		return key ? this._state[key] : this._state;
+	}
+
+	function fire(eventName, data) {
 		var handlers = eventName in this._handlers && this._handlers[eventName].slice();
 		if (!handlers) return;
 
 		for (var i = 0; i < handlers.length; i += 1) {
 			handlers[i].call(this, data);
 		}
-	};
+	}
 
-	SvelteComponent.prototype.observe = function observe(key, callback, options) {
-		var group = options && options.defer ? this._observers.pre : this._observers.post;
+	function observe(key, callback, options) {
+		var group = options && options.defer ? this._observers.post : this._observers.pre;
 
 		(group[key] || (group[key] = [])).push(callback);
 
@@ -10210,9 +10308,11 @@ return /******/ (function(modules) { // webpackBootstrap
 				if (~index) group[key].splice(index, 1);
 			}
 		};
-	};
+	}
 
-	SvelteComponent.prototype.on = function on(eventName, handler) {
+	function on(eventName, handler) {
+		if (eventName === 'teardown') return this.on('destroy', handler);
+
 		var handlers = this._handlers[eventName] || (this._handlers[eventName] = []);
 		handlers.push(handler);
 
@@ -10222,81 +10322,26 @@ return /******/ (function(modules) { // webpackBootstrap
 				if (~index) handlers.splice(index, 1);
 			}
 		};
-	};
+	}
 
-	SvelteComponent.prototype.set = function set(newState) {
-		var oldState = this._state;
-		this._state = Object.assign({}, oldState, newState);
+	function set(newState) {
+		this._set(assign({}, newState));
+		this._root._flush();
+	}
 
-		dispatchObservers(this, this._observers.pre, newState, oldState);
-		if (this._fragment) this._fragment.update(newState, this._state);
-		dispatchObservers(this, this._observers.post, newState, oldState);
+	function _flush() {
+		if (!this._renderHooks) return;
 
 		while (this._renderHooks.length) {
-			var hook = this._renderHooks.pop();
-			hook.fn.call(hook.context);
-		}
-	};
-
-	SvelteComponent.prototype.teardown = function teardown(detach) {
-		this.fire('teardown');
-
-		this._fragment.teardown(detach !== false);
-		this._fragment = null;
-
-		this._state = {};
-	};
-
-	function dispatchObservers(component, group, newState, oldState) {
-		for (var key in group) {
-			if (!(key in newState)) continue;
-
-			var newValue = newState[key];
-			var oldValue = oldState[key];
-
-			if (newValue === oldValue && (typeof newValue === 'undefined' ? 'undefined' : _typeof(newValue)) !== 'object') continue;
-
-			var callbacks = group[key];
-			if (!callbacks) continue;
-
-			for (var i = 0; i < callbacks.length; i += 1) {
-				var callback = callbacks[i];
-				if (callback.__calling) continue;
-
-				callback.__calling = true;
-				callback.call(component, newValue, oldValue);
-				callback.__calling = false;
-			}
+			this._renderHooks.pop()();
 		}
 	}
 
-	function createElement(name) {
-		return document.createElement(name);
+	function differs(a, b) {
+		return a !== b || a && (typeof a === 'undefined' ? 'undefined' : _typeof(a)) === 'object' || typeof a === 'function';
 	}
 
-	function detachNode(node) {
-		node.parentNode.removeChild(node);
-	}
-
-	function insertNode(node, target, anchor) {
-		target.insertBefore(node, anchor);
-	}
-
-	function appendNode(node, target) {
-		target.appendChild(node);
-	}
-
-	function createComment(data) {
-		return document.createComment(data);
-	}
-
-	function teardownEach(iterations, detach, start) {
-		for (var i = start || 0; i < iterations.length; i += 1) {
-			iterations[i].teardown(detach);
-		}
-	}
-
-	exports.default = SvelteComponent;
+	module.exports = Navigation;
 
 /***/ },
 /* 262 */
@@ -10304,22 +10349,17 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 	
-	var _i18n = __webpack_require__(189);
+	var __import0 = __webpack_require__(189);
 	
-	var _NavigationGroup = __webpack_require__(263);
+	var NavigationGroup = __webpack_require__(263);
 	
-	var _NavigationGroup2 = _interopRequireDefault(_NavigationGroup);
+	var t = __import0.t;
+	NavigationGroup = NavigationGroup && NavigationGroup.__esModule ? NavigationGroup['default'] : NavigationGroup;
 	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function applyComputations(state, newState, oldState) {
-		if ('items' in newState && _typeof(state.items) === 'object' || state.items !== oldState.items) {
+	function recompute(state, newState, oldState, isInitial) {
+		if (isInitial || 'items' in newState && differs(state.items, oldState.items)) {
 			state.grouped = newState.grouped = template.computed.grouped(state.items);
 		}
 	}
@@ -10330,14 +10370,14 @@ return /******/ (function(modules) { // webpackBootstrap
 		function open() {
 			var _this = this;
 	
-			var valveObserver = void 0,
+			var isFetchingObserver = void 0,
 			    busyTimer = void 0;
 	
 			var show = function show() {
 				clearTimeout(busyTimer);
 				_this.set({ closed: false, busy: false });
-				if (valveObserver) {
-					valveObserver.cancel();
+				if (isFetchingObserver) {
+					isFetchingObserver.cancel();
 				}
 			};
 	
@@ -10348,12 +10388,9 @@ return /******/ (function(modules) { // webpackBootstrap
 			this.fire('open', { panel: this.get('slug') });
 	
 			if (this.get('async')) {
-				this.set({ valve: true });
-				valveObserver = this.observe('valve', function (valve) {
-					if (!valve) {
-						setTimeout(function () {
-							show();
-						}, 0);
+				isFetchingObserver = this.observe('isFetching', function (isFetching) {
+					if (!isFetching) {
+						show();
 					}
 				});
 			} else {
@@ -10379,7 +10416,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				return {
 					busy: false,
 					closed: true,
-					valve: false
+					isFetching: true
 				};
 			},
 	
@@ -10389,7 +10426,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				}
 			},
 	
-			onrender: function onrender() {
+			oncreate: function oncreate() {
 				var _this2 = this;
 	
 				this.clickOutsideListener = this._root.on('clickOutside', function (event) {
@@ -10400,21 +10437,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 				if (this.get('async')) {
 					this.asyncObserver = this.observe('items', function (items) {
-						_this2.set({ valve: false });
+						_this2.set({ isFetching: false });
 					});
 				}
 			},
-			onteardown: function onteardown() {
+			ondestroy: function ondestroy() {
 				this.clickOutsideListener.cancel();
 				this.asyncObserver.cancel();
 			},
 	
 	
-			components: {
-				NavigationGroup: _NavigationGroup2.default
-			},
-	
-			helpers: { t: _i18n.t },
+			helpers: { t: t },
 	
 			methods: {
 				toggle: function toggle() {
@@ -10428,72 +10461,75 @@ return /******/ (function(modules) { // webpackBootstrap
 		};
 	}();
 	
-	function renderMainFragment(root, component) {
+	function create_main_fragment(state, component) {
+		var a_aria_controls_value, a_aria_busy_value, a_data_icon_value, text_value;
+	
 		var li = createElement('li');
 		li.className = "coz-nav-section";
 	
-		function clickHandler(event) {
+		function click_handler(event) {
 			component.dispatch(event);
 		}
 	
-		addEventListener(li, 'click', clickHandler);
-	
+		addEventListener(li, 'click', click_handler);
 		var a = createElement('a');
+		appendNode(a, li);
+		setAttribute(a, 'aria-controls', a_aria_controls_value = 'coz-nav-pop--' + state.slug);
+		setAttribute(a, 'aria-busy', a_aria_busy_value = state.busy);
+		setAttribute(a, 'data-icon', a_data_icon_value = state.icon);
 	
-		function clickHandler1(event) {
+		function click_handler_1(event) {
 			component.toggle();
 		}
 	
-		addEventListener(a, 'click', clickHandler1);
-	
-		setAttribute(a, 'aria-controls', 'coz-nav-pop--' + root.slug);
-		setAttribute(a, 'aria-busy', root.busy);
-		setAttribute(a, 'data-icon', root.icon);
-	
-		appendNode(a, li);
-		var text = createText(template.helpers.t(root.slug));
+		addEventListener(a, 'click', click_handler_1);
+		var text = createText(text_value = template.helpers.t(state.slug));
 		appendNode(text, a);
 		appendNode(createText("\n  "), li);
-		var ifBlock_anchor = createComment("#if items && items.length");
-		appendNode(ifBlock_anchor, li);
 	
-		function getBlock(root) {
-			if (root.items && root.items.length) return renderIfBlock_0;
-			return null;
-		}
+		var if_block = state.items && state.items.length && create_if_block(state, component);
 	
-		var currentBlock = getBlock(root);
-		var ifBlock = currentBlock && currentBlock(root, component);
-	
-		if (ifBlock) ifBlock.mount(ifBlock_anchor.parentNode, ifBlock_anchor);
+		if (if_block) if_block.mount(li, null);
 	
 		return {
 			mount: function mount(target, anchor) {
 				insertNode(li, target, anchor);
 			},
 	
-			update: function update(changed, root) {
-				setAttribute(a, 'aria-controls', 'coz-nav-pop--' + root.slug);
-				setAttribute(a, 'aria-busy', root.busy);
-				setAttribute(a, 'data-icon', root.icon);
+			update: function update(changed, state) {
+				if (a_aria_controls_value !== (a_aria_controls_value = 'coz-nav-pop--' + state.slug)) {
+					setAttribute(a, 'aria-controls', a_aria_controls_value);
+				}
 	
-				text.data = template.helpers.t(root.slug);
+				if (a_aria_busy_value !== (a_aria_busy_value = state.busy)) {
+					setAttribute(a, 'aria-busy', a_aria_busy_value);
+				}
 	
-				var _currentBlock = currentBlock;
-				currentBlock = getBlock(root);
-				if (_currentBlock === currentBlock && ifBlock) {
-					ifBlock.update(changed, root);
-				} else {
-					if (ifBlock) ifBlock.teardown(true);
-					ifBlock = currentBlock && currentBlock(root, component);
-					if (ifBlock) ifBlock.mount(ifBlock_anchor.parentNode, ifBlock_anchor);
+				if (a_data_icon_value !== (a_data_icon_value = state.icon)) {
+					setAttribute(a, 'data-icon', a_data_icon_value);
+				}
+	
+				if (text_value !== (text_value = template.helpers.t(state.slug))) {
+					text.data = text_value;
+				}
+	
+				if (state.items && state.items.length) {
+					if (if_block) {
+						if_block.update(changed, state);
+					} else {
+						if_block = create_if_block(state, component);
+						if_block.mount(li, null);
+					}
+				} else if (if_block) {
+					if_block.destroy(true);
+					if_block = null;
 				}
 			},
 	
-			teardown: function teardown(detach) {
-				removeEventListener(li, 'click', clickHandler);
-				removeEventListener(a, 'click', clickHandler1);
-				if (ifBlock) ifBlock.teardown(false);
+			destroy: function destroy(detach) {
+				removeEventListener(li, 'click', click_handler);
+				removeEventListener(a, 'click', click_handler_1);
+				if (if_block) if_block.destroy(false);
 	
 				if (detach) {
 					detachNode(li);
@@ -10502,168 +10538,38 @@ return /******/ (function(modules) { // webpackBootstrap
 		};
 	}
 	
-	function renderIfBlock_0(root, component) {
-		var div = createElement('div');
-		div.className = 'coz-nav-pop coz-nav-pop--' + root.slug;
-		div.id = 'coz-nav-pop--' + root.slug;
-		setAttribute(div, 'aria-hidden', root.closed);
-	
-		var ifBlock1_anchor = createComment("#if items[0].error");
-		appendNode(ifBlock1_anchor, div);
-	
-		function getBlock1(root) {
-			if (root.items[0].error) return renderIfBlock1_0;
-			if (root.grouped) return renderIfBlock1_1;
-			return renderIfBlock1_2;
-		}
-	
-		var currentBlock1 = getBlock1(root);
-		var ifBlock1 = currentBlock1 && currentBlock1(root, component);
-	
-		if (ifBlock1) ifBlock1.mount(ifBlock1_anchor.parentNode, ifBlock1_anchor);
-	
-		return {
-			mount: function mount(target, anchor) {
-				insertNode(div, target, anchor);
-			},
-	
-			update: function update(changed, root) {
-				div.className = 'coz-nav-pop coz-nav-pop--' + root.slug;
-				div.id = 'coz-nav-pop--' + root.slug;
-				setAttribute(div, 'aria-hidden', root.closed);
-	
-				var _currentBlock1 = currentBlock1;
-				currentBlock1 = getBlock1(root);
-				if (_currentBlock1 === currentBlock1 && ifBlock1) {
-					ifBlock1.update(changed, root);
-				} else {
-					if (ifBlock1) ifBlock1.teardown(true);
-					ifBlock1 = currentBlock1 && currentBlock1(root, component);
-					if (ifBlock1) ifBlock1.mount(ifBlock1_anchor.parentNode, ifBlock1_anchor);
-				}
-			},
-	
-			teardown: function teardown(detach) {
-				if (ifBlock1) ifBlock1.teardown(false);
-	
-				if (detach) {
-					detachNode(div);
-				}
-			}
-		};
-	}
-	
-	function renderIfBlock1_2(root, component) {
-		var navigationGroup_initialData = {
-			group: root.items,
-			itemsLimit: 4
-		};
-		var navigationGroup = new template.components.NavigationGroup({
+	function create_each_block(state, each_block_value, group, group_index, component) {
+		var navigationgroup = new NavigationGroup({
 			target: null,
-			_root: component._root || component,
-			data: navigationGroup_initialData
+			_root: component._root,
+			data: { separator: "bottom", group: group }
 		});
 	
 		return {
 			mount: function mount(target, anchor) {
-				navigationGroup._fragment.mount(target, anchor);
+				navigationgroup._fragment.mount(target, anchor);
 			},
 	
-			update: function update(changed, root) {
-				var navigationGroup_changes = {};
+			update: function update(changed, state, each_block_value, group, group_index) {
+				var navigationgroup_changes = {};
 	
-				if ('items' in changed) navigationGroup_changes.group = root.items;
-				navigationGroup_changes.itemsLimit = 4;
+				if ('items' in changed) navigationgroup_changes.group = group;
 	
-				if (Object.keys(navigationGroup_changes).length) navigationGroup.set(navigationGroup_changes);
+				if (Object.keys(navigationgroup_changes).length) navigationgroup.set(navigationgroup_changes);
 			},
 	
-			teardown: function teardown(detach) {
-				navigationGroup.teardown(detach);
+			destroy: function destroy(detach) {
+				navigationgroup.destroy(detach);
 			}
 		};
 	}
 	
-	function renderIfBlock1_1(root, component) {
-		var eachBlock_anchor = createComment("#each items");
-		var eachBlock_value = root.items;
-		var eachBlock_iterations = [];
+	function create_if_block_1(state, component) {
+		var text_value;
 	
-		for (var i = 0; i < eachBlock_value.length; i += 1) {
-			eachBlock_iterations[i] = renderEachBlock(root, eachBlock_value, eachBlock_value[i], i, component);
-		}
-	
-		return {
-			mount: function mount(target, anchor) {
-				insertNode(eachBlock_anchor, target, anchor);
-	
-				for (var i = 0; i < eachBlock_iterations.length; i += 1) {
-					eachBlock_iterations[i].mount(eachBlock_anchor.parentNode, eachBlock_anchor);
-				}
-			},
-	
-			update: function update(changed, root) {
-				var eachBlock_value = root.items;
-	
-				for (var i = 0; i < eachBlock_value.length; i += 1) {
-					if (!eachBlock_iterations[i]) {
-						eachBlock_iterations[i] = renderEachBlock(root, eachBlock_value, eachBlock_value[i], i, component);
-						eachBlock_iterations[i].mount(eachBlock_anchor.parentNode, eachBlock_anchor);
-					} else {
-						eachBlock_iterations[i].update(changed, root, eachBlock_value, eachBlock_value[i], i);
-					}
-				}
-	
-				teardownEach(eachBlock_iterations, true, eachBlock_value.length);
-	
-				eachBlock_iterations.length = eachBlock_value.length;
-			},
-	
-			teardown: function teardown(detach) {
-				teardownEach(eachBlock_iterations, detach);
-	
-				if (detach) {
-					detachNode(eachBlock_anchor);
-				}
-			}
-		};
-	}
-	
-	function renderEachBlock(root, eachBlock_value, group, group__index, component) {
-		var navigationGroup_initialData = {
-			separator: "bottom",
-			group: group
-		};
-		var navigationGroup = new template.components.NavigationGroup({
-			target: null,
-			_root: component._root || component,
-			data: navigationGroup_initialData
-		});
-	
-		return {
-			mount: function mount(target, anchor) {
-				navigationGroup._fragment.mount(target, anchor);
-			},
-	
-			update: function update(changed, root, eachBlock_value, group, group__index) {
-				var navigationGroup_changes = {};
-	
-				if ('items' in changed) navigationGroup_changes.group = group;
-	
-				if (Object.keys(navigationGroup_changes).length) navigationGroup.set(navigationGroup_changes);
-			},
-	
-			teardown: function teardown(detach) {
-				navigationGroup.teardown(detach);
-			}
-		};
-	}
-	
-	function renderIfBlock1_0(root, component) {
 		var p = createElement('p');
 		p.className = "coz-nav--error coz-nav-group";
-	
-		var text = createText(template.helpers.t('error_' + root.items[0].error.name));
+		var text = createText(text_value = template.helpers.t('error_' + state.items[0].error.name));
 		appendNode(text, p);
 	
 		return {
@@ -10671,23 +10577,158 @@ return /******/ (function(modules) { // webpackBootstrap
 				insertNode(p, target, anchor);
 			},
 	
-			update: function update(changed, root) {
-				text.data = template.helpers.t('error_' + root.items[0].error.name);
+			update: function update(changed, state) {
+				if (text_value !== (text_value = template.helpers.t('error_' + state.items[0].error.name))) {
+					text.data = text_value;
+				}
 			},
-
-			teardown: function teardown(detach) {
+	
+			destroy: function destroy(detach) {
 				if (detach) {
 					detachNode(p);
 				}
 			}
 		};
 	}
+	
+	function create_if_block_2(state, component) {
+		var each_block_value = state.items;
+	
+		var each_block_iterations = [];
+	
+		for (var i = 0; i < each_block_value.length; i += 1) {
+			each_block_iterations[i] = create_each_block(state, each_block_value, each_block_value[i], i, component);
+		}
+	
+		var each_block_anchor = createComment();
+	
+		return {
+			mount: function mount(target, anchor) {
+				for (var i = 0; i < each_block_iterations.length; i += 1) {
+					each_block_iterations[i].mount(target, null);
+				}
+	
+				insertNode(each_block_anchor, target, anchor);
+			},
+	
+			update: function update(changed, state) {
+				var each_block_value = state.items;
+	
+				if ('items' in changed) {
+					for (var i = 0; i < each_block_value.length; i += 1) {
+						if (each_block_iterations[i]) {
+							each_block_iterations[i].update(changed, state, each_block_value, each_block_value[i], i);
+						} else {
+							each_block_iterations[i] = create_each_block(state, each_block_value, each_block_value[i], i, component);
+							each_block_iterations[i].mount(each_block_anchor.parentNode, each_block_anchor);
+						}
+					}
+	
+					destroyEach(each_block_iterations, true, each_block_value.length);
+					each_block_iterations.length = each_block_value.length;
+				}
+			},
+	
+			destroy: function destroy(detach) {
+				destroyEach(each_block_iterations, detach, 0);
+	
+				if (detach) {
+					detachNode(each_block_anchor);
+				}
+			}
+		};
+	}
+	
+	function create_if_block_3(state, component) {
+		var navigationgroup = new NavigationGroup({
+			target: null,
+			_root: component._root,
+			data: {
+				group: state.items,
+				itemsLimit: 4
+			}
+		});
+	
+		return {
+			mount: function mount(target, anchor) {
+				navigationgroup._fragment.mount(target, anchor);
+			},
+	
+			update: function update(changed, state) {
+				var navigationgroup_changes = {};
+	
+				if ('items' in changed) navigationgroup_changes.group = state.items;
+				navigationgroup_changes.itemsLimit = 4;
+	
+				if (Object.keys(navigationgroup_changes).length) navigationgroup.set(navigationgroup_changes);
+			},
+	
+			destroy: function destroy(detach) {
+				navigationgroup.destroy(detach);
+			}
+		};
+	}
+	
+	function create_if_block(state, component) {
+		var div_class_value, div_id_value, div_aria_hidden_value;
+	
+		var div = createElement('div');
+		div.className = div_class_value = 'coz-nav-pop coz-nav-pop--' + state.slug;
+		div.id = div_id_value = 'coz-nav-pop--' + state.slug;
+		setAttribute(div, 'aria-hidden', div_aria_hidden_value = state.closed);
+	
+		function get_block(state) {
+			if (state.items[0].error) return create_if_block_1;
+			if (state.grouped) return create_if_block_2;
+			return create_if_block_3;
+		}
+	
+		var current_block = get_block(state);
+		var if_block_1 = current_block(state, component);
+	
+		if_block_1.mount(div, null);
+	
+		return {
+			mount: function mount(target, anchor) {
+				insertNode(div, target, anchor);
+			},
+	
+			update: function update(changed, state) {
+				if (div_class_value !== (div_class_value = 'coz-nav-pop coz-nav-pop--' + state.slug)) {
+					div.className = div_class_value;
+				}
+	
+				if (div_id_value !== (div_id_value = 'coz-nav-pop--' + state.slug)) {
+					div.id = div_id_value;
+				}
+	
+				if (div_aria_hidden_value !== (div_aria_hidden_value = state.closed)) {
+					setAttribute(div, 'aria-hidden', div_aria_hidden_value);
+				}
 
-	function SvelteComponent(options) {
+				if (current_block === (current_block = get_block(state)) && if_block_1) {
+					if_block_1.update(changed, state);
+				} else {
+					if_block_1.destroy(true);
+					if_block_1 = current_block(state, component);
+					if_block_1.mount(div, null);
+				}
+			},
+
+			destroy: function destroy(detach) {
+				if_block_1.destroy(false);
+
+				if (detach) {
+					detachNode(div);
+				}
+			}
+		};
+	}
+
+	function NavigationSection(options) {
 		options = options || {};
-
-		this._state = Object.assign(template.data(), options.data);
-		applyComputations(this._state, this._state, {});
+		this._state = assign(template.data(), options.data);
+		recompute(this._state, this._state, {}, true);
 
 		this._observers = {
 			pre: Object.create(null),
@@ -10696,118 +10737,63 @@ return /******/ (function(modules) { // webpackBootstrap
 
 		this._handlers = Object.create(null);
 
-		this._root = options._root;
+		this._root = options._root || this;
 		this._yield = options._yield;
 
+		this._torndown = false;
 		this._renderHooks = [];
 
-		this._fragment = renderMainFragment(this._state, this);
+		this._fragment = create_main_fragment(this._state, this);
 		if (options.target) this._fragment.mount(options.target, null);
-
-		while (this._renderHooks.length) {
-			var hook = this._renderHooks.pop();
-			hook.fn.call(hook.context);
-		}
+		this._flush();
 
 		if (options._root) {
-			options._root._renderHooks.push({ fn: template.onrender, context: this });
+			options._root._renderHooks.push(template.oncreate.bind(this));
 		} else {
-			template.onrender.call(this);
+			template.oncreate.call(this);
 		}
 	}
 
-	SvelteComponent.prototype = template.methods;
+	assign(NavigationSection.prototype, template.methods, {
+		get: get,
+		fire: fire,
+		observe: observe,
+		on: on,
+		set: set,
+		_flush: _flush
+	});
 
-	SvelteComponent.prototype.get = function get(key) {
-		return key ? this._state[key] : this._state;
-	};
-
-	SvelteComponent.prototype.fire = function fire(eventName, data) {
-		var handlers = eventName in this._handlers && this._handlers[eventName].slice();
-		if (!handlers) return;
-
-		for (var i = 0; i < handlers.length; i += 1) {
-			handlers[i].call(this, data);
-		}
-	};
-
-	SvelteComponent.prototype.observe = function observe(key, callback, options) {
-		var group = options && options.defer ? this._observers.pre : this._observers.post;
-
-		(group[key] || (group[key] = [])).push(callback);
-
-		if (!options || options.init !== false) {
-			callback.__calling = true;
-			callback.call(this, this._state[key]);
-			callback.__calling = false;
-		}
-
-		return {
-			cancel: function cancel() {
-				var index = group[key].indexOf(callback);
-				if (~index) group[key].splice(index, 1);
-			}
-		};
-	};
-
-	SvelteComponent.prototype.on = function on(eventName, handler) {
-		var handlers = this._handlers[eventName] || (this._handlers[eventName] = []);
-		handlers.push(handler);
-
-		return {
-			cancel: function cancel() {
-				var index = handlers.indexOf(handler);
-				if (~index) handlers.splice(index, 1);
-			}
-		};
-	};
-
-	SvelteComponent.prototype.set = function set(newState) {
+	NavigationSection.prototype._set = function _set(newState) {
 		var oldState = this._state;
-		this._state = Object.assign({}, oldState, newState);
-		applyComputations(this._state, newState, oldState);
-
+		this._state = assign({}, oldState, newState);
+		recompute(this._state, newState, oldState, false);
 		dispatchObservers(this, this._observers.pre, newState, oldState);
-		if (this._fragment) this._fragment.update(newState, this._state);
+		this._fragment.update(newState, this._state);
 		dispatchObservers(this, this._observers.post, newState, oldState);
-
-		while (this._renderHooks.length) {
-			var hook = this._renderHooks.pop();
-			hook.fn.call(hook.context);
-		}
+		this._flush();
 	};
 
-	SvelteComponent.prototype.teardown = function teardown(detach) {
-		this.fire('teardown');
-		template.onteardown.call(this);
+	NavigationSection.prototype.teardown = NavigationSection.prototype.destroy = function destroy(detach) {
+		this.fire('destroy');
+		template.ondestroy.call(this);
 
-		this._fragment.teardown(detach !== false);
+		this._fragment.destroy(detach !== false);
 		this._fragment = null;
 
 		this._state = {};
+		this._torndown = true;
 	};
 
-	function dispatchObservers(component, group, newState, oldState) {
-		for (var key in group) {
-			if (!(key in newState)) continue;
+	function createElement(name) {
+		return document.createElement(name);
+	}
 
-			var newValue = newState[key];
-			var oldValue = oldState[key];
+	function insertNode(node, target, anchor) {
+		target.insertBefore(node, anchor);
+	}
 
-			if (newValue === oldValue && (typeof newValue === 'undefined' ? 'undefined' : _typeof(newValue)) !== 'object') continue;
-
-			var callbacks = group[key];
-			if (!callbacks) continue;
-
-			for (var i = 0; i < callbacks.length; i += 1) {
-				var callback = callbacks[i];
-				if (callback.__calling) continue;
-
-				callback.__calling = true;
-				callback.call(component, newValue, oldValue);
-				callback.__calling = false;
-			}
-		}
+	function detachNode(node) {
+		node.parentNode.removeChild(node);
 	}
 
 	function addEventListener(node, event, handler) {
@@ -10818,328 +10804,81 @@ return /******/ (function(modules) { // webpackBootstrap
 		node.removeEventListener(event, handler, false);
 	}
 
-	function createElement(name) {
-		return document.createElement(name);
-	}
-
-	function detachNode(node) {
-		node.parentNode.removeChild(node);
-	}
-
-	function insertNode(node, target, anchor) {
-		target.insertBefore(node, anchor);
+	function appendNode(node, target) {
+		target.appendChild(node);
 	}
 
 	function setAttribute(node, attribute, value) {
 		node.setAttribute(attribute, value);
 	}
 
-	function appendNode(node, target) {
-		target.appendChild(node);
-	}
-
 	function createText(data) {
 		return document.createTextNode(data);
 	}
 
-	function createComment(data) {
-		return document.createComment(data);
-	}
-
-	function teardownEach(iterations, detach, start) {
-		for (var i = start || 0; i < iterations.length; i += 1) {
-			iterations[i].teardown(detach);
+	function destroyEach(iterations, detach, start) {
+		for (var i = start; i < iterations.length; i += 1) {
+			if (iterations[i]) iterations[i].destroy(detach);
 		}
 	}
 
-	exports.default = SvelteComponent;
-
-/***/ },
-/* 263 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-	
-	var _NavigationItem = __webpack_require__(264);
-	
-	var _NavigationItem2 = _interopRequireDefault(_NavigationItem);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function applyComputations(state, newState, oldState) {
-		if ('itemsLimit' in newState && _typeof(state.itemsLimit) === 'object' || state.itemsLimit !== oldState.itemsLimit || 'group' in newState && _typeof(state.group) === 'object' || state.group !== oldState.group) {
-			state.wrapping = newState.wrapping = template.computed.wrapping(state.itemsLimit, state.group);
-		}
+	function createComment() {
+		return document.createComment('');
 	}
-	
-	var template = function () {
-		return {
-			components: {
-				NavigationItem: _NavigationItem2.default
-			},
-			computed: {
-				wrapping: function wrapping(itemsLimit, group) {
-					if (!itemsLimit || !group.length) return false;
-					return group.length > itemsLimit;
+
+	function differs(a, b) {
+		return a !== b || a && (typeof a === 'undefined' ? 'undefined' : _typeof(a)) === 'object' || typeof a === 'function';
+	}
+
+	function assign(target) {
+		for (var i = 1; i < arguments.length; i += 1) {
+			var source = arguments[i];
+			for (var k in source) {
+				target[k] = source[k];
+			}
+		}
+
+		return target;
+	}
+
+	function dispatchObservers(component, group, newState, oldState) {
+		for (var key in group) {
+			if (!(key in newState)) continue;
+
+			var newValue = newState[key];
+			var oldValue = oldState[key];
+
+			if (differs(newValue, oldValue)) {
+				var callbacks = group[key];
+				if (!callbacks) continue;
+
+				for (var i = 0; i < callbacks.length; i += 1) {
+					var callback = callbacks[i];
+					if (callback.__calling) continue;
+
+					callback.__calling = true;
+					callback.call(component, newValue, oldValue);
+					callback.__calling = false;
 				}
 			}
-		};
-	}();
-	
-	function renderMainFragment(root, component) {
-		var ifBlock_anchor = createComment("#if separator == 'top'");
-	
-		function getBlock(root) {
-			if (root.separator == 'top') return renderIfBlock_0;
-			return null;
-		}
-	
-		var currentBlock = getBlock(root);
-		var ifBlock = currentBlock && currentBlock(root, component);
-	
-		var text = createText("\n");
-		var ifBlock1_anchor = createComment("#if group.length");
-	
-		function getBlock1(root) {
-			if (root.group.length) return renderIfBlock1_0;
-			return null;
-		}
-	
-		var currentBlock1 = getBlock1(root);
-		var ifBlock1 = currentBlock1 && currentBlock1(root, component);
-	
-		var text1 = createText("\n");
-		var ifBlock2_anchor = createComment("#if separator == 'bottom'");
-	
-		function getBlock2(root) {
-			if (root.separator == 'bottom') return renderIfBlock2_0;
-			return null;
-		}
-	
-		var currentBlock2 = getBlock2(root);
-		var ifBlock2 = currentBlock2 && currentBlock2(root, component);
-	
-		return {
-			mount: function mount(target, anchor) {
-				insertNode(ifBlock_anchor, target, anchor);
-				if (ifBlock) ifBlock.mount(ifBlock_anchor.parentNode, ifBlock_anchor);
-				insertNode(text, target, anchor);
-				insertNode(ifBlock1_anchor, target, anchor);
-				if (ifBlock1) ifBlock1.mount(ifBlock1_anchor.parentNode, ifBlock1_anchor);
-				insertNode(text1, target, anchor);
-				insertNode(ifBlock2_anchor, target, anchor);
-				if (ifBlock2) ifBlock2.mount(ifBlock2_anchor.parentNode, ifBlock2_anchor);
-			},
-	
-			update: function update(changed, root) {
-				var _currentBlock = currentBlock;
-				currentBlock = getBlock(root);
-				if (_currentBlock === currentBlock && ifBlock) {
-					ifBlock.update(changed, root);
-				} else {
-					if (ifBlock) ifBlock.teardown(true);
-					ifBlock = currentBlock && currentBlock(root, component);
-					if (ifBlock) ifBlock.mount(ifBlock_anchor.parentNode, ifBlock_anchor);
-				}
-	
-				var _currentBlock1 = currentBlock1;
-				currentBlock1 = getBlock1(root);
-				if (_currentBlock1 === currentBlock1 && ifBlock1) {
-					ifBlock1.update(changed, root);
-				} else {
-					if (ifBlock1) ifBlock1.teardown(true);
-					ifBlock1 = currentBlock1 && currentBlock1(root, component);
-					if (ifBlock1) ifBlock1.mount(ifBlock1_anchor.parentNode, ifBlock1_anchor);
-				}
-	
-				var _currentBlock2 = currentBlock2;
-				currentBlock2 = getBlock2(root);
-				if (_currentBlock2 === currentBlock2 && ifBlock2) {
-					ifBlock2.update(changed, root);
-				} else {
-					if (ifBlock2) ifBlock2.teardown(true);
-					ifBlock2 = currentBlock2 && currentBlock2(root, component);
-					if (ifBlock2) ifBlock2.mount(ifBlock2_anchor.parentNode, ifBlock2_anchor);
-				}
-			},
-	
-			teardown: function teardown(detach) {
-				if (ifBlock) ifBlock.teardown(detach);
-				if (ifBlock1) ifBlock1.teardown(detach);
-				if (ifBlock2) ifBlock2.teardown(detach);
-	
-				if (detach) {
-					detachNode(ifBlock_anchor);
-					detachNode(text);
-					detachNode(ifBlock1_anchor);
-					detachNode(text1);
-					detachNode(ifBlock2_anchor);
-				}
-			}
-		};
-	}
-	
-	function renderIfBlock2_0(root, component) {
-		var hr = createElement('hr');
-	
-		return {
-			mount: function mount(target, anchor) {
-				insertNode(hr, target, anchor);
-			},
-	
-			update: noop,
-	
-			teardown: function teardown(detach) {
-				if (detach) {
-					detachNode(hr);
-				}
-			}
-		};
-	}
-	
-	function renderIfBlock1_0(root, component) {
-		var ul = createElement('ul');
-		ul.className = '' + (root.wrapping ? "coz-nav-group coz-nav-group--wrapping" : "coz-nav-group");
-	
-		var eachBlock_anchor = createComment("#each group");
-		appendNode(eachBlock_anchor, ul);
-		var eachBlock_value = root.group;
-		var eachBlock_iterations = [];
-	
-		for (var i = 0; i < eachBlock_value.length; i += 1) {
-			eachBlock_iterations[i] = renderEachBlock(root, eachBlock_value, eachBlock_value[i], i, component);
-			eachBlock_iterations[i].mount(eachBlock_anchor.parentNode, eachBlock_anchor);
-		}
-	
-		return {
-			mount: function mount(target, anchor) {
-				insertNode(ul, target, anchor);
-			},
-	
-			update: function update(changed, root) {
-				ul.className = '' + (root.wrapping ? "coz-nav-group coz-nav-group--wrapping" : "coz-nav-group");
-	
-				var eachBlock_value = root.group;
-	
-				for (var i = 0; i < eachBlock_value.length; i += 1) {
-					if (!eachBlock_iterations[i]) {
-						eachBlock_iterations[i] = renderEachBlock(root, eachBlock_value, eachBlock_value[i], i, component);
-						eachBlock_iterations[i].mount(eachBlock_anchor.parentNode, eachBlock_anchor);
-					} else {
-						eachBlock_iterations[i].update(changed, root, eachBlock_value, eachBlock_value[i], i);
-					}
-				}
-
-				teardownEach(eachBlock_iterations, true, eachBlock_value.length);
-
-				eachBlock_iterations.length = eachBlock_value.length;
-			},
-
-			teardown: function teardown(detach) {
-				teardownEach(eachBlock_iterations, false);
-
-				if (detach) {
-					detachNode(ul);
-				}
-			}
-		};
-	}
-
-	function renderEachBlock(root, eachBlock_value, item, item__index, component) {
-		var navigationItem_initialData = {
-			item: item
-		};
-		var navigationItem = new template.components.NavigationItem({
-			target: null,
-			_root: component._root || component,
-			data: navigationItem_initialData
-		});
-
-		return {
-			mount: function mount(target, anchor) {
-				navigationItem._fragment.mount(target, anchor);
-			},
-
-			update: function update(changed, root, eachBlock_value, item, item__index) {
-				var navigationItem_changes = {};
-
-				if ('group' in changed) navigationItem_changes.item = item;
-
-				if (Object.keys(navigationItem_changes).length) navigationItem.set(navigationItem_changes);
-			},
-
-			teardown: function teardown(detach) {
-				navigationItem.teardown(detach);
-			}
-		};
-	}
-
-	function renderIfBlock_0(root, component) {
-		var hr = createElement('hr');
-
-		return {
-			mount: function mount(target, anchor) {
-				insertNode(hr, target, anchor);
-			},
-
-			update: noop,
-
-			teardown: function teardown(detach) {
-				if (detach) {
-					detachNode(hr);
-				}
-			}
-		};
-	}
-
-	function SvelteComponent(options) {
-		options = options || {};
-
-		this._state = options.data || {};
-		applyComputations(this._state, this._state, {});
-
-		this._observers = {
-			pre: Object.create(null),
-			post: Object.create(null)
-		};
-
-		this._handlers = Object.create(null);
-
-		this._root = options._root;
-		this._yield = options._yield;
-
-		this._renderHooks = [];
-
-		this._fragment = renderMainFragment(this._state, this);
-		if (options.target) this._fragment.mount(options.target, null);
-
-		while (this._renderHooks.length) {
-			var hook = this._renderHooks.pop();
-			hook.fn.call(hook.context);
 		}
 	}
 
-	SvelteComponent.prototype.get = function get(key) {
+	function get(key) {
 		return key ? this._state[key] : this._state;
-	};
+	}
 
-	SvelteComponent.prototype.fire = function fire(eventName, data) {
+	function fire(eventName, data) {
 		var handlers = eventName in this._handlers && this._handlers[eventName].slice();
 		if (!handlers) return;
 
 		for (var i = 0; i < handlers.length; i += 1) {
 			handlers[i].call(this, data);
 		}
-	};
+	}
 
-	SvelteComponent.prototype.observe = function observe(key, callback, options) {
-		var group = options && options.defer ? this._observers.pre : this._observers.post;
+	function observe(key, callback, options) {
+		var group = options && options.defer ? this._observers.post : this._observers.pre;
 
 		(group[key] || (group[key] = [])).push(callback);
 
@@ -11155,9 +10894,11 @@ return /******/ (function(modules) { // webpackBootstrap
 				if (~index) group[key].splice(index, 1);
 			}
 		};
-	};
+	}
 
-	SvelteComponent.prototype.on = function on(eventName, handler) {
+	function on(eventName, handler) {
+		if (eventName === 'teardown') return this.on('destroy', handler);
+
 		var handlers = this._handlers[eventName] || (this._handlers[eventName] = []);
 		handlers.push(handler);
 
@@ -11167,31 +10908,324 @@ return /******/ (function(modules) { // webpackBootstrap
 				if (~index) handlers.splice(index, 1);
 			}
 		};
-	};
+	}
 
-	SvelteComponent.prototype.set = function set(newState) {
-		var oldState = this._state;
-		this._state = Object.assign({}, oldState, newState);
-		applyComputations(this._state, newState, oldState);
+	function set(newState) {
+		this._set(assign({}, newState));
+		this._root._flush();
+	}
 
-		dispatchObservers(this, this._observers.pre, newState, oldState);
-		if (this._fragment) this._fragment.update(newState, this._state);
-		dispatchObservers(this, this._observers.post, newState, oldState);
+	function _flush() {
+		if (!this._renderHooks) return;
 
 		while (this._renderHooks.length) {
-			var hook = this._renderHooks.pop();
-			hook.fn.call(hook.context);
+			this._renderHooks.pop()();
 		}
+	}
+
+	module.exports = NavigationSection;
+
+/***/ },
+/* 263 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+	
+	var NavigationItem = __webpack_require__(264);
+	
+	NavigationItem = NavigationItem && NavigationItem.__esModule ? NavigationItem['default'] : NavigationItem;
+	
+	function recompute(state, newState, oldState, isInitial) {
+		if (isInitial || 'itemsLimit' in newState && differs(state.itemsLimit, oldState.itemsLimit) || 'group' in newState && differs(state.group, oldState.group)) {
+			state.wrapping = newState.wrapping = template.computed.wrapping(state.itemsLimit, state.group);
+		}
+	}
+	
+	var template = function () {
+		return {
+			computed: {
+				wrapping: function wrapping(itemsLimit, group) {
+					if (!itemsLimit || !group.length) return false;
+					return group.length > itemsLimit;
+				}
+			}
+		};
+	}();
+	
+	function create_main_fragment(state, component) {
+		var if_block = state.separator == 'top' && create_if_block(state, component);
+	
+		var text = createText("\n");
+	
+		var if_block_1 = state.group.length && create_if_block_1(state, component);
+	
+		var text_1 = createText("\n");
+	
+		var if_block_2 = state.separator == 'bottom' && create_if_block_2(state, component);
+	
+		var if_block_2_anchor = createComment();
+	
+		return {
+			mount: function mount(target, anchor) {
+				if (if_block) if_block.mount(target, anchor);
+				insertNode(text, target, anchor);
+				if (if_block_1) if_block_1.mount(target, anchor);
+				insertNode(text_1, target, anchor);
+				if (if_block_2) if_block_2.mount(target, anchor);
+				insertNode(if_block_2_anchor, target, anchor);
+			},
+	
+			update: function update(changed, state) {
+				if (state.separator == 'top') {
+					if (!if_block) {
+						if_block = create_if_block(state, component);
+						if_block.mount(text.parentNode, text);
+					}
+				} else if (if_block) {
+					if_block.destroy(true);
+					if_block = null;
+				}
+	
+				if (state.group.length) {
+					if (if_block_1) {
+						if_block_1.update(changed, state);
+					} else {
+						if_block_1 = create_if_block_1(state, component);
+						if_block_1.mount(text_1.parentNode, text_1);
+					}
+				} else if (if_block_1) {
+					if_block_1.destroy(true);
+					if_block_1 = null;
+				}
+	
+				if (state.separator == 'bottom') {
+					if (!if_block_2) {
+						if_block_2 = create_if_block_2(state, component);
+						if_block_2.mount(if_block_2_anchor.parentNode, if_block_2_anchor);
+					}
+				} else if (if_block_2) {
+					if_block_2.destroy(true);
+					if_block_2 = null;
+				}
+			},
+	
+			destroy: function destroy(detach) {
+				if (if_block) if_block.destroy(detach);
+				if (if_block_1) if_block_1.destroy(detach);
+				if (if_block_2) if_block_2.destroy(detach);
+	
+				if (detach) {
+					detachNode(text);
+					detachNode(text_1);
+					detachNode(if_block_2_anchor);
+				}
+			}
+		};
+	}
+	
+	function create_if_block(state, component) {
+		var hr = createElement('hr');
+	
+		return {
+			mount: function mount(target, anchor) {
+				insertNode(hr, target, anchor);
+			},
+	
+			destroy: function destroy(detach) {
+				if (detach) {
+					detachNode(hr);
+				}
+			}
+		};
+	}
+	
+	function create_each_block(state, each_block_value, item, item_index, component) {
+		var navigationitem = new NavigationItem({
+			target: null,
+			_root: component._root,
+			data: { item: item }
+		});
+	
+		return {
+			mount: function mount(target, anchor) {
+				navigationitem._fragment.mount(target, anchor);
+			},
+	
+			update: function update(changed, state, each_block_value, item, item_index) {
+				var navigationitem_changes = {};
+	
+				if ('group' in changed) navigationitem_changes.item = item;
+	
+				if (Object.keys(navigationitem_changes).length) navigationitem.set(navigationitem_changes);
+			},
+	
+			destroy: function destroy(detach) {
+				navigationitem.destroy(detach);
+			}
+		};
+	}
+	
+	function create_if_block_1(state, component) {
+		var ul_class_value;
+	
+		var ul = createElement('ul');
+		ul.className = ul_class_value = '' + (state.wrapping ? "coz-nav-group coz-nav-group--wrapping" : "coz-nav-group");
+		var each_block_value = state.group;
+	
+		var each_block_iterations = [];
+	
+		for (var i = 0; i < each_block_value.length; i += 1) {
+			each_block_iterations[i] = create_each_block(state, each_block_value, each_block_value[i], i, component);
+			each_block_iterations[i].mount(ul, null);
+		}
+	
+		return {
+			mount: function mount(target, anchor) {
+				insertNode(ul, target, anchor);
+			},
+	
+			update: function update(changed, state) {
+				if (ul_class_value !== (ul_class_value = '' + (state.wrapping ? "coz-nav-group coz-nav-group--wrapping" : "coz-nav-group"))) {
+					ul.className = ul_class_value;
+				}
+	
+				var each_block_value = state.group;
+	
+				if ('group' in changed) {
+					for (var i = 0; i < each_block_value.length; i += 1) {
+						if (each_block_iterations[i]) {
+							each_block_iterations[i].update(changed, state, each_block_value, each_block_value[i], i);
+						} else {
+							each_block_iterations[i] = create_each_block(state, each_block_value, each_block_value[i], i, component);
+							each_block_iterations[i].mount(ul, null);
+						}
+					}
+
+					destroyEach(each_block_iterations, true, each_block_value.length);
+					each_block_iterations.length = each_block_value.length;
+				}
+			},
+
+			destroy: function destroy(detach) {
+				destroyEach(each_block_iterations, false, 0);
+
+				if (detach) {
+					detachNode(ul);
+				}
+			}
+		};
+	}
+
+	function create_if_block_2(state, component) {
+		var hr = createElement('hr');
+
+		return {
+			mount: function mount(target, anchor) {
+				insertNode(hr, target, anchor);
+			},
+
+			destroy: function destroy(detach) {
+				if (detach) {
+					detachNode(hr);
+				}
+			}
+		};
+	}
+
+	function NavigationGroup(options) {
+		options = options || {};
+		this._state = options.data || {};
+		recompute(this._state, this._state, {}, true);
+
+		this._observers = {
+			pre: Object.create(null),
+			post: Object.create(null)
+		};
+
+		this._handlers = Object.create(null);
+
+		this._root = options._root || this;
+		this._yield = options._yield;
+
+		this._torndown = false;
+		this._renderHooks = [];
+
+		this._fragment = create_main_fragment(this._state, this);
+		if (options.target) this._fragment.mount(options.target, null);
+		this._flush();
+	}
+
+	assign(NavigationGroup.prototype, {
+		get: get,
+		fire: fire,
+		observe: observe,
+		on: on,
+		set: set,
+		_flush: _flush
+	});
+
+	NavigationGroup.prototype._set = function _set(newState) {
+		var oldState = this._state;
+		this._state = assign({}, oldState, newState);
+		recompute(this._state, newState, oldState, false);
+		dispatchObservers(this, this._observers.pre, newState, oldState);
+		this._fragment.update(newState, this._state);
+		dispatchObservers(this, this._observers.post, newState, oldState);
+		this._flush();
 	};
 
-	SvelteComponent.prototype.teardown = function teardown(detach) {
-		this.fire('teardown');
+	NavigationGroup.prototype.teardown = NavigationGroup.prototype.destroy = function destroy(detach) {
+		this.fire('destroy');
 
-		this._fragment.teardown(detach !== false);
+		this._fragment.destroy(detach !== false);
 		this._fragment = null;
 
 		this._state = {};
+		this._torndown = true;
 	};
+
+	function createElement(name) {
+		return document.createElement(name);
+	}
+
+	function insertNode(node, target, anchor) {
+		target.insertBefore(node, anchor);
+	}
+
+	function detachNode(node) {
+		node.parentNode.removeChild(node);
+	}
+
+	function createText(data) {
+		return document.createTextNode(data);
+	}
+
+	function destroyEach(iterations, detach, start) {
+		for (var i = start; i < iterations.length; i += 1) {
+			if (iterations[i]) iterations[i].destroy(detach);
+		}
+	}
+
+	function createComment() {
+		return document.createComment('');
+	}
+
+	function differs(a, b) {
+		return a !== b || a && (typeof a === 'undefined' ? 'undefined' : _typeof(a)) === 'object' || typeof a === 'function';
+	}
+
+	function assign(target) {
+		for (var i = 1; i < arguments.length; i += 1) {
+			var source = arguments[i];
+			for (var k in source) {
+				target[k] = source[k];
+			}
+		}
+
+		return target;
+	}
 
 	function dispatchObservers(component, group, newState, oldState) {
 		for (var key in group) {
@@ -11200,55 +11234,82 @@ return /******/ (function(modules) { // webpackBootstrap
 			var newValue = newState[key];
 			var oldValue = oldState[key];
 
-			if (newValue === oldValue && (typeof newValue === 'undefined' ? 'undefined' : _typeof(newValue)) !== 'object') continue;
+			if (differs(newValue, oldValue)) {
+				var callbacks = group[key];
+				if (!callbacks) continue;
 
-			var callbacks = group[key];
-			if (!callbacks) continue;
+				for (var i = 0; i < callbacks.length; i += 1) {
+					var callback = callbacks[i];
+					if (callback.__calling) continue;
 
-			for (var i = 0; i < callbacks.length; i += 1) {
-				var callback = callbacks[i];
-				if (callback.__calling) continue;
-
-				callback.__calling = true;
-				callback.call(component, newValue, oldValue);
-				callback.__calling = false;
+					callback.__calling = true;
+					callback.call(component, newValue, oldValue);
+					callback.__calling = false;
+				}
 			}
 		}
 	}
 
-	function createElement(name) {
-		return document.createElement(name);
+	function get(key) {
+		return key ? this._state[key] : this._state;
 	}
 
-	function detachNode(node) {
-		node.parentNode.removeChild(node);
-	}
+	function fire(eventName, data) {
+		var handlers = eventName in this._handlers && this._handlers[eventName].slice();
+		if (!handlers) return;
 
-	function insertNode(node, target, anchor) {
-		target.insertBefore(node, anchor);
-	}
-
-	function noop() {}
-
-	function createComment(data) {
-		return document.createComment(data);
-	}
-
-	function createText(data) {
-		return document.createTextNode(data);
-	}
-
-	function appendNode(node, target) {
-		target.appendChild(node);
-	}
-
-	function teardownEach(iterations, detach, start) {
-		for (var i = start || 0; i < iterations.length; i += 1) {
-			iterations[i].teardown(detach);
+		for (var i = 0; i < handlers.length; i += 1) {
+			handlers[i].call(this, data);
 		}
 	}
 
-	exports.default = SvelteComponent;
+	function observe(key, callback, options) {
+		var group = options && options.defer ? this._observers.post : this._observers.pre;
+
+		(group[key] || (group[key] = [])).push(callback);
+
+		if (!options || options.init !== false) {
+			callback.__calling = true;
+			callback.call(this, this._state[key]);
+			callback.__calling = false;
+		}
+
+		return {
+			cancel: function cancel() {
+				var index = group[key].indexOf(callback);
+				if (~index) group[key].splice(index, 1);
+			}
+		};
+	}
+
+	function on(eventName, handler) {
+		if (eventName === 'teardown') return this.on('destroy', handler);
+
+		var handlers = this._handlers[eventName] || (this._handlers[eventName] = []);
+		handlers.push(handler);
+
+		return {
+			cancel: function cancel() {
+				var index = handlers.indexOf(handler);
+				if (~index) handlers.splice(index, 1);
+			}
+		};
+	}
+
+	function set(newState) {
+		this._set(assign({}, newState));
+		this._root._flush();
+	}
+
+	function _flush() {
+		if (!this._renderHooks) return;
+
+		while (this._renderHooks.length) {
+			this._renderHooks.pop()();
+		}
+	}
+
+	module.exports = NavigationGroup;
 
 /***/ },
 /* 264 */
@@ -11256,38 +11317,23 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 	
-	var _i18n = __webpack_require__(189);
+	var __import0 = __webpack_require__(189);
 	
-	var _stack = __webpack_require__(251);
+	var stack = __webpack_require__(251);
 	
-	var _stack2 = _interopRequireDefault(_stack);
+	var Storage = __webpack_require__(265);
 	
-	var _Storage = __webpack_require__(265);
+	var t = __import0.t;
+	stack = stack && stack.__esModule ? stack['default'] : stack;
+	Storage = Storage && Storage.__esModule ? Storage['default'] : Storage;
 	
-	var _Storage2 = _interopRequireDefault(_Storage);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function applyComputations(state, newState, oldState) {
-		if ('item' in newState && _typeof(state.item) === 'object' || state.item !== oldState.item) {
+	function recompute(state, newState, oldState, isInitial) {
+		if (isInitial || 'item' in newState && differs(state.item, oldState.item)) {
 			state.isBusy = newState.isBusy = template.computed.isBusy(state.item);
-		}
-	
-		if ('item' in newState && _typeof(state.item) === 'object' || state.item !== oldState.item) {
 			state.fileIcon = newState.fileIcon = template.computed.fileIcon(state.item);
-		}
-	
-		if ('item' in newState && _typeof(state.item) === 'object' || state.item !== oldState.item) {
 			state.dataIcon = newState.dataIcon = template.computed.dataIcon(state.item);
-		}
-	
-		if ('item' in newState && _typeof(state.item) === 'object' || state.item !== oldState.item) {
 			state.label = newState.label = template.computed.label(state.item);
 		}
 	}
@@ -11329,13 +11375,13 @@ return /******/ (function(modules) { // webpackBootstrap
 					if (item.name) {
 						var displayName = (item.editor ? item.editor + ' ' : '') + item.name;
 						if (item.l10n == null || item.l10n) {
-							return (0, _i18n.t)(displayName);
+							return t(displayName);
 						} else {
 							return displayName;
 						}
 					} else if (item.slug) {
 						if (item.l10n == null || item.l10n) {
-							return (0, _i18n.t)(item.slug);
+							return t(item.slug);
 						} else {
 							return item.slug;
 						}
@@ -11343,58 +11389,49 @@ return /******/ (function(modules) { // webpackBootstrap
 				}
 			},
 	
-			components: {
-				Storage: _Storage2.default
-			},
-	
-			helpers: { t: _i18n.t },
+			helpers: { t: t },
 	
 			methods: {
 				proxy: function proxy(actionName) {
-					_stack2.default[actionName]();
+					stack[actionName]();
 				}
 			}
 		};
 	}();
 	
-	function renderMainFragment(root, component) {
+	function create_main_fragment(state, component) {
 		var li = createElement('li');
 		li.className = "coz-nav-item";
 	
-		var ifBlock_anchor = createComment("#if item.component");
-		appendNode(ifBlock_anchor, li);
-	
-		function getBlock(root) {
-			if (root.item.component) return renderIfBlock_0;
-			if (root.item.href) return renderIfBlock_1;
-			if (root.item.action) return renderIfBlock_2;
+		function get_block(state) {
+			if (state.item.component) return create_if_block;
+			if (state.item.href) return create_if_block_2;
+			if (state.item.action) return create_if_block_4;
 			return null;
 		}
 	
-		var currentBlock = getBlock(root);
-		var ifBlock = currentBlock && currentBlock(root, component);
+		var current_block = get_block(state);
+		var if_block = current_block && current_block(state, component);
 	
-		if (ifBlock) ifBlock.mount(ifBlock_anchor.parentNode, ifBlock_anchor);
+		if (if_block) if_block.mount(li, null);
 	
 		return {
 			mount: function mount(target, anchor) {
 				insertNode(li, target, anchor);
 			},
 	
-			update: function update(changed, root) {
-				var _currentBlock = currentBlock;
-				currentBlock = getBlock(root);
-				if (_currentBlock === currentBlock && ifBlock) {
-					ifBlock.update(changed, root);
+			update: function update(changed, state) {
+				if (current_block === (current_block = get_block(state)) && if_block) {
+					if_block.update(changed, state);
 				} else {
-					if (ifBlock) ifBlock.teardown(true);
-					ifBlock = currentBlock && currentBlock(root, component);
-					if (ifBlock) ifBlock.mount(ifBlock_anchor.parentNode, ifBlock_anchor);
+					if (if_block) if_block.destroy(true);
+					if_block = current_block && current_block(state, component);
+					if (if_block) if_block.mount(li, null);
 				}
 			},
 	
-			teardown: function teardown(detach) {
-				if (ifBlock) ifBlock.teardown(false);
+			destroy: function destroy(detach) {
+				if (if_block) if_block.destroy(false);
 	
 				if (detach) {
 					detachNode(li);
@@ -11403,92 +11440,62 @@ return /******/ (function(modules) { // webpackBootstrap
 		};
 	}
 	
-	function renderIfBlock_2(root, component) {
-		var button = createElement('button');
-		setAttribute(button, 'role', "menuitem");
-		setAttribute(button, 'data-icon', root.dataIcon ? root.dataIcon : "");
-	
-		function clickHandler(event) {
-			var root = this.__svelte.root;
-	
-			component.proxy(root.item.action);
-		}
-	
-		addEventListener(button, 'click', clickHandler);
-	
-		button.__svelte = {
-			root: root
-		};
-	
-		var ifBlock3_anchor = createComment("#if fileIcon");
-		appendNode(ifBlock3_anchor, button);
-	
-		function getBlock3(root) {
-			if (root.fileIcon) return renderIfBlock3_0;
-			return null;
-		}
-	
-		var currentBlock3 = getBlock3(root);
-		var ifBlock3 = currentBlock3 && currentBlock3(root, component);
-	
-		if (ifBlock3) ifBlock3.mount(ifBlock3_anchor.parentNode, ifBlock3_anchor);
-		appendNode(createText("\n    "), button);
-		var text1 = createText(root.label);
-		appendNode(text1, button);
+	function create_if_block_1(state, component) {
+		var storage = new Storage({
+			target: null,
+			_root: component._root,
+			data: {
+				diskUsageFromStack: state.item.currentDiskUsage,
+				diskQuotaFromStack: state.item.currentDiskQuota
+			}
+		});
 	
 		return {
 			mount: function mount(target, anchor) {
-				insertNode(button, target, anchor);
+				storage._fragment.mount(target, anchor);
 			},
 	
-			update: function update(changed, root) {
-				setAttribute(button, 'data-icon', root.dataIcon ? root.dataIcon : "");
+			update: function update(changed, state) {
+				var storage_changes = {};
 	
-				button.__svelte.root = root;
+				if ('item' in changed) storage_changes.diskUsageFromStack = state.item.currentDiskUsage;
+				if ('item' in changed) storage_changes.diskQuotaFromStack = state.item.currentDiskQuota;
 	
-				var _currentBlock3 = currentBlock3;
-				currentBlock3 = getBlock3(root);
-				if (_currentBlock3 === currentBlock3 && ifBlock3) {
-					ifBlock3.update(changed, root);
-				} else {
-					if (ifBlock3) ifBlock3.teardown(true);
-					ifBlock3 = currentBlock3 && currentBlock3(root, component);
-					if (ifBlock3) ifBlock3.mount(ifBlock3_anchor.parentNode, ifBlock3_anchor);
-				}
-	
-				text1.data = root.label;
+				if (Object.keys(storage_changes).length) storage.set(storage_changes);
 			},
 	
-			teardown: function teardown(detach) {
-				removeEventListener(button, 'click', clickHandler);
-				if (ifBlock3) ifBlock3.teardown(false);
-	
-				if (detach) {
-					detachNode(button);
-				}
+			destroy: function destroy(detach) {
+				storage.destroy(detach);
 			}
 		};
 	}
 	
-	function renderIfBlock3_0(root, component) {
+	function create_if_block_3(state, component) {
+		var img_src_value, img_class_value;
+	
 		var img = createElement('img');
-		img.src = root.fileIcon.src;
+		img.src = img_src_value = state.fileIcon.src;
 		img.alt = '';
 		img.width = "64";
 		img.height = "64";
-		img.className = root.fileIcon.class ? root.fileIcon.class : '';
+		img.className = img_class_value = state.fileIcon.class ? state.fileIcon.class : '';
 	
 		return {
 			mount: function mount(target, anchor) {
 				insertNode(img, target, anchor);
 			},
 	
-			update: function update(changed, root) {
-				img.src = root.fileIcon.src;
-				img.className = root.fileIcon.class ? root.fileIcon.class : '';
+			update: function update(changed, state) {
+				if (img_src_value !== (img_src_value = state.fileIcon.src)) {
+					img.src = img_src_value;
+				}
+	
+				if (img_class_value !== (img_class_value = state.fileIcon.class ? state.fileIcon.class : '')) {
+					img.className = img_class_value;
+				}
 			},
 	
-			teardown: function teardown(detach) {
+			destroy: function destroy(detach) {
 				if (detach) {
 					detachNode(img);
 				}
@@ -11496,59 +11503,152 @@ return /******/ (function(modules) { // webpackBootstrap
 		};
 	}
 	
-	function renderIfBlock_1(root, component) {
+	function create_if_block_5(state, component) {
+		var img_src_value, img_class_value;
+	
+		var img = createElement('img');
+		img.src = img_src_value = state.fileIcon.src;
+		img.alt = '';
+		img.width = "64";
+		img.height = "64";
+		img.className = img_class_value = state.fileIcon.class ? state.fileIcon.class : '';
+	
+		return {
+			mount: function mount(target, anchor) {
+				insertNode(img, target, anchor);
+			},
+	
+			update: function update(changed, state) {
+				if (img_src_value !== (img_src_value = state.fileIcon.src)) {
+					img.src = img_src_value;
+				}
+	
+				if (img_class_value !== (img_class_value = state.fileIcon.class ? state.fileIcon.class : '')) {
+					img.className = img_class_value;
+				}
+			},
+	
+			destroy: function destroy(detach) {
+				if (detach) {
+					detachNode(img);
+				}
+			}
+		};
+	}
+	
+	function create_if_block(state, component) {
+		var div_data_icon_value, div_aria_busy_value, text_value;
+	
+		var div = createElement('div');
+		setAttribute(div, 'role', "menuitem");
+		setAttribute(div, 'data-icon', div_data_icon_value = state.dataIcon ? state.dataIcon : "");
+		setAttribute(div, 'aria-busy', div_aria_busy_value = state.isBusy);
+		var text = createText(text_value = state.label);
+		appendNode(text, div);
+		appendNode(createText("\n    "), div);
+	
+		var if_block_1 = state.item.component === 'storage' && create_if_block_1(state, component);
+	
+		if (if_block_1) if_block_1.mount(div, null);
+	
+		return {
+			mount: function mount(target, anchor) {
+				insertNode(div, target, anchor);
+			},
+	
+			update: function update(changed, state) {
+				if (div_data_icon_value !== (div_data_icon_value = state.dataIcon ? state.dataIcon : "")) {
+					setAttribute(div, 'data-icon', div_data_icon_value);
+				}
+	
+				if (div_aria_busy_value !== (div_aria_busy_value = state.isBusy)) {
+					setAttribute(div, 'aria-busy', div_aria_busy_value);
+				}
+	
+				if (text_value !== (text_value = state.label)) {
+					text.data = text_value;
+				}
+	
+				if (state.item.component === 'storage') {
+					if (if_block_1) {
+						if_block_1.update(changed, state);
+					} else {
+						if_block_1 = create_if_block_1(state, component);
+						if_block_1.mount(div, null);
+					}
+				} else if (if_block_1) {
+					if_block_1.destroy(true);
+					if_block_1 = null;
+				}
+			},
+	
+			destroy: function destroy(detach) {
+				if (if_block_1) if_block_1.destroy(false);
+	
+				if (detach) {
+					detachNode(div);
+				}
+			}
+		};
+	}
+	
+	function create_if_block_2(state, component) {
+		var a_href_value, a_target_value, a_data_icon_value, text_1_value;
+	
 		var a = createElement('a');
 		setAttribute(a, 'role', "menuitem");
-		a.href = root.item.href;
-		a.target = root.item.external ? "_blank" : "_self";
-		setAttribute(a, 'data-icon', root.dataIcon ? root.dataIcon : "");
+		a.href = a_href_value = state.item.href;
+		a.target = a_target_value = state.item.external ? "_blank" : "_self";
+		setAttribute(a, 'data-icon', a_data_icon_value = state.dataIcon ? state.dataIcon : "");
 	
-		var ifBlock2_anchor = createComment("#if fileIcon");
-		appendNode(ifBlock2_anchor, a);
+		var if_block_2 = state.fileIcon && create_if_block_3(state, component);
 	
-		function getBlock2(root) {
-			if (root.fileIcon) return renderIfBlock2_0;
-			return null;
-		}
-	
-		var currentBlock2 = getBlock2(root);
-		var ifBlock2 = currentBlock2 && currentBlock2(root, component);
-	
-		if (ifBlock2) ifBlock2.mount(ifBlock2_anchor.parentNode, ifBlock2_anchor);
-		appendNode(createText("\n    "), a);
-	
+		if (if_block_2) if_block_2.mount(a, null);
+		var text = createText("\n    ");
+		appendNode(text, a);
 		var p = createElement('p');
-		p.className = "coz-label";
-	
 		appendNode(p, a);
-		var text1 = createText(root.label);
-		appendNode(text1, p);
+		p.className = "coz-label";
+		var text_1 = createText(text_1_value = state.label);
+		appendNode(text_1, p);
 	
 		return {
 			mount: function mount(target, anchor) {
 				insertNode(a, target, anchor);
 			},
 	
-			update: function update(changed, root) {
-				a.href = root.item.href;
-				a.target = root.item.external ? "_blank" : "_self";
-				setAttribute(a, 'data-icon', root.dataIcon ? root.dataIcon : "");
-	
-				var _currentBlock2 = currentBlock2;
-				currentBlock2 = getBlock2(root);
-				if (_currentBlock2 === currentBlock2 && ifBlock2) {
-					ifBlock2.update(changed, root);
-				} else {
-					if (ifBlock2) ifBlock2.teardown(true);
-					ifBlock2 = currentBlock2 && currentBlock2(root, component);
-					if (ifBlock2) ifBlock2.mount(ifBlock2_anchor.parentNode, ifBlock2_anchor);
+			update: function update(changed, state) {
+				if (a_href_value !== (a_href_value = state.item.href)) {
+					a.href = a_href_value;
 				}
 	
-				text1.data = root.label;
+				if (a_target_value !== (a_target_value = state.item.external ? "_blank" : "_self")) {
+					a.target = a_target_value;
+				}
+	
+				if (a_data_icon_value !== (a_data_icon_value = state.dataIcon ? state.dataIcon : "")) {
+					setAttribute(a, 'data-icon', a_data_icon_value);
+				}
+	
+				if (state.fileIcon) {
+					if (if_block_2) {
+						if_block_2.update(changed, state);
+					} else {
+						if_block_2 = create_if_block_3(state, component);
+						if_block_2.mount(a, text);
+					}
+				} else if (if_block_2) {
+					if_block_2.destroy(true);
+					if_block_2 = null;
+				}
+	
+				if (text_1_value !== (text_1_value = state.label)) {
+					text_1.data = text_1_value;
+				}
 			},
 	
-			teardown: function teardown(detach) {
-				if (ifBlock2) ifBlock2.teardown(false);
+			destroy: function destroy(detach) {
+				if (if_block_2) if_block_2.destroy(false);
 	
 				if (detach) {
 					detachNode(a);
@@ -11557,122 +11657,70 @@ return /******/ (function(modules) { // webpackBootstrap
 		};
 	}
 	
-	function renderIfBlock2_0(root, component) {
-		var img = createElement('img');
-		img.src = root.fileIcon.src;
-		img.alt = '';
-		img.width = "64";
-		img.height = "64";
-		img.className = root.fileIcon.class ? root.fileIcon.class : '';
+	function create_if_block_4(state, component) {
+		var button_data_icon_value, text_1_value;
 	
-		return {
-			mount: function mount(target, anchor) {
-				insertNode(img, target, anchor);
-			},
+		var button = createElement('button');
+		setAttribute(button, 'role', "menuitem");
+		setAttribute(button, 'data-icon', button_data_icon_value = state.dataIcon ? state.dataIcon : "");
 	
-			update: function update(changed, root) {
-				img.src = root.fileIcon.src;
-				img.className = root.fileIcon.class ? root.fileIcon.class : '';
-			},
-	
-			teardown: function teardown(detach) {
-				if (detach) {
-					detachNode(img);
-				}
-			}
-		};
-	}
-	
-	function renderIfBlock_0(root, component) {
-		var div = createElement('div');
-		setAttribute(div, 'role', "menuitem");
-		setAttribute(div, 'data-icon', root.dataIcon ? root.dataIcon : "");
-		setAttribute(div, 'aria-busy', root.isBusy);
-	
-		var text = createText(root.label);
-		appendNode(text, div);
-		appendNode(createText("\n    "), div);
-		var ifBlock1_anchor = createComment("#if item.component === 'storage'");
-		appendNode(ifBlock1_anchor, div);
-	
-		function getBlock1(root) {
-			if (root.item.component === 'storage') return renderIfBlock1_0;
-			return null;
+		function click_handler(event) {
+			var state = component.get();
+			component.proxy(state.item.action);
 		}
 	
-		var currentBlock1 = getBlock1(root);
-		var ifBlock1 = currentBlock1 && currentBlock1(root, component);
+		addEventListener(button, 'click', click_handler);
 	
-		if (ifBlock1) ifBlock1.mount(ifBlock1_anchor.parentNode, ifBlock1_anchor);
+		var if_block_3 = state.fileIcon && create_if_block_5(state, component);
+	
+		if (if_block_3) if_block_3.mount(button, null);
+		var text = createText("\n    ");
+		appendNode(text, button);
+		var text_1 = createText(text_1_value = state.label);
+		appendNode(text_1, button);
 	
 		return {
 			mount: function mount(target, anchor) {
-				insertNode(div, target, anchor);
+				insertNode(button, target, anchor);
 			},
 	
-			update: function update(changed, root) {
-				setAttribute(div, 'data-icon', root.dataIcon ? root.dataIcon : "");
-				setAttribute(div, 'aria-busy', root.isBusy);
+			update: function update(changed, state) {
+				if (button_data_icon_value !== (button_data_icon_value = state.dataIcon ? state.dataIcon : "")) {
+					setAttribute(button, 'data-icon', button_data_icon_value);
+				}
 	
-				text.data = root.label;
+				if (state.fileIcon) {
+					if (if_block_3) {
+						if_block_3.update(changed, state);
+					} else {
+						if_block_3 = create_if_block_5(state, component);
+						if_block_3.mount(button, text);
+					}
+				} else if (if_block_3) {
+					if_block_3.destroy(true);
+					if_block_3 = null;
+				}
 	
-				var _currentBlock1 = currentBlock1;
-				currentBlock1 = getBlock1(root);
-				if (_currentBlock1 === currentBlock1 && ifBlock1) {
-					ifBlock1.update(changed, root);
-				} else {
-					if (ifBlock1) ifBlock1.teardown(true);
-					ifBlock1 = currentBlock1 && currentBlock1(root, component);
-					if (ifBlock1) ifBlock1.mount(ifBlock1_anchor.parentNode, ifBlock1_anchor);
+				if (text_1_value !== (text_1_value = state.label)) {
+					text_1.data = text_1_value;
 				}
 			},
 
-			teardown: function teardown(detach) {
-				if (ifBlock1) ifBlock1.teardown(false);
+			destroy: function destroy(detach) {
+				removeEventListener(button, 'click', click_handler);
+				if (if_block_3) if_block_3.destroy(false);
 
 				if (detach) {
-					detachNode(div);
+					detachNode(button);
 				}
 			}
 		};
 	}
 
-	function renderIfBlock1_0(root, component) {
-		var storage_initialData = {
-			diskUsageFromStack: root.item.currentDiskUsage,
-			diskQuotaFromStack: root.item.currentDiskQuota
-		};
-		var storage = new template.components.Storage({
-			target: null,
-			_root: component._root || component,
-			data: storage_initialData
-		});
-
-		return {
-			mount: function mount(target, anchor) {
-				storage._fragment.mount(target, anchor);
-			},
-
-			update: function update(changed, root) {
-				var storage_changes = {};
-
-				if ('item' in changed) storage_changes.diskUsageFromStack = root.item.currentDiskUsage;
-				if ('item' in changed) storage_changes.diskQuotaFromStack = root.item.currentDiskQuota;
-
-				if (Object.keys(storage_changes).length) storage.set(storage_changes);
-			},
-
-			teardown: function teardown(detach) {
-				storage.teardown(detach);
-			}
-		};
-	}
-
-	function SvelteComponent(options) {
+	function NavigationItem(options) {
 		options = options || {};
-
 		this._state = options.data || {};
-		applyComputations(this._state, this._state, {});
+		recompute(this._state, this._state, {}, true);
 
 		this._observers = {
 			pre: Object.create(null),
@@ -11681,37 +11729,131 @@ return /******/ (function(modules) { // webpackBootstrap
 
 		this._handlers = Object.create(null);
 
-		this._root = options._root;
+		this._root = options._root || this;
 		this._yield = options._yield;
 
+		this._torndown = false;
 		this._renderHooks = [];
 
-		this._fragment = renderMainFragment(this._state, this);
+		this._fragment = create_main_fragment(this._state, this);
 		if (options.target) this._fragment.mount(options.target, null);
+		this._flush();
+	}
 
-		while (this._renderHooks.length) {
-			var hook = this._renderHooks.pop();
-			hook.fn.call(hook.context);
+	assign(NavigationItem.prototype, template.methods, {
+		get: get,
+		fire: fire,
+		observe: observe,
+		on: on,
+		set: set,
+		_flush: _flush
+	});
+
+	NavigationItem.prototype._set = function _set(newState) {
+		var oldState = this._state;
+		this._state = assign({}, oldState, newState);
+		recompute(this._state, newState, oldState, false);
+		dispatchObservers(this, this._observers.pre, newState, oldState);
+		this._fragment.update(newState, this._state);
+		dispatchObservers(this, this._observers.post, newState, oldState);
+		this._flush();
+	};
+
+	NavigationItem.prototype.teardown = NavigationItem.prototype.destroy = function destroy(detach) {
+		this.fire('destroy');
+
+		this._fragment.destroy(detach !== false);
+		this._fragment = null;
+
+		this._state = {};
+		this._torndown = true;
+	};
+
+	function createElement(name) {
+		return document.createElement(name);
+	}
+
+	function insertNode(node, target, anchor) {
+		target.insertBefore(node, anchor);
+	}
+
+	function detachNode(node) {
+		node.parentNode.removeChild(node);
+	}
+
+	function setAttribute(node, attribute, value) {
+		node.setAttribute(attribute, value);
+	}
+
+	function createText(data) {
+		return document.createTextNode(data);
+	}
+
+	function appendNode(node, target) {
+		target.appendChild(node);
+	}
+
+	function addEventListener(node, event, handler) {
+		node.addEventListener(event, handler, false);
+	}
+
+	function removeEventListener(node, event, handler) {
+		node.removeEventListener(event, handler, false);
+	}
+
+	function differs(a, b) {
+		return a !== b || a && (typeof a === 'undefined' ? 'undefined' : _typeof(a)) === 'object' || typeof a === 'function';
+	}
+
+	function assign(target) {
+		for (var i = 1; i < arguments.length; i += 1) {
+			var source = arguments[i];
+			for (var k in source) {
+				target[k] = source[k];
+			}
+		}
+
+		return target;
+	}
+
+	function dispatchObservers(component, group, newState, oldState) {
+		for (var key in group) {
+			if (!(key in newState)) continue;
+
+			var newValue = newState[key];
+			var oldValue = oldState[key];
+
+			if (differs(newValue, oldValue)) {
+				var callbacks = group[key];
+				if (!callbacks) continue;
+
+				for (var i = 0; i < callbacks.length; i += 1) {
+					var callback = callbacks[i];
+					if (callback.__calling) continue;
+
+					callback.__calling = true;
+					callback.call(component, newValue, oldValue);
+					callback.__calling = false;
+				}
+			}
 		}
 	}
 
-	SvelteComponent.prototype = template.methods;
-
-	SvelteComponent.prototype.get = function get(key) {
+	function get(key) {
 		return key ? this._state[key] : this._state;
-	};
+	}
 
-	SvelteComponent.prototype.fire = function fire(eventName, data) {
+	function fire(eventName, data) {
 		var handlers = eventName in this._handlers && this._handlers[eventName].slice();
 		if (!handlers) return;
 
 		for (var i = 0; i < handlers.length; i += 1) {
 			handlers[i].call(this, data);
 		}
-	};
+	}
 
-	SvelteComponent.prototype.observe = function observe(key, callback, options) {
-		var group = options && options.defer ? this._observers.pre : this._observers.post;
+	function observe(key, callback, options) {
+		var group = options && options.defer ? this._observers.post : this._observers.pre;
 
 		(group[key] || (group[key] = [])).push(callback);
 
@@ -11727,9 +11869,11 @@ return /******/ (function(modules) { // webpackBootstrap
 				if (~index) group[key].splice(index, 1);
 			}
 		};
-	};
+	}
 
-	SvelteComponent.prototype.on = function on(eventName, handler) {
+	function on(eventName, handler) {
+		if (eventName === 'teardown') return this.on('destroy', handler);
+
 		var handlers = this._handlers[eventName] || (this._handlers[eventName] = []);
 		handlers.push(handler);
 
@@ -11739,92 +11883,22 @@ return /******/ (function(modules) { // webpackBootstrap
 				if (~index) handlers.splice(index, 1);
 			}
 		};
-	};
+	}
 
-	SvelteComponent.prototype.set = function set(newState) {
-		var oldState = this._state;
-		this._state = Object.assign({}, oldState, newState);
-		applyComputations(this._state, newState, oldState);
+	function set(newState) {
+		this._set(assign({}, newState));
+		this._root._flush();
+	}
 
-		dispatchObservers(this, this._observers.pre, newState, oldState);
-		if (this._fragment) this._fragment.update(newState, this._state);
-		dispatchObservers(this, this._observers.post, newState, oldState);
+	function _flush() {
+		if (!this._renderHooks) return;
 
 		while (this._renderHooks.length) {
-			var hook = this._renderHooks.pop();
-			hook.fn.call(hook.context);
-		}
-	};
-
-	SvelteComponent.prototype.teardown = function teardown(detach) {
-		this.fire('teardown');
-
-		this._fragment.teardown(detach !== false);
-		this._fragment = null;
-
-		this._state = {};
-	};
-
-	function dispatchObservers(component, group, newState, oldState) {
-		for (var key in group) {
-			if (!(key in newState)) continue;
-
-			var newValue = newState[key];
-			var oldValue = oldState[key];
-
-			if (newValue === oldValue && (typeof newValue === 'undefined' ? 'undefined' : _typeof(newValue)) !== 'object') continue;
-
-			var callbacks = group[key];
-			if (!callbacks) continue;
-
-			for (var i = 0; i < callbacks.length; i += 1) {
-				var callback = callbacks[i];
-				if (callback.__calling) continue;
-
-				callback.__calling = true;
-				callback.call(component, newValue, oldValue);
-				callback.__calling = false;
-			}
+			this._renderHooks.pop()();
 		}
 	}
 
-	function createElement(name) {
-		return document.createElement(name);
-	}
-
-	function detachNode(node) {
-		node.parentNode.removeChild(node);
-	}
-
-	function insertNode(node, target, anchor) {
-		target.insertBefore(node, anchor);
-	}
-
-	function setAttribute(node, attribute, value) {
-		node.setAttribute(attribute, value);
-	}
-
-	function createText(data) {
-		return document.createTextNode(data);
-	}
-
-	function appendNode(node, target) {
-		target.appendChild(node);
-	}
-
-	function createComment(data) {
-		return document.createComment(data);
-	}
-
-	function addEventListener(node, event, handler) {
-		node.addEventListener(event, handler, false);
-	}
-
-	function removeEventListener(node, event, handler) {
-		node.removeEventListener(event, handler, false);
-	}
-
-	exports.default = SvelteComponent;
+	module.exports = NavigationItem;
 
 /***/ },
 /* 265 */
@@ -11832,20 +11906,18 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 	
-	var _i18n = __webpack_require__(189);
+	var __import0 = __webpack_require__(189);
 	
-	function applyComputations(state, newState, oldState) {
-		if ('diskQuotaFromStack' in newState && _typeof(state.diskQuotaFromStack) === 'object' || state.diskQuotaFromStack !== oldState.diskQuotaFromStack) {
+	var t = __import0.t;
+	
+	function recompute(state, newState, oldState, isInitial) {
+		if (isInitial || 'diskQuotaFromStack' in newState && differs(state.diskQuotaFromStack, oldState.diskQuotaFromStack)) {
 			state.diskQuota = newState.diskQuota = template.computed.diskQuota(state.diskQuotaFromStack);
 		}
 	
-		if ('diskUsageFromStack' in newState && _typeof(state.diskUsageFromStack) === 'object' || state.diskUsageFromStack !== oldState.diskUsageFromStack) {
+		if (isInitial || 'diskUsageFromStack' in newState && differs(state.diskUsageFromStack, oldState.diskUsageFromStack)) {
 			state.diskUsage = newState.diskUsage = template.computed.diskUsage(state.diskUsageFromStack);
 		}
 	}
@@ -11867,47 +11939,42 @@ return /******/ (function(modules) { // webpackBootstrap
 				}
 			},
 	
-			helpers: { t: _i18n.t }
+			helpers: { t: t }
 		};
 	}();
 	
-	function renderMainFragment(root, component) {
+	function create_main_fragment(state, component) {
 		var div = createElement('div');
 		div.className = "coz-nav-storage";
 	
-		var ifBlock_anchor = createComment("#if diskUsage && !diskUsage.error");
-		appendNode(ifBlock_anchor, div);
-	
-		function getBlock(root) {
-			if (root.diskUsage && !root.diskUsage.error) return renderIfBlock_0;
-			if (root.diskUsage && root.diskUsage.error) return renderIfBlock_1;
+		function get_block(state) {
+			if (state.diskUsage && !state.diskUsage.error) return create_if_block;
+			if (state.diskUsage && state.diskUsage.error) return create_if_block_1;
 			return null;
 		}
 	
-		var currentBlock = getBlock(root);
-		var ifBlock = currentBlock && currentBlock(root, component);
+		var current_block = get_block(state);
+		var if_block = current_block && current_block(state, component);
 	
-		if (ifBlock) ifBlock.mount(ifBlock_anchor.parentNode, ifBlock_anchor);
+		if (if_block) if_block.mount(div, null);
 	
 		return {
 			mount: function mount(target, anchor) {
 				insertNode(div, target, anchor);
 			},
 	
-			update: function update(changed, root) {
-				var _currentBlock = currentBlock;
-				currentBlock = getBlock(root);
-				if (_currentBlock === currentBlock && ifBlock) {
-					ifBlock.update(changed, root);
+			update: function update(changed, state) {
+				if (current_block === (current_block = get_block(state)) && if_block) {
+					if_block.update(changed, state);
 				} else {
-					if (ifBlock) ifBlock.teardown(true);
-					ifBlock = currentBlock && currentBlock(root, component);
-					if (ifBlock) ifBlock.mount(ifBlock_anchor.parentNode, ifBlock_anchor);
+					if (if_block) if_block.destroy(true);
+					if_block = current_block && current_block(state, component);
+					if (if_block) if_block.mount(div, null);
 				}
 			},
 	
-			teardown: function teardown(detach) {
-				if (ifBlock) ifBlock.teardown(false);
+			destroy: function destroy(detach) {
+				if (if_block) if_block.destroy(false);
 	
 				if (detach) {
 					detachNode(div);
@@ -11916,79 +11983,88 @@ return /******/ (function(modules) { // webpackBootstrap
 		};
 	}
 	
-	function renderIfBlock_1(root, component) {
-		var p = createElement('p');
-		p.className = "coz-nav--error";
+	function create_if_block(state, component) {
+		var text_value, progress_value_value, progress_max_value;
 	
-		var text = createText(template.helpers.t('error_' + root.diskUsage.error));
-		appendNode(text, p);
-	
-		return {
-			mount: function mount(target, anchor) {
-				insertNode(p, target, anchor);
-			},
-	
-			update: function update(changed, root) {
-				text.data = template.helpers.t('error_' + root.diskUsage.error);
-			},
-	
-			teardown: function teardown(detach) {
-				if (detach) {
-					detachNode(p);
-				}
-			}
-		};
-	}
-	
-	function renderIfBlock_0(root, component) {
 		var p = createElement('p');
 		p.className = "coz-nav-storage-text";
-	
-		var text = createText(template.helpers.t('storage_phrase', {
-			diskUsage: root.diskUsage,
-			diskQuota: root.diskQuota
+		var text = createText(text_value = template.helpers.t('storage_phrase', {
+			diskUsage: state.diskUsage,
+			diskQuota: state.diskQuota
 		}));
 		appendNode(text, p);
-		var text1 = createText("\n  ");
-	
+		var text_1 = createText("\n  ");
 		var progress = createElement('progress');
 		progress.className = "cozy-nav-storage-bar";
-		progress.value = root.diskUsage;
-		progress.max = root.diskQuota;
+		progress.value = progress_value_value = state.diskUsage;
+		progress.max = progress_max_value = state.diskQuota;
 		setAttribute(progress, 'min', "0");
 	
 		return {
 			mount: function mount(target, anchor) {
 				insertNode(p, target, anchor);
-				insertNode(text1, target, anchor);
+				insertNode(text_1, target, anchor);
 				insertNode(progress, target, anchor);
 			},
 	
-			update: function update(changed, root) {
-				text.data = template.helpers.t('storage_phrase', {
-					diskUsage: root.diskUsage,
-					diskQuota: root.diskQuota
-				});
+			update: function update(changed, state) {
+				if (text_value !== (text_value = template.helpers.t('storage_phrase', {
+					diskUsage: state.diskUsage,
+					diskQuota: state.diskQuota
+				}))) {
+					text.data = text_value;
+				}
 	
-				progress.value = root.diskUsage;
-				progress.max = root.diskQuota;
+				if (progress_value_value !== (progress_value_value = state.diskUsage)) {
+					progress.value = progress_value_value;
+				}
+	
+				if (progress_max_value !== (progress_max_value = state.diskQuota)) {
+					progress.max = progress_max_value;
+				}
 			},
-
-			teardown: function teardown(detach) {
+	
+			destroy: function destroy(detach) {
 				if (detach) {
 					detachNode(p);
-					detachNode(text1);
+					detachNode(text_1);
 					detachNode(progress);
 				}
 			}
 		};
 	}
+	
+	function create_if_block_1(state, component) {
+		var text_value;
+	
+		var p = createElement('p');
+		p.className = "coz-nav--error";
+		var text = createText(text_value = template.helpers.t('error_' + state.diskUsage.error));
+		appendNode(text, p);
+	
+		return {
+			mount: function mount(target, anchor) {
+				insertNode(p, target, anchor);
+			},
+	
+			update: function update(changed, state) {
+				if (text_value !== (text_value = template.helpers.t('error_' + state.diskUsage.error))) {
+					text.data = text_value;
+				}
+			},
 
-	function SvelteComponent(options) {
+			destroy: function destroy(detach) {
+				if (detach) {
+					detachNode(p);
+				}
+			}
+		};
+	}
+
+	function Storage(options) {
 		options = options || {};
-
 		this._state = options.data || {};
-		applyComputations(this._state, this._state, {});
+		recompute(this._state, this._state, {}, true);
 
 		this._observers = {
 			pre: Object.create(null),
@@ -11997,28 +12073,120 @@ return /******/ (function(modules) { // webpackBootstrap
 
 		this._handlers = Object.create(null);
 
-		this._root = options._root;
+		this._root = options._root || this;
 		this._yield = options._yield;
 
-		this._fragment = renderMainFragment(this._state, this);
+		this._torndown = false;
+
+		this._fragment = create_main_fragment(this._state, this);
 		if (options.target) this._fragment.mount(options.target, null);
 	}
 
-	SvelteComponent.prototype.get = function get(key) {
-		return key ? this._state[key] : this._state;
+	assign(Storage.prototype, {
+		get: get,
+		fire: fire,
+		observe: observe,
+		on: on,
+		set: set,
+		_flush: _flush
+	});
+
+	Storage.prototype._set = function _set(newState) {
+		var oldState = this._state;
+		this._state = assign({}, oldState, newState);
+		recompute(this._state, newState, oldState, false);
+		dispatchObservers(this, this._observers.pre, newState, oldState);
+		this._fragment.update(newState, this._state);
+		dispatchObservers(this, this._observers.post, newState, oldState);
 	};
 
-	SvelteComponent.prototype.fire = function fire(eventName, data) {
+	Storage.prototype.teardown = Storage.prototype.destroy = function destroy(detach) {
+		this.fire('destroy');
+
+		this._fragment.destroy(detach !== false);
+		this._fragment = null;
+
+		this._state = {};
+		this._torndown = true;
+	};
+
+	function createElement(name) {
+		return document.createElement(name);
+	}
+
+	function insertNode(node, target, anchor) {
+		target.insertBefore(node, anchor);
+	}
+
+	function detachNode(node) {
+		node.parentNode.removeChild(node);
+	}
+
+	function createText(data) {
+		return document.createTextNode(data);
+	}
+
+	function appendNode(node, target) {
+		target.appendChild(node);
+	}
+
+	function setAttribute(node, attribute, value) {
+		node.setAttribute(attribute, value);
+	}
+
+	function differs(a, b) {
+		return a !== b || a && (typeof a === 'undefined' ? 'undefined' : _typeof(a)) === 'object' || typeof a === 'function';
+	}
+
+	function assign(target) {
+		for (var i = 1; i < arguments.length; i += 1) {
+			var source = arguments[i];
+			for (var k in source) {
+				target[k] = source[k];
+			}
+		}
+
+		return target;
+	}
+
+	function dispatchObservers(component, group, newState, oldState) {
+		for (var key in group) {
+			if (!(key in newState)) continue;
+
+			var newValue = newState[key];
+			var oldValue = oldState[key];
+
+			if (differs(newValue, oldValue)) {
+				var callbacks = group[key];
+				if (!callbacks) continue;
+
+				for (var i = 0; i < callbacks.length; i += 1) {
+					var callback = callbacks[i];
+					if (callback.__calling) continue;
+
+					callback.__calling = true;
+					callback.call(component, newValue, oldValue);
+					callback.__calling = false;
+				}
+			}
+		}
+	}
+
+	function get(key) {
+		return key ? this._state[key] : this._state;
+	}
+
+	function fire(eventName, data) {
 		var handlers = eventName in this._handlers && this._handlers[eventName].slice();
 		if (!handlers) return;
 
 		for (var i = 0; i < handlers.length; i += 1) {
 			handlers[i].call(this, data);
 		}
-	};
+	}
 
-	SvelteComponent.prototype.observe = function observe(key, callback, options) {
-		var group = options && options.defer ? this._observers.pre : this._observers.post;
+	function observe(key, callback, options) {
+		var group = options && options.defer ? this._observers.post : this._observers.pre;
 
 		(group[key] || (group[key] = [])).push(callback);
 
@@ -12034,9 +12202,11 @@ return /******/ (function(modules) { // webpackBootstrap
 				if (~index) group[key].splice(index, 1);
 			}
 		};
-	};
+	}
 
-	SvelteComponent.prototype.on = function on(eventName, handler) {
+	function on(eventName, handler) {
+		if (eventName === 'teardown') return this.on('destroy', handler);
+
 		var handlers = this._handlers[eventName] || (this._handlers[eventName] = []);
 		handlers.push(handler);
 
@@ -12046,79 +12216,22 @@ return /******/ (function(modules) { // webpackBootstrap
 				if (~index) handlers.splice(index, 1);
 			}
 		};
-	};
+	}
 
-	SvelteComponent.prototype.set = function set(newState) {
-		var oldState = this._state;
-		this._state = Object.assign({}, oldState, newState);
-		applyComputations(this._state, newState, oldState);
+	function set(newState) {
+		this._set(assign({}, newState));
+		this._root._flush();
+	}
 
-		dispatchObservers(this, this._observers.pre, newState, oldState);
-		if (this._fragment) this._fragment.update(newState, this._state);
-		dispatchObservers(this, this._observers.post, newState, oldState);
-	};
+	function _flush() {
+		if (!this._renderHooks) return;
 
-	SvelteComponent.prototype.teardown = function teardown(detach) {
-		this.fire('teardown');
-
-		this._fragment.teardown(detach !== false);
-		this._fragment = null;
-
-		this._state = {};
-	};
-
-	function dispatchObservers(component, group, newState, oldState) {
-		for (var key in group) {
-			if (!(key in newState)) continue;
-
-			var newValue = newState[key];
-			var oldValue = oldState[key];
-
-			if (newValue === oldValue && (typeof newValue === 'undefined' ? 'undefined' : _typeof(newValue)) !== 'object') continue;
-
-			var callbacks = group[key];
-			if (!callbacks) continue;
-
-			for (var i = 0; i < callbacks.length; i += 1) {
-				var callback = callbacks[i];
-				if (callback.__calling) continue;
-
-				callback.__calling = true;
-				callback.call(component, newValue, oldValue);
-				callback.__calling = false;
-			}
+		while (this._renderHooks.length) {
+			this._renderHooks.pop()();
 		}
 	}
 
-	function createElement(name) {
-		return document.createElement(name);
-	}
-
-	function detachNode(node) {
-		node.parentNode.removeChild(node);
-	}
-
-	function insertNode(node, target, anchor) {
-		target.insertBefore(node, anchor);
-	}
-
-	function createText(data) {
-		return document.createTextNode(data);
-	}
-
-	function appendNode(node, target) {
-		target.appendChild(node);
-	}
-
-	function setAttribute(node, attribute, value) {
-		node.setAttribute(attribute, value);
-	}
-
-	function createComment(data) {
-		return document.createComment(data);
-	}
-
-	exports.default = SvelteComponent;
+	module.exports = Storage;
 
 /***/ },
 /* 266 */
@@ -12132,22 +12245,17 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 	
-	var _i18n = __webpack_require__(189);
+	var __import0 = __webpack_require__(189);
 	
-	var _NavigationGroup = __webpack_require__(263);
+	var NavigationGroup = __webpack_require__(263);
 	
-	var _NavigationGroup2 = _interopRequireDefault(_NavigationGroup);
+	var t = __import0.t;
+	NavigationGroup = NavigationGroup && NavigationGroup.__esModule ? NavigationGroup['default'] : NavigationGroup;
 	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function applyComputations(state, newState, oldState) {
-		if ('content' in newState && _typeof(state.content) === 'object' || state.content !== oldState.content) {
+	function recompute(state, newState, oldState, isInitial) {
+		if (isInitial || 'content' in newState && differs(state.content, oldState.content)) {
 			state.splitContentsArrays = newState.splitContentsArrays = template.computed.splitContentsArrays(state.content);
 		}
 	}
@@ -12170,7 +12278,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				}
 			},
 	
-			onrender: function onrender() {
+			oncreate: function oncreate() {
 				var _this = this;
 	
 				var SWIPE_CLASS = 'swipe-active';
@@ -12224,83 +12332,68 @@ return /******/ (function(modules) { // webpackBootstrap
 					animateTo(!visible);
 				});
 			},
-			onteardown: function onteardown() {
+			ondestroy: function ondestroy() {
 				toggleDrawerObserver.cancel();
 			},
 	
 	
-			components: {
-				NavigationGroup: _NavigationGroup2.default
-			},
-	
-			helpers: { t: _i18n.t }
+			helpers: { t: t }
 		};
 	}();
 	
-	function renderMainFragment(root, component) {
+	function create_main_fragment(state, component) {
+		var text_value;
+	
 		var div = createElement('div');
-		component.refs.wrapper = div;
 		div.className = "coz-drawer-wrapper";
 	
-		function clickHandler(event) {
+		function click_handler(event) {
 			component.fire("close");
 		}
 	
-		addEventListener(div, 'click', clickHandler);
-	
+		addEventListener(div, 'click', click_handler);
+		component.refs.wrapper = div;
 		var aside = createElement('aside');
-		component.refs.aside = aside;
+		appendNode(aside, div);
 	
-		function clickHandler1(event) {
+		function click_handler_1(event) {
 			event.stopPropagation();
 		}
 	
-		addEventListener(aside, 'click', clickHandler1);
-	
-		appendNode(aside, div);
-	
+		addEventListener(aside, 'click', click_handler_1);
+		component.refs.aside = aside;
 		var nav = createElement('nav');
-		nav.className = "coz-drawer--apps";
-	
 		appendNode(nav, aside);
-	
+		nav.className = "coz-drawer--apps";
 		var h1 = createElement('h1');
-	
 		appendNode(h1, nav);
-		var text = createText(template.helpers.t('drawer apps'));
+		var text = createText(text_value = template.helpers.t('drawer apps'));
 		appendNode(text, h1);
 		appendNode(createText("\n      "), nav);
-		var ifBlock_anchor = createComment("#if splitContentsArrays.length < 2");
-		appendNode(ifBlock_anchor, nav);
 	
-		function getBlock(root) {
-			if (root.splitContentsArrays.length < 2) return renderIfBlock_0;
-			return renderIfBlock_1;
+		function get_block(state) {
+			if (state.splitContentsArrays.length < 2) return create_if_block;
+			return create_if_block_1;
 		}
 	
-		var currentBlock = getBlock(root);
-		var ifBlock = currentBlock && currentBlock(root, component);
+		var current_block = get_block(state);
+		var if_block = current_block(state, component);
 	
-		if (ifBlock) ifBlock.mount(ifBlock_anchor.parentNode, ifBlock_anchor);
+		if_block.mount(nav, null);
 		appendNode(createText("\n    "), aside);
-	
 		var hr = createElement('hr');
-		hr.className = "coz-sep-flex";
-	
 		appendNode(hr, aside);
+		hr.className = "coz-sep-flex";
 		appendNode(createText("\n    "), aside);
+		var nav_1 = createElement('nav');
+		appendNode(nav_1, aside);
+		var each_block_value = state.footer;
 	
-		var nav1 = createElement('nav');
+		var each_block_1_iterations = [];
 	
-		appendNode(nav1, aside);
-		var eachBlock1_anchor = createComment("#each footer");
-		appendNode(eachBlock1_anchor, nav1);
-		var eachBlock1_value = root.footer;
-		var eachBlock1_iterations = [];
-	
-		for (var i = 0; i < eachBlock1_value.length; i += 1) {
-			eachBlock1_iterations[i] = renderEachBlock1(root, eachBlock1_value, eachBlock1_value[i], i, component);
-			eachBlock1_iterations[i].mount(eachBlock1_anchor.parentNode, eachBlock1_anchor);
+		for (var i = 0; i < each_block_value.length; i += 1) {
+			each_block_1_iterations[i] = create_each_block_1(state, each_block_value, each_block_value[i], i, component);
+			each_block_1_iterations[i].mount(nav_1, null);
 		}
 	
 		return {
@@ -12308,43 +12401,44 @@ return /******/ (function(modules) { // webpackBootstrap
 				insertNode(div, target, anchor);
 			},
 	
-			update: function update(changed, root) {
-				text.data = template.helpers.t('drawer apps');
+			update: function update(changed, state) {
+				if (text_value !== (text_value = template.helpers.t('drawer apps'))) {
+					text.data = text_value;
+				}
 	
-				var _currentBlock = currentBlock;
-				currentBlock = getBlock(root);
-				if (_currentBlock === currentBlock && ifBlock) {
-					ifBlock.update(changed, root);
+				if (current_block === (current_block = get_block(state)) && if_block) {
+					if_block.update(changed, state);
 				} else {
-					if (ifBlock) ifBlock.teardown(true);
-					ifBlock = currentBlock && currentBlock(root, component);
-					if (ifBlock) ifBlock.mount(ifBlock_anchor.parentNode, ifBlock_anchor);
+					if_block.destroy(true);
+					if_block = current_block(state, component);
+					if_block.mount(nav, null);
 				}
 	
-				var eachBlock1_value = root.footer;
+				var each_block_value = state.footer;
 	
-				for (var i = 0; i < eachBlock1_value.length; i += 1) {
-					if (!eachBlock1_iterations[i]) {
-						eachBlock1_iterations[i] = renderEachBlock1(root, eachBlock1_value, eachBlock1_value[i], i, component);
-						eachBlock1_iterations[i].mount(eachBlock1_anchor.parentNode, eachBlock1_anchor);
-					} else {
-						eachBlock1_iterations[i].update(changed, root, eachBlock1_value, eachBlock1_value[i], i);
+				if ('footer' in changed) {
+					for (var i = 0; i < each_block_value.length; i += 1) {
+						if (each_block_1_iterations[i]) {
+							each_block_1_iterations[i].update(changed, state, each_block_value, each_block_value[i], i);
+						} else {
+							each_block_1_iterations[i] = create_each_block_1(state, each_block_value, each_block_value[i], i, component);
+							each_block_1_iterations[i].mount(nav_1, null);
+						}
 					}
+	
+					destroyEach(each_block_1_iterations, true, each_block_value.length);
+					each_block_1_iterations.length = each_block_value.length;
 				}
-	
-				teardownEach(eachBlock1_iterations, true, eachBlock1_value.length);
-	
-				eachBlock1_iterations.length = eachBlock1_value.length;
 			},
 	
-			teardown: function teardown(detach) {
+			destroy: function destroy(detach) {
+				removeEventListener(div, 'click', click_handler);
 				if (component.refs.wrapper === div) component.refs.wrapper = null;
-				removeEventListener(div, 'click', clickHandler);
+				removeEventListener(aside, 'click', click_handler_1);
 				if (component.refs.aside === aside) component.refs.aside = null;
-				removeEventListener(aside, 'click', clickHandler1);
-				if (ifBlock) ifBlock.teardown(false);
+				if_block.destroy(false);
 	
-				teardownEach(eachBlock1_iterations, false);
+				destroyEach(each_block_1_iterations, false, 0);
 	
 				if (detach) {
 					detachNode(div);
@@ -12353,48 +12447,76 @@ return /******/ (function(modules) { // webpackBootstrap
 		};
 	}
 	
-	function renderEachBlock1(root, eachBlock1_value, group, group__index, component) {
-		var navigationGroup_initialData = {
-			separator: "top",
-			group: group
-		};
-		var navigationGroup = new template.components.NavigationGroup({
+	function create_each_block(state, each_block_value, subgroup, subgroup_index, component) {
+		var navigationgroup = new NavigationGroup({
 			target: null,
-			_root: component._root || component,
-			data: navigationGroup_initialData
+			_root: component._root,
+			data: {
+				group: subgroup,
+				itemsLimit: 3
+			}
 		});
 	
 		return {
 			mount: function mount(target, anchor) {
-				navigationGroup._fragment.mount(target, anchor);
+				navigationgroup._fragment.mount(target, anchor);
 			},
 	
-			update: function update(changed, root, eachBlock1_value, group, group__index) {
-				var navigationGroup_changes = {};
+			update: function update(changed, state, each_block_value, subgroup, subgroup_index) {
+				var navigationgroup_changes = {};
 	
-				if ('footer' in changed) navigationGroup_changes.group = group;
+				if ('splitContentsArrays' in changed) navigationgroup_changes.group = subgroup;
+				navigationgroup_changes.itemsLimit = 3;
 	
-				if (Object.keys(navigationGroup_changes).length) navigationGroup.set(navigationGroup_changes);
+				if (Object.keys(navigationgroup_changes).length) navigationgroup.set(navigationgroup_changes);
 			},
 	
-			teardown: function teardown(detach) {
-				navigationGroup.teardown(detach);
+			destroy: function destroy(detach) {
+				navigationgroup.destroy(detach);
 			}
 		};
 	}
 	
-	function renderIfBlock_1(root, component) {
+	function create_if_block(state, component) {
+		var navigationgroup = new NavigationGroup({
+			target: null,
+			_root: component._root,
+			data: {
+				group: state.content,
+				itemsLimit: 3
+			}
+		});
+	
+		return {
+			mount: function mount(target, anchor) {
+				navigationgroup._fragment.mount(target, anchor);
+			},
+	
+			update: function update(changed, state) {
+				var navigationgroup_changes = {};
+	
+				if ('content' in changed) navigationgroup_changes.group = state.content;
+				navigationgroup_changes.itemsLimit = 3;
+	
+				if (Object.keys(navigationgroup_changes).length) navigationgroup.set(navigationgroup_changes);
+			},
+	
+			destroy: function destroy(detach) {
+				navigationgroup.destroy(detach);
+			}
+		};
+	}
+	
+	function create_if_block_1(state, component) {
 		var div = createElement('div');
 		div.className = "coz-drawer--apps-paginator";
+		var each_block_value = state.splitContentsArrays;
 	
-		var eachBlock_anchor = createComment("#each splitContentsArrays");
-		appendNode(eachBlock_anchor, div);
-		var eachBlock_value = root.splitContentsArrays;
-		var eachBlock_iterations = [];
+		var each_block_iterations = [];
 	
-		for (var i = 0; i < eachBlock_value.length; i += 1) {
-			eachBlock_iterations[i] = renderEachBlock(root, eachBlock_value, eachBlock_value[i], i, component);
-			eachBlock_iterations[i].mount(eachBlock_anchor.parentNode, eachBlock_anchor);
+		for (var i = 0; i < each_block_value.length; i += 1) {
+			each_block_iterations[i] = create_each_block(state, each_block_value, each_block_value[i], i, component);
+			each_block_iterations[i].mount(div, null);
 		}
 	
 		return {
@@ -12402,101 +12524,65 @@ return /******/ (function(modules) { // webpackBootstrap
 				insertNode(div, target, anchor);
 			},
 	
-			update: function update(changed, root) {
-				var eachBlock_value = root.splitContentsArrays;
+			update: function update(changed, state) {
+				var each_block_value = state.splitContentsArrays;
 	
-				for (var i = 0; i < eachBlock_value.length; i += 1) {
-					if (!eachBlock_iterations[i]) {
-						eachBlock_iterations[i] = renderEachBlock(root, eachBlock_value, eachBlock_value[i], i, component);
-						eachBlock_iterations[i].mount(eachBlock_anchor.parentNode, eachBlock_anchor);
-					} else {
-						eachBlock_iterations[i].update(changed, root, eachBlock_value, eachBlock_value[i], i);
+				if ('splitContentsArrays' in changed) {
+					for (var i = 0; i < each_block_value.length; i += 1) {
+						if (each_block_iterations[i]) {
+							each_block_iterations[i].update(changed, state, each_block_value, each_block_value[i], i);
+						} else {
+							each_block_iterations[i] = create_each_block(state, each_block_value, each_block_value[i], i, component);
+							each_block_iterations[i].mount(div, null);
+						}
 					}
+	
+					destroyEach(each_block_iterations, true, each_block_value.length);
+					each_block_iterations.length = each_block_value.length;
 				}
-
-				teardownEach(eachBlock_iterations, true, eachBlock_value.length);
-
-				eachBlock_iterations.length = eachBlock_value.length;
 			},
-
-			teardown: function teardown(detach) {
-				teardownEach(eachBlock_iterations, false);
-
+	
+			destroy: function destroy(detach) {
+				destroyEach(each_block_iterations, false, 0);
+	
 				if (detach) {
 					detachNode(div);
 				}
 			}
 		};
 	}
-
-	function renderEachBlock(root, eachBlock_value, subgroup, subgroup__index, component) {
-		var navigationGroup_initialData = {
-			group: subgroup,
-			itemsLimit: 3
-		};
-		var navigationGroup = new template.components.NavigationGroup({
+	
+	function create_each_block_1(state, each_block_value, group, group_index, component) {
+		var navigationgroup = new NavigationGroup({
 			target: null,
-			_root: component._root || component,
-			data: navigationGroup_initialData
+			_root: component._root,
+			data: { separator: "top", group: group }
 		});
-
+	
 		return {
 			mount: function mount(target, anchor) {
-				navigationGroup._fragment.mount(target, anchor);
+				navigationgroup._fragment.mount(target, anchor);
+			},
+	
+			update: function update(changed, state, each_block_value, group, group_index) {
+				var navigationgroup_changes = {};
+	
+				if ('footer' in changed) navigationgroup_changes.group = group;
+	
+				if (Object.keys(navigationgroup_changes).length) navigationgroup.set(navigationgroup_changes);
 			},
 
-			update: function update(changed, root, eachBlock_value, subgroup, subgroup__index) {
-				var navigationGroup_changes = {};
-
-				if ('splitContentsArrays' in changed) navigationGroup_changes.group = subgroup;
-				navigationGroup_changes.itemsLimit = 3;
-
-				if (Object.keys(navigationGroup_changes).length) navigationGroup.set(navigationGroup_changes);
-			},
-
-			teardown: function teardown(detach) {
-				navigationGroup.teardown(detach);
+			destroy: function destroy(detach) {
+				navigationgroup.destroy(detach);
 			}
 		};
 	}
 
-	function renderIfBlock_0(root, component) {
-		var navigationGroup_initialData = {
-			group: root.content,
-			itemsLimit: 3
-		};
-		var navigationGroup = new template.components.NavigationGroup({
-			target: null,
-			_root: component._root || component,
-			data: navigationGroup_initialData
-		});
-
-		return {
-			mount: function mount(target, anchor) {
-				navigationGroup._fragment.mount(target, anchor);
-			},
-
-			update: function update(changed, root) {
-				var navigationGroup_changes = {};
-
-				if ('content' in changed) navigationGroup_changes.group = root.content;
-				navigationGroup_changes.itemsLimit = 3;
-
-				if (Object.keys(navigationGroup_changes).length) navigationGroup.set(navigationGroup_changes);
-			},
-
-			teardown: function teardown(detach) {
-				navigationGroup.teardown(detach);
-			}
-		};
-	}
-
-	function SvelteComponent(options) {
+	function Drawer(options) {
 		options = options || {};
-
 		this.refs = {};
 		this._state = options.data || {};
-		applyComputations(this._state, this._state, {});
+		recompute(this._state, this._state, {}, true);
 
 		this._observers = {
 			pre: Object.create(null),
@@ -12505,41 +12591,140 @@ return /******/ (function(modules) { // webpackBootstrap
 
 		this._handlers = Object.create(null);
 
-		this._root = options._root;
+		this._root = options._root || this;
 		this._yield = options._yield;
 
+		this._torndown = false;
 		this._renderHooks = [];
 
-		this._fragment = renderMainFragment(this._state, this);
+		this._fragment = create_main_fragment(this._state, this);
 		if (options.target) this._fragment.mount(options.target, null);
-
-		while (this._renderHooks.length) {
-			var hook = this._renderHooks.pop();
-			hook.fn.call(hook.context);
-		}
+		this._flush();
 
 		if (options._root) {
-			options._root._renderHooks.push({ fn: template.onrender, context: this });
+			options._root._renderHooks.push(template.oncreate.bind(this));
 		} else {
-			template.onrender.call(this);
+			template.oncreate.call(this);
 		}
 	}
 
-	SvelteComponent.prototype.get = function get(key) {
-		return key ? this._state[key] : this._state;
+	assign(Drawer.prototype, {
+		get: get,
+		fire: fire,
+		observe: observe,
+		on: on,
+		set: set,
+		_flush: _flush
+	});
+
+	Drawer.prototype._set = function _set(newState) {
+		var oldState = this._state;
+		this._state = assign({}, oldState, newState);
+		recompute(this._state, newState, oldState, false);
+		dispatchObservers(this, this._observers.pre, newState, oldState);
+		this._fragment.update(newState, this._state);
+		dispatchObservers(this, this._observers.post, newState, oldState);
+		this._flush();
 	};
 
-	SvelteComponent.prototype.fire = function fire(eventName, data) {
+	Drawer.prototype.teardown = Drawer.prototype.destroy = function destroy(detach) {
+		this.fire('destroy');
+		template.ondestroy.call(this);
+
+		this._fragment.destroy(detach !== false);
+		this._fragment = null;
+
+		this._state = {};
+		this._torndown = true;
+	};
+
+	function createElement(name) {
+		return document.createElement(name);
+	}
+
+	function insertNode(node, target, anchor) {
+		target.insertBefore(node, anchor);
+	}
+
+	function detachNode(node) {
+		node.parentNode.removeChild(node);
+	}
+
+	function addEventListener(node, event, handler) {
+		node.addEventListener(event, handler, false);
+	}
+
+	function removeEventListener(node, event, handler) {
+		node.removeEventListener(event, handler, false);
+	}
+
+	function appendNode(node, target) {
+		target.appendChild(node);
+	}
+
+	function createText(data) {
+		return document.createTextNode(data);
+	}
+
+	function destroyEach(iterations, detach, start) {
+		for (var i = start; i < iterations.length; i += 1) {
+			if (iterations[i]) iterations[i].destroy(detach);
+		}
+	}
+
+	function differs(a, b) {
+		return a !== b || a && (typeof a === 'undefined' ? 'undefined' : _typeof(a)) === 'object' || typeof a === 'function';
+	}
+
+	function assign(target) {
+		for (var i = 1; i < arguments.length; i += 1) {
+			var source = arguments[i];
+			for (var k in source) {
+				target[k] = source[k];
+			}
+		}
+
+		return target;
+	}
+
+	function dispatchObservers(component, group, newState, oldState) {
+		for (var key in group) {
+			if (!(key in newState)) continue;
+
+			var newValue = newState[key];
+			var oldValue = oldState[key];
+
+			if (differs(newValue, oldValue)) {
+				var callbacks = group[key];
+				if (!callbacks) continue;
+
+				for (var i = 0; i < callbacks.length; i += 1) {
+					var callback = callbacks[i];
+					if (callback.__calling) continue;
+
+					callback.__calling = true;
+					callback.call(component, newValue, oldValue);
+					callback.__calling = false;
+				}
+			}
+		}
+	}
+
+	function get(key) {
+		return key ? this._state[key] : this._state;
+	}
+
+	function fire(eventName, data) {
 		var handlers = eventName in this._handlers && this._handlers[eventName].slice();
 		if (!handlers) return;
 
 		for (var i = 0; i < handlers.length; i += 1) {
 			handlers[i].call(this, data);
 		}
-	};
+	}
 
-	SvelteComponent.prototype.observe = function observe(key, callback, options) {
-		var group = options && options.defer ? this._observers.pre : this._observers.post;
+	function observe(key, callback, options) {
+		var group = options && options.defer ? this._observers.post : this._observers.pre;
 
 		(group[key] || (group[key] = [])).push(callback);
 
@@ -12555,9 +12740,11 @@ return /******/ (function(modules) { // webpackBootstrap
 				if (~index) group[key].splice(index, 1);
 			}
 		};
-	};
+	}
 
-	SvelteComponent.prototype.on = function on(eventName, handler) {
+	function on(eventName, handler) {
+		if (eventName === 'teardown') return this.on('destroy', handler);
+
 		var handlers = this._handlers[eventName] || (this._handlers[eventName] = []);
 		handlers.push(handler);
 
@@ -12567,95 +12754,22 @@ return /******/ (function(modules) { // webpackBootstrap
 				if (~index) handlers.splice(index, 1);
 			}
 		};
-	};
+	}
 
-	SvelteComponent.prototype.set = function set(newState) {
-		var oldState = this._state;
-		this._state = Object.assign({}, oldState, newState);
-		applyComputations(this._state, newState, oldState);
+	function set(newState) {
+		this._set(assign({}, newState));
+		this._root._flush();
+	}
 
-		dispatchObservers(this, this._observers.pre, newState, oldState);
-		if (this._fragment) this._fragment.update(newState, this._state);
-		dispatchObservers(this, this._observers.post, newState, oldState);
+	function _flush() {
+		if (!this._renderHooks) return;
 
 		while (this._renderHooks.length) {
-			var hook = this._renderHooks.pop();
-			hook.fn.call(hook.context);
-		}
-	};
-
-	SvelteComponent.prototype.teardown = function teardown(detach) {
-		this.fire('teardown');
-		template.onteardown.call(this);
-
-		this._fragment.teardown(detach !== false);
-		this._fragment = null;
-
-		this._state = {};
-	};
-
-	function dispatchObservers(component, group, newState, oldState) {
-		for (var key in group) {
-			if (!(key in newState)) continue;
-
-			var newValue = newState[key];
-			var oldValue = oldState[key];
-
-			if (newValue === oldValue && (typeof newValue === 'undefined' ? 'undefined' : _typeof(newValue)) !== 'object') continue;
-
-			var callbacks = group[key];
-			if (!callbacks) continue;
-
-			for (var i = 0; i < callbacks.length; i += 1) {
-				var callback = callbacks[i];
-				if (callback.__calling) continue;
-
-				callback.__calling = true;
-				callback.call(component, newValue, oldValue);
-				callback.__calling = false;
-			}
+			this._renderHooks.pop()();
 		}
 	}
 
-	function addEventListener(node, event, handler) {
-		node.addEventListener(event, handler, false);
-	}
-
-	function removeEventListener(node, event, handler) {
-		node.removeEventListener(event, handler, false);
-	}
-
-	function createElement(name) {
-		return document.createElement(name);
-	}
-
-	function detachNode(node) {
-		node.parentNode.removeChild(node);
-	}
-
-	function insertNode(node, target, anchor) {
-		target.insertBefore(node, anchor);
-	}
-
-	function appendNode(node, target) {
-		target.appendChild(node);
-	}
-
-	function createText(data) {
-		return document.createTextNode(data);
-	}
-
-	function createComment(data) {
-		return document.createComment(data);
-	}
-
-	function teardownEach(iterations, detach, start) {
-		for (var i = start || 0; i < iterations.length; i += 1) {
-			iterations[i].teardown(detach);
-		}
-	}
-
-	exports.default = SvelteComponent;
+	module.exports = Drawer;
 
 /***/ },
 /* 268 */
