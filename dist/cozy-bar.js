@@ -316,7 +316,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	        if (drawerVisible) {
 	          updateVisibleStatus();
 	        } else {
-	          aside.addEventListener('transitionend', listener);
+	          if (aside) {
+	            aside.addEventListener('transitionend', listener);
+	          }
 	        }
 	      });
 	
@@ -8761,7 +8763,7 @@ return /******/ (function(modules) { // webpackBootstrap
 										_this.set({ config: config }); // force to rerender when locale change
 									});
 	
-									if (!(this.get('target') !== 'mobile')) {
+									if (!(this.get('target') !== 'mobile' && !this.get('isPublic'))) {
 										_context.next = 7;
 										break;
 									}
@@ -10390,7 +10392,10 @@ return /******/ (function(modules) { // webpackBootstrap
 			if (this.get('async')) {
 				isFetchingObserver = this.observe('isFetching', function (isFetching) {
 					if (!isFetching) {
-						show();
+						// setTimeout for states propagation
+						setTimeout(function () {
+							show();
+						}, 0);
 					}
 				});
 			} else {
