@@ -46,7 +46,8 @@
     if (this.get('async')) {
       isFetchingObserver = this.observe('isFetching', isFetching => {
         if (!isFetching) {
-          show()
+          // setTimeout for states propagation
+          setTimeout(() => { show() }, 0)
         }
       })
     } else {
