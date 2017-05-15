@@ -55,7 +55,7 @@
         this.set({config}) // force to rerender when locale change
       })
 
-      if (this.get('target') !== 'mobile') {
+      if (this.get('target') !== 'mobile' && !this.get('isPublic')) {
         await updateSettings(config)
         await updateApps(config)
       }

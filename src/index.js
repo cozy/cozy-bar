@@ -72,7 +72,9 @@ const bindEvents = function CozyBarBindEvents () {
       if (drawerVisible) {
         updateVisibleStatus()
       } else {
-        aside.addEventListener('transitionend', listener)
+        if (aside) {
+          aside.addEventListener('transitionend', listener)
+        }
       }
     })
 
