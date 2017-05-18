@@ -78,10 +78,18 @@ function getApp (slug) {
   return getApps().then(apps => apps.find(item => item.attributes.slug === slug))
 }
 
-function getIcon (url) {
-  return fetch(`${COZY_URL}${url}`, fetchOptions())
-  .then(res => res.blob())
-  .then(blob => URL.createObjectURL(blob))
+async function getIcon (url) {
+  const res = await fetch(`${COZY_URL}${url}`, fetchOptions())
+  // res.text if SVG, otherwise res.blob  (mainly for safari support)
+  const resClone = res.clone() // res must be cloned to be used twice
+  const blob = await res.blob()
+  const text = await resClone.text()
+
+  try {
+    return 'data:image/svg+xml;base64,' + btoa(text)
+  } catch (e) { // eslint-disable-line
+    return URL.createObjectURL(blob)
+  }
 }
 
 function hasApp (slug) {
