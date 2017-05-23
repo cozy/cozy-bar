@@ -13,7 +13,14 @@
     <NavigationGroup group='{{group}}' separator='bottom' />
     {{/each}}
   {{else}}
-    <NavigationGroup group='{{items}}' itemsLimit={{4}} />
+    {{#if categories}}
+      {{#each categories as category}}
+        <h4 class='coz-nav-category'>{{t(`Categories.${category.title}`)}}</h4>
+        <NavigationGroup group='{{category.items}}' itemsLimit={{4}} separator='bottom' />
+      {{/each}}
+    {{else}}
+      <NavigationGroup group='{{items}}' />
+    {{/if}}
   {{/if}}
   </div>
   {{/if}}
@@ -69,6 +76,20 @@
     }
   }
 
+  // Take an items array and return an array of category objects which the matching title and items
+  function getCategorizedItems (items) {
+    if (items[0] instanceof Array) return null // doesn't handle this case
+    const categorizedItemsObject = items.reduce((accumulator, item) => {
+      accumulator[item.category] = accumulator[item.category] || []
+      accumulator[item.category].push(item)
+      return accumulator
+     }, {})
+
+    return Object.keys(categorizedItemsObject).map(category => {
+      return {title: category, items: categorizedItemsObject[category]}
+    })
+  }
+
   export default {
     data() {
       return {
@@ -78,7 +99,9 @@
       }
     },
     computed: {
-      grouped: items => items[0] instanceof Array
+      grouped: items => items[0] instanceof Array,
+      categories: (items, categorized) =>
+        categorized ? getCategorizedItems(items) : null
     },
 
     oncreate () {
