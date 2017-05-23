@@ -70,12 +70,13 @@
 
 [role=banner] .coz-nav-pop--apps .coz-nav-group:not(.coz-nav--error) {
   display: flex;
-  padding: 0.75em;
+  padding: .25em .25em 1em .25em;
+
 }
 
 [role=banner] .coz-nav-pop--apps .coz-nav-group--wrapping.coz-nav-group:not(.coz-nav--error) {
   flex-wrap: wrap;
-  width: 40em;
+  width: 36em;
 }
 
 @media (min-width: 48em) and (max-width: 51em) {
@@ -85,7 +86,7 @@
 }
 
 [role=banner] .coz-nav-pop--apps .coz-nav-group:not(.coz-nav--error) .coz-nav-item {
-    width: 9em;
+    width: 8em;
     padding: 0 .5em;
 }
 
@@ -97,11 +98,20 @@
 [role=banner] .coz-nav-pop--apps .coz-nav-group a {
   display: flex;
   flex-direction: column;
-  padding: 1.25em;
+  padding: .5em;
 }
 
 [role=banner] .coz-nav-pop--apps .coz-nav-group a img {
   margin-bottom: .75em;
+}
+
+[role=banner] .coz-nav-pop--apps .coz-nav-group a p {
+  font-size: 15px;
+}
+
+[role=banner] .coz-nav-category {
+  padding: 0 2em;
+  margin: 2em 0 .5em 0;
 }
 
 [role=banner] .blurry {
