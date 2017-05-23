@@ -6,6 +6,7 @@ import stack from '../lib/stack'
 import MENU_CONFIG from '../config/menu'
 
 const EXCLUDES = ['settings', 'onboarding']
+const CATEGORIES = ['cozy', 'partners']
 
 async function updateAppsItems (config) {
   let apps
@@ -32,6 +33,7 @@ async function updateAppsItems (config) {
           slug: app.attributes.slug,
           l10n: false,
           href: app.links.related,
+          category: CATEGORIES.includes(app.attributes.category) ? app.attributes.category : 'others',
           icon
         }
       })
