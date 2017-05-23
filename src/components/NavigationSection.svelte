@@ -76,20 +76,18 @@
     }
   }
 
-  function getCategories (items) {
-    const categoriesOject = {}
-    items.forEach(i => {
-      if (!categoriesOject.hasOwnProperty(i.category)){
-        categoriesOject[i.category] = []
-      }
-      categoriesOject[i.category].push(i)
+  // Take an items array and return an array of category objects which the matching title and items
+  function getCategorizedItems (items) {
+    if (items[0] instanceof Array) return null // doesn't handle this case
+    const categorizedItemsObject = items.reduce((accumulator, item) => {
+      accumulator[item.category] = accumulator[item.category] || []
+      accumulator[item.category].push(item)
+      return accumulator
+     }, {})
+
+    return Object.keys(categorizedItemsObject).map(category => {
+      return {title: category, items: categorizedItemsObject[category]}
     })
-    // since sveltejs doesn't allow to loop through objects
-    const categories = []
-    for (const category in categoriesOject) {
-      categories.push({title: category, items: categoriesOject[category]})
-    }
-    return categories
   }
 
   export default {
@@ -103,7 +101,7 @@
     computed: {
       grouped: items => items[0] instanceof Array,
       categories: (items, categorized) =>
-        categorized ? getCategories(items) : null
+        categorized ? getCategorizedItems(items) : null
     },
 
     oncreate () {
