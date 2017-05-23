@@ -13,7 +13,14 @@
     <NavigationGroup group='{{group}}' separator='bottom' />
     {{/each}}
   {{else}}
-    <NavigationGroup group='{{items}}' itemsLimit={{4}} />
+    {{#if categories}}
+      {{#each categories as category}}
+        <h4 class='coz-nav-category'>{{t(`Categories.${category.title}`)}}</h4>
+        <NavigationGroup group='{{category.items}}' itemsLimit={{4}} separator='bottom' />
+      {{/each}}
+    {{else}}
+      <NavigationGroup group='{{items}}' />
+    {{/if}}
   {{/if}}
   </div>
   {{/if}}
@@ -69,6 +76,22 @@
     }
   }
 
+  function getCategories (items) {
+    const categoriesOject = {}
+    items.forEach(i => {
+      if (!categoriesOject.hasOwnProperty(i.category)){
+        categoriesOject[i.category] = []
+      }
+      categoriesOject[i.category].push(i)
+    })
+    // since sveltejs doesn't allow to loop through objects
+    const categories = []
+    for (const category in categoriesOject) {
+      categories.push({title: category, items: categoriesOject[category]})
+    }
+    return categories
+  }
+
   export default {
     data() {
       return {
@@ -78,7 +101,9 @@
       }
     },
     computed: {
-      grouped: items => items[0] instanceof Array
+      grouped: items => items[0] instanceof Array,
+      categories: (items, categorized) =>
+        categorized ? getCategories(items) : null
     },
 
     oncreate () {

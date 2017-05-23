@@ -33,6 +33,7 @@ sections:
       icon: icon-cube
       async: true
       items: _.apps
+      categorized: true
     - slug: settings
       icon: icon-cog
       items: _.settings
