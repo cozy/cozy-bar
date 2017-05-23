@@ -1,3 +1,4 @@
+/* global __TARGET__ */
 import deepClone from 'deep-clone'
 import deepEqual from 'deep-equal'
 
@@ -162,7 +163,7 @@ async function updateApps (config) {
 async function updateSettings (config, {storage = true, items = true} = {}) {
   let valve = false
 
-  if (storage) {
+  if (__TARGET__ !== 'mobile' && storage) {
     const oldDiskUsage = config.components.storage.currentDiskUsage
     await updateDiskUsage(config)
     await updateDiskQuota(config)
