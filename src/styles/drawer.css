@@ -37,7 +37,7 @@
   left: 0;
   width: 90%;
   max-width: 30em;
-  height: calc(100% - 1em);
+  height: 100%;
   display: flex;
   flex-direction: column;
   background-color: #fff;

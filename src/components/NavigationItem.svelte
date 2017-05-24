@@ -8,7 +8,7 @@
   </div>
   {{elseif item.inactive}}
     <div role='menuitem'>
-      <p class='coz-bar-text-item--inactive'>{{label}}</p>
+      <p class='coz-bar-text-item coz-bar-text-item--inactive'>{{label}}</p>
     </div>
   {{elseif item.href}}
     <a role='menuitem' href='{{item.href}}' target='{{item.external?"_blank":"_self"}}' data-icon='{{dataIcon?dataIcon:""}}'>
