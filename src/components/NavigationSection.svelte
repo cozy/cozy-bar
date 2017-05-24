@@ -76,7 +76,7 @@
     }
   }
 
-  // Take an items array and return an array of category objects which the matching title and items
+  // Take an items array and return an array of category objects with the matching title and items
   function getCategorizedItems (items) {
     if (items[0] instanceof Array) return null // doesn't handle this case
     const categorizedItemsObject = items.reduce((accumulator, item) => {

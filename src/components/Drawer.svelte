@@ -1,8 +1,14 @@
 <div ref:wrapper class='coz-drawer-wrapper' on:click='fire("close")'>
   <aside ref:aside on:click='event.stopPropagation()'>
     <nav class='coz-drawer--apps'>
-      <h1>{{t('drawer apps')}}</h1>
-      <NavigationGroup group='{{content}}' itemsLimit={{3}} separator='bottom' />
+      {{#each categories as category, index}}
+        <h4 class='coz-nav-category'>{{t(`Categories.${category.title}`)}}</h4>
+        {{#if index !== (categories.length - 1)}}
+          <NavigationGroup group='{{category.items}}' itemsLimit={{4}} separator='bottom' />
+        {{else}}
+          <NavigationGroup group='{{category.items}}' itemsLimit={{4}} />
+        {{/if}}
+      {{/each}}
     </nav>
     <hr class='coz-sep-flex' />
     <nav>
@@ -20,7 +26,25 @@
 
   let toggleDrawerObserver
 
+  // Take an items array and return an array of category objects with the matching title and items
+  function getCategorizedItems (items) {
+    if (items[0] instanceof Array) return null // doesn't handle this case
+    const categorizedItemsObject = items.reduce((accumulator, item) => {
+      accumulator[item.category] = accumulator[item.category] || []
+      accumulator[item.category].push(item)
+      return accumulator
+     }, {})
+
+    return Object.keys(categorizedItemsObject).map(category => {
+      return {title: category, items: categorizedItemsObject[category]}
+    })
+  }
+
   export default {
+    computed: {
+      categories: (content) => getCategorizedItems(content)
+    },
+
     oncreate() {
       const SWIPE_CLASS = 'swipe-active'
 

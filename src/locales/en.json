@@ -1,5 +1,4 @@
 {
-  "drawer apps": "Your apps",
   "apps": "Apps",
   "settings": "Settings",
   "menu": "Show menu drawer",
@@ -13,8 +12,8 @@
   "error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
 
   "Categories": {
-    "cozy": "Cozy Applications",
-    "partners": "Partners Applications",
-    "others": "Others"
+    "cozy": "Cozy apps",
+    "partners": "Partners apps",
+    "others": "Other apps"
   }
 }
