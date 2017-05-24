@@ -50,7 +50,7 @@
     margin: 0;
 }
 
-[role=banner] .coz-nav-item div[role=menuitem] {
+[role=banner] .coz-nav-item div[role=menuitem]:not([data-icon]) {
     margin: 0;
     padding-left: 1.5em;
 }
