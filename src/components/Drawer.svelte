@@ -1,13 +1,9 @@
 <div ref:wrapper class='coz-drawer-wrapper' on:click='fire("close")'>
   <aside ref:aside on:click='event.stopPropagation()'>
     <nav class='coz-drawer--apps'>
-      {{#each categories as category, index}}
-        <h4 class='coz-nav-category'>{{t(`Categories.${category.title}`)}}</h4>
-        {{#if index !== (categories.length - 1)}}
-          <NavigationGroup group='{{category.items}}' itemsLimit={{4}} separator='bottom' />
-        {{else}}
-          <NavigationGroup group='{{category.items}}' itemsLimit={{4}} />
-        {{/if}}
+      {{#each categories as category}}
+        <h2 class='coz-nav-category'>{{t(`Categories.${category.title}`)}}</h2>
+        <NavigationGroup group='{{category.items}}' itemsLimit={{3}} separator='bottom' />
       {{/each}}
     </nav>
     <hr class='coz-sep-flex' />
