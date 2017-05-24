@@ -109,7 +109,8 @@
   font-size: 15px;
 }
 
-[role=banner] .coz-nav-category {
+[role=banner] .coz-nav-pop--apps .coz-nav-category {
+  font-size: 1em;
   padding: 0 2em;
   margin: 2em 0 .5em 0;
 }

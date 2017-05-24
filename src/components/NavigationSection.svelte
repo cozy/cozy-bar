@@ -15,7 +15,7 @@
   {{else}}
     {{#if categories}}
       {{#each categories as category}}
-        <h4 class='coz-nav-category'>{{t(`Categories.${category.title}`)}}</h4>
+        <h2 class='coz-nav-category'>{{t(`Categories.${category.title}`)}}</h2>
         <NavigationGroup group='{{category.items}}' itemsLimit={{4}} separator='bottom' />
       {{/each}}
     {{else}}
@@ -76,7 +76,7 @@
     }
   }
 
-  // Take an items array and return an array of category objects which the matching title and items
+  // Take an items array and return an array of category objects with the matching title and items
   function getCategorizedItems (items) {
     if (items[0] instanceof Array) return null // doesn't handle this case
     const categorizedItemsObject = items.reduce((accumulator, item) => {

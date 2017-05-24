@@ -1,12 +1,12 @@
-{{#if separator == 'top'}}<hr />{{/if}}
 {{#if group.length}}
+{{#if separator == 'top'}}<hr />{{/if}}
 <ul class='{{`${(wrapping ? "coz-nav-group coz-nav-group--wrapping" : "coz-nav-group")}`}}'>
   {{#each group as item}}
     <NavigationItem item='{{item}}' />
   {{/each}}
 </ul>
-{{/if}}
 {{#if separator == 'bottom'}}<hr />{{/if}}
+{{/if}}
 
 <script>
   import NavigationItem from './NavigationItem'

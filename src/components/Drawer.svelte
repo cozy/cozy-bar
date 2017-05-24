@@ -1,17 +1,10 @@
 <div ref:wrapper class='coz-drawer-wrapper' on:click='fire("close")'>
   <aside ref:aside on:click='event.stopPropagation()'>
     <nav class='coz-drawer--apps'>
-      <h1>{{t('drawer apps')}}</h1>
-      {{#if splitContentsArrays.length < 2}}
-        <NavigationGroup group='{{content}}' itemsLimit={{3}} />
-      {{else}}
-        <div class='coz-drawer--apps-paginator'>
-          {{#each splitContentsArrays as subgroup}}
-            <NavigationGroup group='{{subgroup}}' itemsLimit={{3}} />
-          {{/each}}
-        </div>
-      {{/if}}
-
+      {{#each categories as category}}
+        <h2 class='coz-nav-category'>{{t(`Categories.${category.title}`)}}</h2>
+        <NavigationGroup group='{{category.items}}' itemsLimit={{3}} separator='bottom' />
+      {{/each}}
     </nav>
     <hr class='coz-sep-flex' />
     <nav>
@@ -29,19 +22,23 @@
 
   let toggleDrawerObserver
 
-  const APPS_PAGINATION_LENGTH = 9
+  // Take an items array and return an array of category objects with the matching title and items
+  function getCategorizedItems (items) {
+    if (items[0] instanceof Array) return null // doesn't handle this case
+    const categorizedItemsObject = items.reduce((accumulator, item) => {
+      accumulator[item.category] = accumulator[item.category] || []
+      accumulator[item.category].push(item)
+      return accumulator
+     }, {})
+
+    return Object.keys(categorizedItemsObject).map(category => {
+      return {title: category, items: categorizedItemsObject[category]}
+    })
+  }
 
   export default {
     computed: {
-      splitContentsArrays: content => {
-        let contentArrays = []
-        if (content.length > APPS_PAGINATION_LENGTH) {
-          while (content.length > 0) {
-            contentArrays.push(content.splice(0, APPS_PAGINATION_LENGTH))
-          }
-        }
-        return contentArrays
-      }
+      categories: (content) => getCategorizedItems(content)
     },
 
     oncreate() {
