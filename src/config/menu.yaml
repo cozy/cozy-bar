@@ -11,6 +11,9 @@ subsections:
   logout:
     - slug: logout
       action: logout
+  beta:
+    - slug: beta_status
+      inactive: true
 
 components:
   storage:
@@ -24,6 +27,7 @@ settings:
     - _.components.storage
   - _.subsections.help
   - _.subsections.logout
+  - _.subsections.beta
 
 apps: []
 
@@ -41,3 +45,4 @@ sections:
     - _.subsections.settings
     - _.subsections.help
     - _.subsections.logout
+    - _.subsections.beta

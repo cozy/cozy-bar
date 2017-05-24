@@ -8,6 +8,7 @@
   <img class='coz-bar-hide-sm' src='{{iconPath}}' width='32' />
   {{#if appEditor}}<span class='coz-bar-hide-sm'>{{appEditor}} </span>{{/if}}
   <strong>{{appName}}</strong>
+  <sup class='coz-bar-hide-sm coz-bar-beta-status'>{{t('beta')}}</sup>
 </h1>
 
 <hr class='coz-sep-flex' />
