@@ -13,7 +13,7 @@ subsections:
       action: logout
   beta:
     - slug: beta_status
-      greyed: true
+      inactive: true
 
 components:
   storage:

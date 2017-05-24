@@ -96,7 +96,7 @@
     padding: 0 .5em;
 }
 
-[role=banner] .coz-nav-group:not(.coz-nav--error).coz-nav-group--grey {
+[role=banner] .coz-nav-group:not(.coz-nav--error).coz-nav-group--inactive {
   background-color: var(--grey-10)
 }
 

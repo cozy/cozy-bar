@@ -2,7 +2,7 @@
 {{#if separator == 'top'}}<hr />{{/if}}
 <ul class='{{`
     ${wrapping ? "coz-nav-group coz-nav-group--wrapping" : "coz-nav-group"}
-    ${greyed ? " coz-nav-group--grey" : ""}
+    ${inactive ? " coz-nav-group--inactive" : ""}
 `}}'>
   {{#each group as item}}
     <NavigationItem item='{{item}}' />
@@ -23,8 +23,8 @@
         if (!itemsLimit || !group.length) return false
         return group.length > itemsLimit
       },
-      greyed: (group) => {
-        return (group.filter((item) => item.greyed).length > 0)
+      inactive: (group) => {
+        return (group.filter((item) => item.inactive).length > 0)
       }
     }
   }

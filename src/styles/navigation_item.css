@@ -57,5 +57,8 @@
 
 [role=banner] .coz-nav-item [role=menuitem] .coz-bar-text-item {
     margin: 0;
+}
+
+[role=banner] .coz-nav-item [role=menuitem] .coz-bar-text-item--inactive {
     font-style: italic;
 }

@@ -6,6 +6,10 @@
     <Storage diskUsageFromStack='{{item.currentDiskUsage}}' diskQuotaFromStack='{{item.currentDiskQuota}}' />
     {{/if}}
   </div>
+  {{elseif item.inactive}}
+    <div role='menuitem'>
+      <p class='coz-bar-text-item--inactive'>{{label}}</p>
+    </div>
   {{elseif item.href}}
     <a role='menuitem' href='{{item.href}}' target='{{item.external?"_blank":"_self"}}' data-icon='{{dataIcon?dataIcon:""}}'>
       {{#if fileIcon}}
