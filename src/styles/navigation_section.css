@@ -2,7 +2,6 @@
   position: relative;
 }
 
-
 [role=banner] .coz-nav-section [aria-controls] {
   display: flex;
   align-items: baseline;
@@ -58,6 +57,14 @@
   padding: .5em 0;
 }
 
+[role=banner] .coz-nav-pop ul:last-of-type {
+  border-radius: 0 0 8px 8px;
+}
+
+[role=banner] .coz-nav-pop ul:first-of-type {
+  border-radius: 8px 8px 0 0;
+}
+
 [role=banner] .coz-nav-pop hr {
   margin: 0;
   border: none;
@@ -71,7 +78,6 @@
 [role=banner] .coz-nav-pop--apps .coz-nav-group:not(.coz-nav--error) {
   display: flex;
   padding: .25em .25em 1em .25em;
-
 }
 
 [role=banner] .coz-nav-pop--apps .coz-nav-group--wrapping.coz-nav-group:not(.coz-nav--error) {
@@ -88,6 +94,10 @@
 [role=banner] .coz-nav-pop--apps .coz-nav-group:not(.coz-nav--error) .coz-nav-item {
     width: 8em;
     padding: 0 .5em;
+}
+
+[role=banner] .coz-nav-group:not(.coz-nav--error).coz-nav-group--grey {
+  background-color: var(--grey-10)
 }
 
 [role=banner] .coz-nav-group.coz-nav--error {
