@@ -49,3 +49,13 @@
 [role=banner] .coz-nav-item a[role=menuitem] p.coz-label {
     margin: 0;
 }
+
+[role=banner] .coz-nav-item div[role=menuitem] {
+    margin: 0;
+    padding-left: 1.5em;
+}
+
+[role=banner] .coz-nav-item [role=menuitem] .coz-bar-text-item {
+    margin: 0;
+    font-style: italic;
+}
