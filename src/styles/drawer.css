@@ -74,17 +74,6 @@
   display: flex;
 }
 
-[role=banner] .coz-drawer--apps .coz-drawer--apps-paginator {
-  display: flex;
-  flex-direction: row;
-  overflow: scroll;
-  padding-bottom: 1em;
-}
-
-[role=banner] .coz-drawer--apps .coz-drawer--apps-paginator ul {
-  min-width: 100%;
-}
-
 [role=banner] .coz-drawer--apps ul li {
   flex: 0 0 calc(100% /3);
   max-width: calc(100% / 3);
@@ -106,7 +95,7 @@
 }
 
 [role=banner] .coz-drawer--apps li img {
-  margin-bottom: 1.125em;
+  margin-bottom: .5em;
 }
 
 [role=banner] .coz-drawer--apps li p.coz-label {
