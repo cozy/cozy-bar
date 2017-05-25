@@ -260,7 +260,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return;
 	  }
 	
-	  __webpack_require__(268);
+	  __webpack_require__(272);
 	
 	  var barNode = createElement();
 	  var appNode = document.querySelector(APP_SELECTOR);
@@ -418,7 +418,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  view.set({ lang: lang });
 	};
 	
-	module.exports = { init: init, version: ("3.0.0-beta23"), setLocale: setLocale };
+	module.exports = { init: init, version: ("3.0.0-beta25"), setLocale: setLocale };
 
 /***/ },
 /* 1 */
@@ -7424,7 +7424,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	module.exports = {
-		"drawer apps": "Your apps",
 		"apps": "Apps",
 		"settings": "Settings",
 		"menu": "Show menu drawer",
@@ -7434,8 +7433,16 @@ return /******/ (function(modules) { // webpackBootstrap
 		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
 		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"to_come": "to come",
 		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack."
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"others": "Other apps"
+		}
 	};
 
 /***/ },
@@ -7537,7 +7544,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	module.exports = {
-		"drawer apps": "Your apps",
 		"apps": "Apps",
 		"settings": "Settings",
 		"menu": "Show menu drawer",
@@ -7546,10 +7552,17 @@ return /******/ (function(modules) { // webpackBootstrap
 		"storage": "Storage",
 		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
-		"email": "Send an email to support",
 		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"to_come": "to come",
 		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack."
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"others": "Other apps"
+		}
 	};
 
 /***/ },
@@ -7557,7 +7570,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	module.exports = {
-		"drawer apps": "Your apps",
 		"apps": "Apps",
 		"settings": "Settings",
 		"menu": "Show menu drawer",
@@ -7566,10 +7578,17 @@ return /******/ (function(modules) { // webpackBootstrap
 		"storage": "Storage",
 		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
-		"email": "Send an email to support",
 		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"to_come": "to come",
 		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack."
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"others": "Other apps"
+		}
 	};
 
 /***/ },
@@ -7577,7 +7596,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	module.exports = {
-		"drawer apps": "Your apps",
 		"apps": "Apps",
 		"settings": "Settings",
 		"menu": "Show menu drawer",
@@ -7586,10 +7604,17 @@ return /******/ (function(modules) { // webpackBootstrap
 		"storage": "Storage",
 		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
-		"email": "Send an email to support",
 		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"to_come": "to come",
 		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack."
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"others": "Other apps"
+		}
 	};
 
 /***/ },
@@ -7597,7 +7622,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	module.exports = {
-		"drawer apps": "Your apps",
 		"apps": "Apps",
 		"settings": "Settings",
 		"menu": "Show menu drawer",
@@ -7606,10 +7630,17 @@ return /******/ (function(modules) { // webpackBootstrap
 		"storage": "Storage",
 		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
-		"email": "Send an email to support",
 		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"to_come": "to come",
 		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack."
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"others": "Other apps"
+		}
 	};
 
 /***/ },
@@ -7617,7 +7648,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	module.exports = {
-		"drawer apps": "Your apps",
 		"apps": "Apps",
 		"settings": "Settings",
 		"menu": "Show menu drawer",
@@ -7626,10 +7656,17 @@ return /******/ (function(modules) { // webpackBootstrap
 		"storage": "Storage",
 		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
-		"email": "Send an email to support",
 		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"to_come": "to come",
 		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack."
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"others": "Other apps"
+		}
 	};
 
 /***/ },
@@ -7637,7 +7674,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	module.exports = {
-		"drawer apps": "Your apps",
 		"apps": "Apps",
 		"settings": "Settings",
 		"menu": "Show menu drawer",
@@ -7646,10 +7682,17 @@ return /******/ (function(modules) { // webpackBootstrap
 		"storage": "Storage",
 		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
-		"email": "Send an email to support",
 		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"to_come": "to come",
 		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack."
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"others": "Other apps"
+		}
 	};
 
 /***/ },
@@ -7657,7 +7700,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	module.exports = {
-		"drawer apps": "Your apps",
 		"apps": "Apps",
 		"settings": "Settings",
 		"menu": "Show menu drawer",
@@ -7666,10 +7708,17 @@ return /******/ (function(modules) { // webpackBootstrap
 		"storage": "Storage",
 		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
-		"email": "Send an email to support",
 		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"to_come": "to come",
 		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack."
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"others": "Other apps"
+		}
 	};
 
 /***/ },
@@ -7677,7 +7726,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	module.exports = {
-		"drawer apps": "Your apps",
 		"apps": "Apps",
 		"settings": "Settings",
 		"menu": "Show menu drawer",
@@ -7686,10 +7734,17 @@ return /******/ (function(modules) { // webpackBootstrap
 		"storage": "Storage",
 		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
-		"email": "Send an email to support",
 		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"to_come": "to come",
 		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack."
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"others": "Other apps"
+		}
 	};
 
 /***/ },
@@ -7697,7 +7752,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	module.exports = {
-		"drawer apps": "Your apps",
 		"apps": "Apps",
 		"settings": "Settings",
 		"menu": "Show menu drawer",
@@ -7706,10 +7760,17 @@ return /******/ (function(modules) { // webpackBootstrap
 		"storage": "Storage",
 		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
-		"email": "Send an email to support",
 		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"to_come": "to come",
 		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack."
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"others": "Other apps"
+		}
 	};
 
 /***/ },
@@ -7717,7 +7778,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	module.exports = {
-		"drawer apps": "Your apps",
 		"apps": "Apps",
 		"settings": "Settings",
 		"menu": "Show menu drawer",
@@ -7726,10 +7786,17 @@ return /******/ (function(modules) { // webpackBootstrap
 		"storage": "Storage",
 		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
-		"email": "Send an email to support",
 		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"to_come": "to come",
 		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack."
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"others": "Other apps"
+		}
 	};
 
 /***/ },
@@ -7737,7 +7804,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	module.exports = {
-		"drawer apps": "Sus apps",
 		"apps": "Apps",
 		"settings": "Configuración",
 		"menu": "Mostrar menú de bandejas",
@@ -7746,10 +7812,17 @@ return /******/ (function(modules) { // webpackBootstrap
 		"storage": "Almacenamiento",
 		"storage_phrase": "%{diskUsage} GO de %{diskQuota} GO usados",
 		"help": "Ayuda",
-		"email": "Enviar un email a asistencia",
 		"logout": "Finalizar sesión",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"to_come": "to come",
 		"error_UnavailableStack": "La pila es inaccesible ( se agotó el tiempo de la conexión ).",
-		"error_UnauthorizedStack": "Faltan algunos permisos, la aplicación no puede acceder al recurso solicitado en la pila."
+		"error_UnauthorizedStack": "Faltan algunos permisos, la aplicación no puede acceder al recurso solicitado en la pila.",
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"others": "Other apps"
+		}
 	};
 
 /***/ },
@@ -7757,7 +7830,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	module.exports = {
-		"drawer apps": "Your apps",
 		"apps": "Apps",
 		"settings": "Settings",
 		"menu": "Show menu drawer",
@@ -7766,10 +7838,17 @@ return /******/ (function(modules) { // webpackBootstrap
 		"storage": "Storage",
 		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
-		"email": "Send an email to support",
 		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"to_come": "to come",
 		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack."
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"others": "Other apps"
+		}
 	};
 
 /***/ },
@@ -7777,7 +7856,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	module.exports = {
-		"drawer apps": "Your apps",
 		"apps": "Apps",
 		"settings": "Settings",
 		"menu": "Show menu drawer",
@@ -7786,10 +7864,17 @@ return /******/ (function(modules) { // webpackBootstrap
 		"storage": "Storage",
 		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
-		"email": "Send an email to support",
 		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"to_come": "to come",
 		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack."
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"others": "Other apps"
+		}
 	};
 
 /***/ },
@@ -7797,7 +7882,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	module.exports = {
-		"drawer apps": "Vos applications",
 		"apps": "Applications",
 		"settings": "Paramètres",
 		"menu": "Afficher le menu latéral",
@@ -7806,10 +7890,17 @@ return /******/ (function(modules) { // webpackBootstrap
 		"storage": "Espace disque",
 		"storage_phrase": "%{diskUsage} Go sur %{diskQuota} Go",
 		"help": "Aide",
-		"email": "Envoyer un email au support",
 		"logout": "Déconnexion",
+		"beta_status": "Nous sommes toujours en beta.",
+		"beta": "beta",
+		"to_come": "à venir",
 		"error_UnavailableStack": "Connexion à la stack impossible (connection timed-out)",
-		"error_UnauthorizedStack": "Des permissions sont manquante, l'application ne peut accéder aux ressources demandées."
+		"error_UnauthorizedStack": "Des permissions sont manquante, l'application ne peut accéder aux ressources demandées.",
+		"Categories": {
+			"cozy": "Apps Cozy",
+			"partners": "Apps partenaires",
+			"others": "Autres apps"
+		}
 	};
 
 /***/ },
@@ -7817,7 +7908,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	module.exports = {
-		"drawer apps": "Your apps",
 		"apps": "Apps",
 		"settings": "Settings",
 		"menu": "Show menu drawer",
@@ -7826,10 +7916,17 @@ return /******/ (function(modules) { // webpackBootstrap
 		"storage": "Storage",
 		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
-		"email": "Send an email to support",
 		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"to_come": "to come",
 		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack."
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"others": "Other apps"
+		}
 	};
 
 /***/ },
@@ -7837,7 +7934,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	module.exports = {
-		"drawer apps": "あなたのアプリ",
 		"apps": "アプリ",
 		"settings": "設定",
 		"menu": "メニュードロワーを表示",
@@ -7846,10 +7942,17 @@ return /******/ (function(modules) { // webpackBootstrap
 		"storage": "ストレージ",
 		"storage_phrase": "%{diskUsage} GB / %{diskQuota} GB 使用",
 		"help": "ヘルプ",
-		"email": "サポートにメールを送信",
 		"logout": "サインアウト",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"to_come": "to come",
 		"error_UnavailableStack": "スタックに到達できません (接続タイムアウト)。",
-		"error_UnauthorizedStack": "一部のアクセス許可が不足しているため、アプリケーションはスタック上の要求されたリソースにアクセスできません。"
+		"error_UnauthorizedStack": "一部のアクセス許可が不足しているため、アプリケーションはスタック上の要求されたリソースにアクセスできません。",
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"others": "Other apps"
+		}
 	};
 
 /***/ },
@@ -7857,7 +7960,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	module.exports = {
-		"drawer apps": "Your apps",
 		"apps": "Apps",
 		"settings": "Settings",
 		"menu": "Show menu drawer",
@@ -7866,10 +7968,17 @@ return /******/ (function(modules) { // webpackBootstrap
 		"storage": "Storage",
 		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
-		"email": "Send an email to support",
 		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"to_come": "to come",
 		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack."
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"others": "Other apps"
+		}
 	};
 
 /***/ },
@@ -7877,7 +7986,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	module.exports = {
-		"drawer apps": "Jouw toepassingen",
 		"apps": "Toepassingen",
 		"settings": "Instellingen",
 		"menu": "Toon menu",
@@ -7886,10 +7994,17 @@ return /******/ (function(modules) { // webpackBootstrap
 		"storage": "Opslag",
 		"storage_phrase": "%{diskUsage} GB van %{diskQuota} GB gebruikt",
 		"help": "Hulp",
-		"email": "Stuur de helpdesk een e-mail",
 		"logout": "Log uit",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"to_come": "to come",
 		"error_UnavailableStack": "De stapel is onbereikbaar (verbinding verlopen)",
-		"error_UnauthorizedStack": "Sommige toestemmingen missen, de toepassing kan niet alles bereiken."
+		"error_UnauthorizedStack": "Sommige toestemmingen missen, de toepassing kan niet alles bereiken.",
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"others": "Other apps"
+		}
 	};
 
 /***/ },
@@ -7897,7 +8012,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	module.exports = {
-		"drawer apps": "Your apps",
 		"apps": "Apps",
 		"settings": "Settings",
 		"menu": "Show menu drawer",
@@ -7906,10 +8020,17 @@ return /******/ (function(modules) { // webpackBootstrap
 		"storage": "Storage",
 		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
-		"email": "Send an email to support",
 		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"to_come": "to come",
 		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack."
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"others": "Other apps"
+		}
 	};
 
 /***/ },
@@ -7917,7 +8038,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	module.exports = {
-		"drawer apps": "Your apps",
 		"apps": "Apps",
 		"settings": "Settings",
 		"menu": "Show menu drawer",
@@ -7926,10 +8046,17 @@ return /******/ (function(modules) { // webpackBootstrap
 		"storage": "Storage",
 		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
-		"email": "Send an email to support",
 		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"to_come": "to come",
 		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack."
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"others": "Other apps"
+		}
 	};
 
 /***/ },
@@ -7937,7 +8064,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	module.exports = {
-		"drawer apps": "Your apps",
 		"apps": "Apps",
 		"settings": "Settings",
 		"menu": "Show menu drawer",
@@ -7946,10 +8072,17 @@ return /******/ (function(modules) { // webpackBootstrap
 		"storage": "Storage",
 		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
-		"email": "Send an email to support",
 		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"to_come": "to come",
 		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack."
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"others": "Other apps"
+		}
 	};
 
 /***/ },
@@ -7957,7 +8090,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	module.exports = {
-		"drawer apps": "Your apps",
 		"apps": "Apps",
 		"settings": "Settings",
 		"menu": "Show menu drawer",
@@ -7966,10 +8098,17 @@ return /******/ (function(modules) { // webpackBootstrap
 		"storage": "Storage",
 		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
-		"email": "Send an email to support",
 		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"to_come": "to come",
 		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack."
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"others": "Other apps"
+		}
 	};
 
 /***/ },
@@ -7977,7 +8116,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	module.exports = {
-		"drawer apps": "Your apps",
 		"apps": "Apps",
 		"settings": "Settings",
 		"menu": "Show menu drawer",
@@ -7986,10 +8124,17 @@ return /******/ (function(modules) { // webpackBootstrap
 		"storage": "Storage",
 		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
-		"email": "Send an email to support",
 		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"to_come": "to come",
 		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack."
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"others": "Other apps"
+		}
 	};
 
 /***/ },
@@ -7997,7 +8142,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	module.exports = {
-		"drawer apps": "Your apps",
 		"apps": "Apps",
 		"settings": "Settings",
 		"menu": "Show menu drawer",
@@ -8006,10 +8150,17 @@ return /******/ (function(modules) { // webpackBootstrap
 		"storage": "Storage",
 		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
-		"email": "Send an email to support",
 		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"to_come": "to come",
 		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack."
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"others": "Other apps"
+		}
 	};
 
 /***/ },
@@ -8017,7 +8168,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	module.exports = {
-		"drawer apps": "Ваши приложения",
 		"apps": "Приложения",
 		"settings": "Настройки",
 		"menu": "Показать панель меню",
@@ -8026,10 +8176,17 @@ return /******/ (function(modules) { // webpackBootstrap
 		"storage": "Хранилище",
 		"storage_phrase": "%{diskUsage} ГБ из %{diskQuota} ГБ использовано",
 		"help": "Помощь",
-		"email": "Отправить письмо в поддержку",
 		"logout": "Выход",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"to_come": "to come",
 		"error_UnavailableStack": "Это стек не доступен (превышено время ожидания)",
-		"error_UnauthorizedStack": "Некоторые разрешения отсутствуют, получить доступ к запрашиваемому ресурсу в стеке не возможно."
+		"error_UnauthorizedStack": "Некоторые разрешения отсутствуют, получить доступ к запрашиваемому ресурсу в стеке не возможно.",
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"others": "Other apps"
+		}
 	};
 
 /***/ },
@@ -8037,7 +8194,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	module.exports = {
-		"drawer apps": "Ваши приложения",
 		"apps": "Приложения",
 		"settings": "Настройки",
 		"menu": "Показать панель меню",
@@ -8046,10 +8202,17 @@ return /******/ (function(modules) { // webpackBootstrap
 		"storage": "Хранилище",
 		"storage_phrase": "%{diskUsage} ГБ из %{diskQuota} ГБ использовано",
 		"help": "Помощь",
-		"email": "Отправить письмо в поддержку",
 		"logout": "Выход",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"to_come": "to come",
 		"error_UnavailableStack": "Это стек не доступен (превышено время ожидания)",
-		"error_UnauthorizedStack": "Некоторые разрешения отсутствуют, получить доступ к запрашиваемому ресурсу в стеке не возможно."
+		"error_UnauthorizedStack": "Некоторые разрешения отсутствуют, получить доступ к запрашиваемому ресурсу в стеке не возможно.",
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"others": "Other apps"
+		}
 	};
 
 /***/ },
@@ -8057,7 +8220,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	module.exports = {
-		"drawer apps": "Your apps",
 		"apps": "Apps",
 		"settings": "Settings",
 		"menu": "Show menu drawer",
@@ -8066,10 +8228,17 @@ return /******/ (function(modules) { // webpackBootstrap
 		"storage": "Storage",
 		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
-		"email": "Send an email to support",
 		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"to_come": "to come",
 		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack."
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"others": "Other apps"
+		}
 	};
 
 /***/ },
@@ -8077,7 +8246,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	module.exports = {
-		"drawer apps": "Your apps",
 		"apps": "Apps",
 		"settings": "Settings",
 		"menu": "Show menu drawer",
@@ -8086,10 +8254,17 @@ return /******/ (function(modules) { // webpackBootstrap
 		"storage": "Storage",
 		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
-		"email": "Send an email to support",
 		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"to_come": "to come",
 		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack."
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"others": "Other apps"
+		}
 	};
 
 /***/ },
@@ -8097,7 +8272,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	module.exports = {
-		"drawer apps": "Your apps",
 		"apps": "Apps",
 		"settings": "Settings",
 		"menu": "Show menu drawer",
@@ -8106,10 +8280,17 @@ return /******/ (function(modules) { // webpackBootstrap
 		"storage": "Storage",
 		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
-		"email": "Send an email to support",
 		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"to_come": "to come",
 		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack."
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"others": "Other apps"
+		}
 	};
 
 /***/ },
@@ -8117,7 +8298,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	module.exports = {
-		"drawer apps": "Your apps",
 		"apps": "Apps",
 		"settings": "Settings",
 		"menu": "Show menu drawer",
@@ -8126,10 +8306,17 @@ return /******/ (function(modules) { // webpackBootstrap
 		"storage": "Storage",
 		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
-		"email": "Send an email to support",
 		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"to_come": "to come",
 		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack."
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"others": "Other apps"
+		}
 	};
 
 /***/ },
@@ -8137,7 +8324,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	module.exports = {
-		"drawer apps": "Your apps",
 		"apps": "Apps",
 		"settings": "Settings",
 		"menu": "Show menu drawer",
@@ -8146,10 +8332,17 @@ return /******/ (function(modules) { // webpackBootstrap
 		"storage": "Storage",
 		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
-		"email": "Send an email to support",
 		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"to_come": "to come",
 		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack."
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"others": "Other apps"
+		}
 	};
 
 /***/ },
@@ -8157,7 +8350,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	module.exports = {
-		"drawer apps": "Your apps",
 		"apps": "Apps",
 		"settings": "Settings",
 		"menu": "Show menu drawer",
@@ -8166,10 +8358,17 @@ return /******/ (function(modules) { // webpackBootstrap
 		"storage": "Storage",
 		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
-		"email": "Send an email to support",
 		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"to_come": "to come",
 		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack."
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"others": "Other apps"
+		}
 	};
 
 /***/ },
@@ -8177,7 +8376,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	module.exports = {
-		"drawer apps": "Your apps",
 		"apps": "Apps",
 		"settings": "Settings",
 		"menu": "Show menu drawer",
@@ -8186,10 +8384,17 @@ return /******/ (function(modules) { // webpackBootstrap
 		"storage": "Storage",
 		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
-		"email": "Send an email to support",
 		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"to_come": "to come",
 		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack."
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"others": "Other apps"
+		}
 	};
 
 /***/ },
@@ -8197,7 +8402,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	module.exports = {
-		"drawer apps": "Your apps",
 		"apps": "Apps",
 		"settings": "Settings",
 		"menu": "Show menu drawer",
@@ -8206,10 +8410,17 @@ return /******/ (function(modules) { // webpackBootstrap
 		"storage": "Storage",
 		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
-		"email": "Send an email to support",
 		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"to_come": "to come",
 		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack."
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"others": "Other apps"
+		}
 	};
 
 /***/ },
@@ -8217,7 +8428,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	module.exports = {
-		"drawer apps": "你的应用",
 		"apps": "应用",
 		"settings": "设置",
 		"menu": "显示菜单抽屉",
@@ -8226,10 +8436,17 @@ return /******/ (function(modules) { // webpackBootstrap
 		"storage": "储存",
 		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "帮助",
-		"email": "发送邮件到客服",
 		"logout": "登出",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"to_come": "to come",
 		"error_UnavailableStack": "此堆栈无法连接 (连接超时)",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack."
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"others": "Other apps"
+		}
 	};
 
 /***/ },
@@ -8237,7 +8454,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	module.exports = {
-		"drawer apps": "Your apps",
 		"apps": "Apps",
 		"settings": "Settings",
 		"menu": "Show menu drawer",
@@ -8246,10 +8462,17 @@ return /******/ (function(modules) { // webpackBootstrap
 		"storage": "Storage",
 		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "Help",
-		"email": "Send an email to support",
 		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"to_come": "to come",
 		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack."
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"others": "Other apps"
+		}
 	};
 
 /***/ },
@@ -8257,6 +8480,53 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
+	
+	var getIcon = function () {
+	  var _ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee(url) {
+	    var res, resClone, blob, text;
+	    return regeneratorRuntime.wrap(function _callee$(_context) {
+	      while (1) {
+	        switch (_context.prev = _context.next) {
+	          case 0:
+	            _context.next = 2;
+	            return fetch('' + COZY_URL + url, fetchOptions());
+	
+	          case 2:
+	            res = _context.sent;
+	
+	            // res.text if SVG, otherwise res.blob  (mainly for safari support)
+	            resClone = res.clone(); // res must be cloned to be used twice
+	
+	            _context.next = 6;
+	            return res.blob();
+	
+	          case 6:
+	            blob = _context.sent;
+	            _context.next = 9;
+	            return resClone.text();
+	
+	          case 9:
+	            text = _context.sent;
+	            _context.prev = 10;
+	            return _context.abrupt('return', 'data:image/svg+xml;base64,' + btoa(text));
+	
+	          case 14:
+	            _context.prev = 14;
+	            _context.t0 = _context['catch'](10);
+	            return _context.abrupt('return', URL.createObjectURL(blob));
+	
+	          case 17:
+	          case 'end':
+	            return _context.stop();
+	        }
+	      }
+	    }, _callee, this, [[10, 14]]);
+	  }));
+	
+	  return function getIcon(_x) {
+	    return _ref.apply(this, arguments);
+	  };
+	}();
 	
 	__webpack_require__(1);
 	
@@ -8503,14 +8773,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	  });
 	}
 	
-	function getIcon(url) {
-	  return fetch('' + COZY_URL + url, fetchOptions()).then(function (res) {
-	    return res.blob();
-	  }).then(function (blob) {
-	    return URL.createObjectURL(blob);
-	  });
-	}
-	
 	function hasApp(slug) {
 	  return getApp(slug).then(function (app) {
 	    return !!(app && app.attributes.state === 'ready');
@@ -8518,9 +8780,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 	
 	module.exports = {
-	  init: function init(_ref) {
-	    var cozyURL = _ref.cozyURL,
-	        token = _ref.token;
+	  init: function init(_ref2) {
+	    var cozyURL = _ref2.cozyURL,
+	        token = _ref2.token;
 	
 	    COZY_URL = '//' + cozyURL;
 	    COZY_TOKEN = token;
@@ -8535,50 +8797,50 @@ return /******/ (function(modules) { // webpackBootstrap
 	     * the Settings app isn't available.
 	     */
 	    settings: function () {
-	      var _ref2 = _asyncToGenerator(regeneratorRuntime.mark(function _callee() {
+	      var _ref3 = _asyncToGenerator(regeneratorRuntime.mark(function _callee2() {
 	        var hasSettings;
-	        return regeneratorRuntime.wrap(function _callee$(_context) {
+	        return regeneratorRuntime.wrap(function _callee2$(_context2) {
 	          while (1) {
-	            switch (_context.prev = _context.next) {
+	            switch (_context2.prev = _context2.next) {
 	              case 0:
 	                hasSettings = void 0;
-	                _context.prev = 1;
-	                _context.next = 4;
+	                _context2.prev = 1;
+	                _context2.next = 4;
 	                return hasApp('settings');
 	
 	              case 4:
-	                hasSettings = _context.sent;
-	                _context.next = 11;
+	                hasSettings = _context2.sent;
+	                _context2.next = 11;
 	                break;
 	
 	              case 7:
-	                _context.prev = 7;
-	                _context.t0 = _context['catch'](1);
+	                _context2.prev = 7;
+	                _context2.t0 = _context2['catch'](1);
 	
 	                hasSettings = false;
 	                throw new _exceptions.UnavailableSettingsException();
 	
 	              case 11:
 	                if (hasSettings) {
-	                  _context.next = 13;
+	                  _context2.next = 13;
 	                  break;
 	                }
 	
 	                throw new _exceptions.UnavailableSettingsException();
 	
 	              case 13:
-	                return _context.abrupt('return', hasSettings);
+	                return _context2.abrupt('return', hasSettings);
 	
 	              case 14:
 	              case 'end':
-	                return _context.stop();
+	                return _context2.stop();
 	            }
 	          }
-	        }, _callee, this, [[1, 7]]);
+	        }, _callee2, this, [[1, 7]]);
 	      }));
 	
 	      function settings() {
-	        return _ref2.apply(this, arguments);
+	        return _ref3.apply(this, arguments);
 	      }
 	
 	      return settings;
@@ -8704,11 +8966,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var __import1 = __webpack_require__(254);
 	
-	var Navigation = __webpack_require__(261);
+	var Navigation = __webpack_require__(265);
 	
-	var Drawer = __webpack_require__(267);
+	var Drawer = __webpack_require__(271);
 	
-	var MENU_CONFIG = __webpack_require__(260);
+	var MENU_CONFIG = __webpack_require__(264);
 	
 	var t = __import0.t;
 	var createMenuPointers = __import1.createMenuPointers;
@@ -8904,7 +9166,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}();
 	
 	function create_main_fragment(state, component) {
-		var h1_lang_value, h1_class_value, img_src_value, text_3_value;
+		var h1_lang_value, h1_class_value, img_src_value, text_3_value, text_5_value;
 	
 		var if_block = state.target !== 'mobile' && !state.isPublic && create_if_block(state, component);
 	
@@ -8928,14 +9190,20 @@ return /******/ (function(modules) { // webpackBootstrap
 		appendNode(strong, h1);
 		var text_3 = createText(text_3_value = state.appName);
 		appendNode(text_3, strong);
-		var text_4 = createText("\n\n");
+		appendNode(createText("\n  "), h1);
+		var sup = createElement('sup');
+		appendNode(sup, h1);
+		sup.className = "coz-bar-hide-sm coz-bar-beta-status";
+		var text_5 = createText(text_5_value = template.helpers.t('beta'));
+		appendNode(text_5, sup);
+		var text_6 = createText("\n\n");
 		var hr = createElement('hr');
 		hr.className = "coz-sep-flex";
-		var text_5 = createText("\n\n");
+		var text_7 = createText("\n\n");
 	
 		var if_block_2 = !state.isPublic && create_if_block_2(state, component);
 	
-		var text_6 = createText("\n\n");
+		var text_8 = createText("\n\n");
 	
 		var if_block_3 = state.target !== 'mobile' && !state.isPublic && create_if_block_3(state, component);
 	
@@ -8946,11 +9214,11 @@ return /******/ (function(modules) { // webpackBootstrap
 				if (if_block) if_block.mount(target, anchor);
 				insertNode(text, target, anchor);
 				insertNode(h1, target, anchor);
-				insertNode(text_4, target, anchor);
-				insertNode(hr, target, anchor);
-				insertNode(text_5, target, anchor);
-				if (if_block_2) if_block_2.mount(target, anchor);
 				insertNode(text_6, target, anchor);
+				insertNode(hr, target, anchor);
+				insertNode(text_7, target, anchor);
+				if (if_block_2) if_block_2.mount(target, anchor);
+				insertNode(text_8, target, anchor);
 				if (if_block_3) if_block_3.mount(target, anchor);
 				insertNode(if_block_3_anchor, target, anchor);
 			},
@@ -8994,12 +9262,16 @@ return /******/ (function(modules) { // webpackBootstrap
 					text_3.data = text_3_value;
 				}
 	
+				if (text_5_value !== (text_5_value = template.helpers.t('beta'))) {
+					text_5.data = text_5_value;
+				}
+	
 				if (!state.isPublic) {
 					if (if_block_2) {
 						if_block_2.update(changed, state);
 					} else {
 						if_block_2 = create_if_block_2(state, component);
-						if_block_2.mount(text_6.parentNode, text_6);
+						if_block_2.mount(text_8.parentNode, text_8);
 					}
 				} else if (if_block_2) {
 					if_block_2.destroy(true);
@@ -9028,10 +9300,10 @@ return /******/ (function(modules) { // webpackBootstrap
 				if (detach) {
 					detachNode(text);
 					detachNode(h1);
-					detachNode(text_4);
-					detachNode(hr);
-					detachNode(text_5);
 					detachNode(text_6);
+					detachNode(hr);
+					detachNode(text_7);
+					detachNode(text_8);
 					detachNode(if_block_3_anchor);
 				}
 			}
@@ -9427,6 +9699,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                          slug: app.attributes.slug,
 	                          l10n: false,
 	                          href: app.links.related,
+	                          category: CATEGORIES.includes(app.attributes.category) ? app.attributes.category : 'others',
 	                          icon: icon
 	                        });
 	
@@ -9461,9 +9734,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	          case 16:
 	
 	            config.apps.length = 0;
+	            apps = (0, _comingSoon2.default)(apps);
 	            Array.prototype.push.apply(config.apps, apps);
 	
-	          case 18:
+	          case 19:
 	          case 'end':
 	            return _context2.stop();
 	        }
@@ -9775,7 +10049,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _stack2 = _interopRequireDefault(_stack);
 	
-	var _menu = __webpack_require__(260);
+	var _comingSoon = __webpack_require__(260);
+	
+	var _comingSoon2 = _interopRequireDefault(_comingSoon);
+	
+	var _menu = __webpack_require__(264);
 	
 	var _menu2 = _interopRequireDefault(_menu);
 	
@@ -9784,6 +10062,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 	
 	var EXCLUDES = ['settings', 'onboarding'];
+	var CATEGORIES = ['cozy', 'partners'];
 	
 	function createMenuPointers(tree) {
 	  function parse(value, index, array) {
@@ -10010,6 +10289,85 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 260 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	function addComingSoonApps(stackApps) {
+	  var comingSoonAppsList = [{
+	    'editor': 'Cozy',
+	    'name': 'Bank',
+	    'slug': 'bank',
+	    'category': 'cozy'
+	  }, {
+	    'editor': 'Cozy',
+	    'name': 'Health',
+	    'slug': 'health',
+	    'category': 'cozy'
+	  }];
+	
+	  return comingSoonAppsList
+	  // drop coming soon apps already installed
+	  .filter(function (a) {
+	    return !stackApps.filter(function (st) {
+	      return st.slug === a.slug;
+	    }).length;
+	  })
+	  // consolidate
+	  .map(function (a) {
+	    a.comingSoon = true;
+	    a.l10n = false;
+	    a.icon = {
+	      cached: true,
+	      src: __webpack_require__(261)("./icon-" + a.slug + '.svg')
+	    };
+	    return a;
+	  })
+	  // merge to installed apps
+	  .concat(stackApps);
+	}
+	
+	exports.default = addComingSoonApps;
+
+/***/ },
+/* 261 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var map = {
+		"./icon-bank.svg": 262,
+		"./icon-health.svg": 263
+	};
+	function webpackContext(req) {
+		return __webpack_require__(webpackContextResolve(req));
+	};
+	function webpackContextResolve(req) {
+		return map[req] || (function() { throw new Error("Cannot find module '" + req + "'.") }());
+	};
+	webpackContext.keys = function webpackContextKeys() {
+		return Object.keys(map);
+	};
+	webpackContext.resolve = webpackContextResolve;
+	module.exports = webpackContext;
+	webpackContext.id = 261;
+
+
+/***/ },
+/* 262 */
+/***/ function(module, exports) {
+
+	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgdmlld0JveD0iMCAwIDMyIDMyIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+CiAgPGRlZnM+CiAgICA8cmVjdCBpZD0iYSIgd2lkdGg9IjMyIiBoZWlnaHQ9IjIyIiByeD0iMiIvPgogICAgPG1hc2sgaWQ9ImIiIHdpZHRoPSIzMiIgaGVpZ2h0PSIyMiIgeD0iMCIgeT0iMCIgZmlsbD0id2hpdGUiPgogICAgICA8dXNlIHhsaW5rOmhyZWY9IiNhIi8+CiAgICA8L21hc2s+CiAgPC9kZWZzPgogIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTY5IC0xOTIpIj4KICAgIDxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDY5IDE5NykiPgogICAgICA8dXNlIGZpbGw9IiM4RUUzOUIiIHN0cm9rZT0iIzE2QjUyRCIgc3Ryb2tlLXdpZHRoPSI0IiBtYXNrPSJ1cmwoI2IpIiB4bGluazpocmVmPSIjYSIvPgogICAgICA8Y2lyY2xlIGN4PSIxNiIgY3k9IjExIiByPSI1IiBmaWxsPSIjMTZCNTJEIi8+CiAgICAgIDxjaXJjbGUgY3g9IjciIGN5PSIxMSIgcj0iMiIgZmlsbD0iIzE2QjUyRCIvPgogICAgICA8Y2lyY2xlIGN4PSIyNSIgY3k9IjExIiByPSIyIiBmaWxsPSIjMTZCNTJEIi8+CiAgICA8L2c+CiAgPC9nPgo8L3N2Zz4K"
+
+/***/ },
+/* 263 */
+/***/ function(module, exports) {
+
+	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgdmlld0JveD0iMCAwIDMyIDMyIj4KICA8ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDAgMSkiPgogICAgPHBhdGggZmlsbD0iI0ZGOEU4RSIgZD0iTTMuMDc0NDUyNzgsMTUuNzc0MjIzNyBDMS4xOTAwNDMyMSwxNC4xMjQ1NDk5IDAsMTEuNzAxMjQ5NyAwLDkgQzAsNC4wMjk0MzcyNSA0LjAyOTQzNzI1LDAgOSwwIEMxMS44MjcyNjYxLDAgMTQuMzUwMDQ0NSwxLjMwMzY2NjkzIDE2LDMuMzQyNjY1NjYgQzE3LjY0OTk1NTUsMS4zMDM2NjY5MyAyMC4xNzI3MzM5LDAgMjMsMCBDMjcuOTcwNTYyNywwIDMyLDQuMDI5NDM3MjUgMzIsOSBDMzIsMTEuNjYxOTc3OSAzMC44NDQzMDc4LDE0LjA1NDAyOTUgMjkuMDA3Mjk0LDE1LjcwMTc4NDEgTDE2LjY3NjA1MjcsMjkuMTYyMDQ4OSBDMTYuMzAyNjc5MSwyOS41Njk2MDc4IDE1LjY5NDU3MDIsMjkuNTY2MjA4NCAxNS4zMjQ3NTA5LDI5LjE2MjA0ODkgTDMuMDc0NDUyNzgsMTUuNzc0MjIzNyBaIi8+CiAgICA8cG9seWxpbmUgc3Ryb2tlPSIjRjYyQzJDIiBzdHJva2Utd2lkdGg9IjIiIHBvaW50cz0iNyAxNCAxMSAxNCAxNCA3IDE3IDIyIDIxIDE0IDI1IDE0IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KICA8L2c+Cjwvc3ZnPgo="
+
+/***/ },
+/* 264 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -10036,6 +10394,12 @@ return /******/ (function(modules) { // webpackBootstrap
 					"slug": "logout",
 					"action": "logout"
 				}
+			],
+			"beta": [
+				{
+					"slug": "beta_status",
+					"inactive": true
+				}
 			]
 		},
 		"components": {
@@ -10051,7 +10415,8 @@ return /******/ (function(modules) { // webpackBootstrap
 				"_.components.storage"
 			],
 			"_.subsections.help",
-			"_.subsections.logout"
+			"_.subsections.logout",
+			"_.subsections.beta"
 		],
 		"apps": [],
 		"sections": {
@@ -10060,7 +10425,8 @@ return /******/ (function(modules) { // webpackBootstrap
 					"slug": "apps",
 					"icon": "icon-cube",
 					"async": true,
-					"items": "_.apps"
+					"items": "_.apps",
+					"categorized": true
 				},
 				{
 					"slug": "settings",
@@ -10071,20 +10437,21 @@ return /******/ (function(modules) { // webpackBootstrap
 			"drawer": [
 				"_.subsections.settings",
 				"_.subsections.help",
-				"_.subsections.logout"
+				"_.subsections.logout",
+				"_.subsections.beta"
 			]
 		}
 	};
 
 /***/ },
-/* 261 */
+/* 265 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 	
-	var NavigationSection = __webpack_require__(262);
+	var NavigationSection = __webpack_require__(266);
 	
 	NavigationSection = NavigationSection && NavigationSection.__esModule ? NavigationSection['default'] : NavigationSection;
 	
@@ -10144,7 +10511,8 @@ return /******/ (function(modules) { // webpackBootstrap
 				slug: section.slug,
 				icon: section.icon,
 				items: section.items,
-				async: section.async
+				async: section.async,
+				categorized: section.categorized
 			}
 		});
 	
@@ -10164,6 +10532,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				if ('sections' in changed) navigationsection_changes.icon = section.icon;
 				if ('sections' in changed) navigationsection_changes.items = section.items;
 				if ('sections' in changed) navigationsection_changes.async = section.async;
+				if ('sections' in changed) navigationsection_changes.categorized = section.categorized;
 	
 				if (Object.keys(navigationsection_changes).length) navigationsection.set(navigationsection_changes);
 			},
@@ -10346,7 +10715,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Navigation;
 
 /***/ },
-/* 262 */
+/* 266 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -10355,7 +10724,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var __import0 = __webpack_require__(189);
 	
-	var NavigationGroup = __webpack_require__(263);
+	var NavigationGroup = __webpack_require__(267);
 	
 	var t = __import0.t;
 	NavigationGroup = NavigationGroup && NavigationGroup.__esModule ? NavigationGroup['default'] : NavigationGroup;
@@ -10363,6 +10732,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	function recompute(state, newState, oldState, isInitial) {
 		if (isInitial || 'items' in newState && differs(state.items, oldState.items)) {
 			state.grouped = newState.grouped = template.computed.grouped(state.items);
+		}
+	
+		if (isInitial || 'items' in newState && differs(state.items, oldState.items) || 'categorized' in newState && differs(state.categorized, oldState.categorized)) {
+			state.categories = newState.categories = template.computed.categories(state.items, state.categorized);
 		}
 	}
 	
@@ -10416,6 +10789,26 @@ return /******/ (function(modules) { // webpackBootstrap
 			}
 		}
 	
+		// Take an items array and return an array of category objects with the matching title and items
+		function getCategorizedItems(items) {
+			if (items[0] instanceof Array) return null; // doesn't handle this case
+			var categorizedItemsObject = items.reduce(function (accumulator, item) {
+				accumulator[item.category] = accumulator[item.category] || [];
+				accumulator[item.category].push(item);
+				return accumulator;
+			}, {});
+	
+			return Object.keys(categorizedItemsObject).map(function (category) {
+				return { title: category, items: categorizedItemsObject[category] };
+			})
+			// categories alphabetical sorting
+			.sort(function (c1, c2) {
+				if (t('Categories.' + c1.title) > t('Categories.' + c2.title)) return 1;
+				if (t('Categories.' + c1.title) < t('Categories.' + c2.title)) return -1;
+				return 0;
+			});
+		}
+	
 		return {
 			data: function data() {
 				return {
@@ -10428,6 +10821,9 @@ return /******/ (function(modules) { // webpackBootstrap
 			computed: {
 				grouped: function grouped(items) {
 					return items[0] instanceof Array;
+				},
+				categories: function categories(items, categorized) {
+					return categorized ? getCategorizedItems(items) : null;
 				}
 			},
 	
@@ -10569,6 +10965,56 @@ return /******/ (function(modules) { // webpackBootstrap
 		};
 	}
 	
+	function create_each_block_1(state, each_block_value, category, category_index, component) {
+		var text_value;
+	
+		var h2 = createElement('h2');
+		h2.className = "coz-nav-category";
+		var text = createText(text_value = template.helpers.t('Categories.' + category.title));
+		appendNode(text, h2);
+		var text_1 = createText("\n        ");
+	
+		var navigationgroup = new NavigationGroup({
+			target: null,
+			_root: component._root,
+			data: {
+				separator: "bottom",
+				group: category.items,
+				itemsLimit: 4
+			}
+		});
+	
+		return {
+			mount: function mount(target, anchor) {
+				insertNode(h2, target, anchor);
+				insertNode(text_1, target, anchor);
+				navigationgroup._fragment.mount(target, anchor);
+			},
+	
+			update: function update(changed, state, each_block_value, category, category_index) {
+				if (text_value !== (text_value = template.helpers.t('Categories.' + category.title))) {
+					text.data = text_value;
+				}
+	
+				var navigationgroup_changes = {};
+	
+				if ('categories' in changed) navigationgroup_changes.group = category.items;
+				navigationgroup_changes.itemsLimit = 4;
+	
+				if (Object.keys(navigationgroup_changes).length) navigationgroup.set(navigationgroup_changes);
+			},
+	
+			destroy: function destroy(detach) {
+				navigationgroup.destroy(detach);
+	
+				if (detach) {
+					detachNode(h2);
+					detachNode(text_1);
+				}
+			}
+		};
+	}
+	
 	function create_if_block_1(state, component) {
 		var text_value;
 	
@@ -10645,13 +11091,58 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 	
 	function create_if_block_3(state, component) {
+		var each_block_value = state.categories;
+	
+		var each_block_1_iterations = [];
+	
+		for (var i = 0; i < each_block_value.length; i += 1) {
+			each_block_1_iterations[i] = create_each_block_1(state, each_block_value, each_block_value[i], i, component);
+		}
+	
+		var each_block_1_anchor = createComment();
+	
+		return {
+			mount: function mount(target, anchor) {
+				for (var i = 0; i < each_block_1_iterations.length; i += 1) {
+					each_block_1_iterations[i].mount(target, null);
+				}
+	
+				insertNode(each_block_1_anchor, target, anchor);
+			},
+	
+			update: function update(changed, state) {
+				var each_block_value = state.categories;
+	
+				if ('categories' in changed) {
+					for (var i = 0; i < each_block_value.length; i += 1) {
+						if (each_block_1_iterations[i]) {
+							each_block_1_iterations[i].update(changed, state, each_block_value, each_block_value[i], i);
+						} else {
+							each_block_1_iterations[i] = create_each_block_1(state, each_block_value, each_block_value[i], i, component);
+							each_block_1_iterations[i].mount(each_block_1_anchor.parentNode, each_block_1_anchor);
+						}
+					}
+	
+					destroyEach(each_block_1_iterations, true, each_block_value.length);
+					each_block_1_iterations.length = each_block_value.length;
+				}
+			},
+	
+			destroy: function destroy(detach) {
+				destroyEach(each_block_1_iterations, detach, 0);
+	
+				if (detach) {
+					detachNode(each_block_1_anchor);
+				}
+			}
+		};
+	}
+	
+	function create_if_block_4(state, component) {
 		var navigationgroup = new NavigationGroup({
 			target: null,
 			_root: component._root,
-			data: {
-				group: state.items,
-				itemsLimit: 4
-			}
+			data: { group: state.items }
 		});
 	
 		return {
@@ -10663,7 +11154,6 @@ return /******/ (function(modules) { // webpackBootstrap
 				var navigationgroup_changes = {};
 	
 				if ('items' in changed) navigationgroup_changes.group = state.items;
-				navigationgroup_changes.itemsLimit = 4;
 	
 				if (Object.keys(navigationgroup_changes).length) navigationgroup.set(navigationgroup_changes);
 			},
@@ -10685,7 +11175,8 @@ return /******/ (function(modules) { // webpackBootstrap
 		function get_block(state) {
 			if (state.items[0].error) return create_if_block_1;
 			if (state.grouped) return create_if_block_2;
-			return create_if_block_3;
+			if (state.categories) return create_if_block_3;
+			return create_if_block_4;
 		}
 	
 		var current_block = get_block(state);
@@ -10931,20 +11422,24 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = NavigationSection;
 
 /***/ },
-/* 263 */
+/* 267 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 	
-	var NavigationItem = __webpack_require__(264);
+	var NavigationItem = __webpack_require__(268);
 	
 	NavigationItem = NavigationItem && NavigationItem.__esModule ? NavigationItem['default'] : NavigationItem;
 	
 	function recompute(state, newState, oldState, isInitial) {
 		if (isInitial || 'itemsLimit' in newState && differs(state.itemsLimit, oldState.itemsLimit) || 'group' in newState && differs(state.group, oldState.group)) {
 			state.wrapping = newState.wrapping = template.computed.wrapping(state.itemsLimit, state.group);
+		}
+	
+		if (isInitial || 'group' in newState && differs(state.group, oldState.group)) {
+			state.inactive = newState.inactive = template.computed.inactive(state.group);
 		}
 	}
 	
@@ -10954,83 +11449,52 @@ return /******/ (function(modules) { // webpackBootstrap
 				wrapping: function wrapping(itemsLimit, group) {
 					if (!itemsLimit || !group.length) return false;
 					return group.length > itemsLimit;
+				},
+				inactive: function inactive(group) {
+					return group.filter(function (item) {
+						return item.inactive;
+					}).length > 0;
 				}
 			}
 		};
 	}();
 	
 	function create_main_fragment(state, component) {
-		var if_block = state.separator == 'top' && create_if_block(state, component);
+		var if_block = state.group.length && create_if_block(state, component);
 	
-		var text = createText("\n");
-	
-		var if_block_1 = state.group.length && create_if_block_1(state, component);
-	
-		var text_1 = createText("\n");
-	
-		var if_block_2 = state.separator == 'bottom' && create_if_block_2(state, component);
-	
-		var if_block_2_anchor = createComment();
+		var if_block_anchor = createComment();
 	
 		return {
 			mount: function mount(target, anchor) {
 				if (if_block) if_block.mount(target, anchor);
-				insertNode(text, target, anchor);
-				if (if_block_1) if_block_1.mount(target, anchor);
-				insertNode(text_1, target, anchor);
-				if (if_block_2) if_block_2.mount(target, anchor);
-				insertNode(if_block_2_anchor, target, anchor);
+				insertNode(if_block_anchor, target, anchor);
 			},
 	
 			update: function update(changed, state) {
-				if (state.separator == 'top') {
-					if (!if_block) {
+				if (state.group.length) {
+					if (if_block) {
+						if_block.update(changed, state);
+					} else {
 						if_block = create_if_block(state, component);
-						if_block.mount(text.parentNode, text);
+						if_block.mount(if_block_anchor.parentNode, if_block_anchor);
 					}
 				} else if (if_block) {
 					if_block.destroy(true);
 					if_block = null;
 				}
-	
-				if (state.group.length) {
-					if (if_block_1) {
-						if_block_1.update(changed, state);
-					} else {
-						if_block_1 = create_if_block_1(state, component);
-						if_block_1.mount(text_1.parentNode, text_1);
-					}
-				} else if (if_block_1) {
-					if_block_1.destroy(true);
-					if_block_1 = null;
-				}
-	
-				if (state.separator == 'bottom') {
-					if (!if_block_2) {
-						if_block_2 = create_if_block_2(state, component);
-						if_block_2.mount(if_block_2_anchor.parentNode, if_block_2_anchor);
-					}
-				} else if (if_block_2) {
-					if_block_2.destroy(true);
-					if_block_2 = null;
-				}
 			},
 	
 			destroy: function destroy(detach) {
 				if (if_block) if_block.destroy(detach);
-				if (if_block_1) if_block_1.destroy(detach);
-				if (if_block_2) if_block_2.destroy(detach);
 	
 				if (detach) {
-					detachNode(text);
-					detachNode(text_1);
-					detachNode(if_block_2_anchor);
+					detachNode(if_block_anchor);
 				}
 			}
 		};
 	}
 	
-	function create_if_block(state, component) {
+	function create_if_block_1(state, component) {
 		var hr = createElement('hr');
 	
 		return {
@@ -11072,11 +11536,30 @@ return /******/ (function(modules) { // webpackBootstrap
 		};
 	}
 	
-	function create_if_block_1(state, component) {
+	function create_if_block_2(state, component) {
+		var hr = createElement('hr');
+	
+		return {
+			mount: function mount(target, anchor) {
+				insertNode(hr, target, anchor);
+			},
+	
+			destroy: function destroy(detach) {
+				if (detach) {
+					detachNode(hr);
+				}
+			}
+		};
+	}
+	
+	function create_if_block(state, component) {
 		var ul_class_value;
 	
+		var if_block_1 = state.separator == 'top' && create_if_block_1(state, component);
+	
+		var text = createText("\n");
 		var ul = createElement('ul');
-		ul.className = ul_class_value = '' + (state.wrapping ? "coz-nav-group coz-nav-group--wrapping" : "coz-nav-group");
+		ul.className = ul_class_value = '\n    ' + (state.wrapping ? "coz-nav-group coz-nav-group--wrapping" : "coz-nav-group") + '\n    ' + (state.inactive ? " coz-nav-group--inactive" : "") + '\n';
 		var each_block_value = state.group;
 	
 		var each_block_iterations = [];
@@ -11086,13 +11569,34 @@ return /******/ (function(modules) { // webpackBootstrap
 			each_block_iterations[i].mount(ul, null);
 		}
 	
+		var text_1 = createText("\n");
+	
+		var if_block_2 = state.separator == 'bottom' && create_if_block_2(state, component);
+	
+		var if_block_2_anchor = createComment();
+	
 		return {
 			mount: function mount(target, anchor) {
+				if (if_block_1) if_block_1.mount(target, anchor);
+				insertNode(text, target, anchor);
 				insertNode(ul, target, anchor);
+				insertNode(text_1, target, anchor);
+				if (if_block_2) if_block_2.mount(target, anchor);
+				insertNode(if_block_2_anchor, target, anchor);
 			},
 	
 			update: function update(changed, state) {
-				if (ul_class_value !== (ul_class_value = '' + (state.wrapping ? "coz-nav-group coz-nav-group--wrapping" : "coz-nav-group"))) {
+				if (state.separator == 'top') {
+					if (!if_block_1) {
+						if_block_1 = create_if_block_1(state, component);
+						if_block_1.mount(text.parentNode, text);
+					}
+				} else if (if_block_1) {
+					if_block_1.destroy(true);
+					if_block_1 = null;
+				}
+	
+				if (ul_class_value !== (ul_class_value = '\n    ' + (state.wrapping ? "coz-nav-group coz-nav-group--wrapping" : "coz-nav-group") + '\n    ' + (state.inactive ? " coz-nav-group--inactive" : "") + '\n')) {
 					ul.className = ul_class_value;
 				}
 	
@@ -11107,33 +11611,34 @@ return /******/ (function(modules) { // webpackBootstrap
 							each_block_iterations[i].mount(ul, null);
 						}
 					}
-
+	
 					destroyEach(each_block_iterations, true, each_block_value.length);
 					each_block_iterations.length = each_block_value.length;
 				}
+	
+				if (state.separator == 'bottom') {
+					if (!if_block_2) {
+						if_block_2 = create_if_block_2(state, component);
+						if_block_2.mount(if_block_2_anchor.parentNode, if_block_2_anchor);
+					}
+				} else if (if_block_2) {
+					if_block_2.destroy(true);
+					if_block_2 = null;
+				}
 			},
 
 			destroy: function destroy(detach) {
+				if (if_block_1) if_block_1.destroy(detach);
+
 				destroyEach(each_block_iterations, false, 0);
 
+				if (if_block_2) if_block_2.destroy(detach);
+
 				if (detach) {
+					detachNode(text);
 					detachNode(ul);
-				}
-			}
-		};
-	}
-
-	function create_if_block_2(state, component) {
-		var hr = createElement('hr');
-
-		return {
-			mount: function mount(target, anchor) {
-				insertNode(hr, target, anchor);
-			},
-
-			destroy: function destroy(detach) {
-				if (detach) {
-					detachNode(hr);
+					detachNode(text_1);
+					detachNode(if_block_2_anchor);
 				}
 			}
 		};
@@ -11317,7 +11822,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = NavigationGroup;
 
 /***/ },
-/* 264 */
+/* 268 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -11328,7 +11833,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var stack = __webpack_require__(251);
 	
-	var Storage = __webpack_require__(265);
+	var Storage = __webpack_require__(269);
 	
 	var t = __import0.t;
 	stack = stack && stack.__esModule ? stack['default'] : stack;
@@ -11366,7 +11871,7 @@ return /******/ (function(modules) { // webpackBootstrap
 						};
 					} else {
 						return {
-							src: __webpack_require__(266),
+							src: __webpack_require__(270),
 							class: 'blurry'
 						};
 					}
@@ -11410,15 +11915,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 		function get_block(state) {
 			if (state.item.component) return create_if_block;
-			if (state.item.href) return create_if_block_2;
-			if (state.item.action) return create_if_block_4;
-			return null;
+			if (state.item.inactive) return create_if_block_2;
+			if (state.item.href) return create_if_block_3;
+			if (state.item.action) return create_if_block_5;
+			if (state.item.comingSoon) return create_if_block_7;
+			return create_if_block_9;
 		}
 	
 		var current_block = get_block(state);
-		var if_block = current_block && current_block(state, component);
+		var if_block = current_block(state, component);
 	
-		if (if_block) if_block.mount(li, null);
+		if_block.mount(li, null);
 	
 		return {
 			mount: function mount(target, anchor) {
@@ -11429,14 +11936,14 @@ return /******/ (function(modules) { // webpackBootstrap
 				if (current_block === (current_block = get_block(state)) && if_block) {
 					if_block.update(changed, state);
 				} else {
-					if (if_block) if_block.destroy(true);
-					if_block = current_block && current_block(state, component);
-					if (if_block) if_block.mount(li, null);
+					if_block.destroy(true);
+					if_block = current_block(state, component);
+					if_block.mount(li, null);
 				}
 			},
 	
 			destroy: function destroy(detach) {
-				if (if_block) if_block.destroy(false);
+				if_block.destroy(false);
 	
 				if (detach) {
 					detachNode(li);
@@ -11475,7 +11982,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		};
 	}
 	
-	function create_if_block_3(state, component) {
+	function create_if_block_4(state, component) {
 		var img_src_value, img_class_value;
 	
 		var img = createElement('img');
@@ -11483,7 +11990,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		img.alt = '';
 		img.width = "64";
 		img.height = "64";
-		img.className = img_class_value = state.fileIcon.class ? state.fileIcon.class : '';
+		img.className = img_class_value = state.fileIcon.class ? state.fileIcon.class : "";
 	
 		return {
 			mount: function mount(target, anchor) {
@@ -11495,7 +12002,7 @@ return /******/ (function(modules) { // webpackBootstrap
 					img.src = img_src_value;
 				}
 	
-				if (img_class_value !== (img_class_value = state.fileIcon.class ? state.fileIcon.class : '')) {
+				if (img_class_value !== (img_class_value = state.fileIcon.class ? state.fileIcon.class : "")) {
 					img.className = img_class_value;
 				}
 			},
@@ -11508,7 +12015,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		};
 	}
 	
-	function create_if_block_5(state, component) {
+	function create_if_block_6(state, component) {
 		var img_src_value, img_class_value;
 	
 		var img = createElement('img');
@@ -11516,7 +12023,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		img.alt = '';
 		img.width = "64";
 		img.height = "64";
-		img.className = img_class_value = state.fileIcon.class ? state.fileIcon.class : '';
+		img.className = img_class_value = state.fileIcon.class ? state.fileIcon.class : "";
 	
 		return {
 			mount: function mount(target, anchor) {
@@ -11528,7 +12035,7 @@ return /******/ (function(modules) { // webpackBootstrap
 					img.src = img_src_value;
 				}
 	
-				if (img_class_value !== (img_class_value = state.fileIcon.class ? state.fileIcon.class : '')) {
+				if (img_class_value !== (img_class_value = state.fileIcon.class ? state.fileIcon.class : "")) {
 					img.className = img_class_value;
 				}
 			},
@@ -11536,6 +12043,52 @@ return /******/ (function(modules) { // webpackBootstrap
 			destroy: function destroy(detach) {
 				if (detach) {
 					detachNode(img);
+				}
+			}
+		};
+	}
+	
+	function create_if_block_8(state, component) {
+		var img_src_value, img_class_value, text_1_value;
+	
+		var img = createElement('img');
+		img.src = img_src_value = state.fileIcon.src;
+		img.alt = '';
+		img.width = "64";
+		img.height = "64";
+		img.className = img_class_value = state.fileIcon.class ? state.fileIcon.class : "";
+		var text = createText("\n        ");
+		var span = createElement('span');
+		span.className = "coz-bar-coming-soon-badge";
+		var text_1 = createText(text_1_value = template.helpers.t('to_come'));
+		appendNode(text_1, span);
+	
+		return {
+			mount: function mount(target, anchor) {
+				insertNode(img, target, anchor);
+				insertNode(text, target, anchor);
+				insertNode(span, target, anchor);
+			},
+	
+			update: function update(changed, state) {
+				if (img_src_value !== (img_src_value = state.fileIcon.src)) {
+					img.src = img_src_value;
+				}
+	
+				if (img_class_value !== (img_class_value = state.fileIcon.class ? state.fileIcon.class : "")) {
+					img.className = img_class_value;
+				}
+	
+				if (text_1_value !== (text_1_value = template.helpers.t('to_come'))) {
+					text_1.data = text_1_value;
+				}
+			},
+	
+			destroy: function destroy(detach) {
+				if (detach) {
+					detachNode(img);
+					detachNode(text);
+					detachNode(span);
 				}
 			}
 		};
@@ -11550,7 +12103,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		setAttribute(div, 'aria-busy', div_aria_busy_value = state.isBusy);
 		var text = createText(text_value = state.label);
 		appendNode(text, div);
-		appendNode(createText("\n    "), div);
+		appendNode(createText("\n      "), div);
 	
 		var if_block_1 = state.item.component === 'storage' && create_if_block_1(state, component);
 	
@@ -11598,6 +12151,36 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 	
 	function create_if_block_2(state, component) {
+		var text_value;
+	
+		var div = createElement('div');
+		setAttribute(div, 'role', "menuitem");
+		var p = createElement('p');
+		appendNode(p, div);
+		p.className = "coz-bar-text-item coz-bar-text-item--inactive";
+		var text = createText(text_value = state.label);
+		appendNode(text, p);
+	
+		return {
+			mount: function mount(target, anchor) {
+				insertNode(div, target, anchor);
+			},
+	
+			update: function update(changed, state) {
+				if (text_value !== (text_value = state.label)) {
+					text.data = text_value;
+				}
+			},
+	
+			destroy: function destroy(detach) {
+				if (detach) {
+					detachNode(div);
+				}
+			}
+		};
+	}
+	
+	function create_if_block_3(state, component) {
 		var a_href_value, a_target_value, a_data_icon_value, text_1_value;
 	
 		var a = createElement('a');
@@ -11606,10 +12189,10 @@ return /******/ (function(modules) { // webpackBootstrap
 		a.target = a_target_value = state.item.external ? "_blank" : "_self";
 		setAttribute(a, 'data-icon', a_data_icon_value = state.dataIcon ? state.dataIcon : "");
 	
-		var if_block_2 = state.fileIcon && create_if_block_3(state, component);
+		var if_block_2 = state.fileIcon && create_if_block_4(state, component);
 	
 		if (if_block_2) if_block_2.mount(a, null);
-		var text = createText("\n    ");
+		var text = createText("\n      ");
 		appendNode(text, a);
 		var p = createElement('p');
 		appendNode(p, a);
@@ -11639,7 +12222,7 @@ return /******/ (function(modules) { // webpackBootstrap
 					if (if_block_2) {
 						if_block_2.update(changed, state);
 					} else {
-						if_block_2 = create_if_block_3(state, component);
+						if_block_2 = create_if_block_4(state, component);
 						if_block_2.mount(a, text);
 					}
 				} else if (if_block_2) {
@@ -11662,7 +12245,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		};
 	}
 	
-	function create_if_block_4(state, component) {
+	function create_if_block_5(state, component) {
 		var button_data_icon_value, text_1_value;
 	
 		var button = createElement('button');
@@ -11676,10 +12259,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 		addEventListener(button, 'click', click_handler);
 	
-		var if_block_3 = state.fileIcon && create_if_block_5(state, component);
+		var if_block_3 = state.fileIcon && create_if_block_6(state, component);
 	
 		if (if_block_3) if_block_3.mount(button, null);
-		var text = createText("\n    ");
+		var text = createText("\n      ");
 		appendNode(text, button);
 		var text_1 = createText(text_1_value = state.label);
 		appendNode(text_1, button);
@@ -11698,7 +12281,7 @@ return /******/ (function(modules) { // webpackBootstrap
 					if (if_block_3) {
 						if_block_3.update(changed, state);
 					} else {
-						if_block_3 = create_if_block_5(state, component);
+						if_block_3 = create_if_block_6(state, component);
 						if_block_3.mount(button, text);
 					}
 				} else if (if_block_3) {
@@ -11710,13 +12293,99 @@ return /******/ (function(modules) { // webpackBootstrap
 					text_1.data = text_1_value;
 				}
 			},
-
+	
 			destroy: function destroy(detach) {
 				removeEventListener(button, 'click', click_handler);
 				if (if_block_3) if_block_3.destroy(false);
-
+	
 				if (detach) {
 					detachNode(button);
+				}
+			}
+		};
+	}
+	
+	function create_if_block_7(state, component) {
+		var a_data_icon_value, text_1_value;
+	
+		var a = createElement('a');
+		setAttribute(a, 'role', "menuitem");
+		setAttribute(a, 'data-icon', a_data_icon_value = state.dataIcon ? state.dataIcon : "");
+		a.className = "coz-bar-coming-soon-app";
+	
+		var if_block_4 = state.fileIcon && create_if_block_8(state, component);
+	
+		if (if_block_4) if_block_4.mount(a, null);
+		var text = createText("\n      ");
+		appendNode(text, a);
+		var p = createElement('p');
+		appendNode(p, a);
+		p.className = "coz-label";
+		var text_1 = createText(text_1_value = state.label);
+		appendNode(text_1, p);
+	
+		return {
+			mount: function mount(target, anchor) {
+				insertNode(a, target, anchor);
+			},
+	
+			update: function update(changed, state) {
+				if (a_data_icon_value !== (a_data_icon_value = state.dataIcon ? state.dataIcon : "")) {
+					setAttribute(a, 'data-icon', a_data_icon_value);
+				}
+	
+				if (state.fileIcon) {
+					if (if_block_4) {
+						if_block_4.update(changed, state);
+					} else {
+						if_block_4 = create_if_block_8(state, component);
+						if_block_4.mount(a, text);
+					}
+				} else if (if_block_4) {
+					if_block_4.destroy(true);
+					if_block_4 = null;
+				}
+	
+				if (text_1_value !== (text_1_value = state.label)) {
+					text_1.data = text_1_value;
+				}
+			},
+	
+			destroy: function destroy(detach) {
+				if (if_block_4) if_block_4.destroy(false);
+	
+				if (detach) {
+					detachNode(a);
+				}
+			}
+		};
+	}
+	
+	function create_if_block_9(state, component) {
+		var text_value;
+	
+		var div = createElement('div');
+		setAttribute(div, 'role', "menuitem");
+		var p = createElement('p');
+		appendNode(p, div);
+		p.className = "coz-bar-text-item";
+		var text = createText(text_value = state.label);
+		appendNode(text, p);
+	
+		return {
+			mount: function mount(target, anchor) {
+				insertNode(div, target, anchor);
+			},
+	
+			update: function update(changed, state) {
+				if (text_value !== (text_value = state.label)) {
+					text.data = text_value;
+				}
+			},
+
+			destroy: function destroy(detach) {
+				if (detach) {
+					detachNode(div);
 				}
 			}
 		};
@@ -11906,7 +12575,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = NavigationItem;
 
 /***/ },
-/* 265 */
+/* 269 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -12239,13 +12908,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Storage;
 
 /***/ },
-/* 266 */
+/* 270 */
 /***/ function(module, exports) {
 
 	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICA8ZyBmaWxsPSIjOTU5OTlEIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0yODggLTMyKSI+CiAgICA8cGF0aCBkPSJNMjg5LDQzLjAwODYyOTYgQzI4OSw0My41NTg2NzMyIDI4OS4zOTY0MDcsNDQuMjMxMDg5OSAyODkuODcyNDAxLDQ0LjUwMzA4NjggTDI5NS4xMjc1OTksNDcuNTA2MDU2NiBDMjk1LjYwOTQxMyw0Ny43ODEzNzg5IDI5Niw0Ny41NTc4NzMgMjk2LDQ3LjAwODYyOTYgTDI5Niw0MS41MDA1MTM4IEMyOTYsNDAuOTUwNDcwMiAyOTUuNjAzNTkzLDQwLjI3ODA1MzUgMjk1LjEyNzU5OSw0MC4wMDYwNTY2IEwyODkuODcyNDAxLDM3LjAwMzA4NjggQzI4OS4zOTA1ODcsMzYuNzI3NzY0NSAyODksMzYuOTUxMjcwNCAyODksMzcuNTAwNTEzOCBMMjg5LDQzLjAwODYyOTYgWiBNMzA0LDQzLjAwODYyOTYgQzMwNCw0My41NTg2NzMyIDMwMy42MDM1OTMsNDQuMjMxMDg5OSAzMDMuMTI3NTk5LDQ0LjUwMzA4NjggTDI5Ny44NzI0MDEsNDcuNTA2MDU2NiBDMjk3LjM5MDU4Nyw0Ny43ODEzNzg5IDI5Nyw0Ny41NTc4NzMgMjk3LDQ3LjAwODYyOTYgTDI5Nyw0MS41MDA1MTM4IEMyOTcsNDAuOTUwNDcwMiAyOTcuMzk2NDA3LDQwLjI3ODA1MzUgMjk3Ljg3MjQwMSw0MC4wMDYwNTY2IEwzMDMuMTI3NTk5LDM3LjAwMzA4NjggQzMwMy42MDk0MTMsMzYuNzI3NzY0NSAzMDQsMzYuOTUxMjcwNCAzMDQsMzcuNTAwNTEzOCBMMzA0LDQzLjAwODYyOTYgWiBNMjk3LjM0OTc2MSwzOC45ODE2NDE2IEMyOTYuODgwNDUxLDM5LjI3MDQ0NzkgMjk2LjExMjg2MSwzOS4yNjYzMzI0IDI5NS42NTAyMzksMzguOTgxNjQxNiBMMjkwLjg0OTc2MSwzNi4wMjc1MDE4IEMyOTAuMzgwNDUxLDM1LjczODY5NTUgMjkwLjM4NzEzOSwzNS4yOTYxMTIzIDI5MC44NzY2MTksMzUuMDMyNTQ2MSBMMjk1LjYyMzM4MSwzMi40NzY1OTczIEMyOTYuMTA3NTI0LDMyLjIxNTkwNDggMjk2Ljg4NzEzOSwzMi4yMTMwMzExIDI5Ny4zNzY2MTksMzIuNDc2NTk3MyBMMzAyLjEyMzM4MSwzNS4wMzI1NDYxIEMzMDIuNjA3NTI0LDM1LjI5MzIzODcgMzAyLjYxMjg2MSwzNS43NDI4MTEgMzAyLjE1MDIzOSwzNi4wMjc1MDE4IEwyOTcuMzQ5NzYxLDM4Ljk4MTY0MTYgWiIvPgogICAgPHBhdGggZD0iTTI4OSw0My4wMDg2Mjk2IEMyODksNDMuNTU4NjczMiAyODkuMzk2NDA3LDQ0LjIzMTA4OTkgMjg5Ljg3MjQwMSw0NC41MDMwODY4IEwyOTUuMTI3NTk5LDQ3LjUwNjA1NjYgQzI5NS42MDk0MTMsNDcuNzgxMzc4OSAyOTYsNDcuNTU3ODczIDI5Niw0Ny4wMDg2Mjk2IEwyOTYsNDEuNTAwNTEzOCBDMjk2LDQwLjk1MDQ3MDIgMjk1LjYwMzU5Myw0MC4yNzgwNTM1IDI5NS4xMjc1OTksNDAuMDA2MDU2NiBMMjg5Ljg3MjQwMSwzNy4wMDMwODY4IEMyODkuMzkwNTg3LDM2LjcyNzc2NDUgMjg5LDM2Ljk1MTI3MDQgMjg5LDM3LjUwMDUxMzggTDI4OSw0My4wMDg2Mjk2IFogTTMwNCw0My4wMDg2Mjk2IEMzMDQsNDMuNTU4NjczMiAzMDMuNjAzNTkzLDQ0LjIzMTA4OTkgMzAzLjEyNzU5OSw0NC41MDMwODY4IEwyOTcuODcyNDAxLDQ3LjUwNjA1NjYgQzI5Ny4zOTA1ODcsNDcuNzgxMzc4OSAyOTcsNDcuNTU3ODczIDI5Nyw0Ny4wMDg2Mjk2IEwyOTcsNDEuNTAwNTEzOCBDMjk3LDQwLjk1MDQ3MDIgMjk3LjM5NjQwNyw0MC4yNzgwNTM1IDI5Ny44NzI0MDEsNDAuMDA2MDU2NiBMMzAzLjEyNzU5OSwzNy4wMDMwODY4IEMzMDMuNjA5NDEzLDM2LjcyNzc2NDUgMzA0LDM2Ljk1MTI3MDQgMzA0LDM3LjUwMDUxMzggTDMwNCw0My4wMDg2Mjk2IFogTTI5Ny4zNDk3NjEsMzguOTgxNjQxNiBDMjk2Ljg4MDQ1MSwzOS4yNzA0NDc5IDI5Ni4xMTI4NjEsMzkuMjY2MzMyNCAyOTUuNjUwMjM5LDM4Ljk4MTY0MTYgTDI5MC44NDk3NjEsMzYuMDI3NTAxOCBDMjkwLjM4MDQ1MSwzNS43Mzg2OTU1IDI5MC4zODcxMzksMzUuMjk2MTEyMyAyOTAuODc2NjE5LDM1LjAzMjU0NjEgTDI5NS42MjMzODEsMzIuNDc2NTk3MyBDMjk2LjEwNzUyNCwzMi4yMTU5MDQ4IDI5Ni44ODcxMzksMzIuMjEzMDMxMSAyOTcuMzc2NjE5LDMyLjQ3NjU5NzMgTDMwMi4xMjMzODEsMzUuMDMyNTQ2MSBDMzAyLjYwNzUyNCwzNS4yOTMyMzg3IDMwMi42MTI4NjEsMzUuNzQyODExIDMwMi4xNTAyMzksMzYuMDI3NTAxOCBMMjk3LjM0OTc2MSwzOC45ODE2NDE2IFoiLz4KICA8L2c+Cjwvc3ZnPgo="
 
 /***/ },
-/* 267 */
+/* 271 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -12254,32 +12923,44 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var __import0 = __webpack_require__(189);
 	
-	var NavigationGroup = __webpack_require__(263);
+	var NavigationGroup = __webpack_require__(267);
 	
 	var t = __import0.t;
 	NavigationGroup = NavigationGroup && NavigationGroup.__esModule ? NavigationGroup['default'] : NavigationGroup;
 	
 	function recompute(state, newState, oldState, isInitial) {
 		if (isInitial || 'content' in newState && differs(state.content, oldState.content)) {
-			state.splitContentsArrays = newState.splitContentsArrays = template.computed.splitContentsArrays(state.content);
+			state.categories = newState.categories = template.computed.categories(state.content);
 		}
 	}
 	
 	var template = function () {
 		var toggleDrawerObserver = void 0;
 	
-		var APPS_PAGINATION_LENGTH = 9;
+		// Take an items array and return an array of category objects with the matching title and items
+		function getCategorizedItems(items) {
+			if (items[0] instanceof Array) return null; // doesn't handle this case
+			var categorizedItemsObject = items.reduce(function (accumulator, item) {
+				accumulator[item.category] = accumulator[item.category] || [];
+				accumulator[item.category].push(item);
+				return accumulator;
+			}, {});
+	
+			return Object.keys(categorizedItemsObject).map(function (category) {
+				return { title: category, items: categorizedItemsObject[category] };
+			})
+			// categories alphabetical sorting
+			.sort(function (c1, c2) {
+				if (t('Categories.' + c1.title) > t('Categories.' + c2.title)) return 1;
+				if (t('Categories.' + c1.title) < t('Categories.' + c2.title)) return -1;
+				return 0;
+			});
+		}
 	
 		return {
 			computed: {
-				splitContentsArrays: function splitContentsArrays(content) {
-					var contentArrays = [];
-					if (content.length > APPS_PAGINATION_LENGTH) {
-						while (content.length > 0) {
-							contentArrays.push(content.splice(0, APPS_PAGINATION_LENGTH));
-						}
-					}
-					return contentArrays;
+				categories: function categories(content) {
+					return getCategorizedItems(content);
 				}
 			},
 	
@@ -12347,8 +13028,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	}();
 	
 	function create_main_fragment(state, component) {
-		var text_value;
-	
 		var div = createElement('div');
 		div.className = "coz-drawer-wrapper";
 	
@@ -12370,21 +13049,15 @@ return /******/ (function(modules) { // webpackBootstrap
 		var nav = createElement('nav');
 		appendNode(nav, aside);
 		nav.className = "coz-drawer--apps";
-		var h1 = createElement('h1');
-		appendNode(h1, nav);
-		var text = createText(text_value = template.helpers.t('drawer apps'));
-		appendNode(text, h1);
-		appendNode(createText("\n      "), nav);
+		var each_block_value = state.categories;
 	
-		function get_block(state) {
-			if (state.splitContentsArrays.length < 2) return create_if_block;
-			return create_if_block_1;
+		var each_block_iterations = [];
+	
+		for (var i = 0; i < each_block_value.length; i += 1) {
+			each_block_iterations[i] = create_each_block(state, each_block_value, each_block_value[i], i, component);
+			each_block_iterations[i].mount(nav, null);
 		}
 	
-		var current_block = get_block(state);
-		var if_block = current_block(state, component);
-	
-		if_block.mount(nav, null);
 		appendNode(createText("\n    "), aside);
 		var hr = createElement('hr');
 		appendNode(hr, aside);
@@ -12392,12 +13065,12 @@ return /******/ (function(modules) { // webpackBootstrap
 		appendNode(createText("\n    "), aside);
 		var nav_1 = createElement('nav');
 		appendNode(nav_1, aside);
-		var each_block_value = state.footer;
+		var each_block_value_1 = state.footer;
 	
 		var each_block_1_iterations = [];
 	
-		for (var i = 0; i < each_block_value.length; i += 1) {
-			each_block_1_iterations[i] = create_each_block_1(state, each_block_value, each_block_value[i], i, component);
+		for (var i = 0; i < each_block_value_1.length; i += 1) {
+			each_block_1_iterations[i] = create_each_block_1(state, each_block_value_1, each_block_value_1[i], i, component);
 			each_block_1_iterations[i].mount(nav_1, null);
 		}
 	
@@ -12407,32 +13080,36 @@ return /******/ (function(modules) { // webpackBootstrap
 			},
 	
 			update: function update(changed, state) {
-				if (text_value !== (text_value = template.helpers.t('drawer apps'))) {
-					text.data = text_value;
+				var each_block_value = state.categories;
+	
+				if ('categories' in changed) {
+					for (var i = 0; i < each_block_value.length; i += 1) {
+						if (each_block_iterations[i]) {
+							each_block_iterations[i].update(changed, state, each_block_value, each_block_value[i], i);
+						} else {
+							each_block_iterations[i] = create_each_block(state, each_block_value, each_block_value[i], i, component);
+							each_block_iterations[i].mount(nav, null);
+						}
+					}
+	
+					destroyEach(each_block_iterations, true, each_block_value.length);
+					each_block_iterations.length = each_block_value.length;
 				}
 	
-				if (current_block === (current_block = get_block(state)) && if_block) {
-					if_block.update(changed, state);
-				} else {
-					if_block.destroy(true);
-					if_block = current_block(state, component);
-					if_block.mount(nav, null);
-				}
-	
-				var each_block_value = state.footer;
+				var each_block_value_1 = state.footer;
 	
 				if ('footer' in changed) {
-					for (var i = 0; i < each_block_value.length; i += 1) {
+					for (var i = 0; i < each_block_value_1.length; i += 1) {
 						if (each_block_1_iterations[i]) {
-							each_block_1_iterations[i].update(changed, state, each_block_value, each_block_value[i], i);
+							each_block_1_iterations[i].update(changed, state, each_block_value_1, each_block_value_1[i], i);
 						} else {
-							each_block_1_iterations[i] = create_each_block_1(state, each_block_value, each_block_value[i], i, component);
+							each_block_1_iterations[i] = create_each_block_1(state, each_block_value_1, each_block_value_1[i], i, component);
 							each_block_1_iterations[i].mount(nav_1, null);
 						}
 					}
 	
-					destroyEach(each_block_1_iterations, true, each_block_value.length);
-					each_block_1_iterations.length = each_block_value.length;
+					destroyEach(each_block_1_iterations, true, each_block_value_1.length);
+					each_block_1_iterations.length = each_block_value_1.length;
 				}
 			},
 	
@@ -12441,7 +13118,8 @@ return /******/ (function(modules) { // webpackBootstrap
 				if (component.refs.wrapper === div) component.refs.wrapper = null;
 				removeEventListener(aside, 'click', click_handler_1);
 				if (component.refs.aside === aside) component.refs.aside = null;
-				if_block.destroy(false);
+	
+				destroyEach(each_block_iterations, false, 0);
 	
 				destroyEach(each_block_1_iterations, false, 0);
 	
@@ -12452,112 +13130,57 @@ return /******/ (function(modules) { // webpackBootstrap
 		};
 	}
 	
-	function create_each_block(state, each_block_value, subgroup, subgroup_index, component) {
+	function create_each_block(state, each_block_value, category, category_index, component) {
+		var text_value;
+	
+		var h2 = createElement('h2');
+		h2.className = "coz-nav-category";
+		var text = createText(text_value = template.helpers.t('Categories.' + category.title));
+		appendNode(text, h2);
+		var text_1 = createText("\n        ");
+	
 		var navigationgroup = new NavigationGroup({
 			target: null,
 			_root: component._root,
 			data: {
-				group: subgroup,
+				separator: "bottom",
+				group: category.items,
 				itemsLimit: 3
 			}
 		});
 	
 		return {
 			mount: function mount(target, anchor) {
+				insertNode(h2, target, anchor);
+				insertNode(text_1, target, anchor);
 				navigationgroup._fragment.mount(target, anchor);
 			},
 	
-			update: function update(changed, state, each_block_value, subgroup, subgroup_index) {
-				var navigationgroup_changes = {};
-	
-				if ('splitContentsArrays' in changed) navigationgroup_changes.group = subgroup;
-				navigationgroup_changes.itemsLimit = 3;
-	
-				if (Object.keys(navigationgroup_changes).length) navigationgroup.set(navigationgroup_changes);
-			},
-	
-			destroy: function destroy(detach) {
-				navigationgroup.destroy(detach);
-			}
-		};
-	}
-	
-	function create_if_block(state, component) {
-		var navigationgroup = new NavigationGroup({
-			target: null,
-			_root: component._root,
-			data: {
-				group: state.content,
-				itemsLimit: 3
-			}
-		});
-	
-		return {
-			mount: function mount(target, anchor) {
-				navigationgroup._fragment.mount(target, anchor);
-			},
-	
-			update: function update(changed, state) {
-				var navigationgroup_changes = {};
-	
-				if ('content' in changed) navigationgroup_changes.group = state.content;
-				navigationgroup_changes.itemsLimit = 3;
-	
-				if (Object.keys(navigationgroup_changes).length) navigationgroup.set(navigationgroup_changes);
-			},
-	
-			destroy: function destroy(detach) {
-				navigationgroup.destroy(detach);
-			}
-		};
-	}
-	
-	function create_if_block_1(state, component) {
-		var div = createElement('div');
-		div.className = "coz-drawer--apps-paginator";
-		var each_block_value = state.splitContentsArrays;
-	
-		var each_block_iterations = [];
-	
-		for (var i = 0; i < each_block_value.length; i += 1) {
-			each_block_iterations[i] = create_each_block(state, each_block_value, each_block_value[i], i, component);
-			each_block_iterations[i].mount(div, null);
-		}
-	
-		return {
-			mount: function mount(target, anchor) {
-				insertNode(div, target, anchor);
-			},
-	
-			update: function update(changed, state) {
-				var each_block_value = state.splitContentsArrays;
-	
-				if ('splitContentsArrays' in changed) {
-					for (var i = 0; i < each_block_value.length; i += 1) {
-						if (each_block_iterations[i]) {
-							each_block_iterations[i].update(changed, state, each_block_value, each_block_value[i], i);
-						} else {
-							each_block_iterations[i] = create_each_block(state, each_block_value, each_block_value[i], i, component);
-							each_block_iterations[i].mount(div, null);
-						}
-					}
-	
-					destroyEach(each_block_iterations, true, each_block_value.length);
-					each_block_iterations.length = each_block_value.length;
+			update: function update(changed, state, each_block_value, category, category_index) {
+				if (text_value !== (text_value = template.helpers.t('Categories.' + category.title))) {
+					text.data = text_value;
 				}
+	
+				var navigationgroup_changes = {};
+	
+				if ('categories' in changed) navigationgroup_changes.group = category.items;
+				navigationgroup_changes.itemsLimit = 3;
+	
+				if (Object.keys(navigationgroup_changes).length) navigationgroup.set(navigationgroup_changes);
 			},
 	
 			destroy: function destroy(detach) {
-				destroyEach(each_block_iterations, false, 0);
+				navigationgroup.destroy(detach);
 	
 				if (detach) {
-					detachNode(div);
+					detachNode(h2);
+					detachNode(text_1);
 				}
 			}
 		};
 	}
 	
-	function create_each_block_1(state, each_block_value, group, group_index, component) {
+	function create_each_block_1(state, each_block_value_1, group, group_index, component) {
 		var navigationgroup = new NavigationGroup({
 			target: null,
 			_root: component._root,
@@ -12569,7 +13192,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				navigationgroup._fragment.mount(target, anchor);
 			},
 	
-			update: function update(changed, state, each_block_value, group, group_index) {
+			update: function update(changed, state, each_block_value_1, group, group_index) {
 				var navigationgroup_changes = {};
 	
 				if ('footer' in changed) navigationgroup_changes.group = group;
@@ -12667,14 +13290,14 @@ return /******/ (function(modules) { // webpackBootstrap
 		target.appendChild(node);
 	}
 
-	function createText(data) {
-		return document.createTextNode(data);
-	}
-
 	function destroyEach(iterations, detach, start) {
 		for (var i = start; i < iterations.length; i += 1) {
 			if (iterations[i]) iterations[i].destroy(detach);
 		}
+	}
+
+	function createText(data) {
+		return document.createTextNode(data);
 	}
 
 	function differs(a, b) {
@@ -12777,16 +13400,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Drawer;
 
 /***/ },
-/* 268 */
+/* 272 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(269);
+	var content = __webpack_require__(273);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(279)(content, {});
+	var update = __webpack_require__(283)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -12803,21 +13426,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 269 */
+/* 273 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(270)();
+	exports = module.exports = __webpack_require__(274)();
 	// imports
 	
 	
 	// module
-	exports.push([module.id, "[role=banner] .coz-sep-flex {\n  margin: 0;\n  border: none;\n  flex: 1 0;\n}\n\n\n[role=banner] [data-icon] {\n  background-repeat: no-repeat;\n  background-position: 0 50%;\n  padding-left: calc(16px + .5em)\n}\n\n\n[role=banner] [data-icon='icon-profile'] {\n  background-image: url(" + __webpack_require__(271) + ")\n}\n\n\n[role=banner] [data-icon='icon-connectedDevices'] {\n  background-image: url(" + __webpack_require__(272) + ")\n}\n\n\n[role=banner] [data-icon='icon-help'] {\n  background-image: url(" + __webpack_require__(273) + ")\n}\n\n\n[role=banner] [data-icon='icon-logout'] {\n  background-image: url(" + __webpack_require__(274) + ")\n}\n\n\n[role=banner] [data-icon='icon-storage'] {\n  background-image: url(" + __webpack_require__(275) + ")\n}\n\n\n[role=banner] [data-icon='icon-cog'] {\n  background-image: url(" + __webpack_require__(276) + ")\n}\n\n\n[role=banner] [data-icon='icon-hamburger'] {\n  background-image: url(" + __webpack_require__(277) + ")\n}\n\n\n[role=banner] [data-icon='icon-cube'] {\n  background-image: url(" + __webpack_require__(266) + ")\n}\n\n\n/* Spinner */\n\n\n@keyframes spin {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(359deg);\n  }\n}\n\n\n[role=banner] [aria-busy=true] {\n  position: relative;\n}\n\n\n[role=banner] [aria-busy=true]::after {\n  content: \"\";\n  position: absolute;\n  right: 0;\n  top: 0;\n  display: block;\n  width: 1em;\n  height: 1em;\n  background-position: center;\n  background-repeat: no-repeat;\n  background-size: cover;\n  background-image: url(" + __webpack_require__(278) + ");\n  animation: 1s linear infinite spin;\n}\n\n\n/* Progress bar */\n\n\n[role=banner] progress[value] {\n  /* Reset the default appearance */\n  appearance: none;\n  background-color: #f5f6f7;\n  border: solid 1px #d6d8da;\n  border-radius: 2px;\n  color: #297ef2;\n}\n\n\n[role=banner] progress[value]::-webkit-progress-bar {\n  background: #f5f6f7;\n  border-radius: 2px;\n}\n\n\n[role=banner] progress[value]::-webkit-progress-value {\n  background: #297ef2;\n  border-radius: 1px;\n}\n\n\n[role=banner] progress[value]::-moz-progress-bar {\n  background: #297ef2;\n  border-radius: 1px;\n}\n\n\n/* Errors */\n\n\n[role=banner] .coz-nav--error {\n  margin: 0 0 .1em 0;\n  font-weight: normal;\n  font-size: .875em;\n  color: #F52D2D;\n}\n\n\n[role=banner] {\n  position: relative;\n  z-index: 20;\n  min-height: 3em;\n  flex-shrink: 0;\n  display: flex;\n  align-items: stretch;\n  padding: 0 1.25em 0 1em;\n  box-shadow: inset 0 -1px 0 0 #d6d8da;\n  font-family: Lato, sans-serif;\n  font-size: 1rem;\n}\n\n\n@media (max-width: 48em) {\n  [role=banner] {\n    padding: 0 1em 0 0;\n  }\n\n  [role=banner][data-drawer-visible=true] {\n    /* Force the BAR to be above selection bar in mobile mode,\n     * only when drawer is opened\n     */\n    z-index: 31;\n  }\n}\n\n\n[role=banner] .coz-bar-title {\n  display: flex;\n  margin: 0;\n  align-items: center;\n  font-size: 1.5em;\n  font-weight: normal;\n  color: #32363f;\n}\n\n\n@media (max-width: 48em) {\n  [role=banner] .coz-bar-title {\n    font-size: 1.25em\n  }\n}\n\n\n[role=banner] .coz-bar-title img {\n  margin-right: .45em;\n}\n\n\n[role=banner] .coz-bar-title span {\n  margin-right: .25em;\n}\n\n\n[role=banner] .coz-bar-title strong {\n  font-weight: bold;\n}\n\n\n@media (max-width: 30em) {\n  [role=banner] .coz-bar-hide-sm {\n    display: none;\n  }\n\n  [role=banner] .coz-bar-title strong {\n    padding: 0;\n    text-transform: capitalize;\n  }\n}\n\n\n[role=banner] .coz-bar-burger {\n  width: 2.5em;\n  margin-right: 0.25em;\n  padding: 0;\n  border: none;\n  background-color: transparent;\n  background-position: center;\n}\n\n\n@media (min-width: 48.0625em) {\n  [role=banner] .coz-bar-burger,\n  [role=banner] .coz-drawer-wrapper {\n    display: none;\n  }\n}\n\n\n@media (max-width: 48em) {\n  [role=banner] .coz-bar-hide-sm {\n    display: none;\n  }\n}\n\n\n[role=banner] .coz-nav ul {\n  margin: 0;\n  padding: 0;\n  list-style-type: none;\n}\n\n\n[role=banner] .coz-nav > ul {\n  display: flex;\n}\n\n\n@media (max-width: 48em) {\n  [role=banner] .coz-nav {\n    display: none;\n  }\n}\n\n\n[role=banner] .coz-nav-section {\n  position: relative;\n}\n\n\n[role=banner] .coz-nav-section [aria-controls] {\n  display: flex;\n  align-items: baseline;\n  padding: 1.285em 1.5em;\n  font-size: .875em;\n  text-transform: uppercase;\n  color: #5d6165;\n  cursor: pointer;\n}\n\n\n[role=banner] .coz-nav-section [aria-controls]:hover {\n  background-color: #f5f6f7;\n  box-shadow: inset 0 -1px 0 0 #d6d8da;\n  color: #32363f;\n}\n\n\n[role=banner] .coz-nav-section [aria-controls]:focus {\n  background-color: #f5f6f7;\n  box-shadow: inset 0 -1px 0 0 #d6d8da;\n  color: #32363f;\n}\n\n\n[role=banner] [aria-controls][aria-busy]::after {\n  position: relative;\n  top: .12em;\n  margin-left: .5em;\n}\n\n\n[role=banner] [aria-controls][aria-busy=true] {\n  padding-right: 0;\n}\n\n\n[role=banner] .coz-nav-section [aria-controls][data-icon] {\n  padding-left: calc(1.25em + 16px + .5em);\n  background-position: 1.25em calc(50% - 1px);\n}\n\n\n[role=banner] .coz-nav-icon {\n  margin-right: .5em;\n}\n\n\n[role=banner] .coz-nav-pop[aria-hidden=true] {\n  display: none;\n}\n\n\n[role=banner] .coz-nav-pop {\n  position: absolute;\n  top: calc(100% - .5em);\n  right: 0;\n  box-sizing: border-box;\n  min-width: 100%;\n  background-color: #fff;\n  border-radius: 8px;\n  border: solid 1px rgba(50, 54, 63, 0.12);\n  box-shadow: 0 1px 3px 0 rgba(50, 54, 63, 0.19), 0 6px 18px 0 rgba(50, 54, 63, 0.19);\n}\n\n\n[role=banner] .coz-nav-pop ul {\n  padding: .5em 0;\n}\n\n\n[role=banner] .coz-nav-pop hr {\n  margin: 0;\n  border: none;\n  border-bottom: solid 1px #d6d8da;\n}\n\n\n[role=banner] .coz-nav-pop ul:last-of-type + hr {\n  display: none;\n}\n\n\n[role=banner] .coz-nav-pop--apps .coz-nav-group:not(.coz-nav--error) {\n  display: flex;\n  padding: 0.75em;\n}\n\n\n[role=banner] .coz-nav-pop--apps .coz-nav-group--wrapping.coz-nav-group:not(.coz-nav--error) {\n  flex-wrap: wrap;\n  width: 40em;\n}\n\n\n@media (min-width: 48em) and (max-width: 51em) {\n    [role=banner] .coz-nav-pop.coz-nav-pop--apps {\n        right: -3em;\n    }\n}\n\n\n[role=banner] .coz-nav-pop--apps .coz-nav-group:not(.coz-nav--error) .coz-nav-item {\n    width: 9em;\n    padding: 0 .5em;\n}\n\n\n[role=banner] .coz-nav-group.coz-nav--error {\n  padding: 0.75em;\n  min-width: 20em;\n}\n\n\n[role=banner] .coz-nav-pop--apps .coz-nav-group a {\n  display: flex;\n  flex-direction: column;\n  padding: 1.25em;\n}\n\n\n[role=banner] .coz-nav-pop--apps .coz-nav-group a img {\n  margin-bottom: .75em;\n}\n\n\n[role=banner] .blurry {\n  opacity: .5;\n  filter: blur(5px);\n}\n\n\n[role=banner] .coz-nav-item [role=menuitem] {\n  position: relative;\n  z-index: 0;\n  display: block;\n  box-sizing: border-box;\n  width: 100%;\n  padding: .5em 1.5em .5em calc(1.5em + 16px + .5em);\n  border: none;\n  align-items: center;\n  background-position: 1.5em 50%;\n  background-color: transparent;\n  text-align: left;\n  white-space: nowrap;\n  color: #32363f;\n  text-decoration: none;\n  outline: none;\n}\n\n\n/* Force pointer on clickable elements*/\n\n\n[role=banner] .coz-nav-item a[role=menuitem],\n[role=banner] .coz-nav-item button[role=menuitem] {\n  cursor: pointer;\n}\n\n\n/* Hover effect */\n\n\n[role=banner] .coz-nav-item a[role=menuitem]:hover:before {\n  content: '';\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  z-index: -1;\n  background-color: #f5f6f7;\n  background-image: inherit;\n  background-position: inherit;\n  background-repeat: inherit;\n}\n\n\n[role=banner] .coz-nav-item a[role=menuitem]:focus:before {\n  content: '';\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  z-index: -1;\n  background-color: #f5f6f7;\n  background-image: inherit;\n  background-position: inherit;\n  background-repeat: inherit;\n}\n\n\n[role=banner] .coz-nav-item button[role=menuitem]:hover:before {\n  content: '';\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  z-index: -1;\n  background-color: #f5f6f7;\n  background-image: inherit;\n  background-position: inherit;\n  background-repeat: inherit;\n}\n\n\n[role=banner] .coz-nav-item button[role=menuitem]:focus:before {\n  content: '';\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  z-index: -1;\n  background-color: #f5f6f7;\n  background-image: inherit;\n  background-position: inherit;\n  background-repeat: inherit;\n}\n\n\n[role=banner] [role=menuitem][aria-busy=true]::after {\n  right: 1.5em;\n  top: .5em;\n}\n\n\n/* Remove default margin for p elements */\n\n\n[role=banner] .coz-nav-item a[role=menuitem] p.coz-label {\n    margin: 0;\n}\n\n\n[role=banner] [role=menuitem][data-icon=icon-storage] {\n  background-position: 1.5em calc(.5em + 1px);\n}\n\n\n[role=banner] .coz-nav-storage {\n  display: flex;\n  flex-direction: column;\n  align-items: left;\n  padding-top: .5em;\n  color: #95999d;\n}\n\n\n[role=banner] .coz-nav-storage-text {\n  margin: 0 0 .1em 0;\n  font-weight: normal;\n  font-size: .875em;\n}\n\n\n[role=banner] .cozy-nav-storage-bar {\n    height: .5em;\n    margin: .2em 0 .1em 0;\n}\n\n\n[role=banner] .coz-drawer-wrapper {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100vw;\n  height: 100vh;\n  /* Prepare for transitions */\n  display: none;\n  visibility: visible;\n}\n\n\n[role=banner] .coz-drawer-wrapper[aria-hidden=false],\n[role=banner] .coz-drawer-wrapper.swipe-active {\n  display: block;\n}\n\n\n[role=banner] .coz-drawer-wrapper::before {\n  content: '';\n  display: block;\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background-color: #32363f;\n  opacity: 0;\n  transition: opacity 250ms ease-out;\n}\n\n\n[role=banner] .coz-drawer-wrapper[aria-hidden=false]::before {\n  opacity: .5;\n}\n\n\n[role=banner] .coz-drawer-wrapper aside {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 90%;\n  height: 100%;\n  display: flex;\n  flex-direction: column;\n  background-color: #fff;\n  transform: translateX(-100vw);\n  transition: transform 500ms ease-out;\n}\n\n\n[role=banner] .coz-drawer-wrapper[aria-hidden=false] aside {\n  transform: translateX(0);\n}\n\n\n[role=banner] .coz-drawer-wrapper ul {\n  margin: 0;\n  padding: .8em 0;\n  list-style-type: none;\n}\n\n\n[role=banner] .coz-drawer-wrapper nav hr {\n  margin: 0;\n  border: none;\n  border-bottom: solid 1px #d6d8da;\n}\n\n\n[role=banner] .coz-drawer-wrapper .coz-nav-icon {\n  margin-right: .5em;\n}\n\n\n[role=banner] .coz-drawer--apps h1 {\n  margin: 1.125em 1em 0;\n  font-size: 1em;\n  text-transform: capitalize;\n}\n\n\n[role=banner] .coz-drawer--apps ul {\n  display: flex;\n}\n\n\n[role=banner] .coz-drawer--apps .coz-drawer--apps-paginator {\n  display: flex;\n  flex-direction: row;\n  overflow: scroll;\n  padding-bottom: 1em;\n}\n\n\n[role=banner] .coz-drawer--apps .coz-drawer--apps-paginator ul {\n  min-width: 100%;\n}\n\n\n[role=banner] .coz-drawer--apps ul li {\n  flex: 0 0 calc(100% /3);\n  max-width: calc(100% / 3);\n}\n\n\n[role=banner] .coz-drawer--apps ul.coz-nav-group--wrapping {\n  flex-wrap: wrap;\n}\n\n\n[role=banner] .coz-drawer--apps [role=menuitem] {\n  display: flex;\n  flex-direction: column;\n  padding: 1em;\n  border-radius: 2px;\n}\n\n\n[role=banner] .coz-drawer--apps [role=menuitem]:hover {\n  background-color: rgba(25, 123, 255, 0.1);\n}\n\n\n[role=banner] .coz-drawer--apps li img {\n  margin-bottom: 1.125em;\n}\n\n\n[role=banner] .coz-drawer--apps li p.coz-label {\n  overflow: hidden;\n  white-space: nowrap;\n  text-overflow: ellipsis;\n  min-width: 0;\n  width: 100%;\n  text-align: center;\n  font-size: 14px;\n}\n\n\n[role=banner].coz-target--mobile {\n  padding-left: 1em;\n}\n\n\n.coz-bar-hidden {\n  position: absolute !important;\n  border: 0 !important;\n  width: 1px !important;\n  height: 1px !important;\n  overflow: hidden !important;\n  padding: 0 !important;\n  white-space: nowrap !important;\n  clip: rect(1px, 1px, 1px, 1px) !important;\n  clip-path: inset(50%) !important;\n}\n", ""]);
+	exports.push([module.id, "[role=banner] .coz-sep-flex {\n  margin: 0;\n  border: none;\n  flex: 1 0;\n}\n\n\n[role=banner] [data-icon] {\n  background-repeat: no-repeat;\n  background-position: 0 50%;\n  padding-left: calc(16px + .5em)\n}\n\n\n[role=banner] [data-icon='icon-profile'] {\n  background-image: url(" + __webpack_require__(275) + ")\n}\n\n\n[role=banner] [data-icon='icon-connectedDevices'] {\n  background-image: url(" + __webpack_require__(276) + ")\n}\n\n\n[role=banner] [data-icon='icon-help'] {\n  background-image: url(" + __webpack_require__(277) + ")\n}\n\n\n[role=banner] [data-icon='icon-logout'] {\n  background-image: url(" + __webpack_require__(278) + ")\n}\n\n\n[role=banner] [data-icon='icon-storage'] {\n  background-image: url(" + __webpack_require__(279) + ")\n}\n\n\n[role=banner] [data-icon='icon-cog'] {\n  background-image: url(" + __webpack_require__(280) + ")\n}\n\n\n[role=banner] [data-icon='icon-hamburger'] {\n  background-image: url(" + __webpack_require__(281) + ")\n}\n\n\n[role=banner] [data-icon='icon-cube'] {\n  background-image: url(" + __webpack_require__(270) + ")\n}\n\n\n/* Spinner */\n\n\n@keyframes spin {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(359deg);\n  }\n}\n\n\n[role=banner] [aria-busy=true] {\n  position: relative;\n}\n\n\n[role=banner] [aria-busy=true]::after {\n  content: \"\";\n  position: absolute;\n  right: 0;\n  top: 0;\n  display: block;\n  width: 1em;\n  height: 1em;\n  background-position: center;\n  background-repeat: no-repeat;\n  background-size: cover;\n  background-image: url(" + __webpack_require__(282) + ");\n  animation: 1s linear infinite spin;\n}\n\n\n/* Progress bar */\n\n\n[role=banner] progress[value] {\n  /* Reset the default appearance */\n  appearance: none;\n  background-color: #f5f6f7;\n  border: solid 1px #d6d8da;\n  border-radius: 2px;\n  color: #297ef2;\n}\n\n\n[role=banner] progress[value]::-webkit-progress-bar {\n  background: #f5f6f7;\n  border-radius: 2px;\n}\n\n\n[role=banner] progress[value]::-webkit-progress-value {\n  background: #297ef2;\n  border-radius: 1px;\n}\n\n\n[role=banner] progress[value]::-moz-progress-bar {\n  background: #297ef2;\n  border-radius: 1px;\n}\n\n\n/* Errors */\n\n\n[role=banner] .coz-nav--error {\n  margin: 0 0 .1em 0;\n  font-weight: normal;\n  font-size: .875em;\n  color: #F52D2D;\n}\n\n\n[role=banner] {\n  position: relative;\n  z-index: 20;\n  min-height: 3em;\n  flex-shrink: 0;\n  display: flex;\n  align-items: stretch;\n  padding: 0 1.25em 0 1em;\n  box-shadow: inset 0 -1px 0 0 #d6d8da;\n  font-family: Lato, sans-serif;\n  font-size: 1rem;\n}\n\n\n@media (max-width: 48em) {\n  [role=banner] {\n    padding: 0 1em 0 0;\n  }\n\n  [role=banner][data-drawer-visible=true] {\n    /* Force the BAR to be above selection bar in mobile mode,\n     * only when drawer is opened\n     */\n    z-index: 31;\n  }\n}\n\n\n[role=banner] .coz-bar-title {\n  display: flex;\n  margin: 0;\n  align-items: center;\n  font-size: 1.5em;\n  font-weight: normal;\n  color: #32363f;\n}\n\n\n@media (max-width: 48em) {\n  [role=banner] .coz-bar-title {\n    font-size: 1.25em\n  }\n}\n\n\n[role=banner] .coz-bar-title img {\n  margin-right: .45em;\n}\n\n\n[role=banner] .coz-bar-title span {\n  margin-right: .25em;\n}\n\n\n[role=banner] .coz-bar-title strong {\n  font-weight: bold;\n}\n\n\n[role=banner] .coz-bar-title .coz-bar-beta-status {\n  color: #95999d;\n  text-transform: uppercase;\n  font-size: .55em;\n  font-style: italic;\n  font-weight: 700;\n}\n\n\n@media (max-width: 30em) {\n  [role=banner] .coz-bar-hide-sm {\n    display: none;\n  }\n\n  [role=banner] .coz-bar-title strong {\n    padding: 0;\n    text-transform: capitalize;\n  }\n}\n\n\n[role=banner] .coz-bar-burger {\n  width: 2.5em;\n  margin-right: 0.25em;\n  padding: 0;\n  border: none;\n  background-color: transparent;\n  background-position: center;\n}\n\n\n@media (min-width: 48.0625em) {\n  [role=banner] .coz-bar-burger,\n  [role=banner] .coz-drawer-wrapper {\n    display: none;\n  }\n}\n\n\n@media (max-width: 48em) {\n  [role=banner] .coz-bar-hide-sm {\n    display: none;\n  }\n}\n\n\n[role=banner] .coz-nav ul {\n  margin: 0;\n  padding: 0;\n  list-style-type: none;\n}\n\n\n[role=banner] .coz-nav > ul {\n  display: flex;\n}\n\n\n@media (max-width: 48em) {\n  [role=banner] .coz-nav {\n    display: none;\n  }\n}\n\n\n[role=banner] .coz-nav-section {\n  position: relative;\n}\n\n\n[role=banner] .coz-nav-section [aria-controls] {\n  display: flex;\n  align-items: baseline;\n  padding: 1.285em 1.5em;\n  font-size: .875em;\n  text-transform: uppercase;\n  color: #5d6165;\n  cursor: pointer;\n}\n\n\n[role=banner] .coz-nav-section [aria-controls]:hover {\n  background-color: #f5f6f7;\n  box-shadow: inset 0 -1px 0 0 #d6d8da;\n  color: #32363f;\n}\n\n\n[role=banner] .coz-nav-section [aria-controls]:focus {\n  background-color: #f5f6f7;\n  box-shadow: inset 0 -1px 0 0 #d6d8da;\n  color: #32363f;\n}\n\n\n[role=banner] [aria-controls][aria-busy]::after {\n  position: relative;\n  top: .12em;\n  margin-left: .5em;\n}\n\n\n[role=banner] [aria-controls][aria-busy=true] {\n  padding-right: 0;\n}\n\n\n[role=banner] .coz-nav-section [aria-controls][data-icon] {\n  padding-left: calc(1.25em + 16px + .5em);\n  background-position: 1.25em calc(50% - 1px);\n}\n\n\n[role=banner] .coz-nav-icon {\n  margin-right: .5em;\n}\n\n\n[role=banner] .coz-nav-pop[aria-hidden=true] {\n  display: none;\n}\n\n\n[role=banner] .coz-nav-pop {\n  position: absolute;\n  top: calc(100% - .5em);\n  right: 0;\n  box-sizing: border-box;\n  min-width: 100%;\n  background-color: #fff;\n  border-radius: 8px;\n  border: solid 1px rgba(50, 54, 63, 0.12);\n  box-shadow: 0 1px 3px 0 rgba(50, 54, 63, 0.19), 0 6px 18px 0 rgba(50, 54, 63, 0.19);\n}\n\n\n[role=banner] .coz-nav-pop ul {\n  padding: .5em 0;\n}\n\n\n[role=banner] .coz-nav-pop ul:last-of-type {\n  border-radius: 0 0 8px 8px;\n}\n\n\n[role=banner] .coz-nav-pop ul:first-of-type {\n  border-radius: 8px 8px 0 0;\n}\n\n\n[role=banner] .coz-nav-pop hr {\n  margin: 0;\n  border: none;\n  border-bottom: solid 1px #d6d8da;\n}\n\n\n[role=banner] .coz-nav-pop ul:last-of-type + hr {\n  display: none;\n}\n\n\n[role=banner] .coz-nav-pop--apps .coz-nav-group:not(.coz-nav--error) {\n  display: flex;\n  padding: .25em .25em 1em .25em;\n}\n\n\n[role=banner] .coz-nav-pop--apps .coz-nav-group--wrapping.coz-nav-group:not(.coz-nav--error) {\n  flex-wrap: wrap;\n  width: 36em;\n}\n\n\n@media (min-width: 48em) and (max-width: 51em) {\n    [role=banner] .coz-nav-pop.coz-nav-pop--apps {\n        right: -3em;\n    }\n}\n\n\n[role=banner] .coz-nav-pop--apps .coz-nav-group:not(.coz-nav--error) .coz-nav-item {\n    width: 8em;\n    padding: 0 .5em;\n}\n\n\n[role=banner] .coz-nav-group:not(.coz-nav--error).coz-nav-group--inactive {\n  background-color: #f5f6f7\n}\n\n\n[role=banner] .coz-nav-group.coz-nav--error {\n  padding: 0.75em;\n  min-width: 20em;\n}\n\n\n[role=banner] .coz-nav-pop--apps .coz-nav-group a {\n  display: flex;\n  flex-direction: column;\n  padding: .5em;\n}\n\n\n[role=banner] .coz-nav-pop--apps .coz-nav-group a img {\n  margin-bottom: .75em;\n}\n\n\n[role=banner] .coz-nav-pop--apps .coz-nav-group a p {\n  font-size: 15px;\n}\n\n\n[role=banner] .coz-nav-pop--apps .coz-nav-category {\n  font-size: 1em;\n  padding: 0 2em;\n  margin: 2em 0 .5em 0;\n}\n\n\n[role=banner] .blurry {\n  opacity: .5;\n  filter: blur(5px);\n}\n\n\n[role=banner] .coz-nav-item [role=menuitem] {\n  position: relative;\n  z-index: 0;\n  display: block;\n  box-sizing: border-box;\n  width: 100%;\n  padding: .5em 1.5em .5em calc(1.5em + 16px + .5em);\n  border: none;\n  align-items: center;\n  background-position: 1.5em 50%;\n  background-color: transparent;\n  text-align: left;\n  white-space: nowrap;\n  color: #32363f;\n  text-decoration: none;\n  outline: none;\n}\n\n\n/* Force pointer on clickable elements*/\n\n\n[role=banner] .coz-nav-item a[role=menuitem],\n[role=banner] .coz-nav-item button[role=menuitem] {\n  cursor: pointer;\n}\n\n\n/* Hover effect */\n\n\n[role=banner] .coz-nav-item a[role=menuitem]:hover:before {\n  content: '';\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  z-index: -1;\n  background-color: #f5f6f7;\n  background-image: inherit;\n  background-position: inherit;\n  background-repeat: inherit;\n}\n\n\n[role=banner] .coz-nav-item a[role=menuitem]:focus:before {\n  content: '';\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  z-index: -1;\n  background-color: #f5f6f7;\n  background-image: inherit;\n  background-position: inherit;\n  background-repeat: inherit;\n}\n\n\n[role=banner] .coz-nav-item button[role=menuitem]:hover:before {\n  content: '';\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  z-index: -1;\n  background-color: #f5f6f7;\n  background-image: inherit;\n  background-position: inherit;\n  background-repeat: inherit;\n}\n\n\n[role=banner] .coz-nav-item button[role=menuitem]:focus:before {\n  content: '';\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  z-index: -1;\n  background-color: #f5f6f7;\n  background-image: inherit;\n  background-position: inherit;\n  background-repeat: inherit;\n}\n\n\n[role=banner] [role=menuitem][aria-busy=true]::after {\n  right: 1.5em;\n  top: .5em;\n}\n\n\n/* Remove default margin for p elements */\n\n\n[role=banner] .coz-nav-item a[role=menuitem] p.coz-label {\n  margin: 0;\n}\n\n\n[role=banner] .coz-nav-item div[role=menuitem]:not([data-icon]) {\n  margin: 0;\n  padding-left: 1.5em;\n}\n\n\n[role=banner] .coz-nav-item [role=menuitem] .coz-bar-text-item {\n  margin: 0;\n}\n\n\n[role=banner] .coz-nav-item [role=menuitem] .coz-bar-text-item--inactive {\n  font-style: italic;\n}\n\n\n/* Coming soon styles */\n\n\n[role=banner] .coz-nav-item [role=menuitem].coz-bar-coming-soon-app img,\n[role=banner] .coz-nav-item [role=menuitem].coz-bar-coming-soon-app .coz-label\n{\n  opacity: .4;\n}\n\n\n[role=banner] .coz-nav-item [role=menuitem].coz-bar-coming-soon-app .coz-bar-coming-soon-badge {\n  position: absolute;\n  display: block;\n  right: 2.5em;\n  bottom: 4.5em;\n  background: #297ef2;\n  border-radius: 2px;\n  padding: .25em;\n  font-size: .6em;\n  color: white;\n  text-transform: uppercase;\n}\n\n\n[role=banner] [role=menuitem][data-icon=icon-storage] {\n  background-position: 1.5em calc(.5em + 1px);\n}\n\n\n[role=banner] .coz-nav-storage {\n  display: flex;\n  flex-direction: column;\n  align-items: left;\n  padding-top: .5em;\n  color: #95999d;\n}\n\n\n[role=banner] .coz-nav-storage-text {\n  margin: 0 0 .1em 0;\n  font-weight: normal;\n  font-size: .875em;\n}\n\n\n[role=banner] .cozy-nav-storage-bar {\n    height: .5em;\n    margin: .2em 0 .1em 0;\n}\n\n\n[role=banner] .coz-drawer-wrapper {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100vw;\n  height: 100vh;\n  /* Prepare for transitions */\n  display: none;\n  visibility: visible;\n}\n\n\n[role=banner] .coz-drawer-wrapper[aria-hidden=false],\n[role=banner] .coz-drawer-wrapper.swipe-active {\n  display: block;\n}\n\n\n[role=banner] .coz-drawer-wrapper::before {\n  content: '';\n  display: block;\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background-color: #32363f;\n  opacity: 0;\n  transition: opacity 250ms ease-out;\n}\n\n\n[role=banner] .coz-drawer-wrapper[aria-hidden=false]::before {\n  opacity: .5;\n}\n\n\n[role=banner] .coz-drawer-wrapper aside {\n  position: absolute;\n  bottom: 0;\n  left: 0;\n  width: 90%;\n  max-width: 30em;\n  height: 100%;\n  display: flex;\n  flex-direction: column;\n  background-color: #fff;\n  transform: translateX(-100vw);\n  transition: transform 500ms ease-out;\n}\n\n\n[role=banner] .coz-drawer-wrapper[aria-hidden=false] aside {\n  transform: translateX(0);\n}\n\n\n[role=banner] .coz-drawer-wrapper ul {\n  margin: 0;\n  padding: .8em 0;\n  list-style-type: none;\n}\n\n\n[role=banner] .coz-drawer-wrapper nav hr {\n  margin: 0;\n  border: none;\n  border-bottom: solid 1px #d6d8da;\n}\n\n\n[role=banner] .coz-drawer-wrapper .coz-nav-icon {\n  margin-right: .5em;\n}\n\n\n[role=banner] .coz-drawer--apps {\n    flex: 0 1 auto;\n    overflow-y: scroll;\n}\n\n\n[role=banner] .coz-drawer--apps ul {\n  padding: 0 0 1em 0;\n  display: flex;\n}\n\n\n[role=banner] .coz-drawer--apps ul li {\n  flex: 0 0 calc(100% /3);\n  max-width: calc(100% / 3);\n}\n\n\n[role=banner] .coz-drawer--apps ul:last-of-type + hr {\n  display: none;\n}\n\n\n[role=banner] .coz-drawer--apps ul.coz-nav-group--wrapping {\n  flex-wrap: wrap;\n}\n\n\n[role=banner] .coz-drawer--apps [role=menuitem] {\n  display: flex;\n  flex-direction: column;\n  padding: .5em 1em;\n  border-radius: 2px;\n}\n\n\n[role=banner] .coz-drawer--apps [role=menuitem]:hover {\n  background-color: rgba(25, 123, 255, 0.1);\n}\n\n\n[role=banner] .coz-drawer--apps li img {\n  margin-bottom: .5em;\n}\n\n\n[role=banner] .coz-drawer--apps li p.coz-label {\n  overflow: hidden;\n  white-space: nowrap;\n  text-overflow: ellipsis;\n  min-width: 0;\n  width: 100%;\n  text-align: center;\n  font-size: 14px;\n}\n\n\n[role=banner] .coz-drawer--apps .coz-nav-category {\n  font-size: 1em;\n  padding: 0 2em;\n  margin: 2em 0 .5em 0;\n}\n\n\n[role=banner].coz-target--mobile {\n  padding-left: 1em;\n}\n\n\n.coz-bar-hidden {\n  position: absolute !important;\n  border: 0 !important;\n  width: 1px !important;\n  height: 1px !important;\n  overflow: hidden !important;\n  padding: 0 !important;\n  white-space: nowrap !important;\n  clip: rect(1px, 1px, 1px, 1px) !important;\n  clip-path: inset(50%) !important;\n}\n", ""]);
 	
 	// exports
 
 
 /***/ },
-/* 270 */
+/* 274 */
 /***/ function(module, exports) {
 
 	/*
@@ -12873,55 +13496,55 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 271 */
+/* 275 */
 /***/ function(module, exports) {
 
 	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICA8cGF0aCBmaWxsPSIjNUQ2MTY1IiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xMzYsNzMgQzEzOC4yMDkxMzksNzMgMTQwLDcwLjk4NTI4MTQgMTQwLDY4LjUgQzE0MCw2Ni4wMTQ3MTg2IDEzOC4yMDkxMzksNjQgMTM2LDY0IEMxMzMuNzkwODYxLDY0IDEzMiw2Ni4wMTQ3MTg2IDEzMiw2OC41IEMxMzIsNzAuOTg1MjgxNCAxMzMuNzkwODYxLDczIDEzNiw3MyBaIE0xMjgsNzggQzEyOCw3NyAxMzAsNzQgMTMyLDc0IEMxMzQsNzQgMTMzLDc1IDEzNiw3NSBDMTM5LDc1IDEzOCw3NCAxNDAsNzQgQzE0Miw3NCAxNDQsNzcgMTQ0LDc4IEMxNDQsNzkgMTQ0LDgwIDE0Myw4MCBMMTI5LDgwIEMxMjgsODAgMTI4LDc5IDEyOCw3OCBaIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMTI4IC02NCkiLz4KPC9zdmc+Cg=="
 
 /***/ },
-/* 272 */
+/* 276 */
 /***/ function(module, exports) {
 
 	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICA8cGF0aCBmaWxsPSIjNUQ2MTY1IiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xNjIsNjUuMDAwODcxNyBDMTYyLDY0LjQ0ODEwNTUgMTYyLjQ1NTc2MSw2NCAxNjMuMDAyNDczLDY0IEwxNzIuOTk3NTI3LDY0IEMxNzMuNTUxMTc3LDY0IDE3NCw2NC40NDQ2MzA5IDE3NCw2NS4wMDA4NzE3IEwxNzQsNzguOTk5MTI4MyBDMTc0LDc5LjU1MTg5NDUgMTczLjU0NDIzOSw4MCAxNzIuOTk3NTI3LDgwIEwxNjMuMDAyNDczLDgwIEMxNjIuNDQ4ODIzLDgwIDE2Miw3OS41NTUzNjkxIDE2Miw3OC45OTkxMjgzIEwxNjIsNjUuMDAwODcxNyBaIE0xNjQsNjYgTDE3Miw2NiBMMTcyLDc2IEwxNjQsNzYgTDE2NCw2NiBaIE0xNjgsNzkgQzE2OC41NTIyODUsNzkgMTY5LDc4LjU1MjI4NDcgMTY5LDc4IEMxNjksNzcuNDQ3NzE1MyAxNjguNTUyMjg1LDc3IDE2OCw3NyBDMTY3LjQ0NzcxNSw3NyAxNjcsNzcuNDQ3NzE1MyAxNjcsNzggQzE2Nyw3OC41NTIyODQ3IDE2Ny40NDc3MTUsNzkgMTY4LDc5IFoiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0xNjAgLTY0KSIvPgo8L3N2Zz4K"
 
 /***/ },
-/* 273 */
+/* 277 */
 /***/ function(module, exports) {
 
 	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICA8cGF0aCBmaWxsPSIjNUQ2MTY1IiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0yOTYsODAgQzMwMC40MTgyNzgsODAgMzA0LDc2LjQxODI3OCAzMDQsNzIgQzMwNCw2Ny41ODE3MjIgMzAwLjQxODI3OCw2NCAyOTYsNjQgQzI5MS41ODE3MjIsNjQgMjg4LDY3LjU4MTcyMiAyODgsNzIgQzI4OCw3Ni40MTgyNzggMjkxLjU4MTcyMiw4MCAyOTYsODAgWiBNMjk3LDcyLjgwMjExMyBDMjk4LjEyMTgwOSw3Mi4zNTQ1NTY4IDI5OSw3MS4yMDg5OTQ2IDI5OSw3MCBDMjk5LDY4LjQ0NzcxNTMgMjk3LjU1MjI4NSw2NyAyOTYsNjcgQzI5NC40NDc3MTUsNjcgMjkzLDY4LjQ0NzcxNTMgMjkzLDcwIEwyOTUsNzAgQzI5NSw2OS41NTIyODQ3IDI5NS41NTIyODUsNjkgMjk2LDY5IEMyOTYuNDQ3NzE1LDY5IDI5Nyw2OS41NTIyODQ3IDI5Nyw3MCBDMjk3LDcwLjQ0NzcxNTMgMjk2LjQ0NzcxNSw3MSAyOTYsNzEgQzI5NS40NDc3MTUsNzEgMjk1LDcxLjQ0NzcxNTMgMjk1LDcyIEwyOTUsNzQgTDI5Nyw3NCBMMjk3LDcyLjgwMjExMyBaIE0yOTUsNzUgTDI5Nyw3NSBMMjk3LDc3IEwyOTUsNzcgTDI5NSw3NSBaIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMjg4IC02NCkiLz4KPC9zdmc+Cg=="
 
 /***/ },
-/* 274 */
+/* 278 */
 /***/ function(module, exports) {
 
 	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICA8cGF0aCBmaWxsPSIjNUQ2MTY1IiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0zMjcsOTkuNDE0MjEzNiBMMzI1LjcwNzEwNywxMDAuNzA3MTA3IEMzMjUuMzE2NTgyLDEwMS4wOTc2MzEgMzI0LjY4MzQxOCwxMDEuMDk3NjMxIDMyNC4yOTI4OTMsMTAwLjcwNzEwNyBDMzIzLjkwMjM2OSwxMDAuMzE2NTgyIDMyMy45MDIzNjksOTkuNjgzNDE3NSAzMjQuMjkyODkzLDk5LjI5Mjg5MzIgTDMyNy4yOTI4OTMsOTYuMjkyODkzMiBDMzI3LjY4MzQxOCw5NS45MDIzNjg5IDMyOC4zMTY1ODIsOTUuOTAyMzY4OSAzMjguNzA3MTA3LDk2LjI5Mjg5MzIgTDMzMS43MDcxMDcsOTkuMjkyODkzMiBDMzMyLjA5NzYzMSw5OS42ODM0MTc1IDMzMi4wOTc2MzEsMTAwLjMxNjU4MiAzMzEuNzA3MTA3LDEwMC43MDcxMDcgQzMzMS4zMTY1ODIsMTAxLjA5NzYzMSAzMzAuNjgzNDE4LDEwMS4wOTc2MzEgMzMwLjI5Mjg5MywxMDAuNzA3MTA3IEwzMjksOTkuNDE0MjEzNiBMMzI5LDEwNyBDMzI5LDEwNy41NTIyODUgMzI4LjU1MjI4NSwxMDggMzI4LDEwOCBDMzI3LjQ0NzcxNSwxMDggMzI3LDEwNy41NTIyODUgMzI3LDEwNyBMMzI3LDk5LjQxNDIxMzYgWiBNMzIxLDExMiBMMzM1LDExMiBDMzM1LjU1MjI4NSwxMTIgMzM2LDExMS41NTIyODUgMzM2LDExMSBDMzM2LDExMC40NDc3MTUgMzM1LjU1MjI4NSwxMTAgMzM1LDExMCBMMzIxLDExMCBDMzIwLjQ0NzcxNSwxMTAgMzIwLDExMC40NDc3MTUgMzIwLDExMSBDMzIwLDExMS41NTIyODUgMzIwLjQ0NzcxNSwxMTIgMzIxLDExMiBaIiB0cmFuc2Zvcm09InJvdGF0ZSg5MCAyMTYgLTEwNCkiLz4KPC9zdmc+Cg=="
 
 /***/ },
-/* 275 */
+/* 279 */
 /***/ function(module, exports) {
 
 	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICA8cGF0aCBmaWxsPSIjNUQ2MTY1IiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0yMjUsNjggTDIzOSw2OCBMMjM5LDc4LjAwNDQyMjUgQzIzOSw3OC41NTQyNjQ4IDIzOC41NTAwNTEsNzkgMjM3Ljk5MzE1NSw3OSBMMjI2LjAwNjg0NSw3OSBDMjI1LjQ1MDc4LDc5IDIyNSw3OC41NTUxNjMgMjI1LDc4LjAwNDQyMjUgTDIyNSw2OCBaIE0yMjQsNjYgQzIyNCw2NS40NDc3MTUzIDIyNC40NDQ2MzEsNjUgMjI1LjAwMDg3Miw2NSBMMjM4Ljk5OTEyOCw2NSBDMjM5LjU1MTg5NCw2NSAyNDAsNjUuNDQzODY0OCAyNDAsNjYgTDI0MCw2NyBMMjI0LDY3IEwyMjQsNjYgWiBNMjI5LDcwIEwyMzUsNzAgTDIzNSw3MiBMMjI5LDcyIEwyMjksNzAgWiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTIyNCAtNjQpIi8+Cjwvc3ZnPgo="
 
 /***/ },
-/* 276 */
+/* 280 */
 /***/ function(module, exports) {
 
 	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICA8ZyBmaWxsPSIjOTU5OTlEIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0yMjQgLTMyKSI+CiAgICA8cGF0aCBkPSJNMjM4LjI0OTM1NiwzOS4wNzgyOTczIEMyMzguMzAxNDA3LDM5LjMzNzE0MzYgMjM4LjMyNzQzMiwzOS42NDU5NjAyIDIzOC4zMjc0MzIsNDAuMDAzNzQ3OCBDMjM4LjMyNzQzMiw0MC4zNjE1MzUzIDIzOC4zMDE0MDcsNDAuNjY5MzUyNiAyMzguMjQ5MzU2LDQwLjkyOTE5ODMgTDIzOS44Njk5NDYsNDIuMjYyNDA2NyBDMjQwLjAwMDA3NCw0Mi4zNDgzNTU3IDI0MC4wMzIxMDUsNDIuNDY1Mjg2MiAyMzkuOTY4MDQyLDQyLjYxNDE5NzggQzIzOS42NDI3MjMsNDMuNTY0NjMzNSAyMzkuMTA5MTk5LDQ0LjQ0MDExMzcgMjM4LjM2NjQ3LDQ1LjI0MTYzNzggQzIzOC4yNjIzNjgsNDUuMzY1NTY0MiAyMzguMTM3MjQ2LDQ1LjM5NjU0NTggMjM3Ljk5NTEwNiw0NS4zMzU1ODIgTDIzNS45NjQxMTMsNDQuNjY3OTc4NCBDMjM1LjQ0MzYwMiw0NS4wNjM3NDM0IDIzNC44ODQwNTMsNDUuMzcyNTYgMjM0LjI4NDQ2NCw0NS41OTQ0MjgzIEwyMzMuODc1MDYyLDQ3LjU5MzI0MTUgQzIzMy44NDkwMzcsNDcuNzQwMTU0MyAyMzMuNzU3OTQ4LDQ3LjgyNzEwMjcgMjMzLjYwMTc5NCw0Ny44NTIwODc4IEMyMzMuMDQxMjQ0LDQ3Ljk1MjAyODUgMjMyLjUwNzcyMSw0OCAyMzIuMDAwMjIyLDQ4IEMyMzEuNDkyNzI0LDQ4IDIzMC45NTgyLDQ3Ljk1MTAyOTEgMjMwLjM5ODY1MSw0Ny44NTIwODc4IEMyMzAuMjQyNDk3LDQ3LjgyODEwMjEgMjMwLjE1MTQwOCw0Ny43NDExNTM3IDIzMC4xMjUzODIsNDcuNTkzMjQxNSBMMjI5LjcxNTk4MSw0NS41OTQ0MjgzIEMyMjkuMDc3MzU0LDQ1LjM2MDU2NzIgMjI4LjUxNzgwNSw0NS4wNTA3NTExIDIyOC4wMzYzMzIsNDQuNjY3OTc4NCBMMjI2LjAwNTMzOSw0NS4zMzU1ODIgQzIyNS44NjExOTcsNDUuMzk3NTQ1MiAyMjUuNzM4MDc3LDQ1LjM2NTU2NDIgMjI1LjYzMzk3NCw0NS4yNDE2Mzc4IEMyMjQuODkyMjQ2LDQ0LjQ0MDExMzcgMjI0LjM1ODcyMyw0My41NjQ2MzM1IDIyNC4wMzI0MDMsNDIuNjE0MTk3OCBDMjIzLjk2NzMzOSw0Mi40NjYyODU2IDIyNC4wMDAzNzEsNDIuMzQ4MzU1NyAyMjQuMTMwNDk5LDQyLjI2MjQwNjcgTDIyNS43NTEwODksNDAuOTI5MTk4MyBDMjI1LjY5OTAzOCw0MC42NjkzNTI2IDIyNS42NzMwMTMsNDAuMzYyNTM0NyAyMjUuNjczMDEzLDQwLjAwMzc0NzggQzIyNS42NzMwMTMsMzkuNjQ1OTYwMiAyMjUuNjk5MDM4LDM5LjMzNzE0MzYgMjI1Ljc1MTA4OSwzOS4wNzgyOTczIEwyMjQuMTMwNDk5LDM3Ljc0NjA4ODMgQzIyNC4wMDAzNzEsMzcuNjYwMTM5MyAyMjMuOTY3MzM5LDM3LjU0MjIwOTMgMjI0LjAzMjQwMywzNy4zOTQyOTcxIEMyMjQuMzU3NzIyLDM2LjQ0NDg2MDkgMjI0Ljg5MTI0NSwzNS41NjgzODEzIDIyNS42MzM5NzQsMzQuNzY2ODU3MiBDMjI1LjczODA3NywzNC42NDM5MzAyIDIyNS44NjIxOTgsMzQuNjEyOTQ4NiAyMjYuMDA1MzM5LDM0LjY3MzkxMjQgTDIyOC4wMzYzMzIsMzUuMzQwNTE2NiBDMjI4LjUxNjgwNCwzNC45NTc3NDM4IDIyOS4wNzczNTQsMzQuNjQ5OTI2NiAyMjkuNzE1OTgxLDM0LjQxNTA2NjEgTDIzMC4xMjUzODIsMzIuNDE2MjUyOCBDMjMwLjE1MTQwOCwzMi4yNjgzNDA3IDIzMC4yNDI0OTcsMzIuMTgyMzkxNyAyMzAuMzk4NjUxLDMyLjE1NzQwNjUgQzIzMS40NjU2OTgsMzEuOTQ3NTMxMiAyMzIuNTMzNzQ2LDMxLjk0NzUzMTIgMjMzLjYwMDc5MywzMi4xNTc0MDY1IEMyMzMuNzU2OTQ3LDMyLjE4MTM5MjMgMjMzLjg0ODAzNiwzMi4yNjgzNDA3IDIzMy44NzQwNjEsMzIuNDE2MjUyOCBMMjM0LjI4MzQ2MywzNC40MTUwNjYxIEMyMzQuODgzMDUyLDM0LjYzNzkzMzcgMjM1LjQ0MjYwMSwzNC45NDU3NTEgMjM1Ljk2MzExMiwzNS4zNDA1MTY2IEwyMzcuOTk0MTA1LDM0LjY3MzkxMjQgQzIzOC4xMzcyNDYsMzQuNjExOTQ5MiAyMzguMjYxMzY3LDM0LjY0MzkzMDIgMjM4LjM2NTQ3LDM0Ljc2Njg1NzIgQzIzOS4xMDcxOTcsMzUuNTY5MzgwNyAyMzkuNjQwNzIxLDM2LjQ0NDg2MDkgMjM5Ljk2NzA0MSwzNy4zOTQyOTcxIEMyNDAuMDMxMTA0LDM3LjU0MjIwOTMgMjM5Ljk5OTA3MywzNy42NjAxMzkzIDIzOS44Njg5NDUsMzcuNzQ2MDg4MyBMMjM4LjI0OTM1NiwzOS4wNzgyOTczIEwyMzguMjQ5MzU2LDM5LjA3ODI5NzMgWiBNMjMyLDM2LjUgQzIzMC4wNjcxMjUsMzYuNSAyMjguNSwzOC4wNjcxMjUgMjI4LjUsNDAgQzIyOC41LDQxLjkzMjg3NSAyMzAuMDY3MTI1LDQzLjUgMjMyLDQzLjUgQzIzMy45MzI4NzUsNDMuNSAyMzUuNSw0MS45MzI4NzUgMjM1LjUsNDAgQzIzNS41LDM4LjA2NzEyNSAyMzMuOTMyODc1LDM2LjUgMjMyLDM2LjUgTDIzMiwzNi41IFoiLz4KICAgIDxwYXRoIGQ9Ik0yMzguMjQ5MzU2LDM5LjA3ODI5NzMgQzIzOC4zMDE0MDcsMzkuMzM3MTQzNiAyMzguMzI3NDMyLDM5LjY0NTk2MDIgMjM4LjMyNzQzMiw0MC4wMDM3NDc4IEMyMzguMzI3NDMyLDQwLjM2MTUzNTMgMjM4LjMwMTQwNyw0MC42NjkzNTI2IDIzOC4yNDkzNTYsNDAuOTI5MTk4MyBMMjM5Ljg2OTk0Niw0Mi4yNjI0MDY3IEMyNDAuMDAwMDc0LDQyLjM0ODM1NTcgMjQwLjAzMjEwNSw0Mi40NjUyODYyIDIzOS45NjgwNDIsNDIuNjE0MTk3OCBDMjM5LjY0MjcyMyw0My41NjQ2MzM1IDIzOS4xMDkxOTksNDQuNDQwMTEzNyAyMzguMzY2NDcsNDUuMjQxNjM3OCBDMjM4LjI2MjM2OCw0NS4zNjU1NjQyIDIzOC4xMzcyNDYsNDUuMzk2NTQ1OCAyMzcuOTk1MTA2LDQ1LjMzNTU4MiBMMjM1Ljk2NDExMyw0NC42Njc5Nzg0IEMyMzUuNDQzNjAyLDQ1LjA2Mzc0MzQgMjM0Ljg4NDA1Myw0NS4zNzI1NiAyMzQuMjg0NDY0LDQ1LjU5NDQyODMgTDIzMy44NzUwNjIsNDcuNTkzMjQxNSBDMjMzLjg0OTAzNyw0Ny43NDAxNTQzIDIzMy43NTc5NDgsNDcuODI3MTAyNyAyMzMuNjAxNzk0LDQ3Ljg1MjA4NzggQzIzMy4wNDEyNDQsNDcuOTUyMDI4NSAyMzIuNTA3NzIxLDQ4IDIzMi4wMDAyMjIsNDggQzIzMS40OTI3MjQsNDggMjMwLjk1ODIsNDcuOTUxMDI5MSAyMzAuMzk4NjUxLDQ3Ljg1MjA4NzggQzIzMC4yNDI0OTcsNDcuODI4MTAyMSAyMzAuMTUxNDA4LDQ3Ljc0MTE1MzcgMjMwLjEyNTM4Miw0Ny41OTMyNDE1IEwyMjkuNzE1OTgxLDQ1LjU5NDQyODMgQzIyOS4wNzczNTQsNDUuMzYwNTY3MiAyMjguNTE3ODA1LDQ1LjA1MDc1MTEgMjI4LjAzNjMzMiw0NC42Njc5Nzg0IEwyMjYuMDA1MzM5LDQ1LjMzNTU4MiBDMjI1Ljg2MTE5Nyw0NS4zOTc1NDUyIDIyNS43MzgwNzcsNDUuMzY1NTY0MiAyMjUuNjMzOTc0LDQ1LjI0MTYzNzggQzIyNC44OTIyNDYsNDQuNDQwMTEzNyAyMjQuMzU4NzIzLDQzLjU2NDYzMzUgMjI0LjAzMjQwMyw0Mi42MTQxOTc4IEMyMjMuOTY3MzM5LDQyLjQ2NjI4NTYgMjI0LjAwMDM3MSw0Mi4zNDgzNTU3IDIyNC4xMzA0OTksNDIuMjYyNDA2NyBMMjI1Ljc1MTA4OSw0MC45MjkxOTgzIEMyMjUuNjk5MDM4LDQwLjY2OTM1MjYgMjI1LjY3MzAxMyw0MC4zNjI1MzQ3IDIyNS42NzMwMTMsNDAuMDAzNzQ3OCBDMjI1LjY3MzAxMywzOS42NDU5NjAyIDIyNS42OTkwMzgsMzkuMzM3MTQzNiAyMjUuNzUxMDg5LDM5LjA3ODI5NzMgTDIyNC4xMzA0OTksMzcuNzQ2MDg4MyBDMjI0LjAwMDM3MSwzNy42NjAxMzkzIDIyMy45NjczMzksMzcuNTQyMjA5MyAyMjQuMDMyNDAzLDM3LjM5NDI5NzEgQzIyNC4zNTc3MjIsMzYuNDQ0ODYwOSAyMjQuODkxMjQ1LDM1LjU2ODM4MTMgMjI1LjYzMzk3NCwzNC43NjY4NTcyIEMyMjUuNzM4MDc3LDM0LjY0MzkzMDIgMjI1Ljg2MjE5OCwzNC42MTI5NDg2IDIyNi4wMDUzMzksMzQuNjczOTEyNCBMMjI4LjAzNjMzMiwzNS4zNDA1MTY2IEMyMjguNTE2ODA0LDM0Ljk1Nzc0MzggMjI5LjA3NzM1NCwzNC42NDk5MjY2IDIyOS43MTU5ODEsMzQuNDE1MDY2MSBMMjMwLjEyNTM4MiwzMi40MTYyNTI4IEMyMzAuMTUxNDA4LDMyLjI2ODM0MDcgMjMwLjI0MjQ5NywzMi4xODIzOTE3IDIzMC4zOTg2NTEsMzIuMTU3NDA2NSBDMjMxLjQ2NTY5OCwzMS45NDc1MzEyIDIzMi41MzM3NDYsMzEuOTQ3NTMxMiAyMzMuNjAwNzkzLDMyLjE1NzQwNjUgQzIzMy43NTY5NDcsMzIuMTgxMzkyMyAyMzMuODQ4MDM2LDMyLjI2ODM0MDcgMjMzLjg3NDA2MSwzMi40MTYyNTI4IEwyMzQuMjgzNDYzLDM0LjQxNTA2NjEgQzIzNC44ODMwNTIsMzQuNjM3OTMzNyAyMzUuNDQyNjAxLDM0Ljk0NTc1MSAyMzUuOTYzMTEyLDM1LjM0MDUxNjYgTDIzNy45OTQxMDUsMzQuNjczOTEyNCBDMjM4LjEzNzI0NiwzNC42MTE5NDkyIDIzOC4yNjEzNjcsMzQuNjQzOTMwMiAyMzguMzY1NDcsMzQuNzY2ODU3MiBDMjM5LjEwNzE5NywzNS41NjkzODA3IDIzOS42NDA3MjEsMzYuNDQ0ODYwOSAyMzkuOTY3MDQxLDM3LjM5NDI5NzEgQzI0MC4wMzExMDQsMzcuNTQyMjA5MyAyMzkuOTk5MDczLDM3LjY2MDEzOTMgMjM5Ljg2ODk0NSwzNy43NDYwODgzIEwyMzguMjQ5MzU2LDM5LjA3ODI5NzMgTDIzOC4yNDkzNTYsMzkuMDc4Mjk3MyBaIE0yMzIsMzYuNSBDMjMwLjA2NzEyNSwzNi41IDIyOC41LDM4LjA2NzEyNSAyMjguNSw0MCBDMjI4LjUsNDEuOTMyODc1IDIzMC4wNjcxMjUsNDMuNSAyMzIsNDMuNSBDMjMzLjkzMjg3NSw0My41IDIzNS41LDQxLjkzMjg3NSAyMzUuNSw0MCBDMjM1LjUsMzguMDY3MTI1IDIzMy45MzI4NzUsMzYuNSAyMzIsMzYuNSBMMjMyLDM2LjUgWiIvPgogIDwvZz4KPC9zdmc+Cg=="
 
 /***/ },
-/* 277 */
+/* 281 */
 /***/ function(module, exports) {
 
 	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICA8cGF0aCBmaWxsPSIjOTU5OTlEIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0yMjQsMTMxIEMyMjQsMTMwLjQ0NzcxNSAyMjQuNDQ0NjMxLDEzMCAyMjUuMDAwODcyLDEzMCBMMjM4Ljk5OTEyOCwxMzAgQzIzOS41NTE4OTQsMTMwIDI0MCwxMzAuNDQzODY1IDI0MCwxMzEgQzI0MCwxMzEuNTUyMjg1IDIzOS41NTUzNjksMTMyIDIzOC45OTkxMjgsMTMyIEwyMjUuMDAwODcyLDEzMiBDMjI0LjQ0ODEwNiwxMzIgMjI0LDEzMS41NTYxMzUgMjI0LDEzMSBaIE0yMjQsMTQxIEMyMjQsMTQwLjQ0NzcxNSAyMjQuNDQ0NjMxLDE0MCAyMjUuMDAwODcyLDE0MCBMMjM4Ljk5OTEyOCwxNDAgQzIzOS41NTE4OTQsMTQwIDI0MCwxNDAuNDQzODY1IDI0MCwxNDEgQzI0MCwxNDEuNTUyMjg1IDIzOS41NTUzNjksMTQyIDIzOC45OTkxMjgsMTQyIEwyMjUuMDAwODcyLDE0MiBDMjI0LjQ0ODEwNiwxNDIgMjI0LDE0MS41NTYxMzUgMjI0LDE0MSBaIE0yMjQsMTM2IEMyMjQsMTM1LjQ0NzcxNSAyMjQuNDQ0NjMxLDEzNSAyMjUuMDAwODcyLDEzNSBMMjM4Ljk5OTEyOCwxMzUgQzIzOS41NTE4OTQsMTM1IDI0MCwxMzUuNDQzODY1IDI0MCwxMzYgQzI0MCwxMzYuNTUyMjg1IDIzOS41NTUzNjksMTM3IDIzOC45OTkxMjgsMTM3IEwyMjUuMDAwODcyLDEzNyBDMjI0LjQ0ODEwNiwxMzcgMjI0LDEzNi41NTYxMzUgMjI0LDEzNiBaIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMjI0IC0xMjgpIi8+Cjwvc3ZnPgo="
 
 /***/ },
-/* 278 */
+/* 282 */
 /***/ function(module, exports) {
 
 	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAzMiAzMicgd2lkdGg9JzEyJyBoZWlnaHQ9JzEyJyBmaWxsPScjMjk3RUYyJz4KICA8cGF0aCBvcGFjaXR5PScuMjUnIGQ9J00xNiAwYTE2IDE2IDAgMCAwIDAgMzIgMTYgMTYgMCAwIDAgMC0zMm0wIDRhMTIgMTIgMCAwIDEgMCAyNCAxMiAxMiAwIDAgMSAwLTI0Jy8+CiAgPHBhdGggZD0nTTE2IDBhMTYgMTYgMCAwIDEgMTYgMTZoLTRhMTIgMTIgMCAwIDAtMTItMTJ6Jy8+Cjwvc3ZnPgo="
 
 /***/ },
-/* 279 */
+/* 283 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*

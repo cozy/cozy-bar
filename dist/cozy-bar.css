@@ -188,6 +188,15 @@
 }
 
 
+[role=banner] .coz-bar-title .coz-bar-beta-status {
+  color: #95999d;
+  text-transform: uppercase;
+  font-size: .55em;
+  font-style: italic;
+  font-weight: 700;
+}
+
+
 @media (max-width: 30em) {
   [role=banner] .coz-bar-hide-sm {
     display: none;
@@ -320,6 +329,16 @@
 }
 
 
+[role=banner] .coz-nav-pop ul:last-of-type {
+  border-radius: 0 0 8px 8px;
+}
+
+
+[role=banner] .coz-nav-pop ul:first-of-type {
+  border-radius: 8px 8px 0 0;
+}
+
+
 [role=banner] .coz-nav-pop hr {
   margin: 0;
   border: none;
@@ -334,13 +353,13 @@
 
 [role=banner] .coz-nav-pop--apps .coz-nav-group:not(.coz-nav--error) {
   display: flex;
-  padding: 0.75em;
+  padding: .25em .25em 1em .25em;
 }
 
 
 [role=banner] .coz-nav-pop--apps .coz-nav-group--wrapping.coz-nav-group:not(.coz-nav--error) {
   flex-wrap: wrap;
-  width: 40em;
+  width: 36em;
 }
 
 
@@ -352,8 +371,13 @@
 
 
 [role=banner] .coz-nav-pop--apps .coz-nav-group:not(.coz-nav--error) .coz-nav-item {
-    width: 9em;
+    width: 8em;
     padding: 0 .5em;
+}
+
+
+[role=banner] .coz-nav-group:not(.coz-nav--error).coz-nav-group--inactive {
+  background-color: #f5f6f7
 }
 
 
@@ -366,12 +390,24 @@
 [role=banner] .coz-nav-pop--apps .coz-nav-group a {
   display: flex;
   flex-direction: column;
-  padding: 1.25em;
+  padding: .5em;
 }
 
 
 [role=banner] .coz-nav-pop--apps .coz-nav-group a img {
   margin-bottom: .75em;
+}
+
+
+[role=banner] .coz-nav-pop--apps .coz-nav-group a p {
+  font-size: 15px;
+}
+
+
+[role=banner] .coz-nav-pop--apps .coz-nav-category {
+  font-size: 1em;
+  padding: 0 2em;
+  margin: 2em 0 .5em 0;
 }
 
 
@@ -482,7 +518,47 @@
 
 
 [role=banner] .coz-nav-item a[role=menuitem] p.coz-label {
-    margin: 0;
+  margin: 0;
+}
+
+
+[role=banner] .coz-nav-item div[role=menuitem]:not([data-icon]) {
+  margin: 0;
+  padding-left: 1.5em;
+}
+
+
+[role=banner] .coz-nav-item [role=menuitem] .coz-bar-text-item {
+  margin: 0;
+}
+
+
+[role=banner] .coz-nav-item [role=menuitem] .coz-bar-text-item--inactive {
+  font-style: italic;
+}
+
+
+/* Coming soon styles */
+
+
+[role=banner] .coz-nav-item [role=menuitem].coz-bar-coming-soon-app img,
+[role=banner] .coz-nav-item [role=menuitem].coz-bar-coming-soon-app .coz-label
+{
+  opacity: .4;
+}
+
+
+[role=banner] .coz-nav-item [role=menuitem].coz-bar-coming-soon-app .coz-bar-coming-soon-badge {
+  position: absolute;
+  display: block;
+  right: 2.5em;
+  bottom: 4.5em;
+  background: #297ef2;
+  border-radius: 2px;
+  padding: .25em;
+  font-size: .6em;
+  color: white;
+  text-transform: uppercase;
 }
 
 
@@ -552,9 +628,10 @@
 
 [role=banner] .coz-drawer-wrapper aside {
   position: absolute;
-  top: 0;
+  bottom: 0;
   left: 0;
   width: 90%;
+  max-width: 30em;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -588,34 +665,26 @@
 }
 
 
-[role=banner] .coz-drawer--apps h1 {
-  margin: 1.125em 1em 0;
-  font-size: 1em;
-  text-transform: capitalize;
+[role=banner] .coz-drawer--apps {
+    flex: 0 1 auto;
+    overflow-y: scroll;
 }
 
 
 [role=banner] .coz-drawer--apps ul {
+  padding: 0 0 1em 0;
   display: flex;
-}
-
-
-[role=banner] .coz-drawer--apps .coz-drawer--apps-paginator {
-  display: flex;
-  flex-direction: row;
-  overflow: scroll;
-  padding-bottom: 1em;
-}
-
-
-[role=banner] .coz-drawer--apps .coz-drawer--apps-paginator ul {
-  min-width: 100%;
 }
 
 
 [role=banner] .coz-drawer--apps ul li {
   flex: 0 0 calc(100% /3);
   max-width: calc(100% / 3);
+}
+
+
+[role=banner] .coz-drawer--apps ul:last-of-type + hr {
+  display: none;
 }
 
 
@@ -627,7 +696,7 @@
 [role=banner] .coz-drawer--apps [role=menuitem] {
   display: flex;
   flex-direction: column;
-  padding: 1em;
+  padding: .5em 1em;
   border-radius: 2px;
 }
 
@@ -638,7 +707,7 @@
 
 
 [role=banner] .coz-drawer--apps li img {
-  margin-bottom: 1.125em;
+  margin-bottom: .5em;
 }
 
 
@@ -650,6 +719,13 @@
   width: 100%;
   text-align: center;
   font-size: 14px;
+}
+
+
+[role=banner] .coz-drawer--apps .coz-nav-category {
+  font-size: 1em;
+  padding: 0 2em;
+  margin: 2em 0 .5em 0;
 }
 
 
