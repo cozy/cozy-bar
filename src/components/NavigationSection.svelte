@@ -85,9 +85,16 @@
       return accumulator
      }, {})
 
-    return Object.keys(categorizedItemsObject).map(category => {
-      return {title: category, items: categorizedItemsObject[category]}
-    })
+    return Object.keys(categorizedItemsObject)
+      .map(category => {
+        return {title: category, items: categorizedItemsObject[category]}
+      })
+      // categories alphabetical sorting
+      .sort((c1, c2) => {
+        if (t(`Categories.${c1.title}`) > t(`Categories.${c2.title}`)) return 1
+        if (t(`Categories.${c1.title}`) < t(`Categories.${c2.title}`)) return -1
+        return 0
+      })
   }
 
   export default {
