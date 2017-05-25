@@ -62,3 +62,23 @@
 [role=banner] .coz-nav-item [role=menuitem] .coz-bar-text-item--inactive {
   font-style: italic;
 }
+
+/* Coming soon styles */
+[role=banner] .coz-nav-item [role=menuitem].coz-bar-coming-soon-app img,
+[role=banner] .coz-nav-item [role=menuitem].coz-bar-coming-soon-app .coz-label
+{
+  opacity: .4;
+}
+
+[role=banner] .coz-nav-item [role=menuitem].coz-bar-coming-soon-app .coz-bar-coming-soon-badge {
+  position: absolute;
+  display: block;
+  right: 2.5em;
+  bottom: 4.5em;
+  background: var(--dodger-blue);
+  border-radius: 2px;
+  padding: .25em;
+  font-size: .6em;
+  color: white;
+  text-transform: uppercase;
+}
