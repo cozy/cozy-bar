@@ -47,18 +47,38 @@
 
 /* Remove default margin for p elements */
 [role=banner] .coz-nav-item a[role=menuitem] p.coz-label {
-    margin: 0;
+  margin: 0;
 }
 
 [role=banner] .coz-nav-item div[role=menuitem]:not([data-icon]) {
-    margin: 0;
-    padding-left: 1.5em;
+  margin: 0;
+  padding-left: 1.5em;
 }
 
 [role=banner] .coz-nav-item [role=menuitem] .coz-bar-text-item {
-    margin: 0;
+  margin: 0;
 }
 
 [role=banner] .coz-nav-item [role=menuitem] .coz-bar-text-item--inactive {
-    font-style: italic;
+  font-style: italic;
+}
+
+/* Coming soon styles */
+[role=banner] .coz-nav-item [role=menuitem].coz-bar-coming-soon-app img,
+[role=banner] .coz-nav-item [role=menuitem].coz-bar-coming-soon-app .coz-label
+{
+  opacity: .4;
+}
+
+[role=banner] .coz-nav-item [role=menuitem].coz-bar-coming-soon-app .coz-bar-coming-soon-badge {
+  position: absolute;
+  display: block;
+  right: 2.5em;
+  bottom: 4.5em;
+  background: var(--dodger-blue);
+  border-radius: 2px;
+  padding: .25em;
+  font-size: .6em;
+  color: white;
+  text-transform: uppercase;
 }

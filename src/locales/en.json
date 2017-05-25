@@ -10,6 +10,7 @@
   "logout": "Sign out",
   "beta_status": "We are still in beta",
   "beta": "beta",
+  "to_come": "to come",
   "error_UnavailableStack": "The stack is unreachable (connection timed-out).",
   "error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
 

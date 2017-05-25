@@ -2,6 +2,7 @@ import deepClone from 'deep-clone'
 import deepEqual from 'deep-equal'
 
 import stack from '../lib/stack'
+import addComingSoonApps from './comingSoon'
 
 import MENU_CONFIG from '../config/menu'
 
@@ -43,6 +44,7 @@ async function updateAppsItems (config) {
   }
 
   config.apps.length = 0
+  apps = addComingSoonApps(apps)
   Array.prototype.push.apply(config.apps, apps)
 }
 
