@@ -28,7 +28,7 @@
     <a role='menuitem' data-icon='{{dataIcon?dataIcon:""}}' class='coz-bar-coming-soon-app'>
       {{#if fileIcon}}
         <img src='{{fileIcon.src}}' alt='' width='64' height='64' class='{{fileIcon.class ? fileIcon.class : ""}}'/>
-        <span class='coz-bar-coming-soon-badge'>{{t('to_come')}}</span>
+        <span class='coz-bar-coming-soon-badge'>{{t('soon')}}</span>
       {{/if}}
       <p class='coz-label'>{{label}}</p>
     </a>
