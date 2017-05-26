@@ -14,7 +14,7 @@ function addComingSoonApps (stackApps) {
     }
   ]
 
-  return comingSoonAppsList
+  const comingSoonApps = comingSoonAppsList
     // drop coming soon apps already installed
     .filter((a) => !stackApps.filter(st => st.slug === a.slug).length)
     // consolidate
@@ -27,8 +27,9 @@ function addComingSoonApps (stackApps) {
       }
       return a
     })
-    // merge to installed apps
-    .concat(stackApps)
+
+  // merge to installed apps
+  return stackApps.concat(comingSoonApps)
 }
 
 export default addComingSoonApps
