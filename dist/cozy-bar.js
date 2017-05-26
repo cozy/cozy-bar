@@ -260,7 +260,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return;
 	  }
 	
-	  __webpack_require__(272);
+	  __webpack_require__(271);
 	
 	  var barNode = createElement();
 	  var appNode = document.querySelector(APP_SELECTOR);
@@ -418,7 +418,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  view.set({ lang: lang });
 	};
 	
-	module.exports = { init: init, version: ("3.0.0-beta25"), setLocale: setLocale };
+	module.exports = { init: init, version: ("3.0.0-beta26"), setLocale: setLocale };
 
 /***/ },
 /* 1 */
@@ -7435,7 +7435,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"logout": "Sign out",
 		"beta_status": "We are still in beta",
 		"beta": "beta",
-		"to_come": "to come",
+		"soon": "soon",
 		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
 		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
 		"Categories": {
@@ -7555,7 +7555,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"logout": "Sign out",
 		"beta_status": "We are still in beta",
 		"beta": "beta",
-		"to_come": "to come",
+		"soon": "soon",
 		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
 		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
 		"Categories": {
@@ -7581,7 +7581,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"logout": "Sign out",
 		"beta_status": "We are still in beta",
 		"beta": "beta",
-		"to_come": "to come",
+		"soon": "soon",
 		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
 		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
 		"Categories": {
@@ -7607,7 +7607,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"logout": "Sign out",
 		"beta_status": "We are still in beta",
 		"beta": "beta",
-		"to_come": "to come",
+		"soon": "soon",
 		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
 		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
 		"Categories": {
@@ -7633,7 +7633,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"logout": "Sign out",
 		"beta_status": "We are still in beta",
 		"beta": "beta",
-		"to_come": "to come",
+		"soon": "soon",
 		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
 		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
 		"Categories": {
@@ -7659,7 +7659,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"logout": "Sign out",
 		"beta_status": "We are still in beta",
 		"beta": "beta",
-		"to_come": "to come",
+		"soon": "soon",
 		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
 		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
 		"Categories": {
@@ -7685,7 +7685,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"logout": "Sign out",
 		"beta_status": "We are still in beta",
 		"beta": "beta",
-		"to_come": "to come",
+		"soon": "soon",
 		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
 		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
 		"Categories": {
@@ -7711,7 +7711,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"logout": "Sign out",
 		"beta_status": "We are still in beta",
 		"beta": "beta",
-		"to_come": "to come",
+		"soon": "soon",
 		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
 		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
 		"Categories": {
@@ -7737,7 +7737,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"logout": "Sign out",
 		"beta_status": "We are still in beta",
 		"beta": "beta",
-		"to_come": "to come",
+		"soon": "soon",
 		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
 		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
 		"Categories": {
@@ -7763,7 +7763,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"logout": "Sign out",
 		"beta_status": "We are still in beta",
 		"beta": "beta",
-		"to_come": "to come",
+		"soon": "soon",
 		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
 		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
 		"Categories": {
@@ -7789,7 +7789,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"logout": "Sign out",
 		"beta_status": "We are still in beta",
 		"beta": "beta",
-		"to_come": "to come",
+		"soon": "soon",
 		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
 		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
 		"Categories": {
@@ -7815,7 +7815,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"logout": "Finalizar sesión",
 		"beta_status": "We are still in beta",
 		"beta": "beta",
-		"to_come": "to come",
+		"soon": "soon",
 		"error_UnavailableStack": "La pila es inaccesible ( se agotó el tiempo de la conexión ).",
 		"error_UnauthorizedStack": "Faltan algunos permisos, la aplicación no puede acceder al recurso solicitado en la pila.",
 		"Categories": {
@@ -7841,7 +7841,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"logout": "Sign out",
 		"beta_status": "We are still in beta",
 		"beta": "beta",
-		"to_come": "to come",
+		"soon": "soon",
 		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
 		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
 		"Categories": {
@@ -7867,7 +7867,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"logout": "Sign out",
 		"beta_status": "We are still in beta",
 		"beta": "beta",
-		"to_come": "to come",
+		"soon": "soon",
 		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
 		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
 		"Categories": {
@@ -7893,7 +7893,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"logout": "Déconnexion",
 		"beta_status": "Nous sommes toujours en beta.",
 		"beta": "beta",
-		"to_come": "à venir",
+		"soon": "à venir",
 		"error_UnavailableStack": "Connexion à la stack impossible (connection timed-out)",
 		"error_UnauthorizedStack": "Des permissions sont manquante, l'application ne peut accéder aux ressources demandées.",
 		"Categories": {
@@ -7919,7 +7919,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"logout": "Sign out",
 		"beta_status": "We are still in beta",
 		"beta": "beta",
-		"to_come": "to come",
+		"soon": "soon",
 		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
 		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
 		"Categories": {
@@ -7945,7 +7945,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"logout": "サインアウト",
 		"beta_status": "We are still in beta",
 		"beta": "beta",
-		"to_come": "to come",
+		"soon": "soon",
 		"error_UnavailableStack": "スタックに到達できません (接続タイムアウト)。",
 		"error_UnauthorizedStack": "一部のアクセス許可が不足しているため、アプリケーションはスタック上の要求されたリソースにアクセスできません。",
 		"Categories": {
@@ -7971,7 +7971,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"logout": "Sign out",
 		"beta_status": "We are still in beta",
 		"beta": "beta",
-		"to_come": "to come",
+		"soon": "soon",
 		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
 		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
 		"Categories": {
@@ -7997,7 +7997,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"logout": "Log uit",
 		"beta_status": "We are still in beta",
 		"beta": "beta",
-		"to_come": "to come",
+		"soon": "soon",
 		"error_UnavailableStack": "De stapel is onbereikbaar (verbinding verlopen)",
 		"error_UnauthorizedStack": "Sommige toestemmingen missen, de toepassing kan niet alles bereiken.",
 		"Categories": {
@@ -8023,7 +8023,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"logout": "Sign out",
 		"beta_status": "We are still in beta",
 		"beta": "beta",
-		"to_come": "to come",
+		"soon": "soon",
 		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
 		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
 		"Categories": {
@@ -8049,7 +8049,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"logout": "Sign out",
 		"beta_status": "We are still in beta",
 		"beta": "beta",
-		"to_come": "to come",
+		"soon": "soon",
 		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
 		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
 		"Categories": {
@@ -8075,7 +8075,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"logout": "Sign out",
 		"beta_status": "We are still in beta",
 		"beta": "beta",
-		"to_come": "to come",
+		"soon": "soon",
 		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
 		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
 		"Categories": {
@@ -8101,7 +8101,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"logout": "Sign out",
 		"beta_status": "We are still in beta",
 		"beta": "beta",
-		"to_come": "to come",
+		"soon": "soon",
 		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
 		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
 		"Categories": {
@@ -8127,7 +8127,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"logout": "Sign out",
 		"beta_status": "We are still in beta",
 		"beta": "beta",
-		"to_come": "to come",
+		"soon": "soon",
 		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
 		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
 		"Categories": {
@@ -8153,7 +8153,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"logout": "Sign out",
 		"beta_status": "We are still in beta",
 		"beta": "beta",
-		"to_come": "to come",
+		"soon": "soon",
 		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
 		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
 		"Categories": {
@@ -8179,7 +8179,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"logout": "Выход",
 		"beta_status": "We are still in beta",
 		"beta": "beta",
-		"to_come": "to come",
+		"soon": "soon",
 		"error_UnavailableStack": "Это стек не доступен (превышено время ожидания)",
 		"error_UnauthorizedStack": "Некоторые разрешения отсутствуют, получить доступ к запрашиваемому ресурсу в стеке не возможно.",
 		"Categories": {
@@ -8205,7 +8205,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"logout": "Выход",
 		"beta_status": "We are still in beta",
 		"beta": "beta",
-		"to_come": "to come",
+		"soon": "soon",
 		"error_UnavailableStack": "Это стек не доступен (превышено время ожидания)",
 		"error_UnauthorizedStack": "Некоторые разрешения отсутствуют, получить доступ к запрашиваемому ресурсу в стеке не возможно.",
 		"Categories": {
@@ -8231,7 +8231,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"logout": "Sign out",
 		"beta_status": "We are still in beta",
 		"beta": "beta",
-		"to_come": "to come",
+		"soon": "soon",
 		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
 		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
 		"Categories": {
@@ -8257,7 +8257,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"logout": "Sign out",
 		"beta_status": "We are still in beta",
 		"beta": "beta",
-		"to_come": "to come",
+		"soon": "soon",
 		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
 		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
 		"Categories": {
@@ -8283,7 +8283,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"logout": "Sign out",
 		"beta_status": "We are still in beta",
 		"beta": "beta",
-		"to_come": "to come",
+		"soon": "soon",
 		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
 		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
 		"Categories": {
@@ -8309,7 +8309,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"logout": "Sign out",
 		"beta_status": "We are still in beta",
 		"beta": "beta",
-		"to_come": "to come",
+		"soon": "soon",
 		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
 		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
 		"Categories": {
@@ -8335,7 +8335,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"logout": "Sign out",
 		"beta_status": "We are still in beta",
 		"beta": "beta",
-		"to_come": "to come",
+		"soon": "soon",
 		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
 		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
 		"Categories": {
@@ -8361,7 +8361,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"logout": "Sign out",
 		"beta_status": "We are still in beta",
 		"beta": "beta",
-		"to_come": "to come",
+		"soon": "soon",
 		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
 		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
 		"Categories": {
@@ -8387,7 +8387,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"logout": "Sign out",
 		"beta_status": "We are still in beta",
 		"beta": "beta",
-		"to_come": "to come",
+		"soon": "soon",
 		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
 		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
 		"Categories": {
@@ -8413,7 +8413,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"logout": "Sign out",
 		"beta_status": "We are still in beta",
 		"beta": "beta",
-		"to_come": "to come",
+		"soon": "soon",
 		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
 		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
 		"Categories": {
@@ -8439,7 +8439,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"logout": "登出",
 		"beta_status": "We are still in beta",
 		"beta": "beta",
-		"to_come": "to come",
+		"soon": "soon",
 		"error_UnavailableStack": "此堆栈无法连接 (连接超时)",
 		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
 		"Categories": {
@@ -8465,7 +8465,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"logout": "Sign out",
 		"beta_status": "We are still in beta",
 		"beta": "beta",
-		"to_come": "to come",
+		"soon": "soon",
 		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
 		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
 		"Categories": {
@@ -8966,11 +8966,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var __import1 = __webpack_require__(254);
 	
-	var Navigation = __webpack_require__(265);
+	var Navigation = __webpack_require__(264);
 	
-	var Drawer = __webpack_require__(271);
+	var Drawer = __webpack_require__(270);
 	
-	var MENU_CONFIG = __webpack_require__(264);
+	var MENU_CONFIG = __webpack_require__(263);
 	
 	var t = __import0.t;
 	var createMenuPointers = __import1.createMenuPointers;
@@ -10053,7 +10053,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _comingSoon2 = _interopRequireDefault(_comingSoon);
 	
-	var _menu = __webpack_require__(264);
+	var _menu = __webpack_require__(263);
 	
 	var _menu2 = _interopRequireDefault(_menu);
 	
@@ -10299,17 +10299,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	function addComingSoonApps(stackApps) {
 	  var comingSoonAppsList = [{
 	    'editor': 'Cozy',
-	    'name': 'Bank',
-	    'slug': 'bank',
-	    'category': 'cozy'
-	  }, {
-	    'editor': 'Cozy',
-	    'name': 'Health',
-	    'slug': 'health',
+	    'name': 'Store',
+	    'slug': 'store',
 	    'category': 'cozy'
 	  }];
 	
-	  return comingSoonAppsList
+	  var comingSoonApps = comingSoonAppsList
 	  // drop coming soon apps already installed
 	  .filter(function (a) {
 	    return !stackApps.filter(function (st) {
@@ -10325,9 +10320,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	      src: __webpack_require__(261)("./icon-" + a.slug + '.svg')
 	    };
 	    return a;
-	  })
+	  });
+	
 	  // merge to installed apps
-	  .concat(stackApps);
+	  return stackApps.concat(comingSoonApps);
 	}
 	
 	exports.default = addComingSoonApps;
@@ -10337,8 +10333,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	var map = {
-		"./icon-bank.svg": 262,
-		"./icon-health.svg": 263
+		"./icon-store.svg": 262
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -10358,16 +10353,10 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 262 */
 /***/ function(module, exports) {
 
-	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgdmlld0JveD0iMCAwIDMyIDMyIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+CiAgPGRlZnM+CiAgICA8cmVjdCBpZD0iYSIgd2lkdGg9IjMyIiBoZWlnaHQ9IjIyIiByeD0iMiIvPgogICAgPG1hc2sgaWQ9ImIiIHdpZHRoPSIzMiIgaGVpZ2h0PSIyMiIgeD0iMCIgeT0iMCIgZmlsbD0id2hpdGUiPgogICAgICA8dXNlIHhsaW5rOmhyZWY9IiNhIi8+CiAgICA8L21hc2s+CiAgPC9kZWZzPgogIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTY5IC0xOTIpIj4KICAgIDxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDY5IDE5NykiPgogICAgICA8dXNlIGZpbGw9IiM4RUUzOUIiIHN0cm9rZT0iIzE2QjUyRCIgc3Ryb2tlLXdpZHRoPSI0IiBtYXNrPSJ1cmwoI2IpIiB4bGluazpocmVmPSIjYSIvPgogICAgICA8Y2lyY2xlIGN4PSIxNiIgY3k9IjExIiByPSI1IiBmaWxsPSIjMTZCNTJEIi8+CiAgICAgIDxjaXJjbGUgY3g9IjciIGN5PSIxMSIgcj0iMiIgZmlsbD0iIzE2QjUyRCIvPgogICAgICA8Y2lyY2xlIGN4PSIyNSIgY3k9IjExIiByPSIyIiBmaWxsPSIjMTZCNTJEIi8+CiAgICA8L2c+CiAgPC9nPgo8L3N2Zz4K"
+	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgdmlld0JveD0iMCAwIDMyIDMyIj4KICA8ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgogICAgPHBhdGggZmlsbD0iI0ZDQkFCQSIgZD0iTTIsMjkuOTk4MjAyNiBMMiwxOC41IEw2LDE4LjUgTDYsMjYuNSBMMTYsMjYuNSBMMTYsMTguNSBMMzAsMTguNSBMMzAsMjkuOTk4MjAyNiBDMzAsMzAuNTU1MTE4NCAyOS41NTI3NTE5LDMxIDI5LjAwMTA0MzQsMzEgTDI3Ljk5ODk1NjYsMzEgQzI3LjQ0MjY2MDMsMzEgMjcsMzAuNTUyMDkxMyAyNywyOS45OTk1Njc5IEwyNywxOS41IEwyMCwxOS41IEwyMCwyOS45OTk1Njc5IEMyMCwzMC41NDkxODY0IDE5LjU1NTI0MDcsMzEgMTkuMDA2NjAyMywzMSBMMi45OTMzOTc2OCwzMSBDMi40NDQ5NDYyOSwzMSAyLDMwLjU1MTQ4IDIsMjkuOTk4MjAyNiBaIE0yLDIuMDAxMzgwMDYgQzIsMS40NDgzMzMxMyAyLjQzOTgxMzE0LDEgMi45OTY1MzQ4MiwxIEwyOS4wMDM0NjUyLDEgQzI5LjU1MzgzNjIsMSAzMCwxLjQ0Njc3MTMyIDMwLDIuMDAxMzgwMDYgTDMwLDcuNSBMMiw3LjUgTDIsMi4wMDEzODAwNiBaIi8+CiAgICA8cGF0aCBmaWxsPSIjRjYyQzJDIiBkPSJNMSwxOS41IEwzMSwxOS41IEwzMSwxOS41IEMzMS41NTIyODQ3LDE5LjUgMzIsMTkuMDUyMjg0NyAzMiwxOC41IEwzMiwxNS42MDk3NzIyIEwzMiwxNS42MDk3NzIyIEMzMiwxNS41MzY4MDk5IDMxLjk5MjAxNDgsMTUuNDY0MDY2NyAzMS45NzYxODcxLDE1LjM5Mjg0MTggTDMwLDYuNSBMMiw2LjUgTDAuMDIzODEyOTM5OCwxNS4zOTI4NDE4IEwwLjAyMzgxMjkzOTgsMTUuMzkyODQxOCBDMC4wMDc5ODUxODQ3MSwxNS40NjQwNjY3IC04Ljg5MDcxOTUxZS0xNSwxNS41MzY4MDk5IC04Ljg4MTc4NDJlLTE1LDE1LjYwOTc3MjIgTDAsMTguNSBMMCwxOC41IEM2Ljc2MzUzNzUxZS0xNywxOS4wNTIyODQ3IDAuNDQ3NzE1MjUsMTkuNSAxLDE5LjUgWiIvPgogIDwvZz4KPC9zdmc+Cg=="
 
 /***/ },
 /* 263 */
-/***/ function(module, exports) {
-
-	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgdmlld0JveD0iMCAwIDMyIDMyIj4KICA8ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDAgMSkiPgogICAgPHBhdGggZmlsbD0iI0ZGOEU4RSIgZD0iTTMuMDc0NDUyNzgsMTUuNzc0MjIzNyBDMS4xOTAwNDMyMSwxNC4xMjQ1NDk5IDAsMTEuNzAxMjQ5NyAwLDkgQzAsNC4wMjk0MzcyNSA0LjAyOTQzNzI1LDAgOSwwIEMxMS44MjcyNjYxLDAgMTQuMzUwMDQ0NSwxLjMwMzY2NjkzIDE2LDMuMzQyNjY1NjYgQzE3LjY0OTk1NTUsMS4zMDM2NjY5MyAyMC4xNzI3MzM5LDAgMjMsMCBDMjcuOTcwNTYyNywwIDMyLDQuMDI5NDM3MjUgMzIsOSBDMzIsMTEuNjYxOTc3OSAzMC44NDQzMDc4LDE0LjA1NDAyOTUgMjkuMDA3Mjk0LDE1LjcwMTc4NDEgTDE2LjY3NjA1MjcsMjkuMTYyMDQ4OSBDMTYuMzAyNjc5MSwyOS41Njk2MDc4IDE1LjY5NDU3MDIsMjkuNTY2MjA4NCAxNS4zMjQ3NTA5LDI5LjE2MjA0ODkgTDMuMDc0NDUyNzgsMTUuNzc0MjIzNyBaIi8+CiAgICA8cG9seWxpbmUgc3Ryb2tlPSIjRjYyQzJDIiBzdHJva2Utd2lkdGg9IjIiIHBvaW50cz0iNyAxNCAxMSAxNCAxNCA3IDE3IDIyIDIxIDE0IDI1IDE0IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KICA8L2c+Cjwvc3ZnPgo="
-
-/***/ },
-/* 264 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -10444,14 +10433,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 265 */
+/* 264 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 	
-	var NavigationSection = __webpack_require__(266);
+	var NavigationSection = __webpack_require__(265);
 	
 	NavigationSection = NavigationSection && NavigationSection.__esModule ? NavigationSection['default'] : NavigationSection;
 	
@@ -10715,7 +10704,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Navigation;
 
 /***/ },
-/* 266 */
+/* 265 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -10724,7 +10713,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var __import0 = __webpack_require__(189);
 	
-	var NavigationGroup = __webpack_require__(267);
+	var NavigationGroup = __webpack_require__(266);
 	
 	var t = __import0.t;
 	NavigationGroup = NavigationGroup && NavigationGroup.__esModule ? NavigationGroup['default'] : NavigationGroup;
@@ -11422,14 +11411,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = NavigationSection;
 
 /***/ },
-/* 267 */
+/* 266 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 	
-	var NavigationItem = __webpack_require__(268);
+	var NavigationItem = __webpack_require__(267);
 	
 	NavigationItem = NavigationItem && NavigationItem.__esModule ? NavigationItem['default'] : NavigationItem;
 	
@@ -11822,7 +11811,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = NavigationGroup;
 
 /***/ },
-/* 268 */
+/* 267 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -11833,7 +11822,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var stack = __webpack_require__(251);
 	
-	var Storage = __webpack_require__(269);
+	var Storage = __webpack_require__(268);
 	
 	var t = __import0.t;
 	stack = stack && stack.__esModule ? stack['default'] : stack;
@@ -11871,7 +11860,7 @@ return /******/ (function(modules) { // webpackBootstrap
 						};
 					} else {
 						return {
-							src: __webpack_require__(270),
+							src: __webpack_require__(269),
 							class: 'blurry'
 						};
 					}
@@ -12060,7 +12049,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		var text = createText("\n        ");
 		var span = createElement('span');
 		span.className = "coz-bar-coming-soon-badge";
-		var text_1 = createText(text_1_value = template.helpers.t('to_come'));
+		var text_1 = createText(text_1_value = template.helpers.t('soon'));
 		appendNode(text_1, span);
 	
 		return {
@@ -12079,7 +12068,7 @@ return /******/ (function(modules) { // webpackBootstrap
 					img.className = img_class_value;
 				}
 	
-				if (text_1_value !== (text_1_value = template.helpers.t('to_come'))) {
+				if (text_1_value !== (text_1_value = template.helpers.t('soon'))) {
 					text_1.data = text_1_value;
 				}
 			},
@@ -12575,7 +12564,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = NavigationItem;
 
 /***/ },
-/* 269 */
+/* 268 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -12908,13 +12897,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Storage;
 
 /***/ },
-/* 270 */
+/* 269 */
 /***/ function(module, exports) {
 
 	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICA8ZyBmaWxsPSIjOTU5OTlEIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0yODggLTMyKSI+CiAgICA8cGF0aCBkPSJNMjg5LDQzLjAwODYyOTYgQzI4OSw0My41NTg2NzMyIDI4OS4zOTY0MDcsNDQuMjMxMDg5OSAyODkuODcyNDAxLDQ0LjUwMzA4NjggTDI5NS4xMjc1OTksNDcuNTA2MDU2NiBDMjk1LjYwOTQxMyw0Ny43ODEzNzg5IDI5Niw0Ny41NTc4NzMgMjk2LDQ3LjAwODYyOTYgTDI5Niw0MS41MDA1MTM4IEMyOTYsNDAuOTUwNDcwMiAyOTUuNjAzNTkzLDQwLjI3ODA1MzUgMjk1LjEyNzU5OSw0MC4wMDYwNTY2IEwyODkuODcyNDAxLDM3LjAwMzA4NjggQzI4OS4zOTA1ODcsMzYuNzI3NzY0NSAyODksMzYuOTUxMjcwNCAyODksMzcuNTAwNTEzOCBMMjg5LDQzLjAwODYyOTYgWiBNMzA0LDQzLjAwODYyOTYgQzMwNCw0My41NTg2NzMyIDMwMy42MDM1OTMsNDQuMjMxMDg5OSAzMDMuMTI3NTk5LDQ0LjUwMzA4NjggTDI5Ny44NzI0MDEsNDcuNTA2MDU2NiBDMjk3LjM5MDU4Nyw0Ny43ODEzNzg5IDI5Nyw0Ny41NTc4NzMgMjk3LDQ3LjAwODYyOTYgTDI5Nyw0MS41MDA1MTM4IEMyOTcsNDAuOTUwNDcwMiAyOTcuMzk2NDA3LDQwLjI3ODA1MzUgMjk3Ljg3MjQwMSw0MC4wMDYwNTY2IEwzMDMuMTI3NTk5LDM3LjAwMzA4NjggQzMwMy42MDk0MTMsMzYuNzI3NzY0NSAzMDQsMzYuOTUxMjcwNCAzMDQsMzcuNTAwNTEzOCBMMzA0LDQzLjAwODYyOTYgWiBNMjk3LjM0OTc2MSwzOC45ODE2NDE2IEMyOTYuODgwNDUxLDM5LjI3MDQ0NzkgMjk2LjExMjg2MSwzOS4yNjYzMzI0IDI5NS42NTAyMzksMzguOTgxNjQxNiBMMjkwLjg0OTc2MSwzNi4wMjc1MDE4IEMyOTAuMzgwNDUxLDM1LjczODY5NTUgMjkwLjM4NzEzOSwzNS4yOTYxMTIzIDI5MC44NzY2MTksMzUuMDMyNTQ2MSBMMjk1LjYyMzM4MSwzMi40NzY1OTczIEMyOTYuMTA3NTI0LDMyLjIxNTkwNDggMjk2Ljg4NzEzOSwzMi4yMTMwMzExIDI5Ny4zNzY2MTksMzIuNDc2NTk3MyBMMzAyLjEyMzM4MSwzNS4wMzI1NDYxIEMzMDIuNjA3NTI0LDM1LjI5MzIzODcgMzAyLjYxMjg2MSwzNS43NDI4MTEgMzAyLjE1MDIzOSwzNi4wMjc1MDE4IEwyOTcuMzQ5NzYxLDM4Ljk4MTY0MTYgWiIvPgogICAgPHBhdGggZD0iTTI4OSw0My4wMDg2Mjk2IEMyODksNDMuNTU4NjczMiAyODkuMzk2NDA3LDQ0LjIzMTA4OTkgMjg5Ljg3MjQwMSw0NC41MDMwODY4IEwyOTUuMTI3NTk5LDQ3LjUwNjA1NjYgQzI5NS42MDk0MTMsNDcuNzgxMzc4OSAyOTYsNDcuNTU3ODczIDI5Niw0Ny4wMDg2Mjk2IEwyOTYsNDEuNTAwNTEzOCBDMjk2LDQwLjk1MDQ3MDIgMjk1LjYwMzU5Myw0MC4yNzgwNTM1IDI5NS4xMjc1OTksNDAuMDA2MDU2NiBMMjg5Ljg3MjQwMSwzNy4wMDMwODY4IEMyODkuMzkwNTg3LDM2LjcyNzc2NDUgMjg5LDM2Ljk1MTI3MDQgMjg5LDM3LjUwMDUxMzggTDI4OSw0My4wMDg2Mjk2IFogTTMwNCw0My4wMDg2Mjk2IEMzMDQsNDMuNTU4NjczMiAzMDMuNjAzNTkzLDQ0LjIzMTA4OTkgMzAzLjEyNzU5OSw0NC41MDMwODY4IEwyOTcuODcyNDAxLDQ3LjUwNjA1NjYgQzI5Ny4zOTA1ODcsNDcuNzgxMzc4OSAyOTcsNDcuNTU3ODczIDI5Nyw0Ny4wMDg2Mjk2IEwyOTcsNDEuNTAwNTEzOCBDMjk3LDQwLjk1MDQ3MDIgMjk3LjM5NjQwNyw0MC4yNzgwNTM1IDI5Ny44NzI0MDEsNDAuMDA2MDU2NiBMMzAzLjEyNzU5OSwzNy4wMDMwODY4IEMzMDMuNjA5NDEzLDM2LjcyNzc2NDUgMzA0LDM2Ljk1MTI3MDQgMzA0LDM3LjUwMDUxMzggTDMwNCw0My4wMDg2Mjk2IFogTTI5Ny4zNDk3NjEsMzguOTgxNjQxNiBDMjk2Ljg4MDQ1MSwzOS4yNzA0NDc5IDI5Ni4xMTI4NjEsMzkuMjY2MzMyNCAyOTUuNjUwMjM5LDM4Ljk4MTY0MTYgTDI5MC44NDk3NjEsMzYuMDI3NTAxOCBDMjkwLjM4MDQ1MSwzNS43Mzg2OTU1IDI5MC4zODcxMzksMzUuMjk2MTEyMyAyOTAuODc2NjE5LDM1LjAzMjU0NjEgTDI5NS42MjMzODEsMzIuNDc2NTk3MyBDMjk2LjEwNzUyNCwzMi4yMTU5MDQ4IDI5Ni44ODcxMzksMzIuMjEzMDMxMSAyOTcuMzc2NjE5LDMyLjQ3NjU5NzMgTDMwMi4xMjMzODEsMzUuMDMyNTQ2MSBDMzAyLjYwNzUyNCwzNS4yOTMyMzg3IDMwMi42MTI4NjEsMzUuNzQyODExIDMwMi4xNTAyMzksMzYuMDI3NTAxOCBMMjk3LjM0OTc2MSwzOC45ODE2NDE2IFoiLz4KICA8L2c+Cjwvc3ZnPgo="
 
 /***/ },
-/* 271 */
+/* 270 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -12923,7 +12912,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var __import0 = __webpack_require__(189);
 	
-	var NavigationGroup = __webpack_require__(267);
+	var NavigationGroup = __webpack_require__(266);
 	
 	var t = __import0.t;
 	NavigationGroup = NavigationGroup && NavigationGroup.__esModule ? NavigationGroup['default'] : NavigationGroup;
@@ -13400,7 +13389,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Drawer;
 
 /***/ },
-/* 272 */
+/* 271 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
