@@ -2,14 +2,8 @@ function addComingSoonApps (stackApps) {
   const comingSoonAppsList = [
     {
       'editor': 'Cozy',
-      'name': 'Bank',
-      'slug': 'bank',
-      'category': 'cozy'
-    },
-    {
-      'editor': 'Cozy',
-      'name': 'Health',
-      'slug': 'health',
+      'name': 'Store',
+      'slug': 'store',
       'category': 'cozy'
     }
   ]
