@@ -95,7 +95,7 @@ const unbindEvents = function CozyBarUnbindEvents () {
 
 const getDefaultStackURL = function GetDefaultCozyURL () {
   const appNode = document.querySelector(APP_SELECTOR)
-  if (!appNode) {
+  if (!appNode || !appNode.dataset.cozyDomain) {
     console.warn(`Cozy-bar can't discover the cozy's URL, and will probably fail to initialize the connection with the stack.`)
     return ''
   }
@@ -104,7 +104,7 @@ const getDefaultStackURL = function GetDefaultCozyURL () {
 
 const getDefaultToken = function GetDefaultToken () {
   const appNode = document.querySelector(APP_SELECTOR)
-  if (!appNode) {
+  if (!appNode || !appNode.dataset.cozyToken) {
     console.warn(`Cozy-bar can't discover the app's token, and will probably fail to initialize the connection with the stack.`)
     return ''
   }
