@@ -340,7 +340,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var getDefaultStackURL = function GetDefaultCozyURL() {
 	  var appNode = document.querySelector(APP_SELECTOR);
-	  if (!appNode) {
+	  if (!appNode || !appNode.dataset.cozyDomain) {
 	    console.warn('Cozy-bar can\'t discover the cozy\'s URL, and will probably fail to initialize the connection with the stack.');
 	    return '';
 	  }
@@ -349,7 +349,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var getDefaultToken = function GetDefaultToken() {
 	  var appNode = document.querySelector(APP_SELECTOR);
-	  if (!appNode) {
+	  if (!appNode || !appNode.dataset.cozyToken) {
 	    console.warn('Cozy-bar can\'t discover the app\'s token, and will probably fail to initialize the connection with the stack.');
 	    return '';
 	  }
@@ -7898,7 +7898,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"error_UnauthorizedStack": "Des permissions sont manquante, l'application ne peut accéder aux ressources demandées.",
 		"Categories": {
 			"cozy": "Apps Cozy",
-			"partners": "Apps partenaires",
+			"partners": "Expérimentation MesInfos",
 			"others": "Autres apps"
 		}
 	};
@@ -7943,15 +7943,15 @@ return /******/ (function(modules) { // webpackBootstrap
 		"storage_phrase": "%{diskUsage} GB / %{diskQuota} GB 使用",
 		"help": "ヘルプ",
 		"logout": "サインアウト",
-		"beta_status": "We are still in beta",
-		"beta": "beta",
-		"soon": "soon",
+		"beta_status": "まだベータ版です",
+		"beta": "ベータ",
+		"soon": "間もなく",
 		"error_UnavailableStack": "スタックに到達できません (接続タイムアウト)。",
 		"error_UnauthorizedStack": "一部のアクセス許可が不足しているため、アプリケーションはスタック上の要求されたリソースにアクセスできません。",
 		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
-			"others": "Other apps"
+			"cozy": "Cozy アプリ",
+			"partners": "パートナーアプリ",
+			"others": "他のアプリ"
 		}
 	};
 
@@ -7995,15 +7995,15 @@ return /******/ (function(modules) { // webpackBootstrap
 		"storage_phrase": "%{diskUsage} GB van %{diskQuota} GB gebruikt",
 		"help": "Hulp",
 		"logout": "Log uit",
-		"beta_status": "We are still in beta",
+		"beta_status": "We zijn nog in Beta",
 		"beta": "beta",
-		"soon": "soon",
+		"soon": "binnenkort",
 		"error_UnavailableStack": "De stapel is onbereikbaar (verbinding verlopen)",
 		"error_UnauthorizedStack": "Sommige toestemmingen missen, de toepassing kan niet alles bereiken.",
 		"Categories": {
 			"cozy": "Cozy apps",
-			"partners": "Partners apps",
-			"others": "Other apps"
+			"partners": "Partner apps",
+			"others": "Andere apps"
 		}
 	};
 
