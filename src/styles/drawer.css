@@ -55,6 +55,12 @@
   list-style-type: none;
 }
 
+@media (max-width: 48em) {
+    [role=banner] .coz-drawer-wrapper ul {
+        padding: .5em 0;
+    }
+}
+
 [role=banner] .coz-drawer-wrapper nav hr {
   margin: 0;
   border: none;
