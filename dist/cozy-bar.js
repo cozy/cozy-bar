@@ -418,7 +418,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  view.set({ lang: lang });
 	};
 	
-	module.exports = { init: init, version: ("3.0.0-beta26"), setLocale: setLocale };
+	module.exports = { init: init, version: ("3.0.0-beta28"), setLocale: setLocale };
 
 /***/ },
 /* 1 */
@@ -7441,6 +7441,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"Categories": {
 			"cozy": "Cozy apps",
 			"partners": "Partners apps",
+			"ptnb": "expPTNB",
 			"others": "Other apps"
 		}
 	};
@@ -7561,6 +7562,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"Categories": {
 			"cozy": "Cozy apps",
 			"partners": "Partners apps",
+			"ptnb": "expPTNB",
 			"others": "Other apps"
 		}
 	};
@@ -7587,6 +7589,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"Categories": {
 			"cozy": "Cozy apps",
 			"partners": "Partners apps",
+			"ptnb": "expPTNB",
 			"others": "Other apps"
 		}
 	};
@@ -7613,6 +7616,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"Categories": {
 			"cozy": "Cozy apps",
 			"partners": "Partners apps",
+			"ptnb": "expPTNB",
 			"others": "Other apps"
 		}
 	};
@@ -7639,6 +7643,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"Categories": {
 			"cozy": "Cozy apps",
 			"partners": "Partners apps",
+			"ptnb": "expPTNB",
 			"others": "Other apps"
 		}
 	};
@@ -7665,6 +7670,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"Categories": {
 			"cozy": "Cozy apps",
 			"partners": "Partners apps",
+			"ptnb": "expPTNB",
 			"others": "Other apps"
 		}
 	};
@@ -7691,6 +7697,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"Categories": {
 			"cozy": "Cozy apps",
 			"partners": "Partners apps",
+			"ptnb": "expPTNB",
 			"others": "Other apps"
 		}
 	};
@@ -7717,6 +7724,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"Categories": {
 			"cozy": "Cozy apps",
 			"partners": "Partners apps",
+			"ptnb": "expPTNB",
 			"others": "Other apps"
 		}
 	};
@@ -7743,6 +7751,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"Categories": {
 			"cozy": "Cozy apps",
 			"partners": "Partners apps",
+			"ptnb": "expPTNB",
 			"others": "Other apps"
 		}
 	};
@@ -7769,6 +7778,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"Categories": {
 			"cozy": "Cozy apps",
 			"partners": "Partners apps",
+			"ptnb": "expPTNB",
 			"others": "Other apps"
 		}
 	};
@@ -7795,6 +7805,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"Categories": {
 			"cozy": "Cozy apps",
 			"partners": "Partners apps",
+			"ptnb": "expPTNB",
 			"others": "Other apps"
 		}
 	};
@@ -7821,6 +7832,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"Categories": {
 			"cozy": "Cozy apps",
 			"partners": "Partners apps",
+			"ptnb": "expPTNB",
 			"others": "Other apps"
 		}
 	};
@@ -7847,6 +7859,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"Categories": {
 			"cozy": "Cozy apps",
 			"partners": "Partners apps",
+			"ptnb": "expPTNB",
 			"others": "Other apps"
 		}
 	};
@@ -7873,6 +7886,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"Categories": {
 			"cozy": "Cozy apps",
 			"partners": "Partners apps",
+			"ptnb": "expPTNB",
 			"others": "Other apps"
 		}
 	};
@@ -7899,6 +7913,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"Categories": {
 			"cozy": "Apps Cozy",
 			"partners": "Expérimentation MesInfos",
+			"ptnb": "Expérimentation Carnet du logement",
 			"others": "Autres apps"
 		}
 	};
@@ -7925,6 +7940,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"Categories": {
 			"cozy": "Cozy apps",
 			"partners": "Partners apps",
+			"ptnb": "expPTNB",
 			"others": "Other apps"
 		}
 	};
@@ -7951,6 +7967,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"Categories": {
 			"cozy": "Cozy アプリ",
 			"partners": "パートナーアプリ",
+			"ptnb": "expPTNB",
 			"others": "他のアプリ"
 		}
 	};
@@ -7977,6 +7994,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"Categories": {
 			"cozy": "Cozy apps",
 			"partners": "Partners apps",
+			"ptnb": "expPTNB",
 			"others": "Other apps"
 		}
 	};
@@ -8003,6 +8021,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"Categories": {
 			"cozy": "Cozy apps",
 			"partners": "Partner apps",
+			"ptnb": "expPTNB",
 			"others": "Andere apps"
 		}
 	};
@@ -8029,6 +8048,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"Categories": {
 			"cozy": "Cozy apps",
 			"partners": "Partners apps",
+			"ptnb": "expPTNB",
 			"others": "Other apps"
 		}
 	};
@@ -8055,6 +8075,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"Categories": {
 			"cozy": "Cozy apps",
 			"partners": "Partners apps",
+			"ptnb": "expPTNB",
 			"others": "Other apps"
 		}
 	};
@@ -8081,6 +8102,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"Categories": {
 			"cozy": "Cozy apps",
 			"partners": "Partners apps",
+			"ptnb": "expPTNB",
 			"others": "Other apps"
 		}
 	};
@@ -8107,6 +8129,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"Categories": {
 			"cozy": "Cozy apps",
 			"partners": "Partners apps",
+			"ptnb": "expPTNB",
 			"others": "Other apps"
 		}
 	};
@@ -8133,6 +8156,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"Categories": {
 			"cozy": "Cozy apps",
 			"partners": "Partners apps",
+			"ptnb": "expPTNB",
 			"others": "Other apps"
 		}
 	};
@@ -8159,6 +8183,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"Categories": {
 			"cozy": "Cozy apps",
 			"partners": "Partners apps",
+			"ptnb": "expPTNB",
 			"others": "Other apps"
 		}
 	};
@@ -8185,6 +8210,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"Categories": {
 			"cozy": "Cozy apps",
 			"partners": "Partners apps",
+			"ptnb": "expPTNB",
 			"others": "Other apps"
 		}
 	};
@@ -8211,6 +8237,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"Categories": {
 			"cozy": "Cozy apps",
 			"partners": "Partners apps",
+			"ptnb": "expPTNB",
 			"others": "Other apps"
 		}
 	};
@@ -8237,6 +8264,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"Categories": {
 			"cozy": "Cozy apps",
 			"partners": "Partners apps",
+			"ptnb": "expPTNB",
 			"others": "Other apps"
 		}
 	};
@@ -8263,6 +8291,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"Categories": {
 			"cozy": "Cozy apps",
 			"partners": "Partners apps",
+			"ptnb": "expPTNB",
 			"others": "Other apps"
 		}
 	};
@@ -8289,6 +8318,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"Categories": {
 			"cozy": "Cozy apps",
 			"partners": "Partners apps",
+			"ptnb": "expPTNB",
 			"others": "Other apps"
 		}
 	};
@@ -8315,6 +8345,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"Categories": {
 			"cozy": "Cozy apps",
 			"partners": "Partners apps",
+			"ptnb": "expPTNB",
 			"others": "Other apps"
 		}
 	};
@@ -8341,6 +8372,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"Categories": {
 			"cozy": "Cozy apps",
 			"partners": "Partners apps",
+			"ptnb": "expPTNB",
 			"others": "Other apps"
 		}
 	};
@@ -8367,6 +8399,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"Categories": {
 			"cozy": "Cozy apps",
 			"partners": "Partners apps",
+			"ptnb": "expPTNB",
 			"others": "Other apps"
 		}
 	};
@@ -8393,6 +8426,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"Categories": {
 			"cozy": "Cozy apps",
 			"partners": "Partners apps",
+			"ptnb": "expPTNB",
 			"others": "Other apps"
 		}
 	};
@@ -8419,6 +8453,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"Categories": {
 			"cozy": "Cozy apps",
 			"partners": "Partners apps",
+			"ptnb": "expPTNB",
 			"others": "Other apps"
 		}
 	};
@@ -8445,6 +8480,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"Categories": {
 			"cozy": "Cozy apps",
 			"partners": "Partners apps",
+			"ptnb": "expPTNB",
 			"others": "Other apps"
 		}
 	};
@@ -8471,6 +8507,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		"Categories": {
 			"cozy": "Cozy apps",
 			"partners": "Partners apps",
+			"ptnb": "expPTNB",
 			"others": "Other apps"
 		}
 	};
@@ -10062,7 +10099,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 	
 	var EXCLUDES = ['settings', 'onboarding'];
-	var CATEGORIES = ['cozy', 'partners'];
+	var CATEGORIES = ['cozy', 'partners', 'ptnb'];
 	
 	function createMenuPointers(tree) {
 	  function parse(value, index, array) {
