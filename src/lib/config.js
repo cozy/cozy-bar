@@ -7,7 +7,7 @@ import addComingSoonApps from './comingSoon'
 import MENU_CONFIG from '../config/menu'
 
 const EXCLUDES = ['settings', 'onboarding']
-const CATEGORIES = ['cozy', 'partners']
+const CATEGORIES = ['cozy', 'partners', 'ptnb']
 
 async function updateAppsItems (config) {
   let apps
