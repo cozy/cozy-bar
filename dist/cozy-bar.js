@@ -418,7 +418,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  view.set({ lang: lang });
 	};
 	
-	module.exports = { init: init, version: ("3.0.0-beta28"), setLocale: setLocale };
+	module.exports = { init: init, version: ("3.0.0-beta29"), setLocale: setLocale };
 
 /***/ },
 /* 1 */
