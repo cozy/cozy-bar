@@ -37,8 +37,8 @@ function getApps () {
   })
 }
 
-function getDiskUsage () {
-  return fetch(`${COZY_URL}/settings/disk-usage`, fetchOptions())
+function fetchJSON (url, options) {
+  return fetch(url, options)
   .then(res => {
     if (res.status === 401) {
       throw new UnauthorizedStackException()
@@ -46,6 +46,10 @@ function getDiskUsage () {
 
     return res.json()
   })
+}
+
+function getDiskUsage () {
+  return fetchJSON(`${COZY_URL}/settings/disk-usage`, fetchOptions())
   .then(json => parseInt(json.data.attributes.used, 10))
   .catch(e => {
     throw new UnavailableStackException()
@@ -53,14 +57,7 @@ function getDiskUsage () {
 }
 
 function getDiskQuota () {
-  return fetch(`${COZY_URL}/settings/disk-usage`, fetchOptions())
-  .then(res => {
-    if (res.status === 401) {
-      throw new UnauthorizedStackException()
-    }
-
-    return res.json()
-  })
+  return fetchJSON(`${COZY_URL}/settings/disk-usage`, fetchOptions())
   .then(json => {
     const quota = parseInt(json.data.attributes.quota, 10)
     if (Number.isInteger(quota)) {
