@@ -7,7 +7,7 @@ subsections:
   help:
     - slug: help
       external: true
-      href: https://mesinfos.fing.org/forum
+      href: https://cozy.io/fr/support/
   logout:
     - slug: logout
       action: logout
