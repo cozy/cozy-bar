@@ -1033,9 +1033,9 @@ cosmiconfig@^2.1.0, cosmiconfig@^2.1.1:
     parse-json "^2.2.0"
     require-from-string "^1.1.0"
 
-cozy-ui@^3.0.0-beta17:
-  version "3.0.0-beta17"
-  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-3.0.0-beta17.tgz#0a8674fe48dd7a13bd13e97cc958dafc91e834d1"
+cozy-ui@^3.0.0-beta36:
+  version "3.0.0-beta36"
+  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-3.0.0-beta36.tgz#ccb5b540272b5cf2d060bbef4491b0752c8f12ce"
   dependencies:
     classnames "^2.2.5"
     md5 "^2.2.0"

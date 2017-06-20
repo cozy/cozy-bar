@@ -8,14 +8,14 @@
   padding: 1.285em 1.5em;
   font-size: .875em;
   text-transform: uppercase;
-  color: var(--grey-12);
+  color: var(--slate-grey);
   cursor: pointer;
 }
 [role=banner] .coz-nav-section [aria-controls]:hover,
 [role=banner] .coz-nav-section [aria-controls]:focus {
-  background-color: var(--grey-10);
-  box-shadow: inset 0 -1px 0 0 var(--grey-09);
-  color: var(--grey-08);
+  background-color: var(--pale-grey);
+  box-shadow: inset 0 -1px 0 0 var(--silver);
+  color: var(--charcoal-grey);
 }
 
 [role=banner] [aria-controls][aria-busy]::after {
@@ -68,7 +68,7 @@
 [role=banner] .coz-nav-pop hr {
   margin: 0;
   border: none;
-  border-bottom: solid 1px var(--grey-09);
+  border-bottom: solid 1px var(--silver);
 }
 
 [role=banner] .coz-nav-pop ul:last-of-type + hr {
@@ -97,7 +97,7 @@
 }
 
 [role=banner] .coz-nav-group:not(.coz-nav--error).coz-nav-group--inactive {
-  background-color: var(--grey-10)
+  background-color: var(--pale-grey)
 }
 
 [role=banner] .coz-nav-group.coz-nav--error {
