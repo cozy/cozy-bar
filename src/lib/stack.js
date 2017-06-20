@@ -71,6 +71,10 @@ function getDiskQuota () {
   })
 }
 
+function getContext () {
+  return fetchJSON(`${COZY_URL}/settings/context`, fetchOptions())
+}
+
 function getApp (slug) {
   return getApps().then(apps => apps.find(item => item.attributes.slug === slug))
 }
@@ -126,6 +130,7 @@ module.exports = {
   get: {
     app: getApp,
     apps: getApps,
+    context: getContext,
     diskUsage: getDiskUsage,
     diskQuota: getDiskQuota,
     icon: getIcon,

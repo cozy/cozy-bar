@@ -2,15 +2,40 @@ import deepClone from 'deep-clone'
 import deepEqual from 'deep-equal'
 
 import stack from '../lib/stack'
-import addComingSoonApps from './comingSoon'
 
 import MENU_CONFIG from '../config/menu'
 
 const EXCLUDES = ['settings', 'onboarding']
 const CATEGORIES = ['cozy', 'partners', 'ptnb']
 
+let cachedComingSoonApps
+function fetchComingSoonApps () {
+  if (cachedComingSoonApps) return Promise.resolve(cachedComingSoonApps)
+  return stack.get.context()
+    .then(context => {
+      const comingSoonApps = context.data && context.data.attributes &&
+        context.data.attributes['coming_soon'] &&
+          Object.values(context.data.attributes['coming_soon']) || []
+
+      cachedComingSoonApps = comingSoonApps.map(app => {
+        const icon = app.slug && {
+          cached: true,
+          src: require(`../assets/icons/comingsoon/icon-${app.slug}.svg`)
+        }
+        return Object.assign({}, app, {
+          comingSoon: true,
+          l10n: false,
+          icon: icon
+        })
+      })
+
+      return cachedComingSoonApps
+    })
+}
+
 async function updateAppsItems (config) {
   let apps
+  let comingSoonApps
 
   try {
     apps = await Promise.all((await stack.get.apps())
@@ -44,8 +69,14 @@ async function updateAppsItems (config) {
   }
 
   config.apps.length = 0
-  apps = addComingSoonApps(apps)
-  Array.prototype.push.apply(config.apps, apps)
+
+  comingSoonApps = await fetchComingSoonApps()
+    .catch(error => {
+      console.warn && console.warn(`Cozy-bar cannot fetch comming soon apps: ${error.message}`)
+      return []
+    })
+
+  Array.prototype.push.apply(config.apps, apps.concat(comingSoonApps))
 }
 
 async function updateDiskUsage (config) {
