@@ -46,6 +46,9 @@ window.cozy.bar.init({
 - `lang` is extracted from the `lang` attribute of the `<html>` tag. Defaults to 'en'
 - `iconPath` uses the favicon 32px. Defaults to a blank GIF
 
+Coming Soon application
+---
+Coming Soon applications (or apps) are defined in your Cozy's [configuration file](https://github.com/cozy/cozy-stack/blob/master/docs/config.md#main-configuration-file). See the `cozy.example.yaml` file [provided by the stack](https://github.com/cozy/cozy-stack/blob/master/cozy.example.yaml#L80).
 
 Contribute
 ----------
