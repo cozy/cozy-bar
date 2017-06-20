@@ -23,8 +23,8 @@
 }
 
 /* Hover effect */
-[role=banner] .coz-nav-item a[role=menuitem]:hover:before,
-[role=banner] .coz-nav-item a[role=menuitem]:focus:before,
+[role=banner] .coz-nav-item a[role=menuitem]:not(.coz-bar-coming-soon-app):hover:before,
+[role=banner] .coz-nav-item a[role=menuitem]:not(.coz-bar-coming-soon-app):focus:before,
 [role=banner] .coz-nav-item button[role=menuitem]:hover:before,
 [role=banner] .coz-nav-item button[role=menuitem]:focus:before {
   content: '';
@@ -64,6 +64,10 @@
 }
 
 /* Coming soon styles */
+[role=banner] .coz-nav-item a[role=menuitem].coz-bar-coming-soon-app {
+    cursor: default;
+}
+
 [role=banner] .coz-nav-item [role=menuitem].coz-bar-coming-soon-app img,
 [role=banner] .coz-nav-item [role=menuitem].coz-bar-coming-soon-app .coz-label
 {
