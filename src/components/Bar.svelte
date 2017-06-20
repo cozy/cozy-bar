@@ -19,6 +19,7 @@
 
 {{#if target !== 'mobile' && !isPublic}}
 <Drawer content='{{config.apps}}' footer='{{config.sections.drawer}}' visible={{drawerVisible}} on:close='toggleDrawer(true)'/>
+<Claudy config='{{clouzyConfig}}'/>
 {{/if}}
 
 <script>
@@ -27,8 +28,10 @@
 
   import Navigation from './Navigation'
   import Drawer from './Drawer'
+  import Claudy from './Claudy'
 
   import MENU_CONFIG from '../config/menu'
+  import CLAUDY_CONFIG from '../config/claudy'
 
   export default {
     data () {
@@ -37,6 +40,7 @@
       return {
         target: __TARGET__,
         config,
+        clouzyConfig: CLAUDY_CONFIG,
         drawerVisible: false
       }
     },
@@ -66,7 +70,8 @@
 
     components: {
       Navigation,
-      Drawer
+      Drawer,
+      Claudy
     },
 
     helpers: { t },
