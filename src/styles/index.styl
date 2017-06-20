@@ -7,11 +7,14 @@
 @import 'storage.css'
 @import 'drawer.css'
 @import 'claudy.css'
+@import 'claudy_menu.css'
 @import 'mobile_app.css'
 
 @import 'ui-base/palette'
 @import 'ui-base/mixins'
 @import 'ui-base/z-index'
+
+@import 'ui-components/button.styl'
 
 :root {
   --z-index-bar: $bar-index;
@@ -30,3 +33,11 @@
 
 .coz-bar-hidden
   @extend $hidden
+
+.coz-btn-close
+  @extend $button
+  @extend $button--close
+  // built-in stylus em() from cozy-ui is not correcty supported here
+  width: 32px;
+  padding: 0;
+  margin: 0;

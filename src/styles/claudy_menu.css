@@ -1,0 +1,70 @@
+[role=banner] .coz-claudy-menu {
+  position: fixed;
+  bottom: 9.5em;
+  right: 2em;
+  width: 25em;
+  border-radius: .3em;
+  background: white;
+  filter: drop-shadow(0 4px 6px rgba(50, 54, 63, 0.5));
+}
+
+@media (min-width: 64em) {
+  [role=banner] .coz-claudy-menu {
+    bottom: 6.5em;
+  }
+}
+
+[role=banner] .coz-claudy-menu .coz-claudy-menu-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 2em;
+  padding: .75em;
+  background: var(--pale-grey);
+  border-radius: .3em .3em 0 0;
+  border-bottom: 1px solid var(--silver)
+}
+
+[role=banner] .coz-claudy-menu .coz-claudy-menu-title {
+  margin: 0;
+  font-size: 18px;
+  margin-top: .4em;
+}
+
+[role=banner] .coz-claudy-menu .coz-claudy-menu-content {
+  padding: .5em 0;
+}
+
+[role=banner] .coz-claudy-menu .coz-claudy-menu-content::after {
+  position: absolute;
+  content: '';
+  right: 3em;
+  width: 0;
+  height: 0;
+  margin-top: .5em;
+  border-bottom: 9px solid transparent;
+  border-right: 17px solid white;
+}
+
+[role=banner] .coz-claudy-menu .coz-claudy-menu-action {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  cursor: pointer;
+  height: 3em;
+  color: var(--dodger-blue);
+  padding: .5em 1em;
+}
+
+[role=banner] .coz-claudy-menu .coz-claudy-menu-action:hover {
+  background: var(--pale-grey)
+}
+
+[role=banner] .coz-claudy-menu .coz-claudy-menu-action-icon {
+  height: 3em;
+  width: 3em;
+}
+
+[role=banner] .coz-claudy-menu .coz-claudy-menu-action-title {
+  padding-left: 1em;
+}

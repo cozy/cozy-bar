@@ -19,5 +19,23 @@
     "partners": "Partners apps",
     "ptnb": "expPTNB",
     "others": "Other apps"
+  },
+
+  "claudy": {
+    "title": "How to drive your Cozy?",
+    "actions": {
+      "desktop": {
+        "title": "Get access to your files in your computer"
+      },
+      "mobile": {
+        "title": "Back up and sync your pics from your mobile"
+      },
+      "cozy-collect": {
+        "title": "Get back your bills instantly"
+      },
+      "support": {
+        "title": "Give feedback to your team"
+      }
+    }
   }
 }

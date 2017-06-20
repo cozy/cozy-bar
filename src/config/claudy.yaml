@@ -1,5 +1,12 @@
 actions:
-    - desktop
-    - mobile
-    - cozy-collect
-    - support
+    - slug: desktop
+      icon: icon-laptop.svg
+
+    - slug: mobile
+      icon: icon-phone.svg
+
+    - slug: cozy-collect
+      icon: icon-bills.svg
+
+    - slug: support
+      icon: icon-question-mark.svg
