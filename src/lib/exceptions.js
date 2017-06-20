@@ -1,3 +1,13 @@
+class ServerErrorException extends Error {
+  constructor (message) {
+    super()
+
+    this.name = 'ServerError'
+    this.message = message || 'A server error occurred'
+    this.stack = (new Error()).stack
+  }
+}
+
 class UnavailableStackException extends Error {
   constructor (message) {
     super()
@@ -29,6 +39,7 @@ class UnavailableSettingsException extends Error {
 }
 
 export {
+  ServerErrorException,
   UnavailableStackException,
   UnavailableSettingsException,
   UnauthorizedStackException

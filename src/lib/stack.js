@@ -4,6 +4,7 @@
 import 'babel-polyfill'
 
 import {
+  ServerErrorException,
   UnavailableStackException,
   UnavailableSettingsException,
   UnauthorizedStackException
@@ -23,6 +24,11 @@ function fetchOptions () {
 let COZY_URL = __SERVER__
 let COZY_TOKEN
 
+const errorStatuses = {
+  '401': UnauthorizedStackException,
+  '500': ServerErrorException
+}
+
 function getApps () {
   return fetch(`${COZY_URL}/apps/`, fetchOptions())
   .then(res => {
@@ -40,8 +46,8 @@ function getApps () {
 function fetchJSON (url, options) {
   return fetch(url, options)
   .then(res => {
-    if (res.status === 401) {
-      throw new UnauthorizedStackException()
+    if (typeof errorStatuses[res.status] === 'function') {
+      throw new errorStatuses[res.status]()
     }
 
     return res.json()
