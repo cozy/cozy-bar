@@ -18,10 +18,17 @@ function fetchComingSoonApps () {
           Object.values(context.data.attributes['coming_soon']) || []
 
       cachedComingSoonApps = comingSoonApps.map(app => {
-        const icon = app.slug && {
-          cached: true,
-          src: require(`../assets/icons/comingsoon/icon-${app.slug}.svg`)
+        let icon
+
+        try {
+          icon = app.slug && {
+            cached: true,
+            src: require(`../assets/icons/comingsoon/icon-${app.slug}.svg`)
+          }
+        } catch (error) {
+          console.warn && console.warn(`Cannot retrieve icon for app ${app.name}:`, error.message)
         }
+
         return Object.assign({}, app, {
           comingSoon: true,
           l10n: false,
