@@ -1,15 +1,25 @@
-[role=banner] .coz-claudy-menu {
+[role=banner] .coz-claudy .coz-claudy-menu {
   position: fixed;
   bottom: 9.5em;
   right: 2em;
   width: 25em;
   border-radius: .3em;
   background: white;
+  transform-origin: 100% 100% 0;
+  transform: scale(0) translateY(4em);
   filter: drop-shadow(0 4px 6px rgba(50, 54, 63, 0.5));
+  opacity: 0;
+  transition: .2s transform ease-in, .1s opacity ease-in;
+}
+
+[role=banner] .coz-claudy--opened .coz-claudy-menu {
+  transform: scale(1) translateY(0);
+  opacity: 1;
+  transition: .2s transform cubic-bezier(0.2, 0.75, 0.3, 1.15), .1s opacity ease-in;
 }
 
 @media (min-width: 64em) {
-  [role=banner] .coz-claudy-menu {
+  [role=banner] .coz-claudy .coz-claudy-menu {
     bottom: 6.5em;
   }
 }
