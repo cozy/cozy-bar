@@ -22,28 +22,80 @@
   padding: .75em;
   background: var(--pale-grey);
   border-radius: .3em .3em 0 0;
-  border-bottom: 1px solid var(--silver)
+  border-bottom: 1px solid var(--silver);
+  overflow: hidden;
 }
 
 [role=banner] .coz-claudy-menu .coz-claudy-menu-title {
-  margin: 0;
+  opacity: 1;
+  transition: .2s all ease-in-out;
+}
+
+[role=banner] .coz-claudy-menu .coz-claudy-menu-header-back-button {
+  position: absolute;
+  width: 2em;
+  height: 2em;
+  background: url('../assets/icons/24/icon-arrow-left.svg') center no-repeat;
+  background-size: 1.5em;
+  border: none;
+  cursor: pointer;
+  left: 10em;
+  opacity: 0;
+  transition: .2s all ease-in-out;
+}
+
+[role=banner] .coz-claudy-menu--action-selected .coz-claudy-menu-title {
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: .2s all ease-in-out;
+}
+
+[role=banner] .coz-claudy-menu--action-selected .coz-claudy-menu-header-back-button {
+  opacity: 1;
+  left: 1em;
+  transition: .2s all ease-in-out;
+}
+
+[role=banner] .coz-claudy-menu .coz-claudy-menu-title {
   font-size: 18px;
-  margin-top: .4em;
+  margin: .4em 0 0 0;
+}
+
+[role=banner] .coz-claudy-menu .coz-claudy-menu-content-wrapper {
+  overflow: hidden;
 }
 
 [role=banner] .coz-claudy-menu .coz-claudy-menu-content {
+  display: flex;
+  flex-direction: row;
+  width: 200%; /* actions-list + action-description */
   padding: .5em 0;
+  transform: translateX(0);
+  transition: .2s transform ease-in-out;
 }
 
-[role=banner] .coz-claudy-menu .coz-claudy-menu-content::after {
-  position: absolute;
+[role=banner] .coz-claudy-menu--action-selected .coz-claudy-menu-content {
+  transform: translateX(-50%);
+  transition: .2s transform ease-in-out;
+}
+
+[role=banner] .coz-claudy-menu .coz-claudy-menu-actions-list,
+[role=banner] .coz-claudy-menu .coz-claudy-menu-action-description {
+  min-width: 50%;
+  max-width: 50%;
+  padding: 0;
+}
+
+[role=banner] .coz-claudy-menu::after {
+  position: fixed;
   content: '';
   right: 3em;
   width: 0;
   height: 0;
   margin-top: .5em;
-  border-bottom: 9px solid transparent;
-  border-right: 17px solid white;
+  border-bottom: .6em solid transparent;
+  border-right: 1.2em solid white;
+  bottom: -.6em;
 }
 
 [role=banner] .coz-claudy-menu .coz-claudy-menu-action {
@@ -67,4 +119,30 @@
 
 [role=banner] .coz-claudy-menu .coz-claudy-menu-action-title {
   padding-left: 1em;
+}
+
+[role=banner] .coz-claudy-menu .coz-claudy-menu-action-description-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: .5em 1em;
+  color: black;
+  font-weight: 700;
+}
+
+[role=banner] .coz-claudy-menu .coz-claudy-menu-action-description-header .coz-claudy-menu-action-title{
+  margin: 0;
+}
+
+[role=banner] .coz-claudy-menu .coz-claudy-menu-action-description-content {
+  padding: .5em 1em 1em 1em;
+}
+
+[role=banner] .coz-claudy-menu .coz-claudy-menu-action-description-text {
+  margin-top: 0;
+}
+
+[role=banner] .coz-claudy-menu .coz-claudy-menu-action-description-button {
+  width: 100%;
+  margin: 0;
 }
