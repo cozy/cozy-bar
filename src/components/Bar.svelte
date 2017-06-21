@@ -19,7 +19,7 @@
 
 {{#if target !== 'mobile' && !isPublic}}
 <Drawer content='{{config.apps}}' footer='{{config.sections.drawer}}' visible={{drawerVisible}} on:close='toggleDrawer(true)'/>
-<Claudy config='{{clouzyConfig}}'/>
+<Claudy config='{{clouzyConfig}}' appsList='{{config.apps}}'/>
 {{/if}}
 
 <script>
