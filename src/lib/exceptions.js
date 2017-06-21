@@ -1,3 +1,23 @@
+class ForbiddenException extends Error {
+  constructor (message) {
+    super()
+
+    this.name = 'Forbidden'
+    this.message = message || 'The application does not have permission to access this resource.'
+    this.stack = (new Error()).stack
+  }
+}
+
+class ServerErrorException extends Error {
+  constructor (message) {
+    super()
+
+    this.name = 'ServerError'
+    this.message = message || 'A server error occurred'
+    this.stack = (new Error()).stack
+  }
+}
+
 class UnavailableStackException extends Error {
   constructor (message) {
     super()
@@ -29,6 +49,8 @@ class UnavailableSettingsException extends Error {
 }
 
 export {
+  ForbiddenException,
+  ServerErrorException,
   UnavailableStackException,
   UnavailableSettingsException,
   UnauthorizedStackException

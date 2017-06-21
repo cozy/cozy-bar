@@ -4,6 +4,8 @@
 import 'babel-polyfill'
 
 import {
+  ForbiddenException,
+  ServerErrorException,
   UnavailableStackException,
   UnavailableSettingsException,
   UnauthorizedStackException
@@ -23,6 +25,12 @@ function fetchOptions () {
 let COZY_URL = __SERVER__
 let COZY_TOKEN
 
+const errorStatuses = {
+  '401': UnauthorizedStackException,
+  '403': ForbiddenException,
+  '500': ServerErrorException
+}
+
 function getApps () {
   return fetch(`${COZY_URL}/apps/`, fetchOptions())
   .then(res => {
@@ -37,15 +45,19 @@ function getApps () {
   })
 }
 
-function getDiskUsage () {
-  return fetch(`${COZY_URL}/settings/disk-usage`, fetchOptions())
+function fetchJSON (url, options) {
+  return fetch(url, options)
   .then(res => {
-    if (res.status === 401) {
-      throw new UnauthorizedStackException()
+    if (typeof errorStatuses[res.status] === 'function') {
+      throw new errorStatuses[res.status]()
     }
 
     return res.json()
   })
+}
+
+function getDiskUsage () {
+  return fetchJSON(`${COZY_URL}/settings/disk-usage`, fetchOptions())
   .then(json => parseInt(json.data.attributes.used, 10))
   .catch(e => {
     throw new UnavailableStackException()
@@ -53,14 +65,7 @@ function getDiskUsage () {
 }
 
 function getDiskQuota () {
-  return fetch(`${COZY_URL}/settings/disk-usage`, fetchOptions())
-  .then(res => {
-    if (res.status === 401) {
-      throw new UnauthorizedStackException()
-    }
-
-    return res.json()
-  })
+  return fetchJSON(`${COZY_URL}/settings/disk-usage`, fetchOptions())
   .then(json => {
     const quota = parseInt(json.data.attributes.quota, 10)
     if (Number.isInteger(quota)) {
@@ -72,6 +77,10 @@ function getDiskQuota () {
   .catch(e => {
     throw new UnavailableStackException()
   })
+}
+
+function getContext () {
+  return fetchJSON(`${COZY_URL}/settings/context`, fetchOptions())
 }
 
 function getApp (slug) {
@@ -129,6 +138,7 @@ module.exports = {
   get: {
     app: getApp,
     apps: getApps,
+    context: getContext,
     diskUsage: getDiskUsage,
     diskQuota: getDiskQuota,
     icon: getIcon,
