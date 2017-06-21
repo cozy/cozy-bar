@@ -42,6 +42,7 @@
                   role='button'
                   target='{{selectedAction.link.type === "external" ? "_blank" : "_self"}}'
                   class='coz-btn-regular coz-claudy-menu-action-description-button'
+                  on:click='trackActionLink(selectedAction)'
                 >
                   {{t(`claudy.actions.${selectedAction.slug}.button`)}}
                 </a>
@@ -104,7 +105,27 @@
       goBack () {
         this.set({openedAction: false})
       },
+      trackActionLink (action) {
+        const usageTracker = this.get('usageTracker')
+        if (usageTracker) {
+          usageTracker.push([
+            'trackEvent',
+            'Claudy',
+            'openActionLink',
+            `${action.slug}`
+          ])
+        }
+      },
       selectAction (action) {
+        const usageTracker = this.get('usageTracker')
+        if (usageTracker) {
+          usageTracker.push([
+            'trackEvent',
+            'Claudy',
+            'openAction',
+            `${action.slug}`
+          ])
+        }
         this.set({selectedAction: action, openedAction: true})
       }
     },
