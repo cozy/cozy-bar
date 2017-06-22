@@ -86,8 +86,9 @@
             }
             const app = appsList.find(a => a.attributes.slug === action.link.appSlug)
             if (app && app.links && app.link.related) {
-              this.selectedActionUrl = app.links.related
-              return app.links.related
+              const appUrl = `${app.links.related}${action.link.path ? action.link.path : ''}`
+              this.selectedActionUrl = appUrl
+              return appUrl
             } else {
               console.warn(`No app with slug "${action.link.appSlug}" found on the Cozy.`)
               this.selectedActionUrl = ''
