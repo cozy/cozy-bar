@@ -24,7 +24,7 @@
   }
 }
 
-[role=banner] .coz-claudy-menu .coz-claudy-menu-header {
+[role=banner] .coz-claudy-menu-header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -36,17 +36,16 @@
   overflow: hidden;
 }
 
-[role=banner] .coz-claudy-menu .coz-claudy-menu-title {
+[role=banner] .coz-claudy-menu-title {
   opacity: 1;
   transition: .2s all ease-in-out;
 }
 
-[role=banner] .coz-claudy-menu .coz-claudy-menu-header-back-button {
+[role=banner] .coz-claudy-menu-header-back-button {
   position: absolute;
   width: 2em;
   height: 2em;
-  background: url('../assets/icons/24/icon-arrow-left.svg') center no-repeat;
-  background-size: 1.5em;
+  background: url('../assets/icons/24/icon-arrow-left.svg') center / 1.5em no-repeat;
   border: none;
   cursor: pointer;
   left: 10em;
@@ -66,16 +65,16 @@
   transition: .2s all ease-in-out;
 }
 
-[role=banner] .coz-claudy-menu .coz-claudy-menu-title {
+[role=banner] .coz-claudy-menu-title {
   font-size: 18px;
   margin: .4em 0 0 0;
 }
 
-[role=banner] .coz-claudy-menu .coz-claudy-menu-content-wrapper {
+[role=banner] .coz-claudy-menu-content-wrapper {
   overflow: hidden;
 }
 
-[role=banner] .coz-claudy-menu .coz-claudy-menu-content {
+[role=banner] .coz-claudy-menu-content {
   display: flex;
   flex-direction: row;
   width: 200%; /* actions-list + action-description */
@@ -89,8 +88,8 @@
   transition: .2s transform ease-in-out;
 }
 
-[role=banner] .coz-claudy-menu .coz-claudy-menu-actions-list,
-[role=banner] .coz-claudy-menu .coz-claudy-menu-action-description {
+[role=banner] .coz-claudy-menu-actions-list,
+[role=banner] .coz-claudy-menu-action-description {
   min-width: 50%;
   max-width: 50%;
   padding: 0;
@@ -102,13 +101,14 @@
   right: 3em;
   width: 0;
   height: 0;
-  margin-top: .5em;
-  border-bottom: .6em solid transparent;
-  border-right: 1.2em solid white;
+  /* Make it a bit taller to avoid browser spacing issue
+  between it and the tooltip */
+  border-bottom: .8em solid transparent;
+  border-right: 1.5em solid white;
   bottom: -.6em;
 }
 
-[role=banner] .coz-claudy-menu .coz-claudy-menu-action {
+[role=banner] .coz-claudy-menu-action {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -118,20 +118,20 @@
   padding: .5em 1em;
 }
 
-[role=banner] .coz-claudy-menu .coz-claudy-menu-action:hover {
+[role=banner] .coz-claudy-menu-action:hover {
   background: var(--pale-grey)
 }
 
-[role=banner] .coz-claudy-menu .coz-claudy-menu-action-icon {
+[role=banner] .coz-claudy-menu-action-icon {
   height: 3em;
   width: 3em;
 }
 
-[role=banner] .coz-claudy-menu .coz-claudy-menu-action-title {
+[role=banner] .coz-claudy-menu-action-title {
   padding-left: 1em;
 }
 
-[role=banner] .coz-claudy-menu .coz-claudy-menu-action-description-header {
+[role=banner] .coz-claudy-menu-action-description-header {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -140,19 +140,19 @@
   font-weight: 700;
 }
 
-[role=banner] .coz-claudy-menu .coz-claudy-menu-action-description-header .coz-claudy-menu-action-title{
+[role=banner] .coz-claudy-menu-action-description-header .coz-claudy-menu-action-title{
   margin: 0;
 }
 
-[role=banner] .coz-claudy-menu .coz-claudy-menu-action-description-content {
+[role=banner] .coz-claudy-menu-action-description-content {
   padding: .5em 1em 1em 1em;
 }
 
-[role=banner] .coz-claudy-menu .coz-claudy-menu-action-description-text {
+[role=banner] .coz-claudy-menu-action-description-text {
   margin-top: 0;
 }
 
-[role=banner] .coz-claudy-menu .coz-claudy-menu-action-description-button {
+[role=banner] .coz-claudy-menu-action-description-button {
   width: 100%;
   margin: 0;
 }
