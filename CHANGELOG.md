@@ -19,8 +19,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - none yet
 
 
+## [v3.0.1] - 2017-06-23
+### Fixed
+- Fixed wrong path for Cozy Store icon
+
+
 ## [v3.0.0] - 2017-06-20
 ### Changed
 - Support link href
 
-[Unreleased]: https://github.com/cozy/cozy-client-js/compare/v3.0.0...HEAD
+[Unreleased]: https://github.com/cozy/cozy-client-js/compare/v3.0.1...HEAD
+[v3.0.1]: https://github.com/cozy/cozy-client-js/compare/v3.0.0...v3.0.1

@@ -448,7 +448,7 @@
 /* Hover effect */
 
 
-[role=banner] .coz-nav-item a[role=menuitem]:hover:before {
+[role=banner] .coz-nav-item a[role=menuitem]:not(.coz-bar-coming-soon-app):hover:before {
   content: '';
   position: absolute;
   top: 0;
@@ -463,7 +463,7 @@
 }
 
 
-[role=banner] .coz-nav-item a[role=menuitem]:focus:before {
+[role=banner] .coz-nav-item a[role=menuitem]:not(.coz-bar-coming-soon-app):focus:before {
   content: '';
   position: absolute;
   top: 0;
@@ -539,6 +539,11 @@
 
 
 /* Coming soon styles */
+
+
+[role=banner] .coz-nav-item a[role=menuitem].coz-bar-coming-soon-app {
+    cursor: default;
+}
 
 
 [role=banner] .coz-nav-item [role=menuitem].coz-bar-coming-soon-app img,
