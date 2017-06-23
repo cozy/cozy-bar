@@ -24,13 +24,13 @@
     computed: {
       diskQuota: diskQuotaFromStack => {
         if (Number.isInteger(diskQuotaFromStack)) {
-            return (diskQuotaFromStack/1000000000).toFixed(2)
+            return (diskQuotaFromStack/(1024*1024*1024)).toFixed(2)
         }
         return diskQuotaFromStack
     },
       diskUsage: diskUsageFromStack => {
         if (Number.isInteger(diskUsageFromStack)) {
-            return (diskUsageFromStack/1000000000).toFixed(2)
+            return (diskUsageFromStack/(1024*1024*1024)).toFixed(2)
         }
         return diskUsageFromStack
       }
