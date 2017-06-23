@@ -18,6 +18,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Removed
 - none yet
 
+## [v3.1.0] - 2017-06-XX
+### Changed
+- none yet
+
+### Fixed
+- none yet
+
+### Added
+- Claudy: a list of actions available for the Cozy and suggested to the user (according the Cozy context setting)
+
+### Removed
+- none yet
+
 
 ## [v3.0.1] - 2017-06-23
 ### Fixed
