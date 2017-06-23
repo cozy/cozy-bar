@@ -260,7 +260,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return;
 	  }
 	
-	  __webpack_require__(271);
+	  __webpack_require__(272);
 	
 	  var barNode = createElement();
 	  var appNode = document.querySelector(APP_SELECTOR);
@@ -418,7 +418,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  view.set({ lang: lang });
 	};
 	
-	module.exports = { init: init, version: ("3.0.0-beta29"), setLocale: setLocale };
+	module.exports = { init: init, version: ("3.0.1"), setLocale: setLocale };
 
 /***/ },
 /* 1 */
@@ -7824,16 +7824,16 @@ return /******/ (function(modules) { // webpackBootstrap
 		"storage_phrase": "%{diskUsage} GO de %{diskQuota} GO usados",
 		"help": "Ayuda",
 		"logout": "Finalizar sesión",
-		"beta_status": "We are still in beta",
+		"beta_status": "Estamos aún en versión beta",
 		"beta": "beta",
-		"soon": "soon",
+		"soon": "pronto",
 		"error_UnavailableStack": "La pila es inaccesible ( se agotó el tiempo de la conexión ).",
 		"error_UnauthorizedStack": "Faltan algunos permisos, la aplicación no puede acceder al recurso solicitado en la pila.",
 		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
+			"cozy": "Aplicaciones Cozy",
+			"partners": "Aplicaciones de asociados",
 			"ptnb": "expPTNB",
-			"others": "Other apps"
+			"others": "Otras aplicaciones"
 		}
 	};
 
@@ -8756,6 +8756,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	var COZY_URL = ("http://cozy.local:8080");
 	var COZY_TOKEN = void 0;
 	
+	var errorStatuses = {
+	  '401': _exceptions.UnauthorizedStackException,
+	  '403': _exceptions.ForbiddenException,
+	  '500': _exceptions.ServerErrorException
+	};
+	
 	function getApps() {
 	  return fetch(COZY_URL + '/apps/', fetchOptions()).then(function (res) {
 	    if (res.status === 401) {
@@ -8769,14 +8775,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	  });
 	}
 	
-	function getDiskUsage() {
-	  return fetch(COZY_URL + '/settings/disk-usage', fetchOptions()).then(function (res) {
-	    if (res.status === 401) {
-	      throw new _exceptions.UnauthorizedStackException();
+	function fetchJSON(url, options) {
+	  return fetch(url, options).then(function (res) {
+	    if (typeof errorStatuses[res.status] === 'function') {
+	      throw new errorStatuses[res.status]();
 	    }
 	
 	    return res.json();
-	  }).then(function (json) {
+	  });
+	}
+	
+	function getDiskUsage() {
+	  return fetchJSON(COZY_URL + '/settings/disk-usage', fetchOptions()).then(function (json) {
 	    return parseInt(json.data.attributes.used, 10);
 	  }).catch(function (e) {
 	    throw new _exceptions.UnavailableStackException();
@@ -8784,13 +8794,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 	
 	function getDiskQuota() {
-	  return fetch(COZY_URL + '/settings/disk-usage', fetchOptions()).then(function (res) {
-	    if (res.status === 401) {
-	      throw new _exceptions.UnauthorizedStackException();
-	    }
-	
-	    return res.json();
-	  }).then(function (json) {
+	  return fetchJSON(COZY_URL + '/settings/disk-usage', fetchOptions()).then(function (json) {
 	    var quota = parseInt(json.data.attributes.quota, 10);
 	    if (Number.isInteger(quota)) {
 	      return quota;
@@ -8800,6 +8804,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }).catch(function (e) {
 	    throw new _exceptions.UnavailableStackException();
 	  });
+	}
+	
+	function getContext() {
+	  return fetchJSON(COZY_URL + '/settings/context', fetchOptions());
 	}
 	
 	function getApp(slug) {
@@ -8886,6 +8894,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  get: {
 	    app: getApp,
 	    apps: getApps,
+	    context: getContext,
 	    diskUsage: getDiskUsage,
 	    diskQuota: getDiskQuota,
 	    icon: getIcon,
@@ -8934,57 +8943,93 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var UnavailableStackException = function (_Error) {
-	  _inherits(UnavailableStackException, _Error);
+	var ForbiddenException = function (_Error) {
+	  _inherits(ForbiddenException, _Error);
+	
+	  function ForbiddenException(message) {
+	    _classCallCheck(this, ForbiddenException);
+	
+	    var _this = _possibleConstructorReturn(this, (ForbiddenException.__proto__ || Object.getPrototypeOf(ForbiddenException)).call(this));
+	
+	    _this.name = 'Forbidden';
+	    _this.message = message || 'The application does not have permission to access this resource.';
+	    _this.stack = new Error().stack;
+	    return _this;
+	  }
+	
+	  return ForbiddenException;
+	}(Error);
+	
+	var ServerErrorException = function (_Error2) {
+	  _inherits(ServerErrorException, _Error2);
+	
+	  function ServerErrorException(message) {
+	    _classCallCheck(this, ServerErrorException);
+	
+	    var _this2 = _possibleConstructorReturn(this, (ServerErrorException.__proto__ || Object.getPrototypeOf(ServerErrorException)).call(this));
+	
+	    _this2.name = 'ServerError';
+	    _this2.message = message || 'A server error occurred';
+	    _this2.stack = new Error().stack;
+	    return _this2;
+	  }
+	
+	  return ServerErrorException;
+	}(Error);
+	
+	var UnavailableStackException = function (_Error3) {
+	  _inherits(UnavailableStackException, _Error3);
 	
 	  function UnavailableStackException(message) {
 	    _classCallCheck(this, UnavailableStackException);
 	
-	    var _this = _possibleConstructorReturn(this, (UnavailableStackException.__proto__ || Object.getPrototypeOf(UnavailableStackException)).call(this));
+	    var _this3 = _possibleConstructorReturn(this, (UnavailableStackException.__proto__ || Object.getPrototypeOf(UnavailableStackException)).call(this));
 	
-	    _this.name = 'UnavailableStack';
-	    _this.message = message || 'The stack is temporarily unavailable';
-	    _this.stack = new Error().stack;
-	    return _this;
+	    _this3.name = 'UnavailableStack';
+	    _this3.message = message || 'The stack is temporarily unavailable';
+	    _this3.stack = new Error().stack;
+	    return _this3;
 	  }
 	
 	  return UnavailableStackException;
 	}(Error);
 	
-	var UnauthorizedStackException = function (_Error2) {
-	  _inherits(UnauthorizedStackException, _Error2);
+	var UnauthorizedStackException = function (_Error4) {
+	  _inherits(UnauthorizedStackException, _Error4);
 	
 	  function UnauthorizedStackException(message) {
 	    _classCallCheck(this, UnauthorizedStackException);
 	
-	    var _this2 = _possibleConstructorReturn(this, (UnauthorizedStackException.__proto__ || Object.getPrototypeOf(UnauthorizedStackException)).call(this));
+	    var _this4 = _possibleConstructorReturn(this, (UnauthorizedStackException.__proto__ || Object.getPrototypeOf(UnauthorizedStackException)).call(this));
 	
-	    _this2.name = 'UnauthorizedStack';
-	    _this2.message = message || 'The app is not allowed to access to the requested resource';
-	    _this2.stack = new Error().stack;
-	    return _this2;
+	    _this4.name = 'UnauthorizedStack';
+	    _this4.message = message || 'The app is not allowed to access to the requested resource';
+	    _this4.stack = new Error().stack;
+	    return _this4;
 	  }
 	
 	  return UnauthorizedStackException;
 	}(Error);
 	
-	var UnavailableSettingsException = function (_Error3) {
-	  _inherits(UnavailableSettingsException, _Error3);
+	var UnavailableSettingsException = function (_Error5) {
+	  _inherits(UnavailableSettingsException, _Error5);
 	
 	  function UnavailableSettingsException(message) {
 	    _classCallCheck(this, UnavailableSettingsException);
 	
-	    var _this3 = _possibleConstructorReturn(this, (UnavailableSettingsException.__proto__ || Object.getPrototypeOf(UnavailableSettingsException)).call(this));
+	    var _this5 = _possibleConstructorReturn(this, (UnavailableSettingsException.__proto__ || Object.getPrototypeOf(UnavailableSettingsException)).call(this));
 	
-	    _this3.name = 'UnavailableSettings';
-	    _this3.message = message || "The 'Settings' application isn't available or installed in the stack";
-	    _this3.stack = new Error().stack;
-	    return _this3;
+	    _this5.name = 'UnavailableSettings';
+	    _this5.message = message || "The 'Settings' application isn't available or installed in the stack";
+	    _this5.stack = new Error().stack;
+	    return _this5;
 	  }
 	
 	  return UnavailableSettingsException;
 	}(Error);
 	
+	exports.ForbiddenException = ForbiddenException;
+	exports.ServerErrorException = ServerErrorException;
 	exports.UnavailableStackException = UnavailableStackException;
 	exports.UnavailableSettingsException = UnavailableSettingsException;
 	exports.UnauthorizedStackException = UnauthorizedStackException;
@@ -9003,11 +9048,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var __import1 = __webpack_require__(254);
 	
-	var Navigation = __webpack_require__(264);
+	var Navigation = __webpack_require__(265);
 	
-	var Drawer = __webpack_require__(270);
+	var Drawer = __webpack_require__(271);
 	
-	var MENU_CONFIG = __webpack_require__(263);
+	var MENU_CONFIG = __webpack_require__(260);
 	
 	var t = __import0.t;
 	var createMenuPointers = __import1.createMenuPointers;
@@ -9681,18 +9726,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var _ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee2(config) {
 	    var _this = this;
 	
-	    var apps;
+	    var apps, comingSoonApps;
 	    return regeneratorRuntime.wrap(function _callee2$(_context2) {
 	      while (1) {
 	        switch (_context2.prev = _context2.next) {
 	          case 0:
 	            apps = void 0;
-	            _context2.prev = 1;
+	            comingSoonApps = void 0;
+	            _context2.prev = 2;
 	            _context2.t0 = Promise;
-	            _context2.next = 5;
+	            _context2.next = 6;
 	            return _stack2.default.get.apps();
 	
-	          case 5:
+	          case 6:
 	            _context2.t1 = function (app) {
 	              return !EXCLUDES.includes(app.attributes.slug);
 	            };
@@ -9754,32 +9800,42 @@ return /******/ (function(modules) { // webpackBootstrap
 	            }();
 	
 	            _context2.t3 = _context2.sent.filter(_context2.t1).map(_context2.t2);
-	            _context2.next = 10;
+	            _context2.next = 11;
 	            return _context2.t0.all.call(_context2.t0, _context2.t3);
 	
-	          case 10:
+	          case 11:
 	            apps = _context2.sent;
-	            _context2.next = 16;
+	            _context2.next = 17;
 	            break;
 	
-	          case 13:
-	            _context2.prev = 13;
-	            _context2.t4 = _context2['catch'](1);
+	          case 14:
+	            _context2.prev = 14;
+	            _context2.t4 = _context2['catch'](2);
 	
 	            apps = [{ error: _context2.t4 }];
 	
-	          case 16:
+	          case 17:
 	
 	            config.apps.length = 0;
-	            apps = (0, _comingSoon2.default)(apps);
-	            Array.prototype.push.apply(config.apps, apps);
 	
-	          case 19:
+	            _context2.next = 20;
+	            return fetchComingSoonApps().catch(function (error) {
+	              console.warn && console.warn('Cozy-bar cannot fetch comming soon apps: ' + error.message);
+	              return [];
+	            });
+	
+	          case 20:
+	            comingSoonApps = _context2.sent;
+	
+	
+	            Array.prototype.push.apply(config.apps, apps.concat(comingSoonApps));
+	
+	          case 22:
 	          case 'end':
 	            return _context2.stop();
 	        }
 	      }
-	    }, _callee2, this, [[1, 13]]);
+	    }, _callee2, this, [[2, 14]]);
 	  }));
 	
 	  return function updateAppsItems(_x) {
@@ -10086,11 +10142,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _stack2 = _interopRequireDefault(_stack);
 	
-	var _comingSoon = __webpack_require__(260);
-	
-	var _comingSoon2 = _interopRequireDefault(_comingSoon);
-	
-	var _menu = __webpack_require__(263);
+	var _menu = __webpack_require__(260);
 	
 	var _menu2 = _interopRequireDefault(_menu);
 	
@@ -10100,6 +10152,35 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var EXCLUDES = ['settings', 'onboarding'];
 	var CATEGORIES = ['cozy', 'partners', 'ptnb'];
+	
+	var cachedComingSoonApps = void 0;
+	function fetchComingSoonApps() {
+	  if (cachedComingSoonApps) return Promise.resolve(cachedComingSoonApps);
+	  return _stack2.default.get.context().then(function (context) {
+	    var comingSoonApps = context.data && context.data.attributes && context.data.attributes['coming_soon'] && Object.values(context.data.attributes['coming_soon']) || [];
+	
+	    cachedComingSoonApps = comingSoonApps.map(function (app) {
+	      var icon = void 0;
+	
+	      try {
+	        icon = app.slug && {
+	          cached: true,
+	          src: __webpack_require__(261)("./icon-" + app.slug + '.svg')
+	        };
+	      } catch (error) {
+	        console.warn && console.warn('Cannot retrieve icon for app ' + app.name + ':', error.message);
+	      }
+	
+	      return Object.assign({}, app, {
+	        comingSoon: true,
+	        l10n: false,
+	        icon: icon
+	      });
+	    });
+	
+	    return cachedComingSoonApps;
+	  });
+	}
 	
 	function createMenuPointers(tree) {
 	  function parse(value, index, array) {
@@ -10326,74 +10407,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 260 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	function addComingSoonApps(stackApps) {
-	  var comingSoonAppsList = [{
-	    'editor': 'Cozy',
-	    'name': 'Store',
-	    'slug': 'store',
-	    'category': 'cozy'
-	  }];
-	
-	  var comingSoonApps = comingSoonAppsList
-	  // drop coming soon apps already installed
-	  .filter(function (a) {
-	    return !stackApps.filter(function (st) {
-	      return st.slug === a.slug;
-	    }).length;
-	  })
-	  // consolidate
-	  .map(function (a) {
-	    a.comingSoon = true;
-	    a.l10n = false;
-	    a.icon = {
-	      cached: true,
-	      src: __webpack_require__(261)("./icon-" + a.slug + '.svg')
-	    };
-	    return a;
-	  });
-	
-	  // merge to installed apps
-	  return stackApps.concat(comingSoonApps);
-	}
-	
-	exports.default = addComingSoonApps;
-
-/***/ },
-/* 261 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var map = {
-		"./icon-store.svg": 262
-	};
-	function webpackContext(req) {
-		return __webpack_require__(webpackContextResolve(req));
-	};
-	function webpackContextResolve(req) {
-		return map[req] || (function() { throw new Error("Cannot find module '" + req + "'.") }());
-	};
-	webpackContext.keys = function webpackContextKeys() {
-		return Object.keys(map);
-	};
-	webpackContext.resolve = webpackContextResolve;
-	module.exports = webpackContext;
-	webpackContext.id = 261;
-
-
-/***/ },
-/* 262 */
-/***/ function(module, exports) {
-
-	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgdmlld0JveD0iMCAwIDMyIDMyIj4KICA8ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgogICAgPHBhdGggZmlsbD0iI0ZDQkFCQSIgZD0iTTIsMjkuOTk4MjAyNiBMMiwxOC41IEw2LDE4LjUgTDYsMjYuNSBMMTYsMjYuNSBMMTYsMTguNSBMMzAsMTguNSBMMzAsMjkuOTk4MjAyNiBDMzAsMzAuNTU1MTE4NCAyOS41NTI3NTE5LDMxIDI5LjAwMTA0MzQsMzEgTDI3Ljk5ODk1NjYsMzEgQzI3LjQ0MjY2MDMsMzEgMjcsMzAuNTUyMDkxMyAyNywyOS45OTk1Njc5IEwyNywxOS41IEwyMCwxOS41IEwyMCwyOS45OTk1Njc5IEMyMCwzMC41NDkxODY0IDE5LjU1NTI0MDcsMzEgMTkuMDA2NjAyMywzMSBMMi45OTMzOTc2OCwzMSBDMi40NDQ5NDYyOSwzMSAyLDMwLjU1MTQ4IDIsMjkuOTk4MjAyNiBaIE0yLDIuMDAxMzgwMDYgQzIsMS40NDgzMzMxMyAyLjQzOTgxMzE0LDEgMi45OTY1MzQ4MiwxIEwyOS4wMDM0NjUyLDEgQzI5LjU1MzgzNjIsMSAzMCwxLjQ0Njc3MTMyIDMwLDIuMDAxMzgwMDYgTDMwLDcuNSBMMiw3LjUgTDIsMi4wMDEzODAwNiBaIi8+CiAgICA8cGF0aCBmaWxsPSIjRjYyQzJDIiBkPSJNMSwxOS41IEwzMSwxOS41IEwzMSwxOS41IEMzMS41NTIyODQ3LDE5LjUgMzIsMTkuMDUyMjg0NyAzMiwxOC41IEwzMiwxNS42MDk3NzIyIEwzMiwxNS42MDk3NzIyIEMzMiwxNS41MzY4MDk5IDMxLjk5MjAxNDgsMTUuNDY0MDY2NyAzMS45NzYxODcxLDE1LjM5Mjg0MTggTDMwLDYuNSBMMiw2LjUgTDAuMDIzODEyOTM5OCwxNS4zOTI4NDE4IEwwLjAyMzgxMjkzOTgsMTUuMzkyODQxOCBDMC4wMDc5ODUxODQ3MSwxNS40NjQwNjY3IC04Ljg5MDcxOTUxZS0xNSwxNS41MzY4MDk5IC04Ljg4MTc4NDJlLTE1LDE1LjYwOTc3MjIgTDAsMTguNSBMMCwxOC41IEM2Ljc2MzUzNzUxZS0xNywxOS4wNTIyODQ3IDAuNDQ3NzE1MjUsMTkuNSAxLDE5LjUgWiIvPgogIDwvZz4KPC9zdmc+Cg=="
-
-/***/ },
-/* 263 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -10412,7 +10425,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				{
 					"slug": "help",
 					"external": true,
-					"href": "https://mesinfos.fing.org/forum"
+					"href": "https://cozy.io/fr/support/"
 				}
 			],
 			"logout": [
@@ -10470,14 +10483,55 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
+/* 261 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var map = {
+		"./icon-bank.svg": 262,
+		"./icon-sante.svg": 263,
+		"./icon-store.svg": 264
+	};
+	function webpackContext(req) {
+		return __webpack_require__(webpackContextResolve(req));
+	};
+	function webpackContextResolve(req) {
+		return map[req] || (function() { throw new Error("Cannot find module '" + req + "'.") }());
+	};
+	webpackContext.keys = function webpackContextKeys() {
+		return Object.keys(map);
+	};
+	webpackContext.resolve = webpackContextResolve;
+	module.exports = webpackContext;
+	webpackContext.id = 261;
+
+
+/***/ },
+/* 262 */
+/***/ function(module, exports) {
+
+	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI5NiIgaGVpZ2h0PSI5NiIgdmlld0JveD0iMCAwIDk2IDk2Ij4KICA8ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgogICAgPHJlY3Qgd2lkdGg9Ijk2IiBoZWlnaHQ9Ijk2IiBmaWxsPSIjNUE5QjlFIiByeD0iOCIvPgogICAgPHRleHQgZmlsbD0iIzMxNUY3RSIgZm9udC1mYW1pbHk9IkxhdG8tQmxhY2ssIExhdG8iIGZvbnQtc2l6ZT0iMTYiIGZvbnQtd2VpZ2h0PSI3MDAiPgogICAgICA8dHNwYW4geD0iNTAuNzUyIiB5PSI5MCI+TGFiczwvdHNwYW4+CiAgICA8L3RleHQ+CiAgICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxMiAxMCkiPgogICAgICA8cGF0aCBmaWxsPSIjMzE1RjdFIiBkPSJNMjgsMTguNTQ1NDU0NSBMNy44OTAzMzE4Nyw1NS4xMDg0ODc1IEw3Ljg5MDMzMTg3LDU1LjEwODQ4NzUgQzcuNDAzMTAzNDMsNTUuOTk0MzU3NCA3LjE0NzYyNzMzLDU2Ljk4ODk4MjIgNy4xNDc2MjczMyw1OCBDNy4xNDc2MjczMyw2MS4zMTM3MDg1IDkuODMzOTE4ODMsNjQgMTMuMTQ3NjI3Myw2NCBMMTMuMTQ3NjI3Myw2NCBMNTguODUyMzcyNyw2NCBDNTkuODYzMzkwNSw2NCA2MC44NTgwMTUzLDYzLjc0NDUyMzkgNjEuNzQzODg1Miw2My4yNTcyOTU1IEM2NC42NDc0MDkzLDYxLjY2MDM1NzIgNjUuNzA2NjA2NCw1OC4wMTIwMTE2IDY0LjEwOTY2ODEsNTUuMTA4NDg3NSBMNjQuMTA5NjY4MSw1NS4xMDg0ODc1IEw0NCwxOC41NDU0NTQ1IEw0NCw0IEwyOCw0IEwyOCwxOC41NDU0NTQ1IFogTTI4LDAgTDQ0LDAgQzQ1LjEwNDU2OTUsLTIuMDI5MDYxMjVlLTE2IDQ2LDAuODk1NDMwNSA0NiwyIEw0NiwyIEM0NiwzLjEwNDU2OTUgNDUuMTA0NTY5NSw0IDQ0LDQgTDI4LDQgQzI2Ljg5NTQzMDUsNCAyNiwzLjEwNDU2OTUgMjYsMiBMMjYsMiBMMjYsMiBDMjYsMC44OTU0MzA1IDI2Ljg5NTQzMDUsMi4wMjkwNjEyNWUtMTYgMjgsMCBaIi8+CiAgICAgIDxwYXRoIGZpbGw9IiNGRkZGRkYiIGQ9Ik0wLDUyIEwwLDM2IEw3LDM2IEwxMiw0NiBMMTcsMzYgTDI0LDM2IEwyNCw1MiBMMTgsNTIgTDE4LDQwIEwxMiw1MiBMOSw1MiBMMyw0MCBMMyw1MiBMMCw1MiBaIE0yNSw1MiBMMzIsMzYgTDM4LDM2IEw0NSw1MiBMMzksNTIgTDM4LDQ5IEwzMCw0OSBMMjguNjk5OTUxMiw1MiBMMjUsNTIgWiBNMzEsNDYgTDM3LDQ2IEwzNCw0MCBMMzEsNDYgWiBNNDcsMzYgTDUyLDM2IEw1Miw1MiBMNDcsNTIgTDQ3LDM2IFogTTU2LDM2IEw3MiwzNiBMNzIsMzkgTDYxLDM5IEw2MSw0NCBMNzIsNDQgTDcyLDQ3IEw2MSw0NyBMNjEsNTIgTDU2LDUyIEw1NiwzNiBaIi8+CiAgICA8L2c+CiAgPC9nPgo8L3N2Zz4K"
+
+/***/ },
+/* 263 */
+/***/ function(module, exports) {
+
+	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI5NiIgaGVpZ2h0PSI5NiIgdmlld0JveD0iMCAwIDk2IDk2Ij4KICA8ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgogICAgPHJlY3Qgd2lkdGg9Ijk2IiBoZWlnaHQ9Ijk2IiBmaWxsPSIjNUE5QjlFIiByeD0iOCIvPgogICAgPHRleHQgZmlsbD0iIzMxNUY3RSIgZm9udC1mYW1pbHk9IkxhdG8tQmxhY2ssIExhdG8iIGZvbnQtc2l6ZT0iMTYiIGZvbnQtd2VpZ2h0PSI3MDAiPgogICAgICA8dHNwYW4geD0iNTAuNzUyIiB5PSI5MCI+TGFiczwvdHNwYW4+CiAgICA8L3RleHQ+CiAgICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxMiAxMCkiPgogICAgICA8cGF0aCBmaWxsPSIjMzE1RjdFIiBkPSJNMjgsMTguNTQ1NDU0NSBMNy44OTAzMzE4Nyw1NS4xMDg0ODc1IEw3Ljg5MDMzMTg3LDU1LjEwODQ4NzUgQzcuNDAzMTAzNDMsNTUuOTk0MzU3NCA3LjE0NzYyNzMzLDU2Ljk4ODk4MjIgNy4xNDc2MjczMyw1OCBDNy4xNDc2MjczMyw2MS4zMTM3MDg1IDkuODMzOTE4ODMsNjQgMTMuMTQ3NjI3Myw2NCBMMTMuMTQ3NjI3Myw2NCBMNTguODUyMzcyNyw2NCBDNTkuODYzMzkwNSw2NCA2MC44NTgwMTUzLDYzLjc0NDUyMzkgNjEuNzQzODg1Miw2My4yNTcyOTU1IEM2NC42NDc0MDkzLDYxLjY2MDM1NzIgNjUuNzA2NjA2NCw1OC4wMTIwMTE2IDY0LjEwOTY2ODEsNTUuMTA4NDg3NSBMNjQuMTA5NjY4MSw1NS4xMDg0ODc1IEw0NCwxOC41NDU0NTQ1IEw0NCw0IEwyOCw0IEwyOCwxOC41NDU0NTQ1IFogTTI4LDAgTDQ0LDAgQzQ1LjEwNDU2OTUsLTIuMDI5MDYxMjVlLTE2IDQ2LDAuODk1NDMwNSA0NiwyIEw0NiwyIEM0NiwzLjEwNDU2OTUgNDUuMTA0NTY5NSw0IDQ0LDQgTDI4LDQgQzI2Ljg5NTQzMDUsNCAyNiwzLjEwNDU2OTUgMjYsMiBMMjYsMiBMMjYsMiBDMjYsMC44OTU0MzA1IDI2Ljg5NTQzMDUsMi4wMjkwNjEyNWUtMTYgMjgsMCBaIi8+CiAgICAgIDxwYXRoIGZpbGw9IiNGRkZGRkYiIGQ9Ik0wLDUyIEwwLDM2IEw3LDM2IEwxMiw0NiBMMTcsMzYgTDI0LDM2IEwyNCw1MiBMMTgsNTIgTDE4LDQwIEwxMiw1MiBMOSw1MiBMMyw0MCBMMyw1MiBMMCw1MiBaIE0yNSw1MiBMMzIsMzYgTDM4LDM2IEw0NSw1MiBMMzksNTIgTDM4LDQ5IEwzMCw0OSBMMjguNjk5OTUxMiw1MiBMMjUsNTIgWiBNMzEsNDYgTDM3LDQ2IEwzNCw0MCBMMzEsNDYgWiBNNDcsMzYgTDUyLDM2IEw1Miw1MiBMNDcsNTIgTDQ3LDM2IFogTTU2LDM2IEw3MiwzNiBMNzIsMzkgTDYxLDM5IEw2MSw0NCBMNzIsNDQgTDcyLDQ3IEw2MSw0NyBMNjEsNTIgTDU2LDUyIEw1NiwzNiBaIi8+CiAgICA8L2c+CiAgPC9nPgo8L3N2Zz4K"
+
+/***/ },
 /* 264 */
+/***/ function(module, exports) {
+
+	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgdmlld0JveD0iMCAwIDMyIDMyIj4KICA8ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgogICAgPHBhdGggZmlsbD0iI0ZDQkFCQSIgZD0iTTIsMjkuOTk4MjAyNiBMMiwxOC41IEw2LDE4LjUgTDYsMjYuNSBMMTYsMjYuNSBMMTYsMTguNSBMMzAsMTguNSBMMzAsMjkuOTk4MjAyNiBDMzAsMzAuNTU1MTE4NCAyOS41NTI3NTE5LDMxIDI5LjAwMTA0MzQsMzEgTDI3Ljk5ODk1NjYsMzEgQzI3LjQ0MjY2MDMsMzEgMjcsMzAuNTUyMDkxMyAyNywyOS45OTk1Njc5IEwyNywxOS41IEwyMCwxOS41IEwyMCwyOS45OTk1Njc5IEMyMCwzMC41NDkxODY0IDE5LjU1NTI0MDcsMzEgMTkuMDA2NjAyMywzMSBMMi45OTMzOTc2OCwzMSBDMi40NDQ5NDYyOSwzMSAyLDMwLjU1MTQ4IDIsMjkuOTk4MjAyNiBaIE0yLDIuMDAxMzgwMDYgQzIsMS40NDgzMzMxMyAyLjQzOTgxMzE0LDEgMi45OTY1MzQ4MiwxIEwyOS4wMDM0NjUyLDEgQzI5LjU1MzgzNjIsMSAzMCwxLjQ0Njc3MTMyIDMwLDIuMDAxMzgwMDYgTDMwLDcuNSBMMiw3LjUgTDIsMi4wMDEzODAwNiBaIi8+CiAgICA8cGF0aCBmaWxsPSIjRjYyQzJDIiBkPSJNMSwxOS41IEwzMSwxOS41IEwzMSwxOS41IEMzMS41NTIyODQ3LDE5LjUgMzIsMTkuMDUyMjg0NyAzMiwxOC41IEwzMiwxNS42MDk3NzIyIEwzMiwxNS42MDk3NzIyIEMzMiwxNS41MzY4MDk5IDMxLjk5MjAxNDgsMTUuNDY0MDY2NyAzMS45NzYxODcxLDE1LjM5Mjg0MTggTDMwLDYuNSBMMiw2LjUgTDAuMDIzODEyOTM5OCwxNS4zOTI4NDE4IEwwLjAyMzgxMjkzOTgsMTUuMzkyODQxOCBDMC4wMDc5ODUxODQ3MSwxNS40NjQwNjY3IC04Ljg5MDcxOTUxZS0xNSwxNS41MzY4MDk5IC04Ljg4MTc4NDJlLTE1LDE1LjYwOTc3MjIgTDAsMTguNSBMMCwxOC41IEM2Ljc2MzUzNzUxZS0xNywxOS4wNTIyODQ3IDAuNDQ3NzE1MjUsMTkuNSAxLDE5LjUgWiIvPgogIDwvZz4KPC9zdmc+Cg=="
+
+/***/ },
+/* 265 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 	
-	var NavigationSection = __webpack_require__(265);
+	var NavigationSection = __webpack_require__(266);
 	
 	NavigationSection = NavigationSection && NavigationSection.__esModule ? NavigationSection['default'] : NavigationSection;
 	
@@ -10741,7 +10795,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Navigation;
 
 /***/ },
-/* 265 */
+/* 266 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -10750,7 +10804,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var __import0 = __webpack_require__(189);
 	
-	var NavigationGroup = __webpack_require__(266);
+	var NavigationGroup = __webpack_require__(267);
 	
 	var t = __import0.t;
 	NavigationGroup = NavigationGroup && NavigationGroup.__esModule ? NavigationGroup['default'] : NavigationGroup;
@@ -11448,14 +11502,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = NavigationSection;
 
 /***/ },
-/* 266 */
+/* 267 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 	
-	var NavigationItem = __webpack_require__(267);
+	var NavigationItem = __webpack_require__(268);
 	
 	NavigationItem = NavigationItem && NavigationItem.__esModule ? NavigationItem['default'] : NavigationItem;
 	
@@ -11848,7 +11902,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = NavigationGroup;
 
 /***/ },
-/* 267 */
+/* 268 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -11859,7 +11913,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var stack = __webpack_require__(251);
 	
-	var Storage = __webpack_require__(268);
+	var Storage = __webpack_require__(269);
 	
 	var t = __import0.t;
 	stack = stack && stack.__esModule ? stack['default'] : stack;
@@ -11897,7 +11951,7 @@ return /******/ (function(modules) { // webpackBootstrap
 						};
 					} else {
 						return {
-							src: __webpack_require__(269),
+							src: __webpack_require__(270),
 							class: 'blurry'
 						};
 					}
@@ -12601,7 +12655,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = NavigationItem;
 
 /***/ },
-/* 268 */
+/* 269 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -12627,13 +12681,13 @@ return /******/ (function(modules) { // webpackBootstrap
 			computed: {
 				diskQuota: function diskQuota(diskQuotaFromStack) {
 					if (Number.isInteger(diskQuotaFromStack)) {
-						return (diskQuotaFromStack / 1000000000).toFixed(2);
+						return (diskQuotaFromStack / (1024 * 1024 * 1024)).toFixed(2);
 					}
 					return diskQuotaFromStack;
 				},
 				diskUsage: function diskUsage(diskUsageFromStack) {
 					if (Number.isInteger(diskUsageFromStack)) {
-						return (diskUsageFromStack / 1000000000).toFixed(2);
+						return (diskUsageFromStack / (1024 * 1024 * 1024)).toFixed(2);
 					}
 					return diskUsageFromStack;
 				}
@@ -12934,13 +12988,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Storage;
 
 /***/ },
-/* 269 */
+/* 270 */
 /***/ function(module, exports) {
 
 	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICA8ZyBmaWxsPSIjOTU5OTlEIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0yODggLTMyKSI+CiAgICA8cGF0aCBkPSJNMjg5LDQzLjAwODYyOTYgQzI4OSw0My41NTg2NzMyIDI4OS4zOTY0MDcsNDQuMjMxMDg5OSAyODkuODcyNDAxLDQ0LjUwMzA4NjggTDI5NS4xMjc1OTksNDcuNTA2MDU2NiBDMjk1LjYwOTQxMyw0Ny43ODEzNzg5IDI5Niw0Ny41NTc4NzMgMjk2LDQ3LjAwODYyOTYgTDI5Niw0MS41MDA1MTM4IEMyOTYsNDAuOTUwNDcwMiAyOTUuNjAzNTkzLDQwLjI3ODA1MzUgMjk1LjEyNzU5OSw0MC4wMDYwNTY2IEwyODkuODcyNDAxLDM3LjAwMzA4NjggQzI4OS4zOTA1ODcsMzYuNzI3NzY0NSAyODksMzYuOTUxMjcwNCAyODksMzcuNTAwNTEzOCBMMjg5LDQzLjAwODYyOTYgWiBNMzA0LDQzLjAwODYyOTYgQzMwNCw0My41NTg2NzMyIDMwMy42MDM1OTMsNDQuMjMxMDg5OSAzMDMuMTI3NTk5LDQ0LjUwMzA4NjggTDI5Ny44NzI0MDEsNDcuNTA2MDU2NiBDMjk3LjM5MDU4Nyw0Ny43ODEzNzg5IDI5Nyw0Ny41NTc4NzMgMjk3LDQ3LjAwODYyOTYgTDI5Nyw0MS41MDA1MTM4IEMyOTcsNDAuOTUwNDcwMiAyOTcuMzk2NDA3LDQwLjI3ODA1MzUgMjk3Ljg3MjQwMSw0MC4wMDYwNTY2IEwzMDMuMTI3NTk5LDM3LjAwMzA4NjggQzMwMy42MDk0MTMsMzYuNzI3NzY0NSAzMDQsMzYuOTUxMjcwNCAzMDQsMzcuNTAwNTEzOCBMMzA0LDQzLjAwODYyOTYgWiBNMjk3LjM0OTc2MSwzOC45ODE2NDE2IEMyOTYuODgwNDUxLDM5LjI3MDQ0NzkgMjk2LjExMjg2MSwzOS4yNjYzMzI0IDI5NS42NTAyMzksMzguOTgxNjQxNiBMMjkwLjg0OTc2MSwzNi4wMjc1MDE4IEMyOTAuMzgwNDUxLDM1LjczODY5NTUgMjkwLjM4NzEzOSwzNS4yOTYxMTIzIDI5MC44NzY2MTksMzUuMDMyNTQ2MSBMMjk1LjYyMzM4MSwzMi40NzY1OTczIEMyOTYuMTA3NTI0LDMyLjIxNTkwNDggMjk2Ljg4NzEzOSwzMi4yMTMwMzExIDI5Ny4zNzY2MTksMzIuNDc2NTk3MyBMMzAyLjEyMzM4MSwzNS4wMzI1NDYxIEMzMDIuNjA3NTI0LDM1LjI5MzIzODcgMzAyLjYxMjg2MSwzNS43NDI4MTEgMzAyLjE1MDIzOSwzNi4wMjc1MDE4IEwyOTcuMzQ5NzYxLDM4Ljk4MTY0MTYgWiIvPgogICAgPHBhdGggZD0iTTI4OSw0My4wMDg2Mjk2IEMyODksNDMuNTU4NjczMiAyODkuMzk2NDA3LDQ0LjIzMTA4OTkgMjg5Ljg3MjQwMSw0NC41MDMwODY4IEwyOTUuMTI3NTk5LDQ3LjUwNjA1NjYgQzI5NS42MDk0MTMsNDcuNzgxMzc4OSAyOTYsNDcuNTU3ODczIDI5Niw0Ny4wMDg2Mjk2IEwyOTYsNDEuNTAwNTEzOCBDMjk2LDQwLjk1MDQ3MDIgMjk1LjYwMzU5Myw0MC4yNzgwNTM1IDI5NS4xMjc1OTksNDAuMDA2MDU2NiBMMjg5Ljg3MjQwMSwzNy4wMDMwODY4IEMyODkuMzkwNTg3LDM2LjcyNzc2NDUgMjg5LDM2Ljk1MTI3MDQgMjg5LDM3LjUwMDUxMzggTDI4OSw0My4wMDg2Mjk2IFogTTMwNCw0My4wMDg2Mjk2IEMzMDQsNDMuNTU4NjczMiAzMDMuNjAzNTkzLDQ0LjIzMTA4OTkgMzAzLjEyNzU5OSw0NC41MDMwODY4IEwyOTcuODcyNDAxLDQ3LjUwNjA1NjYgQzI5Ny4zOTA1ODcsNDcuNzgxMzc4OSAyOTcsNDcuNTU3ODczIDI5Nyw0Ny4wMDg2Mjk2IEwyOTcsNDEuNTAwNTEzOCBDMjk3LDQwLjk1MDQ3MDIgMjk3LjM5NjQwNyw0MC4yNzgwNTM1IDI5Ny44NzI0MDEsNDAuMDA2MDU2NiBMMzAzLjEyNzU5OSwzNy4wMDMwODY4IEMzMDMuNjA5NDEzLDM2LjcyNzc2NDUgMzA0LDM2Ljk1MTI3MDQgMzA0LDM3LjUwMDUxMzggTDMwNCw0My4wMDg2Mjk2IFogTTI5Ny4zNDk3NjEsMzguOTgxNjQxNiBDMjk2Ljg4MDQ1MSwzOS4yNzA0NDc5IDI5Ni4xMTI4NjEsMzkuMjY2MzMyNCAyOTUuNjUwMjM5LDM4Ljk4MTY0MTYgTDI5MC44NDk3NjEsMzYuMDI3NTAxOCBDMjkwLjM4MDQ1MSwzNS43Mzg2OTU1IDI5MC4zODcxMzksMzUuMjk2MTEyMyAyOTAuODc2NjE5LDM1LjAzMjU0NjEgTDI5NS42MjMzODEsMzIuNDc2NTk3MyBDMjk2LjEwNzUyNCwzMi4yMTU5MDQ4IDI5Ni44ODcxMzksMzIuMjEzMDMxMSAyOTcuMzc2NjE5LDMyLjQ3NjU5NzMgTDMwMi4xMjMzODEsMzUuMDMyNTQ2MSBDMzAyLjYwNzUyNCwzNS4yOTMyMzg3IDMwMi42MTI4NjEsMzUuNzQyODExIDMwMi4xNTAyMzksMzYuMDI3NTAxOCBMMjk3LjM0OTc2MSwzOC45ODE2NDE2IFoiLz4KICA8L2c+Cjwvc3ZnPgo="
 
 /***/ },
-/* 270 */
+/* 271 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -12949,7 +13003,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var __import0 = __webpack_require__(189);
 	
-	var NavigationGroup = __webpack_require__(266);
+	var NavigationGroup = __webpack_require__(267);
 	
 	var t = __import0.t;
 	NavigationGroup = NavigationGroup && NavigationGroup.__esModule ? NavigationGroup['default'] : NavigationGroup;
@@ -13426,7 +13480,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Drawer;
 
 /***/ },
-/* 271 */
+/* 272 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
