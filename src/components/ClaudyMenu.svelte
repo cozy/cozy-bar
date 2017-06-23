@@ -84,7 +84,7 @@
               this.selectedActionUrl = ''
               return ''
             }
-            const app = appsList.find(a => a.attributes.slug === action.link.appSlug)
+            const app = appsList.find(a => a.slug === action.link.appSlug)
             if (app && app.links && app.link.related) {
               const appUrl = `${app.links.related}${action.link.path ? action.link.path : ''}`
               this.selectedActionUrl = appUrl

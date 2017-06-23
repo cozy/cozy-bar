@@ -4,6 +4,7 @@ import deepEqual from 'deep-equal'
 import stack from '../lib/stack'
 
 import MENU_CONFIG from '../config/menu'
+import CLAUDY_CONFIG from '../config/claudy'
 
 const EXCLUDES = ['settings', 'onboarding']
 const CATEGORIES = ['cozy', 'partners', 'ptnb']
@@ -37,6 +38,24 @@ function fetchComingSoonApps () {
       })
 
       return cachedComingSoonApps
+    })
+}
+
+async function getClaudyConfig () {
+  return stack.get.context()
+    .then(context => {
+      const contextActions = context.data && context.data.attributes && context.data.attributes['claudy_actions'] || null
+      if (!contextActions) return null
+      // get an arrays of action
+      const claudyActions = contextActions.map(slug => {
+        if (CLAUDY_CONFIG.actions.hasOwnProperty(slug)) {
+          // adding also the action slug
+          return Object.assign({}, CLAUDY_CONFIG.actions[slug], { slug })
+        }
+      }).filter(action => action)
+      return Object.assign({}, CLAUDY_CONFIG, {
+        actions: claudyActions
+      })
     })
 }
 
@@ -218,4 +237,4 @@ async function updateSettings (config, {storage = true, items = true} = {}) {
   return valve
 }
 
-export { createMenuPointers, updateSettings, updateApps }
+export { createMenuPointers, updateSettings, updateApps, getClaudyConfig }

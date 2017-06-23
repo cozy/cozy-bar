@@ -50,6 +50,11 @@ Coming Soon application
 ---
 Coming Soon applications (or apps) are defined in your Cozy's [configuration file](https://github.com/cozy/cozy-stack/blob/master/docs/config.md#main-configuration-file). See the `cozy.example.yaml` file [provided by the stack](https://github.com/cozy/cozy-stack/blob/master/cozy.example.yaml#L80).
 
+Claudy actions list
+---
+Claudy actions are declared in `src/config/claudy.yaml` with a slug as property name and some options (icon name and link options for example). The slugs list that will be used for Claudy is defined in your Cozy's [configuration file](https://github.com/cozy/cozy-stack/blob/master/docs/config.md#main-configuration-file). See the `cozy.example.yaml` file [provided by the stack](https://github.com/cozy/cozy-stack/blob/master/cozy.example.yaml#L101).
+If no `claudy_actions` property is defined in the configuration, Claudy won't be displayed.
+
 Contribute
 ----------
 

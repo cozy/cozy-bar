@@ -1,6 +1,6 @@
 <div class='{{`coz-claudy coz-bar-hide-sm ${opened ? "coz-claudy--opened" : ""}`}}'>
   <button class='coz-claudy-icon' data-claudy-opened='{{opened}}' on:click='toggleClaudy()'/>
-  <ClaudyMenu actions='{{config.actions}}' on:close='toggleClaudy()' usageTracker='{{usageTracker}}' />
+  <ClaudyMenu actions='{{config.actions}}' on:close='toggleClaudy()' usageTracker='{{usageTracker}}' appsList={{appsList}} />
 </div>
 
 <script>
