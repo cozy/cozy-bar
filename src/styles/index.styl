@@ -6,11 +6,15 @@
 @import 'navigation_item.css'
 @import 'storage.css'
 @import 'drawer.css'
+@import 'claudy.css'
+@import 'claudy_menu.css'
 @import 'mobile_app.css'
 
 @import 'ui-base/palette'
 @import 'ui-base/mixins'
 @import 'ui-base/z-index'
+
+@import 'ui-components/button.styl'
 
 :root {
   --z-index-bar: $bar-index;
@@ -19,13 +23,28 @@
 }
 
 [role=banner] {
-  --grey-08: grey-08;
-  --grey-09: grey-09;
-  --grey-10: grey-10;
-  --grey-11: grey-11;
-  --grey-12: grey-12;
+  --charcoal-grey: charcoal-grey;
+  --silver: silver;
+  --pale-grey: pale-grey;
+  --cool-grey: cool-grey;
+  --slate-grey: slate-grey;
   --dodger-blue: dodger-blue;
 }
 
 .coz-bar-hidden
   @extend $hidden
+
+.coz-btn-regular
+  @extend $button
+  @extend $button--regular
+  // built-in stylus em() from cozy-ui is not correcty supported here
+  min-height: 40px;
+  padding: 13px 15px 11px;
+
+.coz-btn-close
+  @extend $button
+  @extend $button--close
+  // built-in stylus em() from cozy-ui is not correcty supported here
+  width: 32px;
+  padding: 0;
+  margin: 0;

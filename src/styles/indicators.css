@@ -31,14 +31,14 @@
 [role=banner] progress[value] {
   /* Reset the default appearance */
   appearance: none;
-  background-color: var(--grey-10);
-  border: solid 1px var(--grey-09);
+  background-color: var(--pale-grey);
+  border: solid 1px var(--silver);
   border-radius: 2px;
   color: var(--dodger-blue);
 }
 
 [role=banner] progress[value]::-webkit-progress-bar {
-  background: var(--grey-10);
+  background: var(--pale-grey);
   border-radius: 2px;
 }
 

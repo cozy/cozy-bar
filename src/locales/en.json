@@ -19,5 +19,34 @@
     "partners": "Partners apps",
     "ptnb": "expPTNB",
     "others": "Other apps"
+  },
+
+  "claudy": {
+    "title": "How to drive your Cozy?",
+    "actions": {
+      "desktop": {
+        "title": "Get access to your files in your computer",
+        "description": "Synchronize all your Cozy Drive files on your computer",
+        "button": "Install Cozy Drive on your desktop",
+        "link": "https://docs.cozy.io/en/download/"
+      },
+      "mobile": {
+        "title": "Back up and sync your pics from your mobile",
+        "description": "All your memories are safe on your Cozy Drive",
+        "button": "Install the Cozy Drive app on your mobile",
+        "link": "https://docs.cozy.io/en/download/"
+      },
+      "cozy-collect": {
+        "title": "Get back your bills instantly",
+        "description": "Cozy Collect organize all your files instantly",
+        "button": "Discover Cozy Collect"
+      },
+      "support": {
+        "title": "Give feedback to your team",
+        "description": "Share your idea or your bug on our dedicated interface",
+        "button": "Get access to the support",
+        "link": "https://cozy.io/en/support/"
+      }
+    }
   }
 }

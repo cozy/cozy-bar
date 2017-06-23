@@ -1,0 +1,22 @@
+actions:
+    - slug: desktop
+      icon: icon-laptop.svg
+      link:
+        type: external
+
+    - slug: mobile
+      icon: icon-phone.svg
+      link:
+        type: external
+
+    - slug: cozy-collect
+      icon: icon-bills.svg
+      link:
+        type: apps
+        appSlug: collect
+        path: /#/discovery/?intro
+
+    - slug: support
+      icon: icon-question-mark.svg
+      link:
+        type: external
