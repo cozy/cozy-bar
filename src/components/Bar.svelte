@@ -19,7 +19,7 @@
 
 {{#if target !== 'mobile' && !isPublic}}
 <Drawer content='{{config.apps}}' footer='{{config.sections.drawer}}' visible={{drawerVisible}} on:close='toggleDrawer(true)'/>
-<Claudy config='{{clouzyConfig}}' appsList='{{config.apps}}'/>
+<Claudy config='{{claudyConfig}}' appsList='{{config.apps}}'/>
 {{/if}}
 
 <script>
@@ -40,7 +40,7 @@
       return {
         target: __TARGET__,
         config,
-        clouzyConfig: CLAUDY_CONFIG,
+        claudyConfig: CLAUDY_CONFIG,
         drawerVisible: false
       }
     },
