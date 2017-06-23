@@ -19,12 +19,14 @@
 
 {{#if target !== 'mobile' && !isPublic}}
 <Drawer content='{{config.apps}}' footer='{{config.sections.drawer}}' visible={{drawerVisible}} on:close='toggleDrawer(true)'/>
-<Claudy config='{{claudyConfig}}' appsList='{{config.apps}}'/>
+  {{#if claudyConfig}}
+    <Claudy config='{{claudyConfig}}' appsList='{{config.apps}}'/>
+  {{/if}}
 {{/if}}
 
 <script>
   import { t } from '../lib/i18n'
-  import { createMenuPointers, updateSettings, updateApps } from '../lib/config'
+  import { createMenuPointers, updateSettings, updateApps, getClaudyConfig } from '../lib/config'
 
   import Navigation from './Navigation'
   import Drawer from './Drawer'
@@ -40,7 +42,7 @@
       return {
         target: __TARGET__,
         config,
-        claudyConfig: CLAUDY_CONFIG,
+        claudyConfig: null, // no claudy by default
         drawerVisible: false
       }
     },
@@ -60,12 +62,14 @@
         this.set({config}) // force to rerender when locale change
       })
 
+      let claudyConfig = null
       if (this.get('target') !== 'mobile' && !this.get('isPublic')) {
+        claudyConfig = await getClaudyConfig()
         await updateSettings(config)
         await updateApps(config)
       }
 
-      this.set({ config })
+      this.set({ config, claudyConfig })
     },
 
     components: {
