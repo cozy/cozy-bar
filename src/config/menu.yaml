@@ -14,6 +14,11 @@ subsections:
   beta:
     - slug: beta_status
       inactive: true
+  claudy:
+    - slug: claudy
+      name: claudy.title
+      l10n: true
+      event: claudy
 
 components:
   storage:
@@ -43,6 +48,7 @@ sections:
       items: _.settings
   drawer:
     - _.subsections.settings
+    - _.subsections.claudy
     - _.subsections.help
     - _.subsections.logout
     - _.subsections.beta

@@ -42,3 +42,7 @@
 [role=banner] [data-icon='icon-cube'] {
   background-image: url(../assets/icons/16/icon-cube-16.svg)
 }
+
+[role=banner] [data-icon='icon-claudy'] {
+  background-image: url(../assets/icons/16/icon-claudy.svg)
+}

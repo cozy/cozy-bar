@@ -18,7 +18,7 @@
 {{/if}}
 
 {{#if target !== 'mobile' && !isPublic}}
-<Drawer content='{{config.apps}}' footer='{{config.sections.drawer}}' visible={{drawerVisible}} on:close='toggleDrawer(true)'/>
+<Drawer content='{{config.apps}}' footer='{{config.sections.drawer}}' visible={{drawerVisible}} on:close='toggleDrawer(true)' on:claudy='toggleClaudy()'/>
   {{#if claudyConfig}}
     <Claudy config='{{claudyConfig}}' appsList='{{config.apps}}' usageTracker='{{usageTracker}}' on:toggle='toggleClaudy()' opened='{{claudyOpened}}'/>
   {{/if}}
