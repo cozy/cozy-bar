@@ -20,13 +20,15 @@
 {{#if target !== 'mobile' && !isPublic}}
 <Drawer content='{{config.apps}}' footer='{{config.sections.drawer}}' visible={{drawerVisible}} on:close='toggleDrawer(true)'/>
   {{#if claudyConfig}}
-    <Claudy config='{{claudyConfig}}' appsList='{{config.apps}}'/>
+    <Claudy config='{{claudyConfig}}' appsList='{{config.apps}}' usageTracker='{{usageTracker}}' on:toggle='toggleClaudy()' opened='{{claudyOpened}}'/>
   {{/if}}
 {{/if}}
 
 <script>
   import { t } from '../lib/i18n'
   import { createMenuPointers, updateSettings, updateApps, getClaudyConfig } from '../lib/config'
+  /* global __PIWIK_TRACKER_URL__  __PIWIK_SITEID__ __PIWIK_DIMENSION_ID_APP__*/
+  import { shouldEnableTracking, getTracker, configureTracker } from '../lib/piwik'
 
   import Navigation from './Navigation'
   import Drawer from './Drawer'
@@ -43,7 +45,9 @@
         target: __TARGET__,
         config,
         claudyConfig: null, // no claudy by default
-        drawerVisible: false
+        claudyOpened: false,
+        drawerVisible: false,
+        usageTracker: null
       }
     },
 
@@ -70,6 +74,18 @@
       }
 
       this.set({ config, claudyConfig })
+
+      // if tracking enabled, init the piwik tracker
+      if (shouldEnableTracking()) {
+        const trackerInstance = getTracker(__PIWIK_TRACKER_URL__, __PIWIK_SITEID__, false, false)
+        configureTracker({
+          appDimensionId: __PIWIK_DIMENSION_ID_APP__,
+          app: 'Cozy Bar',
+          heartbeat: 0
+        })
+        trackerInstance.push(['disableHeartBeatTimer']) // undocumented, see https://github.com/piwik/piwik/blob/3.x-dev/js/piwik.js#L6544
+        this.set({usageTracker: trackerInstance})
+      }
     },
 
     components: {
@@ -97,6 +113,20 @@
         }
 
         this.set({ drawerVisible })
+      },
+      toggleClaudy () {
+        if (!this.get('claudyConfig')) return
+        const claudyOpened = this.get('claudyOpened')
+        const usageTracker = this.get('usageTracker')
+        if (usageTracker) {
+          usageTracker.push([
+            'trackEvent',
+            'Claudy',
+            claudyOpened ? 'close' : 'open',
+            'claudy'
+          ])
+        }
+        this.set({ claudyOpened: !claudyOpened })
       },
       async onPopOpen (panel) {
         const config = this.get('config')
