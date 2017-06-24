@@ -24,6 +24,20 @@
   }
 }
 
+@media (max-width: 48em) {
+  [role=banner] .coz-claudy .coz-claudy-menu {
+    width: calc(100% - 2em);
+    height: calc(100% - 2em);
+    right: 1em;
+    top: 1em;
+    transform-origin: 50% 50% 0;
+  }
+
+  [role=banner] .coz-claudy-menu::after {
+    display: none;
+  }
+}
+
 [role=banner] .coz-claudy-menu-header {
   display: flex;
   flex-direction: row;
