@@ -26,7 +26,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - none yet
 
 ### Added
-- Claudy: a list of actions available for the Cozy and suggested to the user (according the Cozy context setting)
+- Claudy: a list of actions available for the Cozy and suggested to the user (according the Cozy context setting), in desktop and mobile views
 
 ### Removed
 - none yet
