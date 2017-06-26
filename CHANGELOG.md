@@ -20,7 +20,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [v3.1.0] - 2017-06-XX
 ### Changed
-- none yet
+- The 'others' apps category will always be displayed at the end of the apps list
 
 ### Fixed
 - Long app name are correctly handled using ellipsis in the apps list of the desktop view
