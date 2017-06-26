@@ -115,7 +115,12 @@
   margin-bottom: .75em;
 }
 
-[role=banner] .coz-nav-pop--apps .coz-nav-group a p {
+[role=banner] .coz-nav-pop--apps .coz-nav-group a .coz-label {
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-align: center;
+  text-overflow: ellipsis;
   font-size: 15px;
 }
 
