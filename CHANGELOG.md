@@ -18,7 +18,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Removed
 - none yet
 
-## [v3.1.0] - 2017-06-XX
+## [v3.1.0] - 2017-06-26
 ### Changed
 - The 'others' apps category will always be displayed at the end of the apps list
 
@@ -27,9 +27,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 - Claudy: a list of actions available for the Cozy and suggested to the user (according the Cozy context setting), in desktop and mobile views
-
-### Removed
-- none yet
 
 
 ## [v3.0.1] - 2017-06-23
@@ -41,5 +38,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 - Support link href
 
-[Unreleased]: https://github.com/cozy/cozy-client-js/compare/v3.0.1...HEAD
+[Unreleased]: https://github.com/cozy/cozy-client-js/compare/v3.1.0...HEAD
+[v3.1.0]: https://github.com/cozy/cozy-client-js/compare/v3.0.1...v3.1.0
 [v3.0.1]: https://github.com/cozy/cozy-client-js/compare/v3.0.0...v3.0.1
