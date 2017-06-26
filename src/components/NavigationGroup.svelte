@@ -5,7 +5,11 @@
     ${inactive ? " coz-nav-group--inactive" : ""}
 `}}'>
   {{#each group as item}}
-    <NavigationItem item='{{item}}' />
+    {{#if item.event === 'claudy'}}
+      <NavigationItem item='{{item}}' on:claudy='fire("claudy")'/>
+    {{else}}
+      <NavigationItem item='{{item}}'/>
+    {{/if}}
   {{/each}}
 </ul>
 {{#if separator == 'bottom'}}<hr />{{/if}}

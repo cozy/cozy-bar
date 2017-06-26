@@ -9,7 +9,7 @@
     <hr class='coz-sep-flex' />
     <nav>
       {{#each footer as group}}
-        <NavigationGroup group='{{group}}' separator='top' />
+        <NavigationGroup group='{{group}}' separator='top' on:claudy='fire("claudy")'/>
       {{/each}}
     </nav>
   </aside>

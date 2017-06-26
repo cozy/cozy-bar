@@ -57,6 +57,10 @@ async function getClaudyConfig () {
         actions: claudyActions
       })
     })
+    .catch(error => {
+      console.warn && console.warn(`Cozy-bar cannot fetch Claudy: ${error.message}`)
+      return null
+    })
 }
 
 async function updateAppsItems (config) {

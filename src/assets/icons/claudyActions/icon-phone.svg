@@ -1,8 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48">
-  <g fill="none" fill-rule="evenodd" transform="translate(9)">
-    <path fill="#FC4C83" d="M26,48 L4,48 C1.79,48 0,46.130087 0,43.826087 L0,4.17391304 C0,1.86991304 1.79,0 4,0 L26,0 C28.208,0 30,1.86991304 30,4.17391304 L30,43.826087 C30,46.130087 28.208,48 26,48 Z"/>
-    <path stroke="#F5F6F7" stroke-linecap="round" stroke-linejoin="round" d="M12,2.25146484 L18,2.25"/>
-    <path fill="#F5F6F7" d="M17.25,44.25 C17.25,45.492 16.242,46.5 15,46.5 C13.758,46.5 12.75,45.492 12.75,44.25 C12.75,43.008 13.758,42 15,42 C16.242,42 17.25,43.008 17.25,44.25 L17.25,44.25 Z"/>
-    <rect width="27" height="37.5" x="1.5" y="4.5" fill="#FEC4D6"/>
-  </g>
+<svg xmlns="http://www.w3.org/2000/svg" width="30" height="48" viewBox="0 0 30 48">
+    <g fill="none" fill-rule="evenodd" opacity=".5">
+        <path fill="#FC4C83" d="M26 48H4c-2.21 0-4-1.87-4-4.174V4.174C0 1.87 1.79 0 4 0h22c2.208 0 4 1.87 4 4.174v39.652C30 46.13 28.208 48 26 48z"/>
+        <path stroke="#F5F6F7" stroke-linecap="round" stroke-linejoin="round" d="M12 2.251l6-.001"/>
+        <path fill="#F5F6F7" d="M17.25 44.25a2.25 2.25 0 1 1-4.502-.002 2.25 2.25 0 0 1 4.502.002z"/>
+        <path fill="#FEC4D6" d="M1.5 4.5h27V42h-27z"/>
+    </g>
 </svg>

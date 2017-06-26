@@ -6,6 +6,7 @@ import 'babel-polyfill'
 import {
   ForbiddenException,
   ServerErrorException,
+  NotFoundException,
   UnavailableStackException,
   UnavailableSettingsException,
   UnauthorizedStackException
@@ -28,6 +29,7 @@ let COZY_TOKEN
 const errorStatuses = {
   '401': UnauthorizedStackException,
   '403': ForbiddenException,
+  '404': NotFoundException,
   '500': ServerErrorException
 }
 

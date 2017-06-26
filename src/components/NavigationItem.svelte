@@ -24,6 +24,13 @@
       {{/if}}
       {{label}}
     </button>
+  {{elseif item.event}}
+    <button role='menuitem' data-icon='{{dataIcon?dataIcon:""}}' on:click='fire(item.event)'>
+      {{#if fileIcon}}
+        <img src='{{fileIcon.src}}' alt='' width='64' height='64' class='{{fileIcon.class ? fileIcon.class : ""}}' />
+      {{/if}}
+      {{label}}
+    </button>
   {{elseif item.comingSoon}}
     <a role='menuitem' data-icon='{{dataIcon?dataIcon:""}}' class='coz-bar-coming-soon-app'>
       {{#if fileIcon}}
