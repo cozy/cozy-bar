@@ -2,7 +2,7 @@
   <aside ref:aside on:click='event.stopPropagation()'>
     <nav class='coz-drawer--apps'>
       {{#each categories as category}}
-        <h2 class='coz-nav-category'>{{t(`Categories.${category.title}`)}}</h2>
+        <h2 class='coz-nav-category'>{{t(`Categories.${category.slug}`)}}</h2>
         <NavigationGroup group='{{category.items}}' itemsLimit={{3}} separator='bottom' />
       {{/each}}
     </nav>
