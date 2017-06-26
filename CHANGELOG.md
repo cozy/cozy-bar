@@ -23,7 +23,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - none yet
 
 ### Fixed
-- none yet
+- Long app name are correctly handled using ellipsis in the apps list of the desktop view
 
 ### Added
 - Claudy: a list of actions available for the Cozy and suggested to the user (according the Cozy context setting), in desktop and mobile views

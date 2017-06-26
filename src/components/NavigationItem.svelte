@@ -11,14 +11,14 @@
       <p class='coz-bar-text-item coz-bar-text-item--inactive'>{{label}}</p>
     </div>
   {{elseif item.href}}
-    <a role='menuitem' href='{{item.href}}' target='{{item.external?"_blank":"_self"}}' data-icon='{{dataIcon?dataIcon:""}}'>
+    <a role='menuitem' href='{{item.href}}' target='{{item.external?"_blank":"_self"}}' data-icon='{{dataIcon?dataIcon:""}}' title='{{label}}'>
       {{#if fileIcon}}
         <img src='{{fileIcon.src}}' alt='' width='64' height='64' class='{{fileIcon.class ? fileIcon.class : ""}}' />
       {{/if}}
       <p class='coz-label'>{{label}}</p>
     </a>
   {{elseif item.action}}
-    <button role='menuitem' data-icon='{{dataIcon?dataIcon:""}}' on:click='proxy(item.action)'>
+    <button role='menuitem' data-icon='{{dataIcon?dataIcon:""}}' on:click='proxy(item.action)' title='{{label}}'>
       {{#if fileIcon}}
         <img src='{{fileIcon.src}}' alt='' width='64' height='64' class='{{fileIcon.class ? fileIcon.class : ""}}' />
       {{/if}}
@@ -32,7 +32,7 @@
       {{label}}
     </button>
   {{elseif item.comingSoon}}
-    <a role='menuitem' data-icon='{{dataIcon?dataIcon:""}}' class='coz-bar-coming-soon-app'>
+    <a role='menuitem' data-icon='{{dataIcon?dataIcon:""}}' class='coz-bar-coming-soon-app' title='{{label}}'>
       {{#if fileIcon}}
         <img src='{{fileIcon.src}}' alt='' width='64' height='64' class='{{fileIcon.class ? fileIcon.class : ""}}'/>
         <span class='coz-bar-coming-soon-badge'>{{t('soon')}}</span>
