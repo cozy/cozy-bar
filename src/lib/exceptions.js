@@ -18,6 +18,16 @@ class ServerErrorException extends Error {
   }
 }
 
+class NotFoundException extends Error {
+  constructor (message) {
+    super()
+
+    this.name = 'NotFound'
+    this.message = message || 'The ressource was not found'
+    this.stack = (new Error()).stack
+  }
+}
+
 class UnavailableStackException extends Error {
   constructor (message) {
     super()
@@ -51,6 +61,7 @@ class UnavailableSettingsException extends Error {
 export {
   ForbiddenException,
   ServerErrorException,
+  NotFoundException,
   UnavailableStackException,
   UnavailableSettingsException,
   UnauthorizedStackException
