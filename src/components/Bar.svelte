@@ -72,6 +72,12 @@
         await updateSettings(config)
         await updateApps(config)
       }
+      // filter claudy subsection if claudyConfig is null
+      if (!claudyConfig) {
+        if (config.sections && config.sections.drawer) {
+          config.sections.drawer = config.sections.drawer.filter(s => s.length && s[0].slug !== 'claudy')
+        }
+      }
 
       this.set({ config, claudyConfig })
 
