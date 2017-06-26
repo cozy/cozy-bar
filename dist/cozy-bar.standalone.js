@@ -260,7 +260,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return;
 	  }
 	
-	  __webpack_require__(272);
+	  __webpack_require__(284);
 	
 	  var barNode = createElement();
 	  var appNode = document.querySelector(APP_SELECTOR);
@@ -418,7 +418,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  view.set({ lang: lang });
 	};
 	
-	module.exports = { init: init, version: ("3.0.1"), setLocale: setLocale };
+	module.exports = { init: init, version: ("3.1.0"), setLocale: setLocale };
 
 /***/ },
 /* 1 */
@@ -7443,6 +7443,34 @@ return /******/ (function(modules) { // webpackBootstrap
 			"partners": "Partners apps",
 			"ptnb": "expPTNB",
 			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?",
+			"actions": {
+				"desktop": {
+					"title": "Get access to your files in your computer",
+					"description": "Synchronize all your Cozy Drive files on your computer",
+					"button": "Install Cozy Drive on your desktop",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"mobile": {
+					"title": "Back up and sync your pics from your mobile",
+					"description": "All your memories are safe on your Cozy Drive",
+					"button": "Install the Cozy Drive app on your mobile",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"cozy-collect": {
+					"title": "Get back your bills instantly",
+					"description": "Cozy Collect organize all your files instantly",
+					"button": "Discover Cozy Collect"
+				},
+				"support": {
+					"title": "How can we help you today ?",
+					"description": "Share your idea or your bug on our dedicated interface",
+					"button": "Get access to the support",
+					"link": "https://cozy.io/en/support/"
+				}
+			}
 		}
 	};
 
@@ -7564,6 +7592,34 @@ return /******/ (function(modules) { // webpackBootstrap
 			"partners": "Partners apps",
 			"ptnb": "expPTNB",
 			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?",
+			"actions": {
+				"desktop": {
+					"title": "Get access to your files in your computer",
+					"description": "Synchronize all your Cozy Drive files on your computer",
+					"button": "Install Cozy Drive on your desktop",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"mobile": {
+					"title": "Back up and sync your pics from your mobile",
+					"description": "All your memories are safe on your Cozy Drive",
+					"button": "Install the Cozy Drive app on your mobile",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"cozy-collect": {
+					"title": "Get back your bills instantly",
+					"description": "Cozy Collect organize all your files instantly",
+					"button": "Discover Cozy Collect"
+				},
+				"support": {
+					"title": "How can we help you today ?",
+					"description": "Share your idea or your bug on our dedicated interface",
+					"button": "Get access to the support",
+					"link": "https://cozy.io/en/support/"
+				}
+			}
 		}
 	};
 
@@ -7591,6 +7647,34 @@ return /******/ (function(modules) { // webpackBootstrap
 			"partners": "Partners apps",
 			"ptnb": "expPTNB",
 			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?",
+			"actions": {
+				"desktop": {
+					"title": "Get access to your files in your computer",
+					"description": "Synchronize all your Cozy Drive files on your computer",
+					"button": "Install Cozy Drive on your desktop",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"mobile": {
+					"title": "Back up and sync your pics from your mobile",
+					"description": "All your memories are safe on your Cozy Drive",
+					"button": "Install the Cozy Drive app on your mobile",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"cozy-collect": {
+					"title": "Get back your bills instantly",
+					"description": "Cozy Collect organize all your files instantly",
+					"button": "Discover Cozy Collect"
+				},
+				"support": {
+					"title": "How can we help you today ?",
+					"description": "Share your idea or your bug on our dedicated interface",
+					"button": "Get access to the support",
+					"link": "https://cozy.io/en/support/"
+				}
+			}
 		}
 	};
 
@@ -7618,6 +7702,34 @@ return /******/ (function(modules) { // webpackBootstrap
 			"partners": "Partners apps",
 			"ptnb": "expPTNB",
 			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?",
+			"actions": {
+				"desktop": {
+					"title": "Get access to your files in your computer",
+					"description": "Synchronize all your Cozy Drive files on your computer",
+					"button": "Install Cozy Drive on your desktop",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"mobile": {
+					"title": "Back up and sync your pics from your mobile",
+					"description": "All your memories are safe on your Cozy Drive",
+					"button": "Install the Cozy Drive app on your mobile",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"cozy-collect": {
+					"title": "Get back your bills instantly",
+					"description": "Cozy Collect organize all your files instantly",
+					"button": "Discover Cozy Collect"
+				},
+				"support": {
+					"title": "How can we help you today ?",
+					"description": "Share your idea or your bug on our dedicated interface",
+					"button": "Get access to the support",
+					"link": "https://cozy.io/en/support/"
+				}
+			}
 		}
 	};
 
@@ -7645,6 +7757,34 @@ return /******/ (function(modules) { // webpackBootstrap
 			"partners": "Partners apps",
 			"ptnb": "expPTNB",
 			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?",
+			"actions": {
+				"desktop": {
+					"title": "Get access to your files in your computer",
+					"description": "Synchronize all your Cozy Drive files on your computer",
+					"button": "Install Cozy Drive on your desktop",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"mobile": {
+					"title": "Back up and sync your pics from your mobile",
+					"description": "All your memories are safe on your Cozy Drive",
+					"button": "Install the Cozy Drive app on your mobile",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"cozy-collect": {
+					"title": "Get back your bills instantly",
+					"description": "Cozy Collect organize all your files instantly",
+					"button": "Discover Cozy Collect"
+				},
+				"support": {
+					"title": "How can we help you today ?",
+					"description": "Share your idea or your bug on our dedicated interface",
+					"button": "Get access to the support",
+					"link": "https://cozy.io/en/support/"
+				}
+			}
 		}
 	};
 
@@ -7672,6 +7812,34 @@ return /******/ (function(modules) { // webpackBootstrap
 			"partners": "Partners apps",
 			"ptnb": "expPTNB",
 			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?",
+			"actions": {
+				"desktop": {
+					"title": "Get access to your files in your computer",
+					"description": "Synchronize all your Cozy Drive files on your computer",
+					"button": "Install Cozy Drive on your desktop",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"mobile": {
+					"title": "Back up and sync your pics from your mobile",
+					"description": "All your memories are safe on your Cozy Drive",
+					"button": "Install the Cozy Drive app on your mobile",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"cozy-collect": {
+					"title": "Get back your bills instantly",
+					"description": "Cozy Collect organize all your files instantly",
+					"button": "Discover Cozy Collect"
+				},
+				"support": {
+					"title": "How can we help you today ?",
+					"description": "Share your idea or your bug on our dedicated interface",
+					"button": "Get access to the support",
+					"link": "https://cozy.io/en/support/"
+				}
+			}
 		}
 	};
 
@@ -7699,6 +7867,34 @@ return /******/ (function(modules) { // webpackBootstrap
 			"partners": "Partners apps",
 			"ptnb": "expPTNB",
 			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?",
+			"actions": {
+				"desktop": {
+					"title": "Get access to your files in your computer",
+					"description": "Synchronize all your Cozy Drive files on your computer",
+					"button": "Install Cozy Drive on your desktop",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"mobile": {
+					"title": "Back up and sync your pics from your mobile",
+					"description": "All your memories are safe on your Cozy Drive",
+					"button": "Install the Cozy Drive app on your mobile",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"cozy-collect": {
+					"title": "Get back your bills instantly",
+					"description": "Cozy Collect organize all your files instantly",
+					"button": "Discover Cozy Collect"
+				},
+				"support": {
+					"title": "How can we help you today ?",
+					"description": "Share your idea or your bug on our dedicated interface",
+					"button": "Get access to the support",
+					"link": "https://cozy.io/en/support/"
+				}
+			}
 		}
 	};
 
@@ -7726,6 +7922,34 @@ return /******/ (function(modules) { // webpackBootstrap
 			"partners": "Partners apps",
 			"ptnb": "expPTNB",
 			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?",
+			"actions": {
+				"desktop": {
+					"title": "Get access to your files in your computer",
+					"description": "Synchronize all your Cozy Drive files on your computer",
+					"button": "Install Cozy Drive on your desktop",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"mobile": {
+					"title": "Back up and sync your pics from your mobile",
+					"description": "All your memories are safe on your Cozy Drive",
+					"button": "Install the Cozy Drive app on your mobile",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"cozy-collect": {
+					"title": "Get back your bills instantly",
+					"description": "Cozy Collect organize all your files instantly",
+					"button": "Discover Cozy Collect"
+				},
+				"support": {
+					"title": "How can we help you today ?",
+					"description": "Share your idea or your bug on our dedicated interface",
+					"button": "Get access to the support",
+					"link": "https://cozy.io/en/support/"
+				}
+			}
 		}
 	};
 
@@ -7753,6 +7977,34 @@ return /******/ (function(modules) { // webpackBootstrap
 			"partners": "Partners apps",
 			"ptnb": "expPTNB",
 			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?",
+			"actions": {
+				"desktop": {
+					"title": "Get access to your files in your computer",
+					"description": "Synchronize all your Cozy Drive files on your computer",
+					"button": "Install Cozy Drive on your desktop",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"mobile": {
+					"title": "Back up and sync your pics from your mobile",
+					"description": "All your memories are safe on your Cozy Drive",
+					"button": "Install the Cozy Drive app on your mobile",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"cozy-collect": {
+					"title": "Get back your bills instantly",
+					"description": "Cozy Collect organize all your files instantly",
+					"button": "Discover Cozy Collect"
+				},
+				"support": {
+					"title": "How can we help you today ?",
+					"description": "Share your idea or your bug on our dedicated interface",
+					"button": "Get access to the support",
+					"link": "https://cozy.io/en/support/"
+				}
+			}
 		}
 	};
 
@@ -7780,6 +8032,34 @@ return /******/ (function(modules) { // webpackBootstrap
 			"partners": "Partners apps",
 			"ptnb": "expPTNB",
 			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?",
+			"actions": {
+				"desktop": {
+					"title": "Get access to your files in your computer",
+					"description": "Synchronize all your Cozy Drive files on your computer",
+					"button": "Install Cozy Drive on your desktop",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"mobile": {
+					"title": "Back up and sync your pics from your mobile",
+					"description": "All your memories are safe on your Cozy Drive",
+					"button": "Install the Cozy Drive app on your mobile",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"cozy-collect": {
+					"title": "Get back your bills instantly",
+					"description": "Cozy Collect organize all your files instantly",
+					"button": "Discover Cozy Collect"
+				},
+				"support": {
+					"title": "How can we help you today ?",
+					"description": "Share your idea or your bug on our dedicated interface",
+					"button": "Get access to the support",
+					"link": "https://cozy.io/en/support/"
+				}
+			}
 		}
 	};
 
@@ -7807,6 +8087,34 @@ return /******/ (function(modules) { // webpackBootstrap
 			"partners": "Partners apps",
 			"ptnb": "expPTNB",
 			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?",
+			"actions": {
+				"desktop": {
+					"title": "Get access to your files in your computer",
+					"description": "Synchronize all your Cozy Drive files on your computer",
+					"button": "Install Cozy Drive on your desktop",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"mobile": {
+					"title": "Back up and sync your pics from your mobile",
+					"description": "All your memories are safe on your Cozy Drive",
+					"button": "Install the Cozy Drive app on your mobile",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"cozy-collect": {
+					"title": "Get back your bills instantly",
+					"description": "Cozy Collect organize all your files instantly",
+					"button": "Discover Cozy Collect"
+				},
+				"support": {
+					"title": "How can we help you today ?",
+					"description": "Share your idea or your bug on our dedicated interface",
+					"button": "Get access to the support",
+					"link": "https://cozy.io/en/support/"
+				}
+			}
 		}
 	};
 
@@ -7834,6 +8142,34 @@ return /******/ (function(modules) { // webpackBootstrap
 			"partners": "Aplicaciones de asociados",
 			"ptnb": "expPTNB",
 			"others": "Otras aplicaciones"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?",
+			"actions": {
+				"desktop": {
+					"title": "Get access to your files in your computer",
+					"description": "Synchronize all your Cozy Drive files on your computer",
+					"button": "Install Cozy Drive on your desktop",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"mobile": {
+					"title": "Back up and sync your pics from your mobile",
+					"description": "All your memories are safe on your Cozy Drive",
+					"button": "Install the Cozy Drive app on your mobile",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"cozy-collect": {
+					"title": "Get back your bills instantly",
+					"description": "Cozy Collect organize all your files instantly",
+					"button": "Discover Cozy Collect"
+				},
+				"support": {
+					"title": "How can we help you today ?",
+					"description": "Share your idea or your bug on our dedicated interface",
+					"button": "Get access to the support",
+					"link": "https://cozy.io/en/support/"
+				}
+			}
 		}
 	};
 
@@ -7861,6 +8197,34 @@ return /******/ (function(modules) { // webpackBootstrap
 			"partners": "Partners apps",
 			"ptnb": "expPTNB",
 			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?",
+			"actions": {
+				"desktop": {
+					"title": "Get access to your files in your computer",
+					"description": "Synchronize all your Cozy Drive files on your computer",
+					"button": "Install Cozy Drive on your desktop",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"mobile": {
+					"title": "Back up and sync your pics from your mobile",
+					"description": "All your memories are safe on your Cozy Drive",
+					"button": "Install the Cozy Drive app on your mobile",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"cozy-collect": {
+					"title": "Get back your bills instantly",
+					"description": "Cozy Collect organize all your files instantly",
+					"button": "Discover Cozy Collect"
+				},
+				"support": {
+					"title": "How can we help you today ?",
+					"description": "Share your idea or your bug on our dedicated interface",
+					"button": "Get access to the support",
+					"link": "https://cozy.io/en/support/"
+				}
+			}
 		}
 	};
 
@@ -7888,6 +8252,34 @@ return /******/ (function(modules) { // webpackBootstrap
 			"partners": "Partners apps",
 			"ptnb": "expPTNB",
 			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?",
+			"actions": {
+				"desktop": {
+					"title": "Get access to your files in your computer",
+					"description": "Synchronize all your Cozy Drive files on your computer",
+					"button": "Install Cozy Drive on your desktop",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"mobile": {
+					"title": "Back up and sync your pics from your mobile",
+					"description": "All your memories are safe on your Cozy Drive",
+					"button": "Install the Cozy Drive app on your mobile",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"cozy-collect": {
+					"title": "Get back your bills instantly",
+					"description": "Cozy Collect organize all your files instantly",
+					"button": "Discover Cozy Collect"
+				},
+				"support": {
+					"title": "How can we help you today ?",
+					"description": "Share your idea or your bug on our dedicated interface",
+					"button": "Get access to the support",
+					"link": "https://cozy.io/en/support/"
+				}
+			}
 		}
 	};
 
@@ -7915,6 +8307,34 @@ return /******/ (function(modules) { // webpackBootstrap
 			"partners": "Expérimentation MesInfos",
 			"ptnb": "Expérimentation Carnet du logement",
 			"others": "Autres apps"
+		},
+		"claudy": {
+			"title": "Comment utiliser votre Cozy",
+			"actions": {
+				"desktop": {
+					"title": "Accéder à vos fichiers sur votre ordinateur ?",
+					"description": "Synchroniser tous vos fichiers Cozy Drive sur votre ordinateur",
+					"button": "Installer Cozy Drive sur votre ordinateur ",
+					"link": "https://docs.cozy.io/fr/download/"
+				},
+				"mobile": {
+					"title": "Sauvegarder vos photos depuis votre mobile ?",
+					"description": "Vos souvenirs sont sauvegardés et synchronisés sur tous vos appareils",
+					"button": "Installer l'app Cozy Drive sur votre mobile",
+					"link": "https://docs.cozy.io/fr/download/"
+				},
+				"cozy-collect": {
+					"title": "Récupérer automatiquement vos factures ?",
+					"description": "Cozy Collect organise à votre place vos dossiers avec tous vos documents administratifs",
+					"button": "Découvrir Cozy Collect"
+				},
+				"support": {
+					"title": "Comment pouvons-nous vous aider aujourd'hui? ",
+					"description": "Une idée de fonctionnalité? Un bug? Votre Cozy a besoin de vous pour être amélioré",
+					"button": "Accéder au forum",
+					"link": "https://cozy.io/fr/support/"
+				}
+			}
 		}
 	};
 
@@ -7942,6 +8362,34 @@ return /******/ (function(modules) { // webpackBootstrap
 			"partners": "Partners apps",
 			"ptnb": "expPTNB",
 			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?",
+			"actions": {
+				"desktop": {
+					"title": "Get access to your files in your computer",
+					"description": "Synchronize all your Cozy Drive files on your computer",
+					"button": "Install Cozy Drive on your desktop",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"mobile": {
+					"title": "Back up and sync your pics from your mobile",
+					"description": "All your memories are safe on your Cozy Drive",
+					"button": "Install the Cozy Drive app on your mobile",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"cozy-collect": {
+					"title": "Get back your bills instantly",
+					"description": "Cozy Collect organize all your files instantly",
+					"button": "Discover Cozy Collect"
+				},
+				"support": {
+					"title": "How can we help you today ?",
+					"description": "Share your idea or your bug on our dedicated interface",
+					"button": "Get access to the support",
+					"link": "https://cozy.io/en/support/"
+				}
+			}
 		}
 	};
 
@@ -7969,6 +8417,34 @@ return /******/ (function(modules) { // webpackBootstrap
 			"partners": "パートナーアプリ",
 			"ptnb": "expPTNB",
 			"others": "他のアプリ"
+		},
+		"claudy": {
+			"title": "Cozy をドライブする方法は?",
+			"actions": {
+				"desktop": {
+					"title": "コンピューター内のファイルにアクセスする",
+					"description": "コンピューター上のすべての Cozy ドライブファイルを同期させる",
+					"button": "デスクトップに Cozy ドライブをインストールする",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"mobile": {
+					"title": "お使いの携帯から写真をバックアップして同期させる",
+					"description": "Cozy ドライブで、すべての思い出が安心です",
+					"button": "モバイルに Cozy ドライブアプリをインストールする",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"cozy-collect": {
+					"title": "簡単に請求書を取り戻す",
+					"description": "Cozy コレクトはすぐにすべてのファイルを整理します",
+					"button": "Cozy コレクトを見つける"
+				},
+				"support": {
+					"title": "今日は何をお手伝いしますか?",
+					"description": "専用インターフェースであなたのアイデアやバグを共有する",
+					"button": "サポートにアクセスする",
+					"link": "https://cozy.io/en/support/"
+				}
+			}
 		}
 	};
 
@@ -7996,6 +8472,34 @@ return /******/ (function(modules) { // webpackBootstrap
 			"partners": "Partners apps",
 			"ptnb": "expPTNB",
 			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?",
+			"actions": {
+				"desktop": {
+					"title": "Get access to your files in your computer",
+					"description": "Synchronize all your Cozy Drive files on your computer",
+					"button": "Install Cozy Drive on your desktop",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"mobile": {
+					"title": "Back up and sync your pics from your mobile",
+					"description": "All your memories are safe on your Cozy Drive",
+					"button": "Install the Cozy Drive app on your mobile",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"cozy-collect": {
+					"title": "Get back your bills instantly",
+					"description": "Cozy Collect organize all your files instantly",
+					"button": "Discover Cozy Collect"
+				},
+				"support": {
+					"title": "How can we help you today ?",
+					"description": "Share your idea or your bug on our dedicated interface",
+					"button": "Get access to the support",
+					"link": "https://cozy.io/en/support/"
+				}
+			}
 		}
 	};
 
@@ -8023,6 +8527,34 @@ return /******/ (function(modules) { // webpackBootstrap
 			"partners": "Partner apps",
 			"ptnb": "expPTNB",
 			"others": "Andere apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?",
+			"actions": {
+				"desktop": {
+					"title": "Get access to your files in your computer",
+					"description": "Synchronize all your Cozy Drive files on your computer",
+					"button": "Install Cozy Drive on your desktop",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"mobile": {
+					"title": "Back up and sync your pics from your mobile",
+					"description": "All your memories are safe on your Cozy Drive",
+					"button": "Install the Cozy Drive app on your mobile",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"cozy-collect": {
+					"title": "Get back your bills instantly",
+					"description": "Cozy Collect organize all your files instantly",
+					"button": "Discover Cozy Collect"
+				},
+				"support": {
+					"title": "How can we help you today ?",
+					"description": "Share your idea or your bug on our dedicated interface",
+					"button": "Get access to the support",
+					"link": "https://cozy.io/en/support/"
+				}
+			}
 		}
 	};
 
@@ -8050,6 +8582,34 @@ return /******/ (function(modules) { // webpackBootstrap
 			"partners": "Partners apps",
 			"ptnb": "expPTNB",
 			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?",
+			"actions": {
+				"desktop": {
+					"title": "Get access to your files in your computer",
+					"description": "Synchronize all your Cozy Drive files on your computer",
+					"button": "Install Cozy Drive on your desktop",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"mobile": {
+					"title": "Back up and sync your pics from your mobile",
+					"description": "All your memories are safe on your Cozy Drive",
+					"button": "Install the Cozy Drive app on your mobile",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"cozy-collect": {
+					"title": "Get back your bills instantly",
+					"description": "Cozy Collect organize all your files instantly",
+					"button": "Discover Cozy Collect"
+				},
+				"support": {
+					"title": "How can we help you today ?",
+					"description": "Share your idea or your bug on our dedicated interface",
+					"button": "Get access to the support",
+					"link": "https://cozy.io/en/support/"
+				}
+			}
 		}
 	};
 
@@ -8077,6 +8637,34 @@ return /******/ (function(modules) { // webpackBootstrap
 			"partners": "Partners apps",
 			"ptnb": "expPTNB",
 			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?",
+			"actions": {
+				"desktop": {
+					"title": "Get access to your files in your computer",
+					"description": "Synchronize all your Cozy Drive files on your computer",
+					"button": "Install Cozy Drive on your desktop",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"mobile": {
+					"title": "Back up and sync your pics from your mobile",
+					"description": "All your memories are safe on your Cozy Drive",
+					"button": "Install the Cozy Drive app on your mobile",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"cozy-collect": {
+					"title": "Get back your bills instantly",
+					"description": "Cozy Collect organize all your files instantly",
+					"button": "Discover Cozy Collect"
+				},
+				"support": {
+					"title": "How can we help you today ?",
+					"description": "Share your idea or your bug on our dedicated interface",
+					"button": "Get access to the support",
+					"link": "https://cozy.io/en/support/"
+				}
+			}
 		}
 	};
 
@@ -8104,6 +8692,34 @@ return /******/ (function(modules) { // webpackBootstrap
 			"partners": "Partners apps",
 			"ptnb": "expPTNB",
 			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?",
+			"actions": {
+				"desktop": {
+					"title": "Get access to your files in your computer",
+					"description": "Synchronize all your Cozy Drive files on your computer",
+					"button": "Install Cozy Drive on your desktop",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"mobile": {
+					"title": "Back up and sync your pics from your mobile",
+					"description": "All your memories are safe on your Cozy Drive",
+					"button": "Install the Cozy Drive app on your mobile",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"cozy-collect": {
+					"title": "Get back your bills instantly",
+					"description": "Cozy Collect organize all your files instantly",
+					"button": "Discover Cozy Collect"
+				},
+				"support": {
+					"title": "How can we help you today ?",
+					"description": "Share your idea or your bug on our dedicated interface",
+					"button": "Get access to the support",
+					"link": "https://cozy.io/en/support/"
+				}
+			}
 		}
 	};
 
@@ -8131,6 +8747,34 @@ return /******/ (function(modules) { // webpackBootstrap
 			"partners": "Partners apps",
 			"ptnb": "expPTNB",
 			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?",
+			"actions": {
+				"desktop": {
+					"title": "Get access to your files in your computer",
+					"description": "Synchronize all your Cozy Drive files on your computer",
+					"button": "Install Cozy Drive on your desktop",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"mobile": {
+					"title": "Back up and sync your pics from your mobile",
+					"description": "All your memories are safe on your Cozy Drive",
+					"button": "Install the Cozy Drive app on your mobile",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"cozy-collect": {
+					"title": "Get back your bills instantly",
+					"description": "Cozy Collect organize all your files instantly",
+					"button": "Discover Cozy Collect"
+				},
+				"support": {
+					"title": "How can we help you today ?",
+					"description": "Share your idea or your bug on our dedicated interface",
+					"button": "Get access to the support",
+					"link": "https://cozy.io/en/support/"
+				}
+			}
 		}
 	};
 
@@ -8158,6 +8802,34 @@ return /******/ (function(modules) { // webpackBootstrap
 			"partners": "Partners apps",
 			"ptnb": "expPTNB",
 			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?",
+			"actions": {
+				"desktop": {
+					"title": "Get access to your files in your computer",
+					"description": "Synchronize all your Cozy Drive files on your computer",
+					"button": "Install Cozy Drive on your desktop",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"mobile": {
+					"title": "Back up and sync your pics from your mobile",
+					"description": "All your memories are safe on your Cozy Drive",
+					"button": "Install the Cozy Drive app on your mobile",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"cozy-collect": {
+					"title": "Get back your bills instantly",
+					"description": "Cozy Collect organize all your files instantly",
+					"button": "Discover Cozy Collect"
+				},
+				"support": {
+					"title": "How can we help you today ?",
+					"description": "Share your idea or your bug on our dedicated interface",
+					"button": "Get access to the support",
+					"link": "https://cozy.io/en/support/"
+				}
+			}
 		}
 	};
 
@@ -8185,6 +8857,34 @@ return /******/ (function(modules) { // webpackBootstrap
 			"partners": "Partners apps",
 			"ptnb": "expPTNB",
 			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?",
+			"actions": {
+				"desktop": {
+					"title": "Get access to your files in your computer",
+					"description": "Synchronize all your Cozy Drive files on your computer",
+					"button": "Install Cozy Drive on your desktop",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"mobile": {
+					"title": "Back up and sync your pics from your mobile",
+					"description": "All your memories are safe on your Cozy Drive",
+					"button": "Install the Cozy Drive app on your mobile",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"cozy-collect": {
+					"title": "Get back your bills instantly",
+					"description": "Cozy Collect organize all your files instantly",
+					"button": "Discover Cozy Collect"
+				},
+				"support": {
+					"title": "How can we help you today ?",
+					"description": "Share your idea or your bug on our dedicated interface",
+					"button": "Get access to the support",
+					"link": "https://cozy.io/en/support/"
+				}
+			}
 		}
 	};
 
@@ -8212,6 +8912,34 @@ return /******/ (function(modules) { // webpackBootstrap
 			"partners": "Partners apps",
 			"ptnb": "expPTNB",
 			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?",
+			"actions": {
+				"desktop": {
+					"title": "Get access to your files in your computer",
+					"description": "Synchronize all your Cozy Drive files on your computer",
+					"button": "Install Cozy Drive on your desktop",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"mobile": {
+					"title": "Back up and sync your pics from your mobile",
+					"description": "All your memories are safe on your Cozy Drive",
+					"button": "Install the Cozy Drive app on your mobile",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"cozy-collect": {
+					"title": "Get back your bills instantly",
+					"description": "Cozy Collect organize all your files instantly",
+					"button": "Discover Cozy Collect"
+				},
+				"support": {
+					"title": "How can we help you today ?",
+					"description": "Share your idea or your bug on our dedicated interface",
+					"button": "Get access to the support",
+					"link": "https://cozy.io/en/support/"
+				}
+			}
 		}
 	};
 
@@ -8239,6 +8967,34 @@ return /******/ (function(modules) { // webpackBootstrap
 			"partners": "Partners apps",
 			"ptnb": "expPTNB",
 			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?",
+			"actions": {
+				"desktop": {
+					"title": "Get access to your files in your computer",
+					"description": "Synchronize all your Cozy Drive files on your computer",
+					"button": "Install Cozy Drive on your desktop",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"mobile": {
+					"title": "Back up and sync your pics from your mobile",
+					"description": "All your memories are safe on your Cozy Drive",
+					"button": "Install the Cozy Drive app on your mobile",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"cozy-collect": {
+					"title": "Get back your bills instantly",
+					"description": "Cozy Collect organize all your files instantly",
+					"button": "Discover Cozy Collect"
+				},
+				"support": {
+					"title": "How can we help you today ?",
+					"description": "Share your idea or your bug on our dedicated interface",
+					"button": "Get access to the support",
+					"link": "https://cozy.io/en/support/"
+				}
+			}
 		}
 	};
 
@@ -8266,6 +9022,34 @@ return /******/ (function(modules) { // webpackBootstrap
 			"partners": "Partners apps",
 			"ptnb": "expPTNB",
 			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?",
+			"actions": {
+				"desktop": {
+					"title": "Get access to your files in your computer",
+					"description": "Synchronize all your Cozy Drive files on your computer",
+					"button": "Install Cozy Drive on your desktop",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"mobile": {
+					"title": "Back up and sync your pics from your mobile",
+					"description": "All your memories are safe on your Cozy Drive",
+					"button": "Install the Cozy Drive app on your mobile",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"cozy-collect": {
+					"title": "Get back your bills instantly",
+					"description": "Cozy Collect organize all your files instantly",
+					"button": "Discover Cozy Collect"
+				},
+				"support": {
+					"title": "How can we help you today ?",
+					"description": "Share your idea or your bug on our dedicated interface",
+					"button": "Get access to the support",
+					"link": "https://cozy.io/en/support/"
+				}
+			}
 		}
 	};
 
@@ -8293,6 +9077,34 @@ return /******/ (function(modules) { // webpackBootstrap
 			"partners": "Partners apps",
 			"ptnb": "expPTNB",
 			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?",
+			"actions": {
+				"desktop": {
+					"title": "Get access to your files in your computer",
+					"description": "Synchronize all your Cozy Drive files on your computer",
+					"button": "Install Cozy Drive on your desktop",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"mobile": {
+					"title": "Back up and sync your pics from your mobile",
+					"description": "All your memories are safe on your Cozy Drive",
+					"button": "Install the Cozy Drive app on your mobile",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"cozy-collect": {
+					"title": "Get back your bills instantly",
+					"description": "Cozy Collect organize all your files instantly",
+					"button": "Discover Cozy Collect"
+				},
+				"support": {
+					"title": "How can we help you today ?",
+					"description": "Share your idea or your bug on our dedicated interface",
+					"button": "Get access to the support",
+					"link": "https://cozy.io/en/support/"
+				}
+			}
 		}
 	};
 
@@ -8320,6 +9132,34 @@ return /******/ (function(modules) { // webpackBootstrap
 			"partners": "Partners apps",
 			"ptnb": "expPTNB",
 			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?",
+			"actions": {
+				"desktop": {
+					"title": "Get access to your files in your computer",
+					"description": "Synchronize all your Cozy Drive files on your computer",
+					"button": "Install Cozy Drive on your desktop",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"mobile": {
+					"title": "Back up and sync your pics from your mobile",
+					"description": "All your memories are safe on your Cozy Drive",
+					"button": "Install the Cozy Drive app on your mobile",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"cozy-collect": {
+					"title": "Get back your bills instantly",
+					"description": "Cozy Collect organize all your files instantly",
+					"button": "Discover Cozy Collect"
+				},
+				"support": {
+					"title": "How can we help you today ?",
+					"description": "Share your idea or your bug on our dedicated interface",
+					"button": "Get access to the support",
+					"link": "https://cozy.io/en/support/"
+				}
+			}
 		}
 	};
 
@@ -8347,6 +9187,34 @@ return /******/ (function(modules) { // webpackBootstrap
 			"partners": "Partners apps",
 			"ptnb": "expPTNB",
 			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?",
+			"actions": {
+				"desktop": {
+					"title": "Get access to your files in your computer",
+					"description": "Synchronize all your Cozy Drive files on your computer",
+					"button": "Install Cozy Drive on your desktop",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"mobile": {
+					"title": "Back up and sync your pics from your mobile",
+					"description": "All your memories are safe on your Cozy Drive",
+					"button": "Install the Cozy Drive app on your mobile",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"cozy-collect": {
+					"title": "Get back your bills instantly",
+					"description": "Cozy Collect organize all your files instantly",
+					"button": "Discover Cozy Collect"
+				},
+				"support": {
+					"title": "How can we help you today ?",
+					"description": "Share your idea or your bug on our dedicated interface",
+					"button": "Get access to the support",
+					"link": "https://cozy.io/en/support/"
+				}
+			}
 		}
 	};
 
@@ -8374,6 +9242,34 @@ return /******/ (function(modules) { // webpackBootstrap
 			"partners": "Partners apps",
 			"ptnb": "expPTNB",
 			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?",
+			"actions": {
+				"desktop": {
+					"title": "Get access to your files in your computer",
+					"description": "Synchronize all your Cozy Drive files on your computer",
+					"button": "Install Cozy Drive on your desktop",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"mobile": {
+					"title": "Back up and sync your pics from your mobile",
+					"description": "All your memories are safe on your Cozy Drive",
+					"button": "Install the Cozy Drive app on your mobile",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"cozy-collect": {
+					"title": "Get back your bills instantly",
+					"description": "Cozy Collect organize all your files instantly",
+					"button": "Discover Cozy Collect"
+				},
+				"support": {
+					"title": "How can we help you today ?",
+					"description": "Share your idea or your bug on our dedicated interface",
+					"button": "Get access to the support",
+					"link": "https://cozy.io/en/support/"
+				}
+			}
 		}
 	};
 
@@ -8401,6 +9297,34 @@ return /******/ (function(modules) { // webpackBootstrap
 			"partners": "Partners apps",
 			"ptnb": "expPTNB",
 			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?",
+			"actions": {
+				"desktop": {
+					"title": "Get access to your files in your computer",
+					"description": "Synchronize all your Cozy Drive files on your computer",
+					"button": "Install Cozy Drive on your desktop",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"mobile": {
+					"title": "Back up and sync your pics from your mobile",
+					"description": "All your memories are safe on your Cozy Drive",
+					"button": "Install the Cozy Drive app on your mobile",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"cozy-collect": {
+					"title": "Get back your bills instantly",
+					"description": "Cozy Collect organize all your files instantly",
+					"button": "Discover Cozy Collect"
+				},
+				"support": {
+					"title": "How can we help you today ?",
+					"description": "Share your idea or your bug on our dedicated interface",
+					"button": "Get access to the support",
+					"link": "https://cozy.io/en/support/"
+				}
+			}
 		}
 	};
 
@@ -8428,6 +9352,34 @@ return /******/ (function(modules) { // webpackBootstrap
 			"partners": "Partners apps",
 			"ptnb": "expPTNB",
 			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?",
+			"actions": {
+				"desktop": {
+					"title": "Get access to your files in your computer",
+					"description": "Synchronize all your Cozy Drive files on your computer",
+					"button": "Install Cozy Drive on your desktop",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"mobile": {
+					"title": "Back up and sync your pics from your mobile",
+					"description": "All your memories are safe on your Cozy Drive",
+					"button": "Install the Cozy Drive app on your mobile",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"cozy-collect": {
+					"title": "Get back your bills instantly",
+					"description": "Cozy Collect organize all your files instantly",
+					"button": "Discover Cozy Collect"
+				},
+				"support": {
+					"title": "How can we help you today ?",
+					"description": "Share your idea or your bug on our dedicated interface",
+					"button": "Get access to the support",
+					"link": "https://cozy.io/en/support/"
+				}
+			}
 		}
 	};
 
@@ -8455,6 +9407,34 @@ return /******/ (function(modules) { // webpackBootstrap
 			"partners": "Partners apps",
 			"ptnb": "expPTNB",
 			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?",
+			"actions": {
+				"desktop": {
+					"title": "Get access to your files in your computer",
+					"description": "Synchronize all your Cozy Drive files on your computer",
+					"button": "Install Cozy Drive on your desktop",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"mobile": {
+					"title": "Back up and sync your pics from your mobile",
+					"description": "All your memories are safe on your Cozy Drive",
+					"button": "Install the Cozy Drive app on your mobile",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"cozy-collect": {
+					"title": "Get back your bills instantly",
+					"description": "Cozy Collect organize all your files instantly",
+					"button": "Discover Cozy Collect"
+				},
+				"support": {
+					"title": "How can we help you today ?",
+					"description": "Share your idea or your bug on our dedicated interface",
+					"button": "Get access to the support",
+					"link": "https://cozy.io/en/support/"
+				}
+			}
 		}
 	};
 
@@ -8482,6 +9462,34 @@ return /******/ (function(modules) { // webpackBootstrap
 			"partners": "Partners apps",
 			"ptnb": "expPTNB",
 			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?",
+			"actions": {
+				"desktop": {
+					"title": "Get access to your files in your computer",
+					"description": "Synchronize all your Cozy Drive files on your computer",
+					"button": "Install Cozy Drive on your desktop",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"mobile": {
+					"title": "Back up and sync your pics from your mobile",
+					"description": "All your memories are safe on your Cozy Drive",
+					"button": "Install the Cozy Drive app on your mobile",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"cozy-collect": {
+					"title": "Get back your bills instantly",
+					"description": "Cozy Collect organize all your files instantly",
+					"button": "Discover Cozy Collect"
+				},
+				"support": {
+					"title": "How can we help you today ?",
+					"description": "Share your idea or your bug on our dedicated interface",
+					"button": "Get access to the support",
+					"link": "https://cozy.io/en/support/"
+				}
+			}
 		}
 	};
 
@@ -8509,6 +9517,34 @@ return /******/ (function(modules) { // webpackBootstrap
 			"partners": "Partners apps",
 			"ptnb": "expPTNB",
 			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?",
+			"actions": {
+				"desktop": {
+					"title": "Get access to your files in your computer",
+					"description": "Synchronize all your Cozy Drive files on your computer",
+					"button": "Install Cozy Drive on your desktop",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"mobile": {
+					"title": "Back up and sync your pics from your mobile",
+					"description": "All your memories are safe on your Cozy Drive",
+					"button": "Install the Cozy Drive app on your mobile",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"cozy-collect": {
+					"title": "Get back your bills instantly",
+					"description": "Cozy Collect organize all your files instantly",
+					"button": "Discover Cozy Collect"
+				},
+				"support": {
+					"title": "How can we help you today ?",
+					"description": "Share your idea or your bug on our dedicated interface",
+					"button": "Get access to the support",
+					"link": "https://cozy.io/en/support/"
+				}
+			}
 		}
 	};
 
@@ -8759,6 +9795,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var errorStatuses = {
 	  '401': _exceptions.UnauthorizedStackException,
 	  '403': _exceptions.ForbiddenException,
+	  '404': _exceptions.NotFoundException,
 	  '500': _exceptions.ServerErrorException
 	};
 	
@@ -8977,52 +10014,69 @@ return /******/ (function(modules) { // webpackBootstrap
 	  return ServerErrorException;
 	}(Error);
 	
-	var UnavailableStackException = function (_Error3) {
-	  _inherits(UnavailableStackException, _Error3);
+	var NotFoundException = function (_Error3) {
+	  _inherits(NotFoundException, _Error3);
+	
+	  function NotFoundException(message) {
+	    _classCallCheck(this, NotFoundException);
+	
+	    var _this3 = _possibleConstructorReturn(this, (NotFoundException.__proto__ || Object.getPrototypeOf(NotFoundException)).call(this));
+	
+	    _this3.name = 'NotFound';
+	    _this3.message = message || 'The ressource was not found';
+	    _this3.stack = new Error().stack;
+	    return _this3;
+	  }
+	
+	  return NotFoundException;
+	}(Error);
+	
+	var UnavailableStackException = function (_Error4) {
+	  _inherits(UnavailableStackException, _Error4);
 	
 	  function UnavailableStackException(message) {
 	    _classCallCheck(this, UnavailableStackException);
 	
-	    var _this3 = _possibleConstructorReturn(this, (UnavailableStackException.__proto__ || Object.getPrototypeOf(UnavailableStackException)).call(this));
+	    var _this4 = _possibleConstructorReturn(this, (UnavailableStackException.__proto__ || Object.getPrototypeOf(UnavailableStackException)).call(this));
 	
-	    _this3.name = 'UnavailableStack';
-	    _this3.message = message || 'The stack is temporarily unavailable';
-	    _this3.stack = new Error().stack;
-	    return _this3;
+	    _this4.name = 'UnavailableStack';
+	    _this4.message = message || 'The stack is temporarily unavailable';
+	    _this4.stack = new Error().stack;
+	    return _this4;
 	  }
 	
 	  return UnavailableStackException;
 	}(Error);
 	
-	var UnauthorizedStackException = function (_Error4) {
-	  _inherits(UnauthorizedStackException, _Error4);
+	var UnauthorizedStackException = function (_Error5) {
+	  _inherits(UnauthorizedStackException, _Error5);
 	
 	  function UnauthorizedStackException(message) {
 	    _classCallCheck(this, UnauthorizedStackException);
 	
-	    var _this4 = _possibleConstructorReturn(this, (UnauthorizedStackException.__proto__ || Object.getPrototypeOf(UnauthorizedStackException)).call(this));
+	    var _this5 = _possibleConstructorReturn(this, (UnauthorizedStackException.__proto__ || Object.getPrototypeOf(UnauthorizedStackException)).call(this));
 	
-	    _this4.name = 'UnauthorizedStack';
-	    _this4.message = message || 'The app is not allowed to access to the requested resource';
-	    _this4.stack = new Error().stack;
-	    return _this4;
+	    _this5.name = 'UnauthorizedStack';
+	    _this5.message = message || 'The app is not allowed to access to the requested resource';
+	    _this5.stack = new Error().stack;
+	    return _this5;
 	  }
 	
 	  return UnauthorizedStackException;
 	}(Error);
 	
-	var UnavailableSettingsException = function (_Error5) {
-	  _inherits(UnavailableSettingsException, _Error5);
+	var UnavailableSettingsException = function (_Error6) {
+	  _inherits(UnavailableSettingsException, _Error6);
 	
 	  function UnavailableSettingsException(message) {
 	    _classCallCheck(this, UnavailableSettingsException);
 	
-	    var _this5 = _possibleConstructorReturn(this, (UnavailableSettingsException.__proto__ || Object.getPrototypeOf(UnavailableSettingsException)).call(this));
+	    var _this6 = _possibleConstructorReturn(this, (UnavailableSettingsException.__proto__ || Object.getPrototypeOf(UnavailableSettingsException)).call(this));
 	
-	    _this5.name = 'UnavailableSettings';
-	    _this5.message = message || "The 'Settings' application isn't available or installed in the stack";
-	    _this5.stack = new Error().stack;
-	    return _this5;
+	    _this6.name = 'UnavailableSettings';
+	    _this6.message = message || "The 'Settings' application isn't available or installed in the stack";
+	    _this6.stack = new Error().stack;
+	    return _this6;
 	  }
 	
 	  return UnavailableSettingsException;
@@ -9030,6 +10084,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	exports.ForbiddenException = ForbiddenException;
 	exports.ServerErrorException = ServerErrorException;
+	exports.NotFoundException = NotFoundException;
 	exports.UnavailableStackException = UnavailableStackException;
 	exports.UnavailableSettingsException = UnavailableSettingsException;
 	exports.UnauthorizedStackException = UnauthorizedStackException;
@@ -9048,19 +10103,31 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var __import1 = __webpack_require__(254);
 	
-	var Navigation = __webpack_require__(265);
+	var __import2 = __webpack_require__(266);
 	
-	var Drawer = __webpack_require__(271);
+	var Navigation = __webpack_require__(269);
+	
+	var Drawer = __webpack_require__(276);
+	
+	var Claudy = __webpack_require__(277);
 	
 	var MENU_CONFIG = __webpack_require__(260);
+	
+	var CLAUDY_CONFIG = __webpack_require__(261);
 	
 	var t = __import0.t;
 	var createMenuPointers = __import1.createMenuPointers;
 	var updateSettings = __import1.updateSettings;
 	var updateApps = __import1.updateApps;
+	var getClaudyConfig = __import1.getClaudyConfig;
+	var shouldEnableTracking = __import2.shouldEnableTracking;
+	var getTracker = __import2.getTracker;
+	var configureTracker = __import2.configureTracker;
 	Navigation = Navigation && Navigation.__esModule ? Navigation['default'] : Navigation;
 	Drawer = Drawer && Drawer.__esModule ? Drawer['default'] : Drawer;
+	Claudy = Claudy && Claudy.__esModule ? Claudy['default'] : Claudy;
 	MENU_CONFIG = MENU_CONFIG && MENU_CONFIG.__esModule ? MENU_CONFIG['default'] : MENU_CONFIG;
+	CLAUDY_CONFIG = CLAUDY_CONFIG && CLAUDY_CONFIG.__esModule ? CLAUDY_CONFIG['default'] : CLAUDY_CONFIG;
 	
 	function recompute(state, newState, oldState, isInitial) {
 		if (isInitial || 'replaceTitleOnMobile' in newState && differs(state.replaceTitleOnMobile, oldState.replaceTitleOnMobile)) {
@@ -9076,7 +10143,10 @@ return /******/ (function(modules) { // webpackBootstrap
 				return {
 					target: ("browser"),
 					config: config,
-					drawerVisible: false
+					claudyConfig: null, // no claudy by default
+					claudyOpened: false,
+					drawerVisible: false,
+					usageTracker: null
 				};
 			},
 	
@@ -9095,7 +10165,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				var _ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee() {
 					var _this = this;
 	
-					var config;
+					var config, claudyConfig, trackerInstance;
 					return regeneratorRuntime.wrap(function _callee$(_context) {
 						while (1) {
 							switch (_context.prev = _context.next) {
@@ -9107,23 +10177,51 @@ return /******/ (function(modules) { // webpackBootstrap
 										_this.set({ config: config }); // force to rerender when locale change
 									});
 	
+									claudyConfig = null;
+	
 									if (!(this.get('target') !== 'mobile' && !this.get('isPublic'))) {
-										_context.next = 7;
+										_context.next = 11;
 										break;
 									}
 	
-									_context.next = 5;
+									_context.next = 6;
+									return getClaudyConfig();
+	
+								case 6:
+									claudyConfig = _context.sent;
+									_context.next = 9;
 									return updateSettings(config);
 	
-								case 5:
-									_context.next = 7;
+								case 9:
+									_context.next = 11;
 									return updateApps(config);
 	
-								case 7:
+								case 11:
+									// filter claudy subsection if claudyConfig is null
+									if (!claudyConfig) {
+										if (config.sections && config.sections.drawer) {
+											config.sections.drawer = config.sections.drawer.filter(function (s) {
+												return s.length && s[0].slug !== 'claudy';
+											});
+										}
+									}
 	
-									this.set({ config: config });
+									this.set({ config: config, claudyConfig: claudyConfig });
 	
-								case 8:
+									// if tracking enabled, init the piwik tracker
+									if (shouldEnableTracking()) {
+										trackerInstance = getTracker(("https://piwik.cozycloud.cc"), (8), false, false);
+	
+										configureTracker({
+											appDimensionId: (1),
+											app: 'Cozy Bar',
+											heartbeat: 0
+										});
+										trackerInstance.push(['disableHeartBeatTimer']); // undocumented, see https://github.com/piwik/piwik/blob/3.x-dev/js/piwik.js#L6544
+										this.set({ usageTracker: trackerInstance });
+									}
+	
+								case 14:
 								case 'end':
 									return _context.stop();
 							}
@@ -9192,6 +10290,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 					return toggleDrawer;
 				}(),
+				toggleClaudy: function toggleClaudy() {
+					if (!this.get('claudyConfig')) return;
+					var claudyOpened = this.get('claudyOpened');
+					var usageTracker = this.get('usageTracker');
+					if (usageTracker) {
+						usageTracker.push(['trackEvent', 'Claudy', claudyOpened ? 'close' : 'open', 'claudy']);
+					}
+					this.set({ claudyOpened: !claudyOpened });
+				},
 				onPopOpen: function () {
 					var _ref3 = _asyncToGenerator(regeneratorRuntime.mark(function _callee3(panel) {
 						var config, valve;
@@ -9482,6 +10589,44 @@ return /******/ (function(modules) { // webpackBootstrap
 		};
 	}
 	
+	function create_if_block_4(state, component) {
+		var claudy = new Claudy({
+			target: null,
+			_root: component._root,
+			data: {
+				config: state.claudyConfig,
+				appsList: state.config.apps,
+				usageTracker: state.usageTracker,
+				opened: state.claudyOpened
+			}
+		});
+	
+		claudy.on('toggle', function (event) {
+			component.toggleClaudy();
+		});
+	
+		return {
+			mount: function mount(target, anchor) {
+				claudy._fragment.mount(target, anchor);
+			},
+	
+			update: function update(changed, state) {
+				var claudy_changes = {};
+	
+				if ('claudyConfig' in changed) claudy_changes.config = state.claudyConfig;
+				if ('config' in changed) claudy_changes.appsList = state.config.apps;
+				if ('usageTracker' in changed) claudy_changes.usageTracker = state.usageTracker;
+				if ('claudyOpened' in changed) claudy_changes.opened = state.claudyOpened;
+	
+				if (Object.keys(claudy_changes).length) claudy.set(claudy_changes);
+			},
+	
+			destroy: function destroy(detach) {
+				claudy.destroy(detach);
+			}
+		};
+	}
+	
 	function create_if_block_3(state, component) {
 		var drawer = new Drawer({
 			target: null,
@@ -9497,9 +10642,22 @@ return /******/ (function(modules) { // webpackBootstrap
 			component.toggleDrawer(true);
 		});
 	
+		drawer.on('claudy', function (event) {
+			component.toggleClaudy();
+		});
+	
+		var text = createText("\n  ");
+	
+		var if_block_4 = state.claudyConfig && create_if_block_4(state, component);
+	
+		var if_block_4_anchor = createComment();
+	
 		return {
 			mount: function mount(target, anchor) {
 				drawer._fragment.mount(target, anchor);
+				insertNode(text, target, anchor);
+				if (if_block_4) if_block_4.mount(target, anchor);
+				insertNode(if_block_4_anchor, target, anchor);
 			},
 	
 			update: function update(changed, state) {
@@ -9510,10 +10668,28 @@ return /******/ (function(modules) { // webpackBootstrap
 				if ('drawerVisible' in changed) drawer_changes.visible = state.drawerVisible;
 	
 				if (Object.keys(drawer_changes).length) drawer.set(drawer_changes);
+	
+				if (state.claudyConfig) {
+					if (if_block_4) {
+						if_block_4.update(changed, state);
+					} else {
+						if_block_4 = create_if_block_4(state, component);
+						if_block_4.mount(if_block_4_anchor.parentNode, if_block_4_anchor);
+					}
+				} else if (if_block_4) {
+					if_block_4.destroy(true);
+					if_block_4 = null;
+				}
 			},
 
 			destroy: function destroy(detach) {
 				drawer.destroy(detach);
+				if (if_block_4) if_block_4.destroy(detach);
+
+				if (detach) {
+					detachNode(text);
+					detachNode(if_block_4_anchor);
+				}
 			}
 		};
 	}
@@ -9720,35 +10896,74 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.updateApps = exports.updateSettings = exports.createMenuPointers = undefined;
+	exports.getClaudyConfig = exports.updateApps = exports.updateSettings = exports.createMenuPointers = undefined;
+	
+	var getClaudyConfig = function () {
+	  var _ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee() {
+	    return regeneratorRuntime.wrap(function _callee$(_context) {
+	      while (1) {
+	        switch (_context.prev = _context.next) {
+	          case 0:
+	            return _context.abrupt('return', _stack2.default.get.context().then(function (context) {
+	              var contextActions = context.data && context.data.attributes && context.data.attributes['claudy_actions'] || null;
+	              if (!contextActions) return null;
+	              // get an arrays of action
+	              var claudyActions = contextActions.map(function (slug) {
+	                if (_claudy2.default.actions.hasOwnProperty(slug)) {
+	                  // adding also the action slug
+	                  return Object.assign({}, _claudy2.default.actions[slug], { slug: slug });
+	                }
+	              }).filter(function (action) {
+	                return action;
+	              });
+	              return Object.assign({}, _claudy2.default, {
+	                actions: claudyActions
+	              });
+	            }).catch(function (error) {
+	              console.warn && console.warn('Cozy-bar cannot fetch Claudy: ' + error.message);
+	              return null;
+	            }));
+	
+	          case 1:
+	          case 'end':
+	            return _context.stop();
+	        }
+	      }
+	    }, _callee, this);
+	  }));
+	
+	  return function getClaudyConfig() {
+	    return _ref.apply(this, arguments);
+	  };
+	}();
 	
 	var updateAppsItems = function () {
-	  var _ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee2(config) {
+	  var _ref2 = _asyncToGenerator(regeneratorRuntime.mark(function _callee3(config) {
 	    var _this = this;
 	
 	    var apps, comingSoonApps;
-	    return regeneratorRuntime.wrap(function _callee2$(_context2) {
+	    return regeneratorRuntime.wrap(function _callee3$(_context3) {
 	      while (1) {
-	        switch (_context2.prev = _context2.next) {
+	        switch (_context3.prev = _context3.next) {
 	          case 0:
 	            apps = void 0;
 	            comingSoonApps = void 0;
-	            _context2.prev = 2;
-	            _context2.t0 = Promise;
-	            _context2.next = 6;
+	            _context3.prev = 2;
+	            _context3.t0 = Promise;
+	            _context3.next = 6;
 	            return _stack2.default.get.apps();
 	
 	          case 6:
-	            _context2.t1 = function (app) {
+	            _context3.t1 = function (app) {
 	              return !EXCLUDES.includes(app.attributes.slug);
 	            };
 	
-	            _context2.t2 = function () {
-	              var _ref2 = _asyncToGenerator(regeneratorRuntime.mark(function _callee(app) {
+	            _context3.t2 = function () {
+	              var _ref3 = _asyncToGenerator(regeneratorRuntime.mark(function _callee2(app) {
 	                var oldApp, icon;
-	                return regeneratorRuntime.wrap(function _callee$(_context) {
+	                return regeneratorRuntime.wrap(function _callee2$(_context2) {
 	                  while (1) {
-	                    switch (_context.prev = _context.next) {
+	                    switch (_context2.prev = _context2.next) {
 	                      case 0:
 	                        oldApp = config.apps.find(function (item) {
 	                          return item.slug === app.attributes.slug;
@@ -9756,27 +10971,27 @@ return /******/ (function(modules) { // webpackBootstrap
 	                        icon = void 0;
 	
 	                        if (!(oldApp && oldApp.icon.cached)) {
-	                          _context.next = 6;
+	                          _context2.next = 6;
 	                          break;
 	                        }
 	
 	                        icon = oldApp.icon;
-	                        _context.next = 10;
+	                        _context2.next = 10;
 	                        break;
 	
 	                      case 6:
-	                        _context.next = 8;
+	                        _context2.next = 8;
 	                        return _stack2.default.get.icon(app.links.icon);
 	
 	                      case 8:
-	                        _context.t0 = _context.sent;
+	                        _context2.t0 = _context2.sent;
 	                        icon = {
-	                          src: _context.t0,
+	                          src: _context2.t0,
 	                          cached: true
 	                        };
 	
 	                      case 10:
-	                        return _context.abrupt('return', {
+	                        return _context2.abrupt('return', {
 	                          editor: app.attributes.editor,
 	                          name: app.attributes.name,
 	                          slug: app.attributes.slug,
@@ -9788,115 +11003,75 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	                      case 11:
 	                      case 'end':
-	                        return _context.stop();
+	                        return _context2.stop();
 	                    }
 	                  }
-	                }, _callee, _this);
+	                }, _callee2, _this);
 	              }));
 	
 	              return function (_x2) {
-	                return _ref2.apply(this, arguments);
+	                return _ref3.apply(this, arguments);
 	              };
 	            }();
 	
-	            _context2.t3 = _context2.sent.filter(_context2.t1).map(_context2.t2);
-	            _context2.next = 11;
-	            return _context2.t0.all.call(_context2.t0, _context2.t3);
+	            _context3.t3 = _context3.sent.filter(_context3.t1).map(_context3.t2);
+	            _context3.next = 11;
+	            return _context3.t0.all.call(_context3.t0, _context3.t3);
 	
 	          case 11:
-	            apps = _context2.sent;
-	            _context2.next = 17;
+	            apps = _context3.sent;
+	            _context3.next = 17;
 	            break;
 	
 	          case 14:
-	            _context2.prev = 14;
-	            _context2.t4 = _context2['catch'](2);
+	            _context3.prev = 14;
+	            _context3.t4 = _context3['catch'](2);
 	
-	            apps = [{ error: _context2.t4 }];
+	            apps = [{ error: _context3.t4 }];
 	
 	          case 17:
 	
 	            config.apps.length = 0;
 	
-	            _context2.next = 20;
+	            _context3.next = 20;
 	            return fetchComingSoonApps().catch(function (error) {
 	              console.warn && console.warn('Cozy-bar cannot fetch comming soon apps: ' + error.message);
 	              return [];
 	            });
 	
 	          case 20:
-	            comingSoonApps = _context2.sent;
+	            comingSoonApps = _context3.sent;
 	
 	
 	            Array.prototype.push.apply(config.apps, apps.concat(comingSoonApps));
 	
 	          case 22:
 	          case 'end':
-	            return _context2.stop();
+	            return _context3.stop();
 	        }
 	      }
-	    }, _callee2, this, [[2, 14]]);
+	    }, _callee3, this, [[2, 14]]);
 	  }));
 	
 	  return function updateAppsItems(_x) {
-	    return _ref.apply(this, arguments);
+	    return _ref2.apply(this, arguments);
 	  };
 	}();
 	
 	var updateDiskUsage = function () {
-	  var _ref3 = _asyncToGenerator(regeneratorRuntime.mark(function _callee3(config) {
-	    var currentDiskUsage;
-	    return regeneratorRuntime.wrap(function _callee3$(_context3) {
-	      while (1) {
-	        switch (_context3.prev = _context3.next) {
-	          case 0:
-	            currentDiskUsage = void 0;
-	            _context3.prev = 1;
-	            _context3.next = 4;
-	            return _stack2.default.get.diskUsage();
-	
-	          case 4:
-	            currentDiskUsage = _context3.sent;
-	            _context3.next = 10;
-	            break;
-	
-	          case 7:
-	            _context3.prev = 7;
-	            _context3.t0 = _context3['catch'](1);
-	
-	            currentDiskUsage = { error: _context3.t0.name };
-	
-	          case 10:
-	
-	            config.components.storage.currentDiskUsage = currentDiskUsage;
-	
-	          case 11:
-	          case 'end':
-	            return _context3.stop();
-	        }
-	      }
-	    }, _callee3, this, [[1, 7]]);
-	  }));
-	
-	  return function updateDiskUsage(_x3) {
-	    return _ref3.apply(this, arguments);
-	  };
-	}();
-	
-	var updateDiskQuota = function () {
 	  var _ref4 = _asyncToGenerator(regeneratorRuntime.mark(function _callee4(config) {
-	    var currentDiskQuota;
+	    var currentDiskUsage;
 	    return regeneratorRuntime.wrap(function _callee4$(_context4) {
 	      while (1) {
 	        switch (_context4.prev = _context4.next) {
 	          case 0:
-	            currentDiskQuota = void 0;
+	            currentDiskUsage = void 0;
 	            _context4.prev = 1;
 	            _context4.next = 4;
-	            return _stack2.default.get.diskQuota();
+	            return _stack2.default.get.diskUsage();
 	
 	          case 4:
-	            currentDiskQuota = _context4.sent;
+	            currentDiskUsage = _context4.sent;
 	            _context4.next = 10;
 	            break;
 	
@@ -9904,11 +11079,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	            _context4.prev = 7;
 	            _context4.t0 = _context4['catch'](1);
 	
-	            currentDiskQuota = { error: _context4.t0.name };
+	            currentDiskUsage = { error: _context4.t0.name };
 	
 	          case 10:
 	
-	            config.components.storage.currentDiskQuota = currentDiskQuota;
+	            config.components.storage.currentDiskUsage = currentDiskUsage;
 	
 	          case 11:
 	          case 'end':
@@ -9918,8 +11093,48 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }, _callee4, this, [[1, 7]]);
 	  }));
 	
-	  return function updateDiskQuota(_x4) {
+	  return function updateDiskUsage(_x3) {
 	    return _ref4.apply(this, arguments);
+	  };
+	}();
+	
+	var updateDiskQuota = function () {
+	  var _ref5 = _asyncToGenerator(regeneratorRuntime.mark(function _callee5(config) {
+	    var currentDiskQuota;
+	    return regeneratorRuntime.wrap(function _callee5$(_context5) {
+	      while (1) {
+	        switch (_context5.prev = _context5.next) {
+	          case 0:
+	            currentDiskQuota = void 0;
+	            _context5.prev = 1;
+	            _context5.next = 4;
+	            return _stack2.default.get.diskQuota();
+	
+	          case 4:
+	            currentDiskQuota = _context5.sent;
+	            _context5.next = 10;
+	            break;
+	
+	          case 7:
+	            _context5.prev = 7;
+	            _context5.t0 = _context5['catch'](1);
+	
+	            currentDiskQuota = { error: _context5.t0.name };
+	
+	          case 10:
+	
+	            config.components.storage.currentDiskQuota = currentDiskQuota;
+	
+	          case 11:
+	          case 'end':
+	            return _context5.stop();
+	        }
+	      }
+	    }, _callee5, this, [[1, 7]]);
+	  }));
+	
+	  return function updateDiskQuota(_x4) {
+	    return _ref5.apply(this, arguments);
 	  };
 	}();
 	
@@ -9931,51 +11146,51 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	
 	var toggleSettingsItems = function () {
-	  var _ref5 = _asyncToGenerator(regeneratorRuntime.mark(function _callee5(config) {
+	  var _ref6 = _asyncToGenerator(regeneratorRuntime.mark(function _callee6(config) {
 	    var items;
-	    return regeneratorRuntime.wrap(function _callee5$(_context5) {
+	    return regeneratorRuntime.wrap(function _callee6$(_context6) {
 	      while (1) {
-	        switch (_context5.prev = _context5.next) {
+	        switch (_context6.prev = _context6.next) {
 	          case 0:
 	            // We reset the settings' links array
 	            config.subsections.settings.length = 0;
 	
 	            // If the `settings` app is available, we restore links from the root
 	            // MENU_CONFIG tree, updating the links' URLs with the app URI at same time.
-	            _context5.prev = 1;
-	            _context5.next = 4;
+	            _context6.prev = 1;
+	            _context6.next = 4;
 	            return _stack2.default.has.settings();
 	
 	          case 4:
-	            _context5.next = 10;
+	            _context6.next = 10;
 	            break;
 	
 	          case 6:
-	            _context5.prev = 6;
-	            _context5.t0 = _context5['catch'](1);
+	            _context6.prev = 6;
+	            _context6.t0 = _context6['catch'](1);
 	
 	            console.warn('Settings app is unavailable, links are disabled');
-	            return _context5.abrupt('return');
+	            return _context6.abrupt('return');
 	
 	          case 10:
-	            _context5.next = 12;
+	            _context6.next = 12;
 	            return updateSettingsURIs(_menu2.default.subsections.settings);
 	
 	          case 12:
-	            items = _context5.sent;
+	            items = _context6.sent;
 	
 	            Array.prototype.push.apply(config.subsections.settings, items);
 	
 	          case 14:
 	          case 'end':
-	            return _context5.stop();
+	            return _context6.stop();
 	        }
 	      }
-	    }, _callee5, this, [[1, 6]]);
+	    }, _callee6, this, [[1, 6]]);
 	  }));
 	
 	  return function toggleSettingsItems(_x5) {
-	    return _ref5.apply(this, arguments);
+	    return _ref6.apply(this, arguments);
 	  };
 	}();
 	
@@ -9987,31 +11202,31 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	
 	var updateSettingsURIs = function () {
-	  var _ref6 = _asyncToGenerator(regeneratorRuntime.mark(function _callee6(items) {
+	  var _ref7 = _asyncToGenerator(regeneratorRuntime.mark(function _callee7(items) {
 	    var baseURI;
-	    return regeneratorRuntime.wrap(function _callee6$(_context6) {
+	    return regeneratorRuntime.wrap(function _callee7$(_context7) {
 	      while (1) {
-	        switch (_context6.prev = _context6.next) {
+	        switch (_context7.prev = _context7.next) {
 	          case 0:
-	            _context6.next = 2;
+	            _context7.next = 2;
 	            return _stack2.default.get.settingsBaseURI();
 	
 	          case 2:
-	            baseURI = _context6.sent;
-	            return _context6.abrupt('return', items.map(function (item) {
+	            baseURI = _context7.sent;
+	            return _context7.abrupt('return', items.map(function (item) {
 	              return Object.assign({}, item, { href: baseURI + '#' + item.href });
 	            }));
 	
 	          case 4:
 	          case 'end':
-	            return _context6.stop();
+	            return _context7.stop();
 	        }
 	      }
-	    }, _callee6, this);
+	    }, _callee7, this);
 	  }));
 	
 	  return function updateSettingsURIs(_x6) {
-	    return _ref6.apply(this, arguments);
+	    return _ref7.apply(this, arguments);
 	  };
 	}();
 	
@@ -10034,29 +11249,29 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @return {Promise(boolean)} a valve that allow to trigger update or not
 	 */
 	var updateApps = function () {
-	  var _ref7 = _asyncToGenerator(regeneratorRuntime.mark(function _callee7(config) {
+	  var _ref8 = _asyncToGenerator(regeneratorRuntime.mark(function _callee8(config) {
 	    var oldApps;
-	    return regeneratorRuntime.wrap(function _callee7$(_context7) {
+	    return regeneratorRuntime.wrap(function _callee8$(_context8) {
 	      while (1) {
-	        switch (_context7.prev = _context7.next) {
+	        switch (_context8.prev = _context8.next) {
 	          case 0:
 	            oldApps = config.apps.slice();
-	            _context7.next = 3;
+	            _context8.next = 3;
 	            return updateAppsItems(config);
 	
 	          case 3:
-	            return _context7.abrupt('return', !(0, _deepEqual2.default)(oldApps, config.apps));
+	            return _context8.abrupt('return', !(0, _deepEqual2.default)(oldApps, config.apps));
 	
 	          case 4:
 	          case 'end':
-	            return _context7.stop();
+	            return _context8.stop();
 	        }
 	      }
-	    }, _callee7, this);
+	    }, _callee8, this);
 	  }));
 	
 	  return function updateApps(_x7) {
-	    return _ref7.apply(this, arguments);
+	    return _ref8.apply(this, arguments);
 	  };
 	}();
 	
@@ -10071,31 +11286,31 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	
 	var updateSettings = function () {
-	  var _ref8 = _asyncToGenerator(regeneratorRuntime.mark(function _callee8(config) {
-	    var _ref9 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
-	        _ref9$storage = _ref9.storage,
-	        storage = _ref9$storage === undefined ? true : _ref9$storage,
-	        _ref9$items = _ref9.items,
-	        items = _ref9$items === undefined ? true : _ref9$items;
+	  var _ref9 = _asyncToGenerator(regeneratorRuntime.mark(function _callee9(config) {
+	    var _ref10 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
+	        _ref10$storage = _ref10.storage,
+	        storage = _ref10$storage === undefined ? true : _ref10$storage,
+	        _ref10$items = _ref10.items,
+	        items = _ref10$items === undefined ? true : _ref10$items;
 	
 	    var valve, oldDiskUsage, oldSettingsItems;
-	    return regeneratorRuntime.wrap(function _callee8$(_context8) {
+	    return regeneratorRuntime.wrap(function _callee9$(_context9) {
 	      while (1) {
-	        switch (_context8.prev = _context8.next) {
+	        switch (_context9.prev = _context9.next) {
 	          case 0:
 	            valve = false;
 	
 	            if (!storage) {
-	              _context8.next = 8;
+	              _context9.next = 8;
 	              break;
 	            }
 	
 	            oldDiskUsage = config.components.storage.currentDiskUsage;
-	            _context8.next = 5;
+	            _context9.next = 5;
 	            return updateDiskUsage(config);
 	
 	          case 5:
-	            _context8.next = 7;
+	            _context9.next = 7;
 	            return updateDiskQuota(config);
 	
 	          case 7:
@@ -10103,30 +11318,30 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	          case 8:
 	            if (!items) {
-	              _context8.next = 13;
+	              _context9.next = 13;
 	              break;
 	            }
 	
 	            oldSettingsItems = config.subsections.settings.slice();
-	            _context8.next = 12;
+	            _context9.next = 12;
 	            return toggleSettingsItems(config);
 	
 	          case 12:
 	            valve = valve || !(0, _deepEqual2.default)(oldSettingsItems, config.subsections.settings);
 	
 	          case 13:
-	            return _context8.abrupt('return', valve);
+	            return _context9.abrupt('return', valve);
 	
 	          case 14:
 	          case 'end':
-	            return _context8.stop();
+	            return _context9.stop();
 	        }
 	      }
-	    }, _callee8, this);
+	    }, _callee9, this);
 	  }));
 	
 	  return function updateSettings(_x9) {
-	    return _ref8.apply(this, arguments);
+	    return _ref9.apply(this, arguments);
 	  };
 	}();
 	
@@ -10145,6 +11360,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _menu = __webpack_require__(260);
 	
 	var _menu2 = _interopRequireDefault(_menu);
+	
+	var _claudy = __webpack_require__(261);
+	
+	var _claudy2 = _interopRequireDefault(_claudy);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -10165,7 +11384,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      try {
 	        icon = app.slug && {
 	          cached: true,
-	          src: __webpack_require__(261)("./icon-" + app.slug + '.svg')
+	          src: __webpack_require__(262)("./icon-" + app.slug + '.svg')
 	        };
 	      } catch (error) {
 	        console.warn && console.warn('Cannot retrieve icon for app ' + app.name + ':', error.message);
@@ -10212,6 +11431,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}exports.createMenuPointers = createMenuPointers;
 	exports.updateSettings = updateSettings;
 	exports.updateApps = updateApps;
+	exports.getClaudyConfig = getClaudyConfig;
 
 /***/ },
 /* 255 */
@@ -10439,6 +11659,14 @@ return /******/ (function(modules) { // webpackBootstrap
 					"slug": "beta_status",
 					"inactive": true
 				}
+			],
+			"claudy": [
+				{
+					"slug": "claudy",
+					"name": "claudy.title",
+					"l10n": true,
+					"event": "claudy"
+				}
 			]
 		},
 		"components": {
@@ -10475,6 +11703,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			],
 			"drawer": [
 				"_.subsections.settings",
+				"_.subsections.claudy",
 				"_.subsections.help",
 				"_.subsections.logout",
 				"_.subsections.beta"
@@ -10484,12 +11713,47 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 261 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"actions": {
+			"desktop": {
+				"icon": "icon-laptop.svg",
+				"link": {
+					"type": "external"
+				}
+			},
+			"mobile": {
+				"icon": "icon-phone.svg",
+				"link": {
+					"type": "external"
+				}
+			},
+			"cozy-collect": {
+				"icon": "icon-bills.svg",
+				"link": {
+					"type": "apps",
+					"appSlug": "collect",
+					"path": "/#/discovery/?intro"
+				}
+			},
+			"support": {
+				"icon": "icon-question-mark.svg",
+				"link": {
+					"type": "external"
+				}
+			}
+		}
+	};
+
+/***/ },
+/* 262 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var map = {
-		"./icon-bank.svg": 262,
-		"./icon-sante.svg": 263,
-		"./icon-store.svg": 264
+		"./icon-bank.svg": 263,
+		"./icon-sante.svg": 264,
+		"./icon-store.svg": 265
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -10502,14 +11766,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 	webpackContext.resolve = webpackContextResolve;
 	module.exports = webpackContext;
-	webpackContext.id = 261;
+	webpackContext.id = 262;
 
-
-/***/ },
-/* 262 */
-/***/ function(module, exports) {
-
-	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI5NiIgaGVpZ2h0PSI5NiIgdmlld0JveD0iMCAwIDk2IDk2Ij4KICA8ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgogICAgPHJlY3Qgd2lkdGg9Ijk2IiBoZWlnaHQ9Ijk2IiBmaWxsPSIjNUE5QjlFIiByeD0iOCIvPgogICAgPHRleHQgZmlsbD0iIzMxNUY3RSIgZm9udC1mYW1pbHk9IkxhdG8tQmxhY2ssIExhdG8iIGZvbnQtc2l6ZT0iMTYiIGZvbnQtd2VpZ2h0PSI3MDAiPgogICAgICA8dHNwYW4geD0iNTAuNzUyIiB5PSI5MCI+TGFiczwvdHNwYW4+CiAgICA8L3RleHQ+CiAgICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxMiAxMCkiPgogICAgICA8cGF0aCBmaWxsPSIjMzE1RjdFIiBkPSJNMjgsMTguNTQ1NDU0NSBMNy44OTAzMzE4Nyw1NS4xMDg0ODc1IEw3Ljg5MDMzMTg3LDU1LjEwODQ4NzUgQzcuNDAzMTAzNDMsNTUuOTk0MzU3NCA3LjE0NzYyNzMzLDU2Ljk4ODk4MjIgNy4xNDc2MjczMyw1OCBDNy4xNDc2MjczMyw2MS4zMTM3MDg1IDkuODMzOTE4ODMsNjQgMTMuMTQ3NjI3Myw2NCBMMTMuMTQ3NjI3Myw2NCBMNTguODUyMzcyNyw2NCBDNTkuODYzMzkwNSw2NCA2MC44NTgwMTUzLDYzLjc0NDUyMzkgNjEuNzQzODg1Miw2My4yNTcyOTU1IEM2NC42NDc0MDkzLDYxLjY2MDM1NzIgNjUuNzA2NjA2NCw1OC4wMTIwMTE2IDY0LjEwOTY2ODEsNTUuMTA4NDg3NSBMNjQuMTA5NjY4MSw1NS4xMDg0ODc1IEw0NCwxOC41NDU0NTQ1IEw0NCw0IEwyOCw0IEwyOCwxOC41NDU0NTQ1IFogTTI4LDAgTDQ0LDAgQzQ1LjEwNDU2OTUsLTIuMDI5MDYxMjVlLTE2IDQ2LDAuODk1NDMwNSA0NiwyIEw0NiwyIEM0NiwzLjEwNDU2OTUgNDUuMTA0NTY5NSw0IDQ0LDQgTDI4LDQgQzI2Ljg5NTQzMDUsNCAyNiwzLjEwNDU2OTUgMjYsMiBMMjYsMiBMMjYsMiBDMjYsMC44OTU0MzA1IDI2Ljg5NTQzMDUsMi4wMjkwNjEyNWUtMTYgMjgsMCBaIi8+CiAgICAgIDxwYXRoIGZpbGw9IiNGRkZGRkYiIGQ9Ik0wLDUyIEwwLDM2IEw3LDM2IEwxMiw0NiBMMTcsMzYgTDI0LDM2IEwyNCw1MiBMMTgsNTIgTDE4LDQwIEwxMiw1MiBMOSw1MiBMMyw0MCBMMyw1MiBMMCw1MiBaIE0yNSw1MiBMMzIsMzYgTDM4LDM2IEw0NSw1MiBMMzksNTIgTDM4LDQ5IEwzMCw0OSBMMjguNjk5OTUxMiw1MiBMMjUsNTIgWiBNMzEsNDYgTDM3LDQ2IEwzNCw0MCBMMzEsNDYgWiBNNDcsMzYgTDUyLDM2IEw1Miw1MiBMNDcsNTIgTDQ3LDM2IFogTTU2LDM2IEw3MiwzNiBMNzIsMzkgTDYxLDM5IEw2MSw0NCBMNzIsNDQgTDcyLDQ3IEw2MSw0NyBMNjEsNTIgTDU2LDUyIEw1NiwzNiBaIi8+CiAgICA8L2c+CiAgPC9nPgo8L3N2Zz4K"
 
 /***/ },
 /* 263 */
@@ -10521,17 +11779,397 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 264 */
 /***/ function(module, exports) {
 
-	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgdmlld0JveD0iMCAwIDMyIDMyIj4KICA8ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgogICAgPHBhdGggZmlsbD0iI0ZDQkFCQSIgZD0iTTIsMjkuOTk4MjAyNiBMMiwxOC41IEw2LDE4LjUgTDYsMjYuNSBMMTYsMjYuNSBMMTYsMTguNSBMMzAsMTguNSBMMzAsMjkuOTk4MjAyNiBDMzAsMzAuNTU1MTE4NCAyOS41NTI3NTE5LDMxIDI5LjAwMTA0MzQsMzEgTDI3Ljk5ODk1NjYsMzEgQzI3LjQ0MjY2MDMsMzEgMjcsMzAuNTUyMDkxMyAyNywyOS45OTk1Njc5IEwyNywxOS41IEwyMCwxOS41IEwyMCwyOS45OTk1Njc5IEMyMCwzMC41NDkxODY0IDE5LjU1NTI0MDcsMzEgMTkuMDA2NjAyMywzMSBMMi45OTMzOTc2OCwzMSBDMi40NDQ5NDYyOSwzMSAyLDMwLjU1MTQ4IDIsMjkuOTk4MjAyNiBaIE0yLDIuMDAxMzgwMDYgQzIsMS40NDgzMzMxMyAyLjQzOTgxMzE0LDEgMi45OTY1MzQ4MiwxIEwyOS4wMDM0NjUyLDEgQzI5LjU1MzgzNjIsMSAzMCwxLjQ0Njc3MTMyIDMwLDIuMDAxMzgwMDYgTDMwLDcuNSBMMiw3LjUgTDIsMi4wMDEzODAwNiBaIi8+CiAgICA8cGF0aCBmaWxsPSIjRjYyQzJDIiBkPSJNMSwxOS41IEwzMSwxOS41IEwzMSwxOS41IEMzMS41NTIyODQ3LDE5LjUgMzIsMTkuMDUyMjg0NyAzMiwxOC41IEwzMiwxNS42MDk3NzIyIEwzMiwxNS42MDk3NzIyIEMzMiwxNS41MzY4MDk5IDMxLjk5MjAxNDgsMTUuNDY0MDY2NyAzMS45NzYxODcxLDE1LjM5Mjg0MTggTDMwLDYuNSBMMiw2LjUgTDAuMDIzODEyOTM5OCwxNS4zOTI4NDE4IEwwLjAyMzgxMjkzOTgsMTUuMzkyODQxOCBDMC4wMDc5ODUxODQ3MSwxNS40NjQwNjY3IC04Ljg5MDcxOTUxZS0xNSwxNS41MzY4MDk5IC04Ljg4MTc4NDJlLTE1LDE1LjYwOTc3MjIgTDAsMTguNSBMMCwxOC41IEM2Ljc2MzUzNzUxZS0xNywxOS4wNTIyODQ3IDAuNDQ3NzE1MjUsMTkuNSAxLDE5LjUgWiIvPgogIDwvZz4KPC9zdmc+Cg=="
+	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI5NiIgaGVpZ2h0PSI5NiIgdmlld0JveD0iMCAwIDk2IDk2Ij4KICA8ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgogICAgPHJlY3Qgd2lkdGg9Ijk2IiBoZWlnaHQ9Ijk2IiBmaWxsPSIjNUE5QjlFIiByeD0iOCIvPgogICAgPHRleHQgZmlsbD0iIzMxNUY3RSIgZm9udC1mYW1pbHk9IkxhdG8tQmxhY2ssIExhdG8iIGZvbnQtc2l6ZT0iMTYiIGZvbnQtd2VpZ2h0PSI3MDAiPgogICAgICA8dHNwYW4geD0iNTAuNzUyIiB5PSI5MCI+TGFiczwvdHNwYW4+CiAgICA8L3RleHQ+CiAgICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxMiAxMCkiPgogICAgICA8cGF0aCBmaWxsPSIjMzE1RjdFIiBkPSJNMjgsMTguNTQ1NDU0NSBMNy44OTAzMzE4Nyw1NS4xMDg0ODc1IEw3Ljg5MDMzMTg3LDU1LjEwODQ4NzUgQzcuNDAzMTAzNDMsNTUuOTk0MzU3NCA3LjE0NzYyNzMzLDU2Ljk4ODk4MjIgNy4xNDc2MjczMyw1OCBDNy4xNDc2MjczMyw2MS4zMTM3MDg1IDkuODMzOTE4ODMsNjQgMTMuMTQ3NjI3Myw2NCBMMTMuMTQ3NjI3Myw2NCBMNTguODUyMzcyNyw2NCBDNTkuODYzMzkwNSw2NCA2MC44NTgwMTUzLDYzLjc0NDUyMzkgNjEuNzQzODg1Miw2My4yNTcyOTU1IEM2NC42NDc0MDkzLDYxLjY2MDM1NzIgNjUuNzA2NjA2NCw1OC4wMTIwMTE2IDY0LjEwOTY2ODEsNTUuMTA4NDg3NSBMNjQuMTA5NjY4MSw1NS4xMDg0ODc1IEw0NCwxOC41NDU0NTQ1IEw0NCw0IEwyOCw0IEwyOCwxOC41NDU0NTQ1IFogTTI4LDAgTDQ0LDAgQzQ1LjEwNDU2OTUsLTIuMDI5MDYxMjVlLTE2IDQ2LDAuODk1NDMwNSA0NiwyIEw0NiwyIEM0NiwzLjEwNDU2OTUgNDUuMTA0NTY5NSw0IDQ0LDQgTDI4LDQgQzI2Ljg5NTQzMDUsNCAyNiwzLjEwNDU2OTUgMjYsMiBMMjYsMiBMMjYsMiBDMjYsMC44OTU0MzA1IDI2Ljg5NTQzMDUsMi4wMjkwNjEyNWUtMTYgMjgsMCBaIi8+CiAgICAgIDxwYXRoIGZpbGw9IiNGRkZGRkYiIGQ9Ik0wLDUyIEwwLDM2IEw3LDM2IEwxMiw0NiBMMTcsMzYgTDI0LDM2IEwyNCw1MiBMMTgsNTIgTDE4LDQwIEwxMiw1MiBMOSw1MiBMMyw0MCBMMyw1MiBMMCw1MiBaIE0yNSw1MiBMMzIsMzYgTDM4LDM2IEw0NSw1MiBMMzksNTIgTDM4LDQ5IEwzMCw0OSBMMjguNjk5OTUxMiw1MiBMMjUsNTIgWiBNMzEsNDYgTDM3LDQ2IEwzNCw0MCBMMzEsNDYgWiBNNDcsMzYgTDUyLDM2IEw1Miw1MiBMNDcsNTIgTDQ3LDM2IFogTTU2LDM2IEw3MiwzNiBMNzIsMzkgTDYxLDM5IEw2MSw0NCBMNzIsNDQgTDcyLDQ3IEw2MSw0NyBMNjEsNTIgTDU2LDUyIEw1NiwzNiBaIi8+CiAgICA8L2c+CiAgPC9nPgo8L3N2Zz4K"
 
 /***/ },
 /* 265 */
+/***/ function(module, exports) {
+
+	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgdmlld0JveD0iMCAwIDMyIDMyIj4KICA8ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgogICAgPHBhdGggZmlsbD0iI0ZDQkFCQSIgZD0iTTIsMjkuOTk4MjAyNiBMMiwxOC41IEw2LDE4LjUgTDYsMjYuNSBMMTYsMjYuNSBMMTYsMTguNSBMMzAsMTguNSBMMzAsMjkuOTk4MjAyNiBDMzAsMzAuNTU1MTE4NCAyOS41NTI3NTE5LDMxIDI5LjAwMTA0MzQsMzEgTDI3Ljk5ODk1NjYsMzEgQzI3LjQ0MjY2MDMsMzEgMjcsMzAuNTUyMDkxMyAyNywyOS45OTk1Njc5IEwyNywxOS41IEwyMCwxOS41IEwyMCwyOS45OTk1Njc5IEMyMCwzMC41NDkxODY0IDE5LjU1NTI0MDcsMzEgMTkuMDA2NjAyMywzMSBMMi45OTMzOTc2OCwzMSBDMi40NDQ5NDYyOSwzMSAyLDMwLjU1MTQ4IDIsMjkuOTk4MjAyNiBaIE0yLDIuMDAxMzgwMDYgQzIsMS40NDgzMzMxMyAyLjQzOTgxMzE0LDEgMi45OTY1MzQ4MiwxIEwyOS4wMDM0NjUyLDEgQzI5LjU1MzgzNjIsMSAzMCwxLjQ0Njc3MTMyIDMwLDIuMDAxMzgwMDYgTDMwLDcuNSBMMiw3LjUgTDIsMi4wMDEzODAwNiBaIi8+CiAgICA8cGF0aCBmaWxsPSIjRjYyQzJDIiBkPSJNMSwxOS41IEwzMSwxOS41IEwzMSwxOS41IEMzMS41NTIyODQ3LDE5LjUgMzIsMTkuMDUyMjg0NyAzMiwxOC41IEwzMiwxNS42MDk3NzIyIEwzMiwxNS42MDk3NzIyIEMzMiwxNS41MzY4MDk5IDMxLjk5MjAxNDgsMTUuNDY0MDY2NyAzMS45NzYxODcxLDE1LjM5Mjg0MTggTDMwLDYuNSBMMiw2LjUgTDAuMDIzODEyOTM5OCwxNS4zOTI4NDE4IEwwLjAyMzgxMjkzOTgsMTUuMzkyODQxOCBDMC4wMDc5ODUxODQ3MSwxNS40NjQwNjY3IC04Ljg5MDcxOTUxZS0xNSwxNS41MzY4MDk5IC04Ljg4MTc4NDJlLTE1LDE1LjYwOTc3MjIgTDAsMTguNSBMMCwxOC41IEM2Ljc2MzUzNzUxZS0xNywxOS4wNTIyODQ3IDAuNDQ3NzE1MjUsMTkuNSAxLDE5LjUgWiIvPgogIDwvZz4KPC9zdmc+Cg=="
+
+/***/ },
+/* 266 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	/* global __PIWIK_TRACKER_URL__ __PIWIK_SITEID__ __PIWIK_DIMENSION_ID_APP__ */
+	/* global Piwik */
+	
+	// Think of these functions as a singleton class with only static methods.
+	var trackerInstance = null;
+	
+	/**
+	* Tries to detect if tracking should be enabled or not, based on a `cozyTracking` attribute in the root dataset.
+	* @returns {boolean} Undefined if it can't find the information, true/false otherwise.
+	*/
+	var shouldEnableTracking = exports.shouldEnableTracking = function shouldEnableTracking() {
+	  var root = document.querySelector('[role=application]');
+	
+	  if (root && root.dataset) {
+	    var track = root.dataset.cozyTracking;
+	
+	    if (track === '' || track === 'true') return true;else if (track === 'false') return false;
+	  }
+	
+	  return undefined;
+	};
+	
+	/**
+	* Returns the instance of the piwik tracker, creating it on thee fly if required. All parameters are optionnal.
+	* @param   {string}  trackerUrl             The URL of the piwik instance, without the php file name
+	* @param   {number}  siteId                 The siteId to use for piwik
+	* @param   {boolean} automaticallyConfigure = true Pass false to skip the automatic configuration
+	* @param   {boolean} injectScript = false Whether or not the Piwik tracking script should be injected
+	* @returns {object}  An instance of `PiwikReactRouter` on success, `null` if the creation fails (usually because of adblockers)
+	*/
+	var getTracker = exports.getTracker = function getTracker(trackerUrl, siteId) {
+	  var automaticallyConfigure = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
+	  var injectScript = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
+	
+	  if (trackerInstance !== null) return trackerInstance;
+	
+	  try {
+	    // If `injectScript` is falsy, we rely on having the Piwik tracking script already on the page, otherwise the tracking will fail.
+	    // the next line is just there to throw in case the script is missing
+	    if (injectScript === false) Piwik.getTracker();
+	
+	    var PiwikReactRouter = __webpack_require__(267);
+	
+	    trackerInstance = PiwikReactRouter({
+	      url: trackerUrl || ("https://piwik.cozycloud.cc"),
+	      siteId: siteId || (8), // site id is required here
+	      injectScript: injectScript
+	    });
+	
+	    // apply the default configuration
+	    if (automaticallyConfigure) configureTracker();
+	
+	    return trackerInstance;
+	  } catch (err) {
+	    // this usually happens when there's an ad blocker
+	    console.warn(err);
+	    trackerInstance = null;
+	    return null;
+	  }
+	};
+	
+	/**
+	* Configures the base options for the tracker which will persist during the session.
+	* @param   {object} options A map of options that can be configured.
+	*                         {string} options.userId
+	*                         {number} options.appDimensionId
+	*                         {string} options.app
+	*                         {number} options.heartbeat
+	*/
+	var configureTracker = exports.configureTracker = function configureTracker() {
+	  var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+	
+	  // early out in case the tracker is not available
+	  if (trackerInstance === null) {
+	    // maybe we should throw an error here?
+	    return;
+	  }
+	
+	  // compute the default values for options
+	  var userId = void 0;
+	  var appName = void 0;
+	
+	  var root = document.querySelector('[role=application]');
+	  if (root && root.dataset) {
+	    appName = root.dataset.cozyAppName;
+	    userId = root.dataset.cozyDomain || '';
+	
+	    var indexOfPort = userId.indexOf(':');
+	    if (indexOfPort >= 0) userId = userId.substring(0, indexOfPort);
+	  }
+	
+	  // merge default options with what has been provided
+	  options = Object.assign({
+	    userId: userId,
+	    appDimensionId: (1),
+	    app: appName,
+	    heartbeat: 15
+	  }, options);
+	
+	  // apply them
+	  if (parseInt(options.heartbeat) > 0) trackerInstance.push(['enableHeartBeatTimer', parseInt(options.heartbeat)]);
+	  trackerInstance.push(['setUserId', options.userId]);
+	  trackerInstance.push(['setCustomDimension', options.appDimensionId, options.app]);
+	};
+	
+	/**
+	* Returns a new middleware for redux, which will track events if the action has an `trackEvent` field, containing at least `category` and `action` fields.
+	* @returns {function}
+	*/
+	var createTrackerMiddleware = exports.createTrackerMiddleware = function createTrackerMiddleware() {
+	  return function (store) {
+	    return function (next) {
+	      return function (action) {
+	        if (trackerInstance && action.trackEvent && action.trackEvent.category && action.trackEvent.action) {
+	          trackerInstance.push(['trackEvent', action.trackEvent.category, action.trackEvent.action, action.trackEvent.name, action.trackEvent.value]);
+	        }
+	
+	        return next(action);
+	      };
+	    };
+	  };
+	};
+	
+	/**
+	* Resets the tracker; disconnecting it from history and the middleware, if it was attached. *Please be aware*: if the tracker instance had been used outside of this library (in another middleware for example), further calls to the tracking server may still work.
+	*/
+	var resetTracker = exports.resetTracker = function resetTracker() {
+	  if (trackerInstance) {
+	    // stop tracking the history, if we were doing that
+	    trackerInstance.disconnectFromHistory();
+	    // we can't remove middlewares on the fly, but reseting the instance object will actually achieve that
+	    trackerInstance = null;
+	  }
+	};
+
+/***/ },
+/* 267 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
+	
+	var warning = __webpack_require__(193);
+	var urljoin = __webpack_require__(268);
+	
+	// api shim. used for serverside rendering and misconfigured tracker instances
+	var apiShim = {
+	  _isShim: true,
+		track: function () {},
+		push: function (args) {},
+		trackError: function (e) {},
+		connectToHistory: function (history) { return history; },
+		disconnectFromHistory: function () {}
+	};
+	
+	var previousPath = null;
+	var unlistenFromHistory = null;
+	
+	var PiwikTracker = function(opts) {
+	  var getEnvironment = function () {
+	    return process && process.env && process.env.NODE_ENV ? process.env.NODE_ENV.toLowerCase() : 'development';
+	  };
+	
+	  opts = opts || {};
+		opts.trackErrors = ((opts.trackErrors !== undefined) ? opts.trackErrors : false);
+		opts.enableLinkTracking = ((opts.enableLinkTracking !== undefined) ? opts.enableLinkTracking : true);
+		opts.updateDocumentTitle = ((opts.updateDocumentTitle !== undefined) ? opts.updateDocumentTitle : true);
+		opts.ignoreInitialVisit = ((opts.ignoreInitialVisit !== undefined) ? opts.ignoreInitialVisit : false);
+		opts.injectScript = ((opts.injectScript !== undefined) ? opts.injectScript : true);
+		opts.clientTrackerName = ((opts.clientTrackerName !== undefined) ? opts.clientTrackerName : 'piwik.js');
+		opts.serverTrackerName = ((opts.serverTrackerName !== undefined) ? opts.serverTrackerName : 'piwik.php');
+	
+	  if (!opts.url || !opts.siteId) {
+			// Only return warning if this is not in the test environment as it can break the Tests/CI.
+			if (getEnvironment() !== 'test') {
+				warning(null, 'PiwikTracker cannot be initialized! You haven\'t passed a url and siteId to it.');
+			}
+	
+			return apiShim;
+		}
+	
+		window._paq = window['_paq'] || [];
+	
+		/**
+		 * Adds a page view for the given location
+		 */
+		var track = function track (loc) {
+			var currentPath;
+	
+			if (loc.path) {
+			  currentPath = loc.path;
+			} else if (loc.basename) {
+			  currentPath = urljoin(loc.basename, loc.pathname, loc.search);
+			} else {
+			  currentPath = urljoin(loc.pathname, loc.search);
+			}
+	
+			if (previousPath === currentPath) {
+				return;
+			}
+	
+			if (opts.updateDocumentTitle) {
+				push(['setDocumentTitle', document.title]);
+			}
+			push(['setCustomUrl', currentPath]);
+			push(['trackPageView']);
+	
+			previousPath = currentPath;
+		};
+	
+		/**
+		 * Pushes the specified args to the piwik tracker.
+		 * You can use this method as the low-level api to call methods from the piwik API or call custom functions
+		 *
+		 * @see https://developer.piwik.org/guides/tracking-javascript-guide
+		 */
+		var push = function push (args) {
+			window._paq.push(args);
+		};
+	
+		/**
+		 * Tracks occurring javascript errors as a `JavaScript Error` piwik event.
+		 *
+		 * @see http://davidwalsh.name/track-errors-google-analytics
+		 */
+		var trackError = function trackError (e, eventName) {
+			eventName = eventName || 'JavaScript Error';
+	
+			push([
+				'trackEvent',
+				eventName,
+				e.message,
+				e.filename + ': ' + e.lineno
+			]);
+		};
+	
+		/**
+		 * Connects to the given history
+		 */
+		var connectToHistory = function (history) {
+			unlistenFromHistory = history.listen(function (loc) {
+				track(loc);
+			});
+	
+	        if (!opts.ignoreInitialVisit && history.location) {
+	            track(history.location);
+	        }
+	
+			return history;
+		};
+	
+		/**
+		 * Disconnects from a previous connected history
+		 */
+		var disconnectFromHistory = function () {
+			if (unlistenFromHistory) {
+				unlistenFromHistory();
+	      return true;
+			}
+	
+	    return false;
+		};
+	
+		if (opts.trackErrors) {
+			if (window.addEventListener) {
+				window.addEventListener('error', trackError, false);
+			}
+			else if (window.attachEvent) {
+				window.attachEvent('onerror', trackError);
+			}
+			else {
+				window.onerror = trackError;
+			}
+		}
+	
+		// piwik initializer
+		(function() {
+	    if (opts.url.indexOf('http://') !== -1 || opts.url.indexOf('https://') !== -1) {
+	      var u = opts.url + '/';
+	    } else {
+	      var u = (('https:' == document.location.protocol) ? 'https://' + opts.url + '/' : 'http://' + opts.url + '/');
+	    }
+	
+			push(['setSiteId', opts.siteId]);
+			push(['setTrackerUrl', u+opts.serverTrackerName]);
+	
+			if (opts.userId) {
+				push(['setUserId', opts.userId]);
+			}
+	
+			if (opts.enableLinkTracking) {
+				push(['enableLinkTracking']);
+			}
+	
+			if (opts.injectScript) {
+				var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0]; g.type='text/javascript'; g.defer=true; g.async=true; g.src=u+opts.clientTrackerName;
+				s.parentNode.insertBefore(g,s);
+			}
+		})();
+	
+		// return api
+		return {
+	    _isShim: false,
+			track: track,
+			push: push,
+			trackError: trackError,
+			connectToHistory: connectToHistory,
+			disconnectFromHistory: disconnectFromHistory
+		};
+	};
+	
+	if (typeof window === 'undefined') {
+		module.exports = function() {
+			return apiShim;
+		};
+	}
+	else {
+		module.exports = PiwikTracker;
+	}
+	
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(188)))
+
+/***/ },
+/* 268 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (name, context, definition) {
+	  if (typeof module !== 'undefined' && module.exports) module.exports = definition();
+	  else if (true) !(__WEBPACK_AMD_DEFINE_FACTORY__ = (definition), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.call(exports, __webpack_require__, exports, module)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	  else context[name] = definition();
+	})('urljoin', this, function () {
+	
+	  function normalize (str, options) {
+	
+	    // make sure protocol is followed by two slashes
+	    str = str.replace(/:\//g, '://');
+	
+	    // remove consecutive slashes
+	    str = str.replace(/([^:\s])\/+/g, '$1/');
+	
+	    // remove trailing slash before parameters or hash
+	    str = str.replace(/\/(\?|&|#[^!])/g, '$1');
+	
+	    // replace ? in parameters with &
+	    str = str.replace(/(\?.+)\?/g, '$1&');
+	
+	    return str;
+	  }
+	
+	  return function () {
+	    var input = arguments;
+	    var options = {};
+	
+	    if (typeof arguments[0] === 'object') {
+	      // new syntax with array and options
+	      input = arguments[0];
+	      options = arguments[1] || {};
+	    }
+	
+	    var joined = [].slice.call(input, 0).join('/');
+	    return normalize(joined, options);
+	  };
+	
+	});
+
+
+/***/ },
+/* 269 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 	
-	var NavigationSection = __webpack_require__(266);
+	var NavigationSection = __webpack_require__(270);
 	
 	NavigationSection = NavigationSection && NavigationSection.__esModule ? NavigationSection['default'] : NavigationSection;
 	
@@ -10795,7 +12433,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Navigation;
 
 /***/ },
-/* 266 */
+/* 270 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -10804,9 +12442,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var __import0 = __webpack_require__(189);
 	
-	var NavigationGroup = __webpack_require__(267);
+	var __import1 = __webpack_require__(271);
+	
+	var NavigationGroup = __webpack_require__(272);
 	
 	var t = __import0.t;
+	var getCategorizedItems = __import1.getCategorizedItems;
 	NavigationGroup = NavigationGroup && NavigationGroup.__esModule ? NavigationGroup['default'] : NavigationGroup;
 	
 	function recompute(state, newState, oldState, isInitial) {
@@ -10867,26 +12508,6 @@ return /******/ (function(modules) { // webpackBootstrap
 			} else {
 				close.call(this);
 			}
-		}
-	
-		// Take an items array and return an array of category objects with the matching title and items
-		function getCategorizedItems(items) {
-			if (items[0] instanceof Array) return null; // doesn't handle this case
-			var categorizedItemsObject = items.reduce(function (accumulator, item) {
-				accumulator[item.category] = accumulator[item.category] || [];
-				accumulator[item.category].push(item);
-				return accumulator;
-			}, {});
-	
-			return Object.keys(categorizedItemsObject).map(function (category) {
-				return { title: category, items: categorizedItemsObject[category] };
-			})
-			// categories alphabetical sorting
-			.sort(function (c1, c2) {
-				if (t('Categories.' + c1.title) > t('Categories.' + c2.title)) return 1;
-				if (t('Categories.' + c1.title) < t('Categories.' + c2.title)) return -1;
-				return 0;
-			});
 		}
 	
 		return {
@@ -11050,7 +12671,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 		var h2 = createElement('h2');
 		h2.className = "coz-nav-category";
-		var text = createText(text_value = template.helpers.t('Categories.' + category.title));
+		var text = createText(text_value = template.helpers.t('Categories.' + category.slug));
 		appendNode(text, h2);
 		var text_1 = createText("\n        ");
 	
@@ -11072,7 +12693,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			},
 	
 			update: function update(changed, state, each_block_value, category, category_index) {
-				if (text_value !== (text_value = template.helpers.t('Categories.' + category.title))) {
+				if (text_value !== (text_value = template.helpers.t('Categories.' + category.slug))) {
 					text.data = text_value;
 				}
 	
@@ -11502,14 +13123,48 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = NavigationSection;
 
 /***/ },
-/* 267 */
+/* 271 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.getCategorizedItems = getCategorizedItems;
+	
+	var _i18n = __webpack_require__(189);
+	
+	// Take an items array and return an array of category objects with the matching category slug and items
+	function getCategorizedItems(items) {
+	  if (items[0] instanceof Array) return null; // doesn't handle this case
+	  var categorizedItemsObject = items.reduce(function (accumulator, item) {
+	    accumulator[item.category] = accumulator[item.category] || [];
+	    accumulator[item.category].push(item);
+	    return accumulator;
+	  }, {});
+	
+	  return Object.keys(categorizedItemsObject).map(function (category) {
+	    return { slug: category, items: categorizedItemsObject[category] };
+	  })
+	  // categories alphabetical sorting
+	  .sort(function (c1, c2) {
+	    if (c1.slug === 'others') return 1;
+	    if ((0, _i18n.t)('Categories.' + c1.slug) > (0, _i18n.t)('Categories.' + c2.slug)) return 1;
+	    if ((0, _i18n.t)('Categories.' + c1.slug) < (0, _i18n.t)('Categories.' + c2.slug)) return -1;
+	    return 0;
+	  });
+	}
+
+/***/ },
+/* 272 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 	
-	var NavigationItem = __webpack_require__(268);
+	var NavigationItem = __webpack_require__(273);
 	
 	NavigationItem = NavigationItem && NavigationItem.__esModule ? NavigationItem['default'] : NavigationItem;
 	
@@ -11591,6 +13246,73 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 	
 	function create_each_block(state, each_block_value, item, item_index, component) {
+		function get_block(state, each_block_value, item, item_index) {
+			if (item.event === 'claudy') return create_if_block_2;
+			return create_if_block_3;
+		}
+	
+		var current_block = get_block(state, each_block_value, item, item_index);
+		var if_block_2 = current_block(state, each_block_value, item, item_index, component);
+	
+		var if_block_2_anchor = createComment();
+	
+		return {
+			mount: function mount(target, anchor) {
+				if_block_2.mount(target, anchor);
+				insertNode(if_block_2_anchor, target, anchor);
+			},
+	
+			update: function update(changed, state, each_block_value, item, item_index) {
+				if (current_block === (current_block = get_block(state, each_block_value, item, item_index)) && if_block_2) {
+					if_block_2.update(changed, state, each_block_value, item, item_index);
+				} else {
+					if_block_2.destroy(true);
+					if_block_2 = current_block(state, each_block_value, item, item_index, component);
+					if_block_2.mount(if_block_2_anchor.parentNode, if_block_2_anchor);
+				}
+			},
+	
+			destroy: function destroy(detach) {
+				if_block_2.destroy(detach);
+	
+				if (detach) {
+					detachNode(if_block_2_anchor);
+				}
+			}
+		};
+	}
+	
+	function create_if_block_2(state, each_block_value, item, item_index, component) {
+		var navigationitem = new NavigationItem({
+			target: null,
+			_root: component._root,
+			data: { item: item }
+		});
+	
+		navigationitem.on('claudy', function (event) {
+			component.fire("claudy");
+		});
+	
+		return {
+			mount: function mount(target, anchor) {
+				navigationitem._fragment.mount(target, anchor);
+			},
+	
+			update: function update(changed, state, each_block_value, item, item_index) {
+				var navigationitem_changes = {};
+	
+				if ('group' in changed) navigationitem_changes.item = item;
+	
+				if (Object.keys(navigationitem_changes).length) navigationitem.set(navigationitem_changes);
+			},
+	
+			destroy: function destroy(detach) {
+				navigationitem.destroy(detach);
+			}
+		};
+	}
+	
+	function create_if_block_3(state, each_block_value, item, item_index, component) {
 		var navigationitem = new NavigationItem({
 			target: null,
 			_root: component._root,
@@ -11616,7 +13338,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		};
 	}
 	
-	function create_if_block_2(state, component) {
+	function create_if_block_4(state, component) {
 		var hr = createElement('hr');
 	
 		return {
@@ -11651,9 +13373,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 		var text_1 = createText("\n");
 	
-		var if_block_2 = state.separator == 'bottom' && create_if_block_2(state, component);
+		var if_block_3 = state.separator == 'bottom' && create_if_block_4(state, component);
 	
-		var if_block_2_anchor = createComment();
+		var if_block_3_anchor = createComment();
 	
 		return {
 			mount: function mount(target, anchor) {
@@ -11661,8 +13383,8 @@ return /******/ (function(modules) { // webpackBootstrap
 				insertNode(text, target, anchor);
 				insertNode(ul, target, anchor);
 				insertNode(text_1, target, anchor);
-				if (if_block_2) if_block_2.mount(target, anchor);
-				insertNode(if_block_2_anchor, target, anchor);
+				if (if_block_3) if_block_3.mount(target, anchor);
+				insertNode(if_block_3_anchor, target, anchor);
 			},
 	
 			update: function update(changed, state) {
@@ -11697,13 +13419,13 @@ return /******/ (function(modules) { // webpackBootstrap
 				}
 	
 				if (state.separator == 'bottom') {
-					if (!if_block_2) {
-						if_block_2 = create_if_block_2(state, component);
-						if_block_2.mount(if_block_2_anchor.parentNode, if_block_2_anchor);
+					if (!if_block_3) {
+						if_block_3 = create_if_block_4(state, component);
+						if_block_3.mount(if_block_3_anchor.parentNode, if_block_3_anchor);
 					}
-				} else if (if_block_2) {
-					if_block_2.destroy(true);
-					if_block_2 = null;
+				} else if (if_block_3) {
+					if_block_3.destroy(true);
+					if_block_3 = null;
 				}
 			},
 
@@ -11712,13 +13434,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 				destroyEach(each_block_iterations, false, 0);
 
-				if (if_block_2) if_block_2.destroy(detach);
+				if (if_block_3) if_block_3.destroy(detach);
 
 				if (detach) {
 					detachNode(text);
 					detachNode(ul);
 					detachNode(text_1);
-					detachNode(if_block_2_anchor);
+					detachNode(if_block_3_anchor);
 				}
 			}
 		};
@@ -11902,7 +13624,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = NavigationGroup;
 
 /***/ },
-/* 268 */
+/* 273 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -11913,7 +13635,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var stack = __webpack_require__(251);
 	
-	var Storage = __webpack_require__(269);
+	var Storage = __webpack_require__(274);
 	
 	var t = __import0.t;
 	stack = stack && stack.__esModule ? stack['default'] : stack;
@@ -11951,7 +13673,7 @@ return /******/ (function(modules) { // webpackBootstrap
 						};
 					} else {
 						return {
-							src: __webpack_require__(270),
+							src: __webpack_require__(275),
 							class: 'blurry'
 						};
 					}
@@ -11998,8 +13720,9 @@ return /******/ (function(modules) { // webpackBootstrap
 			if (state.item.inactive) return create_if_block_2;
 			if (state.item.href) return create_if_block_3;
 			if (state.item.action) return create_if_block_5;
-			if (state.item.comingSoon) return create_if_block_7;
-			return create_if_block_9;
+			if (state.item.event) return create_if_block_7;
+			if (state.item.comingSoon) return create_if_block_9;
+			return create_if_block_11;
 		}
 	
 		var current_block = get_block(state);
@@ -12129,6 +13852,39 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 	
 	function create_if_block_8(state, component) {
+		var img_src_value, img_class_value;
+	
+		var img = createElement('img');
+		img.src = img_src_value = state.fileIcon.src;
+		img.alt = '';
+		img.width = "64";
+		img.height = "64";
+		img.className = img_class_value = state.fileIcon.class ? state.fileIcon.class : "";
+	
+		return {
+			mount: function mount(target, anchor) {
+				insertNode(img, target, anchor);
+			},
+	
+			update: function update(changed, state) {
+				if (img_src_value !== (img_src_value = state.fileIcon.src)) {
+					img.src = img_src_value;
+				}
+	
+				if (img_class_value !== (img_class_value = state.fileIcon.class ? state.fileIcon.class : "")) {
+					img.className = img_class_value;
+				}
+			},
+	
+			destroy: function destroy(detach) {
+				if (detach) {
+					detachNode(img);
+				}
+			}
+		};
+	}
+	
+	function create_if_block_10(state, component) {
 		var img_src_value, img_class_value, text_1_value;
 	
 		var img = createElement('img');
@@ -12261,13 +14017,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 	
 	function create_if_block_3(state, component) {
-		var a_href_value, a_target_value, a_data_icon_value, text_1_value;
+		var a_href_value, a_target_value, a_data_icon_value, a_title_value, text_1_value;
 	
 		var a = createElement('a');
 		setAttribute(a, 'role', "menuitem");
 		a.href = a_href_value = state.item.href;
 		a.target = a_target_value = state.item.external ? "_blank" : "_self";
 		setAttribute(a, 'data-icon', a_data_icon_value = state.dataIcon ? state.dataIcon : "");
+		a.title = a_title_value = state.label;
 	
 		var if_block_2 = state.fileIcon && create_if_block_4(state, component);
 	
@@ -12298,6 +14055,10 @@ return /******/ (function(modules) { // webpackBootstrap
 					setAttribute(a, 'data-icon', a_data_icon_value);
 				}
 	
+				if (a_title_value !== (a_title_value = state.label)) {
+					a.title = a_title_value;
+				}
+	
 				if (state.fileIcon) {
 					if (if_block_2) {
 						if_block_2.update(changed, state);
@@ -12326,11 +14087,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 	
 	function create_if_block_5(state, component) {
-		var button_data_icon_value, text_1_value;
+		var button_data_icon_value, button_title_value, text_1_value;
 	
 		var button = createElement('button');
 		setAttribute(button, 'role', "menuitem");
 		setAttribute(button, 'data-icon', button_data_icon_value = state.dataIcon ? state.dataIcon : "");
+		button.title = button_title_value = state.label;
 	
 		function click_handler(event) {
 			var state = component.get();
@@ -12355,6 +14117,10 @@ return /******/ (function(modules) { // webpackBootstrap
 			update: function update(changed, state) {
 				if (button_data_icon_value !== (button_data_icon_value = state.dataIcon ? state.dataIcon : "")) {
 					setAttribute(button, 'data-icon', button_data_icon_value);
+				}
+	
+				if (button_title_value !== (button_title_value = state.label)) {
+					button.title = button_title_value;
 				}
 	
 				if (state.fileIcon) {
@@ -12386,16 +14152,77 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 	
 	function create_if_block_7(state, component) {
-		var a_data_icon_value, text_1_value;
+		var button_data_icon_value, text_1_value;
+	
+		var button = createElement('button');
+		setAttribute(button, 'role', "menuitem");
+		setAttribute(button, 'data-icon', button_data_icon_value = state.dataIcon ? state.dataIcon : "");
+	
+		function click_handler(event) {
+			var state = component.get();
+			component.fire(state.item.event);
+		}
+	
+		addEventListener(button, 'click', click_handler);
+	
+		var if_block_4 = state.fileIcon && create_if_block_8(state, component);
+	
+		if (if_block_4) if_block_4.mount(button, null);
+		var text = createText("\n      ");
+		appendNode(text, button);
+		var text_1 = createText(text_1_value = state.label);
+		appendNode(text_1, button);
+	
+		return {
+			mount: function mount(target, anchor) {
+				insertNode(button, target, anchor);
+			},
+	
+			update: function update(changed, state) {
+				if (button_data_icon_value !== (button_data_icon_value = state.dataIcon ? state.dataIcon : "")) {
+					setAttribute(button, 'data-icon', button_data_icon_value);
+				}
+	
+				if (state.fileIcon) {
+					if (if_block_4) {
+						if_block_4.update(changed, state);
+					} else {
+						if_block_4 = create_if_block_8(state, component);
+						if_block_4.mount(button, text);
+					}
+				} else if (if_block_4) {
+					if_block_4.destroy(true);
+					if_block_4 = null;
+				}
+	
+				if (text_1_value !== (text_1_value = state.label)) {
+					text_1.data = text_1_value;
+				}
+			},
+	
+			destroy: function destroy(detach) {
+				removeEventListener(button, 'click', click_handler);
+				if (if_block_4) if_block_4.destroy(false);
+	
+				if (detach) {
+					detachNode(button);
+				}
+			}
+		};
+	}
+	
+	function create_if_block_9(state, component) {
+		var a_data_icon_value, a_title_value, text_1_value;
 	
 		var a = createElement('a');
 		setAttribute(a, 'role', "menuitem");
 		setAttribute(a, 'data-icon', a_data_icon_value = state.dataIcon ? state.dataIcon : "");
 		a.className = "coz-bar-coming-soon-app";
+		a.title = a_title_value = state.label;
 	
-		var if_block_4 = state.fileIcon && create_if_block_8(state, component);
+		var if_block_5 = state.fileIcon && create_if_block_10(state, component);
 	
-		if (if_block_4) if_block_4.mount(a, null);
+		if (if_block_5) if_block_5.mount(a, null);
 		var text = createText("\n      ");
 		appendNode(text, a);
 		var p = createElement('p');
@@ -12414,16 +14241,20 @@ return /******/ (function(modules) { // webpackBootstrap
 					setAttribute(a, 'data-icon', a_data_icon_value);
 				}
 	
+				if (a_title_value !== (a_title_value = state.label)) {
+					a.title = a_title_value;
+				}
+	
 				if (state.fileIcon) {
-					if (if_block_4) {
-						if_block_4.update(changed, state);
+					if (if_block_5) {
+						if_block_5.update(changed, state);
 					} else {
-						if_block_4 = create_if_block_8(state, component);
-						if_block_4.mount(a, text);
+						if_block_5 = create_if_block_10(state, component);
+						if_block_5.mount(a, text);
 					}
-				} else if (if_block_4) {
-					if_block_4.destroy(true);
-					if_block_4 = null;
+				} else if (if_block_5) {
+					if_block_5.destroy(true);
+					if_block_5 = null;
 				}
 	
 				if (text_1_value !== (text_1_value = state.label)) {
@@ -12432,7 +14263,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			},
 	
 			destroy: function destroy(detach) {
-				if (if_block_4) if_block_4.destroy(false);
+				if (if_block_5) if_block_5.destroy(false);
 	
 				if (detach) {
 					detachNode(a);
@@ -12441,7 +14272,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		};
 	}
 	
-	function create_if_block_9(state, component) {
+	function create_if_block_11(state, component) {
 		var text_value;
 	
 		var div = createElement('div');
@@ -12655,7 +14486,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = NavigationItem;
 
 /***/ },
-/* 269 */
+/* 274 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -12988,13 +14819,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Storage;
 
 /***/ },
-/* 270 */
+/* 275 */
 /***/ function(module, exports) {
 
 	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICA8ZyBmaWxsPSIjOTU5OTlEIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0yODggLTMyKSI+CiAgICA8cGF0aCBkPSJNMjg5LDQzLjAwODYyOTYgQzI4OSw0My41NTg2NzMyIDI4OS4zOTY0MDcsNDQuMjMxMDg5OSAyODkuODcyNDAxLDQ0LjUwMzA4NjggTDI5NS4xMjc1OTksNDcuNTA2MDU2NiBDMjk1LjYwOTQxMyw0Ny43ODEzNzg5IDI5Niw0Ny41NTc4NzMgMjk2LDQ3LjAwODYyOTYgTDI5Niw0MS41MDA1MTM4IEMyOTYsNDAuOTUwNDcwMiAyOTUuNjAzNTkzLDQwLjI3ODA1MzUgMjk1LjEyNzU5OSw0MC4wMDYwNTY2IEwyODkuODcyNDAxLDM3LjAwMzA4NjggQzI4OS4zOTA1ODcsMzYuNzI3NzY0NSAyODksMzYuOTUxMjcwNCAyODksMzcuNTAwNTEzOCBMMjg5LDQzLjAwODYyOTYgWiBNMzA0LDQzLjAwODYyOTYgQzMwNCw0My41NTg2NzMyIDMwMy42MDM1OTMsNDQuMjMxMDg5OSAzMDMuMTI3NTk5LDQ0LjUwMzA4NjggTDI5Ny44NzI0MDEsNDcuNTA2MDU2NiBDMjk3LjM5MDU4Nyw0Ny43ODEzNzg5IDI5Nyw0Ny41NTc4NzMgMjk3LDQ3LjAwODYyOTYgTDI5Nyw0MS41MDA1MTM4IEMyOTcsNDAuOTUwNDcwMiAyOTcuMzk2NDA3LDQwLjI3ODA1MzUgMjk3Ljg3MjQwMSw0MC4wMDYwNTY2IEwzMDMuMTI3NTk5LDM3LjAwMzA4NjggQzMwMy42MDk0MTMsMzYuNzI3NzY0NSAzMDQsMzYuOTUxMjcwNCAzMDQsMzcuNTAwNTEzOCBMMzA0LDQzLjAwODYyOTYgWiBNMjk3LjM0OTc2MSwzOC45ODE2NDE2IEMyOTYuODgwNDUxLDM5LjI3MDQ0NzkgMjk2LjExMjg2MSwzOS4yNjYzMzI0IDI5NS42NTAyMzksMzguOTgxNjQxNiBMMjkwLjg0OTc2MSwzNi4wMjc1MDE4IEMyOTAuMzgwNDUxLDM1LjczODY5NTUgMjkwLjM4NzEzOSwzNS4yOTYxMTIzIDI5MC44NzY2MTksMzUuMDMyNTQ2MSBMMjk1LjYyMzM4MSwzMi40NzY1OTczIEMyOTYuMTA3NTI0LDMyLjIxNTkwNDggMjk2Ljg4NzEzOSwzMi4yMTMwMzExIDI5Ny4zNzY2MTksMzIuNDc2NTk3MyBMMzAyLjEyMzM4MSwzNS4wMzI1NDYxIEMzMDIuNjA3NTI0LDM1LjI5MzIzODcgMzAyLjYxMjg2MSwzNS43NDI4MTEgMzAyLjE1MDIzOSwzNi4wMjc1MDE4IEwyOTcuMzQ5NzYxLDM4Ljk4MTY0MTYgWiIvPgogICAgPHBhdGggZD0iTTI4OSw0My4wMDg2Mjk2IEMyODksNDMuNTU4NjczMiAyODkuMzk2NDA3LDQ0LjIzMTA4OTkgMjg5Ljg3MjQwMSw0NC41MDMwODY4IEwyOTUuMTI3NTk5LDQ3LjUwNjA1NjYgQzI5NS42MDk0MTMsNDcuNzgxMzc4OSAyOTYsNDcuNTU3ODczIDI5Niw0Ny4wMDg2Mjk2IEwyOTYsNDEuNTAwNTEzOCBDMjk2LDQwLjk1MDQ3MDIgMjk1LjYwMzU5Myw0MC4yNzgwNTM1IDI5NS4xMjc1OTksNDAuMDA2MDU2NiBMMjg5Ljg3MjQwMSwzNy4wMDMwODY4IEMyODkuMzkwNTg3LDM2LjcyNzc2NDUgMjg5LDM2Ljk1MTI3MDQgMjg5LDM3LjUwMDUxMzggTDI4OSw0My4wMDg2Mjk2IFogTTMwNCw0My4wMDg2Mjk2IEMzMDQsNDMuNTU4NjczMiAzMDMuNjAzNTkzLDQ0LjIzMTA4OTkgMzAzLjEyNzU5OSw0NC41MDMwODY4IEwyOTcuODcyNDAxLDQ3LjUwNjA1NjYgQzI5Ny4zOTA1ODcsNDcuNzgxMzc4OSAyOTcsNDcuNTU3ODczIDI5Nyw0Ny4wMDg2Mjk2IEwyOTcsNDEuNTAwNTEzOCBDMjk3LDQwLjk1MDQ3MDIgMjk3LjM5NjQwNyw0MC4yNzgwNTM1IDI5Ny44NzI0MDEsNDAuMDA2MDU2NiBMMzAzLjEyNzU5OSwzNy4wMDMwODY4IEMzMDMuNjA5NDEzLDM2LjcyNzc2NDUgMzA0LDM2Ljk1MTI3MDQgMzA0LDM3LjUwMDUxMzggTDMwNCw0My4wMDg2Mjk2IFogTTI5Ny4zNDk3NjEsMzguOTgxNjQxNiBDMjk2Ljg4MDQ1MSwzOS4yNzA0NDc5IDI5Ni4xMTI4NjEsMzkuMjY2MzMyNCAyOTUuNjUwMjM5LDM4Ljk4MTY0MTYgTDI5MC44NDk3NjEsMzYuMDI3NTAxOCBDMjkwLjM4MDQ1MSwzNS43Mzg2OTU1IDI5MC4zODcxMzksMzUuMjk2MTEyMyAyOTAuODc2NjE5LDM1LjAzMjU0NjEgTDI5NS42MjMzODEsMzIuNDc2NTk3MyBDMjk2LjEwNzUyNCwzMi4yMTU5MDQ4IDI5Ni44ODcxMzksMzIuMjEzMDMxMSAyOTcuMzc2NjE5LDMyLjQ3NjU5NzMgTDMwMi4xMjMzODEsMzUuMDMyNTQ2MSBDMzAyLjYwNzUyNCwzNS4yOTMyMzg3IDMwMi42MTI4NjEsMzUuNzQyODExIDMwMi4xNTAyMzksMzYuMDI3NTAxOCBMMjk3LjM0OTc2MSwzOC45ODE2NDE2IFoiLz4KICA8L2c+Cjwvc3ZnPgo="
 
 /***/ },
-/* 271 */
+/* 276 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -13003,9 +14834,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var __import0 = __webpack_require__(189);
 	
-	var NavigationGroup = __webpack_require__(267);
+	var __import1 = __webpack_require__(271);
+	
+	var NavigationGroup = __webpack_require__(272);
 	
 	var t = __import0.t;
+	var getCategorizedItems = __import1.getCategorizedItems;
 	NavigationGroup = NavigationGroup && NavigationGroup.__esModule ? NavigationGroup['default'] : NavigationGroup;
 	
 	function recompute(state, newState, oldState, isInitial) {
@@ -13016,26 +14850,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var template = function () {
 		var toggleDrawerObserver = void 0;
-	
-		// Take an items array and return an array of category objects with the matching title and items
-		function getCategorizedItems(items) {
-			if (items[0] instanceof Array) return null; // doesn't handle this case
-			var categorizedItemsObject = items.reduce(function (accumulator, item) {
-				accumulator[item.category] = accumulator[item.category] || [];
-				accumulator[item.category].push(item);
-				return accumulator;
-			}, {});
-	
-			return Object.keys(categorizedItemsObject).map(function (category) {
-				return { title: category, items: categorizedItemsObject[category] };
-			})
-			// categories alphabetical sorting
-			.sort(function (c1, c2) {
-				if (t('Categories.' + c1.title) > t('Categories.' + c2.title)) return 1;
-				if (t('Categories.' + c1.title) < t('Categories.' + c2.title)) return -1;
-				return 0;
-			});
-		}
 	
 		return {
 			computed: {
@@ -13215,7 +15029,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 		var h2 = createElement('h2');
 		h2.className = "coz-nav-category";
-		var text = createText(text_value = template.helpers.t('Categories.' + category.title));
+		var text = createText(text_value = template.helpers.t('Categories.' + category.slug));
 		appendNode(text, h2);
 		var text_1 = createText("\n        ");
 	
@@ -13237,7 +15051,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			},
 	
 			update: function update(changed, state, each_block_value, category, category_index) {
-				if (text_value !== (text_value = template.helpers.t('Categories.' + category.title))) {
+				if (text_value !== (text_value = template.helpers.t('Categories.' + category.slug))) {
 					text.data = text_value;
 				}
 	
@@ -13265,6 +15079,10 @@ return /******/ (function(modules) { // webpackBootstrap
 			target: null,
 			_root: component._root,
 			data: { separator: "top", group: group }
+		});
+	
+		navigationgroup.on('claudy', function (event) {
+			component.fire("claudy");
 		});
 	
 		return {
@@ -13480,16 +15298,954 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Drawer;
 
 /***/ },
-/* 272 */
+/* 277 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+	
+	var ClaudyMenu = __webpack_require__(278);
+	
+	ClaudyMenu = ClaudyMenu && ClaudyMenu.__esModule ? ClaudyMenu['default'] : ClaudyMenu;
+	
+	function create_main_fragment(state, component) {
+		var div_class_value, button_data_claudy_opened_value;
+	
+		var div = createElement('div');
+		div.className = div_class_value = 'coz-claudy ' + (state.opened ? "coz-claudy--opened" : "");
+		var button = createElement('button');
+		appendNode(button, div);
+		button.className = "coz-claudy-icon coz-bar-hide-sm";
+		setAttribute(button, 'data-claudy-opened', button_data_claudy_opened_value = state.opened);
+	
+		function click_handler(event) {
+			component.fire("toggle");
+		}
+	
+		addEventListener(button, 'click', click_handler);
+		appendNode(createText("\n  "), div);
+	
+		var claudymenu = new ClaudyMenu({
+			target: div,
+			_root: component._root,
+			data: {
+				actions: state.config.actions,
+				usageTracker: state.usageTracker,
+				appsList: state.appsList
+			}
+		});
+	
+		claudymenu.on('close', function (event) {
+			component.fire("toggle");
+		});
+	
+		return {
+			mount: function mount(target, anchor) {
+				insertNode(div, target, anchor);
+			},
+	
+			update: function update(changed, state) {
+				if (div_class_value !== (div_class_value = 'coz-claudy ' + (state.opened ? "coz-claudy--opened" : ""))) {
+					div.className = div_class_value;
+				}
+	
+				if (button_data_claudy_opened_value !== (button_data_claudy_opened_value = state.opened)) {
+					setAttribute(button, 'data-claudy-opened', button_data_claudy_opened_value);
+				}
+	
+				var claudymenu_changes = {};
+	
+				if ('config' in changed) claudymenu_changes.actions = state.config.actions;
+				if ('usageTracker' in changed) claudymenu_changes.usageTracker = state.usageTracker;
+				if ('appsList' in changed) claudymenu_changes.appsList = state.appsList;
+	
+				if (Object.keys(claudymenu_changes).length) claudymenu.set(claudymenu_changes);
+			},
+
+			destroy: function destroy(detach) {
+				removeEventListener(button, 'click', click_handler);
+				claudymenu.destroy(false);
+
+				if (detach) {
+					detachNode(div);
+				}
+			}
+		};
+	}
+
+	function Claudy(options) {
+		options = options || {};
+		this._state = options.data || {};
+
+		this._observers = {
+			pre: Object.create(null),
+			post: Object.create(null)
+		};
+
+		this._handlers = Object.create(null);
+
+		this._root = options._root || this;
+		this._yield = options._yield;
+
+		this._torndown = false;
+		this._renderHooks = [];
+
+		this._fragment = create_main_fragment(this._state, this);
+		if (options.target) this._fragment.mount(options.target, null);
+		this._flush();
+	}
+
+	assign(Claudy.prototype, {
+		get: get,
+		fire: fire,
+		observe: observe,
+		on: on,
+		set: set,
+		_flush: _flush
+	});
+
+	Claudy.prototype._set = function _set(newState) {
+		var oldState = this._state;
+		this._state = assign({}, oldState, newState);
+		dispatchObservers(this, this._observers.pre, newState, oldState);
+		this._fragment.update(newState, this._state);
+		dispatchObservers(this, this._observers.post, newState, oldState);
+		this._flush();
+	};
+
+	Claudy.prototype.teardown = Claudy.prototype.destroy = function destroy(detach) {
+		this.fire('destroy');
+
+		this._fragment.destroy(detach !== false);
+		this._fragment = null;
+
+		this._state = {};
+		this._torndown = true;
+	};
+
+	function createElement(name) {
+		return document.createElement(name);
+	}
+
+	function insertNode(node, target, anchor) {
+		target.insertBefore(node, anchor);
+	}
+
+	function detachNode(node) {
+		node.parentNode.removeChild(node);
+	}
+
+	function appendNode(node, target) {
+		target.appendChild(node);
+	}
+
+	function setAttribute(node, attribute, value) {
+		node.setAttribute(attribute, value);
+	}
+
+	function addEventListener(node, event, handler) {
+		node.addEventListener(event, handler, false);
+	}
+
+	function removeEventListener(node, event, handler) {
+		node.removeEventListener(event, handler, false);
+	}
+
+	function createText(data) {
+		return document.createTextNode(data);
+	}
+
+	function assign(target) {
+		for (var i = 1; i < arguments.length; i += 1) {
+			var source = arguments[i];
+			for (var k in source) {
+				target[k] = source[k];
+			}
+		}
+
+		return target;
+	}
+
+	function dispatchObservers(component, group, newState, oldState) {
+		for (var key in group) {
+			if (!(key in newState)) continue;
+
+			var newValue = newState[key];
+			var oldValue = oldState[key];
+
+			if (differs(newValue, oldValue)) {
+				var callbacks = group[key];
+				if (!callbacks) continue;
+
+				for (var i = 0; i < callbacks.length; i += 1) {
+					var callback = callbacks[i];
+					if (callback.__calling) continue;
+
+					callback.__calling = true;
+					callback.call(component, newValue, oldValue);
+					callback.__calling = false;
+				}
+			}
+		}
+	}
+
+	function get(key) {
+		return key ? this._state[key] : this._state;
+	}
+
+	function fire(eventName, data) {
+		var handlers = eventName in this._handlers && this._handlers[eventName].slice();
+		if (!handlers) return;
+
+		for (var i = 0; i < handlers.length; i += 1) {
+			handlers[i].call(this, data);
+		}
+	}
+
+	function observe(key, callback, options) {
+		var group = options && options.defer ? this._observers.post : this._observers.pre;
+
+		(group[key] || (group[key] = [])).push(callback);
+
+		if (!options || options.init !== false) {
+			callback.__calling = true;
+			callback.call(this, this._state[key]);
+			callback.__calling = false;
+		}
+
+		return {
+			cancel: function cancel() {
+				var index = group[key].indexOf(callback);
+				if (~index) group[key].splice(index, 1);
+			}
+		};
+	}
+
+	function on(eventName, handler) {
+		if (eventName === 'teardown') return this.on('destroy', handler);
+
+		var handlers = this._handlers[eventName] || (this._handlers[eventName] = []);
+		handlers.push(handler);
+
+		return {
+			cancel: function cancel() {
+				var index = handlers.indexOf(handler);
+				if (~index) handlers.splice(index, 1);
+			}
+		};
+	}
+
+	function set(newState) {
+		this._set(assign({}, newState));
+		this._root._flush();
+	}
+
+	function _flush() {
+		if (!this._renderHooks) return;
+
+		while (this._renderHooks.length) {
+			this._renderHooks.pop()();
+		}
+	}
+
+	function differs(a, b) {
+		return a !== b || a && (typeof a === 'undefined' ? 'undefined' : _typeof(a)) === 'object' || typeof a === 'function';
+	}
+
+	module.exports = Claudy;
+
+/***/ },
+/* 278 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+	
+	var __import0 = __webpack_require__(189);
+	
+	var t = __import0.t;
+	
+	var template = function () {
+		return {
+			data: function data() {
+				return {
+					openedAction: false,
+					selectedAction: null,
+					selectedActionUrl: '',
+					getIcon: function getIcon(iconName) {
+						return __webpack_require__(279)("./" + iconName);
+					},
+					computeUrl: function computeUrl(action) {
+						var appsList = this.appsList;
+						if (action.link.type === 'apps' && action.link.appSlug) {
+							if (!appsList) {
+								console.warn('No apps found on the Cozy');
+								this.selectedActionUrl = '';
+								return '';
+							}
+							var app = appsList.find(function (a) {
+								return a.slug === action.link.appSlug;
+							});
+							if (app && app.links && app.link.related) {
+								var appUrl = '' + app.links.related + (action.link.path ? action.link.path : '');
+								this.selectedActionUrl = appUrl;
+								return appUrl;
+							} else {
+								console.warn('No app with slug "' + action.link.appSlug + '" found on the Cozy.');
+								this.selectedActionUrl = '';
+								return '';
+							}
+						} else {
+							var url = t('claudy.actions.' + action.slug + '.link');
+							this.selectedActionUrl = url;
+							return url;
+						}
+					}
+				};
+			},
+	
+			methods: {
+				goBack: function goBack() {
+					this.set({ openedAction: false });
+				},
+				trackActionLink: function trackActionLink(action) {
+					var usageTracker = this.get('usageTracker');
+					if (usageTracker) {
+						usageTracker.push(['trackEvent', 'Claudy', 'openActionLink', '' + action.slug]);
+					}
+				},
+				selectAction: function selectAction(action) {
+					var usageTracker = this.get('usageTracker');
+					if (usageTracker) {
+						usageTracker.push(['trackEvent', 'Claudy', 'openAction', '' + action.slug]);
+					}
+					this.set({ selectedAction: action, openedAction: true });
+				}
+			},
+			helpers: { t: t }
+		};
+	}();
+	
+	function create_main_fragment(state, component) {
+		var div_class_value, text_value;
+	
+		var div = createElement('div');
+		div.className = div_class_value = 'coz-claudy-menu ' + (state.openedAction ? "coz-claudy-menu--action-selected" : "");
+		var header = createElement('header');
+		appendNode(header, div);
+		header.className = "coz-claudy-menu-header";
+		var h2 = createElement('h2');
+		appendNode(h2, header);
+		h2.className = "coz-claudy-menu-title";
+		var text = createText(text_value = template.helpers.t('claudy.title'));
+		appendNode(text, h2);
+		appendNode(createText("\n    "), header);
+		var button = createElement('button');
+		appendNode(button, header);
+		button.className = "coz-btn-close";
+	
+		function click_handler(event) {
+			component.fire("close");
+		}
+	
+		addEventListener(button, 'click', click_handler);
+		appendNode(createText("\n    "), header);
+		var button_1 = createElement('button');
+		appendNode(button_1, header);
+		button_1.className = "coz-claudy-menu-header-back-button";
+	
+		function click_handler_1(event) {
+			component.goBack();
+		}
+	
+		addEventListener(button_1, 'click', click_handler_1);
+		appendNode(createText("\n  "), div);
+		var div_1 = createElement('div');
+		appendNode(div_1, div);
+		div_1.className = "coz-claudy-menu-content-wrapper";
+		var div_2 = createElement('div');
+		appendNode(div_2, div_1);
+		div_2.className = "coz-claudy-menu-content";
+		var div_3 = createElement('div');
+		appendNode(div_3, div_2);
+		div_3.className = "coz-claudy-menu-actions-list";
+		var each_block_value = state.actions;
+	
+		var each_block_iterations = [];
+	
+		for (var i = 0; i < each_block_value.length; i += 1) {
+			each_block_iterations[i] = create_each_block(state, each_block_value, each_block_value[i], i, component);
+			each_block_iterations[i].mount(div_3, null);
+		}
+	
+		appendNode(createText("\n      "), div_2);
+		var div_4 = createElement('div');
+		appendNode(div_4, div_2);
+		div_4.className = "coz-claudy-menu-action-description";
+	
+		var if_block = state.selectedAction && create_if_block(state, component);
+	
+		if (if_block) if_block.mount(div_4, null);
+	
+		return {
+			mount: function mount(target, anchor) {
+				insertNode(div, target, anchor);
+			},
+	
+			update: function update(changed, state) {
+				if (div_class_value !== (div_class_value = 'coz-claudy-menu ' + (state.openedAction ? "coz-claudy-menu--action-selected" : ""))) {
+					div.className = div_class_value;
+				}
+	
+				if (text_value !== (text_value = template.helpers.t('claudy.title'))) {
+					text.data = text_value;
+				}
+	
+				var each_block_value = state.actions;
+	
+				if ('getIcon' in changed || 'actions' in changed) {
+					for (var i = 0; i < each_block_value.length; i += 1) {
+						if (each_block_iterations[i]) {
+							each_block_iterations[i].update(changed, state, each_block_value, each_block_value[i], i);
+						} else {
+							each_block_iterations[i] = create_each_block(state, each_block_value, each_block_value[i], i, component);
+							each_block_iterations[i].mount(div_3, null);
+						}
+					}
+	
+					destroyEach(each_block_iterations, true, each_block_value.length);
+					each_block_iterations.length = each_block_value.length;
+				}
+	
+				if (state.selectedAction) {
+					if (if_block) {
+						if_block.update(changed, state);
+					} else {
+						if_block = create_if_block(state, component);
+						if_block.mount(div_4, null);
+					}
+				} else if (if_block) {
+					if_block.destroy(true);
+					if_block = null;
+				}
+			},
+	
+			destroy: function destroy(detach) {
+				removeEventListener(button, 'click', click_handler);
+				removeEventListener(button_1, 'click', click_handler_1);
+	
+				destroyEach(each_block_iterations, false, 0);
+	
+				if (if_block) if_block.destroy(false);
+	
+				if (detach) {
+					detachNode(div);
+				}
+			}
+		};
+	}
+	
+	function create_each_block(state, each_block_value, action, action_index, component) {
+		var img_src_value, text_1_value;
+	
+		var a = createElement('a');
+		a.className = "coz-claudy-menu-action";
+		addEventListener(a, 'click', click_handler);
+	
+		a._svelte = {
+			component: component,
+			each_block_value: each_block_value,
+			action_index: action_index
+		};
+	
+		var img = createElement('img');
+		appendNode(img, a);
+		img.className = "coz-claudy-menu-action-icon";
+		img.src = img_src_value = state.getIcon(action.icon);
+		appendNode(createText("\n            "), a);
+		var p = createElement('p');
+		appendNode(p, a);
+		p.className = "coz-claudy-menu-action-title";
+		var text_1 = createText(text_1_value = template.helpers.t('claudy.actions.' + action.slug + '.title'));
+		appendNode(text_1, p);
+	
+		return {
+			mount: function mount(target, anchor) {
+				insertNode(a, target, anchor);
+			},
+	
+			update: function update(changed, state, each_block_value, action, action_index) {
+				a._svelte.each_block_value = each_block_value;
+				a._svelte.action_index = action_index;
+	
+				if (img_src_value !== (img_src_value = state.getIcon(action.icon))) {
+					img.src = img_src_value;
+				}
+	
+				if (text_1_value !== (text_1_value = template.helpers.t('claudy.actions.' + action.slug + '.title'))) {
+					text_1.data = text_1_value;
+				}
+			},
+	
+			destroy: function destroy(detach) {
+				removeEventListener(a, 'click', click_handler);
+	
+				if (detach) {
+					detachNode(a);
+				}
+			}
+		};
+	}
+	
+	function create_if_block_2(state, component) {
+		var a_href_value, a_target_value, text_value;
+	
+		var a = createElement('a');
+		a.href = a_href_value = state.selectedActionUrl;
+		setAttribute(a, 'role', "button");
+		a.target = a_target_value = state.selectedAction.link.type === "external" ? "_blank" : "_self";
+		a.className = "coz-btn-regular coz-claudy-menu-action-description-button";
+	
+		function click_handler_1(event) {
+			var state = component.get();
+			component.trackActionLink(state.selectedAction);
+		}
+	
+		addEventListener(a, 'click', click_handler_1);
+		var text = createText(text_value = template.helpers.t('claudy.actions.' + state.selectedAction.slug + '.button'));
+		appendNode(text, a);
+	
+		return {
+			mount: function mount(target, anchor) {
+				insertNode(a, target, anchor);
+			},
+	
+			update: function update(changed, state) {
+				if (a_href_value !== (a_href_value = state.selectedActionUrl)) {
+					a.href = a_href_value;
+				}
+	
+				if (a_target_value !== (a_target_value = state.selectedAction.link.type === "external" ? "_blank" : "_self")) {
+					a.target = a_target_value;
+				}
+	
+				if (text_value !== (text_value = template.helpers.t('claudy.actions.' + state.selectedAction.slug + '.button'))) {
+					text.data = text_value;
+				}
+			},
+	
+			destroy: function destroy(detach) {
+				removeEventListener(a, 'click', click_handler_1);
+	
+				if (detach) {
+					detachNode(a);
+				}
+			}
+		};
+	}
+	
+	function create_if_block_3(state, component) {
+		var a_title_value, text_value;
+	
+		var a = createElement('a');
+		setAttribute(a, 'role', "button");
+		a.className = "coz-btn-regular coz-claudy-menu-action-description-button";
+		setAttribute(a, 'disabled', true);
+		a.title = a_title_value = 'App ' + state.selectedAction.slug + ' not found';
+		var text = createText(text_value = template.helpers.t('claudy.actions.' + state.selectedAction.slug + '.button'));
+		appendNode(text, a);
+	
+		return {
+			mount: function mount(target, anchor) {
+				insertNode(a, target, anchor);
+			},
+	
+			update: function update(changed, state) {
+				if (a_title_value !== (a_title_value = 'App ' + state.selectedAction.slug + ' not found')) {
+					a.title = a_title_value;
+				}
+	
+				if (text_value !== (text_value = template.helpers.t('claudy.actions.' + state.selectedAction.slug + '.button'))) {
+					text.data = text_value;
+				}
+			},
+	
+			destroy: function destroy(detach) {
+				if (detach) {
+					detachNode(a);
+				}
+			}
+		};
+	}
+	
+	function create_if_block_1(state, component) {
+		function get_block(state) {
+			if (state.computeUrl(state.selectedAction) !== '') return create_if_block_2;
+			return create_if_block_3;
+		}
+	
+		var current_block = get_block(state);
+		var if_block_2 = current_block(state, component);
+	
+		var if_block_2_anchor = createComment();
+	
+		return {
+			mount: function mount(target, anchor) {
+				if_block_2.mount(target, anchor);
+				insertNode(if_block_2_anchor, target, anchor);
+			},
+	
+			update: function update(changed, state) {
+				if (current_block === (current_block = get_block(state)) && if_block_2) {
+					if_block_2.update(changed, state);
+				} else {
+					if_block_2.destroy(true);
+					if_block_2 = current_block(state, component);
+					if_block_2.mount(if_block_2_anchor.parentNode, if_block_2_anchor);
+				}
+			},
+	
+			destroy: function destroy(detach) {
+				if_block_2.destroy(detach);
+	
+				if (detach) {
+					detachNode(if_block_2_anchor);
+				}
+			}
+		};
+	}
+	
+	function create_if_block(state, component) {
+		var img_src_value, text_1_value, text_3_value;
+	
+		var div = createElement('div');
+		div.className = "coz-claudy-menu-action-description-header";
+		var img = createElement('img');
+		appendNode(img, div);
+		img.className = "coz-claudy-menu-action-icon";
+		img.src = img_src_value = state.getIcon(state.selectedAction.icon);
+		appendNode(createText("\n            "), div);
+		var p = createElement('p');
+		appendNode(p, div);
+		p.className = "coz-claudy-menu-action-title";
+		var text_1 = createText(text_1_value = template.helpers.t('claudy.actions.' + state.selectedAction.slug + '.title'));
+		appendNode(text_1, p);
+		var text_2 = createText("\n          ");
+		var div_1 = createElement('div');
+		div_1.className = "coz-claudy-menu-action-description-content";
+		var p_1 = createElement('p');
+		appendNode(p_1, div_1);
+		p_1.className = "coz-claudy-menu-action-description-text";
+		var text_3 = createText(text_3_value = template.helpers.t('claudy.actions.' + state.selectedAction.slug + '.description'));
+		appendNode(text_3, p_1);
+		appendNode(createText("\n            "), div_1);
+	
+		var if_block_1 = state.selectedAction.link && create_if_block_1(state, component);
+	
+		if (if_block_1) if_block_1.mount(div_1, null);
+	
+		return {
+			mount: function mount(target, anchor) {
+				insertNode(div, target, anchor);
+				insertNode(text_2, target, anchor);
+				insertNode(div_1, target, anchor);
+			},
+	
+			update: function update(changed, state) {
+				if (img_src_value !== (img_src_value = state.getIcon(state.selectedAction.icon))) {
+					img.src = img_src_value;
+				}
+	
+				if (text_1_value !== (text_1_value = template.helpers.t('claudy.actions.' + state.selectedAction.slug + '.title'))) {
+					text_1.data = text_1_value;
+				}
+	
+				if (text_3_value !== (text_3_value = template.helpers.t('claudy.actions.' + state.selectedAction.slug + '.description'))) {
+					text_3.data = text_3_value;
+				}
+	
+				if (state.selectedAction.link) {
+					if (if_block_1) {
+						if_block_1.update(changed, state);
+					} else {
+						if_block_1 = create_if_block_1(state, component);
+						if_block_1.mount(div_1, null);
+					}
+				} else if (if_block_1) {
+					if_block_1.destroy(true);
+					if_block_1 = null;
+				}
+			},
+	
+			destroy: function destroy(detach) {
+				if (if_block_1) if_block_1.destroy(false);
+	
+				if (detach) {
+					detachNode(div);
+					detachNode(text_2);
+					detachNode(div_1);
+				}
+			}
+		};
+	}
+	
+	function click_handler(event) {
+		var component = this._svelte.component;
+		var each_block_value = this._svelte.each_block_value,
+		    action_index = this._svelte.action_index,
+		    action = each_block_value[action_index];
+		component.selectAction(action);
+	}
+
+	function ClaudyMenu(options) {
+		options = options || {};
+		this._state = assign(template.data(), options.data);
+
+		this._observers = {
+			pre: Object.create(null),
+			post: Object.create(null)
+		};
+
+		this._handlers = Object.create(null);
+
+		this._root = options._root || this;
+		this._yield = options._yield;
+
+		this._torndown = false;
+
+		this._fragment = create_main_fragment(this._state, this);
+		if (options.target) this._fragment.mount(options.target, null);
+	}
+
+	assign(ClaudyMenu.prototype, template.methods, {
+		get: get,
+		fire: fire,
+		observe: observe,
+		on: on,
+		set: set,
+		_flush: _flush
+	});
+
+	ClaudyMenu.prototype._set = function _set(newState) {
+		var oldState = this._state;
+		this._state = assign({}, oldState, newState);
+		dispatchObservers(this, this._observers.pre, newState, oldState);
+		this._fragment.update(newState, this._state);
+		dispatchObservers(this, this._observers.post, newState, oldState);
+	};
+
+	ClaudyMenu.prototype.teardown = ClaudyMenu.prototype.destroy = function destroy(detach) {
+		this.fire('destroy');
+
+		this._fragment.destroy(detach !== false);
+		this._fragment = null;
+
+		this._state = {};
+		this._torndown = true;
+	};
+
+	function createElement(name) {
+		return document.createElement(name);
+	}
+
+	function insertNode(node, target, anchor) {
+		target.insertBefore(node, anchor);
+	}
+
+	function detachNode(node) {
+		node.parentNode.removeChild(node);
+	}
+
+	function appendNode(node, target) {
+		target.appendChild(node);
+	}
+
+	function createText(data) {
+		return document.createTextNode(data);
+	}
+
+	function addEventListener(node, event, handler) {
+		node.addEventListener(event, handler, false);
+	}
+
+	function removeEventListener(node, event, handler) {
+		node.removeEventListener(event, handler, false);
+	}
+
+	function destroyEach(iterations, detach, start) {
+		for (var i = start; i < iterations.length; i += 1) {
+			if (iterations[i]) iterations[i].destroy(detach);
+		}
+	}
+
+	function setAttribute(node, attribute, value) {
+		node.setAttribute(attribute, value);
+	}
+
+	function createComment() {
+		return document.createComment('');
+	}
+
+	function assign(target) {
+		for (var i = 1; i < arguments.length; i += 1) {
+			var source = arguments[i];
+			for (var k in source) {
+				target[k] = source[k];
+			}
+		}
+
+		return target;
+	}
+
+	function dispatchObservers(component, group, newState, oldState) {
+		for (var key in group) {
+			if (!(key in newState)) continue;
+
+			var newValue = newState[key];
+			var oldValue = oldState[key];
+
+			if (differs(newValue, oldValue)) {
+				var callbacks = group[key];
+				if (!callbacks) continue;
+
+				for (var i = 0; i < callbacks.length; i += 1) {
+					var callback = callbacks[i];
+					if (callback.__calling) continue;
+
+					callback.__calling = true;
+					callback.call(component, newValue, oldValue);
+					callback.__calling = false;
+				}
+			}
+		}
+	}
+
+	function get(key) {
+		return key ? this._state[key] : this._state;
+	}
+
+	function fire(eventName, data) {
+		var handlers = eventName in this._handlers && this._handlers[eventName].slice();
+		if (!handlers) return;
+
+		for (var i = 0; i < handlers.length; i += 1) {
+			handlers[i].call(this, data);
+		}
+	}
+
+	function observe(key, callback, options) {
+		var group = options && options.defer ? this._observers.post : this._observers.pre;
+
+		(group[key] || (group[key] = [])).push(callback);
+
+		if (!options || options.init !== false) {
+			callback.__calling = true;
+			callback.call(this, this._state[key]);
+			callback.__calling = false;
+		}
+
+		return {
+			cancel: function cancel() {
+				var index = group[key].indexOf(callback);
+				if (~index) group[key].splice(index, 1);
+			}
+		};
+	}
+
+	function on(eventName, handler) {
+		if (eventName === 'teardown') return this.on('destroy', handler);
+
+		var handlers = this._handlers[eventName] || (this._handlers[eventName] = []);
+		handlers.push(handler);
+
+		return {
+			cancel: function cancel() {
+				var index = handlers.indexOf(handler);
+				if (~index) handlers.splice(index, 1);
+			}
+		};
+	}
+
+	function set(newState) {
+		this._set(assign({}, newState));
+		this._root._flush();
+	}
+
+	function _flush() {
+		if (!this._renderHooks) return;
+
+		while (this._renderHooks.length) {
+			this._renderHooks.pop()();
+		}
+	}
+
+	function differs(a, b) {
+		return a !== b || a && (typeof a === 'undefined' ? 'undefined' : _typeof(a)) === 'object' || typeof a === 'function';
+	}
+
+	module.exports = ClaudyMenu;
+
+/***/ },
+/* 279 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var map = {
+		"./icon-bills.svg": 280,
+		"./icon-laptop.svg": 281,
+		"./icon-phone.svg": 282,
+		"./icon-question-mark.svg": 283
+	};
+	function webpackContext(req) {
+		return __webpack_require__(webpackContextResolve(req));
+	};
+	function webpackContextResolve(req) {
+		return map[req] || (function() { throw new Error("Cannot find module '" + req + "'.") }());
+	};
+	webpackContext.keys = function webpackContextKeys() {
+		return Object.keys(map);
+	};
+	webpackContext.resolve = webpackContextResolve;
+	module.exports = webpackContext;
+	webpackContext.id = 279;
+
+
+/***/ },
+/* 280 */
+/***/ function(module, exports) {
+
+	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDQ4IDQ4Ij4KICA8ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDUpIj4KICAgIDxwb2x5Z29uIGZpbGw9IiNGRkRFQzEiIHBvaW50cz0iMCAwIDcuNSAzIDEzLjUgMCAxOS41IDMgMjUuNSAwIDMxLjUgMyAzOSAwIDM5IDQ4IDMxLjUgNDUgMjUuNSA0OCAxOS41IDQ1IDEzLjUgNDggNy41IDQ1IDAgNDgiLz4KICAgIDxwYXRoIGZpbGw9IiNGRjdGMUIiIGQ9Ik05IDEyTDMwIDEyIDMwIDE1IDkgMTUgOSAxMnpNOSAxOEwzMCAxOCAzMCAyMSA5IDIxIDkgMTh6TTkgMjRMMjEgMjQgMjEgMjcgOSAyNyA5IDI0ek05IDMwTDIxIDMwIDIxIDMzIDkgMzMgOSAzMHpNMzQuMjY0Mjg4OSAyOS4xNzgyNzM1QzMzLjM4OTY3OSAyNy45MjQxMTYgMzIuMjUxMDM2MSAyNyAzMC4yMzc3ODMzIDI3IDI3Ljg5NDQ4OSAyNyAyNi4yMTEyNzc3IDI4LjYwMDcwMSAyNS41NTExOTQ4IDMwLjgyODQ4MDdMMjQgMzAuODI4NDgwNyAyNCAzMi4yMzExNTY5IDI1LjI4NzE2MTYgMzIuMjMxMTU2OUMyNS4yNTQxNTc1IDMyLjQ3ODY4OCAyNS4yNTQxNTc1IDMyLjc0MjcyMTEgMjUuMjU0MTU3NSAzMi45OTAyNTIyIDI1LjI1NDE1NzUgMzMuMjA0Nzc5MSAyNS4yNTQxNTc1IDMzLjQxOTMwNjEgMjUuMjcwNjU5NiAzMy42MTczMzA5TDI0IDMzLjYxNzMzMDkgMjQgMzUuMDM2NTA5MSAyNS41MDE2ODg2IDM1LjAzNjUwOTFDMjYuMTQ1MjY5NCAzNy4zNzk4MDM0IDI3Ljg2MTQ4NDkgMzguOTQ3NTAwMiAzMC4zMDM3OTE2IDM4Ljk0NzUwMDIgMzIuMTg1MDI3OCAzOC45NDc1MDAyIDMzLjM1NjY3NDkgMzcuOTkwMzggMzQuMjk3MjkzIDM2LjYyMDcwODFMMzIuODQ1MTEwNyAzNS41NDgwNzM0QzMyLjA4NjAxNTMgMzYuNTU0Njk5OCAzMS40MjU5MzI1IDM3LjEzMjI3MjMgMzAuMzIwMjkzNiAzNy4xMzIyNzIzIDI5LjAzMzEzMiAzNy4xMzIyNzIzIDI4LjA5MjUxMzkgMzYuMzQwMTcyOCAyNy42MzA0NTU5IDM1LjAzNjUwOTFMMzEuMTk0OTAzNSAzNS4wMzY1MDkxIDMxLjE5NDkwMzUgMzMuNjE3MzMwOSAyNy4zMTY5MTY1IDMzLjYxNzMzMDlDMjcuMzAwNDE0NCAzMy40MDI4MDQgMjcuMzAwNDE0NCAzMy4xODgyNzcxIDI3LjMwMDQxNDQgMzIuOTU3MjQ4IDI3LjMwMDQxNDQgMzIuNzA5NzE3IDI3LjMwMDQxNDQgMzIuNDYyMTg1OSAyNy4zMzM0MTg2IDMyLjIzMTE1NjlMMzEuMTk0OTAzNSAzMi4yMzExNTY5IDMxLjE5NDkwMzUgMzAuODI4NDgwNyAyNy42NDY5NTc5IDMwLjgyODQ4MDdDMjguMTA5MDE2IDI5LjU5MDgyNTMgMjkuMDE2NjI5OSAyOC44MTUyMjc5IDMwLjE4ODI3NzEgMjguODE1MjI3OSAzMS4zNDM0MjIxIDI4LjgxNTIyNzkgMzIuMDIwMDA3MSAyOS4zNDMyOTQyIDMyLjcyOTU5NjIgMzAuMzE2OTE2NUwzNC4yNjQyODg5IDI5LjE3ODI3MzV6Ii8+CiAgPC9nPgo8L3N2Zz4K"
+
+/***/ },
+/* 281 */
+/***/ function(module, exports) {
+
+	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDQ4IDQ4Ij4KICA8ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDAgNikiPgogICAgPHBhdGggZmlsbD0iIzM1Q0U2OCIgZD0iTTMsMzEuNSBMMywzIEwzLDMgQzMsMS4zNDMxNDU3NSA0LjM0MzE0NTc1LDMuMDQzNTkxODhlLTE2IDYsMCBMNDIsMCBMNDIsMCBDNDMuNjU2ODU0MiwtMy4wNDM1OTE4OGUtMTYgNDUsMS4zNDMxNDU3NSA0NSwzIEw0NSwzMS41IEwzLDMxLjUgWiIvPgogICAgPHJlY3Qgd2lkdGg9IjM2IiBoZWlnaHQ9IjI0IiB4PSI2IiB5PSIzIiBmaWxsPSIjQkNFRkNEIi8+CiAgICA8cGF0aCBmaWxsPSIjQkNFRkNEIiBkPSJNMjgsMzEuNSBMMTguNSwzMS41IEwxOC41LDMxLjUgQzE4LjIyMzg1NzYsMzEuNSAxOCwzMS4yNzYxNDI0IDE4LDMxIEwxOCwzMC41IEwxOCwzMC41IEMxOCwzMC4yMjM4NTc2IDE3Ljc3NjE0MjQsMzAgMTcuNSwzMCBMMC41LDMwIEwwLjUsMzAgQzAuMjIzODU3NjI1LDMwIC0zLjM4MTc2ODc2ZS0xNywzMC4yMjM4NTc2IDAsMzAuNSBMMCwzMyBMMCwzMyBDMi4wMjkwNjEyNWUtMTYsMzQuNjU2ODU0MiAxLjM0MzE0NTc1LDM2IDMsMzYgTDQ1LDM2IEw0NSwzNiBDNDYuNjU2ODU0MiwzNiA0OCwzNC42NTY4NTQyIDQ4LDMzIEw0OCwzMC41IEw0OCwzMC41IEM0OCwzMC4yMjM4NTc2IDQ3Ljc3NjE0MjQsMzAgNDcuNSwzMCBMMjksMzAgTDI5LDMwIEMyOC43MjM4NTc2LDMwIDI4LjUsMzAuMjIzODU3NiAyOC41LDMwLjUgTDI4LjUsMzEgTDI4LjUsMzEgQzI4LjUsMzEuMjc2MTQyNCAyOC4yNzYxNDI0LDMxLjUgMjgsMzEuNSBaIi8+CiAgPC9nPgo8L3N2Zz4K"
+
+/***/ },
+/* 282 */
+/***/ function(module, exports) {
+
+	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDMwIDQ4Ij4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCIgb3BhY2l0eT0iLjUiPgogICAgICAgIDxwYXRoIGZpbGw9IiNGQzRDODMiIGQ9Ik0yNiA0OEg0Yy0yLjIxIDAtNC0xLjg3LTQtNC4xNzRWNC4xNzRDMCAxLjg3IDEuNzkgMCA0IDBoMjJjMi4yMDggMCA0IDEuODcgNCA0LjE3NHYzOS42NTJDMzAgNDYuMTMgMjguMjA4IDQ4IDI2IDQ4eiIvPgogICAgICAgIDxwYXRoIHN0cm9rZT0iI0Y1RjZGNyIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBkPSJNMTIgMi4yNTFsNi0uMDAxIi8+CiAgICAgICAgPHBhdGggZmlsbD0iI0Y1RjZGNyIgZD0iTTE3LjI1IDQ0LjI1YTIuMjUgMi4yNSAwIDEgMS00LjUwMi0uMDAyIDIuMjUgMi4yNSAwIDAgMSA0LjUwMi4wMDJ6Ii8+CiAgICAgICAgPHBhdGggZmlsbD0iI0ZFQzRENiIgZD0iTTEuNSA0LjVoMjdWNDJoLTI3eiIvPgogICAgPC9nPgo8L3N2Zz4K"
+
+/***/ },
+/* 283 */
+/***/ function(module, exports) {
+
+	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDQ4IDQ4Ij4KICA8ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgogICAgPGNpcmNsZSBjeD0iMjQiIGN5PSIyNCIgcj0iMjQiIGZpbGw9IiNFMkM5RUUiLz4KICAgIDxwYXRoIGZpbGw9IiNBNzVCQ0IiIGQ9Ik0yNSwyNS45MyBMMjUsMzEgQzI1LDMxLjU1NCAyNC41NSwzMiAyNCwzMiBDMjMuNDQ4LDMyIDIzLDMxLjU1NCAyMywzMSBMMjMsMjUgQzIzLDI0LjQ0OCAyMy40NDgsMjQgMjQsMjQgQzI2Ljc1NiwyNCAyOSwyMS43NTggMjksMTkgQzI5LDE2LjI0MiAyNi43NTYsMTQgMjQsMTQgQzIxLjI0MiwxNCAxOSwxNi4yNDIgMTksMTkgQzE5LDE5LjU1NCAxOC41NSwyMCAxOCwyMCBDMTcuNDQ4LDIwIDE3LDE5LjU1NCAxNywxOSBDMTcsMTUuMTQgMjAuMTM4LDEyIDI0LDEyIEMyNy44NiwxMiAzMSwxNS4xNCAzMSwxOSBDMzEsMjIuNTIgMjguMzg2LDI1LjQ0MiAyNSwyNS45MyBaIE0yNCwzOCBDMjIuODk0LDM4IDIyLDM3LjEwNiAyMiwzNiBDMjIsMzQuODk2IDIyLjg5NCwzNCAyNCwzNCBDMjUuMTAyLDM0IDI2LDM0Ljg5NiAyNiwzNiBDMjYsMzcuMTA2IDI1LjEwMiwzOCAyNCwzOCBaIi8+CiAgPC9nPgo8L3N2Zz4K"
+
+/***/ },
+/* 284 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(273);
+	var content = __webpack_require__(285);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(283)(content, {});
+	var update = __webpack_require__(298)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -13506,21 +16262,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 273 */
+/* 285 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(274)();
+	exports = module.exports = __webpack_require__(286)();
 	// imports
 	
 	
 	// module
-	exports.push([module.id, "[role=banner] .coz-sep-flex {\n  margin: 0;\n  border: none;\n  flex: 1 0;\n}\n\n\n[role=banner] [data-icon] {\n  background-repeat: no-repeat;\n  background-position: 0 50%;\n  padding-left: calc(16px + .5em)\n}\n\n\n[role=banner] [data-icon='icon-profile'] {\n  background-image: url(" + __webpack_require__(275) + ")\n}\n\n\n[role=banner] [data-icon='icon-connectedDevices'] {\n  background-image: url(" + __webpack_require__(276) + ")\n}\n\n\n[role=banner] [data-icon='icon-help'] {\n  background-image: url(" + __webpack_require__(277) + ")\n}\n\n\n[role=banner] [data-icon='icon-logout'] {\n  background-image: url(" + __webpack_require__(278) + ")\n}\n\n\n[role=banner] [data-icon='icon-storage'] {\n  background-image: url(" + __webpack_require__(279) + ")\n}\n\n\n[role=banner] [data-icon='icon-cog'] {\n  background-image: url(" + __webpack_require__(280) + ")\n}\n\n\n[role=banner] [data-icon='icon-hamburger'] {\n  background-image: url(" + __webpack_require__(281) + ")\n}\n\n\n[role=banner] [data-icon='icon-cube'] {\n  background-image: url(" + __webpack_require__(270) + ")\n}\n\n\n/* Spinner */\n\n\n@keyframes spin {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(359deg);\n  }\n}\n\n\n[role=banner] [aria-busy=true] {\n  position: relative;\n}\n\n\n[role=banner] [aria-busy=true]::after {\n  content: \"\";\n  position: absolute;\n  right: 0;\n  top: 0;\n  display: block;\n  width: 1em;\n  height: 1em;\n  background-position: center;\n  background-repeat: no-repeat;\n  background-size: cover;\n  background-image: url(" + __webpack_require__(282) + ");\n  animation: 1s linear infinite spin;\n}\n\n\n/* Progress bar */\n\n\n[role=banner] progress[value] {\n  /* Reset the default appearance */\n  appearance: none;\n  background-color: #f5f6f7;\n  border: solid 1px #d6d8da;\n  border-radius: 2px;\n  color: #297ef2;\n}\n\n\n[role=banner] progress[value]::-webkit-progress-bar {\n  background: #f5f6f7;\n  border-radius: 2px;\n}\n\n\n[role=banner] progress[value]::-webkit-progress-value {\n  background: #297ef2;\n  border-radius: 1px;\n}\n\n\n[role=banner] progress[value]::-moz-progress-bar {\n  background: #297ef2;\n  border-radius: 1px;\n}\n\n\n/* Errors */\n\n\n[role=banner] .coz-nav--error {\n  margin: 0 0 .1em 0;\n  font-weight: normal;\n  font-size: .875em;\n  color: #F52D2D;\n}\n\n\n[role=banner] {\n  position: relative;\n  z-index: 20;\n  min-height: 3em;\n  flex-shrink: 0;\n  display: flex;\n  align-items: stretch;\n  padding: 0 1.25em 0 1em;\n  box-shadow: inset 0 -1px 0 0 #d6d8da;\n  font-family: Lato, sans-serif;\n  font-size: 1rem;\n}\n\n\n@media (max-width: 48em) {\n  [role=banner] {\n    padding: 0 1em 0 0;\n  }\n\n  [role=banner][data-drawer-visible=true] {\n    /* Force the BAR to be above selection bar in mobile mode,\n     * only when drawer is opened\n     */\n    z-index: 31;\n  }\n}\n\n\n[role=banner] .coz-bar-title {\n  display: flex;\n  margin: 0;\n  align-items: center;\n  font-size: 1.5em;\n  font-weight: normal;\n  color: #32363f;\n}\n\n\n@media (max-width: 48em) {\n  [role=banner] .coz-bar-title {\n    font-size: 1.25em\n  }\n}\n\n\n[role=banner] .coz-bar-title img {\n  margin-right: .45em;\n}\n\n\n[role=banner] .coz-bar-title span {\n  margin-right: .25em;\n}\n\n\n[role=banner] .coz-bar-title strong {\n  font-weight: bold;\n}\n\n\n[role=banner] .coz-bar-title .coz-bar-beta-status {\n  color: #95999d;\n  text-transform: uppercase;\n  font-size: .55em;\n  font-style: italic;\n  font-weight: 700;\n}\n\n\n@media (max-width: 30em) {\n  [role=banner] .coz-bar-hide-sm {\n    display: none;\n  }\n\n  [role=banner] .coz-bar-title strong {\n    padding: 0;\n    text-transform: capitalize;\n  }\n}\n\n\n[role=banner] .coz-bar-burger {\n  width: 2.5em;\n  margin-right: 0.25em;\n  padding: 0;\n  border: none;\n  background-color: transparent;\n  background-position: center;\n}\n\n\n@media (min-width: 48.0625em) {\n  [role=banner] .coz-bar-burger,\n  [role=banner] .coz-drawer-wrapper {\n    display: none;\n  }\n}\n\n\n@media (max-width: 48em) {\n  [role=banner] .coz-bar-hide-sm {\n    display: none;\n  }\n}\n\n\n[role=banner] .coz-nav ul {\n  margin: 0;\n  padding: 0;\n  list-style-type: none;\n}\n\n\n[role=banner] .coz-nav > ul {\n  display: flex;\n}\n\n\n@media (max-width: 48em) {\n  [role=banner] .coz-nav {\n    display: none;\n  }\n}\n\n\n[role=banner] .coz-nav-section {\n  position: relative;\n}\n\n\n[role=banner] .coz-nav-section [aria-controls] {\n  display: flex;\n  align-items: baseline;\n  padding: 1.285em 1.5em;\n  font-size: .875em;\n  text-transform: uppercase;\n  color: #5d6165;\n  cursor: pointer;\n}\n\n\n[role=banner] .coz-nav-section [aria-controls]:hover {\n  background-color: #f5f6f7;\n  box-shadow: inset 0 -1px 0 0 #d6d8da;\n  color: #32363f;\n}\n\n\n[role=banner] .coz-nav-section [aria-controls]:focus {\n  background-color: #f5f6f7;\n  box-shadow: inset 0 -1px 0 0 #d6d8da;\n  color: #32363f;\n}\n\n\n[role=banner] [aria-controls][aria-busy]::after {\n  position: relative;\n  top: .12em;\n  margin-left: .5em;\n}\n\n\n[role=banner] [aria-controls][aria-busy=true] {\n  padding-right: 0;\n}\n\n\n[role=banner] .coz-nav-section [aria-controls][data-icon] {\n  padding-left: calc(1.25em + 16px + .5em);\n  background-position: 1.25em calc(50% - 1px);\n}\n\n\n[role=banner] .coz-nav-icon {\n  margin-right: .5em;\n}\n\n\n[role=banner] .coz-nav-pop[aria-hidden=true] {\n  display: none;\n}\n\n\n[role=banner] .coz-nav-pop {\n  position: absolute;\n  top: calc(100% - .5em);\n  right: 0;\n  box-sizing: border-box;\n  min-width: 100%;\n  background-color: #fff;\n  border-radius: 8px;\n  border: solid 1px rgba(50, 54, 63, 0.12);\n  box-shadow: 0 1px 3px 0 rgba(50, 54, 63, 0.19), 0 6px 18px 0 rgba(50, 54, 63, 0.19);\n}\n\n\n[role=banner] .coz-nav-pop ul {\n  padding: .5em 0;\n}\n\n\n[role=banner] .coz-nav-pop ul:last-of-type {\n  border-radius: 0 0 8px 8px;\n}\n\n\n[role=banner] .coz-nav-pop ul:first-of-type {\n  border-radius: 8px 8px 0 0;\n}\n\n\n[role=banner] .coz-nav-pop hr {\n  margin: 0;\n  border: none;\n  border-bottom: solid 1px #d6d8da;\n}\n\n\n[role=banner] .coz-nav-pop ul:last-of-type + hr {\n  display: none;\n}\n\n\n[role=banner] .coz-nav-pop--apps .coz-nav-group:not(.coz-nav--error) {\n  display: flex;\n  padding: .25em .25em 1em .25em;\n}\n\n\n[role=banner] .coz-nav-pop--apps .coz-nav-group--wrapping.coz-nav-group:not(.coz-nav--error) {\n  flex-wrap: wrap;\n  width: 36em;\n}\n\n\n@media (min-width: 48em) and (max-width: 51em) {\n    [role=banner] .coz-nav-pop.coz-nav-pop--apps {\n        right: -3em;\n    }\n}\n\n\n[role=banner] .coz-nav-pop--apps .coz-nav-group:not(.coz-nav--error) .coz-nav-item {\n    width: 8em;\n    padding: 0 .5em;\n}\n\n\n[role=banner] .coz-nav-group:not(.coz-nav--error).coz-nav-group--inactive {\n  background-color: #f5f6f7\n}\n\n\n[role=banner] .coz-nav-group.coz-nav--error {\n  padding: 0.75em;\n  min-width: 20em;\n}\n\n\n[role=banner] .coz-nav-pop--apps .coz-nav-group a {\n  display: flex;\n  flex-direction: column;\n  padding: .5em;\n}\n\n\n[role=banner] .coz-nav-pop--apps .coz-nav-group a img {\n  margin-bottom: .75em;\n}\n\n\n[role=banner] .coz-nav-pop--apps .coz-nav-group a p {\n  font-size: 15px;\n}\n\n\n[role=banner] .coz-nav-pop--apps .coz-nav-category {\n  font-size: 1em;\n  padding: 0 2em;\n  margin: 2em 0 .5em 0;\n}\n\n\n[role=banner] .blurry {\n  opacity: .5;\n  filter: blur(5px);\n}\n\n\n[role=banner] .coz-nav-item [role=menuitem] {\n  position: relative;\n  z-index: 0;\n  display: block;\n  box-sizing: border-box;\n  width: 100%;\n  padding: .5em 1.5em .5em calc(1.5em + 16px + .5em);\n  border: none;\n  align-items: center;\n  background-position: 1.5em 50%;\n  background-color: transparent;\n  text-align: left;\n  white-space: nowrap;\n  color: #32363f;\n  text-decoration: none;\n  outline: none;\n}\n\n\n/* Force pointer on clickable elements*/\n\n\n[role=banner] .coz-nav-item a[role=menuitem],\n[role=banner] .coz-nav-item button[role=menuitem] {\n  cursor: pointer;\n}\n\n\n/* Hover effect */\n\n\n[role=banner] .coz-nav-item a[role=menuitem]:not(.coz-bar-coming-soon-app):hover:before {\n  content: '';\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  z-index: -1;\n  background-color: #f5f6f7;\n  background-image: inherit;\n  background-position: inherit;\n  background-repeat: inherit;\n}\n\n\n[role=banner] .coz-nav-item a[role=menuitem]:not(.coz-bar-coming-soon-app):focus:before {\n  content: '';\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  z-index: -1;\n  background-color: #f5f6f7;\n  background-image: inherit;\n  background-position: inherit;\n  background-repeat: inherit;\n}\n\n\n[role=banner] .coz-nav-item button[role=menuitem]:hover:before {\n  content: '';\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  z-index: -1;\n  background-color: #f5f6f7;\n  background-image: inherit;\n  background-position: inherit;\n  background-repeat: inherit;\n}\n\n\n[role=banner] .coz-nav-item button[role=menuitem]:focus:before {\n  content: '';\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  z-index: -1;\n  background-color: #f5f6f7;\n  background-image: inherit;\n  background-position: inherit;\n  background-repeat: inherit;\n}\n\n\n[role=banner] [role=menuitem][aria-busy=true]::after {\n  right: 1.5em;\n  top: .5em;\n}\n\n\n/* Remove default margin for p elements */\n\n\n[role=banner] .coz-nav-item a[role=menuitem] p.coz-label {\n  margin: 0;\n}\n\n\n[role=banner] .coz-nav-item div[role=menuitem]:not([data-icon]) {\n  margin: 0;\n  padding-left: 1.5em;\n}\n\n\n[role=banner] .coz-nav-item [role=menuitem] .coz-bar-text-item {\n  margin: 0;\n}\n\n\n[role=banner] .coz-nav-item [role=menuitem] .coz-bar-text-item--inactive {\n  font-style: italic;\n}\n\n\n/* Coming soon styles */\n\n\n[role=banner] .coz-nav-item a[role=menuitem].coz-bar-coming-soon-app {\n    cursor: default;\n}\n\n\n[role=banner] .coz-nav-item [role=menuitem].coz-bar-coming-soon-app img,\n[role=banner] .coz-nav-item [role=menuitem].coz-bar-coming-soon-app .coz-label\n{\n  opacity: .4;\n}\n\n\n[role=banner] .coz-nav-item [role=menuitem].coz-bar-coming-soon-app .coz-bar-coming-soon-badge {\n  position: absolute;\n  display: block;\n  right: 2.5em;\n  bottom: 4.5em;\n  background: #297ef2;\n  border-radius: 2px;\n  padding: .25em;\n  font-size: .6em;\n  color: white;\n  text-transform: uppercase;\n}\n\n\n[role=banner] [role=menuitem][data-icon=icon-storage] {\n  background-position: 1.5em calc(.5em + 1px);\n}\n\n\n[role=banner] .coz-nav-storage {\n  display: flex;\n  flex-direction: column;\n  align-items: left;\n  padding-top: .5em;\n  color: #95999d;\n}\n\n\n[role=banner] .coz-nav-storage-text {\n  margin: 0 0 .1em 0;\n  font-weight: normal;\n  font-size: .875em;\n}\n\n\n[role=banner] .cozy-nav-storage-bar {\n    height: .5em;\n    margin: .2em 0 .1em 0;\n}\n\n\n[role=banner] .coz-drawer-wrapper {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100vw;\n  height: 100vh;\n  /* Prepare for transitions */\n  display: none;\n  visibility: visible;\n}\n\n\n[role=banner] .coz-drawer-wrapper[aria-hidden=false],\n[role=banner] .coz-drawer-wrapper.swipe-active {\n  display: block;\n}\n\n\n[role=banner] .coz-drawer-wrapper::before {\n  content: '';\n  display: block;\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background-color: #32363f;\n  opacity: 0;\n  transition: opacity 250ms ease-out;\n}\n\n\n[role=banner] .coz-drawer-wrapper[aria-hidden=false]::before {\n  opacity: .5;\n}\n\n\n[role=banner] .coz-drawer-wrapper aside {\n  position: absolute;\n  bottom: 0;\n  left: 0;\n  width: 90%;\n  max-width: 30em;\n  height: 100%;\n  display: flex;\n  flex-direction: column;\n  background-color: #fff;\n  transform: translateX(-100vw);\n  transition: transform 500ms ease-out;\n}\n\n\n[role=banner] .coz-drawer-wrapper[aria-hidden=false] aside {\n  transform: translateX(0);\n}\n\n\n[role=banner] .coz-drawer-wrapper ul {\n  margin: 0;\n  padding: .8em 0;\n  list-style-type: none;\n}\n\n\n@media (max-width: 48em) {\n    [role=banner] .coz-drawer-wrapper ul {\n        padding: .5em 0;\n    }\n}\n\n\n[role=banner] .coz-drawer-wrapper nav hr {\n  margin: 0;\n  border: none;\n  border-bottom: solid 1px #d6d8da;\n}\n\n\n[role=banner] .coz-drawer-wrapper .coz-nav-icon {\n  margin-right: .5em;\n}\n\n\n[role=banner] .coz-drawer--apps {\n    flex: 0 1 auto;\n    overflow-y: scroll;\n}\n\n\n[role=banner] .coz-drawer--apps ul {\n  padding: 0 0 1em 0;\n  display: flex;\n}\n\n\n[role=banner] .coz-drawer--apps ul li {\n  flex: 0 0 calc(100% /3);\n  max-width: calc(100% / 3);\n}\n\n\n[role=banner] .coz-drawer--apps ul:last-of-type + hr {\n  display: none;\n}\n\n\n[role=banner] .coz-drawer--apps ul.coz-nav-group--wrapping {\n  flex-wrap: wrap;\n}\n\n\n[role=banner] .coz-drawer--apps [role=menuitem] {\n  display: flex;\n  flex-direction: column;\n  padding: .5em 1em;\n  border-radius: 2px;\n}\n\n\n[role=banner] .coz-drawer--apps [role=menuitem]:hover {\n  background-color: rgba(25, 123, 255, 0.1);\n}\n\n\n[role=banner] .coz-drawer--apps li img {\n  margin-bottom: .5em;\n}\n\n\n[role=banner] .coz-drawer--apps li p.coz-label {\n  overflow: hidden;\n  white-space: nowrap;\n  text-overflow: ellipsis;\n  min-width: 0;\n  width: 100%;\n  text-align: center;\n  font-size: 14px;\n}\n\n\n[role=banner] .coz-drawer--apps .coz-nav-category {\n  font-size: 1em;\n  padding: 0 2em;\n  margin: 2em 0 .5em 0;\n}\n\n\n[role=banner].coz-target--mobile {\n  padding-left: 1em;\n}\n\n\n.coz-bar-hidden {\n  position: absolute !important;\n  border: 0 !important;\n  width: 1px !important;\n  height: 1px !important;\n  overflow: hidden !important;\n  padding: 0 !important;\n  white-space: nowrap !important;\n  clip: rect(1px, 1px, 1px, 1px) !important;\n  clip-path: inset(50%) !important;\n}\n", ""]);
+	exports.push([module.id, "[role=banner] .coz-sep-flex {\n  margin: 0;\n  border: none;\n  flex: 1 0;\n}\n\n\n[role=banner] [data-icon] {\n  background-repeat: no-repeat;\n  background-position: 0 50%;\n  padding-left: calc(16px + .5em)\n}\n\n\n[role=banner] [data-icon='icon-profile'] {\n  background-image: url(" + __webpack_require__(287) + ")\n}\n\n\n[role=banner] [data-icon='icon-connectedDevices'] {\n  background-image: url(" + __webpack_require__(288) + ")\n}\n\n\n[role=banner] [data-icon='icon-help'] {\n  background-image: url(" + __webpack_require__(289) + ")\n}\n\n\n[role=banner] [data-icon='icon-logout'] {\n  background-image: url(" + __webpack_require__(290) + ")\n}\n\n\n[role=banner] [data-icon='icon-storage'] {\n  background-image: url(" + __webpack_require__(291) + ")\n}\n\n\n[role=banner] [data-icon='icon-cog'] {\n  background-image: url(" + __webpack_require__(292) + ")\n}\n\n\n[role=banner] [data-icon='icon-hamburger'] {\n  background-image: url(" + __webpack_require__(293) + ")\n}\n\n\n[role=banner] [data-icon='icon-cube'] {\n  background-image: url(" + __webpack_require__(275) + ")\n}\n\n\n[role=banner] [data-icon='icon-claudy'] {\n  background-image: url(" + __webpack_require__(294) + ")\n}\n\n\n/* Spinner */\n\n\n@keyframes spin {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(359deg);\n  }\n}\n\n\n[role=banner] [aria-busy=true] {\n  position: relative;\n}\n\n\n[role=banner] [aria-busy=true]::after {\n  content: \"\";\n  position: absolute;\n  right: 0;\n  top: 0;\n  display: block;\n  width: 1em;\n  height: 1em;\n  background-position: center;\n  background-repeat: no-repeat;\n  background-size: cover;\n  background-image: url(" + __webpack_require__(295) + ");\n  animation: 1s linear infinite spin;\n}\n\n\n/* Progress bar */\n\n\n[role=banner] progress[value] {\n  /* Reset the default appearance */\n  appearance: none;\n  background-color: #f5f6f7;\n  border: solid 1px #d6d8da;\n  border-radius: 2px;\n  color: #297ef2;\n}\n\n\n[role=banner] progress[value]::-webkit-progress-bar {\n  background: #f5f6f7;\n  border-radius: 2px;\n}\n\n\n[role=banner] progress[value]::-webkit-progress-value {\n  background: #297ef2;\n  border-radius: 1px;\n}\n\n\n[role=banner] progress[value]::-moz-progress-bar {\n  background: #297ef2;\n  border-radius: 1px;\n}\n\n\n/* Errors */\n\n\n[role=banner] .coz-nav--error {\n  margin: 0 0 .1em 0;\n  font-weight: normal;\n  font-size: .875em;\n  color: #F52D2D;\n}\n\n\n[role=banner] {\n  position: relative;\n  z-index: 20;\n  min-height: 3em;\n  flex-shrink: 0;\n  display: flex;\n  align-items: stretch;\n  padding: 0 1.25em 0 1em;\n  box-shadow: inset 0 -1px 0 0 #d6d8da;\n  font-family: Lato, sans-serif;\n  font-size: 1rem;\n}\n\n\n@media (max-width: 48em) {\n  [role=banner] {\n    padding: 0 1em 0 0;\n  }\n\n  [role=banner][data-drawer-visible=true] {\n    /* Force the BAR to be above selection bar in mobile mode,\n     * only when drawer is opened\n     */\n    z-index: 31;\n  }\n}\n\n\n[role=banner] .coz-bar-title {\n  display: flex;\n  margin: 0;\n  align-items: center;\n  font-size: 1.5em;\n  font-weight: normal;\n  color: #32363f;\n}\n\n\n@media (max-width: 48em) {\n  [role=banner] .coz-bar-title {\n    font-size: 1.25em\n  }\n}\n\n\n[role=banner] .coz-bar-title img {\n  margin-right: .45em;\n}\n\n\n[role=banner] .coz-bar-title span {\n  margin-right: .25em;\n}\n\n\n[role=banner] .coz-bar-title strong {\n  font-weight: bold;\n}\n\n\n[role=banner] .coz-bar-title .coz-bar-beta-status {\n  color: #95999d;\n  text-transform: uppercase;\n  font-size: .55em;\n  font-style: italic;\n  font-weight: 700;\n}\n\n\n@media (max-width: 30em) {\n  [role=banner] .coz-bar-hide-sm {\n    display: none;\n  }\n\n  [role=banner] .coz-bar-title strong {\n    padding: 0;\n    text-transform: capitalize;\n  }\n}\n\n\n[role=banner] .coz-bar-burger {\n  width: 2.5em;\n  margin-right: 0.25em;\n  padding: 0;\n  border: none;\n  background-color: transparent;\n  background-position: center;\n}\n\n\n@media (min-width: 48.0625em) {\n  [role=banner] .coz-bar-burger,\n  [role=banner] .coz-drawer-wrapper {\n    display: none;\n  }\n}\n\n\n@media (max-width: 48em) {\n  [role=banner] .coz-bar-hide-sm {\n    display: none;\n  }\n}\n\n\n[role=banner] .coz-nav ul {\n  margin: 0;\n  padding: 0;\n  list-style-type: none;\n}\n\n\n[role=banner] .coz-nav > ul {\n  display: flex;\n}\n\n\n@media (max-width: 48em) {\n  [role=banner] .coz-nav {\n    display: none;\n  }\n}\n\n\n[role=banner] .coz-nav-section {\n  position: relative;\n}\n\n\n[role=banner] .coz-nav-section [aria-controls] {\n  display: flex;\n  align-items: baseline;\n  padding: 1.285em 1.5em;\n  font-size: .875em;\n  text-transform: uppercase;\n  color: #5d6165;\n  cursor: pointer;\n}\n\n\n[role=banner] .coz-nav-section [aria-controls]:hover {\n  background-color: #f5f6f7;\n  box-shadow: inset 0 -1px 0 0 #d6d8da;\n  color: #32363f;\n}\n\n\n[role=banner] .coz-nav-section [aria-controls]:focus {\n  background-color: #f5f6f7;\n  box-shadow: inset 0 -1px 0 0 #d6d8da;\n  color: #32363f;\n}\n\n\n[role=banner] [aria-controls][aria-busy]::after {\n  position: relative;\n  top: .12em;\n  margin-left: .5em;\n}\n\n\n[role=banner] [aria-controls][aria-busy=true] {\n  padding-right: 0;\n}\n\n\n[role=banner] .coz-nav-section [aria-controls][data-icon] {\n  padding-left: calc(1.25em + 16px + .5em);\n  background-position: 1.25em calc(50% - 1px);\n}\n\n\n[role=banner] .coz-nav-icon {\n  margin-right: .5em;\n}\n\n\n[role=banner] .coz-nav-pop[aria-hidden=true] {\n  display: none;\n}\n\n\n[role=banner] .coz-nav-pop {\n  position: absolute;\n  top: calc(100% - .5em);\n  right: 0;\n  box-sizing: border-box;\n  min-width: 100%;\n  background-color: #fff;\n  border-radius: 8px;\n  border: solid 1px rgba(50, 54, 63, 0.12);\n  box-shadow: 0 1px 3px 0 rgba(50, 54, 63, 0.19), 0 6px 18px 0 rgba(50, 54, 63, 0.19);\n}\n\n\n[role=banner] .coz-nav-pop ul {\n  padding: .5em 0;\n}\n\n\n[role=banner] .coz-nav-pop ul:last-of-type {\n  border-radius: 0 0 8px 8px;\n}\n\n\n[role=banner] .coz-nav-pop ul:first-of-type {\n  border-radius: 8px 8px 0 0;\n}\n\n\n[role=banner] .coz-nav-pop hr {\n  margin: 0;\n  border: none;\n  border-bottom: solid 1px #d6d8da;\n}\n\n\n[role=banner] .coz-nav-pop ul:last-of-type + hr {\n  display: none;\n}\n\n\n[role=banner] .coz-nav-pop--apps .coz-nav-group:not(.coz-nav--error) {\n  display: flex;\n  padding: .25em .25em 1em .25em;\n}\n\n\n[role=banner] .coz-nav-pop--apps .coz-nav-group--wrapping.coz-nav-group:not(.coz-nav--error) {\n  flex-wrap: wrap;\n  width: 36em;\n}\n\n\n@media (min-width: 48em) and (max-width: 51em) {\n    [role=banner] .coz-nav-pop.coz-nav-pop--apps {\n        right: -3em;\n    }\n}\n\n\n[role=banner] .coz-nav-pop--apps .coz-nav-group:not(.coz-nav--error) .coz-nav-item {\n    width: 8em;\n    padding: 0 .5em;\n}\n\n\n[role=banner] .coz-nav-group:not(.coz-nav--error).coz-nav-group--inactive {\n  background-color: #f5f6f7\n}\n\n\n[role=banner] .coz-nav-group.coz-nav--error {\n  padding: 0.75em;\n  min-width: 20em;\n}\n\n\n[role=banner] .coz-nav-pop--apps .coz-nav-group a {\n  display: flex;\n  flex-direction: column;\n  padding: .5em;\n}\n\n\n[role=banner] .coz-nav-pop--apps .coz-nav-group a img {\n  margin-bottom: .75em;\n}\n\n\n[role=banner] .coz-nav-pop--apps .coz-nav-group a .coz-label {\n  width: 100%;\n  overflow: hidden;\n  white-space: nowrap;\n  text-align: center;\n  text-overflow: ellipsis;\n  font-size: 15px;\n}\n\n\n[role=banner] .coz-nav-pop--apps .coz-nav-category {\n  font-size: 1em;\n  padding: 0 2em;\n  margin: 2em 0 .5em 0;\n}\n\n\n[role=banner] .blurry {\n  opacity: .5;\n  filter: blur(5px);\n}\n\n\n[role=banner] .coz-nav-item [role=menuitem] {\n  position: relative;\n  z-index: 0;\n  display: block;\n  box-sizing: border-box;\n  width: 100%;\n  padding: .5em 1.5em .5em calc(1.5em + 16px + .5em);\n  border: none;\n  align-items: center;\n  background-position: 1.5em 50%;\n  background-color: transparent;\n  text-align: left;\n  white-space: nowrap;\n  color: #32363f;\n  text-decoration: none;\n  outline: none;\n}\n\n\n/* Force pointer on clickable elements*/\n\n\n[role=banner] .coz-nav-item a[role=menuitem],\n[role=banner] .coz-nav-item button[role=menuitem] {\n  cursor: pointer;\n}\n\n\n/* Hover effect */\n\n\n[role=banner] .coz-nav-item a[role=menuitem]:not(.coz-bar-coming-soon-app):hover:before {\n  content: '';\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  z-index: -1;\n  background-color: #f5f6f7;\n  background-image: inherit;\n  background-position: inherit;\n  background-repeat: inherit;\n}\n\n\n[role=banner] .coz-nav-item a[role=menuitem]:not(.coz-bar-coming-soon-app):focus:before {\n  content: '';\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  z-index: -1;\n  background-color: #f5f6f7;\n  background-image: inherit;\n  background-position: inherit;\n  background-repeat: inherit;\n}\n\n\n[role=banner] .coz-nav-item button[role=menuitem]:hover:before {\n  content: '';\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  z-index: -1;\n  background-color: #f5f6f7;\n  background-image: inherit;\n  background-position: inherit;\n  background-repeat: inherit;\n}\n\n\n[role=banner] .coz-nav-item button[role=menuitem]:focus:before {\n  content: '';\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  z-index: -1;\n  background-color: #f5f6f7;\n  background-image: inherit;\n  background-position: inherit;\n  background-repeat: inherit;\n}\n\n\n[role=banner] [role=menuitem][aria-busy=true]::after {\n  right: 1.5em;\n  top: .5em;\n}\n\n\n/* Remove default margin for p elements */\n\n\n[role=banner] .coz-nav-item a[role=menuitem] p.coz-label {\n  margin: 0;\n}\n\n\n[role=banner] .coz-nav-item div[role=menuitem]:not([data-icon]) {\n  margin: 0;\n  padding-left: 1.5em;\n}\n\n\n[role=banner] .coz-nav-item [role=menuitem] .coz-bar-text-item {\n  margin: 0;\n}\n\n\n[role=banner] .coz-nav-item [role=menuitem] .coz-bar-text-item--inactive {\n  font-style: italic;\n}\n\n\n/* Coming soon styles */\n\n\n[role=banner] .coz-nav-item a[role=menuitem].coz-bar-coming-soon-app {\n    cursor: default;\n}\n\n\n[role=banner] .coz-nav-item [role=menuitem].coz-bar-coming-soon-app img,\n[role=banner] .coz-nav-item [role=menuitem].coz-bar-coming-soon-app .coz-label\n{\n  opacity: .4;\n}\n\n\n[role=banner] .coz-nav-item [role=menuitem].coz-bar-coming-soon-app .coz-bar-coming-soon-badge {\n  position: absolute;\n  display: block;\n  right: 2.5em;\n  bottom: 4.5em;\n  background: #297ef2;\n  border-radius: 2px;\n  padding: .25em;\n  font-size: .6em;\n  color: white;\n  text-transform: uppercase;\n}\n\n\n[role=banner] [role=menuitem][data-icon=icon-storage] {\n  background-position: 1.5em calc(.5em + 1px);\n}\n\n\n[role=banner] .coz-nav-storage {\n  display: flex;\n  flex-direction: column;\n  align-items: left;\n  padding-top: .5em;\n  color: #95999d;\n}\n\n\n[role=banner] .coz-nav-storage-text {\n  margin: 0 0 .1em 0;\n  font-weight: normal;\n  font-size: .875em;\n}\n\n\n[role=banner] .cozy-nav-storage-bar {\n    height: .5em;\n    margin: .2em 0 .1em 0;\n}\n\n\n[role=banner] .coz-drawer-wrapper {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100vw;\n  height: 100vh;\n  /* Prepare for transitions */\n  display: none;\n  visibility: visible;\n}\n\n\n[role=banner] .coz-drawer-wrapper[aria-hidden=false],\n[role=banner] .coz-drawer-wrapper.swipe-active {\n  display: block;\n}\n\n\n[role=banner] .coz-drawer-wrapper::before {\n  content: '';\n  display: block;\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background-color: #32363f;\n  opacity: 0;\n  transition: opacity 250ms ease-out;\n}\n\n\n[role=banner] .coz-drawer-wrapper[aria-hidden=false]::before {\n  opacity: .5;\n}\n\n\n[role=banner] .coz-drawer-wrapper aside {\n  position: absolute;\n  bottom: 0;\n  left: 0;\n  width: 90%;\n  max-width: 30em;\n  height: 100%;\n  display: flex;\n  flex-direction: column;\n  background-color: #fff;\n  transform: translateX(-100vw);\n  transition: transform 500ms ease-out;\n}\n\n\n[role=banner] .coz-drawer-wrapper[aria-hidden=false] aside {\n  transform: translateX(0);\n}\n\n\n[role=banner] .coz-drawer-wrapper ul {\n  margin: 0;\n  padding: .8em 0;\n  list-style-type: none;\n}\n\n\n@media (max-width: 48em) {\n    [role=banner] .coz-drawer-wrapper ul {\n        padding: .5em 0;\n    }\n}\n\n\n[role=banner] .coz-drawer-wrapper nav hr {\n  margin: 0;\n  border: none;\n  border-bottom: solid 1px #d6d8da;\n}\n\n\n[role=banner] .coz-drawer-wrapper .coz-nav-icon {\n  margin-right: .5em;\n}\n\n\n[role=banner] .coz-drawer--apps {\n    flex: 0 1 auto;\n    overflow-y: scroll;\n}\n\n\n[role=banner] .coz-drawer--apps ul {\n  padding: 0 0 1em 0;\n  display: flex;\n}\n\n\n[role=banner] .coz-drawer--apps ul li {\n  flex: 0 0 calc(100% /3);\n  max-width: calc(100% / 3);\n}\n\n\n[role=banner] .coz-drawer--apps ul:last-of-type + hr {\n  display: none;\n}\n\n\n[role=banner] .coz-drawer--apps ul.coz-nav-group--wrapping {\n  flex-wrap: wrap;\n}\n\n\n[role=banner] .coz-drawer--apps [role=menuitem] {\n  display: flex;\n  flex-direction: column;\n  padding: .5em 1em;\n  border-radius: 2px;\n}\n\n\n[role=banner] .coz-drawer--apps [role=menuitem]:hover {\n  background-color: rgba(25, 123, 255, 0.1);\n}\n\n\n[role=banner] .coz-drawer--apps li img {\n  margin-bottom: .5em;\n}\n\n\n[role=banner] .coz-drawer--apps li p.coz-label {\n  overflow: hidden;\n  white-space: nowrap;\n  text-overflow: ellipsis;\n  min-width: 0;\n  width: 100%;\n  text-align: center;\n  font-size: 14px;\n}\n\n\n[role=banner] .coz-drawer--apps .coz-nav-category {\n  font-size: 1em;\n  padding: 0 2em;\n  margin: 2em 0 .5em 0;\n}\n\n\n[role=banner] .coz-claudy {\n  position: fixed;\n  bottom: 5em;\n  right: 2em;\n}\n\n\n@media (min-width: 64em) {\n  [role=banner] .coz-claudy {\n    bottom: 2em;\n  }\n}\n\n\n[role=banner] .coz-claudy-icon {\n  width: 3.5em;\n  height: 3.5em;\n  border-radius: 100%;\n  border: none;\n  background-color: #297ef2;\n  background-image: url(" + __webpack_require__(296) + ");\n  background-repeat: no-repeat;\n  background-size: 2.5em;\n  background-position: .5em;\n  box-shadow: 0 1px 3px 0 rgba(50, 54, 63, 0.19), 0 6px 18px 0 rgba(50, 54, 63, 0.39);\n  cursor: pointer;\n  opacity: .5;\n  transition: all .2s ease-out;\n  outline: 0;\n}\n\n\n[role=banner] .coz-claudy-icon:hover,\n[role=banner] .coz-claudy-icon:focus,\n[role=banner] .coz-claudy-icon:active,\n[role=banner] .coz-claudy [data-claudy-opened=true] {\n  transform: scale(1.1);\n  opacity: 1;\n  transition: all .2s ease-out;\n}\n\n\n[role=banner] .coz-claudy .coz-claudy-menu {\n  position: fixed;\n  bottom: 9.5em;\n  right: 2em;\n  width: 25em;\n  border-radius: .3em;\n  background: white;\n  transform-origin: 100% 100% 0;\n  transform: scale(0) translateY(4em);\n  filter: drop-shadow(0 4px 6px rgba(50, 54, 63, 0.5));\n  opacity: 0;\n  transition: .2s transform ease-in, .1s opacity ease-in;\n}\n\n\n[role=banner] .coz-claudy--opened .coz-claudy-menu {\n  transform: scale(1) translateY(0);\n  opacity: 1;\n  transition: .2s transform cubic-bezier(0.2, 0.75, 0.3, 1.15), .1s opacity ease-in;\n}\n\n\n@media (min-width: 64em) {\n  [role=banner] .coz-claudy .coz-claudy-menu {\n    bottom: 6.5em;\n  }\n}\n\n\n@media (max-width: 48em) {\n  [role=banner] .coz-claudy .coz-claudy-menu {\n    width: calc(100% - 2em);\n    height: calc(100% - 2em);\n    right: 1em;\n    top: 1em;\n    transform-origin: 50% 50% 0;\n  }\n\n  [role=banner] .coz-claudy-menu::after {\n    display: none;\n  }\n}\n\n\n[role=banner] .coz-claudy-menu-header {\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n  height: 2em;\n  padding: .75em;\n  background: #f5f6f7;\n  border-radius: .3em .3em 0 0;\n  border-bottom: 1px solid #d6d8da;\n  overflow: hidden;\n}\n\n\n[role=banner] .coz-claudy-menu-title {\n  opacity: 1;\n  transition: .2s all ease-in-out;\n}\n\n\n[role=banner] .coz-claudy-menu-header-back-button {\n  position: absolute;\n  width: 2em;\n  height: 2em;\n  background: url(" + __webpack_require__(297) + ") center / 1.5em no-repeat;\n  border: none;\n  cursor: pointer;\n  left: 10em;\n  opacity: 0;\n  transition: .2s all ease-in-out;\n}\n\n\n[role=banner] .coz-claudy-menu--action-selected .coz-claudy-menu-title {\n  transform: translateX(-50%);\n  opacity: 0;\n  transition: .2s all ease-in-out;\n}\n\n\n[role=banner] .coz-claudy-menu--action-selected .coz-claudy-menu-header-back-button {\n  opacity: 1;\n  left: 1em;\n  transition: .2s all ease-in-out;\n}\n\n\n[role=banner] .coz-claudy-menu-title {\n  font-size: 18px;\n  margin: .4em 0 0 0;\n}\n\n\n[role=banner] .coz-claudy-menu-content-wrapper {\n  overflow: hidden;\n}\n\n\n[role=banner] .coz-claudy-menu-content {\n  display: flex;\n  flex-direction: row;\n  width: 200%; /* actions-list + action-description */\n  padding: .5em 0;\n  transform: translateX(0);\n  transition: .2s transform ease-in-out;\n}\n\n\n[role=banner] .coz-claudy-menu--action-selected .coz-claudy-menu-content {\n  transform: translateX(-50%);\n  transition: .2s transform ease-in-out;\n}\n\n\n[role=banner] .coz-claudy-menu-actions-list,\n[role=banner] .coz-claudy-menu-action-description {\n  min-width: 50%;\n  max-width: 50%;\n  padding: 0;\n}\n\n\n[role=banner] .coz-claudy-menu::after {\n  position: fixed;\n  content: '';\n  right: 3em;\n  width: 0;\n  height: 0;\n  /* Make it a bit taller to avoid browser spacing issue\n  between it and the tooltip */\n  border-bottom: .8em solid transparent;\n  border-right: 1.5em solid white;\n  bottom: -.6em;\n}\n\n\n[role=banner] .coz-claudy-menu-action {\n  display: flex;\n  flex-direction: row;\n  align-items: center;\n  cursor: pointer;\n  height: 3em;\n  color: #297ef2;\n  padding: .5em 1em;\n}\n\n\n[role=banner] .coz-claudy-menu-action:hover {\n  background: #f5f6f7\n}\n\n\n[role=banner] .coz-claudy-menu-action-icon {\n  height: 3em;\n  width: 3em;\n}\n\n\n[role=banner] .coz-claudy-menu-action-title {\n  padding-left: 1em;\n}\n\n\n[role=banner] .coz-claudy-menu-action-description-header {\n  display: flex;\n  flex-direction: row;\n  align-items: center;\n  padding: .5em 1em;\n  color: black;\n  font-weight: 700;\n}\n\n\n[role=banner] .coz-claudy-menu-action-description-header .coz-claudy-menu-action-title{\n  margin: 0;\n}\n\n\n[role=banner] .coz-claudy-menu-action-description-content {\n  padding: .5em 1em 1em 1em;\n}\n\n\n[role=banner] .coz-claudy-menu-action-description-text {\n  margin-top: 0;\n}\n\n\n[role=banner] .coz-claudy-menu-action-description-button {\n  width: 100%;\n  margin: 0;\n}\n\n\n[role=banner].coz-target--mobile {\n  padding-left: 1em;\n}\n\n\n.coz-bar-hidden {\n  position: absolute !important;\n  border: 0 !important;\n  width: 1px !important;\n  height: 1px !important;\n  overflow: hidden !important;\n  padding: 0 !important;\n  white-space: nowrap !important;\n  clip: rect(1px, 1px, 1px, 1px) !important;\n  clip-path: inset(50%) !important;\n}\n\n\n@-moz-keyframes spin {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(359deg);\n  }\n}\n\n\n@-webkit-keyframes spin {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(359deg);\n  }\n}\n\n\n@-o-keyframes spin {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(359deg);\n  }\n}\n\n\n@keyframes spin {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(359deg);\n  }\n}\n\n\n.coz-btn-regular[aria-busy=true]::after {\n  content: '';\n  display: inline-block;\n  vertical-align: middle;\n  margin-left: 0.5em;\n  background-position: center;\n  background-repeat: no-repeat;\n  background-size: cover;\n}\n\n\n.coz-btn-regular[aria-busy=true]::after,\n.coz-btn-close[aria-busy=true]::after {\n  width: 1rem;\n  height: 1rem;\n}\n\n\n.coz-btn-regular[aria-busy=true]::after {\n  animation: spin 1s linear infinite;\n}\n\n\n.coz-btn-regular[aria-busy=true]::after {\n  background-image: url(\"data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAzMiAzMicgd2lkdGg9JzEyJyBoZWlnaHQ9JzEyJyBmaWxsPSd3aGl0ZSc+PHBhdGggb3BhY2l0eT0nLjI1JyBkPSdNMTYgMGExNiAxNiAwIDAgMCAwIDMyIDE2IDE2IDAgMCAwIDAtMzJtMCA0YTEyIDEyIDAgMCAxIDAgMjQgMTIgMTIgMCAwIDEgMC0yNCcvPjxwYXRoIGQ9J00xNiAwYTE2IDE2IDAgMCAxIDE2IDE2aC00YTEyIDEyIDAgMCAwLTEyLTEyeicvPjwvc3ZnPgo=\");\n}\n\n\n.coz-btn-regular,\n.coz-btn-close {\n  box-sizing: border-box;\n  display: inline-block;\n  margin: 0 0.25em;\n  border: 1px solid #fff;\n  border-radius: 2px;\n  min-height: em(40px, 14px);\n  padding: em(13px, 14px) em(15px, 14px) em(11px, 14px);\n  background: transparent;\n  vertical-align: top;\n  text-align: center;\n  font-size: 14px /* [1] */;\n  line-height: 1;\n  text-transform: uppercase;\n  text-decoration: none;\n  cursor: pointer;\n}\n\n\n.coz-btn-regular[disabled],\n.coz-btn-close[disabled],\n.coz-btn-regular[aria-disabled=true],\n.coz-btn-close[aria-disabled=true] {\n  opacity: 0.5;\n  cursor: not-allowed;\n}\n\n\n.coz-btn-regular[aria-busy=true]::after,\n.coz-btn-close[aria-busy=true]::after {\n  position: relative;\n  top: em(-1px);\n}\n\n\n.coz-btn-regular {\n  border-color: #297ef2;\n  background-color: #297ef2;\n  color: #fff;\n}\n\n\n.coz-btn-regular:active,\n.coz-btn-regular:not([disabled]):not([aria-disabled=true]):hover,\n.coz-btn-regular:focus {\n  border-color: #0b61d6;\n  background-color: #0b61d6;\n}\n\n\n.coz-btn-close {\n  border: 0;\n  width: em(46px);\n  background-image: url(\"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICA8cGF0aCBmaWxsPSIjOTU5OTlEIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xMDYuNTg1Nzg2LDQ0IEw5Ni4yOTI4OTMyLDMzLjcwNzEwNjggQzk1LjkwMjM2ODksMzMuMzE2NTgyNSA5NS45MDIzNjg5LDMyLjY4MzQxNzUgOTYuMjkyODkzMiwzMi4yOTI4OTMyIEM5Ni42ODM0MTc1LDMxLjkwMjM2ODkgOTcuMzE2NTgyNSwzMS45MDIzNjg5IDk3LjcwNzEwNjgsMzIuMjkyODkzMiBMMTA4LDQyLjU4NTc4NjQgTDExOC4yOTI4OTMsMzIuMjkyODkzMiBDMTE4LjY4MzQxOCwzMS45MDIzNjg5IDExOS4zMTY1ODIsMzEuOTAyMzY4OSAxMTkuNzA3MTA3LDMyLjI5Mjg5MzIgQzEyMC4wOTc2MzEsMzIuNjgzNDE3NSAxMjAuMDk3NjMxLDMzLjMxNjU4MjUgMTE5LjcwNzEwNywzMy43MDcxMDY4IEwxMDkuNDE0MjE0LDQ0IEwxMTkuNzA3MTA3LDU0LjI5Mjg5MzIgQzEyMC4wOTc2MzEsNTQuNjgzNDE3NSAxMjAuMDk3NjMxLDU1LjMxNjU4MjUgMTE5LjcwNzEwNyw1NS43MDcxMDY4IEMxMTkuMzE2NTgyLDU2LjA5NzYzMTEgMTE4LjY4MzQxOCw1Ni4wOTc2MzExIDExOC4yOTI4OTMsNTUuNzA3MTA2OCBMMTA4LDQ1LjQxNDIxMzYgTDk3LjcwNzEwNjgsNTUuNzA3MTA2OCBDOTcuMzE2NTgyNSw1Ni4wOTc2MzExIDk2LjY4MzQxNzUsNTYuMDk3NjMxMSA5Ni4yOTI4OTMyLDU1LjcwNzEwNjggQzk1LjkwMjM2ODksNTUuMzE2NTgyNSA5NS45MDIzNjg5LDU0LjY4MzQxNzUgOTYuMjkyODkzMiw1NC4yOTI4OTMyIEwxMDYuNTg1Nzg2LDQ0IFoiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC05NiAtMzIpIi8+Cjwvc3ZnPgo=\");\n  background-position: center center;\n  background-repeat: no-repeat;\n}\n\n\n.coz-btn-regular {\n  min-height: 40px;\n  padding: 13px 15px 11px;\n}\n\n\n.coz-btn-close {\n  width: 32px;\n  padding: 0;\n  margin: 0;\n}\n", ""]);
 	
 	// exports
 
 
 /***/ },
-/* 274 */
+/* 286 */
 /***/ function(module, exports) {
 
 	/*
@@ -13576,55 +16332,73 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 275 */
+/* 287 */
 /***/ function(module, exports) {
 
 	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICA8cGF0aCBmaWxsPSIjNUQ2MTY1IiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xMzYsNzMgQzEzOC4yMDkxMzksNzMgMTQwLDcwLjk4NTI4MTQgMTQwLDY4LjUgQzE0MCw2Ni4wMTQ3MTg2IDEzOC4yMDkxMzksNjQgMTM2LDY0IEMxMzMuNzkwODYxLDY0IDEzMiw2Ni4wMTQ3MTg2IDEzMiw2OC41IEMxMzIsNzAuOTg1MjgxNCAxMzMuNzkwODYxLDczIDEzNiw3MyBaIE0xMjgsNzggQzEyOCw3NyAxMzAsNzQgMTMyLDc0IEMxMzQsNzQgMTMzLDc1IDEzNiw3NSBDMTM5LDc1IDEzOCw3NCAxNDAsNzQgQzE0Miw3NCAxNDQsNzcgMTQ0LDc4IEMxNDQsNzkgMTQ0LDgwIDE0Myw4MCBMMTI5LDgwIEMxMjgsODAgMTI4LDc5IDEyOCw3OCBaIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMTI4IC02NCkiLz4KPC9zdmc+Cg=="
 
 /***/ },
-/* 276 */
+/* 288 */
 /***/ function(module, exports) {
 
 	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICA8cGF0aCBmaWxsPSIjNUQ2MTY1IiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xNjIsNjUuMDAwODcxNyBDMTYyLDY0LjQ0ODEwNTUgMTYyLjQ1NTc2MSw2NCAxNjMuMDAyNDczLDY0IEwxNzIuOTk3NTI3LDY0IEMxNzMuNTUxMTc3LDY0IDE3NCw2NC40NDQ2MzA5IDE3NCw2NS4wMDA4NzE3IEwxNzQsNzguOTk5MTI4MyBDMTc0LDc5LjU1MTg5NDUgMTczLjU0NDIzOSw4MCAxNzIuOTk3NTI3LDgwIEwxNjMuMDAyNDczLDgwIEMxNjIuNDQ4ODIzLDgwIDE2Miw3OS41NTUzNjkxIDE2Miw3OC45OTkxMjgzIEwxNjIsNjUuMDAwODcxNyBaIE0xNjQsNjYgTDE3Miw2NiBMMTcyLDc2IEwxNjQsNzYgTDE2NCw2NiBaIE0xNjgsNzkgQzE2OC41NTIyODUsNzkgMTY5LDc4LjU1MjI4NDcgMTY5LDc4IEMxNjksNzcuNDQ3NzE1MyAxNjguNTUyMjg1LDc3IDE2OCw3NyBDMTY3LjQ0NzcxNSw3NyAxNjcsNzcuNDQ3NzE1MyAxNjcsNzggQzE2Nyw3OC41NTIyODQ3IDE2Ny40NDc3MTUsNzkgMTY4LDc5IFoiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0xNjAgLTY0KSIvPgo8L3N2Zz4K"
 
 /***/ },
-/* 277 */
+/* 289 */
 /***/ function(module, exports) {
 
 	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICA8cGF0aCBmaWxsPSIjNUQ2MTY1IiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0yOTYsODAgQzMwMC40MTgyNzgsODAgMzA0LDc2LjQxODI3OCAzMDQsNzIgQzMwNCw2Ny41ODE3MjIgMzAwLjQxODI3OCw2NCAyOTYsNjQgQzI5MS41ODE3MjIsNjQgMjg4LDY3LjU4MTcyMiAyODgsNzIgQzI4OCw3Ni40MTgyNzggMjkxLjU4MTcyMiw4MCAyOTYsODAgWiBNMjk3LDcyLjgwMjExMyBDMjk4LjEyMTgwOSw3Mi4zNTQ1NTY4IDI5OSw3MS4yMDg5OTQ2IDI5OSw3MCBDMjk5LDY4LjQ0NzcxNTMgMjk3LjU1MjI4NSw2NyAyOTYsNjcgQzI5NC40NDc3MTUsNjcgMjkzLDY4LjQ0NzcxNTMgMjkzLDcwIEwyOTUsNzAgQzI5NSw2OS41NTIyODQ3IDI5NS41NTIyODUsNjkgMjk2LDY5IEMyOTYuNDQ3NzE1LDY5IDI5Nyw2OS41NTIyODQ3IDI5Nyw3MCBDMjk3LDcwLjQ0NzcxNTMgMjk2LjQ0NzcxNSw3MSAyOTYsNzEgQzI5NS40NDc3MTUsNzEgMjk1LDcxLjQ0NzcxNTMgMjk1LDcyIEwyOTUsNzQgTDI5Nyw3NCBMMjk3LDcyLjgwMjExMyBaIE0yOTUsNzUgTDI5Nyw3NSBMMjk3LDc3IEwyOTUsNzcgTDI5NSw3NSBaIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMjg4IC02NCkiLz4KPC9zdmc+Cg=="
 
 /***/ },
-/* 278 */
+/* 290 */
 /***/ function(module, exports) {
 
 	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICA8cGF0aCBmaWxsPSIjNUQ2MTY1IiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0zMjcsOTkuNDE0MjEzNiBMMzI1LjcwNzEwNywxMDAuNzA3MTA3IEMzMjUuMzE2NTgyLDEwMS4wOTc2MzEgMzI0LjY4MzQxOCwxMDEuMDk3NjMxIDMyNC4yOTI4OTMsMTAwLjcwNzEwNyBDMzIzLjkwMjM2OSwxMDAuMzE2NTgyIDMyMy45MDIzNjksOTkuNjgzNDE3NSAzMjQuMjkyODkzLDk5LjI5Mjg5MzIgTDMyNy4yOTI4OTMsOTYuMjkyODkzMiBDMzI3LjY4MzQxOCw5NS45MDIzNjg5IDMyOC4zMTY1ODIsOTUuOTAyMzY4OSAzMjguNzA3MTA3LDk2LjI5Mjg5MzIgTDMzMS43MDcxMDcsOTkuMjkyODkzMiBDMzMyLjA5NzYzMSw5OS42ODM0MTc1IDMzMi4wOTc2MzEsMTAwLjMxNjU4MiAzMzEuNzA3MTA3LDEwMC43MDcxMDcgQzMzMS4zMTY1ODIsMTAxLjA5NzYzMSAzMzAuNjgzNDE4LDEwMS4wOTc2MzEgMzMwLjI5Mjg5MywxMDAuNzA3MTA3IEwzMjksOTkuNDE0MjEzNiBMMzI5LDEwNyBDMzI5LDEwNy41NTIyODUgMzI4LjU1MjI4NSwxMDggMzI4LDEwOCBDMzI3LjQ0NzcxNSwxMDggMzI3LDEwNy41NTIyODUgMzI3LDEwNyBMMzI3LDk5LjQxNDIxMzYgWiBNMzIxLDExMiBMMzM1LDExMiBDMzM1LjU1MjI4NSwxMTIgMzM2LDExMS41NTIyODUgMzM2LDExMSBDMzM2LDExMC40NDc3MTUgMzM1LjU1MjI4NSwxMTAgMzM1LDExMCBMMzIxLDExMCBDMzIwLjQ0NzcxNSwxMTAgMzIwLDExMC40NDc3MTUgMzIwLDExMSBDMzIwLDExMS41NTIyODUgMzIwLjQ0NzcxNSwxMTIgMzIxLDExMiBaIiB0cmFuc2Zvcm09InJvdGF0ZSg5MCAyMTYgLTEwNCkiLz4KPC9zdmc+Cg=="
 
 /***/ },
-/* 279 */
+/* 291 */
 /***/ function(module, exports) {
 
 	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICA8cGF0aCBmaWxsPSIjNUQ2MTY1IiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0yMjUsNjggTDIzOSw2OCBMMjM5LDc4LjAwNDQyMjUgQzIzOSw3OC41NTQyNjQ4IDIzOC41NTAwNTEsNzkgMjM3Ljk5MzE1NSw3OSBMMjI2LjAwNjg0NSw3OSBDMjI1LjQ1MDc4LDc5IDIyNSw3OC41NTUxNjMgMjI1LDc4LjAwNDQyMjUgTDIyNSw2OCBaIE0yMjQsNjYgQzIyNCw2NS40NDc3MTUzIDIyNC40NDQ2MzEsNjUgMjI1LjAwMDg3Miw2NSBMMjM4Ljk5OTEyOCw2NSBDMjM5LjU1MTg5NCw2NSAyNDAsNjUuNDQzODY0OCAyNDAsNjYgTDI0MCw2NyBMMjI0LDY3IEwyMjQsNjYgWiBNMjI5LDcwIEwyMzUsNzAgTDIzNSw3MiBMMjI5LDcyIEwyMjksNzAgWiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTIyNCAtNjQpIi8+Cjwvc3ZnPgo="
 
 /***/ },
-/* 280 */
+/* 292 */
 /***/ function(module, exports) {
 
 	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICA8ZyBmaWxsPSIjOTU5OTlEIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0yMjQgLTMyKSI+CiAgICA8cGF0aCBkPSJNMjM4LjI0OTM1NiwzOS4wNzgyOTczIEMyMzguMzAxNDA3LDM5LjMzNzE0MzYgMjM4LjMyNzQzMiwzOS42NDU5NjAyIDIzOC4zMjc0MzIsNDAuMDAzNzQ3OCBDMjM4LjMyNzQzMiw0MC4zNjE1MzUzIDIzOC4zMDE0MDcsNDAuNjY5MzUyNiAyMzguMjQ5MzU2LDQwLjkyOTE5ODMgTDIzOS44Njk5NDYsNDIuMjYyNDA2NyBDMjQwLjAwMDA3NCw0Mi4zNDgzNTU3IDI0MC4wMzIxMDUsNDIuNDY1Mjg2MiAyMzkuOTY4MDQyLDQyLjYxNDE5NzggQzIzOS42NDI3MjMsNDMuNTY0NjMzNSAyMzkuMTA5MTk5LDQ0LjQ0MDExMzcgMjM4LjM2NjQ3LDQ1LjI0MTYzNzggQzIzOC4yNjIzNjgsNDUuMzY1NTY0MiAyMzguMTM3MjQ2LDQ1LjM5NjU0NTggMjM3Ljk5NTEwNiw0NS4zMzU1ODIgTDIzNS45NjQxMTMsNDQuNjY3OTc4NCBDMjM1LjQ0MzYwMiw0NS4wNjM3NDM0IDIzNC44ODQwNTMsNDUuMzcyNTYgMjM0LjI4NDQ2NCw0NS41OTQ0MjgzIEwyMzMuODc1MDYyLDQ3LjU5MzI0MTUgQzIzMy44NDkwMzcsNDcuNzQwMTU0MyAyMzMuNzU3OTQ4LDQ3LjgyNzEwMjcgMjMzLjYwMTc5NCw0Ny44NTIwODc4IEMyMzMuMDQxMjQ0LDQ3Ljk1MjAyODUgMjMyLjUwNzcyMSw0OCAyMzIuMDAwMjIyLDQ4IEMyMzEuNDkyNzI0LDQ4IDIzMC45NTgyLDQ3Ljk1MTAyOTEgMjMwLjM5ODY1MSw0Ny44NTIwODc4IEMyMzAuMjQyNDk3LDQ3LjgyODEwMjEgMjMwLjE1MTQwOCw0Ny43NDExNTM3IDIzMC4xMjUzODIsNDcuNTkzMjQxNSBMMjI5LjcxNTk4MSw0NS41OTQ0MjgzIEMyMjkuMDc3MzU0LDQ1LjM2MDU2NzIgMjI4LjUxNzgwNSw0NS4wNTA3NTExIDIyOC4wMzYzMzIsNDQuNjY3OTc4NCBMMjI2LjAwNTMzOSw0NS4zMzU1ODIgQzIyNS44NjExOTcsNDUuMzk3NTQ1MiAyMjUuNzM4MDc3LDQ1LjM2NTU2NDIgMjI1LjYzMzk3NCw0NS4yNDE2Mzc4IEMyMjQuODkyMjQ2LDQ0LjQ0MDExMzcgMjI0LjM1ODcyMyw0My41NjQ2MzM1IDIyNC4wMzI0MDMsNDIuNjE0MTk3OCBDMjIzLjk2NzMzOSw0Mi40NjYyODU2IDIyNC4wMDAzNzEsNDIuMzQ4MzU1NyAyMjQuMTMwNDk5LDQyLjI2MjQwNjcgTDIyNS43NTEwODksNDAuOTI5MTk4MyBDMjI1LjY5OTAzOCw0MC42NjkzNTI2IDIyNS42NzMwMTMsNDAuMzYyNTM0NyAyMjUuNjczMDEzLDQwLjAwMzc0NzggQzIyNS42NzMwMTMsMzkuNjQ1OTYwMiAyMjUuNjk5MDM4LDM5LjMzNzE0MzYgMjI1Ljc1MTA4OSwzOS4wNzgyOTczIEwyMjQuMTMwNDk5LDM3Ljc0NjA4ODMgQzIyNC4wMDAzNzEsMzcuNjYwMTM5MyAyMjMuOTY3MzM5LDM3LjU0MjIwOTMgMjI0LjAzMjQwMywzNy4zOTQyOTcxIEMyMjQuMzU3NzIyLDM2LjQ0NDg2MDkgMjI0Ljg5MTI0NSwzNS41NjgzODEzIDIyNS42MzM5NzQsMzQuNzY2ODU3MiBDMjI1LjczODA3NywzNC42NDM5MzAyIDIyNS44NjIxOTgsMzQuNjEyOTQ4NiAyMjYuMDA1MzM5LDM0LjY3MzkxMjQgTDIyOC4wMzYzMzIsMzUuMzQwNTE2NiBDMjI4LjUxNjgwNCwzNC45NTc3NDM4IDIyOS4wNzczNTQsMzQuNjQ5OTI2NiAyMjkuNzE1OTgxLDM0LjQxNTA2NjEgTDIzMC4xMjUzODIsMzIuNDE2MjUyOCBDMjMwLjE1MTQwOCwzMi4yNjgzNDA3IDIzMC4yNDI0OTcsMzIuMTgyMzkxNyAyMzAuMzk4NjUxLDMyLjE1NzQwNjUgQzIzMS40NjU2OTgsMzEuOTQ3NTMxMiAyMzIuNTMzNzQ2LDMxLjk0NzUzMTIgMjMzLjYwMDc5MywzMi4xNTc0MDY1IEMyMzMuNzU2OTQ3LDMyLjE4MTM5MjMgMjMzLjg0ODAzNiwzMi4yNjgzNDA3IDIzMy44NzQwNjEsMzIuNDE2MjUyOCBMMjM0LjI4MzQ2MywzNC40MTUwNjYxIEMyMzQuODgzMDUyLDM0LjYzNzkzMzcgMjM1LjQ0MjYwMSwzNC45NDU3NTEgMjM1Ljk2MzExMiwzNS4zNDA1MTY2IEwyMzcuOTk0MTA1LDM0LjY3MzkxMjQgQzIzOC4xMzcyNDYsMzQuNjExOTQ5MiAyMzguMjYxMzY3LDM0LjY0MzkzMDIgMjM4LjM2NTQ3LDM0Ljc2Njg1NzIgQzIzOS4xMDcxOTcsMzUuNTY5MzgwNyAyMzkuNjQwNzIxLDM2LjQ0NDg2MDkgMjM5Ljk2NzA0MSwzNy4zOTQyOTcxIEMyNDAuMDMxMTA0LDM3LjU0MjIwOTMgMjM5Ljk5OTA3MywzNy42NjAxMzkzIDIzOS44Njg5NDUsMzcuNzQ2MDg4MyBMMjM4LjI0OTM1NiwzOS4wNzgyOTczIEwyMzguMjQ5MzU2LDM5LjA3ODI5NzMgWiBNMjMyLDM2LjUgQzIzMC4wNjcxMjUsMzYuNSAyMjguNSwzOC4wNjcxMjUgMjI4LjUsNDAgQzIyOC41LDQxLjkzMjg3NSAyMzAuMDY3MTI1LDQzLjUgMjMyLDQzLjUgQzIzMy45MzI4NzUsNDMuNSAyMzUuNSw0MS45MzI4NzUgMjM1LjUsNDAgQzIzNS41LDM4LjA2NzEyNSAyMzMuOTMyODc1LDM2LjUgMjMyLDM2LjUgTDIzMiwzNi41IFoiLz4KICAgIDxwYXRoIGQ9Ik0yMzguMjQ5MzU2LDM5LjA3ODI5NzMgQzIzOC4zMDE0MDcsMzkuMzM3MTQzNiAyMzguMzI3NDMyLDM5LjY0NTk2MDIgMjM4LjMyNzQzMiw0MC4wMDM3NDc4IEMyMzguMzI3NDMyLDQwLjM2MTUzNTMgMjM4LjMwMTQwNyw0MC42NjkzNTI2IDIzOC4yNDkzNTYsNDAuOTI5MTk4MyBMMjM5Ljg2OTk0Niw0Mi4yNjI0MDY3IEMyNDAuMDAwMDc0LDQyLjM0ODM1NTcgMjQwLjAzMjEwNSw0Mi40NjUyODYyIDIzOS45NjgwNDIsNDIuNjE0MTk3OCBDMjM5LjY0MjcyMyw0My41NjQ2MzM1IDIzOS4xMDkxOTksNDQuNDQwMTEzNyAyMzguMzY2NDcsNDUuMjQxNjM3OCBDMjM4LjI2MjM2OCw0NS4zNjU1NjQyIDIzOC4xMzcyNDYsNDUuMzk2NTQ1OCAyMzcuOTk1MTA2LDQ1LjMzNTU4MiBMMjM1Ljk2NDExMyw0NC42Njc5Nzg0IEMyMzUuNDQzNjAyLDQ1LjA2Mzc0MzQgMjM0Ljg4NDA1Myw0NS4zNzI1NiAyMzQuMjg0NDY0LDQ1LjU5NDQyODMgTDIzMy44NzUwNjIsNDcuNTkzMjQxNSBDMjMzLjg0OTAzNyw0Ny43NDAxNTQzIDIzMy43NTc5NDgsNDcuODI3MTAyNyAyMzMuNjAxNzk0LDQ3Ljg1MjA4NzggQzIzMy4wNDEyNDQsNDcuOTUyMDI4NSAyMzIuNTA3NzIxLDQ4IDIzMi4wMDAyMjIsNDggQzIzMS40OTI3MjQsNDggMjMwLjk1ODIsNDcuOTUxMDI5MSAyMzAuMzk4NjUxLDQ3Ljg1MjA4NzggQzIzMC4yNDI0OTcsNDcuODI4MTAyMSAyMzAuMTUxNDA4LDQ3Ljc0MTE1MzcgMjMwLjEyNTM4Miw0Ny41OTMyNDE1IEwyMjkuNzE1OTgxLDQ1LjU5NDQyODMgQzIyOS4wNzczNTQsNDUuMzYwNTY3MiAyMjguNTE3ODA1LDQ1LjA1MDc1MTEgMjI4LjAzNjMzMiw0NC42Njc5Nzg0IEwyMjYuMDA1MzM5LDQ1LjMzNTU4MiBDMjI1Ljg2MTE5Nyw0NS4zOTc1NDUyIDIyNS43MzgwNzcsNDUuMzY1NTY0MiAyMjUuNjMzOTc0LDQ1LjI0MTYzNzggQzIyNC44OTIyNDYsNDQuNDQwMTEzNyAyMjQuMzU4NzIzLDQzLjU2NDYzMzUgMjI0LjAzMjQwMyw0Mi42MTQxOTc4IEMyMjMuOTY3MzM5LDQyLjQ2NjI4NTYgMjI0LjAwMDM3MSw0Mi4zNDgzNTU3IDIyNC4xMzA0OTksNDIuMjYyNDA2NyBMMjI1Ljc1MTA4OSw0MC45MjkxOTgzIEMyMjUuNjk5MDM4LDQwLjY2OTM1MjYgMjI1LjY3MzAxMyw0MC4zNjI1MzQ3IDIyNS42NzMwMTMsNDAuMDAzNzQ3OCBDMjI1LjY3MzAxMywzOS42NDU5NjAyIDIyNS42OTkwMzgsMzkuMzM3MTQzNiAyMjUuNzUxMDg5LDM5LjA3ODI5NzMgTDIyNC4xMzA0OTksMzcuNzQ2MDg4MyBDMjI0LjAwMDM3MSwzNy42NjAxMzkzIDIyMy45NjczMzksMzcuNTQyMjA5MyAyMjQuMDMyNDAzLDM3LjM5NDI5NzEgQzIyNC4zNTc3MjIsMzYuNDQ0ODYwOSAyMjQuODkxMjQ1LDM1LjU2ODM4MTMgMjI1LjYzMzk3NCwzNC43NjY4NTcyIEMyMjUuNzM4MDc3LDM0LjY0MzkzMDIgMjI1Ljg2MjE5OCwzNC42MTI5NDg2IDIyNi4wMDUzMzksMzQuNjczOTEyNCBMMjI4LjAzNjMzMiwzNS4zNDA1MTY2IEMyMjguNTE2ODA0LDM0Ljk1Nzc0MzggMjI5LjA3NzM1NCwzNC42NDk5MjY2IDIyOS43MTU5ODEsMzQuNDE1MDY2MSBMMjMwLjEyNTM4MiwzMi40MTYyNTI4IEMyMzAuMTUxNDA4LDMyLjI2ODM0MDcgMjMwLjI0MjQ5NywzMi4xODIzOTE3IDIzMC4zOTg2NTEsMzIuMTU3NDA2NSBDMjMxLjQ2NTY5OCwzMS45NDc1MzEyIDIzMi41MzM3NDYsMzEuOTQ3NTMxMiAyMzMuNjAwNzkzLDMyLjE1NzQwNjUgQzIzMy43NTY5NDcsMzIuMTgxMzkyMyAyMzMuODQ4MDM2LDMyLjI2ODM0MDcgMjMzLjg3NDA2MSwzMi40MTYyNTI4IEwyMzQuMjgzNDYzLDM0LjQxNTA2NjEgQzIzNC44ODMwNTIsMzQuNjM3OTMzNyAyMzUuNDQyNjAxLDM0Ljk0NTc1MSAyMzUuOTYzMTEyLDM1LjM0MDUxNjYgTDIzNy45OTQxMDUsMzQuNjczOTEyNCBDMjM4LjEzNzI0NiwzNC42MTE5NDkyIDIzOC4yNjEzNjcsMzQuNjQzOTMwMiAyMzguMzY1NDcsMzQuNzY2ODU3MiBDMjM5LjEwNzE5NywzNS41NjkzODA3IDIzOS42NDA3MjEsMzYuNDQ0ODYwOSAyMzkuOTY3MDQxLDM3LjM5NDI5NzEgQzI0MC4wMzExMDQsMzcuNTQyMjA5MyAyMzkuOTk5MDczLDM3LjY2MDEzOTMgMjM5Ljg2ODk0NSwzNy43NDYwODgzIEwyMzguMjQ5MzU2LDM5LjA3ODI5NzMgTDIzOC4yNDkzNTYsMzkuMDc4Mjk3MyBaIE0yMzIsMzYuNSBDMjMwLjA2NzEyNSwzNi41IDIyOC41LDM4LjA2NzEyNSAyMjguNSw0MCBDMjI4LjUsNDEuOTMyODc1IDIzMC4wNjcxMjUsNDMuNSAyMzIsNDMuNSBDMjMzLjkzMjg3NSw0My41IDIzNS41LDQxLjkzMjg3NSAyMzUuNSw0MCBDMjM1LjUsMzguMDY3MTI1IDIzMy45MzI4NzUsMzYuNSAyMzIsMzYuNSBMMjMyLDM2LjUgWiIvPgogIDwvZz4KPC9zdmc+Cg=="
 
 /***/ },
-/* 281 */
+/* 293 */
 /***/ function(module, exports) {
 
 	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICA8cGF0aCBmaWxsPSIjOTU5OTlEIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0yMjQsMTMxIEMyMjQsMTMwLjQ0NzcxNSAyMjQuNDQ0NjMxLDEzMCAyMjUuMDAwODcyLDEzMCBMMjM4Ljk5OTEyOCwxMzAgQzIzOS41NTE4OTQsMTMwIDI0MCwxMzAuNDQzODY1IDI0MCwxMzEgQzI0MCwxMzEuNTUyMjg1IDIzOS41NTUzNjksMTMyIDIzOC45OTkxMjgsMTMyIEwyMjUuMDAwODcyLDEzMiBDMjI0LjQ0ODEwNiwxMzIgMjI0LDEzMS41NTYxMzUgMjI0LDEzMSBaIE0yMjQsMTQxIEMyMjQsMTQwLjQ0NzcxNSAyMjQuNDQ0NjMxLDE0MCAyMjUuMDAwODcyLDE0MCBMMjM4Ljk5OTEyOCwxNDAgQzIzOS41NTE4OTQsMTQwIDI0MCwxNDAuNDQzODY1IDI0MCwxNDEgQzI0MCwxNDEuNTUyMjg1IDIzOS41NTUzNjksMTQyIDIzOC45OTkxMjgsMTQyIEwyMjUuMDAwODcyLDE0MiBDMjI0LjQ0ODEwNiwxNDIgMjI0LDE0MS41NTYxMzUgMjI0LDE0MSBaIE0yMjQsMTM2IEMyMjQsMTM1LjQ0NzcxNSAyMjQuNDQ0NjMxLDEzNSAyMjUuMDAwODcyLDEzNSBMMjM4Ljk5OTEyOCwxMzUgQzIzOS41NTE4OTQsMTM1IDI0MCwxMzUuNDQzODY1IDI0MCwxMzYgQzI0MCwxMzYuNTUyMjg1IDIzOS41NTUzNjksMTM3IDIzOC45OTkxMjgsMTM3IEwyMjUuMDAwODcyLDEzNyBDMjI0LjQ0ODEwNiwxMzcgMjI0LDEzNi41NTYxMzUgMjI0LDEzNiBaIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMjI0IC0xMjgpIi8+Cjwvc3ZnPgo="
 
 /***/ },
-/* 282 */
+/* 294 */
+/***/ function(module, exports) {
+
+	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDMyIDMyIj4KICA8ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgogICAgPHBhdGggZmlsbD0iIzVENjE2NSIgZD0iTTE4LjkwNjY0MzEsMTcuMTQ2MjcyNyBDMTcuOTc2MzkwMSwxNy44ODc3NjA1IDE2Ljg2NTE1ODYsMTguMyAxNS43NzI3ODU4LDE4LjMgQzE0LjY1Mzc3ODUsMTguMyAxMy41MTQ0Mzc2LDE3Ljg2Njc0NjUgMTIuNTcwNjM5MiwxNy4wOTAwMDA5IEMxMi42NDQwOTEzLDE2Ljg4ODkwOTkgMTIuNjkyODE4OSwxNi42NzQwNzgzIDEyLjcxMzcxNDYsMTYuNDUyMjM0NyBDMTIuNzM5NjEwMiwxNi4xNzczMDkyIDEyLjUzNzczMTUsMTUuOTMzNDQ1NiAxMi4yNjI4MDYsMTUuOTA3NTUgQzExLjk4Nzg4MDUsMTUuODgxNjU0NSAxMS43NDQwMTY4LDE2LjA4MzUzMzIgMTEuNzE4MTIxMywxNi4zNTg0NTg3IEMxMS42Nzk0NDc5LDE2Ljc2OTA0MzMgMTEuNDg4NzQ5LDE3LjEyMTgzNjUgMTEuMjMyMDM4LDE3LjI5NjMwMjkgQzExLjAwMzY0ODMsMTcuNDUxNTIxNCAxMC45NDQzMzE0LDE3Ljc2MjQ5NzIgMTEuMDk5NTQ5OSwxNy45OTA4ODY4IEMxMS4yNTQ3Njg0LDE4LjIxOTI3NjUgMTEuNTY1NzQ0MywxOC4yNzg1OTM0IDExLjc5NDEzMzksMTguMTIzMzc0OSBDMTEuODc2MjA3MiwxOC4wNjc1OTYxIDExLjk1Mzc4NzEsMTguMDA0ODQ2MiAxMi4wMjY0ODkzLDE3LjkzNTk1NzYgQzEzLjEyNzAxOTMsMTguODA5OTg1MyAxNC40NTE5MzIxLDE5LjMgMTUuNzcyNzg1OCwxOS4zIEMxNy4wNzQ3NDc3LDE5LjMgMTguMzgwMjMyLDE4LjgyNDQ5NTggMTkuNDcxMzExMywxNy45NzQ0NTc5IEMxOS41MzE3MjIyLDE4LjAyODM4MDcgMTkuNTk1Mjg5MywxOC4wNzgxNjczIDE5LjY2MTgwOCwxOC4xMjMzNzQ5IEMxOS44OTAxOTc3LDE4LjI3ODU5MzQgMjAuMjAxMTczNSwxOC4yMTkyNzY1IDIwLjM1NjM5MiwxNy45OTA4ODY4IEMyMC41MTE2MTA1LDE3Ljc2MjQ5NzIgMjAuNDUyMjkzNiwxNy40NTE1MjE0IDIwLjIyMzkwNCwxNy4yOTYzMDI5IEMxOS45NjcxOTI5LDE3LjEyMTgzNjUgMTkuNzc2NDk0MSwxNi43NjkwNDMzIDE5LjczNzgyMDYsMTYuMzU4NDU4NyBDMTkuNzExOTI1MSwxNi4wODM1MzMyIDE5LjQ2ODA2MTUsMTUuODgxNjU0NSAxOS4xOTMxMzU5LDE1LjkwNzU1IEMxOC45MTgyMTA0LDE1LjkzMzQ0NTYgMTguNzE2MzMxOCwxNi4xNzczMDkyIDE4Ljc0MjIyNzMsMTYuNDUyMjM0NyBDMTguNzY1MDg0OSwxNi42OTQ5MDcgMTguODIxMjQ2LDE2LjkyOTE4ODggMTguOTA2NjQzMSwxNy4xNDYyNzI3IFogTTguNDczMjQzMDQsMjYuNTA1MjYzMiBDMy44MDAwMjgwMSwyNi41MDUyNjMyIDAsMjIuNjgwMDM1NyAwLDE3Ljk3NzgwNDggQzAsMTUuNzM1NDMgMC44NTc4MjMwMzQsMTMuNjE3MjM4NSAyLjQxNjYyODMyLDEyLjAxNDQzOTIgQzMuNzgyMTAzMzUsMTAuNjExNzQ4NSA1LjU1MDg4MzIzLDkuNzM4NjA1NzUgNy40NjQzNDA3Myw5LjUxMTQ3Mjc5IEM3LjY5MDMxOTQ4LDcuNTg1NjY4NjIgOC41NTcxMDQ4NSw1LjgwNTI4MDk5IDkuOTUyMDI3NTMsNC40MzE1NDQ5NSBDMTEuNTQ0NzYxNiwyLjg2MjIwNDM1IDEzLjY0ODk4ODcsMiAxNS44Nzc0MDgxLDIgQzE4LjEwNTE4NzMsMiAyMC4yMTAwNTQ2LDIuODYyMjA0MzUgMjEuODAyNzg4Nyw0LjQzMDkwMTUxIEMyMy4xOTE5NDk5LDUuNzk4ODQ2NjIgMjQuMDU2MTc0Niw3LjU2OTU4MjcyIDI0LjI4NzkxNDksOS40ODUwOTE5NiBDMjguNjA0NTU3Miw5Ljg3NDM3MDc0IDMyLDEzLjUzNDg3ODcgMzIsMTcuOTc4NDQ4MiBDMzIsMjIuNjgwMDM1NyAyOC4xOTc0MTEzLDI2LjUwNTI2MzIgMjMuNTI2MTE2OCwyNi41MDUyNjMyIEw4LjQ3MzI0MzA0LDI2LjUwNTI2MzIgWiIvPgogIDwvZz4KPC9zdmc+Cg=="
+
+/***/ },
+/* 295 */
 /***/ function(module, exports) {
 
 	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAzMiAzMicgd2lkdGg9JzEyJyBoZWlnaHQ9JzEyJyBmaWxsPScjMjk3RUYyJz4KICA8cGF0aCBvcGFjaXR5PScuMjUnIGQ9J00xNiAwYTE2IDE2IDAgMCAwIDAgMzIgMTYgMTYgMCAwIDAgMC0zMm0wIDRhMTIgMTIgMCAwIDEgMCAyNCAxMiAxMiAwIDAgMSAwLTI0Jy8+CiAgPHBhdGggZD0nTTE2IDBhMTYgMTYgMCAwIDEgMTYgMTZoLTRhMTIgMTIgMCAwIDAtMTItMTJ6Jy8+Cjwvc3ZnPgo="
 
 /***/ },
-/* 283 */
+/* 296 */
+/***/ function(module, exports) {
+
+	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgdmlld0JveD0iMCAwIDMyIDMyIj4KICA8ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgogICAgPHBhdGggZmlsbD0iI0ZGRkZGRiIgZD0iTTE4LjkwNjY0MzEsMTcuMTQ2MjcyNyBDMTcuOTc2MzkwMSwxNy44ODc3NjA1IDE2Ljg2NTE1ODYsMTguMyAxNS43NzI3ODU4LDE4LjMgQzE0LjY1Mzc3ODUsMTguMyAxMy41MTQ0Mzc2LDE3Ljg2Njc0NjUgMTIuNTcwNjM5MiwxNy4wOTAwMDA5IEMxMi42NDQwOTEzLDE2Ljg4ODkwOTkgMTIuNjkyODE4OSwxNi42NzQwNzgzIDEyLjcxMzcxNDYsMTYuNDUyMjM0NyBDMTIuNzM5NjEwMiwxNi4xNzczMDkyIDEyLjUzNzczMTUsMTUuOTMzNDQ1NiAxMi4yNjI4MDYsMTUuOTA3NTUgQzExLjk4Nzg4MDUsMTUuODgxNjU0NSAxMS43NDQwMTY4LDE2LjA4MzUzMzIgMTEuNzE4MTIxMywxNi4zNTg0NTg3IEMxMS42Nzk0NDc5LDE2Ljc2OTA0MzMgMTEuNDg4NzQ5LDE3LjEyMTgzNjUgMTEuMjMyMDM4LDE3LjI5NjMwMjkgQzExLjAwMzY0ODMsMTcuNDUxNTIxNCAxMC45NDQzMzE0LDE3Ljc2MjQ5NzIgMTEuMDk5NTQ5OSwxNy45OTA4ODY4IEMxMS4yNTQ3Njg0LDE4LjIxOTI3NjUgMTEuNTY1NzQ0MywxOC4yNzg1OTM0IDExLjc5NDEzMzksMTguMTIzMzc0OSBDMTEuODc2MjA3MiwxOC4wNjc1OTYxIDExLjk1Mzc4NzEsMTguMDA0ODQ2MiAxMi4wMjY0ODkzLDE3LjkzNTk1NzYgQzEzLjEyNzAxOTMsMTguODA5OTg1MyAxNC40NTE5MzIxLDE5LjMgMTUuNzcyNzg1OCwxOS4zIEMxNy4wNzQ3NDc3LDE5LjMgMTguMzgwMjMyLDE4LjgyNDQ5NTggMTkuNDcxMzExMywxNy45NzQ0NTc5IEMxOS41MzE3MjIyLDE4LjAyODM4MDcgMTkuNTk1Mjg5MywxOC4wNzgxNjczIDE5LjY2MTgwOCwxOC4xMjMzNzQ5IEMxOS44OTAxOTc3LDE4LjI3ODU5MzQgMjAuMjAxMTczNSwxOC4yMTkyNzY1IDIwLjM1NjM5MiwxNy45OTA4ODY4IEMyMC41MTE2MTA1LDE3Ljc2MjQ5NzIgMjAuNDUyMjkzNiwxNy40NTE1MjE0IDIwLjIyMzkwNCwxNy4yOTYzMDI5IEMxOS45NjcxOTI5LDE3LjEyMTgzNjUgMTkuNzc2NDk0MSwxNi43NjkwNDMzIDE5LjczNzgyMDYsMTYuMzU4NDU4NyBDMTkuNzExOTI1MSwxNi4wODM1MzMyIDE5LjQ2ODA2MTUsMTUuODgxNjU0NSAxOS4xOTMxMzU5LDE1LjkwNzU1IEMxOC45MTgyMTA0LDE1LjkzMzQ0NTYgMTguNzE2MzMxOCwxNi4xNzczMDkyIDE4Ljc0MjIyNzMsMTYuNDUyMjM0NyBDMTguNzY1MDg0OSwxNi42OTQ5MDcgMTguODIxMjQ2LDE2LjkyOTE4ODggMTguOTA2NjQzMSwxNy4xNDYyNzI3IFogTTguNDczMjQzMDQsMjYuNTA1MjYzMiBDMy44MDAwMjgwMSwyNi41MDUyNjMyIDAsMjIuNjgwMDM1NyAwLDE3Ljk3NzgwNDggQzAsMTUuNzM1NDMgMC44NTc4MjMwMzQsMTMuNjE3MjM4NSAyLjQxNjYyODMyLDEyLjAxNDQzOTIgQzMuNzgyMTAzMzUsMTAuNjExNzQ4NSA1LjU1MDg4MzIzLDkuNzM4NjA1NzUgNy40NjQzNDA3Myw5LjUxMTQ3Mjc5IEM3LjY5MDMxOTQ4LDcuNTg1NjY4NjIgOC41NTcxMDQ4NSw1LjgwNTI4MDk5IDkuOTUyMDI3NTMsNC40MzE1NDQ5NSBDMTEuNTQ0NzYxNiwyLjg2MjIwNDM1IDEzLjY0ODk4ODcsMiAxNS44Nzc0MDgxLDIgQzE4LjEwNTE4NzMsMiAyMC4yMTAwNTQ2LDIuODYyMjA0MzUgMjEuODAyNzg4Nyw0LjQzMDkwMTUxIEMyMy4xOTE5NDk5LDUuNzk4ODQ2NjIgMjQuMDU2MTc0Niw3LjU2OTU4MjcyIDI0LjI4NzkxNDksOS40ODUwOTE5NiBDMjguNjA0NTU3Miw5Ljg3NDM3MDc0IDMyLDEzLjUzNDg3ODcgMzIsMTcuOTc4NDQ4MiBDMzIsMjIuNjgwMDM1NyAyOC4xOTc0MTEzLDI2LjUwNTI2MzIgMjMuNTI2MTE2OCwyNi41MDUyNjMyIEw4LjQ3MzI0MzA0LDI2LjUwNTI2MzIgWiIvPgogIDwvZz4KPC9zdmc+Cg=="
+
+/***/ },
+/* 297 */
+/***/ function(module, exports) {
+
+	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICA8cGF0aCBmaWxsPSIjOTU5OTlEIiBkPSJNMzUuNTcwODAxOSw0NS4wMDAwMDU5IEw0NS42NzU3MjQ2LDU0LjI2Mjg1MTggQzQ2LjA4Mjg0MzYsNTQuNjM2MDQ0MiA0Ni4xMTAzNDY1LDU1LjI2ODYxMTUgNDUuNzM3MTU0MSw1NS42NzU3MzA1IEM0NS4zNjM5NjE3LDU2LjA4Mjg0OTUgNDQuNzMxMzk0NCw1Ni4xMTAzNTI0IDQ0LjMyNDI3NTQsNTUuNzM3MTYgTDMyLjMyNzAxMTcsNDQuNzM5NjY4MyBDMzIuMTI2MTAxNSw0NC41NTY3NjE5IDMyLDQ0LjI5MzExMDIgMzIsNDQuMDAwMDA1OSBDMzIsNDMuNzA2OTAxNiAzMi4xMjYxMDE1LDQzLjQ0MzI0OTkgMzIuMzI3MDExNyw0My4yNjAzNDM1IEw0NC4zMjQyNzU0LDMyLjI2Mjg1MTggQzQ0LjczMTM5NDQsMzEuODg5NjU5MyA0NS4zNjM5NjE3LDMxLjkxNzE2MjMgNDUuNzM3MTU0MSwzMi4zMjQyODEzIEM0Ni4xMTAzNDY1LDMyLjczMTQwMDMgNDYuMDgyODQzNiwzMy4zNjM5Njc2IDQ1LjY3NTcyNDYsMzMuNzM3MTYgTDM1LjU3MDgwMTksNDMuMDAwMDA1OSBMNTUsNDMuMDAwMDA1OSBDNTUuNTUyMjg0Nyw0My4wMDAwMDU5IDU2LDQzLjQ0NzcyMTEgNTYsNDQuMDAwMDA1OSBDNTYsNDQuNTUyMjkwNiA1NS41NTIyODQ3LDQ1LjAwMDAwNTkgNTUsNDUuMDAwMDA1OSBMMzUuNTcwODAxOSw0NS4wMDAwMDU5IFoiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0zMiAtMzIpIi8+Cjwvc3ZnPgo="
+
+/***/ },
+/* 298 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
