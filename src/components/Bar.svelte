@@ -63,7 +63,8 @@
       const config = this.get('config')
 
       this.observe('lang', () => {
-        this.set({config}) // force to rerender when locale change
+        const claudyConfigFromState = this.get('claudyConfig')
+        this.set({config, claudyConfig: claudyConfigFromState}) // force to rerender when locale change
       })
 
       let claudyConfig = null
