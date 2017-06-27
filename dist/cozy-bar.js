@@ -418,7 +418,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  view.set({ lang: lang });
 	};
 	
-	module.exports = { init: init, version: ("3.1.0"), setLocale: setLocale };
+	module.exports = { init: init, version: ("3.1.1"), setLocale: setLocale };
 
 /***/ },
 /* 1 */
@@ -8309,7 +8309,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			"others": "Autres apps"
 		},
 		"claudy": {
-			"title": "Comment utiliser votre Cozy",
+			"title": "Comment utiliser votre Cozy ?",
 			"actions": {
 				"desktop": {
 					"title": "Accéder à vos fichiers sur votre ordinateur ?",
@@ -8329,7 +8329,7 @@ return /******/ (function(modules) { // webpackBootstrap
 					"button": "Découvrir Cozy Collect"
 				},
 				"support": {
-					"title": "Comment pouvons-nous vous aider aujourd'hui? ",
+					"title": "Comment pouvons-nous vous aider aujourd'hui ? ",
 					"description": "Une idée de fonctionnalité? Un bug? Votre Cozy a besoin de vous pour être amélioré",
 					"button": "Accéder au forum",
 					"link": "https://cozy.io/fr/support/"
@@ -10174,7 +10174,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	
 									this.observe('lang', function () {
-										_this.set({ config: config }); // force to rerender when locale change
+										var claudyConfigFromState = _this.get('claudyConfig');
+										_this.set({ config: config, claudyConfig: claudyConfigFromState }); // force to rerender when locale change
 									});
 	
 									claudyConfig = null;
@@ -10247,23 +10248,31 @@ return /******/ (function(modules) { // webpackBootstrap
 							while (1) {
 								switch (_context2.prev = _context2.next) {
 									case 0:
+										if (!this.get('claudyOpened')) {
+											_context2.next = 2;
+											break;
+										}
+	
+										return _context2.abrupt('return');
+	
+									case 2:
 										config = this.get('config');
 										drawerVisible = !this.get('drawerVisible');
 	
 										if (!drawerVisible) {
-											_context2.next = 10;
+											_context2.next = 12;
 											break;
 										}
 	
-										_context2.next = 5;
+										_context2.next = 7;
 										return updateSettings(config, { storage: false });
 	
-									case 5:
+									case 7:
 										settingsValve = _context2.sent;
-										_context2.next = 8;
+										_context2.next = 10;
 										return updateApps(config);
 	
-									case 8:
+									case 10:
 										appsValve = _context2.sent;
 	
 	
@@ -10272,11 +10281,11 @@ return /******/ (function(modules) { // webpackBootstrap
 											this.set({ config: config });
 										}
 	
-									case 10:
+									case 12:
 	
 										this.set({ drawerVisible: drawerVisible });
 	
-									case 11:
+									case 13:
 									case 'end':
 										return _context2.stop();
 								}
@@ -11734,7 +11743,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				"link": {
 					"type": "apps",
 					"appSlug": "collect",
-					"path": "/#/discovery/?intro"
+					"path": "#/discovery/?intro"
 				}
 			},
 			"support": {
@@ -13150,6 +13159,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  // categories alphabetical sorting
 	  .sort(function (c1, c2) {
 	    if (c1.slug === 'others') return 1;
+	    if (c2.slug === 'others') return -1;
 	    if ((0, _i18n.t)('Categories.' + c1.slug) > (0, _i18n.t)('Categories.' + c2.slug)) return 1;
 	    if ((0, _i18n.t)('Categories.' + c1.slug) < (0, _i18n.t)('Categories.' + c2.slug)) return -1;
 	    return 0;
@@ -15588,8 +15598,8 @@ return /******/ (function(modules) { // webpackBootstrap
 							var app = appsList.find(function (a) {
 								return a.slug === action.link.appSlug;
 							});
-							if (app && app.links && app.link.related) {
-								var appUrl = '' + app.links.related + (action.link.path ? action.link.path : '');
+							if (app && app.href) {
+								var appUrl = '' + app.href + (action.link.path || '');
 								this.selectedActionUrl = appUrl;
 								return appUrl;
 							} else {
