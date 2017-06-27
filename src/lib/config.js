@@ -98,14 +98,13 @@ async function updateAppsItems (config) {
     apps = [{error: e}]
   }
 
-  config.apps.length = 0
-
   comingSoonApps = await fetchComingSoonApps()
     .catch(error => {
       console.warn && console.warn(`Cozy-bar cannot fetch comming soon apps: ${error.message}`)
       return []
     })
 
+  config.apps.length = 0
   Array.prototype.push.apply(config.apps, apps.concat(comingSoonApps))
 }
 
