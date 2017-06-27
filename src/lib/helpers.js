@@ -16,6 +16,7 @@ export function getCategorizedItems (items) {
     // categories alphabetical sorting
     .sort((c1, c2) => {
       if (c1.slug === 'others') return 1
+      if (c2.slug === 'others') return -1
       if (t(`Categories.${c1.slug}`) > t(`Categories.${c2.slug}`)) return 1
       if (t(`Categories.${c1.slug}`) < t(`Categories.${c2.slug}`)) return -1
       return 0

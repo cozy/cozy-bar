@@ -14,7 +14,7 @@ actions:
       link:
         type: apps
         appSlug: collect
-        path: /#/discovery/?intro
+        path: '#/discovery/?intro'
 
     support:
       icon: icon-question-mark.svg
