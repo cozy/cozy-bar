@@ -105,6 +105,9 @@
 
     methods: {
       async toggleDrawer() {
+        // don't allow to toggle the drawer if claudy opened
+        if (this.get('claudyOpened')) return
+
         const config = this.get('config')
         const drawerVisible = !this.get('drawerVisible')
 
