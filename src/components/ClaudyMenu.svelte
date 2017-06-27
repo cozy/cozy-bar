@@ -85,8 +85,8 @@
               return ''
             }
             const app = appsList.find(a => a.slug === action.link.appSlug)
-            if (app && app.links && app.link.related) {
-              const appUrl = `${app.links.related}${action.link.path ? action.link.path : ''}`
+            if (app && app.href) {
+              const appUrl = `${app.href}${action.link.path || ''}`
               this.selectedActionUrl = appUrl
               return appUrl
             } else {
