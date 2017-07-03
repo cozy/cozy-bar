@@ -41,6 +41,11 @@ function fetchComingSoonApps () {
     })
 }
 
+async function getHelpLink () {
+  return stack.get.context()
+    .then(context => context.data && context.data.attributes && context.data.attributes['help_link'] || null)
+}
+
 async function getClaudyConfig () {
   return stack.get.context()
     .then(context => {
@@ -241,4 +246,4 @@ async function updateSettings (config, {storage = true, items = true} = {}) {
   return valve
 }
 
-export { createMenuPointers, updateSettings, updateApps, getClaudyConfig }
+export { createMenuPointers, getHelpLink, updateSettings, updateApps, getClaudyConfig }
