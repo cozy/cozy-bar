@@ -5,15 +5,14 @@
   "main": "dist/cozy-bar.js",
   "author": "Cozy Cloud <contact@cozycloud.cc> (https://cozy.io/)",
   "contributors": [
-    "m4dz (https://m4dz.net)"
+    "m4dz (https://m4dz.net)",
+    "CPatchane"
   ],
   "license": "MIT",
   "scripts": {
     "build": "npm-run-all --parallel 'build:*' 'build:*:*'",
-    "build:lib": "webpack --config ./config/webpack.target.split.js",
-    "build:lib:min": "NODE_ENV=production webpack --config ./config/webpack.target.split.js",
-    "build:standalone": "webpack --config ./config/webpack.target.standalone.js",
-    "build:standalone:min": "NODE_ENV=production webpack --config ./config/webpack.target.standalone.js",
+    "build:browser": "webpack --config ./config/webpack.target.browser.js",
+    "build:browser:min": "NODE_ENV=production webpack --config ./config/webpack.target.browser.js",
     "build:mobile": "webpack --config ./config/webpack.target.mobile.js",
     "build:mobile:min": "NODE_ENV=production webpack --config ./config/webpack.target.mobile.js",
     "clean": "rm -rf ./dist",
@@ -21,18 +20,23 @@
     "prebuild": "npm-run-all lint clean tx",
     "prewatch": "npm-run-all clean",
     "tx": "tx pull --all || true",
-    "watch": "NODE_ENV=development webpack --config ./config/webpack.target.split.js --watch --display-chunks",
+    "watch": "NODE_ENV=development webpack --config ./config/webpack.target.browser.js --watch --display-chunks",
     "watch:mobile": "NODE_ENV=development webpack --config ./config/webpack.target.mobile.js --watch --display-chunks",
-    "watch:standalone": "NODE_ENV=development webpack-dev-server --config ./config/webpack.target.standalone.js  --content-base public --port 8082 --display-modules --display-chunks --inline --hot",
     "shasum": "shasum -a 256 dist/cozy-bar.min.js && shasum -a 256 dist/cozy-bar.min.css"
   },
   "devDependencies": {
     "autoprefixer": "^6.6.1",
     "babel-core": "^6.21.0",
     "babel-loader": "^6.2.10",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-plugin-transform-react-jsx": "^6.24.1",
+    "babel-plugin-transform-runtime": "^6.23.0",
     "babel-polyfill": "^6.20.0",
     "babel-preset-env": "^1.1.8",
-    "cozy-ui": "^3.0.0-beta36",
+    "babel-preset-react": "^6.24.1",
+    "babel-runtime": "^6.23.0",
+    "cozy-ui": "v3.0.0-beta39",
     "css-loader": "^0.26.1",
     "css-mqpacker": "^5.0.1",
     "csswring": "^5.1.1",
@@ -46,21 +50,27 @@
     "postcss-discard-duplicates": "^2.0.2",
     "postcss-import": "^9.1.0",
     "postcss-loader": "^1.2.2",
-    "standard": "^8.6.0",
+    "standard": "^10.0.2",
     "style-loader": "^0.13.1",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.1",
     "svg-sprite-loader": "^0.2.0",
     "url-loader": "^0.5.7",
     "webpack": "^1.14.0",
-    "webpack-dev-server": "^1.16.2",
     "webpack-merge": "^2.4.0",
     "yaml-loader": "^0.4.0"
   },
   "dependencies": {
+    "date-fns": "^1.28.5",
     "node-polyglot": "^2.2.2",
     "piwik-react-router": "^0.8.2",
     "preact": "^8.1.0",
     "preact-compat": "^3.16.0"
+  },
+  "standard": {
+    "env": [
+      "browser",
+      "jest"
+    ]
   }
 }

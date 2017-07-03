@@ -7,11 +7,12 @@ const {filename, production} = require('./webpack.vars')
 
 module.exports = merge(
   require('./webpack.config.base.js'),
+  require('./webpack.config.preact.js'),
   require(production ? './webpack.config.prod' : './webpack.config.dev'),
-  require('./webpack.config.inline-styles.js'),
+  require('./webpack.config.extract'),
   {
     output: {
-      filename: filename('js', 'standalone'),
+      filename: filename('js'),
       path: path.resolve(__dirname, '../dist')
     },
     plugins: [
