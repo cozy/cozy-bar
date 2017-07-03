@@ -81,8 +81,16 @@ function getDiskQuota () {
   })
 }
 
-function getContext () {
-  return fetchJSON(`${COZY_URL}/settings/context`, fetchOptions())
+function getContext (cache) {
+  return () => {
+    return cache['context']
+      ? Promise.resolve(cache['context'])
+      : fetchJSON(`${COZY_URL}/settings/context`, fetchOptions())
+        .then(context => {
+          cache['context'] = context
+          return context
+        })
+  }
 }
 
 function getApp (slug) {
@@ -106,6 +114,8 @@ async function getIcon (url) {
 function hasApp (slug) {
   return getApp(slug).then(app => !!(app && app.attributes.state === 'ready'))
 }
+
+const cache = {}
 
 module.exports = {
   init ({cozyURL, token}) {
@@ -140,7 +150,7 @@ module.exports = {
   get: {
     app: getApp,
     apps: getApps,
-    context: getContext,
+    context: getContext(cache),
     diskUsage: getDiskUsage,
     diskQuota: getDiskQuota,
     icon: getIcon,
