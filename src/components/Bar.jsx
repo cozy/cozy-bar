@@ -3,7 +3,7 @@
 
 import React, { Component } from 'react'
 import { translate } from 'cozy-ui/react/I18n'
-import { shouldEnableTracking, getTracker, configureTracker } from '../lib/piwik'
+import { shouldEnableTracking, getTracker, configureTracker } from 'cozy-ui/react/helpers/tracker'
 
 // import Apps from './Apps'
 // import Settings from './Settings'
