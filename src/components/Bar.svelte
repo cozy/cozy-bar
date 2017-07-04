@@ -26,7 +26,7 @@
 
 <script>
   import { t } from '../lib/i18n'
-  import { createMenuPointers, updateSettings, updateApps, getClaudyConfig } from '../lib/config'
+  import { createMenuPointers, getHelpLink, updateSettings, updateApps, getClaudyConfig } from '../lib/config'
   /* global __PIWIK_TRACKER_URL__  __PIWIK_SITEID__ __PIWIK_DIMENSION_ID_APP__*/
   import { shouldEnableTracking, getTracker, configureTracker } from '../lib/piwik'
 
@@ -66,6 +66,19 @@
         const claudyConfigFromState = this.get('claudyConfig')
         this.set({config, claudyConfig: claudyConfigFromState}) // force to rerender when locale change
       })
+
+      let helpLink
+      try {
+        helpLink = await getHelpLink()
+      } catch (error) {
+        console.warn && console.warn(`Cozy-bar cannot load help link: ${error.message}`)
+      }
+
+      if (helpLink) {
+        config.subsections.help[0].href = helpLink
+      } else {
+        config.subsections.help.length = 0
+      }
 
       let claudyConfig = null
       if (this.get('target') !== 'mobile' && !this.get('isPublic')) {

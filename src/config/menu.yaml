@@ -7,7 +7,6 @@ subsections:
   help:
     - slug: help
       external: true
-      href: https://cozy.io/fr/support/
   logout:
     - slug: logout
       action: logout
