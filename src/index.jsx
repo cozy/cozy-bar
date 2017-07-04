@@ -8,6 +8,7 @@ import { render } from 'react-dom'
 
 import { I18n } from 'cozy-ui/react/I18n'
 import stack from './lib/stack'
+import BarStore, { Provider } from './lib/BarStore'
 
 import Bar from './components/Bar'
 
@@ -43,10 +44,18 @@ const injectBarInDOM = (data) => {
   }
 
   document.body.insertBefore(barNode, appNode)
+  // store
+  const store = new BarStore()
+
   render((
-    <I18n lang={data.lang} dictRequire={(lang) => require(`./locales/${lang}`)}>
-      <Bar {...data} />
-    </I18n>
+    <Provider store={store}>
+      <I18n
+        lang={data.lang}
+        dictRequire={(lang) => require(`./locales/${lang}`)}
+      >
+        <Bar {...data} />
+      </I18n>
+    </Provider>
   ), barNode)
 }
 

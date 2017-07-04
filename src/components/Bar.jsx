@@ -11,16 +11,22 @@ import { shouldEnableTracking, getTracker, configureTracker } from 'cozy-ui/reac
 import Claudy from './Claudy'
 
 class Bar extends Component {
-  constructor (props) {
+  constructor (props, context) {
     super(props)
+    this.store = context.store
     this.state = {
-      claudyConfig: null, // no claudy by default
+      claudyActions: null, // no claudy by defaul
       claudyOpened: false,
       drawerVisible: false,
       usageTracker: null
     }
     this.toggleDrawer = this.toggleDrawer.bind(this)
     this.toggleClaudy = this.toggleClaudy.bind(this)
+  }
+
+  async componentWillMount () {
+    const claudyActions = await this.store.getClaudyActions()
+    this.setState({ appsList, claudyActions })
   }
 
   componentDidMount () {
@@ -44,7 +50,7 @@ class Bar extends Component {
   }
 
   toggleClaudy () {
-    if (!this.state.claudyConfig) return
+    if (!this.state.claudyActions) return
     const { usageTracker, claudyOpened } = this.state
     if (usageTracker) {
       usageTracker.push([
@@ -61,7 +67,7 @@ class Bar extends Component {
     const { t, lang, appName,
       appEditor, iconPath, replaceTitleOnMobile,
       isPublic } = this.props
-    const { usageTracker, claudyOpened, claudyConfig, drawerVisible } = this.state
+    const { usageTracker, claudyOpened, claudyActions, drawerVisible } = this.state
     return (
       <div class='coz-bar-container'>
         <h1 lang={lang} class={`coz-bar-title ${replaceTitleOnMobile ? 'coz-bar-hide-sm' : ''}`}>
@@ -76,8 +82,8 @@ class Bar extends Component {
             <button class='coz-bar-burger' onClick={this.toggleDrawer} data-icon='icon-hamburger'>
               <span class='coz-bar-hidden'>{t('menu')}</span>
             </button>
-            {claudyConfig &&
-              <Claudy config={claudyConfig} usageTracker={usageTracker} onToggle={this.toggleClaudy} opened={claudyOpened} />
+            {claudyActions &&
+              <Claudy config={claudyActions} usageTracker={usageTracker} onToggle={this.toggleClaudy} opened={claudyOpened} />
             }
           </div>
         }
