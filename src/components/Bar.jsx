@@ -8,7 +8,7 @@ import { shouldEnableTracking, getTracker, configureTracker } from '../lib/piwik
 // import Apps from './Apps'
 // import Settings from './Settings'
 // import Drawer from './Drawer'
-// import Claudy from './Claudy'
+import Claudy from './Claudy'
 
 class Bar extends Component {
   constructor (props) {
@@ -19,6 +19,8 @@ class Bar extends Component {
       drawerVisible: false,
       usageTracker: null
     }
+    this.toggleDrawer = this.toggleDrawer.bind(this)
+    this.toggleClaudy = this.toggleClaudy.bind(this)
   }
 
   componentDidMount () {
@@ -31,7 +33,7 @@ class Bar extends Component {
         heartbeat: 0
       })
       trackerInstance.push(['disableHeartBeatTimer']) // undocumented, see https://github.com/piwik/piwik/blob/3.x-dev/js/piwik.js#L6544
-      this.set({usageTracker: trackerInstance})
+      this.setState({ usageTracker: trackerInstance })
     }
   }
 
@@ -69,22 +71,23 @@ class Bar extends Component {
           <sup class='coz-bar-hide-sm coz-bar-beta-status'>{t('beta')}</sup>
         </h1>
         <hr class='coz-sep-flex' />
+        {__TARGET__ !== 'mobile' && !isPublic &&
+          <div>
+            <button class='coz-bar-burger' onClick={this.toggleDrawer} data-icon='icon-hamburger'>
+              <span class='coz-bar-hidden'>{t('menu')}</span>
+            </button>
+            {claudyConfig &&
+              <Claudy config={claudyConfig} usageTracker={usageTracker} onToggle={this.toggleClaudy} opened={claudyOpened} />
+            }
+          </div>
+        }
       </div>
     )
   }
 }
 
-// {__TARGET__ !== 'mobile' && !isPublic &&
-//   <div>
-//     <button class='coz-bar-burger' onClick={this.toggleDrawer} data-icon='icon-hamburger'>
-//       <span class='coz-bar-hidden'>{t('menu')}</span>
-//     </button>
-//     <Drawer visible={drawerVisible} onClose={this.toggleDrawer} onClaudy={this.toggleClaudy} />
-//     <Apps />
-//     <Settings />
-//     claudyConfig &&
-//       <Claudy config={claudyConfig} usageTracker={usageTracker} onToggle={this.toggleClaudy} opened={claudyOpened} />
-//   </div>
-// }
+// <Drawer visible={drawerVisible} onClose={this.toggleDrawer} onClaudy={this.toggleClaudy} />
+// <Apps />
+// <Settings />
 
 export default translate()(Bar)
