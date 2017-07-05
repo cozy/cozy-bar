@@ -21,7 +21,8 @@
 [role=banner] [aria-controls][aria-busy]::after {
   position: relative;
   top: .12em;
-  margin-left: .5em;
+  margin: 0 .355em;
+  font-size: .875em;
 }
 
 [role=banner] [aria-controls][aria-busy=true] {

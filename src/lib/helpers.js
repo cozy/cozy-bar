@@ -1,7 +1,5 @@
-import { t } from '../lib/i18n'
-
 // Take an items array and return an array of category objects with the matching category slug and items
-export function getCategorizedItems (items) {
+export function getCategorizedItems (items, t) {
   if (items[0] instanceof Array) return null // doesn't handle this case
   const categorizedItemsObject = items.reduce((accumulator, item) => {
     accumulator[item.category] = accumulator[item.category] || []

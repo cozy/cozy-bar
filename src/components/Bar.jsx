@@ -17,7 +17,6 @@ class Bar extends Component {
     this.store = context.store
     this.state = {
       claudyActions: null, // no claudy by defaul
-      appsList: [],
       claudyOpened: false,
       drawerVisible: false,
       usageTracker: null
@@ -27,9 +26,9 @@ class Bar extends Component {
   }
 
   async componentWillMount () {
-    const appsList = await this.store.getAppsList()
+    await this.store.fetchAppsList()
     const claudyActions = await this.store.getClaudyActions()
-    this.setState({ appsList, claudyActions })
+    this.setState({ claudyActions })
   }
 
   componentDidMount () {
@@ -87,7 +86,7 @@ class Bar extends Component {
             </button>
             <Nav />
             {claudyActions &&
-              <Claudy config={claudyActions} usageTracker={usageTracker} onToggle={this.toggleClaudy} opened={claudyOpened} appsList={appsList} />
+              <Claudy config={claudyActions} usageTracker={usageTracker} onToggle={this.toggleClaudy} opened={claudyOpened} appsList={this.store.appsList} />
             }
           </div>
         }

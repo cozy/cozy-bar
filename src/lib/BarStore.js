@@ -13,6 +13,7 @@ export default class BarStore {
   constructor () {
     this.claudyActions = null
     this.installedApps = [] // to cache already fetched apps icons
+    this.appsList = [] // all apps, coming soons included
     this.helpLink = ''
   }
 
@@ -81,10 +82,11 @@ export default class BarStore {
     })
   }
 
-  async getAppsList () {
+  async fetchAppsList () {
     const apps = await this.fetchApps()
     const comingSoonApps = await this.fetchComingSoonApps()
-    return apps.concat(comingSoonApps)
+    this.appsList = apps.concat(comingSoonApps)
+    return this.appsList
   }
 
   getClaudyActions () {
