@@ -18,8 +18,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Removed
 - none yet
 
-## [v3.1.1] - 2017-06-27
 
+## [v3.2.0] - 2017-07-05
+### Changed
+- Help link is now fetched from stack context
+
+### Fixed
+- Avoid apps being displayed twice
+
+
+## [v3.1.1] - 2017-06-27
 ### Fixed
 - Force claudy to rerender when the locale changes
 - Fix bug about others apps category not alwayes at the end of the list
@@ -50,7 +58,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 - Support link href
 
-[Unreleased]: https://github.com/cozy/cozy-client-js/compare/v3.1.1...HEAD
-[v3.1.0]: https://github.com/cozy/cozy-client-js/compare/v3.1.0...v3.1.1
+[Unreleased]: https://github.com/cozy/cozy-client-js/compare/v3.2.0...HEAD
+[v3.2.0]: https://github.com/cozy/cozy-client-js/compare/v3.1.1...v3.2.0
+[v3.1.1]: https://github.com/cozy/cozy-client-js/compare/v3.1.0...v3.1.1
 [v3.1.0]: https://github.com/cozy/cozy-client-js/compare/v3.0.1...v3.1.0
 [v3.0.1]: https://github.com/cozy/cozy-client-js/compare/v3.0.0...v3.0.1

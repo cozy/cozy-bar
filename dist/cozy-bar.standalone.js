@@ -418,7 +418,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  view.set({ lang: lang });
 	};
 	
-	module.exports = { init: init, version: ("3.1.1"), setLocale: setLocale };
+	module.exports = { init: init, version: ("3.2.0"), setLocale: setLocale };
 
 /***/ },
 /* 1 */
@@ -9843,8 +9843,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	  });
 	}
 	
-	function getContext() {
-	  return fetchJSON(COZY_URL + '/settings/context', fetchOptions());
+	function getContext(cache) {
+	  return function () {
+	    return cache['context'] ? Promise.resolve(cache['context']) : fetchJSON(COZY_URL + '/settings/context', fetchOptions()).then(function (context) {
+	      cache['context'] = context;
+	      return context;
+	    });
+	  };
 	}
 	
 	function getApp(slug) {
@@ -9860,6 +9865,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return !!(app && app.attributes.state === 'ready');
 	  });
 	}
+	
+	var cache = {};
 	
 	module.exports = {
 	  init: function init(_ref2) {
@@ -9931,7 +9938,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  get: {
 	    app: getApp,
 	    apps: getApps,
-	    context: getContext,
+	    context: getContext(cache),
 	    diskUsage: getDiskUsage,
 	    diskQuota: getDiskQuota,
 	    icon: getIcon,
@@ -10117,6 +10124,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var t = __import0.t;
 	var createMenuPointers = __import1.createMenuPointers;
+	var getHelpLink = __import1.getHelpLink;
 	var updateSettings = __import1.updateSettings;
 	var updateApps = __import1.updateApps;
 	var getClaudyConfig = __import1.getClaudyConfig;
@@ -10165,7 +10173,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				var _ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee() {
 					var _this = this;
 	
-					var config, claudyConfig, trackerInstance;
+					var config, helpLink, claudyConfig, trackerInstance;
 					return regeneratorRuntime.wrap(function _callee$(_context) {
 						while (1) {
 							switch (_context.prev = _context.next) {
@@ -10178,26 +10186,50 @@ return /******/ (function(modules) { // webpackBootstrap
 										_this.set({ config: config, claudyConfig: claudyConfigFromState }); // force to rerender when locale change
 									});
 	
+									helpLink = void 0;
+									_context.prev = 3;
+									_context.next = 6;
+									return getHelpLink();
+	
+								case 6:
+									helpLink = _context.sent;
+									_context.next = 12;
+									break;
+	
+								case 9:
+									_context.prev = 9;
+									_context.t0 = _context['catch'](3);
+	
+									console.warn && console.warn('Cozy-bar cannot load help link: ' + _context.t0.message);
+	
+								case 12:
+	
+									if (helpLink) {
+										config.subsections.help[0].href = helpLink;
+									} else {
+										config.subsections.help.length = 0;
+									}
+	
 									claudyConfig = null;
 	
 									if (!(this.get('target') !== 'mobile' && !this.get('isPublic'))) {
-										_context.next = 11;
+										_context.next = 22;
 										break;
 									}
 	
-									_context.next = 6;
+									_context.next = 17;
 									return getClaudyConfig();
 	
-								case 6:
+								case 17:
 									claudyConfig = _context.sent;
-									_context.next = 9;
+									_context.next = 20;
 									return updateSettings(config);
 	
-								case 9:
-									_context.next = 11;
+								case 20:
+									_context.next = 22;
 									return updateApps(config);
 	
-								case 11:
+								case 22:
 									// filter claudy subsection if claudyConfig is null
 									if (!claudyConfig) {
 										if (config.sections && config.sections.drawer) {
@@ -10222,12 +10254,12 @@ return /******/ (function(modules) { // webpackBootstrap
 										this.set({ usageTracker: trackerInstance });
 									}
 	
-								case 14:
+								case 25:
 								case 'end':
 									return _context.stop();
 							}
 						}
-					}, _callee, this);
+					}, _callee, this, [[3, 9]]);
 				}));
 	
 				function oncreate() {
@@ -10905,15 +10937,38 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.getClaudyConfig = exports.updateApps = exports.updateSettings = exports.createMenuPointers = undefined;
+	exports.getClaudyConfig = exports.updateApps = exports.updateSettings = exports.getHelpLink = exports.createMenuPointers = undefined;
 	
-	var getClaudyConfig = function () {
+	var getHelpLink = function () {
 	  var _ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee() {
 	    return regeneratorRuntime.wrap(function _callee$(_context) {
 	      while (1) {
 	        switch (_context.prev = _context.next) {
 	          case 0:
 	            return _context.abrupt('return', _stack2.default.get.context().then(function (context) {
+	              return context.data && context.data.attributes && context.data.attributes['help_link'] || null;
+	            }));
+	
+	          case 1:
+	          case 'end':
+	            return _context.stop();
+	        }
+	      }
+	    }, _callee, this);
+	  }));
+	
+	  return function getHelpLink() {
+	    return _ref.apply(this, arguments);
+	  };
+	}();
+	
+	var getClaudyConfig = function () {
+	  var _ref2 = _asyncToGenerator(regeneratorRuntime.mark(function _callee2() {
+	    return regeneratorRuntime.wrap(function _callee2$(_context2) {
+	      while (1) {
+	        switch (_context2.prev = _context2.next) {
+	          case 0:
+	            return _context2.abrupt('return', _stack2.default.get.context().then(function (context) {
 	              var contextActions = context.data && context.data.attributes && context.data.attributes['claudy_actions'] || null;
 	              if (!contextActions) return null;
 	              // get an arrays of action
@@ -10935,44 +10990,44 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	          case 1:
 	          case 'end':
-	            return _context.stop();
+	            return _context2.stop();
 	        }
 	      }
-	    }, _callee, this);
+	    }, _callee2, this);
 	  }));
 	
 	  return function getClaudyConfig() {
-	    return _ref.apply(this, arguments);
+	    return _ref2.apply(this, arguments);
 	  };
 	}();
 	
 	var updateAppsItems = function () {
-	  var _ref2 = _asyncToGenerator(regeneratorRuntime.mark(function _callee3(config) {
+	  var _ref3 = _asyncToGenerator(regeneratorRuntime.mark(function _callee4(config) {
 	    var _this = this;
 	
 	    var apps, comingSoonApps;
-	    return regeneratorRuntime.wrap(function _callee3$(_context3) {
+	    return regeneratorRuntime.wrap(function _callee4$(_context4) {
 	      while (1) {
-	        switch (_context3.prev = _context3.next) {
+	        switch (_context4.prev = _context4.next) {
 	          case 0:
 	            apps = void 0;
 	            comingSoonApps = void 0;
-	            _context3.prev = 2;
-	            _context3.t0 = Promise;
-	            _context3.next = 6;
+	            _context4.prev = 2;
+	            _context4.t0 = Promise;
+	            _context4.next = 6;
 	            return _stack2.default.get.apps();
 	
 	          case 6:
-	            _context3.t1 = function (app) {
+	            _context4.t1 = function (app) {
 	              return !EXCLUDES.includes(app.attributes.slug);
 	            };
 	
-	            _context3.t2 = function () {
-	              var _ref3 = _asyncToGenerator(regeneratorRuntime.mark(function _callee2(app) {
+	            _context4.t2 = function () {
+	              var _ref4 = _asyncToGenerator(regeneratorRuntime.mark(function _callee3(app) {
 	                var oldApp, icon;
-	                return regeneratorRuntime.wrap(function _callee2$(_context2) {
+	                return regeneratorRuntime.wrap(function _callee3$(_context3) {
 	                  while (1) {
-	                    switch (_context2.prev = _context2.next) {
+	                    switch (_context3.prev = _context3.next) {
 	                      case 0:
 	                        oldApp = config.apps.find(function (item) {
 	                          return item.slug === app.attributes.slug;
@@ -10980,27 +11035,27 @@ return /******/ (function(modules) { // webpackBootstrap
 	                        icon = void 0;
 	
 	                        if (!(oldApp && oldApp.icon.cached)) {
-	                          _context2.next = 6;
+	                          _context3.next = 6;
 	                          break;
 	                        }
 	
 	                        icon = oldApp.icon;
-	                        _context2.next = 10;
+	                        _context3.next = 10;
 	                        break;
 	
 	                      case 6:
-	                        _context2.next = 8;
+	                        _context3.next = 8;
 	                        return _stack2.default.get.icon(app.links.icon);
 	
 	                      case 8:
-	                        _context2.t0 = _context2.sent;
+	                        _context3.t0 = _context3.sent;
 	                        icon = {
-	                          src: _context2.t0,
+	                          src: _context3.t0,
 	                          cached: true
 	                        };
 	
 	                      case 10:
-	                        return _context2.abrupt('return', {
+	                        return _context3.abrupt('return', {
 	                          editor: app.attributes.editor,
 	                          name: app.attributes.name,
 	                          slug: app.attributes.slug,
@@ -11012,115 +11067,73 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	                      case 11:
 	                      case 'end':
-	                        return _context2.stop();
+	                        return _context3.stop();
 	                    }
 	                  }
-	                }, _callee2, _this);
+	                }, _callee3, _this);
 	              }));
 	
 	              return function (_x2) {
-	                return _ref3.apply(this, arguments);
+	                return _ref4.apply(this, arguments);
 	              };
 	            }();
 	
-	            _context3.t3 = _context3.sent.filter(_context3.t1).map(_context3.t2);
-	            _context3.next = 11;
-	            return _context3.t0.all.call(_context3.t0, _context3.t3);
+	            _context4.t3 = _context4.sent.filter(_context4.t1).map(_context4.t2);
+	            _context4.next = 11;
+	            return _context4.t0.all.call(_context4.t0, _context4.t3);
 	
 	          case 11:
-	            apps = _context3.sent;
-	            _context3.next = 17;
+	            apps = _context4.sent;
+	            _context4.next = 17;
 	            break;
 	
 	          case 14:
-	            _context3.prev = 14;
-	            _context3.t4 = _context3['catch'](2);
+	            _context4.prev = 14;
+	            _context4.t4 = _context4['catch'](2);
 	
-	            apps = [{ error: _context3.t4 }];
+	            apps = [{ error: _context4.t4 }];
 	
 	          case 17:
-	
-	            config.apps.length = 0;
-	
-	            _context3.next = 20;
+	            _context4.next = 19;
 	            return fetchComingSoonApps().catch(function (error) {
 	              console.warn && console.warn('Cozy-bar cannot fetch comming soon apps: ' + error.message);
 	              return [];
 	            });
 	
-	          case 20:
-	            comingSoonApps = _context3.sent;
+	          case 19:
+	            comingSoonApps = _context4.sent;
 	
 	
+	            config.apps.length = 0;
 	            Array.prototype.push.apply(config.apps, apps.concat(comingSoonApps));
 	
 	          case 22:
 	          case 'end':
-	            return _context3.stop();
+	            return _context4.stop();
 	        }
 	      }
-	    }, _callee3, this, [[2, 14]]);
+	    }, _callee4, this, [[2, 14]]);
 	  }));
 	
 	  return function updateAppsItems(_x) {
-	    return _ref2.apply(this, arguments);
+	    return _ref3.apply(this, arguments);
 	  };
 	}();
 	
 	var updateDiskUsage = function () {
-	  var _ref4 = _asyncToGenerator(regeneratorRuntime.mark(function _callee4(config) {
-	    var currentDiskUsage;
-	    return regeneratorRuntime.wrap(function _callee4$(_context4) {
-	      while (1) {
-	        switch (_context4.prev = _context4.next) {
-	          case 0:
-	            currentDiskUsage = void 0;
-	            _context4.prev = 1;
-	            _context4.next = 4;
-	            return _stack2.default.get.diskUsage();
-	
-	          case 4:
-	            currentDiskUsage = _context4.sent;
-	            _context4.next = 10;
-	            break;
-	
-	          case 7:
-	            _context4.prev = 7;
-	            _context4.t0 = _context4['catch'](1);
-	
-	            currentDiskUsage = { error: _context4.t0.name };
-	
-	          case 10:
-	
-	            config.components.storage.currentDiskUsage = currentDiskUsage;
-	
-	          case 11:
-	          case 'end':
-	            return _context4.stop();
-	        }
-	      }
-	    }, _callee4, this, [[1, 7]]);
-	  }));
-	
-	  return function updateDiskUsage(_x3) {
-	    return _ref4.apply(this, arguments);
-	  };
-	}();
-	
-	var updateDiskQuota = function () {
 	  var _ref5 = _asyncToGenerator(regeneratorRuntime.mark(function _callee5(config) {
-	    var currentDiskQuota;
+	    var currentDiskUsage;
 	    return regeneratorRuntime.wrap(function _callee5$(_context5) {
 	      while (1) {
 	        switch (_context5.prev = _context5.next) {
 	          case 0:
-	            currentDiskQuota = void 0;
+	            currentDiskUsage = void 0;
 	            _context5.prev = 1;
 	            _context5.next = 4;
-	            return _stack2.default.get.diskQuota();
+	            return _stack2.default.get.diskUsage();
 	
 	          case 4:
-	            currentDiskQuota = _context5.sent;
+	            currentDiskUsage = _context5.sent;
 	            _context5.next = 10;
 	            break;
 	
@@ -11128,11 +11141,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	            _context5.prev = 7;
 	            _context5.t0 = _context5['catch'](1);
 	
-	            currentDiskQuota = { error: _context5.t0.name };
+	            currentDiskUsage = { error: _context5.t0.name };
 	
 	          case 10:
 	
-	            config.components.storage.currentDiskQuota = currentDiskQuota;
+	            config.components.storage.currentDiskUsage = currentDiskUsage;
 	
 	          case 11:
 	          case 'end':
@@ -11142,8 +11155,48 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }, _callee5, this, [[1, 7]]);
 	  }));
 	
-	  return function updateDiskQuota(_x4) {
+	  return function updateDiskUsage(_x3) {
 	    return _ref5.apply(this, arguments);
+	  };
+	}();
+	
+	var updateDiskQuota = function () {
+	  var _ref6 = _asyncToGenerator(regeneratorRuntime.mark(function _callee6(config) {
+	    var currentDiskQuota;
+	    return regeneratorRuntime.wrap(function _callee6$(_context6) {
+	      while (1) {
+	        switch (_context6.prev = _context6.next) {
+	          case 0:
+	            currentDiskQuota = void 0;
+	            _context6.prev = 1;
+	            _context6.next = 4;
+	            return _stack2.default.get.diskQuota();
+	
+	          case 4:
+	            currentDiskQuota = _context6.sent;
+	            _context6.next = 10;
+	            break;
+	
+	          case 7:
+	            _context6.prev = 7;
+	            _context6.t0 = _context6['catch'](1);
+	
+	            currentDiskQuota = { error: _context6.t0.name };
+	
+	          case 10:
+	
+	            config.components.storage.currentDiskQuota = currentDiskQuota;
+	
+	          case 11:
+	          case 'end':
+	            return _context6.stop();
+	        }
+	      }
+	    }, _callee6, this, [[1, 7]]);
+	  }));
+	
+	  return function updateDiskQuota(_x4) {
+	    return _ref6.apply(this, arguments);
 	  };
 	}();
 	
@@ -11155,51 +11208,51 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	
 	var toggleSettingsItems = function () {
-	  var _ref6 = _asyncToGenerator(regeneratorRuntime.mark(function _callee6(config) {
+	  var _ref7 = _asyncToGenerator(regeneratorRuntime.mark(function _callee7(config) {
 	    var items;
-	    return regeneratorRuntime.wrap(function _callee6$(_context6) {
+	    return regeneratorRuntime.wrap(function _callee7$(_context7) {
 	      while (1) {
-	        switch (_context6.prev = _context6.next) {
+	        switch (_context7.prev = _context7.next) {
 	          case 0:
 	            // We reset the settings' links array
 	            config.subsections.settings.length = 0;
 	
 	            // If the `settings` app is available, we restore links from the root
 	            // MENU_CONFIG tree, updating the links' URLs with the app URI at same time.
-	            _context6.prev = 1;
-	            _context6.next = 4;
+	            _context7.prev = 1;
+	            _context7.next = 4;
 	            return _stack2.default.has.settings();
 	
 	          case 4:
-	            _context6.next = 10;
+	            _context7.next = 10;
 	            break;
 	
 	          case 6:
-	            _context6.prev = 6;
-	            _context6.t0 = _context6['catch'](1);
+	            _context7.prev = 6;
+	            _context7.t0 = _context7['catch'](1);
 	
 	            console.warn('Settings app is unavailable, links are disabled');
-	            return _context6.abrupt('return');
+	            return _context7.abrupt('return');
 	
 	          case 10:
-	            _context6.next = 12;
+	            _context7.next = 12;
 	            return updateSettingsURIs(_menu2.default.subsections.settings);
 	
 	          case 12:
-	            items = _context6.sent;
+	            items = _context7.sent;
 	
 	            Array.prototype.push.apply(config.subsections.settings, items);
 	
 	          case 14:
 	          case 'end':
-	            return _context6.stop();
+	            return _context7.stop();
 	        }
 	      }
-	    }, _callee6, this, [[1, 6]]);
+	    }, _callee7, this, [[1, 6]]);
 	  }));
 	
 	  return function toggleSettingsItems(_x5) {
-	    return _ref6.apply(this, arguments);
+	    return _ref7.apply(this, arguments);
 	  };
 	}();
 	
@@ -11211,31 +11264,31 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	
 	var updateSettingsURIs = function () {
-	  var _ref7 = _asyncToGenerator(regeneratorRuntime.mark(function _callee7(items) {
+	  var _ref8 = _asyncToGenerator(regeneratorRuntime.mark(function _callee8(items) {
 	    var baseURI;
-	    return regeneratorRuntime.wrap(function _callee7$(_context7) {
+	    return regeneratorRuntime.wrap(function _callee8$(_context8) {
 	      while (1) {
-	        switch (_context7.prev = _context7.next) {
+	        switch (_context8.prev = _context8.next) {
 	          case 0:
-	            _context7.next = 2;
+	            _context8.next = 2;
 	            return _stack2.default.get.settingsBaseURI();
 	
 	          case 2:
-	            baseURI = _context7.sent;
-	            return _context7.abrupt('return', items.map(function (item) {
+	            baseURI = _context8.sent;
+	            return _context8.abrupt('return', items.map(function (item) {
 	              return Object.assign({}, item, { href: baseURI + '#' + item.href });
 	            }));
 	
 	          case 4:
 	          case 'end':
-	            return _context7.stop();
+	            return _context8.stop();
 	        }
 	      }
-	    }, _callee7, this);
+	    }, _callee8, this);
 	  }));
 	
 	  return function updateSettingsURIs(_x6) {
-	    return _ref7.apply(this, arguments);
+	    return _ref8.apply(this, arguments);
 	  };
 	}();
 	
@@ -11258,29 +11311,29 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @return {Promise(boolean)} a valve that allow to trigger update or not
 	 */
 	var updateApps = function () {
-	  var _ref8 = _asyncToGenerator(regeneratorRuntime.mark(function _callee8(config) {
+	  var _ref9 = _asyncToGenerator(regeneratorRuntime.mark(function _callee9(config) {
 	    var oldApps;
-	    return regeneratorRuntime.wrap(function _callee8$(_context8) {
+	    return regeneratorRuntime.wrap(function _callee9$(_context9) {
 	      while (1) {
-	        switch (_context8.prev = _context8.next) {
+	        switch (_context9.prev = _context9.next) {
 	          case 0:
 	            oldApps = config.apps.slice();
-	            _context8.next = 3;
+	            _context9.next = 3;
 	            return updateAppsItems(config);
 	
 	          case 3:
-	            return _context8.abrupt('return', !(0, _deepEqual2.default)(oldApps, config.apps));
+	            return _context9.abrupt('return', !(0, _deepEqual2.default)(oldApps, config.apps));
 	
 	          case 4:
 	          case 'end':
-	            return _context8.stop();
+	            return _context9.stop();
 	        }
 	      }
-	    }, _callee8, this);
+	    }, _callee9, this);
 	  }));
 	
 	  return function updateApps(_x7) {
-	    return _ref8.apply(this, arguments);
+	    return _ref9.apply(this, arguments);
 	  };
 	}();
 	
@@ -11295,31 +11348,31 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	
 	var updateSettings = function () {
-	  var _ref9 = _asyncToGenerator(regeneratorRuntime.mark(function _callee9(config) {
-	    var _ref10 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
-	        _ref10$storage = _ref10.storage,
-	        storage = _ref10$storage === undefined ? true : _ref10$storage,
-	        _ref10$items = _ref10.items,
-	        items = _ref10$items === undefined ? true : _ref10$items;
+	  var _ref10 = _asyncToGenerator(regeneratorRuntime.mark(function _callee10(config) {
+	    var _ref11 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
+	        _ref11$storage = _ref11.storage,
+	        storage = _ref11$storage === undefined ? true : _ref11$storage,
+	        _ref11$items = _ref11.items,
+	        items = _ref11$items === undefined ? true : _ref11$items;
 	
 	    var valve, oldDiskUsage, oldSettingsItems;
-	    return regeneratorRuntime.wrap(function _callee9$(_context9) {
+	    return regeneratorRuntime.wrap(function _callee10$(_context10) {
 	      while (1) {
-	        switch (_context9.prev = _context9.next) {
+	        switch (_context10.prev = _context10.next) {
 	          case 0:
 	            valve = false;
 	
 	            if (!storage) {
-	              _context9.next = 8;
+	              _context10.next = 8;
 	              break;
 	            }
 	
 	            oldDiskUsage = config.components.storage.currentDiskUsage;
-	            _context9.next = 5;
+	            _context10.next = 5;
 	            return updateDiskUsage(config);
 	
 	          case 5:
-	            _context9.next = 7;
+	            _context10.next = 7;
 	            return updateDiskQuota(config);
 	
 	          case 7:
@@ -11327,30 +11380,30 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	          case 8:
 	            if (!items) {
-	              _context9.next = 13;
+	              _context10.next = 13;
 	              break;
 	            }
 	
 	            oldSettingsItems = config.subsections.settings.slice();
-	            _context9.next = 12;
+	            _context10.next = 12;
 	            return toggleSettingsItems(config);
 	
 	          case 12:
 	            valve = valve || !(0, _deepEqual2.default)(oldSettingsItems, config.subsections.settings);
 	
 	          case 13:
-	            return _context9.abrupt('return', valve);
+	            return _context10.abrupt('return', valve);
 	
 	          case 14:
 	          case 'end':
-	            return _context9.stop();
+	            return _context10.stop();
 	        }
 	      }
-	    }, _callee9, this);
+	    }, _callee10, this);
 	  }));
 	
 	  return function updateSettings(_x9) {
-	    return _ref9.apply(this, arguments);
+	    return _ref10.apply(this, arguments);
 	  };
 	}();
 	
@@ -11438,6 +11491,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	  return clone;
 	}exports.createMenuPointers = createMenuPointers;
+	exports.getHelpLink = getHelpLink;
 	exports.updateSettings = updateSettings;
 	exports.updateApps = updateApps;
 	exports.getClaudyConfig = getClaudyConfig;
@@ -11653,8 +11707,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			"help": [
 				{
 					"slug": "help",
-					"external": true,
-					"href": "https://cozy.io/fr/support/"
+					"external": true
 				}
 			],
 			"logout": [
