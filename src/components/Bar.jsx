@@ -8,6 +8,7 @@ import { shouldEnableTracking, getTracker, configureTracker } from 'cozy-ui/reac
 // import Apps from './Apps'
 // import Settings from './Settings'
 // import Drawer from './Drawer'
+import Nav from './Nav'
 import Claudy from './Claudy'
 
 class Bar extends Component {
@@ -82,8 +83,9 @@ class Bar extends Component {
         {__TARGET__ !== 'mobile' && !isPublic &&
           <div>
             <button class='coz-bar-burger' onClick={this.toggleDrawer} data-icon='icon-hamburger'>
-              <span class='coz-bar-hidden'>{t('menu')}</span>
+              <span class='coz-bar-hidden'>{t('drawer')}</span>
             </button>
+            <Nav />
             {claudyActions &&
               <Claudy config={claudyActions} usageTracker={usageTracker} onToggle={this.toggleClaudy} opened={claudyOpened} appsList={appsList} />
             }

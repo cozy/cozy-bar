@@ -1,7 +1,5 @@
 {
-  "apps": "Apps",
-  "settings": "Settings",
-  "menu": "Show menu drawer",
+  "drawer": "Show menu drawer",
   "profile": "Profile",
   "connectedDevices": "Connected devices",
   "storage": "Storage",
@@ -13,6 +11,11 @@
   "soon": "soon",
   "error_UnavailableStack": "The stack is unreachable (connection timed-out).",
   "error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+
+  "menu": {
+    "apps": "Apps",
+    "settings": "Settings"
+  },
 
   "Categories": {
     "cozy": "Cozy apps",
