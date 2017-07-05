@@ -16,6 +16,7 @@ class Bar extends Component {
     this.store = context.store
     this.state = {
       claudyActions: null, // no claudy by defaul
+      appsList: [],
       claudyOpened: false,
       drawerVisible: false,
       usageTracker: null
@@ -25,6 +26,7 @@ class Bar extends Component {
   }
 
   async componentWillMount () {
+    const appsList = await this.store.getAppsList()
     const claudyActions = await this.store.getClaudyActions()
     this.setState({ appsList, claudyActions })
   }
@@ -67,7 +69,7 @@ class Bar extends Component {
     const { t, lang, appName,
       appEditor, iconPath, replaceTitleOnMobile,
       isPublic } = this.props
-    const { usageTracker, claudyOpened, claudyActions, drawerVisible } = this.state
+    const { usageTracker, claudyOpened, claudyActions, drawerVisible, appsList } = this.state
     return (
       <div class='coz-bar-container'>
         <h1 lang={lang} class={`coz-bar-title ${replaceTitleOnMobile ? 'coz-bar-hide-sm' : ''}`}>
@@ -83,7 +85,7 @@ class Bar extends Component {
               <span class='coz-bar-hidden'>{t('menu')}</span>
             </button>
             {claudyActions &&
-              <Claudy config={claudyActions} usageTracker={usageTracker} onToggle={this.toggleClaudy} opened={claudyOpened} />
+              <Claudy config={claudyActions} usageTracker={usageTracker} onToggle={this.toggleClaudy} opened={claudyOpened} appsList={appsList} />
             }
           </div>
         }

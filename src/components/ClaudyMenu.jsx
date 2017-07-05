@@ -6,11 +6,10 @@ class ClaudyMenu extends Component {
     super(props)
     this.state = {
       openedAction: false,
-      selectedAction: null,
-      selectedActionUrl: ''
+      selectedAction: null
     }
 
-    this.computeUrl = this.computeUrl.bind(this)
+    this.computeSelectedActionUrl = this.computeSelectedActionUrl.bind(this)
     this.goBack = this.goBack.bind(this)
     this.selectAction = this.selectAction.bind(this)
     this.trackActionLink = this.trackActionLink.bind(this)
@@ -21,27 +20,25 @@ class ClaudyMenu extends Component {
     return require(`../assets/icons/claudyActions/${iconName}`)
   }
 
-  computeUrl (action) {
+  computeSelectedActionUrl () {
+    if (!this.state.selectedAction) return null
+    const action = this.state.selectedAction
     const { t, appsList } = this.props
     if (action.link.type === 'apps' && action.link.appSlug) {
       if (!appsList) {
         console.warn('No apps found on the Cozy')
-        this.setState({ selectedActionUrl: '' })
-        return ''
+        return null
       }
       const app = appsList.find(a => a.slug === action.link.appSlug)
       if (app && app.href) {
         const appUrl = `${app.href}${action.link.path || ''}`
-        this.setState({ selectedActionUrl: appUrl })
         return appUrl
       } else {
         console.warn(`No app with slug '${action.link.appSlug}' found on the Cozy.`)
-        this.setState({ selectedActionUrl: '' })
-        return ''
+        return null
       }
     } else {
       const url = t(`claudy.actions.${action.slug}.link`)
-      this.setState({ selectedActionUrl: url })
       return url
     }
   }
@@ -77,7 +74,8 @@ class ClaudyMenu extends Component {
 
   render () {
     const { t, onClose, actions } = this.props
-    const { openedAction, selectedAction, selectedActionUrl } = this.state
+    const { openedAction, selectedAction } = this.state
+    const selectedActionUrl = (selectedAction && this.computeSelectedActionUrl()) || null
     return (
       <div class={`coz-claudy-menu ${
         openedAction ? 'coz-claudy-menu--action-selected' : ''}`}>
@@ -116,8 +114,7 @@ class ClaudyMenu extends Component {
                   <p class='coz-claudy-menu-action-description-text'>
                     {t(`claudy.actions.${selectedAction.slug}.description`)}
                   </p>
-                  {selectedAction.link &&
-                    this.computeUrl(selectedAction) !== ''
+                  {selectedActionUrl
                       ? <a
                         href={selectedActionUrl}
                         role='button'
