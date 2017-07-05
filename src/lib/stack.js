@@ -58,22 +58,13 @@ function fetchJSON (url, options) {
   })
 }
 
-function getDiskUsage () {
-  return fetchJSON(`${COZY_URL}/settings/disk-usage`, fetchOptions())
-  .then(json => parseInt(json.data.attributes.used, 10))
-  .catch(e => {
-    throw new UnavailableStackException()
-  })
-}
-
-function getDiskQuota () {
+function getStorageStats () {
   return fetchJSON(`${COZY_URL}/settings/disk-usage`, fetchOptions())
   .then(json => {
-    const quota = parseInt(json.data.attributes.quota, 10)
-    if (Number.isInteger(quota)) {
-      return quota
-    } else {
-      return 100000000000 // @TODO Waiting for instructions about how to deal with limitless instances
+    return {
+      usage: parseInt(json.data.attributes.used, 10),
+      quota: parseInt(json.data.attributes.quota, 10),
+      isLimited: json.data.attributes.is_limited
     }
   })
   .catch(e => {
@@ -151,8 +142,7 @@ module.exports = {
     app: getApp,
     apps: getApps,
     context: getContext(cache),
-    diskUsage: getDiskUsage,
-    diskQuota: getDiskQuota,
+    storageStats: getStorageStats,
     icon: getIcon,
     cozyURL () {
       return COZY_URL
