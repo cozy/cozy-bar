@@ -10,6 +10,14 @@ class Drawer extends Component {
   constructor (props, context) {
     super(props)
     this.store = context.store
+
+    this.onDrawerClick = this.onDrawerClick.bind(this)
+  }
+
+  onDrawerClick (event) {
+    if (this.props.visible && event.target === this.wrapperRef) {
+      this.props.onClose()
+    }
   }
 
   async componentWillMount () {
@@ -25,11 +33,15 @@ class Drawer extends Component {
   }
 
   render () {
-    const { t, onClose, onClaudy, visible } = this.props
+    const { t, onClaudy, visible } = this.props
     const { appsList, settingsData } = this.store
     const categories = getCategorizedItems(appsList, t)
     return (
-      <div class='coz-drawer-wrapper' onClick={onClose} aria-hidden={visible ? 'false' : 'true'}>
+      <div class='coz-drawer-wrapper'
+        onClick={this.onDrawerClick}
+        aria-hidden={visible ? 'false' : 'true'}
+        ref={(node) => { this.wrapperRef = node }}
+      >
         <aside>
           <nav class='coz-drawer--apps'>
             <AppsList categories={categories} wrappingLimit={3} />

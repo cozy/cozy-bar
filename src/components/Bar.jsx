@@ -46,8 +46,9 @@ class Bar extends Component {
   toggleDrawer () {
     // don't allow to toggle the drawer if claudy opened
     if (this.state.claudyOpened) return
-    this.props.onDrawer(!this.state.drawerVisible)
-    this.setState({ drawerVisible: !this.state.drawerVisible })
+    const drawerVisible = !this.state.drawerVisible
+    this.props.onDrawer(drawerVisible)
+    this.setState({ drawerVisible })
   }
 
   toggleClaudy () {
