@@ -87,7 +87,11 @@ export default class BarStore {
 
   async fetchAppsList () {
     const apps = await this.fetchApps()
-    const comingSoonApps = await this.fetchComingSoonApps()
+    let comingSoonApps = await this.fetchComingSoonApps()
+    comingSoonApps = comingSoonApps
+      // drop coming soon apps already installed
+      .filter(comingSoonApp =>
+        apps.filter(app => app.slug === comingSoonApp.slug))
     this.appsList = apps.concat(comingSoonApps)
     return this.appsList
   }
