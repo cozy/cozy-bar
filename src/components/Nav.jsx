@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import { translate } from 'cozy-ui/react/I18n'
+import { translate } from '../lib/I18n'
 import { getCategorizedItems } from '../lib/helpers'
 
 import AppsList from './AppsList'

@@ -1,5 +1,5 @@
 import React from 'react'
-import { translate } from 'cozy-ui/react/I18n'
+import { translate } from '../lib/I18n'
 
 const StorageData = ({ t, data }) => {
   const diskQuota = Number.isInteger(data.quota)

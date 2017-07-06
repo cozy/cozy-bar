@@ -61,7 +61,6 @@
     "yaml-loader": "^0.4.0"
   },
   "dependencies": {
-    "date-fns": "^1.28.5",
     "node-polyglot": "^2.2.2",
     "piwik-react-router": "^0.8.2",
     "preact": "^8.1.0",
