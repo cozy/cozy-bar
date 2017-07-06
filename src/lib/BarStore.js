@@ -15,6 +15,8 @@ export default class BarStore {
     this.installedApps = [] // to cache already fetched apps icons
     this.appsList = [] // all apps, coming soons included
     this.helpLink = ''
+    this.settingsAppURL = null
+    this.settingsData = {}
   }
 
   async fetchApps () {
@@ -124,8 +126,34 @@ export default class BarStore {
 
   getStorageStats () {
     return stack.get.storageStats()
-      .then(stats => stats)
+      .then(statsObject => statsObject)
       .catch(e => { return {error: e.name} })
+  }
+
+  getSettingsAppURL () {
+    // If the `settings` app is available, it will used to add the links 'Profile' and 'Connected Devices'
+    if (this.settingsAppURL) return Promise.resolve(this.settingsAppURL)
+    return stack.get.settingsAppURL()
+      .then(settingsAppURL => {
+        this.settingsAppURL = settingsAppURL
+        return this.settingsAppURL
+      })
+      .catch(e => {
+        console.warn('Settings app is unavailable, settings links are disabled')
+        return null
+      })
+  }
+
+  async fetchSettingsData () {
+    this.settingsData = {
+      storageStats: await this.getStorageStats(),
+      settingsAppURL: await this.getSettingsAppURL(),
+      helpLink: await this.getHelpLink()
+    }
+  }
+
+  logout () {
+    stack.logout()
   }
 }
 

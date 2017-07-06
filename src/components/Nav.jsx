@@ -4,6 +4,8 @@ import { translate } from 'cozy-ui/react/I18n'
 import { getCategorizedItems } from '../lib/helpers'
 
 import AppsList from './AppsList'
+import Settings from './Settings'
+
 const BUSY_DELAY = 450
 
 class Nav extends Component {
@@ -39,13 +41,14 @@ class Nav extends Component {
         await this.store.fetchAppsList()
         clearTimeout(busySpinner)
         this.setState({
-          [slug]: {busy: false, opened: true}
+          apps: {busy: false, opened: true}
         })
         break
       case 'settings':
+        await this.store.fetchSettingsData()
         clearTimeout(busySpinner)
         this.setState({
-          [slug]: {busy: false, opened: true}
+          settings: {busy: false, opened: true}
         })
         break
     }
@@ -54,7 +57,8 @@ class Nav extends Component {
   render () {
     const { t } = this.props
     const { apps, settings } = this.state
-    const categories = getCategorizedItems(this.store.appsList, t)
+    const { appsList, settingsData } = this.store
+    const categories = getCategorizedItems(appsList, t)
     return (
       <nav class='coz-nav'>
         <ul>
@@ -79,6 +83,7 @@ class Nav extends Component {
               {t('menu.settings')}
             </a>
             <div class='coz-nav-pop coz-nav-pop--settings' id='coz-nav-pop--settings' aria-hidden={!settings.opened}>
+              <Settings onLogOut={() => this.store.logout()} settingsData={settingsData} />
             </div>
           </li>
         </ul>

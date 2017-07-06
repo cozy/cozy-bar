@@ -113,31 +113,6 @@ module.exports = {
     COZY_URL = `//${cozyURL}`
     COZY_TOKEN = token
   },
-  has: {
-    /**
-     * has.settings() allow to check if the Settings app is available in the
-     * stack or not. It returns a boolean.
-     * Exceptionnally, as the Settings app is a critical app (w/o it, no
-     * password update, language change, etc), it also throw an exception if
-     * the Settings app isn't available.
-     */
-    async settings () {
-      let hasSettings
-
-      try {
-        hasSettings = await hasApp('settings')
-      } catch (e) {
-        hasSettings = false
-        throw new UnavailableSettingsException()
-      }
-
-      if (!hasSettings) {
-        throw new UnavailableSettingsException()
-      }
-
-      return hasSettings
-    }
-  },
   get: {
     app: getApp,
     apps: getApps,
@@ -147,7 +122,7 @@ module.exports = {
     cozyURL () {
       return COZY_URL
     },
-    settingsBaseURI () {
+    settingsAppURL () {
       return getApp('settings')
       .then(settings => {
         if (!settings) { throw new UnavailableSettingsException() }
