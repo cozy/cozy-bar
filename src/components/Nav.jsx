@@ -83,7 +83,12 @@ class Nav extends Component {
               {t('menu.settings')}
             </a>
             <div class='coz-nav-pop coz-nav-pop--settings' id='coz-nav-pop--settings' aria-hidden={!settings.opened}>
-              <Settings onLogOut={() => this.store.logout()} settingsData={settingsData} />
+              {settingsData &&
+                <Settings
+                  onLogOut={() => this.store.logout()}
+                  settingsData={settingsData}
+                />
+              }
             </div>
           </li>
         </ul>

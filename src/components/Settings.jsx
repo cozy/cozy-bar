@@ -2,6 +2,8 @@ import React from 'react'
 
 import { translate } from 'cozy-ui/react/I18n'
 
+import StorageData from './StorageData'
+
 const Settings = ({ t, onLogOut, settingsData }) => (
   <div>
     <ul class='coz-nav-group'>
@@ -28,6 +30,7 @@ const Settings = ({ t, onLogOut, settingsData }) => (
       <li class='coz-nav-item'>
         <div role='menuitem' data-icon='icon-storage'>
           {t('storage')}
+          <StorageData data={settingsData.storageData} />
         </div>
       </li>
     </ul>

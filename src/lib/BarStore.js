@@ -12,11 +12,12 @@ const CATEGORIES = ['cozy', 'partners', 'ptnb']
 export default class BarStore {
   constructor () {
     this.claudyActions = null
-    this.installedApps = [] // to cache already fetched apps icons
     this.appsList = [] // all apps, coming soons included
+    this.settingsData = null
+    // cache
+    this.installedApps = [] // to cache already fetched apps icons
     this.helpLink = ''
-    this.settingsAppURL = null
-    this.settingsData = {}
+    this.settingsAppURL = ''
   }
 
   async fetchApps () {
@@ -124,9 +125,9 @@ export default class BarStore {
       })
   }
 
-  getStorageStats () {
-    return stack.get.storageStats()
-      .then(statsObject => statsObject)
+  getStorageData () {
+    return stack.get.storageData()
+      .then(dataObject => dataObject)
       .catch(e => { return {error: e.name} })
   }
 
@@ -145,11 +146,10 @@ export default class BarStore {
   }
 
   async fetchSettingsData () {
-    this.settingsData = {
-      storageStats: await this.getStorageStats(),
-      settingsAppURL: await this.getSettingsAppURL(),
-      helpLink: await this.getHelpLink()
-    }
+    const storageData = await this.getStorageData()
+    const settingsAppURL = await this.getSettingsAppURL()
+    const helpLink = await this.getHelpLink()
+    this.settingsData = { storageData, settingsAppURL, helpLink }
   }
 
   logout () {

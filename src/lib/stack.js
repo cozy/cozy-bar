@@ -58,12 +58,13 @@ function fetchJSON (url, options) {
   })
 }
 
-function getStorageStats () {
+function getStorageData () {
   return fetchJSON(`${COZY_URL}/settings/disk-usage`, fetchOptions())
   .then(json => {
     return {
       usage: parseInt(json.data.attributes.used, 10),
-      quota: parseInt(json.data.attributes.quota, 10),
+      // TODO Better handling when no quota provided
+      quota: parseInt(json.data.attributes.quota, 10) || 100000000000,
       isLimited: json.data.attributes.is_limited
     }
   })
@@ -102,10 +103,6 @@ async function getIcon (url) {
   }
 }
 
-function hasApp (slug) {
-  return getApp(slug).then(app => !!(app && app.attributes.state === 'ready'))
-}
-
 const cache = {}
 
 module.exports = {
@@ -117,7 +114,7 @@ module.exports = {
     app: getApp,
     apps: getApps,
     context: getContext(cache),
-    storageStats: getStorageStats,
+    storageData: getStorageData,
     icon: getIcon,
     cozyURL () {
       return COZY_URL
