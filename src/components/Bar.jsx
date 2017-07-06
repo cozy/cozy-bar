@@ -5,9 +5,7 @@ import React, { Component } from 'react'
 import { translate } from 'cozy-ui/react/I18n'
 import { shouldEnableTracking, getTracker, configureTracker } from 'cozy-ui/react/helpers/tracker'
 
-// import Apps from './Apps'
-// import Settings from './Settings'
-// import Drawer from './Drawer'
+import Drawer from './Drawer'
 import Nav from './Nav'
 import Claudy from './Claudy'
 
@@ -48,6 +46,7 @@ class Bar extends Component {
   toggleDrawer () {
     // don't allow to toggle the drawer if claudy opened
     if (this.state.claudyOpened) return
+    this.props.onDrawer(!this.state.drawerVisible)
     this.setState({ drawerVisible: !this.state.drawerVisible })
   }
 
@@ -69,7 +68,9 @@ class Bar extends Component {
     const { t, lang, appName,
       appEditor, iconPath, replaceTitleOnMobile,
       isPublic } = this.props
-    const { usageTracker, claudyOpened, claudyActions, drawerVisible, appsList } = this.state
+    const { usageTracker, claudyOpened,
+      claudyActions, drawerVisible } = this.state
+    const { appsList } = this.store // for claudy
     return (
       <div class='coz-bar-container'>
         <h1 lang={lang} class={`coz-bar-title ${replaceTitleOnMobile ? 'coz-bar-hide-sm' : ''}`}>
@@ -80,13 +81,17 @@ class Bar extends Component {
         </h1>
         <hr class='coz-sep-flex' />
         {__TARGET__ !== 'mobile' && !isPublic &&
-          <div>
+          <div class='coz-bar-flex-container'>
             <button class='coz-bar-burger' onClick={this.toggleDrawer} data-icon='icon-hamburger'>
               <span class='coz-bar-hidden'>{t('drawer')}</span>
             </button>
+            <Drawer visible={drawerVisible} onClose={this.toggleDrawer} onClaudy={(claudyActions && this.toggleClaudy) || false} />
             <Nav />
             {claudyActions &&
-              <Claudy config={claudyActions} usageTracker={usageTracker} onToggle={this.toggleClaudy} opened={claudyOpened} appsList={this.store.appsList} />
+              <Claudy
+                config={claudyActions} usageTracker={usageTracker}
+                onToggle={this.toggleClaudy} opened={claudyOpened} appsList={appsList}
+              />
             }
           </div>
         }
@@ -94,9 +99,5 @@ class Bar extends Component {
     )
   }
 }
-
-// <Drawer visible={drawerVisible} onClose={this.toggleDrawer} onClaudy={this.toggleClaudy} />
-// <Apps />
-// <Settings />
 
 export default translate()(Bar)

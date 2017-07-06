@@ -47,6 +47,16 @@ const injectBarInDOM = (data) => {
   // store
   const store = new BarStore()
 
+  // method to put cozy-bar z-index on the top when Drawer visible
+  data.onDrawer = (visible) => {
+    if (visible) {
+      barNode.dataset.drawerVisible = true
+    } else {
+      // total drawer closing transition duration = .5s
+      setTimeout(() => { barNode.dataset.drawerVisible = false }, 500)
+    }
+  }
+
   render((
     <Provider store={store}>
       <I18n

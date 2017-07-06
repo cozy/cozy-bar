@@ -4,8 +4,9 @@ import { translate } from 'cozy-ui/react/I18n'
 
 import StorageData from './StorageData'
 
-const Settings = ({ t, onLogOut, settingsData }) => (
+const Settings = ({ t, onLogOut, settingsData, onClaudy, isDrawer = false }) => (
   <div>
+    <hr />
     <ul class='coz-nav-group'>
       <li class='coz-nav-item'>
         <a role='menuitem'
@@ -26,14 +27,25 @@ const Settings = ({ t, onLogOut, settingsData }) => (
       </li>
     </ul>
     <hr />
-    <ul class='coz-nav-group'>
-      <li class='coz-nav-item'>
-        <div role='menuitem' data-icon='icon-storage'>
-          {t('storage')}
-          <StorageData data={settingsData.storageData} />
-        </div>
-      </li>
-    </ul>
+    {isDrawer && onClaudy &&
+      <ul class='coz-nav-group'>
+        <li class='coz-nav-item'>
+          <button role='menuitem' data-icon='icon-claudy' onClick={onClaudy} title={t('claudy.title')}>
+            {t('claudy.title')}
+          </button>
+        </li>
+      </ul>
+    }
+    {!isDrawer &&
+      <ul class='coz-nav-group'>
+        <li class='coz-nav-item'>
+          <div role='menuitem' data-icon='icon-storage'>
+            {t('storage')}
+            <StorageData data={settingsData.storageData} />
+          </div>
+        </li>
+      </ul>
+    }
     <hr />
     <ul class='coz-nav-group'>
       <li class='coz-nav-item'>
