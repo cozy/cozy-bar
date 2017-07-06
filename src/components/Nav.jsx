@@ -22,6 +22,20 @@ class Nav extends Component {
         opened: false
       }
     }
+    // handle click outside to close popups
+    this.onClickOutside = this.onClickOutside.bind(this)
+    document.body.addEventListener('click', this.onClickOutside)
+  }
+
+  onClickOutside (event) {
+    // if it's not a cozy-bar nav popup, close the opened popup
+    if (!this.rootRef.contains(event.target)) {
+      this.setState({ // reset all
+        apps: {busy: false, opened: false},
+        settings: {busy: false, opened: false}
+      })
+    }
+    event.stopPropagation()
   }
 
   async toggleMenu (slug) {
@@ -60,7 +74,7 @@ class Nav extends Component {
     const { appsList, settingsData } = this.store
     const categories = getCategorizedItems(appsList, t)
     return (
-      <nav class='coz-nav'>
+      <nav class='coz-nav' ref={(ref) => { this.rootRef = ref }}>
         <ul>
           <li class='coz-nav-section'>
             <a
