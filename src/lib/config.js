@@ -10,7 +10,7 @@ const EXCLUDES = ['settings', 'onboarding']
 const CATEGORIES = ['cozy', 'partners', 'ptnb']
 
 let cachedComingSoonApps
-function fetchComingSoonApps () {
+function fetchComingSoonApps (apps) {
   if (cachedComingSoonApps) return Promise.resolve(cachedComingSoonApps)
   return stack.get.context()
     .then(context => {
@@ -18,7 +18,10 @@ function fetchComingSoonApps () {
         context.data.attributes['coming_soon'] &&
           Object.values(context.data.attributes['coming_soon']) || []
 
-      cachedComingSoonApps = comingSoonApps.map(app => {
+      cachedComingSoonApps = comingSoonApps
+      // drop coming soon apps already installed
+      .filter(comingSoonApp => !apps.find(app => app.slug === comingSoonApp.slug))
+      .map(app => {
         let icon
 
         try {
@@ -103,9 +106,7 @@ async function updateAppsItems (config) {
     apps = [{error: e}]
   }
 
-  comingSoonApps = await fetchComingSoonApps()
-    // drop coming soon apps already installed
-    .filter(comingSoonApp => !apps.find(app => app.slug === comingSoonApp.slug))
+  comingSoonApps = await fetchComingSoonApps(apps)
     .catch(error => {
       console.warn && console.warn(`Cozy-bar cannot fetch comming soon apps: ${error.message}`)
       return []
