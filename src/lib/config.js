@@ -105,7 +105,7 @@ async function updateAppsItems (config) {
 
   comingSoonApps = await fetchComingSoonApps()
     // drop coming soon apps already installed
-    .filter(comingSoonApp => apps.filter(app => app.slug === comingSoonApp.slug))
+    .filter(comingSoonApp => !apps.find(app => app.slug === comingSoonApp.slug))
     .catch(error => {
       console.warn && console.warn(`Cozy-bar cannot fetch comming soon apps: ${error.message}`)
       return []

@@ -418,7 +418,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  view.set({ lang: lang });
 	};
 	
-	module.exports = { init: init, version: ("3.2.0"), setLocale: setLocale };
+	module.exports = { init: init, version: ("3.2.1"), setLocale: setLocale };
 
 /***/ },
 /* 1 */
@@ -11095,7 +11095,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	          case 17:
 	            _context4.next = 19;
-	            return fetchComingSoonApps().catch(function (error) {
+	            return fetchComingSoonApps()
+	            // drop coming soon apps already installed
+	            .filter(function (comingSoonApp) {
+	              return !apps.find(function (app) {
+	                return app.slug === comingSoonApp.slug;
+	              });
+	            }).catch(function (error) {
 	              console.warn && console.warn('Cozy-bar cannot fetch comming soon apps: ' + error.message);
 	              return [];
 	            });
