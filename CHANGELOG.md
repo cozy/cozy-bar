@@ -19,7 +19,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - none yet
 
 
-## [v3.2.1] - 2017-07-06
+## [v3.2.2] - 2017-07-06
+### Fixed
+- filter coming soon app
+
+
+## [v3.2.1] - 2017-07-06 [YANKED]
 ### Fixed
 - filter coming soon app
 

@@ -418,7 +418,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  view.set({ lang: lang });
 	};
 	
-	module.exports = { init: init, version: ("3.2.1"), setLocale: setLocale };
+	module.exports = { init: init, version: ("3.2.2"), setLocale: setLocale };
 
 /***/ },
 /* 1 */
@@ -11095,13 +11095,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	          case 17:
 	            _context4.next = 19;
-	            return fetchComingSoonApps()
-	            // drop coming soon apps already installed
-	            .filter(function (comingSoonApp) {
-	              return !apps.find(function (app) {
-	                return app.slug === comingSoonApp.slug;
-	              });
-	            }).catch(function (error) {
+	            return fetchComingSoonApps(apps).catch(function (error) {
 	              console.warn && console.warn('Cozy-bar cannot fetch comming soon apps: ' + error.message);
 	              return [];
 	            });
@@ -11441,12 +11435,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	var CATEGORIES = ['cozy', 'partners', 'ptnb'];
 	
 	var cachedComingSoonApps = void 0;
-	function fetchComingSoonApps() {
+	function fetchComingSoonApps(apps) {
 	  if (cachedComingSoonApps) return Promise.resolve(cachedComingSoonApps);
 	  return _stack2.default.get.context().then(function (context) {
 	    var comingSoonApps = context.data && context.data.attributes && context.data.attributes['coming_soon'] && Object.values(context.data.attributes['coming_soon']) || [];
 	
-	    cachedComingSoonApps = comingSoonApps.map(function (app) {
+	    cachedComingSoonApps = comingSoonApps
+	    // drop coming soon apps already installed
+	    .filter(function (comingSoonApp) {
+	      return !apps.find(function (app) {
+	        return app.slug === comingSoonApp.slug;
+	      });
+	    }).map(function (app) {
 	      var icon = void 0;
 	
 	      try {
