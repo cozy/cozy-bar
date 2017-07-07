@@ -85,7 +85,15 @@ class Nav extends Component {
               {t('menu.apps')}
             </a>
             <div class='coz-nav-pop coz-nav-pop--apps' id='coz-nav-pop--apps' aria-hidden={!apps.opened}>
-              <AppsList categories={categories} wrappingLimit={4} />
+              {apps.error &&
+                <p class='coz-nav--error coz-nav-group'>
+                  {t(`error_${apps.error.name}`)}
+                </p>
+              }
+              {apps.length
+                ? <AppsList categories={categories} wrappingLimit={4} />
+                : <p class='coz-nav--error coz-nav-group'>{t('no_apps')}</p>
+              }
             </div>
           </li>
           <li class='coz-nav-section'>

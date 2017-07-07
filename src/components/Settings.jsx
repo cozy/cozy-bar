@@ -6,27 +6,29 @@ import StorageData from './StorageData'
 
 const Settings = ({ t, onLogOut, settingsData, onClaudy, isDrawer = false }) => (
   <div>
-    <hr />
-    <ul class='coz-nav-group'>
-      <li class='coz-nav-item'>
-        <a role='menuitem'
-          href={`${settingsData.settingsAppURL}#/profile`}
-          target='_self' data-icon='icon-profile' title={t('profile')}
-        >
-          <p class='coz-label'>{t('profile')}</p>
-        </a>
-      </li>
-      <li class='coz-nav-item'>
-        <a role='menuitem'
-          href={`${settingsData.settingsAppURL}#/connectedDevices`}
-          target='_self' data-icon='icon-connectedDevices'
-          title={t('connectedDevices')}
-        >
-          <p class='coz-label'>{t('connectedDevices')}</p>
-        </a>
-      </li>
-    </ul>
-    <hr />
+    {isDrawer && <hr />}
+    {settingsData.settingsAppURL &&
+      <ul class='coz-nav-group'>
+        <li class='coz-nav-item'>
+          <a role='menuitem'
+            href={`${settingsData.settingsAppURL}#/profile`}
+            target='_self' data-icon='icon-profile' title={t('profile')}
+          >
+            <p class='coz-label'>{t('profile')}</p>
+          </a>
+        </li>
+        <li class='coz-nav-item'>
+          <a role='menuitem'
+            href={`${settingsData.settingsAppURL}#/connectedDevices`}
+            target='_self' data-icon='icon-connectedDevices'
+            title={t('connectedDevices')}
+          >
+            <p class='coz-label'>{t('connectedDevices')}</p>
+          </a>
+        </li>
+        <hr />
+      </ul>
+    }
     {isDrawer && onClaudy &&
       <ul class='coz-nav-group'>
         <li class='coz-nav-item'>
@@ -34,9 +36,10 @@ const Settings = ({ t, onLogOut, settingsData, onClaudy, isDrawer = false }) => 
             {t('claudy.title')}
           </button>
         </li>
+        <hr />
       </ul>
     }
-    {!isDrawer &&
+    {!isDrawer && settingsData.storageData &&
       <ul class='coz-nav-group'>
         <li class='coz-nav-item'>
           <div role='menuitem' data-icon='icon-storage'>
@@ -44,17 +47,19 @@ const Settings = ({ t, onLogOut, settingsData, onClaudy, isDrawer = false }) => 
             <StorageData data={settingsData.storageData} />
           </div>
         </li>
+        <hr />
       </ul>
     }
-    <hr />
-    <ul class='coz-nav-group'>
-      <li class='coz-nav-item'>
-        <a role='menuitem' href={settingsData.helpLink} target='_blank' data-icon='icon-help' title={t('help')}>
-          <p class='coz-label'>{t('help')}</p>
-        </a>
-      </li>
-    </ul>
-    <hr />
+    {settingsData.helpLink &&
+      <ul class='coz-nav-group'>
+        <li class='coz-nav-item'>
+          <a role='menuitem' href={settingsData.helpLink} target='_blank' data-icon='icon-help' title={t('help')}>
+            <p class='coz-label'>{t('help')}</p>
+          </a>
+        </li>
+        <hr />
+      </ul>
+    }
     <ul class='coz-nav-group'>
       <li class='coz-nav-item'>
         <button role='menuitem' data-icon='icon-logout' onClick={onLogOut} title={t('logout')}>

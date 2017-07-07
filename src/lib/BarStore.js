@@ -49,7 +49,7 @@ export default class BarStore {
       }))
       this.installedApps = apps
     } catch (e) {
-      apps = [{error: e}]
+      return {error: e}
     }
     return apps
   }
@@ -87,6 +87,10 @@ export default class BarStore {
 
   async fetchAppsList () {
     const apps = await this.fetchApps()
+    if (apps.error) {
+      this.appsList = apps
+      return this.appsList
+    }
     let comingSoonApps = await this.fetchComingSoonApps()
     comingSoonApps = comingSoonApps
       // drop coming soon apps already installed
@@ -127,12 +131,19 @@ export default class BarStore {
         this.helpLink = (context.data && context.data.attributes && context.data.attributes['help_link']) || null
         return this.helpLink
       })
+      .catch(e => {
+        console.warn && console.warn('Cannot get Cozy help link')
+        return null
+      })
   }
 
   getStorageData () {
     return stack.get.storageData()
       .then(dataObject => dataObject)
-      .catch(e => { return {error: e.name} })
+      .catch(e => {
+        console.warn && console.warn('Cannot get Cozy storage informations')
+        return null
+      })
   }
 
   getSettingsAppURL () {
@@ -144,7 +155,7 @@ export default class BarStore {
         return this.settingsAppURL
       })
       .catch(e => {
-        console.warn('Settings app is unavailable, settings links are disabled')
+        console.warn && console.warn('Settings app is unavailable, settings links are disabled')
         return null
       })
   }
