@@ -14,7 +14,7 @@ class Bar extends Component {
     super(props)
     this.store = context.store
     this.state = {
-      claudyActions: null, // no claudy by defaul
+      claudyActions: null, // no claudy by default
       claudyOpened: false,
       drawerVisible: false,
       usageTracker: null
@@ -38,7 +38,6 @@ class Bar extends Component {
         app: 'Cozy Bar',
         heartbeat: 0
       })
-      trackerInstance.push(['disableHeartBeatTimer']) // undocumented, see https://github.com/piwik/piwik/blob/3.x-dev/js/piwik.js#L6544
       this.setState({ usageTracker: trackerInstance })
     }
   }

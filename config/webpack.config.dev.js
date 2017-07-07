@@ -5,7 +5,6 @@ const webpack = require('webpack')
 module.exports = {
   plugins: [
     new webpack.DefinePlugin({
-      __SERVER__: JSON.stringify('http://cozy.local:8080'),
       __DEVELOPMENT__: true,
       __PIWIK_SITEID__: 8,
       __PIWIK_SITEID_MOBILE__: 12,

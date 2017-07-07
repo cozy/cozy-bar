@@ -139,7 +139,6 @@ export default class BarStore {
 
   getStorageData () {
     return stack.get.storageData()
-      .then(dataObject => dataObject)
       .catch(e => {
         console.warn && console.warn('Cannot get Cozy storage informations')
         return null
