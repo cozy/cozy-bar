@@ -5,26 +5,22 @@ const webpack = require('webpack')
 const pkg = require('../package.json')
 
 module.exports = {
-  entry: path.resolve(__dirname, '../src/'),
+  entry: path.resolve(__dirname, '../src/index'),
   output: {
     library: ['cozy', 'bar'],
     libraryTarget: 'umd',
     umdNamedDefine: true
   },
   resolve: {
-    extensions: ['', '.js', '.svelte', '.json', '.yaml']
+    extensions: ['', '.js', '.json', '.yaml']
   },
   devtool: '#source-map',
   module: {
     loaders: [
       {
-        test: /\.(svelte|js)$/,
+        test: /\.js$/,
         exclude: /node_modules/,
         loader: 'babel-loader'
-      },
-      {
-        test: /\.(svelte)$/,
-        loader: 'svelte-loader'
       },
       {
         test: /\.json$/,

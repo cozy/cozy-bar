@@ -58,22 +58,14 @@ function fetchJSON (url, options) {
   })
 }
 
-function getDiskUsage () {
-  return fetchJSON(`${COZY_URL}/settings/disk-usage`, fetchOptions())
-  .then(json => parseInt(json.data.attributes.used, 10))
-  .catch(e => {
-    throw new UnavailableStackException()
-  })
-}
-
-function getDiskQuota () {
+function getStorageData () {
   return fetchJSON(`${COZY_URL}/settings/disk-usage`, fetchOptions())
   .then(json => {
-    const quota = parseInt(json.data.attributes.quota, 10)
-    if (Number.isInteger(quota)) {
-      return quota
-    } else {
-      return 100000000000 // @TODO Waiting for instructions about how to deal with limitless instances
+    return {
+      usage: parseInt(json.data.attributes.used, 10),
+      // TODO Better handling when no quota provided
+      quota: parseInt(json.data.attributes.quota, 10) || 100000000000,
+      isLimited: json.data.attributes.is_limited
     }
   })
   .catch(e => {
@@ -111,10 +103,6 @@ async function getIcon (url) {
   }
 }
 
-function hasApp (slug) {
-  return getApp(slug).then(app => !!(app && app.attributes.state === 'ready'))
-}
-
 const cache = {}
 
 module.exports = {
@@ -122,42 +110,16 @@ module.exports = {
     COZY_URL = `//${cozyURL}`
     COZY_TOKEN = token
   },
-  has: {
-    /**
-     * has.settings() allow to check if the Settings app is available in the
-     * stack or not. It returns a boolean.
-     * Exceptionnally, as the Settings app is a critical app (w/o it, no
-     * password update, language change, etc), it also throw an exception if
-     * the Settings app isn't available.
-     */
-    async settings () {
-      let hasSettings
-
-      try {
-        hasSettings = await hasApp('settings')
-      } catch (e) {
-        hasSettings = false
-        throw new UnavailableSettingsException()
-      }
-
-      if (!hasSettings) {
-        throw new UnavailableSettingsException()
-      }
-
-      return hasSettings
-    }
-  },
   get: {
     app: getApp,
     apps: getApps,
     context: getContext(cache),
-    diskUsage: getDiskUsage,
-    diskQuota: getDiskQuota,
+    storageData: getStorageData,
     icon: getIcon,
     cozyURL () {
       return COZY_URL
     },
-    settingsBaseURI () {
+    settingsAppURL () {
       return getApp('settings')
       .then(settings => {
         if (!settings) { throw new UnavailableSettingsException() }

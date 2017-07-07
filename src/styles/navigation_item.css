@@ -4,7 +4,7 @@
   display: block;
   box-sizing: border-box;
   width: 100%;
-  padding: .5em 1.5em .5em calc(1.5em + 16px + .5em);
+  padding: .8em 1.5em .8em calc(1.5em + 16px + .5em);
   border: none;
   align-items: center;
   background-position: 1.5em 50%;

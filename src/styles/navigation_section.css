@@ -21,7 +21,8 @@
 [role=banner] [aria-controls][aria-busy]::after {
   position: relative;
   top: .12em;
-  margin-left: .5em;
+  margin: 0 .355em;
+  font-size: .875em;
 }
 
 [role=banner] [aria-controls][aria-busy=true] {
@@ -54,7 +55,7 @@
 }
 
 [role=banner] .coz-nav-pop ul {
-  padding: .5em 0;
+  padding: 0;
 }
 
 [role=banner] .coz-nav-pop ul:last-of-type {
@@ -77,7 +78,7 @@
 
 [role=banner] .coz-nav-pop--apps .coz-nav-group:not(.coz-nav--error) {
   display: flex;
-  padding: .25em .25em 1em .25em;
+  padding: .25em;
 }
 
 [role=banner] .coz-nav-pop--apps .coz-nav-group--wrapping.coz-nav-group:not(.coz-nav--error) {
@@ -127,7 +128,7 @@
 [role=banner] .coz-nav-pop--apps .coz-nav-category {
   font-size: 1em;
   padding: 0 2em;
-  margin: 2em 0 .5em 0;
+  margin: 1em 0 .5em 0;
 }
 
 [role=banner] .blurry {

@@ -4,14 +4,16 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  /* Prepare for transitions */
-  display: none;
-  visibility: visible;
+  display: flex;
+  visibility: visible; /* overwrite default [aria-hidden=true] style */
 }
 
-[role=banner] .coz-drawer-wrapper[aria-hidden=false],
-[role=banner] .coz-drawer-wrapper.swipe-active {
-  display: block;
+[role=banner] .coz-drawer-wrapper[aria-hidden=true] {
+  pointer-events: none;
+}
+
+[role=banner] .coz-drawer-wrapper[aria-hidden=false] {
+  pointer-events: auto;
 }
 
 [role=banner] .coz-drawer-wrapper::before {
@@ -24,11 +26,12 @@
   height: 100%;
   background-color: var(--charcoal-grey);
   opacity: 0;
-  transition: opacity 250ms ease-out;
+  transition: opacity .2s ease-out .3s;
 }
 
 [role=banner] .coz-drawer-wrapper[aria-hidden=false]::before {
   opacity: .5;
+  transition: opacity .2s ease-out;
 }
 
 [role=banner] .coz-drawer-wrapper aside {
@@ -41,24 +44,20 @@
   display: flex;
   flex-direction: column;
   background-color: #fff;
-  transform: translateX(-100vw);
-  transition: transform 500ms ease-out;
+  transform: scaleX(0);
+  transform-origin: 0% 0%;
+  transition: transform .3s cubic-bezier(0.75, -0.2, 1, 0.3);
 }
 
 [role=banner] .coz-drawer-wrapper[aria-hidden=false] aside {
-  transform: translateX(0);
+  transform: scaleX(1);
+  transition: transform .3s cubic-bezier(0.2, 0.75, 0.3, 1.15);
 }
 
 [role=banner] .coz-drawer-wrapper ul {
   margin: 0;
-  padding: .8em 0;
+  padding: 0;
   list-style-type: none;
-}
-
-@media (max-width: 48em) {
-    [role=banner] .coz-drawer-wrapper ul {
-        padding: .5em 0;
-    }
 }
 
 [role=banner] .coz-drawer-wrapper nav hr {

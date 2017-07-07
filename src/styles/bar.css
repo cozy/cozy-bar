@@ -11,9 +11,22 @@
   font-size: 1rem;
 }
 
+[role=banner] .coz-bar-container {
+  display: flex;
+  width: 100%;
+}
+
+[role=banner] .coz-bar-flex-container {
+  display: flex;
+}
+
 @media (max-width: 48em) {
   [role=banner] {
     padding: 0 1em 0 0;
+  }
+
+  [role=banner] .coz-bar-flex-container {
+    width: 100%;
   }
 
   [role=banner][data-drawer-visible=true] {
