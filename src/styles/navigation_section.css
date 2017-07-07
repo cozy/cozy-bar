@@ -55,7 +55,7 @@
 }
 
 [role=banner] .coz-nav-pop ul {
-  padding: .5em 0;
+  padding: 0;
 }
 
 [role=banner] .coz-nav-pop ul:last-of-type {
@@ -78,7 +78,7 @@
 
 [role=banner] .coz-nav-pop--apps .coz-nav-group:not(.coz-nav--error) {
   display: flex;
-  padding: .25em .25em 1em .25em;
+  padding: .25em;
 }
 
 [role=banner] .coz-nav-pop--apps .coz-nav-group--wrapping.coz-nav-group:not(.coz-nav--error) {
