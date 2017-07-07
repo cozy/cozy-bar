@@ -52,8 +52,8 @@ const injectBarInDOM = (data) => {
     if (visible) {
       barNode.dataset.drawerVisible = true
     } else {
-      // total drawer closing transition duration = .5s
-      setTimeout(() => { barNode.dataset.drawerVisible = false }, 500)
+      // total drawer closing transition duration = .3s
+      setTimeout(() => { barNode.dataset.drawerVisible = false }, 300)
     }
   }
 

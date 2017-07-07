@@ -26,7 +26,7 @@
   height: 100%;
   background-color: var(--charcoal-grey);
   opacity: 0;
-  transition: opacity .2s ease-out .3s;
+  transition: opacity .2s ease-out .1s;
 }
 
 [role=banner] .coz-drawer-wrapper[aria-hidden=false]::before {
@@ -46,7 +46,7 @@
   background-color: #fff;
   transform: scaleX(0);
   transform-origin: 0% 0%;
-  transition: transform .3s cubic-bezier(0.75, -0.2, 1, 0.3);
+  transition: transform .2s ease-out;
 }
 
 [role=banner] .coz-drawer-wrapper[aria-hidden=false] aside {
