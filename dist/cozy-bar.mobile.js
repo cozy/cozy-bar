@@ -54,7 +54,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* global __TARGET__, __VERSION__ */
+	/* global __TARGET__, __VERSION__, __DEVELOPMENT__ */
 	
 	'use strict';
 	
@@ -230,15 +230,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	__webpack_require__(187);
 	
-	var _i18n = __webpack_require__(189);
+	var _react = __webpack_require__(189);
 	
-	var _i18n2 = _interopRequireDefault(_i18n);
+	var _react2 = _interopRequireDefault(_react);
 	
-	var _stack = __webpack_require__(251);
+	var _reactDom = __webpack_require__(189);
+	
+	var _I18n = __webpack_require__(199);
+	
+	var _stack = __webpack_require__(223);
 	
 	var _stack2 = _interopRequireDefault(_stack);
 	
-	var _Bar = __webpack_require__(253);
+	var _BarStore = __webpack_require__(225);
+	
+	var _BarStore2 = _interopRequireDefault(_BarStore);
+	
+	var _Bar = __webpack_require__(231);
 	
 	var _Bar2 = _interopRequireDefault(_Bar);
 	
@@ -246,23 +254,31 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var APP_SELECTOR = '[role=application]';
 	
-	var createElement = function CozyBarCreateElement() {
+	if (true) {
+	  // Enables React dev tools for Preact
+	  // Cannot use import as we are in a condition
+	  __webpack_require__(249);
+	
+	  // Export React to window for the devtools
+	  window.React = _react2.default;
+	}
+	
+	var createBarElement = function createBarElement() {
 	  var barNode = document.createElement('div');
 	  barNode.setAttribute('id', 'coz-bar');
 	  barNode.setAttribute('role', 'banner');
 	  barNode.classList.add('coz-target--' + ("mobile"));
-	
 	  return barNode;
 	};
 	
-	var injectDOM = function CozyBarInjectDOM(data) {
+	var injectBarInDOM = function injectBarInDOM(data) {
 	  if (document.getElementById('coz-bar') !== null) {
 	    return;
 	  }
 	
-	  __webpack_require__(284);
+	  __webpack_require__(250);
 	
-	  var barNode = createElement();
+	  var barNode = createBarElement();
 	  var appNode = document.querySelector(APP_SELECTOR);
 	  if (!appNode) {
 	    console.warn('Cozy-bar is looking for a "' + APP_SELECTOR + '" tag that contains your application and can\'t find it :\'(\u2026 The BAR is now disabled');
@@ -270,75 +286,31 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 	
 	  document.body.insertBefore(barNode, appNode);
-	  return new _Bar2.default({
-	    target: barNode,
-	    data: data
-	  });
-	};
+	  // store
+	  var store = new _BarStore2.default();
 	
-	var bindEvents = function CozyBarBindEvents() {
-	  var _this = this;
-	
-	  var body = document.body;
-	
-	  /** Fire a `clickOutside` event when clicking anywhere in the viewport */
-	  this._clickOutsideListener = function () {
-	    return _this.fire('clickOutside');
+	  // method to put cozy-bar z-index on the top when Drawer visible and vice versa
+	  data.onDrawer = function (visible) {
+	    barNode.dataset.drawerVisible = visible;
 	  };
-	  body.addEventListener('click', this._clickOutsideListener);
 	
-	  if (false) {
-	    (function () {
-	      var root = document.querySelector('[role=banner]');
-	      var aside = document.querySelector('.coz-drawer-wrapper aside');
-	
-	      /**
-	       * Define update status helper, wrapped in a next frame to let the DOM
-	       * breathe
-	       */
-	      var updateVisibleStatus = function updateVisibleStatus() {
-	        setTimeout(function () {
-	          root.dataset.drawerVisible = _this.get('drawerVisible');
-	        }, 10);
-	      };
-	
-	      var listener = function listener() {
-	        updateVisibleStatus();
-	        aside.removeEventListener('transitionend', listener);
-	      };
-	
-	      /**
-	       * Set dataset attribute in mirror of drawerVisible state:
-	       * - immediately when switch to true
-	       * - after aside transition when switch to false
-	       */
-	      _this._drawerVisibleObserver = _this.observe('drawerVisible', function (drawerVisible) {
-	        if (drawerVisible) {
-	          updateVisibleStatus();
-	        } else {
-	          if (aside) {
-	            aside.addEventListener('transitionend', listener);
-	          }
+	  (0, _reactDom.render)(_react2.default.createElement(
+	    _BarStore.Provider,
+	    { store: store },
+	    _react2.default.createElement(
+	      _I18n.I18n,
+	      {
+	        lang: data.lang,
+	        dictRequire: function dictRequire(lang) {
+	          return __webpack_require__(265)("./" + lang);
 	        }
-	      });
-	
-	      /** Force default value update for drawerVisible */
-	      updateVisibleStatus();
-	    })();
-	  }
+	      },
+	      _react2.default.createElement(_Bar2.default, data)
+	    )
+	  ), barNode);
 	};
 	
-	var unbindEvents = function CozyBarUnbindEvents() {
-	  var body = document.body;
-	
-	  body.removeEventListener('click', this._clickOutsideListener);
-	
-	  if (false) {
-	    this._drawerVisibleObserver.cancel();
-	  }
-	};
-	
-	var getDefaultStackURL = function GetDefaultCozyURL() {
+	var getDefaultStackURL = function getDefaultStackURL() {
 	  var appNode = document.querySelector(APP_SELECTOR);
 	  if (!appNode || !appNode.dataset.cozyDomain) {
 	    console.warn('Cozy-bar can\'t discover the cozy\'s URL, and will probably fail to initialize the connection with the stack.');
@@ -347,7 +319,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  return appNode.dataset.cozyDomain;
 	};
 	
-	var getDefaultToken = function GetDefaultToken() {
+	var getDefaultToken = function getDefaultToken() {
 	  var appNode = document.querySelector(APP_SELECTOR);
 	  if (!appNode || !appNode.dataset.cozyToken) {
 	    console.warn('Cozy-bar can\'t discover the app\'s token, and will probably fail to initialize the connection with the stack.');
@@ -356,16 +328,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	  return appNode.dataset.cozyToken;
 	};
 	
-	var getDefaultLang = function GetDefaultLang() {
+	var getDefaultLang = function getDefaultLang() {
 	  return document.documentElement.getAttribute('lang') || 'en';
 	};
 	
-	var getEditor = function GetEditor() {
+	var getEditor = function getEditor() {
 	  var appNode = document.querySelector(APP_SELECTOR);
 	  return appNode.dataset.cozyEditor || undefined;
 	};
 	
-	var getDefaultIcon = function GetDefaultIcon() {
+	var getDefaultIcon = function getDefaultIcon() {
 	  var linkNode = document.querySelector('link[rel="icon"][sizes^="32"]');
 	  if (linkNode !== null) {
 	    return linkNode.getAttribute('href');
@@ -374,9 +346,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 	};
 	
-	var view = void 0;
-	
-	var init = function CozyBarInit() {
+	var init = function init() {
 	  var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
 	      _ref$lang = _ref.lang,
 	      lang = _ref$lang === undefined ? getDefaultLang() : _ref$lang,
@@ -399,26 +369,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	    isPublic = true;
 	  }
 	
-	  (0, _i18n2.default)(lang);
 	  _stack2.default.init({ cozyURL: cozyURL, token: token });
-	  view = injectDOM({ lang: lang, appName: appName, appEditor: appEditor, iconPath: iconPath, replaceTitleOnMobile: replaceTitleOnMobile, isPublic: isPublic });
-	
-	  if (view) {
-	    bindEvents.call(view);
-	    view.on('teardown', unbindEvents.bind(view));
-	  }
+	  injectBarInDOM({ lang: lang, appName: appName, appEditor: appEditor, iconPath: iconPath, replaceTitleOnMobile: replaceTitleOnMobile, isPublic: isPublic });
 	};
 	
-	// set the cozy bar locale from the application
-	var setLocale = function SetLocale(lang) {
-	  if (!document.getElementById('coz-bar')) {
-	    return;
-	  }
-	  (0, _i18n.i18nSetLocale)(lang);
-	  view.set({ lang: lang });
-	};
-	
-	module.exports = { init: init, version: ("3.2.2"), setLocale: setLocale };
+	module.exports = { init: init, version: ("4.0.0") };
 
 /***/ },
 /* 1 */
@@ -6252,60 +6207,2064 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 189 */
 /***/ function(module, exports, __webpack_require__) {
 
+	/* WEBPACK VAR INJECTION */(function(process) {(function (global, factory) {
+		 true ? module.exports = factory(__webpack_require__(190), __webpack_require__(198)) :
+		typeof define === 'function' && define.amd ? define(['prop-types', 'preact'], factory) :
+		(global.preactCompat = factory(global.PropTypes,global.preact));
+	}(this, (function (PropTypes,preact) {
+	
+	PropTypes = 'default' in PropTypes ? PropTypes['default'] : PropTypes;
+	
+	var version = '15.1.0'; // trick libraries to think we are react
+	
+	var ELEMENTS = 'a abbr address area article aside audio b base bdi bdo big blockquote body br button canvas caption cite code col colgroup data datalist dd del details dfn dialog div dl dt em embed fieldset figcaption figure footer form h1 h2 h3 h4 h5 h6 head header hgroup hr html i iframe img input ins kbd keygen label legend li link main map mark menu menuitem meta meter nav noscript object ol optgroup option output p param picture pre progress q rp rt ruby s samp script section select small source span strong style sub summary sup table tbody td textarea tfoot th thead time title tr track u ul var video wbr circle clipPath defs ellipse g image line linearGradient mask path pattern polygon polyline radialGradient rect stop svg text tspan'.split(' ');
+	
+	var REACT_ELEMENT_TYPE = (typeof Symbol!=='undefined' && Symbol.for && Symbol.for('react.element')) || 0xeac7;
+	
+	var COMPONENT_WRAPPER_KEY = typeof Symbol!=='undefined' ? Symbol.for('__preactCompatWrapper') : '__preactCompatWrapper';
+	
+	// don't autobind these methods since they already have guaranteed context.
+	var AUTOBIND_BLACKLIST = {
+		constructor: 1,
+		render: 1,
+		shouldComponentUpdate: 1,
+		componentWillReceiveProps: 1,
+		componentWillUpdate: 1,
+		componentDidUpdate: 1,
+		componentWillMount: 1,
+		componentDidMount: 1,
+		componentWillUnmount: 1,
+		componentDidUnmount: 1
+	};
+	
+	
+	var CAMEL_PROPS = /^(?:accent|alignment|arabic|baseline|cap|clip|color|fill|flood|font|glyph|horiz|marker|overline|paint|stop|strikethrough|stroke|text|underline|unicode|units|v|vert|word|writing|x)[A-Z]/;
+	
+	
+	var BYPASS_HOOK = {};
+	
+	/*global process*/
+	var DEV = typeof process==='undefined' || !process.env || process.env.NODE_ENV!=='production';
+	
+	// a component that renders nothing. Used to replace components for unmountComponentAtNode.
+	function EmptyComponent() { return null; }
+	
+	
+	
+	// make react think we're react.
+	var VNode = preact.h('a', null).constructor;
+	VNode.prototype.$$typeof = REACT_ELEMENT_TYPE;
+	VNode.prototype.preactCompatUpgraded = false;
+	VNode.prototype.preactCompatNormalized = false;
+	
+	Object.defineProperty(VNode.prototype, 'type', {
+		get: function() { return this.nodeName; },
+		set: function(v) { this.nodeName = v; },
+		configurable:true
+	});
+	
+	Object.defineProperty(VNode.prototype, 'props', {
+		get: function() { return this.attributes; },
+		set: function(v) { this.attributes = v; },
+		configurable:true
+	});
+	
+	
+	
+	var oldEventHook = preact.options.event;
+	preact.options.event = function (e) {
+		if (oldEventHook) { e = oldEventHook(e); }
+		e.persist = Object;
+		e.nativeEvent = e;
+		return e;
+	};
+	
+	
+	var oldVnodeHook = preact.options.vnode;
+	preact.options.vnode = function (vnode) {
+		if (!vnode.preactCompatUpgraded) {
+			vnode.preactCompatUpgraded = true;
+	
+			var tag = vnode.nodeName,
+				attrs = vnode.attributes = extend({}, vnode.attributes);
+	
+			if (typeof tag==='function') {
+				if (tag[COMPONENT_WRAPPER_KEY]===true || (tag.prototype && 'isReactComponent' in tag.prototype)) {
+					if (vnode.children && String(vnode.children)==='') { vnode.children = undefined; }
+					if (vnode.children) { attrs.children = vnode.children; }
+	
+					if (!vnode.preactCompatNormalized) {
+						normalizeVNode(vnode);
+					}
+					handleComponentVNode(vnode);
+				}
+			}
+			else {
+				if (vnode.children && String(vnode.children)==='') { vnode.children = undefined; }
+				if (vnode.children) { attrs.children = vnode.children; }
+	
+				if (attrs.defaultValue) {
+					if (!attrs.value && attrs.value!==0) {
+						attrs.value = attrs.defaultValue;
+					}
+					delete attrs.defaultValue;
+				}
+	
+				handleElementVNode(vnode, attrs);
+			}
+		}
+	
+		if (oldVnodeHook) { oldVnodeHook(vnode); }
+	};
+	
+	function handleComponentVNode(vnode) {
+		var tag = vnode.nodeName,
+			a = vnode.attributes;
+	
+		vnode.attributes = {};
+		if (tag.defaultProps) { extend(vnode.attributes, tag.defaultProps); }
+		if (a) { extend(vnode.attributes, a); }
+	}
+	
+	function handleElementVNode(vnode, a) {
+		var shouldSanitize, attrs, i;
+		if (a) {
+			for (i in a) { if ((shouldSanitize = CAMEL_PROPS.test(i))) { break; } }
+			if (shouldSanitize) {
+				attrs = vnode.attributes = {};
+				for (i in a) {
+					if (a.hasOwnProperty(i)) {
+						attrs[ CAMEL_PROPS.test(i) ? i.replace(/([A-Z0-9])/, '-$1').toLowerCase() : i ] = a[i];
+					}
+				}
+			}
+		}
+	}
+	
+	
+	
+	// proxy render() since React returns a Component reference.
+	function render$1(vnode, parent, callback) {
+		var prev = parent && parent._preactCompatRendered && parent._preactCompatRendered.base;
+	
+		// ignore impossible previous renders
+		if (prev && prev.parentNode!==parent) { prev = null; }
+	
+		// default to first Element child
+		if (!prev) { prev = parent.children[0]; }
+	
+		// remove unaffected siblings
+		for (var i=parent.childNodes.length; i--; ) {
+			if (parent.childNodes[i]!==prev) {
+				parent.removeChild(parent.childNodes[i]);
+			}
+		}
+	
+		var out = preact.render(vnode, parent, prev);
+		if (parent) { parent._preactCompatRendered = out && (out._component || { base: out }); }
+		if (typeof callback==='function') { callback(); }
+		return out && out._component || out;
+	}
+	
+	
+	var ContextProvider = function () {};
+	
+	ContextProvider.prototype.getChildContext = function () {
+		return this.props.context;
+	};
+	ContextProvider.prototype.render = function (props) {
+		return props.children[0];
+	};
+	
+	function renderSubtreeIntoContainer(parentComponent, vnode, container, callback) {
+		var wrap = preact.h(ContextProvider, { context: parentComponent.context }, vnode);
+		var c = render$1(wrap, container);
+		if (callback) { callback(c); }
+		return c._component || c.base;
+	}
+	
+	
+	function unmountComponentAtNode(container) {
+		var existing = container._preactCompatRendered && container._preactCompatRendered.base;
+		if (existing && existing.parentNode===container) {
+			preact.render(preact.h(EmptyComponent), container, existing);
+			return true;
+		}
+		return false;
+	}
+	
+	
+	
+	var ARR = [];
+	
+	// This API is completely unnecessary for Preact, so it's basically passthrough.
+	var Children = {
+		map: function(children, fn, ctx) {
+			if (children == null) { return null; }
+			children = Children.toArray(children);
+			if (ctx && ctx!==children) { fn = fn.bind(ctx); }
+			return children.map(fn);
+		},
+		forEach: function(children, fn, ctx) {
+			if (children == null) { return null; }
+			children = Children.toArray(children);
+			if (ctx && ctx!==children) { fn = fn.bind(ctx); }
+			children.forEach(fn);
+		},
+		count: function(children) {
+			return children && children.length || 0;
+		},
+		only: function(children) {
+			children = Children.toArray(children);
+			if (children.length!==1) { throw new Error('Children.only() expects only one child.'); }
+			return children[0];
+		},
+		toArray: function(children) {
+			if (children == null) { return []; }
+			return Array.isArray && Array.isArray(children) ? children : ARR.concat(children);
+		}
+	};
+	
+	
+	/** Track current render() component for ref assignment */
+	var currentComponent;
+	
+	
+	function createFactory(type) {
+		return createElement.bind(null, type);
+	}
+	
+	
+	var DOM = {};
+	for (var i=ELEMENTS.length; i--; ) {
+		DOM[ELEMENTS[i]] = createFactory(ELEMENTS[i]);
+	}
+	
+	function upgradeToVNodes(arr, offset) {
+		for (var i=offset || 0; i<arr.length; i++) {
+			var obj = arr[i];
+			if (Array.isArray(obj)) {
+				upgradeToVNodes(obj);
+			}
+			else if (obj && typeof obj==='object' && !isValidElement(obj) && ((obj.props && obj.type) || (obj.attributes && obj.nodeName) || obj.children)) {
+				arr[i] = createElement(obj.type || obj.nodeName, obj.props || obj.attributes, obj.children);
+			}
+		}
+	}
+	
+	function isStatelessComponent(c) {
+		return typeof c==='function' && !(c.prototype && c.prototype.render);
+	}
+	
+	
+	// wraps stateless functional components in a PropTypes validator
+	function wrapStatelessComponent(WrappedComponent) {
+		return createClass({
+			displayName: WrappedComponent.displayName || WrappedComponent.name,
+			render: function() {
+				return WrappedComponent(this.props, this.context);
+			}
+		});
+	}
+	
+	
+	function statelessComponentHook(Ctor) {
+		var Wrapped = Ctor[COMPONENT_WRAPPER_KEY];
+		if (Wrapped) { return Wrapped===true ? Ctor : Wrapped; }
+	
+		Wrapped = wrapStatelessComponent(Ctor);
+	
+		Object.defineProperty(Wrapped, COMPONENT_WRAPPER_KEY, { configurable:true, value:true });
+		Wrapped.displayName = Ctor.displayName;
+		Wrapped.propTypes = Ctor.propTypes;
+		Wrapped.defaultProps = Ctor.defaultProps;
+	
+		Object.defineProperty(Ctor, COMPONENT_WRAPPER_KEY, { configurable:true, value:Wrapped });
+	
+		return Wrapped;
+	}
+	
+	
+	function createElement() {
+		var args = [], len = arguments.length;
+		while ( len-- ) args[ len ] = arguments[ len ];
+	
+		upgradeToVNodes(args, 2);
+		return normalizeVNode(preact.h.apply(void 0, args));
+	}
+	
+	
+	function normalizeVNode(vnode) {
+		vnode.preactCompatNormalized = true;
+	
+		applyClassName(vnode);
+	
+		if (isStatelessComponent(vnode.nodeName)) {
+			vnode.nodeName = statelessComponentHook(vnode.nodeName);
+		}
+	
+		var ref = vnode.attributes.ref,
+			type = ref && typeof ref;
+		if (currentComponent && (type==='string' || type==='number')) {
+			vnode.attributes.ref = createStringRefProxy(ref, currentComponent);
+		}
+	
+		applyEventNormalization(vnode);
+	
+		return vnode;
+	}
+	
+	
+	function cloneElement$1(element, props) {
+		var children = [], len = arguments.length - 2;
+		while ( len-- > 0 ) children[ len ] = arguments[ len + 2 ];
+	
+		if (!isValidElement(element)) { return element; }
+		var elementProps = element.attributes || element.props;
+		var node = preact.h(
+			element.nodeName || element.type,
+			elementProps,
+			element.children || elementProps && elementProps.children
+		);
+		// Only provide the 3rd argument if needed.
+		// Arguments 3+ overwrite element.children in preactCloneElement
+		var cloneArgs = [node, props];
+		if (children && children.length) {
+			cloneArgs.push(children);
+		}
+		else if (props && props.children) {
+			cloneArgs.push(props.children);
+		}
+		return normalizeVNode(preact.cloneElement.apply(void 0, cloneArgs));
+	}
+	
+	
+	function isValidElement(element) {
+		return element && ((element instanceof VNode) || element.$$typeof===REACT_ELEMENT_TYPE);
+	}
+	
+	
+	function createStringRefProxy(name, component) {
+		return component._refProxies[name] || (component._refProxies[name] = function (resolved) {
+			if (component && component.refs) {
+				component.refs[name] = resolved;
+				if (resolved===null) {
+					delete component._refProxies[name];
+					component = null;
+				}
+			}
+		});
+	}
+	
+	
+	function applyEventNormalization(ref) {
+		var nodeName = ref.nodeName;
+		var attributes = ref.attributes;
+	
+		if (!attributes || typeof nodeName!=='string') { return; }
+		var props = {};
+		for (var i in attributes) {
+			props[i.toLowerCase()] = i;
+		}
+		if (props.ondoubleclick) {
+			attributes.ondblclick = attributes[props.ondoubleclick];
+			delete attributes[props.ondoubleclick];
+		}
+		// for *textual inputs* (incl textarea), normalize `onChange` -> `onInput`:
+		if (props.onchange && (nodeName==='textarea' || (nodeName.toLowerCase()==='input' && !/^fil|che|rad/i.test(attributes.type)))) {
+			var normalized = props.oninput || 'oninput';
+			if (!attributes[normalized]) {
+				attributes[normalized] = multihook([attributes[normalized], attributes[props.onchange]]);
+				delete attributes[props.onchange];
+			}
+		}
+	}
+	
+	
+	function applyClassName(ref) {
+		var attributes = ref.attributes;
+	
+		if (!attributes) { return; }
+		var cl = attributes.className || attributes.class;
+		if (cl) { attributes.className = cl; }
+	}
+	
+	
+	function extend(base, props) {
+		for (var key in props) {
+			if (props.hasOwnProperty(key)) {
+				base[key] = props[key];
+			}
+		}
+		return base;
+	}
+	
+	
+	function shallowDiffers(a, b) {
+		for (var i in a) { if (!(i in b)) { return true; } }
+		for (var i$1 in b) { if (a[i$1]!==b[i$1]) { return true; } }
+		return false;
+	}
+	
+	
+	function findDOMNode(component) {
+		return component && component.base || component;
+	}
+	
+	
+	function F(){}
+	
+	function createClass(obj) {
+		function cl(props, context) {
+			bindAll(this);
+			Component$1.call(this, props, context, BYPASS_HOOK);
+			newComponentHook.call(this, props, context);
+		}
+	
+		obj = extend({ constructor: cl }, obj);
+	
+		// We need to apply mixins here so that getDefaultProps is correctly mixed
+		if (obj.mixins) {
+			applyMixins(obj, collateMixins(obj.mixins));
+		}
+		if (obj.statics) {
+			extend(cl, obj.statics);
+		}
+		if (obj.propTypes) {
+			cl.propTypes = obj.propTypes;
+		}
+		if (obj.defaultProps) {
+			cl.defaultProps = obj.defaultProps;
+		}
+		if (obj.getDefaultProps) {
+			cl.defaultProps = obj.getDefaultProps();
+		}
+	
+		F.prototype = Component$1.prototype;
+		cl.prototype = extend(new F(), obj);
+	
+		cl.displayName = obj.displayName || 'Component';
+	
+		return cl;
+	}
+	
+	
+	// Flatten an Array of mixins to a map of method name to mixin implementations
+	function collateMixins(mixins) {
+		var keyed = {};
+		for (var i=0; i<mixins.length; i++) {
+			var mixin = mixins[i];
+			for (var key in mixin) {
+				if (mixin.hasOwnProperty(key) && typeof mixin[key]==='function') {
+					(keyed[key] || (keyed[key]=[])).push(mixin[key]);
+				}
+			}
+		}
+		return keyed;
+	}
+	
+	
+	// apply a mapping of Arrays of mixin methods to a component prototype
+	function applyMixins(proto, mixins) {
+		for (var key in mixins) { if (mixins.hasOwnProperty(key)) {
+			proto[key] = multihook(
+				mixins[key].concat(proto[key] || ARR),
+				key==='getDefaultProps' || key==='getInitialState' || key==='getChildContext'
+			);
+		} }
+	}
+	
+	
+	function bindAll(ctx) {
+		for (var i in ctx) {
+			var v = ctx[i];
+			if (typeof v==='function' && !v.__bound && !AUTOBIND_BLACKLIST.hasOwnProperty(i)) {
+				(ctx[i] = v.bind(ctx)).__bound = true;
+			}
+		}
+	}
+	
+	
+	function callMethod(ctx, m, args) {
+		if (typeof m==='string') {
+			m = ctx.constructor.prototype[m];
+		}
+		if (typeof m==='function') {
+			return m.apply(ctx, args);
+		}
+	}
+	
+	function multihook(hooks, skipDuplicates) {
+		return function() {
+			var arguments$1 = arguments;
+			var this$1 = this;
+	
+			var ret;
+			for (var i=0; i<hooks.length; i++) {
+				var r = callMethod(this$1, hooks[i], arguments$1);
+	
+				if (skipDuplicates && r!=null) {
+					if (!ret) { ret = {}; }
+					for (var key in r) { if (r.hasOwnProperty(key)) {
+						ret[key] = r[key];
+					} }
+				}
+				else if (typeof r!=='undefined') { ret = r; }
+			}
+			return ret;
+		};
+	}
+	
+	
+	function newComponentHook(props, context) {
+		propsHook.call(this, props, context);
+		this.componentWillReceiveProps = multihook([propsHook, this.componentWillReceiveProps || 'componentWillReceiveProps']);
+		this.render = multihook([propsHook, beforeRender, this.render || 'render', afterRender]);
+	}
+	
+	
+	function propsHook(props, context) {
+		if (!props) { return; }
+	
+		// React annoyingly special-cases single children, and some react components are ridiculously strict about this.
+		var c = props.children;
+		if (c && Array.isArray(c) && c.length===1) {
+			props.children = c[0];
+	
+			// but its totally still going to be an Array.
+			if (props.children && typeof props.children==='object') {
+				props.children.length = 1;
+				props.children[0] = props.children;
+			}
+		}
+	
+		// add proptype checking
+		if (DEV) {
+			var ctor = typeof this==='function' ? this : this.constructor,
+				propTypes = this.propTypes || ctor.propTypes;
+			var displayName = this.displayName || ctor.name;
+	
+			if (propTypes) {
+				PropTypes.checkPropTypes(propTypes, props, 'prop', displayName);
+			}
+		}
+	}
+	
+	
+	function beforeRender(props) {
+		currentComponent = this;
+	}
+	
+	function afterRender() {
+		if (currentComponent===this) {
+			currentComponent = null;
+		}
+	}
+	
+	
+	
+	function Component$1(props, context, opts) {
+		preact.Component.call(this, props, context);
+		this.state = this.getInitialState ? this.getInitialState() : {};
+		this.refs = {};
+		this._refProxies = {};
+		if (opts!==BYPASS_HOOK) {
+			newComponentHook.call(this, props, context);
+		}
+	}
+	extend(Component$1.prototype = new preact.Component(), {
+		constructor: Component$1,
+	
+		isReactComponent: {},
+	
+		replaceState: function(state, callback) {
+			var this$1 = this;
+	
+			this.setState(state, callback);
+			for (var i in this$1.state) {
+				if (!(i in state)) {
+					delete this$1.state[i];
+				}
+			}
+		},
+	
+		getDOMNode: function() {
+			return this.base;
+		},
+	
+		isMounted: function() {
+			return !!this.base;
+		}
+	});
+	
+	
+	
+	function PureComponent(props, context) {
+		Component$1.call(this, props, context);
+	}
+	F.prototype = Component$1.prototype;
+	PureComponent.prototype = new F();
+	PureComponent.prototype.isPureReactComponent = true;
+	PureComponent.prototype.shouldComponentUpdate = function(props, state) {
+		return shallowDiffers(this.props, props) || shallowDiffers(this.state, state);
+	};
+	
+	
+	
+	var index = {
+		version: version,
+		DOM: DOM,
+		PropTypes: PropTypes,
+		Children: Children,
+		render: render$1,
+		createClass: createClass,
+		createFactory: createFactory,
+		createElement: createElement,
+		cloneElement: cloneElement$1,
+		isValidElement: isValidElement,
+		findDOMNode: findDOMNode,
+		unmountComponentAtNode: unmountComponentAtNode,
+		Component: Component$1,
+		PureComponent: PureComponent,
+		unstable_renderSubtreeIntoContainer: renderSubtreeIntoContainer
+	};
+	
+	return index;
+	
+	})));
+	//# sourceMappingURL=preact-compat.js.map
+	
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(188)))
+
+/***/ },
+/* 190 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {/**
+	 * Copyright 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 */
+	
+	if (process.env.NODE_ENV !== 'production') {
+	  var REACT_ELEMENT_TYPE = (typeof Symbol === 'function' &&
+	    Symbol.for &&
+	    Symbol.for('react.element')) ||
+	    0xeac7;
+	
+	  var isValidElement = function(object) {
+	    return typeof object === 'object' &&
+	      object !== null &&
+	      object.$$typeof === REACT_ELEMENT_TYPE;
+	  };
+	
+	  // By explicitly using `prop-types` you are opting into new development behavior.
+	  // http://fb.me/prop-types-in-prod
+	  var throwOnDirectAccess = true;
+	  module.exports = __webpack_require__(191)(isValidElement, throwOnDirectAccess);
+	} else {
+	  // By explicitly using `prop-types` you are opting into new production behavior.
+	  // http://fb.me/prop-types-in-prod
+	  module.exports = __webpack_require__(197)();
+	}
+	
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(188)))
+
+/***/ },
+/* 191 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {/**
+	 * Copyright 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 */
+	
+	'use strict';
+	
+	var emptyFunction = __webpack_require__(192);
+	var invariant = __webpack_require__(193);
+	var warning = __webpack_require__(194);
+	
+	var ReactPropTypesSecret = __webpack_require__(195);
+	var checkPropTypes = __webpack_require__(196);
+	
+	module.exports = function(isValidElement, throwOnDirectAccess) {
+	  /* global Symbol */
+	  var ITERATOR_SYMBOL = typeof Symbol === 'function' && Symbol.iterator;
+	  var FAUX_ITERATOR_SYMBOL = '@@iterator'; // Before Symbol spec.
+	
+	  /**
+	   * Returns the iterator method function contained on the iterable object.
+	   *
+	   * Be sure to invoke the function with the iterable as context:
+	   *
+	   *     var iteratorFn = getIteratorFn(myIterable);
+	   *     if (iteratorFn) {
+	   *       var iterator = iteratorFn.call(myIterable);
+	   *       ...
+	   *     }
+	   *
+	   * @param {?object} maybeIterable
+	   * @return {?function}
+	   */
+	  function getIteratorFn(maybeIterable) {
+	    var iteratorFn = maybeIterable && (ITERATOR_SYMBOL && maybeIterable[ITERATOR_SYMBOL] || maybeIterable[FAUX_ITERATOR_SYMBOL]);
+	    if (typeof iteratorFn === 'function') {
+	      return iteratorFn;
+	    }
+	  }
+	
+	  /**
+	   * Collection of methods that allow declaration and validation of props that are
+	   * supplied to React components. Example usage:
+	   *
+	   *   var Props = require('ReactPropTypes');
+	   *   var MyArticle = React.createClass({
+	   *     propTypes: {
+	   *       // An optional string prop named "description".
+	   *       description: Props.string,
+	   *
+	   *       // A required enum prop named "category".
+	   *       category: Props.oneOf(['News','Photos']).isRequired,
+	   *
+	   *       // A prop named "dialog" that requires an instance of Dialog.
+	   *       dialog: Props.instanceOf(Dialog).isRequired
+	   *     },
+	   *     render: function() { ... }
+	   *   });
+	   *
+	   * A more formal specification of how these methods are used:
+	   *
+	   *   type := array|bool|func|object|number|string|oneOf([...])|instanceOf(...)
+	   *   decl := ReactPropTypes.{type}(.isRequired)?
+	   *
+	   * Each and every declaration produces a function with the same signature. This
+	   * allows the creation of custom validation functions. For example:
+	   *
+	   *  var MyLink = React.createClass({
+	   *    propTypes: {
+	   *      // An optional string or URI prop named "href".
+	   *      href: function(props, propName, componentName) {
+	   *        var propValue = props[propName];
+	   *        if (propValue != null && typeof propValue !== 'string' &&
+	   *            !(propValue instanceof URI)) {
+	   *          return new Error(
+	   *            'Expected a string or an URI for ' + propName + ' in ' +
+	   *            componentName
+	   *          );
+	   *        }
+	   *      }
+	   *    },
+	   *    render: function() {...}
+	   *  });
+	   *
+	   * @internal
+	   */
+	
+	  var ANONYMOUS = '<<anonymous>>';
+	
+	  // Important!
+	  // Keep this list in sync with production version in `./factoryWithThrowingShims.js`.
+	  var ReactPropTypes = {
+	    array: createPrimitiveTypeChecker('array'),
+	    bool: createPrimitiveTypeChecker('boolean'),
+	    func: createPrimitiveTypeChecker('function'),
+	    number: createPrimitiveTypeChecker('number'),
+	    object: createPrimitiveTypeChecker('object'),
+	    string: createPrimitiveTypeChecker('string'),
+	    symbol: createPrimitiveTypeChecker('symbol'),
+	
+	    any: createAnyTypeChecker(),
+	    arrayOf: createArrayOfTypeChecker,
+	    element: createElementTypeChecker(),
+	    instanceOf: createInstanceTypeChecker,
+	    node: createNodeChecker(),
+	    objectOf: createObjectOfTypeChecker,
+	    oneOf: createEnumTypeChecker,
+	    oneOfType: createUnionTypeChecker,
+	    shape: createShapeTypeChecker
+	  };
+	
+	  /**
+	   * inlined Object.is polyfill to avoid requiring consumers ship their own
+	   * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is
+	   */
+	  /*eslint-disable no-self-compare*/
+	  function is(x, y) {
+	    // SameValue algorithm
+	    if (x === y) {
+	      // Steps 1-5, 7-10
+	      // Steps 6.b-6.e: +0 != -0
+	      return x !== 0 || 1 / x === 1 / y;
+	    } else {
+	      // Step 6.a: NaN == NaN
+	      return x !== x && y !== y;
+	    }
+	  }
+	  /*eslint-enable no-self-compare*/
+	
+	  /**
+	   * We use an Error-like object for backward compatibility as people may call
+	   * PropTypes directly and inspect their output. However, we don't use real
+	   * Errors anymore. We don't inspect their stack anyway, and creating them
+	   * is prohibitively expensive if they are created too often, such as what
+	   * happens in oneOfType() for any type before the one that matched.
+	   */
+	  function PropTypeError(message) {
+	    this.message = message;
+	    this.stack = '';
+	  }
+	  // Make `instanceof Error` still work for returned errors.
+	  PropTypeError.prototype = Error.prototype;
+	
+	  function createChainableTypeChecker(validate) {
+	    if (process.env.NODE_ENV !== 'production') {
+	      var manualPropTypeCallCache = {};
+	      var manualPropTypeWarningCount = 0;
+	    }
+	    function checkType(isRequired, props, propName, componentName, location, propFullName, secret) {
+	      componentName = componentName || ANONYMOUS;
+	      propFullName = propFullName || propName;
+	
+	      if (secret !== ReactPropTypesSecret) {
+	        if (throwOnDirectAccess) {
+	          // New behavior only for users of `prop-types` package
+	          invariant(
+	            false,
+	            'Calling PropTypes validators directly is not supported by the `prop-types` package. ' +
+	            'Use `PropTypes.checkPropTypes()` to call them. ' +
+	            'Read more at http://fb.me/use-check-prop-types'
+	          );
+	        } else if (process.env.NODE_ENV !== 'production' && typeof console !== 'undefined') {
+	          // Old behavior for people using React.PropTypes
+	          var cacheKey = componentName + ':' + propName;
+	          if (
+	            !manualPropTypeCallCache[cacheKey] &&
+	            // Avoid spamming the console because they are often not actionable except for lib authors
+	            manualPropTypeWarningCount < 3
+	          ) {
+	            warning(
+	              false,
+	              'You are manually calling a React.PropTypes validation ' +
+	              'function for the `%s` prop on `%s`. This is deprecated ' +
+	              'and will throw in the standalone `prop-types` package. ' +
+	              'You may be seeing this warning due to a third-party PropTypes ' +
+	              'library. See https://fb.me/react-warning-dont-call-proptypes ' + 'for details.',
+	              propFullName,
+	              componentName
+	            );
+	            manualPropTypeCallCache[cacheKey] = true;
+	            manualPropTypeWarningCount++;
+	          }
+	        }
+	      }
+	      if (props[propName] == null) {
+	        if (isRequired) {
+	          if (props[propName] === null) {
+	            return new PropTypeError('The ' + location + ' `' + propFullName + '` is marked as required ' + ('in `' + componentName + '`, but its value is `null`.'));
+	          }
+	          return new PropTypeError('The ' + location + ' `' + propFullName + '` is marked as required in ' + ('`' + componentName + '`, but its value is `undefined`.'));
+	        }
+	        return null;
+	      } else {
+	        return validate(props, propName, componentName, location, propFullName);
+	      }
+	    }
+	
+	    var chainedCheckType = checkType.bind(null, false);
+	    chainedCheckType.isRequired = checkType.bind(null, true);
+	
+	    return chainedCheckType;
+	  }
+	
+	  function createPrimitiveTypeChecker(expectedType) {
+	    function validate(props, propName, componentName, location, propFullName, secret) {
+	      var propValue = props[propName];
+	      var propType = getPropType(propValue);
+	      if (propType !== expectedType) {
+	        // `propValue` being instance of, say, date/regexp, pass the 'object'
+	        // check, but we can offer a more precise error message here rather than
+	        // 'of type `object`'.
+	        var preciseType = getPreciseType(propValue);
+	
+	        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + preciseType + '` supplied to `' + componentName + '`, expected ') + ('`' + expectedType + '`.'));
+	      }
+	      return null;
+	    }
+	    return createChainableTypeChecker(validate);
+	  }
+	
+	  function createAnyTypeChecker() {
+	    return createChainableTypeChecker(emptyFunction.thatReturnsNull);
+	  }
+	
+	  function createArrayOfTypeChecker(typeChecker) {
+	    function validate(props, propName, componentName, location, propFullName) {
+	      if (typeof typeChecker !== 'function') {
+	        return new PropTypeError('Property `' + propFullName + '` of component `' + componentName + '` has invalid PropType notation inside arrayOf.');
+	      }
+	      var propValue = props[propName];
+	      if (!Array.isArray(propValue)) {
+	        var propType = getPropType(propValue);
+	        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + propType + '` supplied to `' + componentName + '`, expected an array.'));
+	      }
+	      for (var i = 0; i < propValue.length; i++) {
+	        var error = typeChecker(propValue, i, componentName, location, propFullName + '[' + i + ']', ReactPropTypesSecret);
+	        if (error instanceof Error) {
+	          return error;
+	        }
+	      }
+	      return null;
+	    }
+	    return createChainableTypeChecker(validate);
+	  }
+	
+	  function createElementTypeChecker() {
+	    function validate(props, propName, componentName, location, propFullName) {
+	      var propValue = props[propName];
+	      if (!isValidElement(propValue)) {
+	        var propType = getPropType(propValue);
+	        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + propType + '` supplied to `' + componentName + '`, expected a single ReactElement.'));
+	      }
+	      return null;
+	    }
+	    return createChainableTypeChecker(validate);
+	  }
+	
+	  function createInstanceTypeChecker(expectedClass) {
+	    function validate(props, propName, componentName, location, propFullName) {
+	      if (!(props[propName] instanceof expectedClass)) {
+	        var expectedClassName = expectedClass.name || ANONYMOUS;
+	        var actualClassName = getClassName(props[propName]);
+	        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + actualClassName + '` supplied to `' + componentName + '`, expected ') + ('instance of `' + expectedClassName + '`.'));
+	      }
+	      return null;
+	    }
+	    return createChainableTypeChecker(validate);
+	  }
+	
+	  function createEnumTypeChecker(expectedValues) {
+	    if (!Array.isArray(expectedValues)) {
+	      process.env.NODE_ENV !== 'production' ? warning(false, 'Invalid argument supplied to oneOf, expected an instance of array.') : void 0;
+	      return emptyFunction.thatReturnsNull;
+	    }
+	
+	    function validate(props, propName, componentName, location, propFullName) {
+	      var propValue = props[propName];
+	      for (var i = 0; i < expectedValues.length; i++) {
+	        if (is(propValue, expectedValues[i])) {
+	          return null;
+	        }
+	      }
+	
+	      var valuesString = JSON.stringify(expectedValues);
+	      return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of value `' + propValue + '` ' + ('supplied to `' + componentName + '`, expected one of ' + valuesString + '.'));
+	    }
+	    return createChainableTypeChecker(validate);
+	  }
+	
+	  function createObjectOfTypeChecker(typeChecker) {
+	    function validate(props, propName, componentName, location, propFullName) {
+	      if (typeof typeChecker !== 'function') {
+	        return new PropTypeError('Property `' + propFullName + '` of component `' + componentName + '` has invalid PropType notation inside objectOf.');
+	      }
+	      var propValue = props[propName];
+	      var propType = getPropType(propValue);
+	      if (propType !== 'object') {
+	        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + propType + '` supplied to `' + componentName + '`, expected an object.'));
+	      }
+	      for (var key in propValue) {
+	        if (propValue.hasOwnProperty(key)) {
+	          var error = typeChecker(propValue, key, componentName, location, propFullName + '.' + key, ReactPropTypesSecret);
+	          if (error instanceof Error) {
+	            return error;
+	          }
+	        }
+	      }
+	      return null;
+	    }
+	    return createChainableTypeChecker(validate);
+	  }
+	
+	  function createUnionTypeChecker(arrayOfTypeCheckers) {
+	    if (!Array.isArray(arrayOfTypeCheckers)) {
+	      process.env.NODE_ENV !== 'production' ? warning(false, 'Invalid argument supplied to oneOfType, expected an instance of array.') : void 0;
+	      return emptyFunction.thatReturnsNull;
+	    }
+	
+	    for (var i = 0; i < arrayOfTypeCheckers.length; i++) {
+	      var checker = arrayOfTypeCheckers[i];
+	      if (typeof checker !== 'function') {
+	        warning(
+	          false,
+	          'Invalid argument supplid to oneOfType. Expected an array of check functions, but ' +
+	          'received %s at index %s.',
+	          getPostfixForTypeWarning(checker),
+	          i
+	        );
+	        return emptyFunction.thatReturnsNull;
+	      }
+	    }
+	
+	    function validate(props, propName, componentName, location, propFullName) {
+	      for (var i = 0; i < arrayOfTypeCheckers.length; i++) {
+	        var checker = arrayOfTypeCheckers[i];
+	        if (checker(props, propName, componentName, location, propFullName, ReactPropTypesSecret) == null) {
+	          return null;
+	        }
+	      }
+	
+	      return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` supplied to ' + ('`' + componentName + '`.'));
+	    }
+	    return createChainableTypeChecker(validate);
+	  }
+	
+	  function createNodeChecker() {
+	    function validate(props, propName, componentName, location, propFullName) {
+	      if (!isNode(props[propName])) {
+	        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` supplied to ' + ('`' + componentName + '`, expected a ReactNode.'));
+	      }
+	      return null;
+	    }
+	    return createChainableTypeChecker(validate);
+	  }
+	
+	  function createShapeTypeChecker(shapeTypes) {
+	    function validate(props, propName, componentName, location, propFullName) {
+	      var propValue = props[propName];
+	      var propType = getPropType(propValue);
+	      if (propType !== 'object') {
+	        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type `' + propType + '` ' + ('supplied to `' + componentName + '`, expected `object`.'));
+	      }
+	      for (var key in shapeTypes) {
+	        var checker = shapeTypes[key];
+	        if (!checker) {
+	          continue;
+	        }
+	        var error = checker(propValue, key, componentName, location, propFullName + '.' + key, ReactPropTypesSecret);
+	        if (error) {
+	          return error;
+	        }
+	      }
+	      return null;
+	    }
+	    return createChainableTypeChecker(validate);
+	  }
+	
+	  function isNode(propValue) {
+	    switch (typeof propValue) {
+	      case 'number':
+	      case 'string':
+	      case 'undefined':
+	        return true;
+	      case 'boolean':
+	        return !propValue;
+	      case 'object':
+	        if (Array.isArray(propValue)) {
+	          return propValue.every(isNode);
+	        }
+	        if (propValue === null || isValidElement(propValue)) {
+	          return true;
+	        }
+	
+	        var iteratorFn = getIteratorFn(propValue);
+	        if (iteratorFn) {
+	          var iterator = iteratorFn.call(propValue);
+	          var step;
+	          if (iteratorFn !== propValue.entries) {
+	            while (!(step = iterator.next()).done) {
+	              if (!isNode(step.value)) {
+	                return false;
+	              }
+	            }
+	          } else {
+	            // Iterator will provide entry [k,v] tuples rather than values.
+	            while (!(step = iterator.next()).done) {
+	              var entry = step.value;
+	              if (entry) {
+	                if (!isNode(entry[1])) {
+	                  return false;
+	                }
+	              }
+	            }
+	          }
+	        } else {
+	          return false;
+	        }
+	
+	        return true;
+	      default:
+	        return false;
+	    }
+	  }
+	
+	  function isSymbol(propType, propValue) {
+	    // Native Symbol.
+	    if (propType === 'symbol') {
+	      return true;
+	    }
+	
+	    // 19.4.3.5 Symbol.prototype[@@toStringTag] === 'Symbol'
+	    if (propValue['@@toStringTag'] === 'Symbol') {
+	      return true;
+	    }
+	
+	    // Fallback for non-spec compliant Symbols which are polyfilled.
+	    if (typeof Symbol === 'function' && propValue instanceof Symbol) {
+	      return true;
+	    }
+	
+	    return false;
+	  }
+	
+	  // Equivalent of `typeof` but with special handling for array and regexp.
+	  function getPropType(propValue) {
+	    var propType = typeof propValue;
+	    if (Array.isArray(propValue)) {
+	      return 'array';
+	    }
+	    if (propValue instanceof RegExp) {
+	      // Old webkits (at least until Android 4.0) return 'function' rather than
+	      // 'object' for typeof a RegExp. We'll normalize this here so that /bla/
+	      // passes PropTypes.object.
+	      return 'object';
+	    }
+	    if (isSymbol(propType, propValue)) {
+	      return 'symbol';
+	    }
+	    return propType;
+	  }
+	
+	  // This handles more types than `getPropType`. Only used for error messages.
+	  // See `createPrimitiveTypeChecker`.
+	  function getPreciseType(propValue) {
+	    if (typeof propValue === 'undefined' || propValue === null) {
+	      return '' + propValue;
+	    }
+	    var propType = getPropType(propValue);
+	    if (propType === 'object') {
+	      if (propValue instanceof Date) {
+	        return 'date';
+	      } else if (propValue instanceof RegExp) {
+	        return 'regexp';
+	      }
+	    }
+	    return propType;
+	  }
+	
+	  // Returns a string that is postfixed to a warning about an invalid type.
+	  // For example, "undefined" or "of type array"
+	  function getPostfixForTypeWarning(value) {
+	    var type = getPreciseType(value);
+	    switch (type) {
+	      case 'array':
+	      case 'object':
+	        return 'an ' + type;
+	      case 'boolean':
+	      case 'date':
+	      case 'regexp':
+	        return 'a ' + type;
+	      default:
+	        return type;
+	    }
+	  }
+	
+	  // Returns class name of the object, if any.
+	  function getClassName(propValue) {
+	    if (!propValue.constructor || !propValue.constructor.name) {
+	      return ANONYMOUS;
+	    }
+	    return propValue.constructor.name;
+	  }
+	
+	  ReactPropTypes.checkPropTypes = checkPropTypes;
+	  ReactPropTypes.PropTypes = ReactPropTypes;
+	
+	  return ReactPropTypes;
+	};
+	
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(188)))
+
+/***/ },
+/* 192 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * 
+	 */
+	
+	function makeEmptyFunction(arg) {
+	  return function () {
+	    return arg;
+	  };
+	}
+	
+	/**
+	 * This function accepts and discards inputs; it has no side effects. This is
+	 * primarily useful idiomatically for overridable function endpoints which
+	 * always need to be callable, since JS lacks a null-call idiom ala Cocoa.
+	 */
+	var emptyFunction = function emptyFunction() {};
+	
+	emptyFunction.thatReturns = makeEmptyFunction;
+	emptyFunction.thatReturnsFalse = makeEmptyFunction(false);
+	emptyFunction.thatReturnsTrue = makeEmptyFunction(true);
+	emptyFunction.thatReturnsNull = makeEmptyFunction(null);
+	emptyFunction.thatReturnsThis = function () {
+	  return this;
+	};
+	emptyFunction.thatReturnsArgument = function (arg) {
+	  return arg;
+	};
+	
+	module.exports = emptyFunction;
+
+/***/ },
+/* 193 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 */
+	
+	'use strict';
+	
+	/**
+	 * Use invariant() to assert state which your program assumes to be true.
+	 *
+	 * Provide sprintf-style format (only %s is supported) and arguments
+	 * to provide information about what broke and what you were
+	 * expecting.
+	 *
+	 * The invariant message will be stripped in production, but the invariant
+	 * will remain to ensure logic does not differ in production.
+	 */
+	
+	var validateFormat = function validateFormat(format) {};
+	
+	if (process.env.NODE_ENV !== 'production') {
+	  validateFormat = function validateFormat(format) {
+	    if (format === undefined) {
+	      throw new Error('invariant requires an error message argument');
+	    }
+	  };
+	}
+	
+	function invariant(condition, format, a, b, c, d, e, f) {
+	  validateFormat(format);
+	
+	  if (!condition) {
+	    var error;
+	    if (format === undefined) {
+	      error = new Error('Minified exception occurred; use the non-minified dev environment ' + 'for the full error message and additional helpful warnings.');
+	    } else {
+	      var args = [a, b, c, d, e, f];
+	      var argIndex = 0;
+	      error = new Error(format.replace(/%s/g, function () {
+	        return args[argIndex++];
+	      }));
+	      error.name = 'Invariant Violation';
+	    }
+	
+	    error.framesToPop = 1; // we don't care about invariant's own frame
+	    throw error;
+	  }
+	}
+	
+	module.exports = invariant;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(188)))
+
+/***/ },
+/* 194 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {/**
+	 * Copyright 2014-2015, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 */
+	
+	'use strict';
+	
+	var emptyFunction = __webpack_require__(192);
+	
+	/**
+	 * Similar to invariant but only logs a warning if the condition is not met.
+	 * This can be used to log issues in development environments in critical
+	 * paths. Removing the logging code for production environments will keep the
+	 * same logic and follow the same code paths.
+	 */
+	
+	var warning = emptyFunction;
+	
+	if (process.env.NODE_ENV !== 'production') {
+	  (function () {
+	    var printWarning = function printWarning(format) {
+	      for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+	        args[_key - 1] = arguments[_key];
+	      }
+	
+	      var argIndex = 0;
+	      var message = 'Warning: ' + format.replace(/%s/g, function () {
+	        return args[argIndex++];
+	      });
+	      if (typeof console !== 'undefined') {
+	        console.error(message);
+	      }
+	      try {
+	        // --- Welcome to debugging React ---
+	        // This error was thrown as a convenience so that you can use this stack
+	        // to find the callsite that caused this warning to fire.
+	        throw new Error(message);
+	      } catch (x) {}
+	    };
+	
+	    warning = function warning(condition, format) {
+	      if (format === undefined) {
+	        throw new Error('`warning(condition, format, ...args)` requires a warning ' + 'message argument');
+	      }
+	
+	      if (format.indexOf('Failed Composite propType: ') === 0) {
+	        return; // Ignore CompositeComponent proptype check.
+	      }
+	
+	      if (!condition) {
+	        for (var _len2 = arguments.length, args = Array(_len2 > 2 ? _len2 - 2 : 0), _key2 = 2; _key2 < _len2; _key2++) {
+	          args[_key2 - 2] = arguments[_key2];
+	        }
+	
+	        printWarning.apply(undefined, [format].concat(args));
+	      }
+	    };
+	  })();
+	}
+	
+	module.exports = warning;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(188)))
+
+/***/ },
+/* 195 */
+/***/ function(module, exports) {
+
+	/**
+	 * Copyright 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 */
+	
+	'use strict';
+	
+	var ReactPropTypesSecret = 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED';
+	
+	module.exports = ReactPropTypesSecret;
+
+
+/***/ },
+/* 196 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {/**
+	 * Copyright 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 */
+	
+	'use strict';
+	
+	if (process.env.NODE_ENV !== 'production') {
+	  var invariant = __webpack_require__(193);
+	  var warning = __webpack_require__(194);
+	  var ReactPropTypesSecret = __webpack_require__(195);
+	  var loggedTypeFailures = {};
+	}
+	
+	/**
+	 * Assert that the values match with the type specs.
+	 * Error messages are memorized and will only be shown once.
+	 *
+	 * @param {object} typeSpecs Map of name to a ReactPropType
+	 * @param {object} values Runtime values that need to be type-checked
+	 * @param {string} location e.g. "prop", "context", "child context"
+	 * @param {string} componentName Name of the component for error messages.
+	 * @param {?Function} getStack Returns the component stack.
+	 * @private
+	 */
+	function checkPropTypes(typeSpecs, values, location, componentName, getStack) {
+	  if (process.env.NODE_ENV !== 'production') {
+	    for (var typeSpecName in typeSpecs) {
+	      if (typeSpecs.hasOwnProperty(typeSpecName)) {
+	        var error;
+	        // Prop type validation may throw. In case they do, we don't want to
+	        // fail the render phase where it didn't fail before. So we log it.
+	        // After these have been cleaned up, we'll let them throw.
+	        try {
+	          // This is intentionally an invariant that gets caught. It's the same
+	          // behavior as without this statement except with a better message.
+	          invariant(typeof typeSpecs[typeSpecName] === 'function', '%s: %s type `%s` is invalid; it must be a function, usually from ' + 'React.PropTypes.', componentName || 'React class', location, typeSpecName);
+	          error = typeSpecs[typeSpecName](values, typeSpecName, componentName, location, null, ReactPropTypesSecret);
+	        } catch (ex) {
+	          error = ex;
+	        }
+	        warning(!error || error instanceof Error, '%s: type specification of %s `%s` is invalid; the type checker ' + 'function must return `null` or an `Error` but returned a %s. ' + 'You may have forgotten to pass an argument to the type checker ' + 'creator (arrayOf, instanceOf, objectOf, oneOf, oneOfType, and ' + 'shape all require an argument).', componentName || 'React class', location, typeSpecName, typeof error);
+	        if (error instanceof Error && !(error.message in loggedTypeFailures)) {
+	          // Only monitor this failure once because there tends to be a lot of the
+	          // same error.
+	          loggedTypeFailures[error.message] = true;
+	
+	          var stack = getStack ? getStack() : '';
+	
+	          warning(false, 'Failed %s type: %s%s', location, error.message, stack != null ? stack : '');
+	        }
+	      }
+	    }
+	  }
+	}
+	
+	module.exports = checkPropTypes;
+	
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(188)))
+
+/***/ },
+/* 197 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 */
+	
+	'use strict';
+	
+	var emptyFunction = __webpack_require__(192);
+	var invariant = __webpack_require__(193);
+	var ReactPropTypesSecret = __webpack_require__(195);
+	
+	module.exports = function() {
+	  function shim(props, propName, componentName, location, propFullName, secret) {
+	    if (secret === ReactPropTypesSecret) {
+	      // It is still safe when called from React.
+	      return;
+	    }
+	    invariant(
+	      false,
+	      'Calling PropTypes validators directly is not supported by the `prop-types` package. ' +
+	      'Use PropTypes.checkPropTypes() to call them. ' +
+	      'Read more at http://fb.me/use-check-prop-types'
+	    );
+	  };
+	  shim.isRequired = shim;
+	  function getShim() {
+	    return shim;
+	  };
+	  // Important!
+	  // Keep this list in sync with production version in `./factoryWithTypeCheckers.js`.
+	  var ReactPropTypes = {
+	    array: shim,
+	    bool: shim,
+	    func: shim,
+	    number: shim,
+	    object: shim,
+	    string: shim,
+	    symbol: shim,
+	
+	    any: shim,
+	    arrayOf: getShim,
+	    element: shim,
+	    instanceOf: getShim,
+	    node: shim,
+	    objectOf: getShim,
+	    oneOf: getShim,
+	    oneOfType: getShim,
+	    shape: getShim
+	  };
+	
+	  ReactPropTypes.checkPropTypes = emptyFunction;
+	  ReactPropTypes.PropTypes = ReactPropTypes;
+	
+	  return ReactPropTypes;
+	};
+
+
+/***/ },
+/* 198 */
+/***/ function(module, exports, __webpack_require__) {
+
+	!function() {
+	    'use strict';
+	    function VNode() {}
+	    function h(nodeName, attributes) {
+	        var lastSimple, child, simple, i, children = EMPTY_CHILDREN;
+	        for (i = arguments.length; i-- > 2; ) stack.push(arguments[i]);
+	        if (attributes && null != attributes.children) {
+	            if (!stack.length) stack.push(attributes.children);
+	            delete attributes.children;
+	        }
+	        while (stack.length) if ((child = stack.pop()) && void 0 !== child.pop) for (i = child.length; i--; ) stack.push(child[i]); else {
+	            if (child === !0 || child === !1) child = null;
+	            if (simple = 'function' != typeof nodeName) if (null == child) child = ''; else if ('number' == typeof child) child = String(child); else if ('string' != typeof child) simple = !1;
+	            if (simple && lastSimple) children[children.length - 1] += child; else if (children === EMPTY_CHILDREN) children = [ child ]; else children.push(child);
+	            lastSimple = simple;
+	        }
+	        var p = new VNode();
+	        p.nodeName = nodeName;
+	        p.children = children;
+	        p.attributes = null == attributes ? void 0 : attributes;
+	        p.key = null == attributes ? void 0 : attributes.key;
+	        if (void 0 !== options.vnode) options.vnode(p);
+	        return p;
+	    }
+	    function extend(obj, props) {
+	        for (var i in props) obj[i] = props[i];
+	        return obj;
+	    }
+	    function cloneElement(vnode, props) {
+	        return h(vnode.nodeName, extend(extend({}, vnode.attributes), props), arguments.length > 2 ? [].slice.call(arguments, 2) : vnode.children);
+	    }
+	    function enqueueRender(component) {
+	        if (!component.__d && (component.__d = !0) && 1 == items.push(component)) (options.debounceRendering || setTimeout)(rerender);
+	    }
+	    function rerender() {
+	        var p, list = items;
+	        items = [];
+	        while (p = list.pop()) if (p.__d) renderComponent(p);
+	    }
+	    function isSameNodeType(node, vnode, hydrating) {
+	        if ('string' == typeof vnode || 'number' == typeof vnode) return void 0 !== node.splitText;
+	        if ('string' == typeof vnode.nodeName) return !node._componentConstructor && isNamedNode(node, vnode.nodeName); else return hydrating || node._componentConstructor === vnode.nodeName;
+	    }
+	    function isNamedNode(node, nodeName) {
+	        return node.__n === nodeName || node.nodeName.toLowerCase() === nodeName.toLowerCase();
+	    }
+	    function getNodeProps(vnode) {
+	        var props = extend({}, vnode.attributes);
+	        props.children = vnode.children;
+	        var defaultProps = vnode.nodeName.defaultProps;
+	        if (void 0 !== defaultProps) for (var i in defaultProps) if (void 0 === props[i]) props[i] = defaultProps[i];
+	        return props;
+	    }
+	    function createNode(nodeName, isSvg) {
+	        var node = isSvg ? document.createElementNS('http://www.w3.org/2000/svg', nodeName) : document.createElement(nodeName);
+	        node.__n = nodeName;
+	        return node;
+	    }
+	    function removeNode(node) {
+	        if (node.parentNode) node.parentNode.removeChild(node);
+	    }
+	    function setAccessor(node, name, old, value, isSvg) {
+	        if ('className' === name) name = 'class';
+	        if ('key' === name) ; else if ('ref' === name) {
+	            if (old) old(null);
+	            if (value) value(node);
+	        } else if ('class' === name && !isSvg) node.className = value || ''; else if ('style' === name) {
+	            if (!value || 'string' == typeof value || 'string' == typeof old) node.style.cssText = value || '';
+	            if (value && 'object' == typeof value) {
+	                if ('string' != typeof old) for (var i in old) if (!(i in value)) node.style[i] = '';
+	                for (var i in value) node.style[i] = 'number' == typeof value[i] && IS_NON_DIMENSIONAL.test(i) === !1 ? value[i] + 'px' : value[i];
+	            }
+	        } else if ('dangerouslySetInnerHTML' === name) {
+	            if (value) node.innerHTML = value.__html || '';
+	        } else if ('o' == name[0] && 'n' == name[1]) {
+	            var useCapture = name !== (name = name.replace(/Capture$/, ''));
+	            name = name.toLowerCase().substring(2);
+	            if (value) {
+	                if (!old) node.addEventListener(name, eventProxy, useCapture);
+	            } else node.removeEventListener(name, eventProxy, useCapture);
+	            (node.__l || (node.__l = {}))[name] = value;
+	        } else if ('list' !== name && 'type' !== name && !isSvg && name in node) {
+	            setProperty(node, name, null == value ? '' : value);
+	            if (null == value || value === !1) node.removeAttribute(name);
+	        } else {
+	            var ns = isSvg && name !== (name = name.replace(/^xlink\:?/, ''));
+	            if (null == value || value === !1) if (ns) node.removeAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase()); else node.removeAttribute(name); else if ('function' != typeof value) if (ns) node.setAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase(), value); else node.setAttribute(name, value);
+	        }
+	    }
+	    function setProperty(node, name, value) {
+	        try {
+	            node[name] = value;
+	        } catch (e) {}
+	    }
+	    function eventProxy(e) {
+	        return this.__l[e.type](options.event && options.event(e) || e);
+	    }
+	    function flushMounts() {
+	        var c;
+	        while (c = mounts.pop()) {
+	            if (options.afterMount) options.afterMount(c);
+	            if (c.componentDidMount) c.componentDidMount();
+	        }
+	    }
+	    function diff(dom, vnode, context, mountAll, parent, componentRoot) {
+	        if (!diffLevel++) {
+	            isSvgMode = null != parent && void 0 !== parent.ownerSVGElement;
+	            hydrating = null != dom && !('__preactattr_' in dom);
+	        }
+	        var ret = idiff(dom, vnode, context, mountAll, componentRoot);
+	        if (parent && ret.parentNode !== parent) parent.appendChild(ret);
+	        if (!--diffLevel) {
+	            hydrating = !1;
+	            if (!componentRoot) flushMounts();
+	        }
+	        return ret;
+	    }
+	    function idiff(dom, vnode, context, mountAll, componentRoot) {
+	        var out = dom, prevSvgMode = isSvgMode;
+	        if (null == vnode) vnode = '';
+	        if ('string' == typeof vnode) {
+	            if (dom && void 0 !== dom.splitText && dom.parentNode && (!dom._component || componentRoot)) {
+	                if (dom.nodeValue != vnode) dom.nodeValue = vnode;
+	            } else {
+	                out = document.createTextNode(vnode);
+	                if (dom) {
+	                    if (dom.parentNode) dom.parentNode.replaceChild(out, dom);
+	                    recollectNodeTree(dom, !0);
+	                }
+	            }
+	            out.__preactattr_ = !0;
+	            return out;
+	        }
+	        if ('function' == typeof vnode.nodeName) return buildComponentFromVNode(dom, vnode, context, mountAll);
+	        isSvgMode = 'svg' === vnode.nodeName ? !0 : 'foreignObject' === vnode.nodeName ? !1 : isSvgMode;
+	        if (!dom || !isNamedNode(dom, String(vnode.nodeName))) {
+	            out = createNode(String(vnode.nodeName), isSvgMode);
+	            if (dom) {
+	                while (dom.firstChild) out.appendChild(dom.firstChild);
+	                if (dom.parentNode) dom.parentNode.replaceChild(out, dom);
+	                recollectNodeTree(dom, !0);
+	            }
+	        }
+	        var fc = out.firstChild, props = out.__preactattr_ || (out.__preactattr_ = {}), vchildren = vnode.children;
+	        if (!hydrating && vchildren && 1 === vchildren.length && 'string' == typeof vchildren[0] && null != fc && void 0 !== fc.splitText && null == fc.nextSibling) {
+	            if (fc.nodeValue != vchildren[0]) fc.nodeValue = vchildren[0];
+	        } else if (vchildren && vchildren.length || null != fc) innerDiffNode(out, vchildren, context, mountAll, hydrating || null != props.dangerouslySetInnerHTML);
+	        diffAttributes(out, vnode.attributes, props);
+	        isSvgMode = prevSvgMode;
+	        return out;
+	    }
+	    function innerDiffNode(dom, vchildren, context, mountAll, isHydrating) {
+	        var j, c, vchild, child, originalChildren = dom.childNodes, children = [], keyed = {}, keyedLen = 0, min = 0, len = originalChildren.length, childrenLen = 0, vlen = vchildren ? vchildren.length : 0;
+	        if (0 !== len) for (var i = 0; i < len; i++) {
+	            var _child = originalChildren[i], props = _child.__preactattr_, key = vlen && props ? _child._component ? _child._component.__k : props.key : null;
+	            if (null != key) {
+	                keyedLen++;
+	                keyed[key] = _child;
+	            } else if (props || (void 0 !== _child.splitText ? isHydrating ? _child.nodeValue.trim() : !0 : isHydrating)) children[childrenLen++] = _child;
+	        }
+	        if (0 !== vlen) for (var i = 0; i < vlen; i++) {
+	            vchild = vchildren[i];
+	            child = null;
+	            var key = vchild.key;
+	            if (null != key) {
+	                if (keyedLen && void 0 !== keyed[key]) {
+	                    child = keyed[key];
+	                    keyed[key] = void 0;
+	                    keyedLen--;
+	                }
+	            } else if (!child && min < childrenLen) for (j = min; j < childrenLen; j++) if (void 0 !== children[j] && isSameNodeType(c = children[j], vchild, isHydrating)) {
+	                child = c;
+	                children[j] = void 0;
+	                if (j === childrenLen - 1) childrenLen--;
+	                if (j === min) min++;
+	                break;
+	            }
+	            child = idiff(child, vchild, context, mountAll);
+	            if (child && child !== dom) if (i >= len) dom.appendChild(child); else if (child !== originalChildren[i]) if (child === originalChildren[i + 1]) removeNode(originalChildren[i]); else dom.insertBefore(child, originalChildren[i] || null);
+	        }
+	        if (keyedLen) for (var i in keyed) if (void 0 !== keyed[i]) recollectNodeTree(keyed[i], !1);
+	        while (min <= childrenLen) if (void 0 !== (child = children[childrenLen--])) recollectNodeTree(child, !1);
+	    }
+	    function recollectNodeTree(node, unmountOnly) {
+	        var component = node._component;
+	        if (component) unmountComponent(component); else {
+	            if (null != node.__preactattr_ && node.__preactattr_.ref) node.__preactattr_.ref(null);
+	            if (unmountOnly === !1 || null == node.__preactattr_) removeNode(node);
+	            removeChildren(node);
+	        }
+	    }
+	    function removeChildren(node) {
+	        node = node.lastChild;
+	        while (node) {
+	            var next = node.previousSibling;
+	            recollectNodeTree(node, !0);
+	            node = next;
+	        }
+	    }
+	    function diffAttributes(dom, attrs, old) {
+	        var name;
+	        for (name in old) if ((!attrs || null == attrs[name]) && null != old[name]) setAccessor(dom, name, old[name], old[name] = void 0, isSvgMode);
+	        for (name in attrs) if (!('children' === name || 'innerHTML' === name || name in old && attrs[name] === ('value' === name || 'checked' === name ? dom[name] : old[name]))) setAccessor(dom, name, old[name], old[name] = attrs[name], isSvgMode);
+	    }
+	    function collectComponent(component) {
+	        var name = component.constructor.name;
+	        (components[name] || (components[name] = [])).push(component);
+	    }
+	    function createComponent(Ctor, props, context) {
+	        var inst, list = components[Ctor.name];
+	        if (Ctor.prototype && Ctor.prototype.render) {
+	            inst = new Ctor(props, context);
+	            Component.call(inst, props, context);
+	        } else {
+	            inst = new Component(props, context);
+	            inst.constructor = Ctor;
+	            inst.render = doRender;
+	        }
+	        if (list) for (var i = list.length; i--; ) if (list[i].constructor === Ctor) {
+	            inst.__b = list[i].__b;
+	            list.splice(i, 1);
+	            break;
+	        }
+	        return inst;
+	    }
+	    function doRender(props, state, context) {
+	        return this.constructor(props, context);
+	    }
+	    function setComponentProps(component, props, opts, context, mountAll) {
+	        if (!component.__x) {
+	            component.__x = !0;
+	            if (component.__r = props.ref) delete props.ref;
+	            if (component.__k = props.key) delete props.key;
+	            if (!component.base || mountAll) {
+	                if (component.componentWillMount) component.componentWillMount();
+	            } else if (component.componentWillReceiveProps) component.componentWillReceiveProps(props, context);
+	            if (context && context !== component.context) {
+	                if (!component.__c) component.__c = component.context;
+	                component.context = context;
+	            }
+	            if (!component.__p) component.__p = component.props;
+	            component.props = props;
+	            component.__x = !1;
+	            if (0 !== opts) if (1 === opts || options.syncComponentUpdates !== !1 || !component.base) renderComponent(component, 1, mountAll); else enqueueRender(component);
+	            if (component.__r) component.__r(component);
+	        }
+	    }
+	    function renderComponent(component, opts, mountAll, isChild) {
+	        if (!component.__x) {
+	            var rendered, inst, cbase, props = component.props, state = component.state, context = component.context, previousProps = component.__p || props, previousState = component.__s || state, previousContext = component.__c || context, isUpdate = component.base, nextBase = component.__b, initialBase = isUpdate || nextBase, initialChildComponent = component._component, skip = !1;
+	            if (isUpdate) {
+	                component.props = previousProps;
+	                component.state = previousState;
+	                component.context = previousContext;
+	                if (2 !== opts && component.shouldComponentUpdate && component.shouldComponentUpdate(props, state, context) === !1) skip = !0; else if (component.componentWillUpdate) component.componentWillUpdate(props, state, context);
+	                component.props = props;
+	                component.state = state;
+	                component.context = context;
+	            }
+	            component.__p = component.__s = component.__c = component.__b = null;
+	            component.__d = !1;
+	            if (!skip) {
+	                rendered = component.render(props, state, context);
+	                if (component.getChildContext) context = extend(extend({}, context), component.getChildContext());
+	                var toUnmount, base, childComponent = rendered && rendered.nodeName;
+	                if ('function' == typeof childComponent) {
+	                    var childProps = getNodeProps(rendered);
+	                    inst = initialChildComponent;
+	                    if (inst && inst.constructor === childComponent && childProps.key == inst.__k) setComponentProps(inst, childProps, 1, context, !1); else {
+	                        toUnmount = inst;
+	                        component._component = inst = createComponent(childComponent, childProps, context);
+	                        inst.__b = inst.__b || nextBase;
+	                        inst.__u = component;
+	                        setComponentProps(inst, childProps, 0, context, !1);
+	                        renderComponent(inst, 1, mountAll, !0);
+	                    }
+	                    base = inst.base;
+	                } else {
+	                    cbase = initialBase;
+	                    toUnmount = initialChildComponent;
+	                    if (toUnmount) cbase = component._component = null;
+	                    if (initialBase || 1 === opts) {
+	                        if (cbase) cbase._component = null;
+	                        base = diff(cbase, rendered, context, mountAll || !isUpdate, initialBase && initialBase.parentNode, !0);
+	                    }
+	                }
+	                if (initialBase && base !== initialBase && inst !== initialChildComponent) {
+	                    var baseParent = initialBase.parentNode;
+	                    if (baseParent && base !== baseParent) {
+	                        baseParent.replaceChild(base, initialBase);
+	                        if (!toUnmount) {
+	                            initialBase._component = null;
+	                            recollectNodeTree(initialBase, !1);
+	                        }
+	                    }
+	                }
+	                if (toUnmount) unmountComponent(toUnmount);
+	                component.base = base;
+	                if (base && !isChild) {
+	                    var componentRef = component, t = component;
+	                    while (t = t.__u) (componentRef = t).base = base;
+	                    base._component = componentRef;
+	                    base._componentConstructor = componentRef.constructor;
+	                }
+	            }
+	            if (!isUpdate || mountAll) mounts.unshift(component); else if (!skip) {
+	                flushMounts();
+	                if (component.componentDidUpdate) component.componentDidUpdate(previousProps, previousState, previousContext);
+	                if (options.afterUpdate) options.afterUpdate(component);
+	            }
+	            if (null != component.__h) while (component.__h.length) component.__h.pop().call(component);
+	            if (!diffLevel && !isChild) flushMounts();
+	        }
+	    }
+	    function buildComponentFromVNode(dom, vnode, context, mountAll) {
+	        var c = dom && dom._component, originalComponent = c, oldDom = dom, isDirectOwner = c && dom._componentConstructor === vnode.nodeName, isOwner = isDirectOwner, props = getNodeProps(vnode);
+	        while (c && !isOwner && (c = c.__u)) isOwner = c.constructor === vnode.nodeName;
+	        if (c && isOwner && (!mountAll || c._component)) {
+	            setComponentProps(c, props, 3, context, mountAll);
+	            dom = c.base;
+	        } else {
+	            if (originalComponent && !isDirectOwner) {
+	                unmountComponent(originalComponent);
+	                dom = oldDom = null;
+	            }
+	            c = createComponent(vnode.nodeName, props, context);
+	            if (dom && !c.__b) {
+	                c.__b = dom;
+	                oldDom = null;
+	            }
+	            setComponentProps(c, props, 1, context, mountAll);
+	            dom = c.base;
+	            if (oldDom && dom !== oldDom) {
+	                oldDom._component = null;
+	                recollectNodeTree(oldDom, !1);
+	            }
+	        }
+	        return dom;
+	    }
+	    function unmountComponent(component) {
+	        if (options.beforeUnmount) options.beforeUnmount(component);
+	        var base = component.base;
+	        component.__x = !0;
+	        if (component.componentWillUnmount) component.componentWillUnmount();
+	        component.base = null;
+	        var inner = component._component;
+	        if (inner) unmountComponent(inner); else if (base) {
+	            if (base.__preactattr_ && base.__preactattr_.ref) base.__preactattr_.ref(null);
+	            component.__b = base;
+	            removeNode(base);
+	            collectComponent(component);
+	            removeChildren(base);
+	        }
+	        if (component.__r) component.__r(null);
+	    }
+	    function Component(props, context) {
+	        this.__d = !0;
+	        this.context = context;
+	        this.props = props;
+	        this.state = this.state || {};
+	    }
+	    function render(vnode, parent, merge) {
+	        return diff(merge, vnode, {}, !1, parent, !1);
+	    }
+	    var options = {};
+	    var stack = [];
+	    var EMPTY_CHILDREN = [];
+	    var IS_NON_DIMENSIONAL = /acit|ex(?:s|g|n|p|$)|rph|ows|mnc|ntw|ine[ch]|zoo|^ord/i;
+	    var items = [];
+	    var mounts = [];
+	    var diffLevel = 0;
+	    var isSvgMode = !1;
+	    var hydrating = !1;
+	    var components = {};
+	    extend(Component.prototype, {
+	        setState: function(state, callback) {
+	            var s = this.state;
+	            if (!this.__s) this.__s = extend({}, s);
+	            extend(s, 'function' == typeof state ? state(s, this.props) : state);
+	            if (callback) (this.__h = this.__h || []).push(callback);
+	            enqueueRender(this);
+	        },
+	        forceUpdate: function(callback) {
+	            if (callback) (this.__h = this.__h || []).push(callback);
+	            renderComponent(this, 2);
+	        },
+	        render: function() {}
+	    });
+	    var preact = {
+	        h: h,
+	        createElement: h,
+	        cloneElement: cloneElement,
+	        Component: Component,
+	        render: render,
+	        rerender: rerender,
+	        options: options
+	    };
+	    if (true) module.exports = preact; else self.preact = preact;
+	}();
+	//# sourceMappingURL=preact.js.map
+
+/***/ },
+/* 199 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * preact plugin that provides an I18n helper using a Higher Order Component.
+	 */
+	
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.i18nSetLocale = exports.locale = exports.t = undefined;
+	exports.translate = exports.I18n = exports._polyglot = exports.DEFAULT_LANG = undefined;
 	
-	var _nodePolyglot = __webpack_require__(190);
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(189);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _nodePolyglot = __webpack_require__(200);
 	
 	var _nodePolyglot2 = _interopRequireDefault(_nodePolyglot);
 	
-	var _en = __webpack_require__(213);
-	
-	var _en2 = _interopRequireDefault(_en);
-	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var polyglot = new _nodePolyglot2.default({
-	  phrases: _en2.default,
-	  locale: 'en'
-	});
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
-	var init = function I18nInit(lang) {
-	  if (lang && lang !== 'en') {
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var DEFAULT_LANG = exports.DEFAULT_LANG = 'en';
+	
+	var _polyglot = exports._polyglot = void 0;
+	
+	var initTranslation = function initTranslation(lang, dictRequire, context) {
+	  var defaultLang = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : DEFAULT_LANG;
+	
+	  exports._polyglot = _polyglot = new _nodePolyglot2.default({
+	    phrases: dictRequire(defaultLang),
+	    locale: defaultLang
+	  });
+	
+	  // Load global locales
+	  if (lang && lang !== defaultLang) {
 	    try {
-	      var dict = __webpack_require__(214)("./" + lang);
-	      polyglot.extend(dict);
-	      polyglot.locale(lang);
+	      var dict = dictRequire(lang);
+	      _polyglot.extend(dict);
+	      _polyglot.locale(lang);
 	    } catch (e) {
 	      console.warn('The dict phrases for "' + lang + '" can\'t be loaded');
 	    }
 	  }
-	};
 	
-	var i18nSetLocale = function I18nSetLocale(lang) {
-	  try {
-	    var dict = __webpack_require__(214)("./" + lang);
-	    polyglot.extend(dict);
-	    polyglot.locale(lang);
-	  } catch (e) {
-	    console.warn('The dict phrases for "' + lang + '" can\'t be loaded');
+	  // Load context locales
+	  if (context) {
+	    var _dict = dictRequire(lang, context);
+	    _polyglot.extend(_dict);
 	  }
+	
+	  return _polyglot;
 	};
 	
-	var t = polyglot.t.bind(polyglot);
-	var locale = polyglot.locale.bind(polyglot);
+	// Provider root component
 	
-	exports.default = init;
-	exports.t = t;
-	exports.locale = locale;
-	exports.i18nSetLocale = i18nSetLocale;
+	var I18n = exports.I18n = function (_Component) {
+	  _inherits(I18n, _Component);
+	
+	  function I18n(props) {
+	    _classCallCheck(this, I18n);
+	
+	    var _this = _possibleConstructorReturn(this, (I18n.__proto__ || Object.getPrototypeOf(I18n)).call(this, props));
+	
+	    _this.init(_this.props);
+	    return _this;
+	  }
+	
+	  _createClass(I18n, [{
+	    key: 'init',
+	    value: function init(props) {
+	      var lang = props.lang,
+	          dictRequire = props.dictRequire,
+	          context = props.context,
+	          defaultLang = props.defaultLang;
+	
+	
+	      this.translation = initTranslation(lang, dictRequire, context, defaultLang);
+	    }
+	  }, {
+	    key: 'getChildContext',
+	    value: function getChildContext() {
+	      return {
+	        t: this.translation.t.bind(this.translation)
+	      };
+	    }
+	  }, {
+	    key: 'componentWillReceiveProps',
+	    value: function componentWillReceiveProps(newProps) {
+	      if (newProps.locale !== this.props.locale) {
+	        this.init(newProps);
+	      }
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return this.props.children && this.props.children[0] || null;
+	    }
+	  }]);
+	
+	  return I18n;
+	}(_react.Component);
+	
+	I18n.propTypes = {
+	  lang: _react2.default.PropTypes.string.isRequired, // current language.
+	  dictRequire: _react2.default.PropTypes.func.isRequired, // A callback to load locales.
+	  context: _react2.default.PropTypes.string, // current context.
+	  defaultLang: _react2.default.PropTypes.string // default language. By default is 'en'
+	};
+	
+	I18n.childContextTypes = {
+	  t: _react2.default.PropTypes.func
+	};
+	
+	// higher order decorator for components that need `t`
+	var translate = exports.translate = function translate() {
+	  return function (WrappedComponent) {
+	    var _translate = function _translate(props, context) {
+	      return _react2.default.createElement(WrappedComponent, _extends({}, props, { t: context.t }));
+	    };
+	    return _translate;
+	  };
+	};
 
 /***/ },
-/* 190 */
+/* 200 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//     (c) 2012-2016 Airbnb, Inc.
@@ -6327,10 +8286,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	'use strict';
 	
-	var forEach = __webpack_require__(191);
-	var warning = __webpack_require__(193);
-	var has = __webpack_require__(194);
-	var trim = __webpack_require__(197);
+	var forEach = __webpack_require__(201);
+	var warning = __webpack_require__(203);
+	var has = __webpack_require__(204);
+	var trim = __webpack_require__(207);
 	
 	var warn = function warn(message) {
 	  warning(false, message);
@@ -6646,10 +8605,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 191 */
+/* 201 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isFunction = __webpack_require__(192)
+	var isFunction = __webpack_require__(202)
 	
 	module.exports = forEach
 	
@@ -6698,7 +8657,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 192 */
+/* 202 */
 /***/ function(module, exports) {
 
 	module.exports = isFunction
@@ -6719,7 +8678,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 193 */
+/* 203 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -6786,25 +8745,25 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(188)))
 
 /***/ },
-/* 194 */
+/* 204 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var bind = __webpack_require__(195);
+	var bind = __webpack_require__(205);
 	
 	module.exports = bind.call(Function.call, Object.prototype.hasOwnProperty);
 
 
 /***/ },
-/* 195 */
+/* 205 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var implementation = __webpack_require__(196);
+	var implementation = __webpack_require__(206);
 	
 	module.exports = Function.prototype.bind || implementation;
 
 
 /***/ },
-/* 196 */
+/* 206 */
 /***/ function(module, exports) {
 
 	var ERROR_MESSAGE = 'Function.prototype.bind called on incompatible ';
@@ -6858,17 +8817,17 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 197 */
+/* 207 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var bind = __webpack_require__(195);
-	var define = __webpack_require__(198);
+	var bind = __webpack_require__(205);
+	var define = __webpack_require__(208);
 	
-	var implementation = __webpack_require__(202);
-	var getPolyfill = __webpack_require__(211);
-	var shim = __webpack_require__(212);
+	var implementation = __webpack_require__(212);
+	var getPolyfill = __webpack_require__(221);
+	var shim = __webpack_require__(222);
 	
 	var boundTrim = bind.call(Function.call, getPolyfill());
 	
@@ -6882,13 +8841,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 198 */
+/* 208 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var keys = __webpack_require__(199);
-	var foreach = __webpack_require__(201);
+	var keys = __webpack_require__(209);
+	var foreach = __webpack_require__(211);
 	var hasSymbols = typeof Symbol === 'function' && typeof Symbol() === 'symbol';
 	
 	var toStr = Object.prototype.toString;
@@ -6944,7 +8903,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 199 */
+/* 209 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -6953,7 +8912,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var has = Object.prototype.hasOwnProperty;
 	var toStr = Object.prototype.toString;
 	var slice = Array.prototype.slice;
-	var isArgs = __webpack_require__(200);
+	var isArgs = __webpack_require__(210);
 	var isEnumerable = Object.prototype.propertyIsEnumerable;
 	var hasDontEnumBug = !isEnumerable.call({ toString: null }, 'toString');
 	var hasProtoEnumBug = isEnumerable.call(function () {}, 'prototype');
@@ -7090,7 +9049,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 200 */
+/* 210 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -7113,7 +9072,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 201 */
+/* 211 */
 /***/ function(module, exports) {
 
 	
@@ -7141,13 +9100,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 202 */
+/* 212 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var bind = __webpack_require__(195);
-	var ES = __webpack_require__(203);
+	var bind = __webpack_require__(205);
+	var ES = __webpack_require__(213);
 	var replace = bind.call(Function.call, String.prototype.replace);
 	
 	var leftWhitespace = /^[\x09\x0A\x0B\x0C\x0D\x20\xA0\u1680\u180E\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200A\u202F\u205F\u3000\u2028\u2029\uFEFF]+/;
@@ -7160,19 +9119,19 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 203 */
+/* 213 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var $isNaN = __webpack_require__(204);
-	var $isFinite = __webpack_require__(205);
+	var $isNaN = __webpack_require__(214);
+	var $isFinite = __webpack_require__(215);
 	
-	var sign = __webpack_require__(206);
-	var mod = __webpack_require__(207);
+	var sign = __webpack_require__(216);
+	var mod = __webpack_require__(217);
 	
-	var IsCallable = __webpack_require__(208);
-	var toPrimitive = __webpack_require__(209);
+	var IsCallable = __webpack_require__(218);
+	var toPrimitive = __webpack_require__(219);
 	
 	// https://es5.github.io/#x9
 	var ES5 = {
@@ -7252,7 +9211,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 204 */
+/* 214 */
 /***/ function(module, exports) {
 
 	module.exports = Number.isNaN || function isNaN(a) {
@@ -7261,7 +9220,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 205 */
+/* 215 */
 /***/ function(module, exports) {
 
 	var $isNaN = Number.isNaN || function (a) { return a !== a; };
@@ -7270,7 +9229,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 206 */
+/* 216 */
 /***/ function(module, exports) {
 
 	module.exports = function sign(number) {
@@ -7279,7 +9238,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 207 */
+/* 217 */
 /***/ function(module, exports) {
 
 	module.exports = function mod(number, modulo) {
@@ -7289,7 +9248,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 208 */
+/* 218 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -7334,16 +9293,16 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 209 */
+/* 219 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	var toStr = Object.prototype.toString;
 	
-	var isPrimitive = __webpack_require__(210);
+	var isPrimitive = __webpack_require__(220);
 	
-	var isCallable = __webpack_require__(208);
+	var isCallable = __webpack_require__(218);
 	
 	// https://es5.github.io/#x8.12
 	var ES5internalSlots = {
@@ -7377,7 +9336,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 210 */
+/* 220 */
 /***/ function(module, exports) {
 
 	module.exports = function isPrimitive(value) {
@@ -7386,12 +9345,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 211 */
+/* 221 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var implementation = __webpack_require__(202);
+	var implementation = __webpack_require__(212);
 	
 	var zeroWidthSpace = '\u200b';
 	
@@ -7404,13 +9363,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 212 */
+/* 222 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var define = __webpack_require__(198);
-	var getPolyfill = __webpack_require__(211);
+	var define = __webpack_require__(208);
+	var getPolyfill = __webpack_require__(221);
 	
 	module.exports = function shimStringTrim() {
 		var polyfill = getPolyfill();
@@ -7420,2136 +9379,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 213 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"apps": "Apps",
-		"settings": "Settings",
-		"menu": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
-		"help": "Help",
-		"logout": "Sign out",
-		"beta_status": "We are still in beta",
-		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
-		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
-			"ptnb": "expPTNB",
-			"others": "Other apps"
-		},
-		"claudy": {
-			"title": "How to drive your Cozy?",
-			"actions": {
-				"desktop": {
-					"title": "Get access to your files in your computer",
-					"description": "Synchronize all your Cozy Drive files on your computer",
-					"button": "Install Cozy Drive on your desktop",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"mobile": {
-					"title": "Back up and sync your pics from your mobile",
-					"description": "All your memories are safe on your Cozy Drive",
-					"button": "Install the Cozy Drive app on your mobile",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"cozy-collect": {
-					"title": "Get back your bills instantly",
-					"description": "Cozy Collect organize all your files instantly",
-					"button": "Discover Cozy Collect"
-				},
-				"support": {
-					"title": "How can we help you today ?",
-					"description": "Share your idea or your bug on our dedicated interface",
-					"button": "Get access to the support",
-					"link": "https://cozy.io/en/support/"
-				}
-			}
-		}
-	};
-
-/***/ },
-/* 214 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var map = {
-		"./ar": 215,
-		"./ar.json": 215,
-		"./ca": 216,
-		"./ca.json": 216,
-		"./ca_ES": 217,
-		"./ca_ES.json": 217,
-		"./cs": 218,
-		"./cs.json": 218,
-		"./cs_CZ": 219,
-		"./cs_CZ.json": 219,
-		"./da": 220,
-		"./da.json": 220,
-		"./de": 221,
-		"./de.json": 221,
-		"./de_DE": 222,
-		"./de_DE.json": 222,
-		"./el": 223,
-		"./el.json": 223,
-		"./en": 213,
-		"./en.json": 213,
-		"./eo": 224,
-		"./eo.json": 224,
-		"./es": 225,
-		"./es.json": 225,
-		"./es_CO": 226,
-		"./es_CO.json": 226,
-		"./es_ES": 227,
-		"./es_ES.json": 227,
-		"./fr": 228,
-		"./fr.json": 228,
-		"./it": 229,
-		"./it.json": 229,
-		"./ja": 230,
-		"./ja.json": 230,
-		"./ko": 231,
-		"./ko.json": 231,
-		"./nl": 232,
-		"./nl.json": 232,
-		"./nl_NL": 233,
-		"./nl_NL.json": 233,
-		"./pl": 234,
-		"./pl.json": 234,
-		"./pt": 235,
-		"./pt.json": 235,
-		"./pt_BR": 236,
-		"./pt_BR.json": 236,
-		"./ro": 237,
-		"./ro.json": 237,
-		"./ro_RO": 238,
-		"./ro_RO.json": 238,
-		"./ru": 239,
-		"./ru.json": 239,
-		"./ru_RU": 240,
-		"./ru_RU.json": 240,
-		"./sk": 241,
-		"./sk.json": 241,
-		"./sk_SK": 242,
-		"./sk_SK.json": 242,
-		"./sq": 243,
-		"./sq.json": 243,
-		"./sq_AL": 244,
-		"./sq_AL.json": 244,
-		"./sv": 245,
-		"./sv.json": 245,
-		"./tr": 246,
-		"./tr.json": 246,
-		"./uk_UA": 247,
-		"./uk_UA.json": 247,
-		"./zh": 248,
-		"./zh.json": 248,
-		"./zh_CN": 249,
-		"./zh_CN.json": 249,
-		"./zh_TW": 250,
-		"./zh_TW.json": 250
-	};
-	function webpackContext(req) {
-		return __webpack_require__(webpackContextResolve(req));
-	};
-	function webpackContextResolve(req) {
-		return map[req] || (function() { throw new Error("Cannot find module '" + req + "'.") }());
-	};
-	webpackContext.keys = function webpackContextKeys() {
-		return Object.keys(map);
-	};
-	webpackContext.resolve = webpackContextResolve;
-	module.exports = webpackContext;
-	webpackContext.id = 214;
-
-
-/***/ },
-/* 215 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"apps": "Apps",
-		"settings": "Settings",
-		"menu": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
-		"help": "Help",
-		"logout": "Sign out",
-		"beta_status": "We are still in beta",
-		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
-		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
-			"ptnb": "expPTNB",
-			"others": "Other apps"
-		},
-		"claudy": {
-			"title": "How to drive your Cozy?",
-			"actions": {
-				"desktop": {
-					"title": "Get access to your files in your computer",
-					"description": "Synchronize all your Cozy Drive files on your computer",
-					"button": "Install Cozy Drive on your desktop",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"mobile": {
-					"title": "Back up and sync your pics from your mobile",
-					"description": "All your memories are safe on your Cozy Drive",
-					"button": "Install the Cozy Drive app on your mobile",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"cozy-collect": {
-					"title": "Get back your bills instantly",
-					"description": "Cozy Collect organize all your files instantly",
-					"button": "Discover Cozy Collect"
-				},
-				"support": {
-					"title": "How can we help you today ?",
-					"description": "Share your idea or your bug on our dedicated interface",
-					"button": "Get access to the support",
-					"link": "https://cozy.io/en/support/"
-				}
-			}
-		}
-	};
-
-/***/ },
-/* 216 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"apps": "Apps",
-		"settings": "Settings",
-		"menu": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
-		"help": "Help",
-		"logout": "Sign out",
-		"beta_status": "We are still in beta",
-		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
-		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
-			"ptnb": "expPTNB",
-			"others": "Other apps"
-		},
-		"claudy": {
-			"title": "How to drive your Cozy?",
-			"actions": {
-				"desktop": {
-					"title": "Get access to your files in your computer",
-					"description": "Synchronize all your Cozy Drive files on your computer",
-					"button": "Install Cozy Drive on your desktop",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"mobile": {
-					"title": "Back up and sync your pics from your mobile",
-					"description": "All your memories are safe on your Cozy Drive",
-					"button": "Install the Cozy Drive app on your mobile",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"cozy-collect": {
-					"title": "Get back your bills instantly",
-					"description": "Cozy Collect organize all your files instantly",
-					"button": "Discover Cozy Collect"
-				},
-				"support": {
-					"title": "How can we help you today ?",
-					"description": "Share your idea or your bug on our dedicated interface",
-					"button": "Get access to the support",
-					"link": "https://cozy.io/en/support/"
-				}
-			}
-		}
-	};
-
-/***/ },
-/* 217 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"apps": "Apps",
-		"settings": "Settings",
-		"menu": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
-		"help": "Help",
-		"logout": "Sign out",
-		"beta_status": "We are still in beta",
-		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
-		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
-			"ptnb": "expPTNB",
-			"others": "Other apps"
-		},
-		"claudy": {
-			"title": "How to drive your Cozy?",
-			"actions": {
-				"desktop": {
-					"title": "Get access to your files in your computer",
-					"description": "Synchronize all your Cozy Drive files on your computer",
-					"button": "Install Cozy Drive on your desktop",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"mobile": {
-					"title": "Back up and sync your pics from your mobile",
-					"description": "All your memories are safe on your Cozy Drive",
-					"button": "Install the Cozy Drive app on your mobile",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"cozy-collect": {
-					"title": "Get back your bills instantly",
-					"description": "Cozy Collect organize all your files instantly",
-					"button": "Discover Cozy Collect"
-				},
-				"support": {
-					"title": "How can we help you today ?",
-					"description": "Share your idea or your bug on our dedicated interface",
-					"button": "Get access to the support",
-					"link": "https://cozy.io/en/support/"
-				}
-			}
-		}
-	};
-
-/***/ },
-/* 218 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"apps": "Apps",
-		"settings": "Settings",
-		"menu": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
-		"help": "Help",
-		"logout": "Sign out",
-		"beta_status": "We are still in beta",
-		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
-		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
-			"ptnb": "expPTNB",
-			"others": "Other apps"
-		},
-		"claudy": {
-			"title": "How to drive your Cozy?",
-			"actions": {
-				"desktop": {
-					"title": "Get access to your files in your computer",
-					"description": "Synchronize all your Cozy Drive files on your computer",
-					"button": "Install Cozy Drive on your desktop",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"mobile": {
-					"title": "Back up and sync your pics from your mobile",
-					"description": "All your memories are safe on your Cozy Drive",
-					"button": "Install the Cozy Drive app on your mobile",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"cozy-collect": {
-					"title": "Get back your bills instantly",
-					"description": "Cozy Collect organize all your files instantly",
-					"button": "Discover Cozy Collect"
-				},
-				"support": {
-					"title": "How can we help you today ?",
-					"description": "Share your idea or your bug on our dedicated interface",
-					"button": "Get access to the support",
-					"link": "https://cozy.io/en/support/"
-				}
-			}
-		}
-	};
-
-/***/ },
-/* 219 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"apps": "Apps",
-		"settings": "Settings",
-		"menu": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
-		"help": "Help",
-		"logout": "Sign out",
-		"beta_status": "We are still in beta",
-		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
-		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
-			"ptnb": "expPTNB",
-			"others": "Other apps"
-		},
-		"claudy": {
-			"title": "How to drive your Cozy?",
-			"actions": {
-				"desktop": {
-					"title": "Get access to your files in your computer",
-					"description": "Synchronize all your Cozy Drive files on your computer",
-					"button": "Install Cozy Drive on your desktop",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"mobile": {
-					"title": "Back up and sync your pics from your mobile",
-					"description": "All your memories are safe on your Cozy Drive",
-					"button": "Install the Cozy Drive app on your mobile",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"cozy-collect": {
-					"title": "Get back your bills instantly",
-					"description": "Cozy Collect organize all your files instantly",
-					"button": "Discover Cozy Collect"
-				},
-				"support": {
-					"title": "How can we help you today ?",
-					"description": "Share your idea or your bug on our dedicated interface",
-					"button": "Get access to the support",
-					"link": "https://cozy.io/en/support/"
-				}
-			}
-		}
-	};
-
-/***/ },
-/* 220 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"apps": "Apps",
-		"settings": "Settings",
-		"menu": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
-		"help": "Help",
-		"logout": "Sign out",
-		"beta_status": "We are still in beta",
-		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
-		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
-			"ptnb": "expPTNB",
-			"others": "Other apps"
-		},
-		"claudy": {
-			"title": "How to drive your Cozy?",
-			"actions": {
-				"desktop": {
-					"title": "Get access to your files in your computer",
-					"description": "Synchronize all your Cozy Drive files on your computer",
-					"button": "Install Cozy Drive on your desktop",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"mobile": {
-					"title": "Back up and sync your pics from your mobile",
-					"description": "All your memories are safe on your Cozy Drive",
-					"button": "Install the Cozy Drive app on your mobile",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"cozy-collect": {
-					"title": "Get back your bills instantly",
-					"description": "Cozy Collect organize all your files instantly",
-					"button": "Discover Cozy Collect"
-				},
-				"support": {
-					"title": "How can we help you today ?",
-					"description": "Share your idea or your bug on our dedicated interface",
-					"button": "Get access to the support",
-					"link": "https://cozy.io/en/support/"
-				}
-			}
-		}
-	};
-
-/***/ },
-/* 221 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"apps": "Apps",
-		"settings": "Settings",
-		"menu": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
-		"help": "Help",
-		"logout": "Sign out",
-		"beta_status": "We are still in beta",
-		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
-		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
-			"ptnb": "expPTNB",
-			"others": "Other apps"
-		},
-		"claudy": {
-			"title": "How to drive your Cozy?",
-			"actions": {
-				"desktop": {
-					"title": "Get access to your files in your computer",
-					"description": "Synchronize all your Cozy Drive files on your computer",
-					"button": "Install Cozy Drive on your desktop",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"mobile": {
-					"title": "Back up and sync your pics from your mobile",
-					"description": "All your memories are safe on your Cozy Drive",
-					"button": "Install the Cozy Drive app on your mobile",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"cozy-collect": {
-					"title": "Get back your bills instantly",
-					"description": "Cozy Collect organize all your files instantly",
-					"button": "Discover Cozy Collect"
-				},
-				"support": {
-					"title": "How can we help you today ?",
-					"description": "Share your idea or your bug on our dedicated interface",
-					"button": "Get access to the support",
-					"link": "https://cozy.io/en/support/"
-				}
-			}
-		}
-	};
-
-/***/ },
-/* 222 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"apps": "Apps",
-		"settings": "Settings",
-		"menu": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
-		"help": "Help",
-		"logout": "Sign out",
-		"beta_status": "We are still in beta",
-		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
-		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
-			"ptnb": "expPTNB",
-			"others": "Other apps"
-		},
-		"claudy": {
-			"title": "How to drive your Cozy?",
-			"actions": {
-				"desktop": {
-					"title": "Get access to your files in your computer",
-					"description": "Synchronize all your Cozy Drive files on your computer",
-					"button": "Install Cozy Drive on your desktop",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"mobile": {
-					"title": "Back up and sync your pics from your mobile",
-					"description": "All your memories are safe on your Cozy Drive",
-					"button": "Install the Cozy Drive app on your mobile",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"cozy-collect": {
-					"title": "Get back your bills instantly",
-					"description": "Cozy Collect organize all your files instantly",
-					"button": "Discover Cozy Collect"
-				},
-				"support": {
-					"title": "How can we help you today ?",
-					"description": "Share your idea or your bug on our dedicated interface",
-					"button": "Get access to the support",
-					"link": "https://cozy.io/en/support/"
-				}
-			}
-		}
-	};
-
-/***/ },
 /* 223 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"apps": "Apps",
-		"settings": "Settings",
-		"menu": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
-		"help": "Help",
-		"logout": "Sign out",
-		"beta_status": "We are still in beta",
-		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
-		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
-			"ptnb": "expPTNB",
-			"others": "Other apps"
-		},
-		"claudy": {
-			"title": "How to drive your Cozy?",
-			"actions": {
-				"desktop": {
-					"title": "Get access to your files in your computer",
-					"description": "Synchronize all your Cozy Drive files on your computer",
-					"button": "Install Cozy Drive on your desktop",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"mobile": {
-					"title": "Back up and sync your pics from your mobile",
-					"description": "All your memories are safe on your Cozy Drive",
-					"button": "Install the Cozy Drive app on your mobile",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"cozy-collect": {
-					"title": "Get back your bills instantly",
-					"description": "Cozy Collect organize all your files instantly",
-					"button": "Discover Cozy Collect"
-				},
-				"support": {
-					"title": "How can we help you today ?",
-					"description": "Share your idea or your bug on our dedicated interface",
-					"button": "Get access to the support",
-					"link": "https://cozy.io/en/support/"
-				}
-			}
-		}
-	};
-
-/***/ },
-/* 224 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"apps": "Apps",
-		"settings": "Settings",
-		"menu": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
-		"help": "Help",
-		"logout": "Sign out",
-		"beta_status": "We are still in beta",
-		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
-		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
-			"ptnb": "expPTNB",
-			"others": "Other apps"
-		},
-		"claudy": {
-			"title": "How to drive your Cozy?",
-			"actions": {
-				"desktop": {
-					"title": "Get access to your files in your computer",
-					"description": "Synchronize all your Cozy Drive files on your computer",
-					"button": "Install Cozy Drive on your desktop",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"mobile": {
-					"title": "Back up and sync your pics from your mobile",
-					"description": "All your memories are safe on your Cozy Drive",
-					"button": "Install the Cozy Drive app on your mobile",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"cozy-collect": {
-					"title": "Get back your bills instantly",
-					"description": "Cozy Collect organize all your files instantly",
-					"button": "Discover Cozy Collect"
-				},
-				"support": {
-					"title": "How can we help you today ?",
-					"description": "Share your idea or your bug on our dedicated interface",
-					"button": "Get access to the support",
-					"link": "https://cozy.io/en/support/"
-				}
-			}
-		}
-	};
-
-/***/ },
-/* 225 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"apps": "Apps",
-		"settings": "Configuración",
-		"menu": "Mostrar menú de bandejas",
-		"profile": "Perfil",
-		"connectedDevices": "Periféricos conectados",
-		"storage": "Almacenamiento",
-		"storage_phrase": "%{diskUsage} GO de %{diskQuota} GO usados",
-		"help": "Ayuda",
-		"logout": "Finalizar sesión",
-		"beta_status": "Estamos aún en versión beta",
-		"beta": "beta",
-		"soon": "pronto",
-		"error_UnavailableStack": "La pila es inaccesible ( se agotó el tiempo de la conexión ).",
-		"error_UnauthorizedStack": "Faltan algunos permisos, la aplicación no puede acceder al recurso solicitado en la pila.",
-		"Categories": {
-			"cozy": "Aplicaciones Cozy",
-			"partners": "Aplicaciones de asociados",
-			"ptnb": "expPTNB",
-			"others": "Otras aplicaciones"
-		},
-		"claudy": {
-			"title": "How to drive your Cozy?",
-			"actions": {
-				"desktop": {
-					"title": "Get access to your files in your computer",
-					"description": "Synchronize all your Cozy Drive files on your computer",
-					"button": "Install Cozy Drive on your desktop",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"mobile": {
-					"title": "Back up and sync your pics from your mobile",
-					"description": "All your memories are safe on your Cozy Drive",
-					"button": "Install the Cozy Drive app on your mobile",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"cozy-collect": {
-					"title": "Get back your bills instantly",
-					"description": "Cozy Collect organize all your files instantly",
-					"button": "Discover Cozy Collect"
-				},
-				"support": {
-					"title": "How can we help you today ?",
-					"description": "Share your idea or your bug on our dedicated interface",
-					"button": "Get access to the support",
-					"link": "https://cozy.io/en/support/"
-				}
-			}
-		}
-	};
-
-/***/ },
-/* 226 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"apps": "Apps",
-		"settings": "Settings",
-		"menu": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
-		"help": "Help",
-		"logout": "Sign out",
-		"beta_status": "We are still in beta",
-		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
-		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
-			"ptnb": "expPTNB",
-			"others": "Other apps"
-		},
-		"claudy": {
-			"title": "How to drive your Cozy?",
-			"actions": {
-				"desktop": {
-					"title": "Get access to your files in your computer",
-					"description": "Synchronize all your Cozy Drive files on your computer",
-					"button": "Install Cozy Drive on your desktop",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"mobile": {
-					"title": "Back up and sync your pics from your mobile",
-					"description": "All your memories are safe on your Cozy Drive",
-					"button": "Install the Cozy Drive app on your mobile",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"cozy-collect": {
-					"title": "Get back your bills instantly",
-					"description": "Cozy Collect organize all your files instantly",
-					"button": "Discover Cozy Collect"
-				},
-				"support": {
-					"title": "How can we help you today ?",
-					"description": "Share your idea or your bug on our dedicated interface",
-					"button": "Get access to the support",
-					"link": "https://cozy.io/en/support/"
-				}
-			}
-		}
-	};
-
-/***/ },
-/* 227 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"apps": "Apps",
-		"settings": "Settings",
-		"menu": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
-		"help": "Help",
-		"logout": "Sign out",
-		"beta_status": "We are still in beta",
-		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
-		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
-			"ptnb": "expPTNB",
-			"others": "Other apps"
-		},
-		"claudy": {
-			"title": "How to drive your Cozy?",
-			"actions": {
-				"desktop": {
-					"title": "Get access to your files in your computer",
-					"description": "Synchronize all your Cozy Drive files on your computer",
-					"button": "Install Cozy Drive on your desktop",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"mobile": {
-					"title": "Back up and sync your pics from your mobile",
-					"description": "All your memories are safe on your Cozy Drive",
-					"button": "Install the Cozy Drive app on your mobile",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"cozy-collect": {
-					"title": "Get back your bills instantly",
-					"description": "Cozy Collect organize all your files instantly",
-					"button": "Discover Cozy Collect"
-				},
-				"support": {
-					"title": "How can we help you today ?",
-					"description": "Share your idea or your bug on our dedicated interface",
-					"button": "Get access to the support",
-					"link": "https://cozy.io/en/support/"
-				}
-			}
-		}
-	};
-
-/***/ },
-/* 228 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"apps": "Applications",
-		"settings": "Paramètres",
-		"menu": "Afficher le menu latéral",
-		"profile": "Profil",
-		"connectedDevices": "Appareils connectés",
-		"storage": "Espace disque",
-		"storage_phrase": "%{diskUsage} Go sur %{diskQuota} Go",
-		"help": "Aide",
-		"logout": "Déconnexion",
-		"beta_status": "Nous sommes toujours en beta.",
-		"beta": "beta",
-		"soon": "à venir",
-		"error_UnavailableStack": "Connexion à la stack impossible (connection timed-out)",
-		"error_UnauthorizedStack": "Des permissions sont manquante, l'application ne peut accéder aux ressources demandées.",
-		"Categories": {
-			"cozy": "Apps Cozy",
-			"partners": "Expérimentation MesInfos",
-			"ptnb": "Expérimentation Carnet du logement",
-			"others": "Autres apps"
-		},
-		"claudy": {
-			"title": "Comment utiliser votre Cozy ?",
-			"actions": {
-				"desktop": {
-					"title": "Accéder à vos fichiers sur votre ordinateur ?",
-					"description": "Synchroniser tous vos fichiers Cozy Drive sur votre ordinateur",
-					"button": "Installer Cozy Drive sur votre ordinateur ",
-					"link": "https://docs.cozy.io/fr/download/"
-				},
-				"mobile": {
-					"title": "Sauvegarder vos photos depuis votre mobile ?",
-					"description": "Vos souvenirs sont sauvegardés et synchronisés sur tous vos appareils",
-					"button": "Installer l'app Cozy Drive sur votre mobile",
-					"link": "https://docs.cozy.io/fr/download/"
-				},
-				"cozy-collect": {
-					"title": "Récupérer automatiquement vos factures ?",
-					"description": "Cozy Collect organise à votre place vos dossiers avec tous vos documents administratifs",
-					"button": "Découvrir Cozy Collect"
-				},
-				"support": {
-					"title": "Comment pouvons-nous vous aider aujourd'hui ? ",
-					"description": "Une idée de fonctionnalité? Un bug? Votre Cozy a besoin de vous pour être amélioré",
-					"button": "Accéder au forum",
-					"link": "https://cozy.io/fr/support/"
-				}
-			}
-		}
-	};
-
-/***/ },
-/* 229 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"apps": "Apps",
-		"settings": "Settings",
-		"menu": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
-		"help": "Help",
-		"logout": "Sign out",
-		"beta_status": "We are still in beta",
-		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
-		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
-			"ptnb": "expPTNB",
-			"others": "Other apps"
-		},
-		"claudy": {
-			"title": "How to drive your Cozy?",
-			"actions": {
-				"desktop": {
-					"title": "Get access to your files in your computer",
-					"description": "Synchronize all your Cozy Drive files on your computer",
-					"button": "Install Cozy Drive on your desktop",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"mobile": {
-					"title": "Back up and sync your pics from your mobile",
-					"description": "All your memories are safe on your Cozy Drive",
-					"button": "Install the Cozy Drive app on your mobile",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"cozy-collect": {
-					"title": "Get back your bills instantly",
-					"description": "Cozy Collect organize all your files instantly",
-					"button": "Discover Cozy Collect"
-				},
-				"support": {
-					"title": "How can we help you today ?",
-					"description": "Share your idea or your bug on our dedicated interface",
-					"button": "Get access to the support",
-					"link": "https://cozy.io/en/support/"
-				}
-			}
-		}
-	};
-
-/***/ },
-/* 230 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"apps": "アプリ",
-		"settings": "設定",
-		"menu": "メニュードロワーを表示",
-		"profile": "プロフィール",
-		"connectedDevices": "接続されたデバイス",
-		"storage": "ストレージ",
-		"storage_phrase": "%{diskUsage} GB / %{diskQuota} GB 使用",
-		"help": "ヘルプ",
-		"logout": "サインアウト",
-		"beta_status": "まだベータ版です",
-		"beta": "ベータ",
-		"soon": "間もなく",
-		"error_UnavailableStack": "スタックに到達できません (接続タイムアウト)。",
-		"error_UnauthorizedStack": "一部のアクセス許可が不足しているため、アプリケーションはスタック上の要求されたリソースにアクセスできません。",
-		"Categories": {
-			"cozy": "Cozy アプリ",
-			"partners": "パートナーアプリ",
-			"ptnb": "expPTNB",
-			"others": "他のアプリ"
-		},
-		"claudy": {
-			"title": "Cozy をドライブする方法は?",
-			"actions": {
-				"desktop": {
-					"title": "コンピューター内のファイルにアクセスする",
-					"description": "コンピューター上のすべての Cozy ドライブファイルを同期させる",
-					"button": "デスクトップに Cozy ドライブをインストールする",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"mobile": {
-					"title": "お使いの携帯から写真をバックアップして同期させる",
-					"description": "Cozy ドライブで、すべての思い出が安心です",
-					"button": "モバイルに Cozy ドライブアプリをインストールする",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"cozy-collect": {
-					"title": "簡単に請求書を取り戻す",
-					"description": "Cozy コレクトはすぐにすべてのファイルを整理します",
-					"button": "Cozy コレクトを見つける"
-				},
-				"support": {
-					"title": "今日は何をお手伝いしますか?",
-					"description": "専用インターフェースであなたのアイデアやバグを共有する",
-					"button": "サポートにアクセスする",
-					"link": "https://cozy.io/en/support/"
-				}
-			}
-		}
-	};
-
-/***/ },
-/* 231 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"apps": "Apps",
-		"settings": "Settings",
-		"menu": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
-		"help": "Help",
-		"logout": "Sign out",
-		"beta_status": "We are still in beta",
-		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
-		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
-			"ptnb": "expPTNB",
-			"others": "Other apps"
-		},
-		"claudy": {
-			"title": "How to drive your Cozy?",
-			"actions": {
-				"desktop": {
-					"title": "Get access to your files in your computer",
-					"description": "Synchronize all your Cozy Drive files on your computer",
-					"button": "Install Cozy Drive on your desktop",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"mobile": {
-					"title": "Back up and sync your pics from your mobile",
-					"description": "All your memories are safe on your Cozy Drive",
-					"button": "Install the Cozy Drive app on your mobile",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"cozy-collect": {
-					"title": "Get back your bills instantly",
-					"description": "Cozy Collect organize all your files instantly",
-					"button": "Discover Cozy Collect"
-				},
-				"support": {
-					"title": "How can we help you today ?",
-					"description": "Share your idea or your bug on our dedicated interface",
-					"button": "Get access to the support",
-					"link": "https://cozy.io/en/support/"
-				}
-			}
-		}
-	};
-
-/***/ },
-/* 232 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"apps": "Toepassingen",
-		"settings": "Instellingen",
-		"menu": "Toon menu",
-		"profile": "Profiel",
-		"connectedDevices": "Verbonden apparaten",
-		"storage": "Opslag",
-		"storage_phrase": "%{diskUsage} GB van %{diskQuota} GB gebruikt",
-		"help": "Hulp",
-		"logout": "Log uit",
-		"beta_status": "We zijn nog in Beta",
-		"beta": "beta",
-		"soon": "binnenkort",
-		"error_UnavailableStack": "De stapel is onbereikbaar (verbinding verlopen)",
-		"error_UnauthorizedStack": "Sommige toestemmingen missen, de toepassing kan niet alles bereiken.",
-		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partner apps",
-			"ptnb": "expPTNB",
-			"others": "Andere apps"
-		},
-		"claudy": {
-			"title": "How to drive your Cozy?",
-			"actions": {
-				"desktop": {
-					"title": "Get access to your files in your computer",
-					"description": "Synchronize all your Cozy Drive files on your computer",
-					"button": "Install Cozy Drive on your desktop",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"mobile": {
-					"title": "Back up and sync your pics from your mobile",
-					"description": "All your memories are safe on your Cozy Drive",
-					"button": "Install the Cozy Drive app on your mobile",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"cozy-collect": {
-					"title": "Get back your bills instantly",
-					"description": "Cozy Collect organize all your files instantly",
-					"button": "Discover Cozy Collect"
-				},
-				"support": {
-					"title": "How can we help you today ?",
-					"description": "Share your idea or your bug on our dedicated interface",
-					"button": "Get access to the support",
-					"link": "https://cozy.io/en/support/"
-				}
-			}
-		}
-	};
-
-/***/ },
-/* 233 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"apps": "Apps",
-		"settings": "Settings",
-		"menu": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
-		"help": "Help",
-		"logout": "Sign out",
-		"beta_status": "We are still in beta",
-		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
-		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
-			"ptnb": "expPTNB",
-			"others": "Other apps"
-		},
-		"claudy": {
-			"title": "How to drive your Cozy?",
-			"actions": {
-				"desktop": {
-					"title": "Get access to your files in your computer",
-					"description": "Synchronize all your Cozy Drive files on your computer",
-					"button": "Install Cozy Drive on your desktop",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"mobile": {
-					"title": "Back up and sync your pics from your mobile",
-					"description": "All your memories are safe on your Cozy Drive",
-					"button": "Install the Cozy Drive app on your mobile",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"cozy-collect": {
-					"title": "Get back your bills instantly",
-					"description": "Cozy Collect organize all your files instantly",
-					"button": "Discover Cozy Collect"
-				},
-				"support": {
-					"title": "How can we help you today ?",
-					"description": "Share your idea or your bug on our dedicated interface",
-					"button": "Get access to the support",
-					"link": "https://cozy.io/en/support/"
-				}
-			}
-		}
-	};
-
-/***/ },
-/* 234 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"apps": "Apps",
-		"settings": "Settings",
-		"menu": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
-		"help": "Help",
-		"logout": "Sign out",
-		"beta_status": "We are still in beta",
-		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
-		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
-			"ptnb": "expPTNB",
-			"others": "Other apps"
-		},
-		"claudy": {
-			"title": "How to drive your Cozy?",
-			"actions": {
-				"desktop": {
-					"title": "Get access to your files in your computer",
-					"description": "Synchronize all your Cozy Drive files on your computer",
-					"button": "Install Cozy Drive on your desktop",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"mobile": {
-					"title": "Back up and sync your pics from your mobile",
-					"description": "All your memories are safe on your Cozy Drive",
-					"button": "Install the Cozy Drive app on your mobile",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"cozy-collect": {
-					"title": "Get back your bills instantly",
-					"description": "Cozy Collect organize all your files instantly",
-					"button": "Discover Cozy Collect"
-				},
-				"support": {
-					"title": "How can we help you today ?",
-					"description": "Share your idea or your bug on our dedicated interface",
-					"button": "Get access to the support",
-					"link": "https://cozy.io/en/support/"
-				}
-			}
-		}
-	};
-
-/***/ },
-/* 235 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"apps": "Apps",
-		"settings": "Settings",
-		"menu": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
-		"help": "Help",
-		"logout": "Sign out",
-		"beta_status": "We are still in beta",
-		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
-		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
-			"ptnb": "expPTNB",
-			"others": "Other apps"
-		},
-		"claudy": {
-			"title": "How to drive your Cozy?",
-			"actions": {
-				"desktop": {
-					"title": "Get access to your files in your computer",
-					"description": "Synchronize all your Cozy Drive files on your computer",
-					"button": "Install Cozy Drive on your desktop",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"mobile": {
-					"title": "Back up and sync your pics from your mobile",
-					"description": "All your memories are safe on your Cozy Drive",
-					"button": "Install the Cozy Drive app on your mobile",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"cozy-collect": {
-					"title": "Get back your bills instantly",
-					"description": "Cozy Collect organize all your files instantly",
-					"button": "Discover Cozy Collect"
-				},
-				"support": {
-					"title": "How can we help you today ?",
-					"description": "Share your idea or your bug on our dedicated interface",
-					"button": "Get access to the support",
-					"link": "https://cozy.io/en/support/"
-				}
-			}
-		}
-	};
-
-/***/ },
-/* 236 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"apps": "Apps",
-		"settings": "Settings",
-		"menu": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
-		"help": "Help",
-		"logout": "Sign out",
-		"beta_status": "We are still in beta",
-		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
-		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
-			"ptnb": "expPTNB",
-			"others": "Other apps"
-		},
-		"claudy": {
-			"title": "How to drive your Cozy?",
-			"actions": {
-				"desktop": {
-					"title": "Get access to your files in your computer",
-					"description": "Synchronize all your Cozy Drive files on your computer",
-					"button": "Install Cozy Drive on your desktop",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"mobile": {
-					"title": "Back up and sync your pics from your mobile",
-					"description": "All your memories are safe on your Cozy Drive",
-					"button": "Install the Cozy Drive app on your mobile",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"cozy-collect": {
-					"title": "Get back your bills instantly",
-					"description": "Cozy Collect organize all your files instantly",
-					"button": "Discover Cozy Collect"
-				},
-				"support": {
-					"title": "How can we help you today ?",
-					"description": "Share your idea or your bug on our dedicated interface",
-					"button": "Get access to the support",
-					"link": "https://cozy.io/en/support/"
-				}
-			}
-		}
-	};
-
-/***/ },
-/* 237 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"apps": "Apps",
-		"settings": "Settings",
-		"menu": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
-		"help": "Help",
-		"logout": "Sign out",
-		"beta_status": "We are still in beta",
-		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
-		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
-			"ptnb": "expPTNB",
-			"others": "Other apps"
-		},
-		"claudy": {
-			"title": "How to drive your Cozy?",
-			"actions": {
-				"desktop": {
-					"title": "Get access to your files in your computer",
-					"description": "Synchronize all your Cozy Drive files on your computer",
-					"button": "Install Cozy Drive on your desktop",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"mobile": {
-					"title": "Back up and sync your pics from your mobile",
-					"description": "All your memories are safe on your Cozy Drive",
-					"button": "Install the Cozy Drive app on your mobile",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"cozy-collect": {
-					"title": "Get back your bills instantly",
-					"description": "Cozy Collect organize all your files instantly",
-					"button": "Discover Cozy Collect"
-				},
-				"support": {
-					"title": "How can we help you today ?",
-					"description": "Share your idea or your bug on our dedicated interface",
-					"button": "Get access to the support",
-					"link": "https://cozy.io/en/support/"
-				}
-			}
-		}
-	};
-
-/***/ },
-/* 238 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"apps": "Apps",
-		"settings": "Settings",
-		"menu": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
-		"help": "Help",
-		"logout": "Sign out",
-		"beta_status": "We are still in beta",
-		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
-		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
-			"ptnb": "expPTNB",
-			"others": "Other apps"
-		},
-		"claudy": {
-			"title": "How to drive your Cozy?",
-			"actions": {
-				"desktop": {
-					"title": "Get access to your files in your computer",
-					"description": "Synchronize all your Cozy Drive files on your computer",
-					"button": "Install Cozy Drive on your desktop",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"mobile": {
-					"title": "Back up and sync your pics from your mobile",
-					"description": "All your memories are safe on your Cozy Drive",
-					"button": "Install the Cozy Drive app on your mobile",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"cozy-collect": {
-					"title": "Get back your bills instantly",
-					"description": "Cozy Collect organize all your files instantly",
-					"button": "Discover Cozy Collect"
-				},
-				"support": {
-					"title": "How can we help you today ?",
-					"description": "Share your idea or your bug on our dedicated interface",
-					"button": "Get access to the support",
-					"link": "https://cozy.io/en/support/"
-				}
-			}
-		}
-	};
-
-/***/ },
-/* 239 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"apps": "Приложения",
-		"settings": "Настройки",
-		"menu": "Показать панель меню",
-		"profile": "Профиль",
-		"connectedDevices": "Присоединённые устройства",
-		"storage": "Хранилище",
-		"storage_phrase": "%{diskUsage} ГБ из %{diskQuota} ГБ использовано",
-		"help": "Помощь",
-		"logout": "Выход",
-		"beta_status": "We are still in beta",
-		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "Это стек не доступен (превышено время ожидания)",
-		"error_UnauthorizedStack": "Некоторые разрешения отсутствуют, получить доступ к запрашиваемому ресурсу в стеке не возможно.",
-		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
-			"ptnb": "expPTNB",
-			"others": "Other apps"
-		},
-		"claudy": {
-			"title": "How to drive your Cozy?",
-			"actions": {
-				"desktop": {
-					"title": "Get access to your files in your computer",
-					"description": "Synchronize all your Cozy Drive files on your computer",
-					"button": "Install Cozy Drive on your desktop",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"mobile": {
-					"title": "Back up and sync your pics from your mobile",
-					"description": "All your memories are safe on your Cozy Drive",
-					"button": "Install the Cozy Drive app on your mobile",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"cozy-collect": {
-					"title": "Get back your bills instantly",
-					"description": "Cozy Collect organize all your files instantly",
-					"button": "Discover Cozy Collect"
-				},
-				"support": {
-					"title": "How can we help you today ?",
-					"description": "Share your idea or your bug on our dedicated interface",
-					"button": "Get access to the support",
-					"link": "https://cozy.io/en/support/"
-				}
-			}
-		}
-	};
-
-/***/ },
-/* 240 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"apps": "Приложения",
-		"settings": "Настройки",
-		"menu": "Показать панель меню",
-		"profile": "Профиль",
-		"connectedDevices": "Присоединённые устройства",
-		"storage": "Хранилище",
-		"storage_phrase": "%{diskUsage} ГБ из %{diskQuota} ГБ использовано",
-		"help": "Помощь",
-		"logout": "Выход",
-		"beta_status": "We are still in beta",
-		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "Это стек не доступен (превышено время ожидания)",
-		"error_UnauthorizedStack": "Некоторые разрешения отсутствуют, получить доступ к запрашиваемому ресурсу в стеке не возможно.",
-		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
-			"ptnb": "expPTNB",
-			"others": "Other apps"
-		},
-		"claudy": {
-			"title": "How to drive your Cozy?",
-			"actions": {
-				"desktop": {
-					"title": "Get access to your files in your computer",
-					"description": "Synchronize all your Cozy Drive files on your computer",
-					"button": "Install Cozy Drive on your desktop",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"mobile": {
-					"title": "Back up and sync your pics from your mobile",
-					"description": "All your memories are safe on your Cozy Drive",
-					"button": "Install the Cozy Drive app on your mobile",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"cozy-collect": {
-					"title": "Get back your bills instantly",
-					"description": "Cozy Collect organize all your files instantly",
-					"button": "Discover Cozy Collect"
-				},
-				"support": {
-					"title": "How can we help you today ?",
-					"description": "Share your idea or your bug on our dedicated interface",
-					"button": "Get access to the support",
-					"link": "https://cozy.io/en/support/"
-				}
-			}
-		}
-	};
-
-/***/ },
-/* 241 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"apps": "Apps",
-		"settings": "Settings",
-		"menu": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
-		"help": "Help",
-		"logout": "Sign out",
-		"beta_status": "We are still in beta",
-		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
-		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
-			"ptnb": "expPTNB",
-			"others": "Other apps"
-		},
-		"claudy": {
-			"title": "How to drive your Cozy?",
-			"actions": {
-				"desktop": {
-					"title": "Get access to your files in your computer",
-					"description": "Synchronize all your Cozy Drive files on your computer",
-					"button": "Install Cozy Drive on your desktop",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"mobile": {
-					"title": "Back up and sync your pics from your mobile",
-					"description": "All your memories are safe on your Cozy Drive",
-					"button": "Install the Cozy Drive app on your mobile",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"cozy-collect": {
-					"title": "Get back your bills instantly",
-					"description": "Cozy Collect organize all your files instantly",
-					"button": "Discover Cozy Collect"
-				},
-				"support": {
-					"title": "How can we help you today ?",
-					"description": "Share your idea or your bug on our dedicated interface",
-					"button": "Get access to the support",
-					"link": "https://cozy.io/en/support/"
-				}
-			}
-		}
-	};
-
-/***/ },
-/* 242 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"apps": "Apps",
-		"settings": "Settings",
-		"menu": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
-		"help": "Help",
-		"logout": "Sign out",
-		"beta_status": "We are still in beta",
-		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
-		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
-			"ptnb": "expPTNB",
-			"others": "Other apps"
-		},
-		"claudy": {
-			"title": "How to drive your Cozy?",
-			"actions": {
-				"desktop": {
-					"title": "Get access to your files in your computer",
-					"description": "Synchronize all your Cozy Drive files on your computer",
-					"button": "Install Cozy Drive on your desktop",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"mobile": {
-					"title": "Back up and sync your pics from your mobile",
-					"description": "All your memories are safe on your Cozy Drive",
-					"button": "Install the Cozy Drive app on your mobile",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"cozy-collect": {
-					"title": "Get back your bills instantly",
-					"description": "Cozy Collect organize all your files instantly",
-					"button": "Discover Cozy Collect"
-				},
-				"support": {
-					"title": "How can we help you today ?",
-					"description": "Share your idea or your bug on our dedicated interface",
-					"button": "Get access to the support",
-					"link": "https://cozy.io/en/support/"
-				}
-			}
-		}
-	};
-
-/***/ },
-/* 243 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"apps": "Apps",
-		"settings": "Settings",
-		"menu": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
-		"help": "Help",
-		"logout": "Sign out",
-		"beta_status": "We are still in beta",
-		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
-		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
-			"ptnb": "expPTNB",
-			"others": "Other apps"
-		},
-		"claudy": {
-			"title": "How to drive your Cozy?",
-			"actions": {
-				"desktop": {
-					"title": "Get access to your files in your computer",
-					"description": "Synchronize all your Cozy Drive files on your computer",
-					"button": "Install Cozy Drive on your desktop",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"mobile": {
-					"title": "Back up and sync your pics from your mobile",
-					"description": "All your memories are safe on your Cozy Drive",
-					"button": "Install the Cozy Drive app on your mobile",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"cozy-collect": {
-					"title": "Get back your bills instantly",
-					"description": "Cozy Collect organize all your files instantly",
-					"button": "Discover Cozy Collect"
-				},
-				"support": {
-					"title": "How can we help you today ?",
-					"description": "Share your idea or your bug on our dedicated interface",
-					"button": "Get access to the support",
-					"link": "https://cozy.io/en/support/"
-				}
-			}
-		}
-	};
-
-/***/ },
-/* 244 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"apps": "Apps",
-		"settings": "Settings",
-		"menu": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
-		"help": "Help",
-		"logout": "Sign out",
-		"beta_status": "We are still in beta",
-		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
-		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
-			"ptnb": "expPTNB",
-			"others": "Other apps"
-		},
-		"claudy": {
-			"title": "How to drive your Cozy?",
-			"actions": {
-				"desktop": {
-					"title": "Get access to your files in your computer",
-					"description": "Synchronize all your Cozy Drive files on your computer",
-					"button": "Install Cozy Drive on your desktop",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"mobile": {
-					"title": "Back up and sync your pics from your mobile",
-					"description": "All your memories are safe on your Cozy Drive",
-					"button": "Install the Cozy Drive app on your mobile",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"cozy-collect": {
-					"title": "Get back your bills instantly",
-					"description": "Cozy Collect organize all your files instantly",
-					"button": "Discover Cozy Collect"
-				},
-				"support": {
-					"title": "How can we help you today ?",
-					"description": "Share your idea or your bug on our dedicated interface",
-					"button": "Get access to the support",
-					"link": "https://cozy.io/en/support/"
-				}
-			}
-		}
-	};
-
-/***/ },
-/* 245 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"apps": "Apps",
-		"settings": "Settings",
-		"menu": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
-		"help": "Help",
-		"logout": "Sign out",
-		"beta_status": "We are still in beta",
-		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
-		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
-			"ptnb": "expPTNB",
-			"others": "Other apps"
-		},
-		"claudy": {
-			"title": "How to drive your Cozy?",
-			"actions": {
-				"desktop": {
-					"title": "Get access to your files in your computer",
-					"description": "Synchronize all your Cozy Drive files on your computer",
-					"button": "Install Cozy Drive on your desktop",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"mobile": {
-					"title": "Back up and sync your pics from your mobile",
-					"description": "All your memories are safe on your Cozy Drive",
-					"button": "Install the Cozy Drive app on your mobile",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"cozy-collect": {
-					"title": "Get back your bills instantly",
-					"description": "Cozy Collect organize all your files instantly",
-					"button": "Discover Cozy Collect"
-				},
-				"support": {
-					"title": "How can we help you today ?",
-					"description": "Share your idea or your bug on our dedicated interface",
-					"button": "Get access to the support",
-					"link": "https://cozy.io/en/support/"
-				}
-			}
-		}
-	};
-
-/***/ },
-/* 246 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"apps": "Apps",
-		"settings": "Settings",
-		"menu": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
-		"help": "Help",
-		"logout": "Sign out",
-		"beta_status": "We are still in beta",
-		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
-		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
-			"ptnb": "expPTNB",
-			"others": "Other apps"
-		},
-		"claudy": {
-			"title": "How to drive your Cozy?",
-			"actions": {
-				"desktop": {
-					"title": "Get access to your files in your computer",
-					"description": "Synchronize all your Cozy Drive files on your computer",
-					"button": "Install Cozy Drive on your desktop",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"mobile": {
-					"title": "Back up and sync your pics from your mobile",
-					"description": "All your memories are safe on your Cozy Drive",
-					"button": "Install the Cozy Drive app on your mobile",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"cozy-collect": {
-					"title": "Get back your bills instantly",
-					"description": "Cozy Collect organize all your files instantly",
-					"button": "Discover Cozy Collect"
-				},
-				"support": {
-					"title": "How can we help you today ?",
-					"description": "Share your idea or your bug on our dedicated interface",
-					"button": "Get access to the support",
-					"link": "https://cozy.io/en/support/"
-				}
-			}
-		}
-	};
-
-/***/ },
-/* 247 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"apps": "Apps",
-		"settings": "Settings",
-		"menu": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
-		"help": "Help",
-		"logout": "Sign out",
-		"beta_status": "We are still in beta",
-		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
-		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
-			"ptnb": "expPTNB",
-			"others": "Other apps"
-		},
-		"claudy": {
-			"title": "How to drive your Cozy?",
-			"actions": {
-				"desktop": {
-					"title": "Get access to your files in your computer",
-					"description": "Synchronize all your Cozy Drive files on your computer",
-					"button": "Install Cozy Drive on your desktop",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"mobile": {
-					"title": "Back up and sync your pics from your mobile",
-					"description": "All your memories are safe on your Cozy Drive",
-					"button": "Install the Cozy Drive app on your mobile",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"cozy-collect": {
-					"title": "Get back your bills instantly",
-					"description": "Cozy Collect organize all your files instantly",
-					"button": "Discover Cozy Collect"
-				},
-				"support": {
-					"title": "How can we help you today ?",
-					"description": "Share your idea or your bug on our dedicated interface",
-					"button": "Get access to the support",
-					"link": "https://cozy.io/en/support/"
-				}
-			}
-		}
-	};
-
-/***/ },
-/* 248 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"apps": "Apps",
-		"settings": "Settings",
-		"menu": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
-		"help": "Help",
-		"logout": "Sign out",
-		"beta_status": "We are still in beta",
-		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
-		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
-			"ptnb": "expPTNB",
-			"others": "Other apps"
-		},
-		"claudy": {
-			"title": "How to drive your Cozy?",
-			"actions": {
-				"desktop": {
-					"title": "Get access to your files in your computer",
-					"description": "Synchronize all your Cozy Drive files on your computer",
-					"button": "Install Cozy Drive on your desktop",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"mobile": {
-					"title": "Back up and sync your pics from your mobile",
-					"description": "All your memories are safe on your Cozy Drive",
-					"button": "Install the Cozy Drive app on your mobile",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"cozy-collect": {
-					"title": "Get back your bills instantly",
-					"description": "Cozy Collect organize all your files instantly",
-					"button": "Discover Cozy Collect"
-				},
-				"support": {
-					"title": "How can we help you today ?",
-					"description": "Share your idea or your bug on our dedicated interface",
-					"button": "Get access to the support",
-					"link": "https://cozy.io/en/support/"
-				}
-			}
-		}
-	};
-
-/***/ },
-/* 249 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"apps": "应用",
-		"settings": "设置",
-		"menu": "显示菜单抽屉",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "储存",
-		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
-		"help": "帮助",
-		"logout": "登出",
-		"beta_status": "We are still in beta",
-		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "此堆栈无法连接 (连接超时)",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
-		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
-			"ptnb": "expPTNB",
-			"others": "Other apps"
-		},
-		"claudy": {
-			"title": "How to drive your Cozy?",
-			"actions": {
-				"desktop": {
-					"title": "Get access to your files in your computer",
-					"description": "Synchronize all your Cozy Drive files on your computer",
-					"button": "Install Cozy Drive on your desktop",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"mobile": {
-					"title": "Back up and sync your pics from your mobile",
-					"description": "All your memories are safe on your Cozy Drive",
-					"button": "Install the Cozy Drive app on your mobile",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"cozy-collect": {
-					"title": "Get back your bills instantly",
-					"description": "Cozy Collect organize all your files instantly",
-					"button": "Discover Cozy Collect"
-				},
-				"support": {
-					"title": "How can we help you today ?",
-					"description": "Share your idea or your bug on our dedicated interface",
-					"button": "Get access to the support",
-					"link": "https://cozy.io/en/support/"
-				}
-			}
-		}
-	};
-
-/***/ },
-/* 250 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"apps": "Apps",
-		"settings": "Settings",
-		"menu": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
-		"help": "Help",
-		"logout": "Sign out",
-		"beta_status": "We are still in beta",
-		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
-		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
-			"ptnb": "expPTNB",
-			"others": "Other apps"
-		},
-		"claudy": {
-			"title": "How to drive your Cozy?",
-			"actions": {
-				"desktop": {
-					"title": "Get access to your files in your computer",
-					"description": "Synchronize all your Cozy Drive files on your computer",
-					"button": "Install Cozy Drive on your desktop",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"mobile": {
-					"title": "Back up and sync your pics from your mobile",
-					"description": "All your memories are safe on your Cozy Drive",
-					"button": "Install the Cozy Drive app on your mobile",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"cozy-collect": {
-					"title": "Get back your bills instantly",
-					"description": "Cozy Collect organize all your files instantly",
-					"button": "Discover Cozy Collect"
-				},
-				"support": {
-					"title": "How can we help you today ?",
-					"description": "Share your idea or your bug on our dedicated interface",
-					"button": "Get access to the support",
-					"link": "https://cozy.io/en/support/"
-				}
-			}
-		}
-	};
-
-/***/ },
-/* 251 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9773,7 +9603,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	__webpack_require__(187);
 	
-	var _exceptions = __webpack_require__(252);
+	var _exceptions = __webpack_require__(224);
 	
 	function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; } /* eslint-env browser */
 	/* global __SERVER__ */
@@ -9789,7 +9619,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  };
 	}
 	
-	var COZY_URL = ("http://cozy.local:8080");
+	var COZY_URL = __SERVER__;
 	var COZY_TOKEN = void 0;
 	
 	var errorStatuses = {
@@ -9822,22 +9652,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	  });
 	}
 	
-	function getDiskUsage() {
+	function getStorageData() {
 	  return fetchJSON(COZY_URL + '/settings/disk-usage', fetchOptions()).then(function (json) {
-	    return parseInt(json.data.attributes.used, 10);
-	  }).catch(function (e) {
-	    throw new _exceptions.UnavailableStackException();
-	  });
-	}
-	
-	function getDiskQuota() {
-	  return fetchJSON(COZY_URL + '/settings/disk-usage', fetchOptions()).then(function (json) {
-	    var quota = parseInt(json.data.attributes.quota, 10);
-	    if (Number.isInteger(quota)) {
-	      return quota;
-	    } else {
-	      return 100000000000; // @TODO Waiting for instructions about how to deal with limitless instances
-	    }
+	    return {
+	      usage: parseInt(json.data.attributes.used, 10),
+	      // TODO Better handling when no quota provided
+	      quota: parseInt(json.data.attributes.quota, 10) || 100000000000,
+	      isLimited: json.data.attributes.is_limited
+	    };
 	  }).catch(function (e) {
 	    throw new _exceptions.UnavailableStackException();
 	  });
@@ -9860,12 +9682,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	  });
 	}
 	
-	function hasApp(slug) {
-	  return getApp(slug).then(function (app) {
-	    return !!(app && app.attributes.state === 'ready');
-	  });
-	}
-	
 	var cache = {};
 	
 	module.exports = {
@@ -9877,75 +9693,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	    COZY_TOKEN = token;
 	  },
 	
-	  has: {
-	    /**
-	     * has.settings() allow to check if the Settings app is available in the
-	     * stack or not. It returns a boolean.
-	     * Exceptionnally, as the Settings app is a critical app (w/o it, no
-	     * password update, language change, etc), it also throw an exception if
-	     * the Settings app isn't available.
-	     */
-	    settings: function () {
-	      var _ref3 = _asyncToGenerator(regeneratorRuntime.mark(function _callee2() {
-	        var hasSettings;
-	        return regeneratorRuntime.wrap(function _callee2$(_context2) {
-	          while (1) {
-	            switch (_context2.prev = _context2.next) {
-	              case 0:
-	                hasSettings = void 0;
-	                _context2.prev = 1;
-	                _context2.next = 4;
-	                return hasApp('settings');
-	
-	              case 4:
-	                hasSettings = _context2.sent;
-	                _context2.next = 11;
-	                break;
-	
-	              case 7:
-	                _context2.prev = 7;
-	                _context2.t0 = _context2['catch'](1);
-	
-	                hasSettings = false;
-	                throw new _exceptions.UnavailableSettingsException();
-	
-	              case 11:
-	                if (hasSettings) {
-	                  _context2.next = 13;
-	                  break;
-	                }
-	
-	                throw new _exceptions.UnavailableSettingsException();
-	
-	              case 13:
-	                return _context2.abrupt('return', hasSettings);
-	
-	              case 14:
-	              case 'end':
-	                return _context2.stop();
-	            }
-	          }
-	        }, _callee2, this, [[1, 7]]);
-	      }));
-	
-	      function settings() {
-	        return _ref3.apply(this, arguments);
-	      }
-	
-	      return settings;
-	    }()
-	  },
 	  get: {
 	    app: getApp,
 	    apps: getApps,
 	    context: getContext(cache),
-	    diskUsage: getDiskUsage,
-	    diskQuota: getDiskQuota,
+	    storageData: getStorageData,
 	    icon: getIcon,
 	    cozyURL: function cozyURL() {
 	      return COZY_URL;
 	    },
-	    settingsBaseURI: function settingsBaseURI() {
+	    settingsAppURL: function settingsAppURL() {
 	      return getApp('settings').then(function (settings) {
 	        if (!settings) {
 	          throw new _exceptions.UnavailableSettingsException();
@@ -9972,7 +9729,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 252 */
+/* 224 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -10097,839 +9854,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.UnauthorizedStackException = UnauthorizedStackException;
 
 /***/ },
-/* 253 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-	
-	function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
-	
-	var __import0 = __webpack_require__(189);
-	
-	var __import1 = __webpack_require__(254);
-	
-	var __import2 = __webpack_require__(266);
-	
-	var Navigation = __webpack_require__(269);
-	
-	var Drawer = __webpack_require__(276);
-	
-	var Claudy = __webpack_require__(277);
-	
-	var MENU_CONFIG = __webpack_require__(260);
-	
-	var CLAUDY_CONFIG = __webpack_require__(261);
-	
-	var t = __import0.t;
-	var createMenuPointers = __import1.createMenuPointers;
-	var getHelpLink = __import1.getHelpLink;
-	var updateSettings = __import1.updateSettings;
-	var updateApps = __import1.updateApps;
-	var getClaudyConfig = __import1.getClaudyConfig;
-	var shouldEnableTracking = __import2.shouldEnableTracking;
-	var getTracker = __import2.getTracker;
-	var configureTracker = __import2.configureTracker;
-	Navigation = Navigation && Navigation.__esModule ? Navigation['default'] : Navigation;
-	Drawer = Drawer && Drawer.__esModule ? Drawer['default'] : Drawer;
-	Claudy = Claudy && Claudy.__esModule ? Claudy['default'] : Claudy;
-	MENU_CONFIG = MENU_CONFIG && MENU_CONFIG.__esModule ? MENU_CONFIG['default'] : MENU_CONFIG;
-	CLAUDY_CONFIG = CLAUDY_CONFIG && CLAUDY_CONFIG.__esModule ? CLAUDY_CONFIG['default'] : CLAUDY_CONFIG;
-	
-	function recompute(state, newState, oldState, isInitial) {
-		if (isInitial || 'replaceTitleOnMobile' in newState && differs(state.replaceTitleOnMobile, oldState.replaceTitleOnMobile)) {
-			state.titleClass = newState.titleClass = template.computed.titleClass(state.replaceTitleOnMobile);
-		}
-	}
-	
-	var template = function () {
-		return {
-			data: function data() {
-				var config = createMenuPointers(MENU_CONFIG);
-	
-				return {
-					target: ("mobile"),
-					config: config,
-					claudyConfig: null, // no claudy by default
-					claudyOpened: false,
-					drawerVisible: false,
-					usageTracker: null
-				};
-			},
-	
-	
-			computed: {
-				titleClass: function titleClass(replaceTitleOnMobile) {
-					return 'coz-bar-title ' + (replaceTitleOnMobile ? 'coz-bar-hide-sm' : '');
-				}
-			},
-	
-			/**
-	   * When loading the Bar component, we once force a first update of config
-	   * w/ settings and apps
-	   */
-			oncreate: function () {
-				var _ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee() {
-					var _this = this;
-	
-					var config, helpLink, claudyConfig, trackerInstance;
-					return regeneratorRuntime.wrap(function _callee$(_context) {
-						while (1) {
-							switch (_context.prev = _context.next) {
-								case 0:
-									config = this.get('config');
-	
-	
-									this.observe('lang', function () {
-										var claudyConfigFromState = _this.get('claudyConfig');
-										_this.set({ config: config, claudyConfig: claudyConfigFromState }); // force to rerender when locale change
-									});
-	
-									helpLink = void 0;
-									_context.prev = 3;
-									_context.next = 6;
-									return getHelpLink();
-	
-								case 6:
-									helpLink = _context.sent;
-									_context.next = 12;
-									break;
-	
-								case 9:
-									_context.prev = 9;
-									_context.t0 = _context['catch'](3);
-	
-									console.warn && console.warn('Cozy-bar cannot load help link: ' + _context.t0.message);
-	
-								case 12:
-	
-									if (helpLink) {
-										config.subsections.help[0].href = helpLink;
-									} else {
-										config.subsections.help.length = 0;
-									}
-	
-									claudyConfig = null;
-	
-									if (!(this.get('target') !== 'mobile' && !this.get('isPublic'))) {
-										_context.next = 22;
-										break;
-									}
-	
-									_context.next = 17;
-									return getClaudyConfig();
-	
-								case 17:
-									claudyConfig = _context.sent;
-									_context.next = 20;
-									return updateSettings(config);
-	
-								case 20:
-									_context.next = 22;
-									return updateApps(config);
-	
-								case 22:
-									// filter claudy subsection if claudyConfig is null
-									if (!claudyConfig) {
-										if (config.sections && config.sections.drawer) {
-											config.sections.drawer = config.sections.drawer.filter(function (s) {
-												return s.length && s[0].slug !== 'claudy';
-											});
-										}
-									}
-	
-									this.set({ config: config, claudyConfig: claudyConfig });
-	
-									// if tracking enabled, init the piwik tracker
-									if (shouldEnableTracking()) {
-										trackerInstance = getTracker(("https://piwik.cozycloud.cc"), (8), false, false);
-	
-										configureTracker({
-											appDimensionId: (1),
-											app: 'Cozy Bar',
-											heartbeat: 0
-										});
-										trackerInstance.push(['disableHeartBeatTimer']); // undocumented, see https://github.com/piwik/piwik/blob/3.x-dev/js/piwik.js#L6544
-										this.set({ usageTracker: trackerInstance });
-									}
-	
-								case 25:
-								case 'end':
-									return _context.stop();
-							}
-						}
-					}, _callee, this, [[3, 9]]);
-				}));
-	
-				function oncreate() {
-					return _ref.apply(this, arguments);
-				}
-	
-				return oncreate;
-			}(),
-	
-	
-			helpers: { t: t },
-	
-			methods: {
-				toggleDrawer: function () {
-					var _ref2 = _asyncToGenerator(regeneratorRuntime.mark(function _callee2() {
-						var config, drawerVisible, settingsValve, appsValve;
-						return regeneratorRuntime.wrap(function _callee2$(_context2) {
-							while (1) {
-								switch (_context2.prev = _context2.next) {
-									case 0:
-										if (!this.get('claudyOpened')) {
-											_context2.next = 2;
-											break;
-										}
-	
-										return _context2.abrupt('return');
-	
-									case 2:
-										config = this.get('config');
-										drawerVisible = !this.get('drawerVisible');
-	
-										if (!drawerVisible) {
-											_context2.next = 12;
-											break;
-										}
-	
-										_context2.next = 7;
-										return updateSettings(config, { storage: false });
-	
-									case 7:
-										settingsValve = _context2.sent;
-										_context2.next = 10;
-										return updateApps(config);
-	
-									case 10:
-										appsValve = _context2.sent;
-	
-	
-										/** Ugly hack to force re-render by triggering `set` method on config */
-										if (settingsValve || appsValve) {
-											this.set({ config: config });
-										}
-	
-									case 12:
-	
-										this.set({ drawerVisible: drawerVisible });
-	
-									case 13:
-									case 'end':
-										return _context2.stop();
-								}
-							}
-						}, _callee2, this);
-					}));
-	
-					function toggleDrawer() {
-						return _ref2.apply(this, arguments);
-					}
-	
-					return toggleDrawer;
-				}(),
-				toggleClaudy: function toggleClaudy() {
-					if (!this.get('claudyConfig')) return;
-					var claudyOpened = this.get('claudyOpened');
-					var usageTracker = this.get('usageTracker');
-					if (usageTracker) {
-						usageTracker.push(['trackEvent', 'Claudy', claudyOpened ? 'close' : 'open', 'claudy']);
-					}
-					this.set({ claudyOpened: !claudyOpened });
-				},
-				onPopOpen: function () {
-					var _ref3 = _asyncToGenerator(regeneratorRuntime.mark(function _callee3(panel) {
-						var config, valve;
-						return regeneratorRuntime.wrap(function _callee3$(_context3) {
-							while (1) {
-								switch (_context3.prev = _context3.next) {
-									case 0:
-										config = this.get('config');
-										valve = void 0;
-										_context3.t0 = panel;
-										_context3.next = _context3.t0 === 'apps' ? 5 : _context3.t0 === 'settings' ? 9 : 13;
-										break;
-	
-									case 5:
-										_context3.next = 7;
-										return updateApps(config);
-	
-									case 7:
-										// we force config update as the menu dropdown opening depends on it
-										valve = true;
-										return _context3.abrupt('break', 13);
-	
-									case 9:
-										_context3.next = 11;
-										return updateSettings(config);
-	
-									case 11:
-										valve = _context3.sent;
-										return _context3.abrupt('break', 13);
-	
-									case 13:
-	
-										/** Ugly hack to force re-render by triggering `set` method on config */
-										if (valve) {
-											this.set({ config: config });
-										}
-	
-									case 14:
-									case 'end':
-										return _context3.stop();
-								}
-							}
-						}, _callee3, this);
-					}));
-	
-					function onPopOpen(_x) {
-						return _ref3.apply(this, arguments);
-					}
-	
-					return onPopOpen;
-				}()
-			}
-		};
-	}();
-	
-	function create_main_fragment(state, component) {
-		var h1_lang_value, h1_class_value, img_src_value, text_3_value, text_5_value;
-	
-		var if_block = state.target !== 'mobile' && !state.isPublic && create_if_block(state, component);
-	
-		var text = createText("\n\n");
-		var h1 = createElement('h1');
-		h1.lang = h1_lang_value = state.lang;
-		h1.className = h1_class_value = state.titleClass;
-		var img = createElement('img');
-		appendNode(img, h1);
-		img.className = "coz-bar-hide-sm";
-		img.src = img_src_value = state.iconPath;
-		img.width = "32";
-		appendNode(createText("\n  "), h1);
-	
-		var if_block_1 = state.appEditor && create_if_block_1(state, component);
-	
-		if (if_block_1) if_block_1.mount(h1, null);
-		var text_2 = createText("\n  ");
-		appendNode(text_2, h1);
-		var strong = createElement('strong');
-		appendNode(strong, h1);
-		var text_3 = createText(text_3_value = state.appName);
-		appendNode(text_3, strong);
-		appendNode(createText("\n  "), h1);
-		var sup = createElement('sup');
-		appendNode(sup, h1);
-		sup.className = "coz-bar-hide-sm coz-bar-beta-status";
-		var text_5 = createText(text_5_value = template.helpers.t('beta'));
-		appendNode(text_5, sup);
-		var text_6 = createText("\n\n");
-		var hr = createElement('hr');
-		hr.className = "coz-sep-flex";
-		var text_7 = createText("\n\n");
-	
-		var if_block_2 = !state.isPublic && create_if_block_2(state, component);
-	
-		var text_8 = createText("\n\n");
-	
-		var if_block_3 = state.target !== 'mobile' && !state.isPublic && create_if_block_3(state, component);
-	
-		var if_block_3_anchor = createComment();
-	
-		return {
-			mount: function mount(target, anchor) {
-				if (if_block) if_block.mount(target, anchor);
-				insertNode(text, target, anchor);
-				insertNode(h1, target, anchor);
-				insertNode(text_6, target, anchor);
-				insertNode(hr, target, anchor);
-				insertNode(text_7, target, anchor);
-				if (if_block_2) if_block_2.mount(target, anchor);
-				insertNode(text_8, target, anchor);
-				if (if_block_3) if_block_3.mount(target, anchor);
-				insertNode(if_block_3_anchor, target, anchor);
-			},
-	
-			update: function update(changed, state) {
-				if (state.target !== 'mobile' && !state.isPublic) {
-					if (!if_block) {
-						if_block = create_if_block(state, component);
-						if_block.mount(text.parentNode, text);
-					}
-				} else if (if_block) {
-					if_block.destroy(true);
-					if_block = null;
-				}
-	
-				if (h1_lang_value !== (h1_lang_value = state.lang)) {
-					h1.lang = h1_lang_value;
-				}
-	
-				if (h1_class_value !== (h1_class_value = state.titleClass)) {
-					h1.className = h1_class_value;
-				}
-	
-				if (img_src_value !== (img_src_value = state.iconPath)) {
-					img.src = img_src_value;
-				}
-	
-				if (state.appEditor) {
-					if (if_block_1) {
-						if_block_1.update(changed, state);
-					} else {
-						if_block_1 = create_if_block_1(state, component);
-						if_block_1.mount(h1, text_2);
-					}
-				} else if (if_block_1) {
-					if_block_1.destroy(true);
-					if_block_1 = null;
-				}
-	
-				if (text_3_value !== (text_3_value = state.appName)) {
-					text_3.data = text_3_value;
-				}
-	
-				if (text_5_value !== (text_5_value = template.helpers.t('beta'))) {
-					text_5.data = text_5_value;
-				}
-	
-				if (!state.isPublic) {
-					if (if_block_2) {
-						if_block_2.update(changed, state);
-					} else {
-						if_block_2 = create_if_block_2(state, component);
-						if_block_2.mount(text_8.parentNode, text_8);
-					}
-				} else if (if_block_2) {
-					if_block_2.destroy(true);
-					if_block_2 = null;
-				}
-	
-				if (state.target !== 'mobile' && !state.isPublic) {
-					if (if_block_3) {
-						if_block_3.update(changed, state);
-					} else {
-						if_block_3 = create_if_block_3(state, component);
-						if_block_3.mount(if_block_3_anchor.parentNode, if_block_3_anchor);
-					}
-				} else if (if_block_3) {
-					if_block_3.destroy(true);
-					if_block_3 = null;
-				}
-			},
-	
-			destroy: function destroy(detach) {
-				if (if_block) if_block.destroy(detach);
-				if (if_block_1) if_block_1.destroy(false);
-				if (if_block_2) if_block_2.destroy(detach);
-				if (if_block_3) if_block_3.destroy(detach);
-	
-				if (detach) {
-					detachNode(text);
-					detachNode(h1);
-					detachNode(text_6);
-					detachNode(hr);
-					detachNode(text_7);
-					detachNode(text_8);
-					detachNode(if_block_3_anchor);
-				}
-			}
-		};
-	}
-	
-	function create_if_block(state, component) {
-		var text_value;
-	
-		var button = createElement('button');
-		button.className = "coz-bar-burger";
-		setAttribute(button, 'data-icon', "icon-hamburger");
-	
-		function click_handler(event) {
-			component.toggleDrawer();
-		}
-	
-		addEventListener(button, 'click', click_handler);
-		var span = createElement('span');
-		appendNode(span, button);
-		span.className = "coz-bar-hidden";
-		var text = createText(text_value = template.helpers.t('menu'));
-		appendNode(text, span);
-	
-		return {
-			mount: function mount(target, anchor) {
-				insertNode(button, target, anchor);
-			},
-	
-			destroy: function destroy(detach) {
-				removeEventListener(button, 'click', click_handler);
-	
-				if (detach) {
-					detachNode(button);
-				}
-			}
-		};
-	}
-	
-	function create_if_block_1(state, component) {
-		var text_value;
-	
-		var span = createElement('span');
-		span.className = "coz-bar-hide-sm";
-		var text = createText(text_value = state.appEditor);
-		appendNode(text, span);
-	
-		return {
-			mount: function mount(target, anchor) {
-				insertNode(span, target, anchor);
-			},
-	
-			update: function update(changed, state) {
-				if (text_value !== (text_value = state.appEditor)) {
-					text.data = text_value;
-				}
-			},
-	
-			destroy: function destroy(detach) {
-				if (detach) {
-					detachNode(span);
-				}
-			}
-		};
-	}
-	
-	function create_if_block_2(state, component) {
-		var navigation = new Navigation({
-			target: null,
-			_root: component._root,
-			data: { sections: state.config.sections.bar }
-		});
-	
-		navigation.on('open', function (event) {
-			component.onPopOpen(event.panel);
-		});
-	
-		return {
-			mount: function mount(target, anchor) {
-				navigation._fragment.mount(target, anchor);
-			},
-	
-			update: function update(changed, state) {
-				var navigation_changes = {};
-	
-				if ('config' in changed) navigation_changes.sections = state.config.sections.bar;
-	
-				if (Object.keys(navigation_changes).length) navigation.set(navigation_changes);
-			},
-	
-			destroy: function destroy(detach) {
-				navigation.destroy(detach);
-			}
-		};
-	}
-	
-	function create_if_block_4(state, component) {
-		var claudy = new Claudy({
-			target: null,
-			_root: component._root,
-			data: {
-				config: state.claudyConfig,
-				appsList: state.config.apps,
-				usageTracker: state.usageTracker,
-				opened: state.claudyOpened
-			}
-		});
-	
-		claudy.on('toggle', function (event) {
-			component.toggleClaudy();
-		});
-	
-		return {
-			mount: function mount(target, anchor) {
-				claudy._fragment.mount(target, anchor);
-			},
-	
-			update: function update(changed, state) {
-				var claudy_changes = {};
-	
-				if ('claudyConfig' in changed) claudy_changes.config = state.claudyConfig;
-				if ('config' in changed) claudy_changes.appsList = state.config.apps;
-				if ('usageTracker' in changed) claudy_changes.usageTracker = state.usageTracker;
-				if ('claudyOpened' in changed) claudy_changes.opened = state.claudyOpened;
-	
-				if (Object.keys(claudy_changes).length) claudy.set(claudy_changes);
-			},
-	
-			destroy: function destroy(detach) {
-				claudy.destroy(detach);
-			}
-		};
-	}
-	
-	function create_if_block_3(state, component) {
-		var drawer = new Drawer({
-			target: null,
-			_root: component._root,
-			data: {
-				content: state.config.apps,
-				footer: state.config.sections.drawer,
-				visible: state.drawerVisible
-			}
-		});
-	
-		drawer.on('close', function (event) {
-			component.toggleDrawer(true);
-		});
-	
-		drawer.on('claudy', function (event) {
-			component.toggleClaudy();
-		});
-	
-		var text = createText("\n  ");
-	
-		var if_block_4 = state.claudyConfig && create_if_block_4(state, component);
-	
-		var if_block_4_anchor = createComment();
-	
-		return {
-			mount: function mount(target, anchor) {
-				drawer._fragment.mount(target, anchor);
-				insertNode(text, target, anchor);
-				if (if_block_4) if_block_4.mount(target, anchor);
-				insertNode(if_block_4_anchor, target, anchor);
-			},
-	
-			update: function update(changed, state) {
-				var drawer_changes = {};
-	
-				if ('config' in changed) drawer_changes.content = state.config.apps;
-				if ('config' in changed) drawer_changes.footer = state.config.sections.drawer;
-				if ('drawerVisible' in changed) drawer_changes.visible = state.drawerVisible;
-	
-				if (Object.keys(drawer_changes).length) drawer.set(drawer_changes);
-	
-				if (state.claudyConfig) {
-					if (if_block_4) {
-						if_block_4.update(changed, state);
-					} else {
-						if_block_4 = create_if_block_4(state, component);
-						if_block_4.mount(if_block_4_anchor.parentNode, if_block_4_anchor);
-					}
-				} else if (if_block_4) {
-					if_block_4.destroy(true);
-					if_block_4 = null;
-				}
-			},
-
-			destroy: function destroy(detach) {
-				drawer.destroy(detach);
-				if (if_block_4) if_block_4.destroy(detach);
-
-				if (detach) {
-					detachNode(text);
-					detachNode(if_block_4_anchor);
-				}
-			}
-		};
-	}
-
-	function Bar(options) {
-		options = options || {};
-		this._state = assign(template.data(), options.data);
-		recompute(this._state, this._state, {}, true);
-
-		this._observers = {
-			pre: Object.create(null),
-			post: Object.create(null)
-		};
-
-		this._handlers = Object.create(null);
-
-		this._root = options._root || this;
-		this._yield = options._yield;
-
-		this._torndown = false;
-		this._renderHooks = [];
-
-		this._fragment = create_main_fragment(this._state, this);
-		if (options.target) this._fragment.mount(options.target, null);
-		this._flush();
-
-		if (options._root) {
-			options._root._renderHooks.push(template.oncreate.bind(this));
-		} else {
-			template.oncreate.call(this);
-		}
-	}
-
-	assign(Bar.prototype, template.methods, {
-		get: get,
-		fire: fire,
-		observe: observe,
-		on: on,
-		set: set,
-		_flush: _flush
-	});
-
-	Bar.prototype._set = function _set(newState) {
-		var oldState = this._state;
-		this._state = assign({}, oldState, newState);
-		recompute(this._state, newState, oldState, false);
-		dispatchObservers(this, this._observers.pre, newState, oldState);
-		this._fragment.update(newState, this._state);
-		dispatchObservers(this, this._observers.post, newState, oldState);
-		this._flush();
-	};
-
-	Bar.prototype.teardown = Bar.prototype.destroy = function destroy(detach) {
-		this.fire('destroy');
-
-		this._fragment.destroy(detach !== false);
-		this._fragment = null;
-
-		this._state = {};
-		this._torndown = true;
-	};
-
-	function createElement(name) {
-		return document.createElement(name);
-	}
-
-	function insertNode(node, target, anchor) {
-		target.insertBefore(node, anchor);
-	}
-
-	function detachNode(node) {
-		node.parentNode.removeChild(node);
-	}
-
-	function setAttribute(node, attribute, value) {
-		node.setAttribute(attribute, value);
-	}
-
-	function addEventListener(node, event, handler) {
-		node.addEventListener(event, handler, false);
-	}
-
-	function removeEventListener(node, event, handler) {
-		node.removeEventListener(event, handler, false);
-	}
-
-	function appendNode(node, target) {
-		target.appendChild(node);
-	}
-
-	function createText(data) {
-		return document.createTextNode(data);
-	}
-
-	function createComment() {
-		return document.createComment('');
-	}
-
-	function differs(a, b) {
-		return a !== b || a && (typeof a === 'undefined' ? 'undefined' : _typeof(a)) === 'object' || typeof a === 'function';
-	}
-
-	function assign(target) {
-		for (var i = 1; i < arguments.length; i += 1) {
-			var source = arguments[i];
-			for (var k in source) {
-				target[k] = source[k];
-			}
-		}
-
-		return target;
-	}
-
-	function dispatchObservers(component, group, newState, oldState) {
-		for (var key in group) {
-			if (!(key in newState)) continue;
-
-			var newValue = newState[key];
-			var oldValue = oldState[key];
-
-			if (differs(newValue, oldValue)) {
-				var callbacks = group[key];
-				if (!callbacks) continue;
-
-				for (var i = 0; i < callbacks.length; i += 1) {
-					var callback = callbacks[i];
-					if (callback.__calling) continue;
-
-					callback.__calling = true;
-					callback.call(component, newValue, oldValue);
-					callback.__calling = false;
-				}
-			}
-		}
-	}
-
-	function get(key) {
-		return key ? this._state[key] : this._state;
-	}
-
-	function fire(eventName, data) {
-		var handlers = eventName in this._handlers && this._handlers[eventName].slice();
-		if (!handlers) return;
-
-		for (var i = 0; i < handlers.length; i += 1) {
-			handlers[i].call(this, data);
-		}
-	}
-
-	function observe(key, callback, options) {
-		var group = options && options.defer ? this._observers.post : this._observers.pre;
-
-		(group[key] || (group[key] = [])).push(callback);
-
-		if (!options || options.init !== false) {
-			callback.__calling = true;
-			callback.call(this, this._state[key]);
-			callback.__calling = false;
-		}
-
-		return {
-			cancel: function cancel() {
-				var index = group[key].indexOf(callback);
-				if (~index) group[key].splice(index, 1);
-			}
-		};
-	}
-
-	function on(eventName, handler) {
-		if (eventName === 'teardown') return this.on('destroy', handler);
-
-		var handlers = this._handlers[eventName] || (this._handlers[eventName] = []);
-		handlers.push(handler);
-
-		return {
-			cancel: function cancel() {
-				var index = handlers.indexOf(handler);
-				if (~index) handlers.splice(index, 1);
-			}
-		};
-	}
-
-	function set(newState) {
-		this._set(assign({}, newState));
-		this._root._flush();
-	}
-
-	function _flush() {
-		if (!this._renderHooks) return;
-
-		while (this._renderHooks.length) {
-			this._renderHooks.pop()();
-		}
-	}
-
-	module.exports = Bar;
-
-/***/ },
-/* 254 */
+/* 225 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -10937,891 +9862,428 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.getClaudyConfig = exports.updateApps = exports.updateSettings = exports.getHelpLink = exports.createMenuPointers = undefined;
+	exports.Provider = undefined;
 	
-	var getHelpLink = function () {
-	  var _ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee() {
-	    return regeneratorRuntime.wrap(function _callee$(_context) {
-	      while (1) {
-	        switch (_context.prev = _context.next) {
-	          case 0:
-	            return _context.abrupt('return', _stack2.default.get.context().then(function (context) {
-	              return context.data && context.data.attributes && context.data.attributes['help_link'] || null;
-	            }));
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	/* global fetch */
 	
-	          case 1:
-	          case 'end':
-	            return _context.stop();
-	        }
-	      }
-	    }, _callee, this);
-	  }));
+	var _react = __webpack_require__(189);
 	
-	  return function getHelpLink() {
-	    return _ref.apply(this, arguments);
-	  };
-	}();
-	
-	var getClaudyConfig = function () {
-	  var _ref2 = _asyncToGenerator(regeneratorRuntime.mark(function _callee2() {
-	    return regeneratorRuntime.wrap(function _callee2$(_context2) {
-	      while (1) {
-	        switch (_context2.prev = _context2.next) {
-	          case 0:
-	            return _context2.abrupt('return', _stack2.default.get.context().then(function (context) {
-	              var contextActions = context.data && context.data.attributes && context.data.attributes['claudy_actions'] || null;
-	              if (!contextActions) return null;
-	              // get an arrays of action
-	              var claudyActions = contextActions.map(function (slug) {
-	                if (_claudy2.default.actions.hasOwnProperty(slug)) {
-	                  // adding also the action slug
-	                  return Object.assign({}, _claudy2.default.actions[slug], { slug: slug });
-	                }
-	              }).filter(function (action) {
-	                return action;
-	              });
-	              return Object.assign({}, _claudy2.default, {
-	                actions: claudyActions
-	              });
-	            }).catch(function (error) {
-	              console.warn && console.warn('Cozy-bar cannot fetch Claudy: ' + error.message);
-	              return null;
-	            }));
-	
-	          case 1:
-	          case 'end':
-	            return _context2.stop();
-	        }
-	      }
-	    }, _callee2, this);
-	  }));
-	
-	  return function getClaudyConfig() {
-	    return _ref2.apply(this, arguments);
-	  };
-	}();
-	
-	var updateAppsItems = function () {
-	  var _ref3 = _asyncToGenerator(regeneratorRuntime.mark(function _callee4(config) {
-	    var _this = this;
-	
-	    var apps, comingSoonApps;
-	    return regeneratorRuntime.wrap(function _callee4$(_context4) {
-	      while (1) {
-	        switch (_context4.prev = _context4.next) {
-	          case 0:
-	            apps = void 0;
-	            comingSoonApps = void 0;
-	            _context4.prev = 2;
-	            _context4.t0 = Promise;
-	            _context4.next = 6;
-	            return _stack2.default.get.apps();
-	
-	          case 6:
-	            _context4.t1 = function (app) {
-	              return !EXCLUDES.includes(app.attributes.slug);
-	            };
-	
-	            _context4.t2 = function () {
-	              var _ref4 = _asyncToGenerator(regeneratorRuntime.mark(function _callee3(app) {
-	                var oldApp, icon;
-	                return regeneratorRuntime.wrap(function _callee3$(_context3) {
-	                  while (1) {
-	                    switch (_context3.prev = _context3.next) {
-	                      case 0:
-	                        oldApp = config.apps.find(function (item) {
-	                          return item.slug === app.attributes.slug;
-	                        });
-	                        icon = void 0;
-	
-	                        if (!(oldApp && oldApp.icon.cached)) {
-	                          _context3.next = 6;
-	                          break;
-	                        }
-	
-	                        icon = oldApp.icon;
-	                        _context3.next = 10;
-	                        break;
-	
-	                      case 6:
-	                        _context3.next = 8;
-	                        return _stack2.default.get.icon(app.links.icon);
-	
-	                      case 8:
-	                        _context3.t0 = _context3.sent;
-	                        icon = {
-	                          src: _context3.t0,
-	                          cached: true
-	                        };
-	
-	                      case 10:
-	                        return _context3.abrupt('return', {
-	                          editor: app.attributes.editor,
-	                          name: app.attributes.name,
-	                          slug: app.attributes.slug,
-	                          l10n: false,
-	                          href: app.links.related,
-	                          category: CATEGORIES.includes(app.attributes.category) ? app.attributes.category : 'others',
-	                          icon: icon
-	                        });
-	
-	                      case 11:
-	                      case 'end':
-	                        return _context3.stop();
-	                    }
-	                  }
-	                }, _callee3, _this);
-	              }));
-	
-	              return function (_x2) {
-	                return _ref4.apply(this, arguments);
-	              };
-	            }();
-	
-	            _context4.t3 = _context4.sent.filter(_context4.t1).map(_context4.t2);
-	            _context4.next = 11;
-	            return _context4.t0.all.call(_context4.t0, _context4.t3);
-	
-	          case 11:
-	            apps = _context4.sent;
-	            _context4.next = 17;
-	            break;
-	
-	          case 14:
-	            _context4.prev = 14;
-	            _context4.t4 = _context4['catch'](2);
-	
-	            apps = [{ error: _context4.t4 }];
-	
-	          case 17:
-	            _context4.next = 19;
-	            return fetchComingSoonApps(apps).catch(function (error) {
-	              console.warn && console.warn('Cozy-bar cannot fetch comming soon apps: ' + error.message);
-	              return [];
-	            });
-	
-	          case 19:
-	            comingSoonApps = _context4.sent;
-	
-	
-	            config.apps.length = 0;
-	            Array.prototype.push.apply(config.apps, apps.concat(comingSoonApps));
-	
-	          case 22:
-	          case 'end':
-	            return _context4.stop();
-	        }
-	      }
-	    }, _callee4, this, [[2, 14]]);
-	  }));
-	
-	  return function updateAppsItems(_x) {
-	    return _ref3.apply(this, arguments);
-	  };
-	}();
-	
-	var updateDiskUsage = function () {
-	  var _ref5 = _asyncToGenerator(regeneratorRuntime.mark(function _callee5(config) {
-	    var currentDiskUsage;
-	    return regeneratorRuntime.wrap(function _callee5$(_context5) {
-	      while (1) {
-	        switch (_context5.prev = _context5.next) {
-	          case 0:
-	            currentDiskUsage = void 0;
-	            _context5.prev = 1;
-	            _context5.next = 4;
-	            return _stack2.default.get.diskUsage();
-	
-	          case 4:
-	            currentDiskUsage = _context5.sent;
-	            _context5.next = 10;
-	            break;
-	
-	          case 7:
-	            _context5.prev = 7;
-	            _context5.t0 = _context5['catch'](1);
-	
-	            currentDiskUsage = { error: _context5.t0.name };
-	
-	          case 10:
-	
-	            config.components.storage.currentDiskUsage = currentDiskUsage;
-	
-	          case 11:
-	          case 'end':
-	            return _context5.stop();
-	        }
-	      }
-	    }, _callee5, this, [[1, 7]]);
-	  }));
-	
-	  return function updateDiskUsage(_x3) {
-	    return _ref5.apply(this, arguments);
-	  };
-	}();
-	
-	var updateDiskQuota = function () {
-	  var _ref6 = _asyncToGenerator(regeneratorRuntime.mark(function _callee6(config) {
-	    var currentDiskQuota;
-	    return regeneratorRuntime.wrap(function _callee6$(_context6) {
-	      while (1) {
-	        switch (_context6.prev = _context6.next) {
-	          case 0:
-	            currentDiskQuota = void 0;
-	            _context6.prev = 1;
-	            _context6.next = 4;
-	            return _stack2.default.get.diskQuota();
-	
-	          case 4:
-	            currentDiskQuota = _context6.sent;
-	            _context6.next = 10;
-	            break;
-	
-	          case 7:
-	            _context6.prev = 7;
-	            _context6.t0 = _context6['catch'](1);
-	
-	            currentDiskQuota = { error: _context6.t0.name };
-	
-	          case 10:
-	
-	            config.components.storage.currentDiskQuota = currentDiskQuota;
-	
-	          case 11:
-	          case 'end':
-	            return _context6.stop();
-	        }
-	      }
-	    }, _callee6, this, [[1, 7]]);
-	  }));
-	
-	  return function updateDiskQuota(_x4) {
-	    return _ref6.apply(this, arguments);
-	  };
-	}();
-	
-	/**
-	 * Add / Remove settings' links items regarding the status of
-	 * the `settings` app
-	 * @return {Promise}
-	 */
-	
-	
-	var toggleSettingsItems = function () {
-	  var _ref7 = _asyncToGenerator(regeneratorRuntime.mark(function _callee7(config) {
-	    var items;
-	    return regeneratorRuntime.wrap(function _callee7$(_context7) {
-	      while (1) {
-	        switch (_context7.prev = _context7.next) {
-	          case 0:
-	            // We reset the settings' links array
-	            config.subsections.settings.length = 0;
-	
-	            // If the `settings` app is available, we restore links from the root
-	            // MENU_CONFIG tree, updating the links' URLs with the app URI at same time.
-	            _context7.prev = 1;
-	            _context7.next = 4;
-	            return _stack2.default.has.settings();
-	
-	          case 4:
-	            _context7.next = 10;
-	            break;
-	
-	          case 6:
-	            _context7.prev = 6;
-	            _context7.t0 = _context7['catch'](1);
-	
-	            console.warn('Settings app is unavailable, links are disabled');
-	            return _context7.abrupt('return');
-	
-	          case 10:
-	            _context7.next = 12;
-	            return updateSettingsURIs(_menu2.default.subsections.settings);
-	
-	          case 12:
-	            items = _context7.sent;
-	
-	            Array.prototype.push.apply(config.subsections.settings, items);
-	
-	          case 14:
-	          case 'end':
-	            return _context7.stop();
-	        }
-	      }
-	    }, _callee7, this, [[1, 6]]);
-	  }));
-	
-	  return function toggleSettingsItems(_x5) {
-	    return _ref7.apply(this, arguments);
-	  };
-	}();
-	
-	/**
-	 * Replace in the given tree the base URIs for settings' app items
-	 * @param  {Object}  tree The JSON defined menu entries
-	 * @return {Promise}      The parsed tree
-	 */
-	
-	
-	var updateSettingsURIs = function () {
-	  var _ref8 = _asyncToGenerator(regeneratorRuntime.mark(function _callee8(items) {
-	    var baseURI;
-	    return regeneratorRuntime.wrap(function _callee8$(_context8) {
-	      while (1) {
-	        switch (_context8.prev = _context8.next) {
-	          case 0:
-	            _context8.next = 2;
-	            return _stack2.default.get.settingsBaseURI();
-	
-	          case 2:
-	            baseURI = _context8.sent;
-	            return _context8.abrupt('return', items.map(function (item) {
-	              return Object.assign({}, item, { href: baseURI + '#' + item.href });
-	            }));
-	
-	          case 4:
-	          case 'end':
-	            return _context8.stop();
-	        }
-	      }
-	    }, _callee8, this);
-	  }));
-	
-	  return function updateSettingsURIs(_x6) {
-	    return _ref8.apply(this, arguments);
-	  };
-	}();
-	
-	/**
-	 * Clone and parse a root node from a JSON definition tree (aka 'menu')
-	 * and recursively replace string definitions `_.(group).(entry)` (e.g.
-	 * `_.components.storage`) with a pointer to the given object in the tree
-	 * (here, `tree[components][entry]`)
-	 *
-	 * @param  {Object} tree                  The tree containing root node and
-	 *                                        definitions
-	 * @param  {String} [rootItem='settings'] The root node to parse
-	 * @return {Object}                       The parsed tree containing pointers
-	 */
-	
-	
-	/**
-	 * Helper function to update apps in CONFIG tree
-	 * @param  {Object}           config the JSON CONFIG tree source
-	 * @return {Promise(boolean)} a valve that allow to trigger update or not
-	 */
-	var updateApps = function () {
-	  var _ref9 = _asyncToGenerator(regeneratorRuntime.mark(function _callee9(config) {
-	    var oldApps;
-	    return regeneratorRuntime.wrap(function _callee9$(_context9) {
-	      while (1) {
-	        switch (_context9.prev = _context9.next) {
-	          case 0:
-	            oldApps = config.apps.slice();
-	            _context9.next = 3;
-	            return updateAppsItems(config);
-	
-	          case 3:
-	            return _context9.abrupt('return', !(0, _deepEqual2.default)(oldApps, config.apps));
-	
-	          case 4:
-	          case 'end':
-	            return _context9.stop();
-	        }
-	      }
-	    }, _callee9, this);
-	  }));
-	
-	  return function updateApps(_x7) {
-	    return _ref9.apply(this, arguments);
-	  };
-	}();
-	
-	/**
-	 * Helper function to update all settings related in CONFIG tree
-	 * @param  {Object}           config the JSON CONFIG tree source
-	 * @param  {Object}           options
-	 *                            - storage {Boolean} update the storage component
-	 *                            - items {Boolean} update settings items list
-	 * @return {Promise(boolean)} a valve that allow to trigger update or not
-	 */
-	
-	
-	var updateSettings = function () {
-	  var _ref10 = _asyncToGenerator(regeneratorRuntime.mark(function _callee10(config) {
-	    var _ref11 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
-	        _ref11$storage = _ref11.storage,
-	        storage = _ref11$storage === undefined ? true : _ref11$storage,
-	        _ref11$items = _ref11.items,
-	        items = _ref11$items === undefined ? true : _ref11$items;
-	
-	    var valve, oldDiskUsage, oldSettingsItems;
-	    return regeneratorRuntime.wrap(function _callee10$(_context10) {
-	      while (1) {
-	        switch (_context10.prev = _context10.next) {
-	          case 0:
-	            valve = false;
-	
-	            if (!storage) {
-	              _context10.next = 8;
-	              break;
-	            }
-	
-	            oldDiskUsage = config.components.storage.currentDiskUsage;
-	            _context10.next = 5;
-	            return updateDiskUsage(config);
-	
-	          case 5:
-	            _context10.next = 7;
-	            return updateDiskQuota(config);
-	
-	          case 7:
-	            valve = valve || oldDiskUsage !== config.components.storage.currentDiskUsage;
-	
-	          case 8:
-	            if (!items) {
-	              _context10.next = 13;
-	              break;
-	            }
-	
-	            oldSettingsItems = config.subsections.settings.slice();
-	            _context10.next = 12;
-	            return toggleSettingsItems(config);
-	
-	          case 12:
-	            valve = valve || !(0, _deepEqual2.default)(oldSettingsItems, config.subsections.settings);
-	
-	          case 13:
-	            return _context10.abrupt('return', valve);
-	
-	          case 14:
-	          case 'end':
-	            return _context10.stop();
-	        }
-	      }
-	    }, _callee10, this);
-	  }));
-	
-	  return function updateSettings(_x9) {
-	    return _ref10.apply(this, arguments);
-	  };
-	}();
-	
-	var _deepClone = __webpack_require__(255);
-	
-	var _deepClone2 = _interopRequireDefault(_deepClone);
-	
-	var _deepEqual = __webpack_require__(257);
-	
-	var _deepEqual2 = _interopRequireDefault(_deepEqual);
-	
-	var _stack = __webpack_require__(251);
+	var _stack = __webpack_require__(223);
 	
 	var _stack2 = _interopRequireDefault(_stack);
 	
-	var _menu = __webpack_require__(260);
+	var _claudyActions = __webpack_require__(226);
 	
-	var _menu2 = _interopRequireDefault(_menu);
-	
-	var _claudy = __webpack_require__(261);
-	
-	var _claudy2 = _interopRequireDefault(_claudy);
+	var _claudyActions2 = _interopRequireDefault(_claudyActions);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
 	function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
 	var EXCLUDES = ['settings', 'onboarding'];
 	var CATEGORIES = ['cozy', 'partners', 'ptnb'];
 	
-	var cachedComingSoonApps = void 0;
-	function fetchComingSoonApps(apps) {
-	  if (cachedComingSoonApps) return Promise.resolve(cachedComingSoonApps);
-	  return _stack2.default.get.context().then(function (context) {
-	    var comingSoonApps = context.data && context.data.attributes && context.data.attributes['coming_soon'] && Object.values(context.data.attributes['coming_soon']) || [];
+	var BarStore = function () {
+	  function BarStore() {
+	    _classCallCheck(this, BarStore);
 	
-	    cachedComingSoonApps = comingSoonApps
-	    // drop coming soon apps already installed
-	    .filter(function (comingSoonApp) {
-	      return !apps.find(function (app) {
-	        return app.slug === comingSoonApp.slug;
+	    this.claudyActions = null;
+	    this.appsList = []; // all apps, coming soons included
+	    this.settingsData = null;
+	    // cache
+	    this.installedApps = []; // to cache already fetched apps icons
+	    this.helpLink = '';
+	    this.settingsAppURL = '';
+	  }
+	
+	  _createClass(BarStore, [{
+	    key: 'fetchApps',
+	    value: function () {
+	      var _ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee2() {
+	        var _this = this;
+	
+	        var apps;
+	        return regeneratorRuntime.wrap(function _callee2$(_context2) {
+	          while (1) {
+	            switch (_context2.prev = _context2.next) {
+	              case 0:
+	                apps = void 0;
+	                _context2.prev = 1;
+	                _context2.t0 = Promise;
+	                _context2.next = 5;
+	                return _stack2.default.get.apps();
+	
+	              case 5:
+	                _context2.t1 = function (app) {
+	                  return !EXCLUDES.includes(app.attributes.slug);
+	                };
+	
+	                _context2.t2 = function () {
+	                  var _ref2 = _asyncToGenerator(regeneratorRuntime.mark(function _callee(app) {
+	                    var oldApp, icon;
+	                    return regeneratorRuntime.wrap(function _callee$(_context) {
+	                      while (1) {
+	                        switch (_context.prev = _context.next) {
+	                          case 0:
+	                            oldApp = _this.installedApps.find(function (item) {
+	                              return item.slug === app.attributes.slug;
+	                            });
+	                            icon = void 0;
+	
+	                            if (!(oldApp && oldApp.icon.cached)) {
+	                              _context.next = 6;
+	                              break;
+	                            }
+	
+	                            icon = oldApp.icon;
+	                            _context.next = 10;
+	                            break;
+	
+	                          case 6:
+	                            _context.next = 8;
+	                            return _stack2.default.get.icon(app.links.icon);
+	
+	                          case 8:
+	                            _context.t0 = _context.sent;
+	                            icon = {
+	                              src: _context.t0,
+	                              cached: true
+	                            };
+	
+	                          case 10:
+	                            return _context.abrupt('return', {
+	                              editor: app.attributes.editor,
+	                              name: app.attributes.name,
+	                              slug: app.attributes.slug,
+	                              href: app.links.related,
+	                              category: CATEGORIES.includes(app.attributes.category) ? app.attributes.category : 'others',
+	                              icon: icon
+	                            });
+	
+	                          case 11:
+	                          case 'end':
+	                            return _context.stop();
+	                        }
+	                      }
+	                    }, _callee, _this);
+	                  }));
+	
+	                  return function (_x) {
+	                    return _ref2.apply(this, arguments);
+	                  };
+	                }();
+	
+	                _context2.t3 = _context2.sent.filter(_context2.t1).map(_context2.t2);
+	                _context2.next = 10;
+	                return _context2.t0.all.call(_context2.t0, _context2.t3);
+	
+	              case 10:
+	                apps = _context2.sent;
+	
+	                this.installedApps = apps;
+	                _context2.next = 17;
+	                break;
+	
+	              case 14:
+	                _context2.prev = 14;
+	                _context2.t4 = _context2['catch'](1);
+	                return _context2.abrupt('return', { error: _context2.t4 });
+	
+	              case 17:
+	                return _context2.abrupt('return', apps);
+	
+	              case 18:
+	              case 'end':
+	                return _context2.stop();
+	            }
+	          }
+	        }, _callee2, this, [[1, 14]]);
+	      }));
+	
+	      function fetchApps() {
+	        return _ref.apply(this, arguments);
+	      }
+	
+	      return fetchApps;
+	    }()
+	  }, {
+	    key: 'fetchComingSoonApps',
+	    value: function fetchComingSoonApps() {
+	      return _stack2.default.get.context().then(function (context) {
+	        var comingSoonApps = context.data && context.data.attributes && context.data.attributes['coming_soon'] && Object.values(context.data.attributes['coming_soon']) || [];
+	
+	        return comingSoonApps.map(function (app) {
+	          var icon = void 0;
+	
+	          try {
+	            icon = app.slug && {
+	              cached: true,
+	              src: __webpack_require__(227)("./icon-" + app.slug + '.svg')
+	            };
+	          } catch (error) {
+	            console.warn && console.warn('Cannot retrieve icon for app ' + app.name + ':', error.message);
+	          }
+	
+	          return Object.assign({}, app, {
+	            comingSoon: true,
+	            icon: icon
+	          });
+	        });
+	      }).catch(function (error) {
+	        console.warn && console.warn('Cozy-bar cannot fetch comming soon apps: ' + error.message);
+	        return [];
 	      });
-	    }).map(function (app) {
-	      var icon = void 0;
+	    }
+	  }, {
+	    key: 'fetchAppsList',
+	    value: function () {
+	      var _ref3 = _asyncToGenerator(regeneratorRuntime.mark(function _callee3() {
+	        var apps, comingSoonApps;
+	        return regeneratorRuntime.wrap(function _callee3$(_context3) {
+	          while (1) {
+	            switch (_context3.prev = _context3.next) {
+	              case 0:
+	                _context3.next = 2;
+	                return this.fetchApps();
 	
-	      try {
-	        icon = app.slug && {
-	          cached: true,
-	          src: __webpack_require__(262)("./icon-" + app.slug + '.svg')
+	              case 2:
+	                apps = _context3.sent;
+	
+	                if (!apps.error) {
+	                  _context3.next = 6;
+	                  break;
+	                }
+	
+	                this.appsList = apps;
+	                return _context3.abrupt('return', this.appsList);
+	
+	              case 6:
+	                _context3.next = 8;
+	                return this.fetchComingSoonApps();
+	
+	              case 8:
+	                comingSoonApps = _context3.sent;
+	
+	                comingSoonApps = comingSoonApps
+	                // drop coming soon apps already installed
+	                .filter(function (comingSoonApp) {
+	                  return apps.filter(function (app) {
+	                    return app.slug === comingSoonApp.slug;
+	                  });
+	                });
+	                this.appsList = apps.concat(comingSoonApps);
+	                return _context3.abrupt('return', this.appsList);
+	
+	              case 12:
+	              case 'end':
+	                return _context3.stop();
+	            }
+	          }
+	        }, _callee3, this);
+	      }));
+	
+	      function fetchAppsList() {
+	        return _ref3.apply(this, arguments);
+	      }
+	
+	      return fetchAppsList;
+	    }()
+	  }, {
+	    key: 'getClaudyActions',
+	    value: function getClaudyActions() {
+	      var _this2 = this;
+	
+	      if (this.claudyActions) return Promise.resolve(this.claudyActions);
+	      return _stack2.default.get.context().then(function (context) {
+	        var contextActions = context.data && context.data.attributes && context.data.attributes['claudy_actions'] || null;
+	        if (!contextActions) return null;
+	        // get an arrays of action
+	        var claudyActions = contextActions.map(function (slug) {
+	          if (_claudyActions2.default.hasOwnProperty(slug)) {
+	            // adding also the action slug
+	            return Object.assign({}, _claudyActions2.default[slug], { slug: slug });
+	          }
+	        }).filter(function (action) {
+	          return action;
+	        });
+	        _this2.claudyActions = claudyActions;
+	        return {
+	          actions: claudyActions
 	        };
-	      } catch (error) {
-	        console.warn && console.warn('Cannot retrieve icon for app ' + app.name + ':', error.message);
+	      }).catch(function (error) {
+	        console.warn && console.warn('Cozy-bar cannot fetch Claudy: ' + error.message);
+	        return null;
+	      });
+	    }
+	  }, {
+	    key: 'getHelpLink',
+	    value: function getHelpLink() {
+	      var _this3 = this;
+	
+	      if (this.helpLink) return Promise.resolve(this.helpLink);
+	      return _stack2.default.get.context().then(function (context) {
+	        _this3.helpLink = context.data && context.data.attributes && context.data.attributes['help_link'] || null;
+	        return _this3.helpLink;
+	      }).catch(function (e) {
+	        console.warn && console.warn('Cannot get Cozy help link');
+	        return null;
+	      });
+	    }
+	  }, {
+	    key: 'getStorageData',
+	    value: function getStorageData() {
+	      return _stack2.default.get.storageData().catch(function (e) {
+	        console.warn && console.warn('Cannot get Cozy storage informations');
+	        return null;
+	      });
+	    }
+	  }, {
+	    key: 'getSettingsAppURL',
+	    value: function getSettingsAppURL() {
+	      var _this4 = this;
+	
+	      // If the `settings` app is available, it will used to add the links 'Profile' and 'Connected Devices'
+	      if (this.settingsAppURL) return Promise.resolve(this.settingsAppURL);
+	      return _stack2.default.get.settingsAppURL().then(function (settingsAppURL) {
+	        _this4.settingsAppURL = settingsAppURL;
+	        return _this4.settingsAppURL;
+	      }).catch(function (e) {
+	        console.warn && console.warn('Settings app is unavailable, settings links are disabled');
+	        return null;
+	      });
+	    }
+	  }, {
+	    key: 'fetchSettingsData',
+	    value: function () {
+	      var _ref4 = _asyncToGenerator(regeneratorRuntime.mark(function _callee4() {
+	        var storageData, settingsAppURL, helpLink;
+	        return regeneratorRuntime.wrap(function _callee4$(_context4) {
+	          while (1) {
+	            switch (_context4.prev = _context4.next) {
+	              case 0:
+	                _context4.next = 2;
+	                return this.getStorageData();
+	
+	              case 2:
+	                storageData = _context4.sent;
+	                _context4.next = 5;
+	                return this.getSettingsAppURL();
+	
+	              case 5:
+	                settingsAppURL = _context4.sent;
+	                _context4.next = 8;
+	                return this.getHelpLink();
+	
+	              case 8:
+	                helpLink = _context4.sent;
+	
+	                this.settingsData = { storageData: storageData, settingsAppURL: settingsAppURL, helpLink: helpLink };
+	
+	              case 10:
+	              case 'end':
+	                return _context4.stop();
+	            }
+	          }
+	        }, _callee4, this);
+	      }));
+	
+	      function fetchSettingsData() {
+	        return _ref4.apply(this, arguments);
 	      }
 	
-	      return Object.assign({}, app, {
-	        comingSoon: true,
-	        l10n: false,
-	        icon: icon
-	      });
-	    });
-	
-	    return cachedComingSoonApps;
-	  });
-	}
-	
-	function createMenuPointers(tree) {
-	  function parse(value, index, array) {
-	    var path = void 0;
-	
-	    if (!value) {
-	      return;
+	      return fetchSettingsData;
+	    }()
+	  }, {
+	    key: 'logout',
+	    value: function logout() {
+	      _stack2.default.logout();
 	    }
+	  }]);
 	
-	    if (Array.isArray(value)) {
-	      value.forEach(parse);
-	    } else if (value === Object(value)) {
-	      Object.keys(value).forEach(function (key) {
-	        return parse(value[key], key, value);
-	      });
-	    } else if (value.match && (path = value.match(/_\.(\w+)(?:\.(\w+))?/i))) {
-	      if (path[2]) {
-	        array[index] = clone[path[1]][path[2]];
-	      } else {
-	        array[index] = clone[path[1]];
-	      }
+	  return BarStore;
+	}();
+	
+	exports.default = BarStore;
+	
+	var Provider = exports.Provider = function (_Component) {
+	  _inherits(Provider, _Component);
+	
+	  _createClass(Provider, [{
+	    key: 'getChildContext',
+	    value: function getChildContext() {
+	      return { store: this.store };
 	    }
+	  }]);
+	
+	  function Provider(props, context) {
+	    _classCallCheck(this, Provider);
+	
+	    var _this5 = _possibleConstructorReturn(this, (Provider.__proto__ || Object.getPrototypeOf(Provider)).call(this, props, context));
+	
+	    _this5.store = props.store;
+	    return _this5;
 	  }
 	
-	  var clone = (0, _deepClone2.default)(tree);
-	  parse(clone);
+	  _createClass(Provider, [{
+	    key: 'render',
+	    value: function render(_ref5) {
+	      var children = _ref5.children;
 	
-	  return clone;
-	}exports.createMenuPointers = createMenuPointers;
-	exports.getHelpLink = getHelpLink;
-	exports.updateSettings = updateSettings;
-	exports.updateApps = updateApps;
-	exports.getClaudyConfig = getClaudyConfig;
+	      return children && children[0] || null;
+	    }
+	  }]);
+
+	  return Provider;
+	}(_react.Component);
 
 /***/ },
-/* 255 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__(256).default
-
-
-/***/ },
-/* 256 */
-/***/ function(module, exports) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.default = deepClone;
-	exports.formatKeys = formatKeys;
-	function deepClone(obj, format) {
-	  var refs = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : new Map();
-	
-	  var cloned = refs.get(obj);
-	  if (cloned) return cloned;
-	  if (Array.isArray(obj)) {
-	    var _clone = [];
-	    refs.set(obj, _clone);
-	    for (var i = 0; i < obj.length; i++) {
-	      _clone[i] = deepClone(obj[i], format, refs);
-	    }
-	    return _clone;
-	  }
-	  if (obj instanceof Date) return new Date(obj.valueOf());
-	  if (!(obj instanceof Object)) return obj;
-	  var clone = {};
-	  refs.set(obj, clone);
-	  var keys = Object.keys(obj);
-	  for (var _i = 0; _i < keys.length; _i++) {
-	    var key = format ? format(keys[_i]) : keys[_i];
-	    clone[key] = deepClone(obj[keys[_i]], format, refs);
-	  }
-	  return clone;
-	}
-	
-	function formatKeys(format) {
-	  return function (obj) {
-	    return deepClone(obj, format);
-	  };
-	}
-	
-	deepClone.formatKeys = formatKeys;
-
-/***/ },
-/* 257 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var pSlice = Array.prototype.slice;
-	var objectKeys = __webpack_require__(258);
-	var isArguments = __webpack_require__(259);
-	
-	var deepEqual = module.exports = function (actual, expected, opts) {
-	  if (!opts) opts = {};
-	  // 7.1. All identical values are equivalent, as determined by ===.
-	  if (actual === expected) {
-	    return true;
-	
-	  } else if (actual instanceof Date && expected instanceof Date) {
-	    return actual.getTime() === expected.getTime();
-	
-	  // 7.3. Other pairs that do not both pass typeof value == 'object',
-	  // equivalence is determined by ==.
-	  } else if (!actual || !expected || typeof actual != 'object' && typeof expected != 'object') {
-	    return opts.strict ? actual === expected : actual == expected;
-	
-	  // 7.4. For all other Object pairs, including Array objects, equivalence is
-	  // determined by having the same number of owned properties (as verified
-	  // with Object.prototype.hasOwnProperty.call), the same set of keys
-	  // (although not necessarily the same order), equivalent values for every
-	  // corresponding key, and an identical 'prototype' property. Note: this
-	  // accounts for both named and indexed properties on Arrays.
-	  } else {
-	    return objEquiv(actual, expected, opts);
-	  }
-	}
-	
-	function isUndefinedOrNull(value) {
-	  return value === null || value === undefined;
-	}
-	
-	function isBuffer (x) {
-	  if (!x || typeof x !== 'object' || typeof x.length !== 'number') return false;
-	  if (typeof x.copy !== 'function' || typeof x.slice !== 'function') {
-	    return false;
-	  }
-	  if (x.length > 0 && typeof x[0] !== 'number') return false;
-	  return true;
-	}
-	
-	function objEquiv(a, b, opts) {
-	  var i, key;
-	  if (isUndefinedOrNull(a) || isUndefinedOrNull(b))
-	    return false;
-	  // an identical 'prototype' property.
-	  if (a.prototype !== b.prototype) return false;
-	  //~~~I've managed to break Object.keys through screwy arguments passing.
-	  //   Converting to array solves the problem.
-	  if (isArguments(a)) {
-	    if (!isArguments(b)) {
-	      return false;
-	    }
-	    a = pSlice.call(a);
-	    b = pSlice.call(b);
-	    return deepEqual(a, b, opts);
-	  }
-	  if (isBuffer(a)) {
-	    if (!isBuffer(b)) {
-	      return false;
-	    }
-	    if (a.length !== b.length) return false;
-	    for (i = 0; i < a.length; i++) {
-	      if (a[i] !== b[i]) return false;
-	    }
-	    return true;
-	  }
-	  try {
-	    var ka = objectKeys(a),
-	        kb = objectKeys(b);
-	  } catch (e) {//happens when one is a string literal and the other isn't
-	    return false;
-	  }
-	  // having the same number of owned properties (keys incorporates
-	  // hasOwnProperty)
-	  if (ka.length != kb.length)
-	    return false;
-	  //the same set of keys (although not necessarily the same order),
-	  ka.sort();
-	  kb.sort();
-	  //~~~cheap key test
-	  for (i = ka.length - 1; i >= 0; i--) {
-	    if (ka[i] != kb[i])
-	      return false;
-	  }
-	  //equivalent values for every corresponding key, and
-	  //~~~possibly expensive deep test
-	  for (i = ka.length - 1; i >= 0; i--) {
-	    key = ka[i];
-	    if (!deepEqual(a[key], b[key], opts)) return false;
-	  }
-	  return typeof a === typeof b;
-	}
-
-
-/***/ },
-/* 258 */
-/***/ function(module, exports) {
-
-	exports = module.exports = typeof Object.keys === 'function'
-	  ? Object.keys : shim;
-	
-	exports.shim = shim;
-	function shim (obj) {
-	  var keys = [];
-	  for (var key in obj) keys.push(key);
-	  return keys;
-	}
-
-
-/***/ },
-/* 259 */
-/***/ function(module, exports) {
-
-	var supportsArgumentsClass = (function(){
-	  return Object.prototype.toString.call(arguments)
-	})() == '[object Arguments]';
-	
-	exports = module.exports = supportsArgumentsClass ? supported : unsupported;
-	
-	exports.supported = supported;
-	function supported(object) {
-	  return Object.prototype.toString.call(object) == '[object Arguments]';
-	};
-	
-	exports.unsupported = unsupported;
-	function unsupported(object){
-	  return object &&
-	    typeof object == 'object' &&
-	    typeof object.length == 'number' &&
-	    Object.prototype.hasOwnProperty.call(object, 'callee') &&
-	    !Object.prototype.propertyIsEnumerable.call(object, 'callee') ||
-	    false;
-	};
-
-
-/***/ },
-/* 260 */
+/* 226 */
 /***/ function(module, exports) {
 
 	module.exports = {
-		"subsections": {
-			"settings": [
-				{
-					"slug": "profile",
-					"href": "/profile"
-				},
-				{
-					"slug": "connectedDevices",
-					"href": "/connectedDevices"
-				}
-			],
-			"help": [
-				{
-					"slug": "help",
-					"external": true
-				}
-			],
-			"logout": [
-				{
-					"slug": "logout",
-					"action": "logout"
-				}
-			],
-			"beta": [
-				{
-					"slug": "beta_status",
-					"inactive": true
-				}
-			],
-			"claudy": [
-				{
-					"slug": "claudy",
-					"name": "claudy.title",
-					"l10n": true,
-					"event": "claudy"
-				}
-			]
-		},
-		"components": {
-			"storage": {
-				"slug": "storage",
-				"component": "storage",
-				"currentDiskUsage": null
+		"desktop": {
+			"icon": "icon-laptop.svg",
+			"link": {
+				"type": "external"
 			}
 		},
-		"settings": [
-			"_.subsections.settings",
-			[
-				"_.components.storage"
-			],
-			"_.subsections.help",
-			"_.subsections.logout",
-			"_.subsections.beta"
-		],
-		"apps": [],
-		"sections": {
-			"bar": [
-				{
-					"slug": "apps",
-					"icon": "icon-cube",
-					"async": true,
-					"items": "_.apps",
-					"categorized": true
-				},
-				{
-					"slug": "settings",
-					"icon": "icon-cog",
-					"items": "_.settings"
-				}
-			],
-			"drawer": [
-				"_.subsections.settings",
-				"_.subsections.claudy",
-				"_.subsections.help",
-				"_.subsections.logout",
-				"_.subsections.beta"
-			]
-		}
-	};
-
-/***/ },
-/* 261 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"actions": {
-			"desktop": {
-				"icon": "icon-laptop.svg",
-				"link": {
-					"type": "external"
-				}
-			},
-			"mobile": {
-				"icon": "icon-phone.svg",
-				"link": {
-					"type": "external"
-				}
-			},
-			"cozy-collect": {
-				"icon": "icon-bills.svg",
-				"link": {
-					"type": "apps",
-					"appSlug": "collect",
-					"path": "#/discovery/?intro"
-				}
-			},
-			"support": {
-				"icon": "icon-question-mark.svg",
-				"link": {
-					"type": "external"
-				}
+		"mobile": {
+			"icon": "icon-phone.svg",
+			"link": {
+				"type": "external"
+			}
+		},
+		"cozy-collect": {
+			"icon": "icon-bills.svg",
+			"link": {
+				"type": "apps",
+				"appSlug": "collect",
+				"path": "#/discovery/?intro"
+			}
+		},
+		"support": {
+			"icon": "icon-question-mark.svg",
+			"link": {
+				"type": "external"
 			}
 		}
 	};
 
 /***/ },
-/* 262 */
+/* 227 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var map = {
-		"./icon-bank.svg": 263,
-		"./icon-sante.svg": 264,
-		"./icon-store.svg": 265
+		"./icon-bank.svg": 228,
+		"./icon-sante.svg": 229,
+		"./icon-store.svg": 230
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -11834,29 +10296,240 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 	webpackContext.resolve = webpackContextResolve;
 	module.exports = webpackContext;
-	webpackContext.id = 262;
+	webpackContext.id = 227;
 
 
 /***/ },
-/* 263 */
+/* 228 */
 /***/ function(module, exports) {
 
 	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI5NiIgaGVpZ2h0PSI5NiIgdmlld0JveD0iMCAwIDk2IDk2Ij4KICA8ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgogICAgPHJlY3Qgd2lkdGg9Ijk2IiBoZWlnaHQ9Ijk2IiBmaWxsPSIjNUE5QjlFIiByeD0iOCIvPgogICAgPHRleHQgZmlsbD0iIzMxNUY3RSIgZm9udC1mYW1pbHk9IkxhdG8tQmxhY2ssIExhdG8iIGZvbnQtc2l6ZT0iMTYiIGZvbnQtd2VpZ2h0PSI3MDAiPgogICAgICA8dHNwYW4geD0iNTAuNzUyIiB5PSI5MCI+TGFiczwvdHNwYW4+CiAgICA8L3RleHQ+CiAgICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxMiAxMCkiPgogICAgICA8cGF0aCBmaWxsPSIjMzE1RjdFIiBkPSJNMjgsMTguNTQ1NDU0NSBMNy44OTAzMzE4Nyw1NS4xMDg0ODc1IEw3Ljg5MDMzMTg3LDU1LjEwODQ4NzUgQzcuNDAzMTAzNDMsNTUuOTk0MzU3NCA3LjE0NzYyNzMzLDU2Ljk4ODk4MjIgNy4xNDc2MjczMyw1OCBDNy4xNDc2MjczMyw2MS4zMTM3MDg1IDkuODMzOTE4ODMsNjQgMTMuMTQ3NjI3Myw2NCBMMTMuMTQ3NjI3Myw2NCBMNTguODUyMzcyNyw2NCBDNTkuODYzMzkwNSw2NCA2MC44NTgwMTUzLDYzLjc0NDUyMzkgNjEuNzQzODg1Miw2My4yNTcyOTU1IEM2NC42NDc0MDkzLDYxLjY2MDM1NzIgNjUuNzA2NjA2NCw1OC4wMTIwMTE2IDY0LjEwOTY2ODEsNTUuMTA4NDg3NSBMNjQuMTA5NjY4MSw1NS4xMDg0ODc1IEw0NCwxOC41NDU0NTQ1IEw0NCw0IEwyOCw0IEwyOCwxOC41NDU0NTQ1IFogTTI4LDAgTDQ0LDAgQzQ1LjEwNDU2OTUsLTIuMDI5MDYxMjVlLTE2IDQ2LDAuODk1NDMwNSA0NiwyIEw0NiwyIEM0NiwzLjEwNDU2OTUgNDUuMTA0NTY5NSw0IDQ0LDQgTDI4LDQgQzI2Ljg5NTQzMDUsNCAyNiwzLjEwNDU2OTUgMjYsMiBMMjYsMiBMMjYsMiBDMjYsMC44OTU0MzA1IDI2Ljg5NTQzMDUsMi4wMjkwNjEyNWUtMTYgMjgsMCBaIi8+CiAgICAgIDxwYXRoIGZpbGw9IiNGRkZGRkYiIGQ9Ik0wLDUyIEwwLDM2IEw3LDM2IEwxMiw0NiBMMTcsMzYgTDI0LDM2IEwyNCw1MiBMMTgsNTIgTDE4LDQwIEwxMiw1MiBMOSw1MiBMMyw0MCBMMyw1MiBMMCw1MiBaIE0yNSw1MiBMMzIsMzYgTDM4LDM2IEw0NSw1MiBMMzksNTIgTDM4LDQ5IEwzMCw0OSBMMjguNjk5OTUxMiw1MiBMMjUsNTIgWiBNMzEsNDYgTDM3LDQ2IEwzNCw0MCBMMzEsNDYgWiBNNDcsMzYgTDUyLDM2IEw1Miw1MiBMNDcsNTIgTDQ3LDM2IFogTTU2LDM2IEw3MiwzNiBMNzIsMzkgTDYxLDM5IEw2MSw0NCBMNzIsNDQgTDcyLDQ3IEw2MSw0NyBMNjEsNTIgTDU2LDUyIEw1NiwzNiBaIi8+CiAgICA8L2c+CiAgPC9nPgo8L3N2Zz4K"
 
 /***/ },
-/* 264 */
+/* 229 */
 /***/ function(module, exports) {
 
 	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI5NiIgaGVpZ2h0PSI5NiIgdmlld0JveD0iMCAwIDk2IDk2Ij4KICA8ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgogICAgPHJlY3Qgd2lkdGg9Ijk2IiBoZWlnaHQ9Ijk2IiBmaWxsPSIjNUE5QjlFIiByeD0iOCIvPgogICAgPHRleHQgZmlsbD0iIzMxNUY3RSIgZm9udC1mYW1pbHk9IkxhdG8tQmxhY2ssIExhdG8iIGZvbnQtc2l6ZT0iMTYiIGZvbnQtd2VpZ2h0PSI3MDAiPgogICAgICA8dHNwYW4geD0iNTAuNzUyIiB5PSI5MCI+TGFiczwvdHNwYW4+CiAgICA8L3RleHQ+CiAgICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxMiAxMCkiPgogICAgICA8cGF0aCBmaWxsPSIjMzE1RjdFIiBkPSJNMjgsMTguNTQ1NDU0NSBMNy44OTAzMzE4Nyw1NS4xMDg0ODc1IEw3Ljg5MDMzMTg3LDU1LjEwODQ4NzUgQzcuNDAzMTAzNDMsNTUuOTk0MzU3NCA3LjE0NzYyNzMzLDU2Ljk4ODk4MjIgNy4xNDc2MjczMyw1OCBDNy4xNDc2MjczMyw2MS4zMTM3MDg1IDkuODMzOTE4ODMsNjQgMTMuMTQ3NjI3Myw2NCBMMTMuMTQ3NjI3Myw2NCBMNTguODUyMzcyNyw2NCBDNTkuODYzMzkwNSw2NCA2MC44NTgwMTUzLDYzLjc0NDUyMzkgNjEuNzQzODg1Miw2My4yNTcyOTU1IEM2NC42NDc0MDkzLDYxLjY2MDM1NzIgNjUuNzA2NjA2NCw1OC4wMTIwMTE2IDY0LjEwOTY2ODEsNTUuMTA4NDg3NSBMNjQuMTA5NjY4MSw1NS4xMDg0ODc1IEw0NCwxOC41NDU0NTQ1IEw0NCw0IEwyOCw0IEwyOCwxOC41NDU0NTQ1IFogTTI4LDAgTDQ0LDAgQzQ1LjEwNDU2OTUsLTIuMDI5MDYxMjVlLTE2IDQ2LDAuODk1NDMwNSA0NiwyIEw0NiwyIEM0NiwzLjEwNDU2OTUgNDUuMTA0NTY5NSw0IDQ0LDQgTDI4LDQgQzI2Ljg5NTQzMDUsNCAyNiwzLjEwNDU2OTUgMjYsMiBMMjYsMiBMMjYsMiBDMjYsMC44OTU0MzA1IDI2Ljg5NTQzMDUsMi4wMjkwNjEyNWUtMTYgMjgsMCBaIi8+CiAgICAgIDxwYXRoIGZpbGw9IiNGRkZGRkYiIGQ9Ik0wLDUyIEwwLDM2IEw3LDM2IEwxMiw0NiBMMTcsMzYgTDI0LDM2IEwyNCw1MiBMMTgsNTIgTDE4LDQwIEwxMiw1MiBMOSw1MiBMMyw0MCBMMyw1MiBMMCw1MiBaIE0yNSw1MiBMMzIsMzYgTDM4LDM2IEw0NSw1MiBMMzksNTIgTDM4LDQ5IEwzMCw0OSBMMjguNjk5OTUxMiw1MiBMMjUsNTIgWiBNMzEsNDYgTDM3LDQ2IEwzNCw0MCBMMzEsNDYgWiBNNDcsMzYgTDUyLDM2IEw1Miw1MiBMNDcsNTIgTDQ3LDM2IFogTTU2LDM2IEw3MiwzNiBMNzIsMzkgTDYxLDM5IEw2MSw0NCBMNzIsNDQgTDcyLDQ3IEw2MSw0NyBMNjEsNTIgTDU2LDUyIEw1NiwzNiBaIi8+CiAgICA8L2c+CiAgPC9nPgo8L3N2Zz4K"
 
 /***/ },
-/* 265 */
+/* 230 */
 /***/ function(module, exports) {
 
 	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgdmlld0JveD0iMCAwIDMyIDMyIj4KICA8ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgogICAgPHBhdGggZmlsbD0iI0ZDQkFCQSIgZD0iTTIsMjkuOTk4MjAyNiBMMiwxOC41IEw2LDE4LjUgTDYsMjYuNSBMMTYsMjYuNSBMMTYsMTguNSBMMzAsMTguNSBMMzAsMjkuOTk4MjAyNiBDMzAsMzAuNTU1MTE4NCAyOS41NTI3NTE5LDMxIDI5LjAwMTA0MzQsMzEgTDI3Ljk5ODk1NjYsMzEgQzI3LjQ0MjY2MDMsMzEgMjcsMzAuNTUyMDkxMyAyNywyOS45OTk1Njc5IEwyNywxOS41IEwyMCwxOS41IEwyMCwyOS45OTk1Njc5IEMyMCwzMC41NDkxODY0IDE5LjU1NTI0MDcsMzEgMTkuMDA2NjAyMywzMSBMMi45OTMzOTc2OCwzMSBDMi40NDQ5NDYyOSwzMSAyLDMwLjU1MTQ4IDIsMjkuOTk4MjAyNiBaIE0yLDIuMDAxMzgwMDYgQzIsMS40NDgzMzMxMyAyLjQzOTgxMzE0LDEgMi45OTY1MzQ4MiwxIEwyOS4wMDM0NjUyLDEgQzI5LjU1MzgzNjIsMSAzMCwxLjQ0Njc3MTMyIDMwLDIuMDAxMzgwMDYgTDMwLDcuNSBMMiw3LjUgTDIsMi4wMDEzODAwNiBaIi8+CiAgICA8cGF0aCBmaWxsPSIjRjYyQzJDIiBkPSJNMSwxOS41IEwzMSwxOS41IEwzMSwxOS41IEMzMS41NTIyODQ3LDE5LjUgMzIsMTkuMDUyMjg0NyAzMiwxOC41IEwzMiwxNS42MDk3NzIyIEwzMiwxNS42MDk3NzIyIEMzMiwxNS41MzY4MDk5IDMxLjk5MjAxNDgsMTUuNDY0MDY2NyAzMS45NzYxODcxLDE1LjM5Mjg0MTggTDMwLDYuNSBMMiw2LjUgTDAuMDIzODEyOTM5OCwxNS4zOTI4NDE4IEwwLjAyMzgxMjkzOTgsMTUuMzkyODQxOCBDMC4wMDc5ODUxODQ3MSwxNS40NjQwNjY3IC04Ljg5MDcxOTUxZS0xNSwxNS41MzY4MDk5IC04Ljg4MTc4NDJlLTE1LDE1LjYwOTc3MjIgTDAsMTguNSBMMCwxOC41IEM2Ljc2MzUzNzUxZS0xNywxOS4wNTIyODQ3IDAuNDQ3NzE1MjUsMTkuNSAxLDE5LjUgWiIvPgogIDwvZz4KPC9zdmc+Cg=="
 
 /***/ },
-/* 266 */
+/* 231 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(189);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _I18n = __webpack_require__(199);
+	
+	var _tracker = __webpack_require__(232);
+	
+	var _Drawer = __webpack_require__(235);
+	
+	var _Drawer2 = _interopRequireDefault(_Drawer);
+	
+	var _Nav = __webpack_require__(241);
+	
+	var _Nav2 = _interopRequireDefault(_Nav);
+	
+	var _Claudy = __webpack_require__(242);
+	
+	var _Claudy2 = _interopRequireDefault(_Claudy);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* global __TARGET__ */
+	/* global __PIWIK_TRACKER_URL__  __PIWIK_SITEID__ __PIWIK_DIMENSION_ID_APP__ */
+	
+	var Bar = function (_Component) {
+	  _inherits(Bar, _Component);
+	
+	  function Bar(props, context) {
+	    _classCallCheck(this, Bar);
+	
+	    var _this = _possibleConstructorReturn(this, (Bar.__proto__ || Object.getPrototypeOf(Bar)).call(this, props));
+	
+	    _this.store = context.store;
+	    _this.state = {
+	      claudyActions: null, // no claudy by default
+	      claudyOpened: false,
+	      drawerVisible: false,
+	      usageTracker: null
+	    };
+	    _this.toggleDrawer = _this.toggleDrawer.bind(_this);
+	    _this.toggleClaudy = _this.toggleClaudy.bind(_this);
+	    return _this;
+	  }
+	
+	  _createClass(Bar, [{
+	    key: 'componentWillMount',
+	    value: function () {
+	      var _ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee() {
+	        var claudyActions;
+	        return regeneratorRuntime.wrap(function _callee$(_context) {
+	          while (1) {
+	            switch (_context.prev = _context.next) {
+	              case 0:
+	                _context.next = 2;
+	                return this.store.fetchAppsList();
+	
+	              case 2:
+	                _context.next = 4;
+	                return this.store.getClaudyActions();
+	
+	              case 4:
+	                claudyActions = _context.sent;
+	
+	                this.setState({ claudyActions: claudyActions });
+	
+	              case 6:
+	              case 'end':
+	                return _context.stop();
+	            }
+	          }
+	        }, _callee, this);
+	      }));
+	
+	      function componentWillMount() {
+	        return _ref.apply(this, arguments);
+	      }
+	
+	      return componentWillMount;
+	    }()
+	  }, {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      // if tracking enabled, init the piwik tracker
+	      if ((0, _tracker.shouldEnableTracking)()) {
+	        var trackerInstance = (0, _tracker.getTracker)(("https://piwik.cozycloud.cc"), (8), false, false);
+	        (0, _tracker.configureTracker)({
+	          appDimensionId: (1),
+	          app: 'Cozy Bar',
+	          heartbeat: 0
+	        });
+	        this.setState({ usageTracker: trackerInstance });
+	      }
+	    }
+	  }, {
+	    key: 'toggleDrawer',
+	    value: function toggleDrawer() {
+	      // don't allow to toggle the drawer if claudy opened
+	      if (this.state.claudyOpened) return;
+	      var drawerVisible = !this.state.drawerVisible;
+	      // don't wait for transitionend if displaying
+	      if (drawerVisible) this.props.onDrawer(drawerVisible);
+	      this.setState({ drawerVisible: drawerVisible });
+	    }
+	  }, {
+	    key: 'toggleClaudy',
+	    value: function toggleClaudy() {
+	      if (!this.state.claudyActions) return;
+	      var _state = this.state,
+	          usageTracker = _state.usageTracker,
+	          claudyOpened = _state.claudyOpened;
+	
+	      if (usageTracker) {
+	        usageTracker.push(['trackEvent', 'Claudy', claudyOpened ? 'close' : 'open', 'claudy']);
+	      }
+	      this.setState({ claudyOpened: !claudyOpened });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _this2 = this;
+	
+	      var _props = this.props,
+	          t = _props.t,
+	          lang = _props.lang,
+	          appName = _props.appName,
+	          appEditor = _props.appEditor,
+	          iconPath = _props.iconPath,
+	          replaceTitleOnMobile = _props.replaceTitleOnMobile,
+	          onDrawer = _props.onDrawer,
+	          isPublic = _props.isPublic;
+	      var _state2 = this.state,
+	          usageTracker = _state2.usageTracker,
+	          claudyOpened = _state2.claudyOpened,
+	          claudyActions = _state2.claudyActions,
+	          drawerVisible = _state2.drawerVisible;
+	      var appsList = this.store.appsList; // for claudy
+	
+	      return _react2.default.createElement(
+	        'div',
+	        { 'class': 'coz-bar-container' },
+	        _react2.default.createElement(
+	          'h1',
+	          { lang: lang, 'class': 'coz-bar-title ' + (replaceTitleOnMobile ? 'coz-bar-hide-sm' : '') },
+	          _react2.default.createElement('img', { 'class': 'coz-bar-hide-sm', src: iconPath, width: '32' }),
+	          appEditor && _react2.default.createElement(
+	            'span',
+	            { 'class': 'coz-bar-hide-sm' },
+	            appEditor,
+	            ' '
+	          ),
+	          _react2.default.createElement(
+	            'strong',
+	            null,
+	            appName
+	          ),
+	          _react2.default.createElement(
+	            'sup',
+	            { 'class': 'coz-bar-hide-sm coz-bar-beta-status' },
+	            t('beta')
+	          )
+	        ),
+	        _react2.default.createElement('hr', { 'class': 'coz-sep-flex' }),
+	        ("mobile") !== 'mobile' && !isPublic && _react2.default.createElement(
+	          'div',
+	          { 'class': 'coz-bar-flex-container' },
+	          _react2.default.createElement(
+	            'button',
+	            { 'class': 'coz-bar-burger', onClick: this.toggleDrawer, 'data-icon': 'icon-hamburger' },
+	            _react2.default.createElement(
+	              'span',
+	              { 'class': 'coz-bar-hidden' },
+	              t('drawer')
+	            )
+	          ),
+	          _react2.default.createElement(_Drawer2.default, { visible: drawerVisible, onClose: this.toggleDrawer, onClaudy: claudyActions && this.toggleClaudy || false, drawerListener: function drawerListener() {
+	              return onDrawer(_this2.state.drawerVisible);
+	            } }),
+	          _react2.default.createElement(_Nav2.default, null),
+	          claudyActions && _react2.default.createElement(_Claudy2.default, {
+	            config: claudyActions, usageTracker: usageTracker,
+	            onToggle: this.toggleClaudy, opened: claudyOpened, appsList: appsList
+	          })
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return Bar;
+	}(_react.Component);
+	
+	exports.default = (0, _I18n.translate)()(Bar);
+
+/***/ },
+/* 232 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -11905,7 +10578,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    // the next line is just there to throw in case the script is missing
 	    if (injectScript === false) Piwik.getTracker();
 	
-	    var PiwikReactRouter = __webpack_require__(267);
+	    var PiwikReactRouter = __webpack_require__(233);
 	
 	    trackerInstance = PiwikReactRouter({
 	      url: trackerUrl || ("https://piwik.cozycloud.cc"),
@@ -12000,13 +10673,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 267 */
+/* 233 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 	
-	var warning = __webpack_require__(193);
-	var urljoin = __webpack_require__(268);
+	var warning = __webpack_require__(203);
+	var urljoin = __webpack_require__(234);
 	
 	// api shim. used for serverside rendering and misconfigured tracker instances
 	var apiShim = {
@@ -12186,7 +10859,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(188)))
 
 /***/ },
-/* 268 */
+/* 234 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (name, context, definition) {
@@ -12230,968 +10903,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 269 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-	
-	var NavigationSection = __webpack_require__(270);
-	
-	NavigationSection = NavigationSection && NavigationSection.__esModule ? NavigationSection['default'] : NavigationSection;
-	
-	function create_main_fragment(state, component) {
-		var nav = createElement('nav');
-		nav.className = "coz-nav";
-		var ul = createElement('ul');
-		appendNode(ul, nav);
-		var each_block_value = state.sections;
-	
-		var each_block_iterations = [];
-	
-		for (var i = 0; i < each_block_value.length; i += 1) {
-			each_block_iterations[i] = create_each_block(state, each_block_value, each_block_value[i], i, component);
-			each_block_iterations[i].mount(ul, null);
-		}
-	
-		return {
-			mount: function mount(target, anchor) {
-				insertNode(nav, target, anchor);
-			},
-	
-			update: function update(changed, state) {
-				var each_block_value = state.sections;
-	
-				if ('sections' in changed) {
-					for (var i = 0; i < each_block_value.length; i += 1) {
-						if (each_block_iterations[i]) {
-							each_block_iterations[i].update(changed, state, each_block_value, each_block_value[i], i);
-						} else {
-							each_block_iterations[i] = create_each_block(state, each_block_value, each_block_value[i], i, component);
-							each_block_iterations[i].mount(ul, null);
-						}
-					}
-	
-					destroyEach(each_block_iterations, true, each_block_value.length);
-					each_block_iterations.length = each_block_value.length;
-				}
-			},
-	
-			destroy: function destroy(detach) {
-				destroyEach(each_block_iterations, false, 0);
-	
-				if (detach) {
-					detachNode(nav);
-				}
-			}
-		};
-	}
-	
-	function create_each_block(state, each_block_value, section, section_index, component) {
-		var navigationsection = new NavigationSection({
-			target: null,
-			_root: component._root,
-			data: {
-				standalone: "false",
-				slug: section.slug,
-				icon: section.icon,
-				items: section.items,
-				async: section.async,
-				categorized: section.categorized
-			}
-		});
-	
-		navigationsection.on('open', function (event) {
-			component.fire("open", { panel: event.panel });
-		});
-	
-		return {
-			mount: function mount(target, anchor) {
-				navigationsection._fragment.mount(target, anchor);
-			},
-	
-			update: function update(changed, state, each_block_value, section, section_index) {
-				var navigationsection_changes = {};
-	
-				if ('sections' in changed) navigationsection_changes.slug = section.slug;
-				if ('sections' in changed) navigationsection_changes.icon = section.icon;
-				if ('sections' in changed) navigationsection_changes.items = section.items;
-				if ('sections' in changed) navigationsection_changes.async = section.async;
-				if ('sections' in changed) navigationsection_changes.categorized = section.categorized;
-	
-				if (Object.keys(navigationsection_changes).length) navigationsection.set(navigationsection_changes);
-			},
-
-			destroy: function destroy(detach) {
-				navigationsection.destroy(detach);
-			}
-		};
-	}
-
-	function Navigation(options) {
-		options = options || {};
-		this._state = options.data || {};
-
-		this._observers = {
-			pre: Object.create(null),
-			post: Object.create(null)
-		};
-
-		this._handlers = Object.create(null);
-
-		this._root = options._root || this;
-		this._yield = options._yield;
-
-		this._torndown = false;
-		this._renderHooks = [];
-
-		this._fragment = create_main_fragment(this._state, this);
-		if (options.target) this._fragment.mount(options.target, null);
-		this._flush();
-	}
-
-	assign(Navigation.prototype, {
-		get: get,
-		fire: fire,
-		observe: observe,
-		on: on,
-		set: set,
-		_flush: _flush
-	});
-
-	Navigation.prototype._set = function _set(newState) {
-		var oldState = this._state;
-		this._state = assign({}, oldState, newState);
-		dispatchObservers(this, this._observers.pre, newState, oldState);
-		this._fragment.update(newState, this._state);
-		dispatchObservers(this, this._observers.post, newState, oldState);
-		this._flush();
-	};
-
-	Navigation.prototype.teardown = Navigation.prototype.destroy = function destroy(detach) {
-		this.fire('destroy');
-
-		this._fragment.destroy(detach !== false);
-		this._fragment = null;
-
-		this._state = {};
-		this._torndown = true;
-	};
-
-	function createElement(name) {
-		return document.createElement(name);
-	}
-
-	function insertNode(node, target, anchor) {
-		target.insertBefore(node, anchor);
-	}
-
-	function detachNode(node) {
-		node.parentNode.removeChild(node);
-	}
-
-	function appendNode(node, target) {
-		target.appendChild(node);
-	}
-
-	function destroyEach(iterations, detach, start) {
-		for (var i = start; i < iterations.length; i += 1) {
-			if (iterations[i]) iterations[i].destroy(detach);
-		}
-	}
-
-	function assign(target) {
-		for (var i = 1; i < arguments.length; i += 1) {
-			var source = arguments[i];
-			for (var k in source) {
-				target[k] = source[k];
-			}
-		}
-
-		return target;
-	}
-
-	function dispatchObservers(component, group, newState, oldState) {
-		for (var key in group) {
-			if (!(key in newState)) continue;
-
-			var newValue = newState[key];
-			var oldValue = oldState[key];
-
-			if (differs(newValue, oldValue)) {
-				var callbacks = group[key];
-				if (!callbacks) continue;
-
-				for (var i = 0; i < callbacks.length; i += 1) {
-					var callback = callbacks[i];
-					if (callback.__calling) continue;
-
-					callback.__calling = true;
-					callback.call(component, newValue, oldValue);
-					callback.__calling = false;
-				}
-			}
-		}
-	}
-
-	function get(key) {
-		return key ? this._state[key] : this._state;
-	}
-
-	function fire(eventName, data) {
-		var handlers = eventName in this._handlers && this._handlers[eventName].slice();
-		if (!handlers) return;
-
-		for (var i = 0; i < handlers.length; i += 1) {
-			handlers[i].call(this, data);
-		}
-	}
-
-	function observe(key, callback, options) {
-		var group = options && options.defer ? this._observers.post : this._observers.pre;
-
-		(group[key] || (group[key] = [])).push(callback);
-
-		if (!options || options.init !== false) {
-			callback.__calling = true;
-			callback.call(this, this._state[key]);
-			callback.__calling = false;
-		}
-
-		return {
-			cancel: function cancel() {
-				var index = group[key].indexOf(callback);
-				if (~index) group[key].splice(index, 1);
-			}
-		};
-	}
-
-	function on(eventName, handler) {
-		if (eventName === 'teardown') return this.on('destroy', handler);
-
-		var handlers = this._handlers[eventName] || (this._handlers[eventName] = []);
-		handlers.push(handler);
-
-		return {
-			cancel: function cancel() {
-				var index = handlers.indexOf(handler);
-				if (~index) handlers.splice(index, 1);
-			}
-		};
-	}
-
-	function set(newState) {
-		this._set(assign({}, newState));
-		this._root._flush();
-	}
-
-	function _flush() {
-		if (!this._renderHooks) return;
-
-		while (this._renderHooks.length) {
-			this._renderHooks.pop()();
-		}
-	}
-
-	function differs(a, b) {
-		return a !== b || a && (typeof a === 'undefined' ? 'undefined' : _typeof(a)) === 'object' || typeof a === 'function';
-	}
-
-	module.exports = Navigation;
-
-/***/ },
-/* 270 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-	
-	var __import0 = __webpack_require__(189);
-	
-	var __import1 = __webpack_require__(271);
-	
-	var NavigationGroup = __webpack_require__(272);
-	
-	var t = __import0.t;
-	var getCategorizedItems = __import1.getCategorizedItems;
-	NavigationGroup = NavigationGroup && NavigationGroup.__esModule ? NavigationGroup['default'] : NavigationGroup;
-	
-	function recompute(state, newState, oldState, isInitial) {
-		if (isInitial || 'items' in newState && differs(state.items, oldState.items)) {
-			state.grouped = newState.grouped = template.computed.grouped(state.items);
-		}
-	
-		if (isInitial || 'items' in newState && differs(state.items, oldState.items) || 'categorized' in newState && differs(state.categorized, oldState.categorized)) {
-			state.categories = newState.categories = template.computed.categories(state.items, state.categorized);
-		}
-	}
-	
-	var template = function () {
-		var BUSY_DELAY = 450;
-	
-		function open() {
-			var _this = this;
-	
-			var isFetchingObserver = void 0,
-			    busyTimer = void 0;
-	
-			var show = function show() {
-				clearTimeout(busyTimer);
-				_this.set({ closed: false, busy: false });
-				if (isFetchingObserver) {
-					isFetchingObserver.cancel();
-				}
-			};
-	
-			busyTimer = setTimeout(function () {
-				_this.set({ busy: true });
-			}, BUSY_DELAY);
-	
-			this.fire('open', { panel: this.get('slug') });
-	
-			if (this.get('async')) {
-				isFetchingObserver = this.observe('isFetching', function (isFetching) {
-					if (!isFetching) {
-						// setTimeout for states propagation
-						setTimeout(function () {
-							show();
-						}, 0);
-					}
-				});
-			} else {
-				show();
-			}
-		}
-	
-		function close() {
-			this.set({ closed: true });
-		}
-	
-		function _toggle() {
-			var closed = this.get('closed');
-			if (closed) {
-				open.call(this);
-			} else {
-				close.call(this);
-			}
-		}
-	
-		return {
-			data: function data() {
-				return {
-					busy: false,
-					closed: true,
-					isFetching: true
-				};
-			},
-	
-			computed: {
-				grouped: function grouped(items) {
-					return items[0] instanceof Array;
-				},
-				categories: function categories(items, categorized) {
-					return categorized ? getCategorizedItems(items) : null;
-				}
-			},
-	
-			oncreate: function oncreate() {
-				var _this2 = this;
-	
-				this.clickOutsideListener = this._root.on('clickOutside', function (event) {
-					if (!event || event.source != _this2) {
-						_this2.set({ closed: true });
-					}
-				});
-	
-				if (this.get('async')) {
-					this.asyncObserver = this.observe('items', function (items) {
-						_this2.set({ isFetching: false });
-					});
-				}
-			},
-			ondestroy: function ondestroy() {
-				this.clickOutsideListener.cancel();
-				this.asyncObserver.cancel();
-			},
-	
-	
-			helpers: { t: t },
-	
-			methods: {
-				toggle: function toggle() {
-					_toggle.call(this);
-				},
-				dispatch: function dispatch(event) {
-					event.stopPropagation();
-					this._root.fire('clickOutside', { source: this });
-				}
-			}
-		};
-	}();
-	
-	function create_main_fragment(state, component) {
-		var a_aria_controls_value, a_aria_busy_value, a_data_icon_value, text_value;
-	
-		var li = createElement('li');
-		li.className = "coz-nav-section";
-	
-		function click_handler(event) {
-			component.dispatch(event);
-		}
-	
-		addEventListener(li, 'click', click_handler);
-		var a = createElement('a');
-		appendNode(a, li);
-		setAttribute(a, 'aria-controls', a_aria_controls_value = 'coz-nav-pop--' + state.slug);
-		setAttribute(a, 'aria-busy', a_aria_busy_value = state.busy);
-		setAttribute(a, 'data-icon', a_data_icon_value = state.icon);
-	
-		function click_handler_1(event) {
-			component.toggle();
-		}
-	
-		addEventListener(a, 'click', click_handler_1);
-		var text = createText(text_value = template.helpers.t(state.slug));
-		appendNode(text, a);
-		appendNode(createText("\n  "), li);
-	
-		var if_block = state.items && state.items.length && create_if_block(state, component);
-	
-		if (if_block) if_block.mount(li, null);
-	
-		return {
-			mount: function mount(target, anchor) {
-				insertNode(li, target, anchor);
-			},
-	
-			update: function update(changed, state) {
-				if (a_aria_controls_value !== (a_aria_controls_value = 'coz-nav-pop--' + state.slug)) {
-					setAttribute(a, 'aria-controls', a_aria_controls_value);
-				}
-	
-				if (a_aria_busy_value !== (a_aria_busy_value = state.busy)) {
-					setAttribute(a, 'aria-busy', a_aria_busy_value);
-				}
-	
-				if (a_data_icon_value !== (a_data_icon_value = state.icon)) {
-					setAttribute(a, 'data-icon', a_data_icon_value);
-				}
-	
-				if (text_value !== (text_value = template.helpers.t(state.slug))) {
-					text.data = text_value;
-				}
-	
-				if (state.items && state.items.length) {
-					if (if_block) {
-						if_block.update(changed, state);
-					} else {
-						if_block = create_if_block(state, component);
-						if_block.mount(li, null);
-					}
-				} else if (if_block) {
-					if_block.destroy(true);
-					if_block = null;
-				}
-			},
-	
-			destroy: function destroy(detach) {
-				removeEventListener(li, 'click', click_handler);
-				removeEventListener(a, 'click', click_handler_1);
-				if (if_block) if_block.destroy(false);
-	
-				if (detach) {
-					detachNode(li);
-				}
-			}
-		};
-	}
-	
-	function create_each_block(state, each_block_value, group, group_index, component) {
-		var navigationgroup = new NavigationGroup({
-			target: null,
-			_root: component._root,
-			data: { separator: "bottom", group: group }
-		});
-	
-		return {
-			mount: function mount(target, anchor) {
-				navigationgroup._fragment.mount(target, anchor);
-			},
-	
-			update: function update(changed, state, each_block_value, group, group_index) {
-				var navigationgroup_changes = {};
-	
-				if ('items' in changed) navigationgroup_changes.group = group;
-	
-				if (Object.keys(navigationgroup_changes).length) navigationgroup.set(navigationgroup_changes);
-			},
-	
-			destroy: function destroy(detach) {
-				navigationgroup.destroy(detach);
-			}
-		};
-	}
-	
-	function create_each_block_1(state, each_block_value, category, category_index, component) {
-		var text_value;
-	
-		var h2 = createElement('h2');
-		h2.className = "coz-nav-category";
-		var text = createText(text_value = template.helpers.t('Categories.' + category.slug));
-		appendNode(text, h2);
-		var text_1 = createText("\n        ");
-	
-		var navigationgroup = new NavigationGroup({
-			target: null,
-			_root: component._root,
-			data: {
-				separator: "bottom",
-				group: category.items,
-				itemsLimit: 4
-			}
-		});
-	
-		return {
-			mount: function mount(target, anchor) {
-				insertNode(h2, target, anchor);
-				insertNode(text_1, target, anchor);
-				navigationgroup._fragment.mount(target, anchor);
-			},
-	
-			update: function update(changed, state, each_block_value, category, category_index) {
-				if (text_value !== (text_value = template.helpers.t('Categories.' + category.slug))) {
-					text.data = text_value;
-				}
-	
-				var navigationgroup_changes = {};
-	
-				if ('categories' in changed) navigationgroup_changes.group = category.items;
-				navigationgroup_changes.itemsLimit = 4;
-	
-				if (Object.keys(navigationgroup_changes).length) navigationgroup.set(navigationgroup_changes);
-			},
-	
-			destroy: function destroy(detach) {
-				navigationgroup.destroy(detach);
-	
-				if (detach) {
-					detachNode(h2);
-					detachNode(text_1);
-				}
-			}
-		};
-	}
-	
-	function create_if_block_1(state, component) {
-		var text_value;
-	
-		var p = createElement('p');
-		p.className = "coz-nav--error coz-nav-group";
-		var text = createText(text_value = template.helpers.t('error_' + state.items[0].error.name));
-		appendNode(text, p);
-	
-		return {
-			mount: function mount(target, anchor) {
-				insertNode(p, target, anchor);
-			},
-	
-			update: function update(changed, state) {
-				if (text_value !== (text_value = template.helpers.t('error_' + state.items[0].error.name))) {
-					text.data = text_value;
-				}
-			},
-	
-			destroy: function destroy(detach) {
-				if (detach) {
-					detachNode(p);
-				}
-			}
-		};
-	}
-	
-	function create_if_block_2(state, component) {
-		var each_block_value = state.items;
-	
-		var each_block_iterations = [];
-	
-		for (var i = 0; i < each_block_value.length; i += 1) {
-			each_block_iterations[i] = create_each_block(state, each_block_value, each_block_value[i], i, component);
-		}
-	
-		var each_block_anchor = createComment();
-	
-		return {
-			mount: function mount(target, anchor) {
-				for (var i = 0; i < each_block_iterations.length; i += 1) {
-					each_block_iterations[i].mount(target, null);
-				}
-	
-				insertNode(each_block_anchor, target, anchor);
-			},
-	
-			update: function update(changed, state) {
-				var each_block_value = state.items;
-	
-				if ('items' in changed) {
-					for (var i = 0; i < each_block_value.length; i += 1) {
-						if (each_block_iterations[i]) {
-							each_block_iterations[i].update(changed, state, each_block_value, each_block_value[i], i);
-						} else {
-							each_block_iterations[i] = create_each_block(state, each_block_value, each_block_value[i], i, component);
-							each_block_iterations[i].mount(each_block_anchor.parentNode, each_block_anchor);
-						}
-					}
-	
-					destroyEach(each_block_iterations, true, each_block_value.length);
-					each_block_iterations.length = each_block_value.length;
-				}
-			},
-	
-			destroy: function destroy(detach) {
-				destroyEach(each_block_iterations, detach, 0);
-	
-				if (detach) {
-					detachNode(each_block_anchor);
-				}
-			}
-		};
-	}
-	
-	function create_if_block_3(state, component) {
-		var each_block_value = state.categories;
-	
-		var each_block_1_iterations = [];
-	
-		for (var i = 0; i < each_block_value.length; i += 1) {
-			each_block_1_iterations[i] = create_each_block_1(state, each_block_value, each_block_value[i], i, component);
-		}
-	
-		var each_block_1_anchor = createComment();
-	
-		return {
-			mount: function mount(target, anchor) {
-				for (var i = 0; i < each_block_1_iterations.length; i += 1) {
-					each_block_1_iterations[i].mount(target, null);
-				}
-	
-				insertNode(each_block_1_anchor, target, anchor);
-			},
-	
-			update: function update(changed, state) {
-				var each_block_value = state.categories;
-	
-				if ('categories' in changed) {
-					for (var i = 0; i < each_block_value.length; i += 1) {
-						if (each_block_1_iterations[i]) {
-							each_block_1_iterations[i].update(changed, state, each_block_value, each_block_value[i], i);
-						} else {
-							each_block_1_iterations[i] = create_each_block_1(state, each_block_value, each_block_value[i], i, component);
-							each_block_1_iterations[i].mount(each_block_1_anchor.parentNode, each_block_1_anchor);
-						}
-					}
-	
-					destroyEach(each_block_1_iterations, true, each_block_value.length);
-					each_block_1_iterations.length = each_block_value.length;
-				}
-			},
-	
-			destroy: function destroy(detach) {
-				destroyEach(each_block_1_iterations, detach, 0);
-	
-				if (detach) {
-					detachNode(each_block_1_anchor);
-				}
-			}
-		};
-	}
-	
-	function create_if_block_4(state, component) {
-		var navigationgroup = new NavigationGroup({
-			target: null,
-			_root: component._root,
-			data: { group: state.items }
-		});
-	
-		return {
-			mount: function mount(target, anchor) {
-				navigationgroup._fragment.mount(target, anchor);
-			},
-	
-			update: function update(changed, state) {
-				var navigationgroup_changes = {};
-	
-				if ('items' in changed) navigationgroup_changes.group = state.items;
-	
-				if (Object.keys(navigationgroup_changes).length) navigationgroup.set(navigationgroup_changes);
-			},
-	
-			destroy: function destroy(detach) {
-				navigationgroup.destroy(detach);
-			}
-		};
-	}
-	
-	function create_if_block(state, component) {
-		var div_class_value, div_id_value, div_aria_hidden_value;
-	
-		var div = createElement('div');
-		div.className = div_class_value = 'coz-nav-pop coz-nav-pop--' + state.slug;
-		div.id = div_id_value = 'coz-nav-pop--' + state.slug;
-		setAttribute(div, 'aria-hidden', div_aria_hidden_value = state.closed);
-	
-		function get_block(state) {
-			if (state.items[0].error) return create_if_block_1;
-			if (state.grouped) return create_if_block_2;
-			if (state.categories) return create_if_block_3;
-			return create_if_block_4;
-		}
-	
-		var current_block = get_block(state);
-		var if_block_1 = current_block(state, component);
-	
-		if_block_1.mount(div, null);
-	
-		return {
-			mount: function mount(target, anchor) {
-				insertNode(div, target, anchor);
-			},
-	
-			update: function update(changed, state) {
-				if (div_class_value !== (div_class_value = 'coz-nav-pop coz-nav-pop--' + state.slug)) {
-					div.className = div_class_value;
-				}
-	
-				if (div_id_value !== (div_id_value = 'coz-nav-pop--' + state.slug)) {
-					div.id = div_id_value;
-				}
-	
-				if (div_aria_hidden_value !== (div_aria_hidden_value = state.closed)) {
-					setAttribute(div, 'aria-hidden', div_aria_hidden_value);
-				}
-
-				if (current_block === (current_block = get_block(state)) && if_block_1) {
-					if_block_1.update(changed, state);
-				} else {
-					if_block_1.destroy(true);
-					if_block_1 = current_block(state, component);
-					if_block_1.mount(div, null);
-				}
-			},
-
-			destroy: function destroy(detach) {
-				if_block_1.destroy(false);
-
-				if (detach) {
-					detachNode(div);
-				}
-			}
-		};
-	}
-
-	function NavigationSection(options) {
-		options = options || {};
-		this._state = assign(template.data(), options.data);
-		recompute(this._state, this._state, {}, true);
-
-		this._observers = {
-			pre: Object.create(null),
-			post: Object.create(null)
-		};
-
-		this._handlers = Object.create(null);
-
-		this._root = options._root || this;
-		this._yield = options._yield;
-
-		this._torndown = false;
-		this._renderHooks = [];
-
-		this._fragment = create_main_fragment(this._state, this);
-		if (options.target) this._fragment.mount(options.target, null);
-		this._flush();
-
-		if (options._root) {
-			options._root._renderHooks.push(template.oncreate.bind(this));
-		} else {
-			template.oncreate.call(this);
-		}
-	}
-
-	assign(NavigationSection.prototype, template.methods, {
-		get: get,
-		fire: fire,
-		observe: observe,
-		on: on,
-		set: set,
-		_flush: _flush
-	});
-
-	NavigationSection.prototype._set = function _set(newState) {
-		var oldState = this._state;
-		this._state = assign({}, oldState, newState);
-		recompute(this._state, newState, oldState, false);
-		dispatchObservers(this, this._observers.pre, newState, oldState);
-		this._fragment.update(newState, this._state);
-		dispatchObservers(this, this._observers.post, newState, oldState);
-		this._flush();
-	};
-
-	NavigationSection.prototype.teardown = NavigationSection.prototype.destroy = function destroy(detach) {
-		this.fire('destroy');
-		template.ondestroy.call(this);
-
-		this._fragment.destroy(detach !== false);
-		this._fragment = null;
-
-		this._state = {};
-		this._torndown = true;
-	};
-
-	function createElement(name) {
-		return document.createElement(name);
-	}
-
-	function insertNode(node, target, anchor) {
-		target.insertBefore(node, anchor);
-	}
-
-	function detachNode(node) {
-		node.parentNode.removeChild(node);
-	}
-
-	function addEventListener(node, event, handler) {
-		node.addEventListener(event, handler, false);
-	}
-
-	function removeEventListener(node, event, handler) {
-		node.removeEventListener(event, handler, false);
-	}
-
-	function appendNode(node, target) {
-		target.appendChild(node);
-	}
-
-	function setAttribute(node, attribute, value) {
-		node.setAttribute(attribute, value);
-	}
-
-	function createText(data) {
-		return document.createTextNode(data);
-	}
-
-	function destroyEach(iterations, detach, start) {
-		for (var i = start; i < iterations.length; i += 1) {
-			if (iterations[i]) iterations[i].destroy(detach);
-		}
-	}
-
-	function createComment() {
-		return document.createComment('');
-	}
-
-	function differs(a, b) {
-		return a !== b || a && (typeof a === 'undefined' ? 'undefined' : _typeof(a)) === 'object' || typeof a === 'function';
-	}
-
-	function assign(target) {
-		for (var i = 1; i < arguments.length; i += 1) {
-			var source = arguments[i];
-			for (var k in source) {
-				target[k] = source[k];
-			}
-		}
-
-		return target;
-	}
-
-	function dispatchObservers(component, group, newState, oldState) {
-		for (var key in group) {
-			if (!(key in newState)) continue;
-
-			var newValue = newState[key];
-			var oldValue = oldState[key];
-
-			if (differs(newValue, oldValue)) {
-				var callbacks = group[key];
-				if (!callbacks) continue;
-
-				for (var i = 0; i < callbacks.length; i += 1) {
-					var callback = callbacks[i];
-					if (callback.__calling) continue;
-
-					callback.__calling = true;
-					callback.call(component, newValue, oldValue);
-					callback.__calling = false;
-				}
-			}
-		}
-	}
-
-	function get(key) {
-		return key ? this._state[key] : this._state;
-	}
-
-	function fire(eventName, data) {
-		var handlers = eventName in this._handlers && this._handlers[eventName].slice();
-		if (!handlers) return;
-
-		for (var i = 0; i < handlers.length; i += 1) {
-			handlers[i].call(this, data);
-		}
-	}
-
-	function observe(key, callback, options) {
-		var group = options && options.defer ? this._observers.post : this._observers.pre;
-
-		(group[key] || (group[key] = [])).push(callback);
-
-		if (!options || options.init !== false) {
-			callback.__calling = true;
-			callback.call(this, this._state[key]);
-			callback.__calling = false;
-		}
-
-		return {
-			cancel: function cancel() {
-				var index = group[key].indexOf(callback);
-				if (~index) group[key].splice(index, 1);
-			}
-		};
-	}
-
-	function on(eventName, handler) {
-		if (eventName === 'teardown') return this.on('destroy', handler);
-
-		var handlers = this._handlers[eventName] || (this._handlers[eventName] = []);
-		handlers.push(handler);
-
-		return {
-			cancel: function cancel() {
-				var index = handlers.indexOf(handler);
-				if (~index) handlers.splice(index, 1);
-			}
-		};
-	}
-
-	function set(newState) {
-		this._set(assign({}, newState));
-		this._root._flush();
-	}
-
-	function _flush() {
-		if (!this._renderHooks) return;
-
-		while (this._renderHooks.length) {
-			this._renderHooks.pop()();
-		}
-	}
-
-	module.exports = NavigationSection;
-
-/***/ },
-/* 271 */
+/* 235 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -13199,12 +10911,483 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(189);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _I18n = __webpack_require__(199);
+	
+	var _AppsList = __webpack_require__(236);
+	
+	var _AppsList2 = _interopRequireDefault(_AppsList);
+	
+	var _Settings = __webpack_require__(238);
+	
+	var _Settings2 = _interopRequireDefault(_Settings);
+	
+	var _helpers = __webpack_require__(240);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Drawer = function (_Component) {
+	  _inherits(Drawer, _Component);
+	
+	  function Drawer(props, context) {
+	    _classCallCheck(this, Drawer);
+	
+	    var _this = _possibleConstructorReturn(this, (Drawer.__proto__ || Object.getPrototypeOf(Drawer)).call(this, props));
+	
+	    _this.store = context.store;
+	
+	    _this.onDrawerClick = _this.onDrawerClick.bind(_this);
+	    return _this;
+	  }
+	
+	  _createClass(Drawer, [{
+	    key: 'onDrawerClick',
+	    value: function onDrawerClick(event) {
+	      if (event.target === this.wrapperRef) {
+	        this.props.onClose();
+	      }
+	    }
+	  }, {
+	    key: 'componentWillMount',
+	    value: function () {
+	      var _ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee() {
+	        return regeneratorRuntime.wrap(function _callee$(_context) {
+	          while (1) {
+	            switch (_context.prev = _context.next) {
+	              case 0:
+	                _context.next = 2;
+	                return this.store.fetchAppsList();
+	
+	              case 2:
+	                _context.next = 4;
+	                return this.store.fetchSettingsData();
+	
+	              case 4:
+	              case 'end':
+	                return _context.stop();
+	            }
+	          }
+	        }, _callee, this);
+	      }));
+	
+	      function componentWillMount() {
+	        return _ref.apply(this, arguments);
+	      }
+	
+	      return componentWillMount;
+	    }()
+	  }, {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      this.asideRef.addEventListener('transitionend', this.props.drawerListener);
+	    }
+	  }, {
+	    key: 'componentWillReceiveProps',
+	    value: function () {
+	      var _ref2 = _asyncToGenerator(regeneratorRuntime.mark(function _callee2(nextProps) {
+	        return regeneratorRuntime.wrap(function _callee2$(_context2) {
+	          while (1) {
+	            switch (_context2.prev = _context2.next) {
+	              case 0:
+	                if (!nextProps.visible) {
+	                  _context2.next = 5;
+	                  break;
+	                }
+	
+	                _context2.next = 3;
+	                return this.store.fetchAppsList();
+	
+	              case 3:
+	                _context2.next = 5;
+	                return this.store.fetchSettingsData();
+	
+	              case 5:
+	              case 'end':
+	                return _context2.stop();
+	            }
+	          }
+	        }, _callee2, this);
+	      }));
+	
+	      function componentWillReceiveProps(_x) {
+	        return _ref2.apply(this, arguments);
+	      }
+	
+	      return componentWillReceiveProps;
+	    }()
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _this2 = this;
+	
+	      var _props = this.props,
+	          t = _props.t,
+	          onClaudy = _props.onClaudy,
+	          visible = _props.visible;
+	      var _store = this.store,
+	          appsList = _store.appsList,
+	          settingsData = _store.settingsData;
+	
+	      var categories = (0, _helpers.getCategorizedItems)(appsList, t);
+	      return _react2.default.createElement(
+	        'div',
+	        { 'class': 'coz-drawer-wrapper',
+	          onClick: this.onDrawerClick,
+	          'aria-hidden': visible ? 'false' : 'true',
+	          ref: function ref(node) {
+	            _this2.wrapperRef = node;
+	          }
+	        },
+	        _react2.default.createElement(
+	          'aside',
+	          { ref: function ref(node) {
+	              _this2.asideRef = node;
+	            } },
+	          _react2.default.createElement(
+	            'nav',
+	            { 'class': 'coz-drawer--apps' },
+	            _react2.default.createElement(_AppsList2.default, { categories: categories, wrappingLimit: 3 })
+	          ),
+	          _react2.default.createElement('hr', { 'class': 'coz-sep-flex' }),
+	          _react2.default.createElement(
+	            'nav',
+	            null,
+	            settingsData && _react2.default.createElement(_Settings2.default, {
+	              onLogOut: function onLogOut() {
+	                return _this2.store.logout();
+	              },
+	              settingsData: settingsData,
+	              onClaudy: onClaudy,
+	              isDrawer: true
+	            })
+	          )
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return Drawer;
+	}(_react.Component);
+	
+	exports.default = (0, _I18n.translate)()(Drawer);
+
+/***/ },
+/* 236 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(189);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _I18n = __webpack_require__(199);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var AppsList = function AppsList(_ref) {
+	  var t = _ref.t,
+	      categories = _ref.categories,
+	      wrappingLimit = _ref.wrappingLimit;
+	  return _react2.default.createElement(
+	    'div',
+	    null,
+	    categories.map(function (category) {
+	      var wrapping = category.items.length > wrappingLimit;
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'h2',
+	          { 'class': 'coz-nav-category' },
+	          t('Categories.' + category.slug)
+	        ),
+	        _react2.default.createElement(
+	          'ul',
+	          { 'class': '\n              ' + (wrapping ? 'coz-nav-group coz-nav-group--wrapping' : 'coz-nav-group') + '\n          ' },
+	          category.items.map(function (app) {
+	            var dataIcon = app.icon ? 'icon-' + app.slug : '';
+	            var fileIcon = app.icon.cached ? { src: app.icon.src } : {
+	              src: __webpack_require__(237),
+	              class: 'blurry'
+	            };
+	            var label = (app.editor ? app.editor + ' ' : '') + app.name;
+	            return app.comingSoon ? _react2.default.createElement(
+	              'li',
+	              { 'class': 'coz-nav-item' },
+	              _react2.default.createElement(
+	                'a',
+	                { role: 'menuitem', 'data-icon': dataIcon, 'class': 'coz-bar-coming-soon-app', title: label },
+	                fileIcon && _react2.default.createElement('img', { src: fileIcon.src, alt: '', width: '64', height: '64', 'class': fileIcon.class ? fileIcon.class : '' }),
+	                _react2.default.createElement(
+	                  'span',
+	                  { 'class': 'coz-bar-coming-soon-badge' },
+	                  t('soon')
+	                ),
+	                _react2.default.createElement(
+	                  'p',
+	                  { 'class': 'coz-label' },
+	                  label
+	                )
+	              )
+	            ) : _react2.default.createElement(
+	              'li',
+	              { 'class': 'coz-nav-item' },
+	              _react2.default.createElement(
+	                'a',
+	                { role: 'menuitem', href: app.href, target: '_blank', 'data-icon': dataIcon, title: label },
+	                fileIcon && _react2.default.createElement('img', { src: fileIcon.src, alt: '', width: '64', height: '64', 'class': fileIcon.class ? fileIcon.class : '' }),
+	                _react2.default.createElement(
+	                  'p',
+	                  { 'class': 'coz-label' },
+	                  label
+	                )
+	              )
+	            );
+	          })
+	        ),
+	        _react2.default.createElement('hr', null)
+	      );
+	    })
+	  );
+	};
+	
+	exports.default = (0, _I18n.translate)()(AppsList);
+
+/***/ },
+/* 237 */
+/***/ function(module, exports) {
+
+	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICA8ZyBmaWxsPSIjOTU5OTlEIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0yODggLTMyKSI+CiAgICA8cGF0aCBkPSJNMjg5LDQzLjAwODYyOTYgQzI4OSw0My41NTg2NzMyIDI4OS4zOTY0MDcsNDQuMjMxMDg5OSAyODkuODcyNDAxLDQ0LjUwMzA4NjggTDI5NS4xMjc1OTksNDcuNTA2MDU2NiBDMjk1LjYwOTQxMyw0Ny43ODEzNzg5IDI5Niw0Ny41NTc4NzMgMjk2LDQ3LjAwODYyOTYgTDI5Niw0MS41MDA1MTM4IEMyOTYsNDAuOTUwNDcwMiAyOTUuNjAzNTkzLDQwLjI3ODA1MzUgMjk1LjEyNzU5OSw0MC4wMDYwNTY2IEwyODkuODcyNDAxLDM3LjAwMzA4NjggQzI4OS4zOTA1ODcsMzYuNzI3NzY0NSAyODksMzYuOTUxMjcwNCAyODksMzcuNTAwNTEzOCBMMjg5LDQzLjAwODYyOTYgWiBNMzA0LDQzLjAwODYyOTYgQzMwNCw0My41NTg2NzMyIDMwMy42MDM1OTMsNDQuMjMxMDg5OSAzMDMuMTI3NTk5LDQ0LjUwMzA4NjggTDI5Ny44NzI0MDEsNDcuNTA2MDU2NiBDMjk3LjM5MDU4Nyw0Ny43ODEzNzg5IDI5Nyw0Ny41NTc4NzMgMjk3LDQ3LjAwODYyOTYgTDI5Nyw0MS41MDA1MTM4IEMyOTcsNDAuOTUwNDcwMiAyOTcuMzk2NDA3LDQwLjI3ODA1MzUgMjk3Ljg3MjQwMSw0MC4wMDYwNTY2IEwzMDMuMTI3NTk5LDM3LjAwMzA4NjggQzMwMy42MDk0MTMsMzYuNzI3NzY0NSAzMDQsMzYuOTUxMjcwNCAzMDQsMzcuNTAwNTEzOCBMMzA0LDQzLjAwODYyOTYgWiBNMjk3LjM0OTc2MSwzOC45ODE2NDE2IEMyOTYuODgwNDUxLDM5LjI3MDQ0NzkgMjk2LjExMjg2MSwzOS4yNjYzMzI0IDI5NS42NTAyMzksMzguOTgxNjQxNiBMMjkwLjg0OTc2MSwzNi4wMjc1MDE4IEMyOTAuMzgwNDUxLDM1LjczODY5NTUgMjkwLjM4NzEzOSwzNS4yOTYxMTIzIDI5MC44NzY2MTksMzUuMDMyNTQ2MSBMMjk1LjYyMzM4MSwzMi40NzY1OTczIEMyOTYuMTA3NTI0LDMyLjIxNTkwNDggMjk2Ljg4NzEzOSwzMi4yMTMwMzExIDI5Ny4zNzY2MTksMzIuNDc2NTk3MyBMMzAyLjEyMzM4MSwzNS4wMzI1NDYxIEMzMDIuNjA3NTI0LDM1LjI5MzIzODcgMzAyLjYxMjg2MSwzNS43NDI4MTEgMzAyLjE1MDIzOSwzNi4wMjc1MDE4IEwyOTcuMzQ5NzYxLDM4Ljk4MTY0MTYgWiIvPgogICAgPHBhdGggZD0iTTI4OSw0My4wMDg2Mjk2IEMyODksNDMuNTU4NjczMiAyODkuMzk2NDA3LDQ0LjIzMTA4OTkgMjg5Ljg3MjQwMSw0NC41MDMwODY4IEwyOTUuMTI3NTk5LDQ3LjUwNjA1NjYgQzI5NS42MDk0MTMsNDcuNzgxMzc4OSAyOTYsNDcuNTU3ODczIDI5Niw0Ny4wMDg2Mjk2IEwyOTYsNDEuNTAwNTEzOCBDMjk2LDQwLjk1MDQ3MDIgMjk1LjYwMzU5Myw0MC4yNzgwNTM1IDI5NS4xMjc1OTksNDAuMDA2MDU2NiBMMjg5Ljg3MjQwMSwzNy4wMDMwODY4IEMyODkuMzkwNTg3LDM2LjcyNzc2NDUgMjg5LDM2Ljk1MTI3MDQgMjg5LDM3LjUwMDUxMzggTDI4OSw0My4wMDg2Mjk2IFogTTMwNCw0My4wMDg2Mjk2IEMzMDQsNDMuNTU4NjczMiAzMDMuNjAzNTkzLDQ0LjIzMTA4OTkgMzAzLjEyNzU5OSw0NC41MDMwODY4IEwyOTcuODcyNDAxLDQ3LjUwNjA1NjYgQzI5Ny4zOTA1ODcsNDcuNzgxMzc4OSAyOTcsNDcuNTU3ODczIDI5Nyw0Ny4wMDg2Mjk2IEwyOTcsNDEuNTAwNTEzOCBDMjk3LDQwLjk1MDQ3MDIgMjk3LjM5NjQwNyw0MC4yNzgwNTM1IDI5Ny44NzI0MDEsNDAuMDA2MDU2NiBMMzAzLjEyNzU5OSwzNy4wMDMwODY4IEMzMDMuNjA5NDEzLDM2LjcyNzc2NDUgMzA0LDM2Ljk1MTI3MDQgMzA0LDM3LjUwMDUxMzggTDMwNCw0My4wMDg2Mjk2IFogTTI5Ny4zNDk3NjEsMzguOTgxNjQxNiBDMjk2Ljg4MDQ1MSwzOS4yNzA0NDc5IDI5Ni4xMTI4NjEsMzkuMjY2MzMyNCAyOTUuNjUwMjM5LDM4Ljk4MTY0MTYgTDI5MC44NDk3NjEsMzYuMDI3NTAxOCBDMjkwLjM4MDQ1MSwzNS43Mzg2OTU1IDI5MC4zODcxMzksMzUuMjk2MTEyMyAyOTAuODc2NjE5LDM1LjAzMjU0NjEgTDI5NS42MjMzODEsMzIuNDc2NTk3MyBDMjk2LjEwNzUyNCwzMi4yMTU5MDQ4IDI5Ni44ODcxMzksMzIuMjEzMDMxMSAyOTcuMzc2NjE5LDMyLjQ3NjU5NzMgTDMwMi4xMjMzODEsMzUuMDMyNTQ2MSBDMzAyLjYwNzUyNCwzNS4yOTMyMzg3IDMwMi42MTI4NjEsMzUuNzQyODExIDMwMi4xNTAyMzksMzYuMDI3NTAxOCBMMjk3LjM0OTc2MSwzOC45ODE2NDE2IFoiLz4KICA8L2c+Cjwvc3ZnPgo="
+
+/***/ },
+/* 238 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(189);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _I18n = __webpack_require__(199);
+	
+	var _StorageData = __webpack_require__(239);
+	
+	var _StorageData2 = _interopRequireDefault(_StorageData);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var Settings = function Settings(_ref) {
+	  var t = _ref.t,
+	      onLogOut = _ref.onLogOut,
+	      settingsData = _ref.settingsData,
+	      onClaudy = _ref.onClaudy,
+	      _ref$isDrawer = _ref.isDrawer,
+	      isDrawer = _ref$isDrawer === undefined ? false : _ref$isDrawer;
+	  return _react2.default.createElement(
+	    'div',
+	    null,
+	    isDrawer && _react2.default.createElement('hr', null),
+	    settingsData.settingsAppURL && _react2.default.createElement(
+	      'ul',
+	      { 'class': 'coz-nav-group' },
+	      _react2.default.createElement(
+	        'li',
+	        { 'class': 'coz-nav-item' },
+	        _react2.default.createElement(
+	          'a',
+	          { role: 'menuitem',
+	            href: settingsData.settingsAppURL + '#/profile',
+	            target: '_self', 'data-icon': 'icon-profile', title: t('profile')
+	          },
+	          _react2.default.createElement(
+	            'p',
+	            { 'class': 'coz-label' },
+	            t('profile')
+	          )
+	        )
+	      ),
+	      _react2.default.createElement(
+	        'li',
+	        { 'class': 'coz-nav-item' },
+	        _react2.default.createElement(
+	          'a',
+	          { role: 'menuitem',
+	            href: settingsData.settingsAppURL + '#/connectedDevices',
+	            target: '_self', 'data-icon': 'icon-connectedDevices',
+	            title: t('connectedDevices')
+	          },
+	          _react2.default.createElement(
+	            'p',
+	            { 'class': 'coz-label' },
+	            t('connectedDevices')
+	          )
+	        )
+	      ),
+	      _react2.default.createElement('hr', null)
+	    ),
+	    isDrawer && onClaudy && _react2.default.createElement(
+	      'ul',
+	      { 'class': 'coz-nav-group' },
+	      _react2.default.createElement(
+	        'li',
+	        { 'class': 'coz-nav-item' },
+	        _react2.default.createElement(
+	          'button',
+	          { role: 'menuitem', 'data-icon': 'icon-claudy', onClick: onClaudy, title: t('claudy.title') },
+	          t('claudy.title')
+	        )
+	      ),
+	      _react2.default.createElement('hr', null)
+	    ),
+	    !isDrawer && settingsData.storageData && _react2.default.createElement(
+	      'ul',
+	      { 'class': 'coz-nav-group' },
+	      _react2.default.createElement(
+	        'li',
+	        { 'class': 'coz-nav-item' },
+	        _react2.default.createElement(
+	          'div',
+	          { role: 'menuitem', 'data-icon': 'icon-storage' },
+	          t('storage'),
+	          _react2.default.createElement(_StorageData2.default, { data: settingsData.storageData })
+	        )
+	      ),
+	      _react2.default.createElement('hr', null)
+	    ),
+	    settingsData.helpLink && _react2.default.createElement(
+	      'ul',
+	      { 'class': 'coz-nav-group' },
+	      _react2.default.createElement(
+	        'li',
+	        { 'class': 'coz-nav-item' },
+	        _react2.default.createElement(
+	          'a',
+	          { role: 'menuitem', href: settingsData.helpLink, target: '_blank', 'data-icon': 'icon-help', title: t('help') },
+	          _react2.default.createElement(
+	            'p',
+	            { 'class': 'coz-label' },
+	            t('help')
+	          )
+	        )
+	      ),
+	      _react2.default.createElement('hr', null)
+	    ),
+	    _react2.default.createElement(
+	      'ul',
+	      { 'class': 'coz-nav-group' },
+	      _react2.default.createElement(
+	        'li',
+	        { 'class': 'coz-nav-item' },
+	        _react2.default.createElement(
+	          'button',
+	          { role: 'menuitem', 'data-icon': 'icon-logout', onClick: onLogOut, title: t('logout') },
+	          t('logout')
+	        )
+	      )
+	    ),
+	    _react2.default.createElement('hr', null),
+	    _react2.default.createElement(
+	      'ul',
+	      { 'class': 'coz-nav-group coz-nav-group--inactive' },
+	      _react2.default.createElement(
+	        'li',
+	        { 'class': 'coz-nav-item' },
+	        _react2.default.createElement(
+	          'div',
+	          { role: 'menuitem' },
+	          _react2.default.createElement(
+	            'p',
+	            { 'class': 'coz-bar-text-item coz-bar-text-item--inactive' },
+	            t('beta_status')
+	          )
+	        )
+	      )
+	    )
+	  );
+	};
+	
+	exports.default = (0, _I18n.translate)()(Settings);
+
+/***/ },
+/* 239 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(189);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _I18n = __webpack_require__(199);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var StorageData = function StorageData(_ref) {
+	  var t = _ref.t,
+	      data = _ref.data;
+	
+	  var diskQuota = Number.isInteger(data.quota) ? (data.quota / (1024 * 1024 * 1024)).toFixed(2) : data.quota;
+	  var diskUsage = Number.isInteger(data.usage) ? (data.usage / (1024 * 1024 * 1024)).toFixed(2) : data.usage;
+	  return _react2.default.createElement(
+	    'div',
+	    { 'class': 'coz-nav-storage' },
+	    _react2.default.createElement(
+	      'p',
+	      { 'class': 'coz-nav-storage-text' },
+	      t('storage_phrase', {
+	        diskUsage: diskUsage,
+	        diskQuota: diskQuota
+	      })
+	    ),
+	    _react2.default.createElement('progress', {
+	      'class': 'cozy-nav-storage-bar',
+	      value: diskUsage, max: diskQuota, min: '0'
+	    })
+	  );
+	};
+	
+	exports.default = (0, _I18n.translate)()(StorageData);
+
+/***/ },
+/* 240 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	exports.getCategorizedItems = getCategorizedItems;
-	
-	var _i18n = __webpack_require__(189);
-	
 	// Take an items array and return an array of category objects with the matching category slug and items
-	function getCategorizedItems(items) {
+	function getCategorizedItems(items, t) {
 	  if (items[0] instanceof Array) return null; // doesn't handle this case
 	  var categorizedItemsObject = items.reduce(function (accumulator, item) {
 	    accumulator[item.category] = accumulator[item.category] || [];
@@ -13219,3052 +11402,511 @@ return /******/ (function(modules) { // webpackBootstrap
 	  .sort(function (c1, c2) {
 	    if (c1.slug === 'others') return 1;
 	    if (c2.slug === 'others') return -1;
-	    if ((0, _i18n.t)('Categories.' + c1.slug) > (0, _i18n.t)('Categories.' + c2.slug)) return 1;
-	    if ((0, _i18n.t)('Categories.' + c1.slug) < (0, _i18n.t)('Categories.' + c2.slug)) return -1;
+	    if (t('Categories.' + c1.slug) > t('Categories.' + c2.slug)) return 1;
+	    if (t('Categories.' + c1.slug) < t('Categories.' + c2.slug)) return -1;
 	    return 0;
 	  });
 	}
 
 /***/ },
-/* 272 */
+/* 241 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-	
-	var NavigationItem = __webpack_require__(273);
-	
-	NavigationItem = NavigationItem && NavigationItem.__esModule ? NavigationItem['default'] : NavigationItem;
-	
-	function recompute(state, newState, oldState, isInitial) {
-		if (isInitial || 'itemsLimit' in newState && differs(state.itemsLimit, oldState.itemsLimit) || 'group' in newState && differs(state.group, oldState.group)) {
-			state.wrapping = newState.wrapping = template.computed.wrapping(state.itemsLimit, state.group);
-		}
-	
-		if (isInitial || 'group' in newState && differs(state.group, oldState.group)) {
-			state.inactive = newState.inactive = template.computed.inactive(state.group);
-		}
-	}
-	
-	var template = function () {
-		return {
-			computed: {
-				wrapping: function wrapping(itemsLimit, group) {
-					if (!itemsLimit || !group.length) return false;
-					return group.length > itemsLimit;
-				},
-				inactive: function inactive(group) {
-					return group.filter(function (item) {
-						return item.inactive;
-					}).length > 0;
-				}
-			}
-		};
-	}();
-	
-	function create_main_fragment(state, component) {
-		var if_block = state.group.length && create_if_block(state, component);
-	
-		var if_block_anchor = createComment();
-	
-		return {
-			mount: function mount(target, anchor) {
-				if (if_block) if_block.mount(target, anchor);
-				insertNode(if_block_anchor, target, anchor);
-			},
-	
-			update: function update(changed, state) {
-				if (state.group.length) {
-					if (if_block) {
-						if_block.update(changed, state);
-					} else {
-						if_block = create_if_block(state, component);
-						if_block.mount(if_block_anchor.parentNode, if_block_anchor);
-					}
-				} else if (if_block) {
-					if_block.destroy(true);
-					if_block = null;
-				}
-			},
-	
-			destroy: function destroy(detach) {
-				if (if_block) if_block.destroy(detach);
-	
-				if (detach) {
-					detachNode(if_block_anchor);
-				}
-			}
-		};
-	}
-	
-	function create_if_block_1(state, component) {
-		var hr = createElement('hr');
-	
-		return {
-			mount: function mount(target, anchor) {
-				insertNode(hr, target, anchor);
-			},
-	
-			destroy: function destroy(detach) {
-				if (detach) {
-					detachNode(hr);
-				}
-			}
-		};
-	}
-	
-	function create_each_block(state, each_block_value, item, item_index, component) {
-		function get_block(state, each_block_value, item, item_index) {
-			if (item.event === 'claudy') return create_if_block_2;
-			return create_if_block_3;
-		}
-	
-		var current_block = get_block(state, each_block_value, item, item_index);
-		var if_block_2 = current_block(state, each_block_value, item, item_index, component);
-	
-		var if_block_2_anchor = createComment();
-	
-		return {
-			mount: function mount(target, anchor) {
-				if_block_2.mount(target, anchor);
-				insertNode(if_block_2_anchor, target, anchor);
-			},
-	
-			update: function update(changed, state, each_block_value, item, item_index) {
-				if (current_block === (current_block = get_block(state, each_block_value, item, item_index)) && if_block_2) {
-					if_block_2.update(changed, state, each_block_value, item, item_index);
-				} else {
-					if_block_2.destroy(true);
-					if_block_2 = current_block(state, each_block_value, item, item_index, component);
-					if_block_2.mount(if_block_2_anchor.parentNode, if_block_2_anchor);
-				}
-			},
-	
-			destroy: function destroy(detach) {
-				if_block_2.destroy(detach);
-	
-				if (detach) {
-					detachNode(if_block_2_anchor);
-				}
-			}
-		};
-	}
-	
-	function create_if_block_2(state, each_block_value, item, item_index, component) {
-		var navigationitem = new NavigationItem({
-			target: null,
-			_root: component._root,
-			data: { item: item }
-		});
-	
-		navigationitem.on('claudy', function (event) {
-			component.fire("claudy");
-		});
-	
-		return {
-			mount: function mount(target, anchor) {
-				navigationitem._fragment.mount(target, anchor);
-			},
-	
-			update: function update(changed, state, each_block_value, item, item_index) {
-				var navigationitem_changes = {};
-	
-				if ('group' in changed) navigationitem_changes.item = item;
-	
-				if (Object.keys(navigationitem_changes).length) navigationitem.set(navigationitem_changes);
-			},
-	
-			destroy: function destroy(detach) {
-				navigationitem.destroy(detach);
-			}
-		};
-	}
-	
-	function create_if_block_3(state, each_block_value, item, item_index, component) {
-		var navigationitem = new NavigationItem({
-			target: null,
-			_root: component._root,
-			data: { item: item }
-		});
-	
-		return {
-			mount: function mount(target, anchor) {
-				navigationitem._fragment.mount(target, anchor);
-			},
-	
-			update: function update(changed, state, each_block_value, item, item_index) {
-				var navigationitem_changes = {};
-	
-				if ('group' in changed) navigationitem_changes.item = item;
-	
-				if (Object.keys(navigationitem_changes).length) navigationitem.set(navigationitem_changes);
-			},
-	
-			destroy: function destroy(detach) {
-				navigationitem.destroy(detach);
-			}
-		};
-	}
-	
-	function create_if_block_4(state, component) {
-		var hr = createElement('hr');
-	
-		return {
-			mount: function mount(target, anchor) {
-				insertNode(hr, target, anchor);
-			},
-	
-			destroy: function destroy(detach) {
-				if (detach) {
-					detachNode(hr);
-				}
-			}
-		};
-	}
-	
-	function create_if_block(state, component) {
-		var ul_class_value;
-	
-		var if_block_1 = state.separator == 'top' && create_if_block_1(state, component);
-	
-		var text = createText("\n");
-		var ul = createElement('ul');
-		ul.className = ul_class_value = '\n    ' + (state.wrapping ? "coz-nav-group coz-nav-group--wrapping" : "coz-nav-group") + '\n    ' + (state.inactive ? " coz-nav-group--inactive" : "") + '\n';
-		var each_block_value = state.group;
-	
-		var each_block_iterations = [];
-	
-		for (var i = 0; i < each_block_value.length; i += 1) {
-			each_block_iterations[i] = create_each_block(state, each_block_value, each_block_value[i], i, component);
-			each_block_iterations[i].mount(ul, null);
-		}
-	
-		var text_1 = createText("\n");
-	
-		var if_block_3 = state.separator == 'bottom' && create_if_block_4(state, component);
-	
-		var if_block_3_anchor = createComment();
-	
-		return {
-			mount: function mount(target, anchor) {
-				if (if_block_1) if_block_1.mount(target, anchor);
-				insertNode(text, target, anchor);
-				insertNode(ul, target, anchor);
-				insertNode(text_1, target, anchor);
-				if (if_block_3) if_block_3.mount(target, anchor);
-				insertNode(if_block_3_anchor, target, anchor);
-			},
-	
-			update: function update(changed, state) {
-				if (state.separator == 'top') {
-					if (!if_block_1) {
-						if_block_1 = create_if_block_1(state, component);
-						if_block_1.mount(text.parentNode, text);
-					}
-				} else if (if_block_1) {
-					if_block_1.destroy(true);
-					if_block_1 = null;
-				}
-	
-				if (ul_class_value !== (ul_class_value = '\n    ' + (state.wrapping ? "coz-nav-group coz-nav-group--wrapping" : "coz-nav-group") + '\n    ' + (state.inactive ? " coz-nav-group--inactive" : "") + '\n')) {
-					ul.className = ul_class_value;
-				}
-	
-				var each_block_value = state.group;
-	
-				if ('group' in changed) {
-					for (var i = 0; i < each_block_value.length; i += 1) {
-						if (each_block_iterations[i]) {
-							each_block_iterations[i].update(changed, state, each_block_value, each_block_value[i], i);
-						} else {
-							each_block_iterations[i] = create_each_block(state, each_block_value, each_block_value[i], i, component);
-							each_block_iterations[i].mount(ul, null);
-						}
-					}
-	
-					destroyEach(each_block_iterations, true, each_block_value.length);
-					each_block_iterations.length = each_block_value.length;
-				}
-	
-				if (state.separator == 'bottom') {
-					if (!if_block_3) {
-						if_block_3 = create_if_block_4(state, component);
-						if_block_3.mount(if_block_3_anchor.parentNode, if_block_3_anchor);
-					}
-				} else if (if_block_3) {
-					if_block_3.destroy(true);
-					if_block_3 = null;
-				}
-			},
-
-			destroy: function destroy(detach) {
-				if (if_block_1) if_block_1.destroy(detach);
-
-				destroyEach(each_block_iterations, false, 0);
-
-				if (if_block_3) if_block_3.destroy(detach);
-
-				if (detach) {
-					detachNode(text);
-					detachNode(ul);
-					detachNode(text_1);
-					detachNode(if_block_3_anchor);
-				}
-			}
-		};
-	}
-
-	function NavigationGroup(options) {
-		options = options || {};
-		this._state = options.data || {};
-		recompute(this._state, this._state, {}, true);
-
-		this._observers = {
-			pre: Object.create(null),
-			post: Object.create(null)
-		};
-
-		this._handlers = Object.create(null);
-
-		this._root = options._root || this;
-		this._yield = options._yield;
-
-		this._torndown = false;
-		this._renderHooks = [];
-
-		this._fragment = create_main_fragment(this._state, this);
-		if (options.target) this._fragment.mount(options.target, null);
-		this._flush();
-	}
-
-	assign(NavigationGroup.prototype, {
-		get: get,
-		fire: fire,
-		observe: observe,
-		on: on,
-		set: set,
-		_flush: _flush
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
 	});
-
-	NavigationGroup.prototype._set = function _set(newState) {
-		var oldState = this._state;
-		this._state = assign({}, oldState, newState);
-		recompute(this._state, newState, oldState, false);
-		dispatchObservers(this, this._observers.pre, newState, oldState);
-		this._fragment.update(newState, this._state);
-		dispatchObservers(this, this._observers.post, newState, oldState);
-		this._flush();
-	};
-
-	NavigationGroup.prototype.teardown = NavigationGroup.prototype.destroy = function destroy(detach) {
-		this.fire('destroy');
-
-		this._fragment.destroy(detach !== false);
-		this._fragment = null;
-
-		this._state = {};
-		this._torndown = true;
-	};
-
-	function createElement(name) {
-		return document.createElement(name);
-	}
-
-	function insertNode(node, target, anchor) {
-		target.insertBefore(node, anchor);
-	}
-
-	function detachNode(node) {
-		node.parentNode.removeChild(node);
-	}
-
-	function createText(data) {
-		return document.createTextNode(data);
-	}
-
-	function destroyEach(iterations, detach, start) {
-		for (var i = start; i < iterations.length; i += 1) {
-			if (iterations[i]) iterations[i].destroy(detach);
-		}
-	}
-
-	function createComment() {
-		return document.createComment('');
-	}
-
-	function differs(a, b) {
-		return a !== b || a && (typeof a === 'undefined' ? 'undefined' : _typeof(a)) === 'object' || typeof a === 'function';
-	}
-
-	function assign(target) {
-		for (var i = 1; i < arguments.length; i += 1) {
-			var source = arguments[i];
-			for (var k in source) {
-				target[k] = source[k];
-			}
-		}
-
-		return target;
-	}
-
-	function dispatchObservers(component, group, newState, oldState) {
-		for (var key in group) {
-			if (!(key in newState)) continue;
-
-			var newValue = newState[key];
-			var oldValue = oldState[key];
-
-			if (differs(newValue, oldValue)) {
-				var callbacks = group[key];
-				if (!callbacks) continue;
-
-				for (var i = 0; i < callbacks.length; i += 1) {
-					var callback = callbacks[i];
-					if (callback.__calling) continue;
-
-					callback.__calling = true;
-					callback.call(component, newValue, oldValue);
-					callback.__calling = false;
-				}
-			}
-		}
-	}
-
-	function get(key) {
-		return key ? this._state[key] : this._state;
-	}
-
-	function fire(eventName, data) {
-		var handlers = eventName in this._handlers && this._handlers[eventName].slice();
-		if (!handlers) return;
-
-		for (var i = 0; i < handlers.length; i += 1) {
-			handlers[i].call(this, data);
-		}
-	}
-
-	function observe(key, callback, options) {
-		var group = options && options.defer ? this._observers.post : this._observers.pre;
-
-		(group[key] || (group[key] = [])).push(callback);
-
-		if (!options || options.init !== false) {
-			callback.__calling = true;
-			callback.call(this, this._state[key]);
-			callback.__calling = false;
-		}
-
-		return {
-			cancel: function cancel() {
-				var index = group[key].indexOf(callback);
-				if (~index) group[key].splice(index, 1);
-			}
-		};
-	}
-
-	function on(eventName, handler) {
-		if (eventName === 'teardown') return this.on('destroy', handler);
-
-		var handlers = this._handlers[eventName] || (this._handlers[eventName] = []);
-		handlers.push(handler);
-
-		return {
-			cancel: function cancel() {
-				var index = handlers.indexOf(handler);
-				if (~index) handlers.splice(index, 1);
-			}
-		};
-	}
-
-	function set(newState) {
-		this._set(assign({}, newState));
-		this._root._flush();
-	}
-
-	function _flush() {
-		if (!this._renderHooks) return;
-
-		while (this._renderHooks.length) {
-			this._renderHooks.pop()();
-		}
-	}
-
-	module.exports = NavigationGroup;
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(189);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _I18n = __webpack_require__(199);
+	
+	var _helpers = __webpack_require__(240);
+	
+	var _AppsList = __webpack_require__(236);
+	
+	var _AppsList2 = _interopRequireDefault(_AppsList);
+	
+	var _Settings = __webpack_require__(238);
+	
+	var _Settings2 = _interopRequireDefault(_Settings);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+	
+	function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var BUSY_DELAY = 450;
+	
+	var Nav = function (_Component) {
+	  _inherits(Nav, _Component);
+	
+	  function Nav(props, context) {
+	    _classCallCheck(this, Nav);
+	
+	    var _this = _possibleConstructorReturn(this, (Nav.__proto__ || Object.getPrototypeOf(Nav)).call(this, props));
+	
+	    _this.store = context.store;
+	    _this.state = {
+	      apps: {
+	        busy: false,
+	        opened: false
+	      },
+	      settings: {
+	        busy: false,
+	        opened: false
+	      }
+	    };
+	    // handle click outside to close popups
+	    _this.onClickOutside = _this.onClickOutside.bind(_this);
+	    document.body.addEventListener('click', _this.onClickOutside);
+	    return _this;
+	  }
+	
+	  _createClass(Nav, [{
+	    key: 'onClickOutside',
+	    value: function onClickOutside(event) {
+	      // if it's not a cozy-bar nav popup, close the opened popup
+	      if (!this.rootRef.contains(event.target)) {
+	        this.setState({ // reset all
+	          apps: { busy: false, opened: false },
+	          settings: { busy: false, opened: false }
+	        });
+	      }
+	      event.stopPropagation();
+	    }
+	  }, {
+	    key: 'toggleMenu',
+	    value: function () {
+	      var _ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee(slug) {
+	        var _this2 = this;
+	
+	        var stateUpdate, busySpinner;
+	        return regeneratorRuntime.wrap(function _callee$(_context) {
+	          while (1) {
+	            switch (_context.prev = _context.next) {
+	              case 0:
+	                stateUpdate = { // reset all
+	                  apps: { busy: false, opened: false },
+	                  settings: { busy: false, opened: false }
+	                };
+	                // if popup already opened, stop here to close it
+	
+	                if (!this.state[slug].opened) {
+	                  _context.next = 3;
+	                  break;
+	                }
+	
+	                return _context.abrupt('return', this.setState(stateUpdate));
+	
+	              case 3:
+	                this.setState(stateUpdate);
+	                // display the loading spinner after BUSY_DELAY secs
+	                busySpinner = setTimeout(function () {
+	                  return _this2.setState(_defineProperty({}, slug, { busy: true }));
+	                }, BUSY_DELAY);
+	                // fetch data
+	
+	                _context.t0 = slug;
+	                _context.next = _context.t0 === 'apps' ? 8 : _context.t0 === 'settings' ? 13 : 18;
+	                break;
+	
+	              case 8:
+	                _context.next = 10;
+	                return this.store.fetchAppsList();
+	
+	              case 10:
+	                clearTimeout(busySpinner);
+	                this.setState({
+	                  apps: { busy: false, opened: true }
+	                });
+	                return _context.abrupt('break', 18);
+	
+	              case 13:
+	                _context.next = 15;
+	                return this.store.fetchSettingsData();
+	
+	              case 15:
+	                clearTimeout(busySpinner);
+	                this.setState({
+	                  settings: { busy: false, opened: true }
+	                });
+	                return _context.abrupt('break', 18);
+	
+	              case 18:
+	              case 'end':
+	                return _context.stop();
+	            }
+	          }
+	        }, _callee, this);
+	      }));
+	
+	      function toggleMenu(_x) {
+	        return _ref.apply(this, arguments);
+	      }
+	
+	      return toggleMenu;
+	    }()
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _this3 = this;
+	
+	      var t = this.props.t;
+	      var _state = this.state,
+	          apps = _state.apps,
+	          settings = _state.settings;
+	      var _store = this.store,
+	          appsList = _store.appsList,
+	          settingsData = _store.settingsData;
+	
+	      var categories = !appsList.error ? (0, _helpers.getCategorizedItems)(appsList, t) : appsList;
+	      return _react2.default.createElement(
+	        'nav',
+	        { 'class': 'coz-nav', ref: function ref(_ref2) {
+	            _this3.rootRef = _ref2;
+	          } },
+	        _react2.default.createElement(
+	          'ul',
+	          null,
+	          _react2.default.createElement(
+	            'li',
+	            { 'class': 'coz-nav-section' },
+	            _react2.default.createElement(
+	              'a',
+	              {
+	                onClick: function onClick() {
+	                  return _this3.toggleMenu('apps');
+	                },
+	                'aria-controls': 'coz-nav-pop--apps', 'aria-busy': apps.busy,
+	                'data-icon': 'icon-cube'
+	              },
+	              t('menu.apps')
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { 'class': 'coz-nav-pop coz-nav-pop--apps', id: 'coz-nav-pop--apps', 'aria-hidden': !apps.opened },
+	              categories.error && _react2.default.createElement(
+	                'p',
+	                { 'class': 'coz-nav--error coz-nav-group' },
+	                t('error_' + apps.error.name)
+	              ),
+	              categories.length ? _react2.default.createElement(_AppsList2.default, { categories: categories, wrappingLimit: 4 }) : _react2.default.createElement(
+	                'p',
+	                { 'class': 'coz-nav--error coz-nav-group' },
+	                t('no_apps')
+	              )
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'li',
+	            { 'class': 'coz-nav-section' },
+	            _react2.default.createElement(
+	              'a',
+	              {
+	                onClick: function onClick() {
+	                  return _this3.toggleMenu('settings');
+	                },
+	                'aria-controls': 'coz-nav-pop--settings', 'aria-busy': settings.busy,
+	                'data-icon': 'icon-cog'
+	              },
+	              t('menu.settings')
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { 'class': 'coz-nav-pop coz-nav-pop--settings', id: 'coz-nav-pop--settings', 'aria-hidden': !settings.opened },
+	              settingsData && _react2.default.createElement(_Settings2.default, {
+	                onLogOut: function onLogOut() {
+	                  return _this3.store.logout();
+	                },
+	                settingsData: settingsData
+	              })
+	            )
+	          )
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return Nav;
+	}(_react.Component);
+	
+	exports.default = (0, _I18n.translate)()(Nav);
 
 /***/ },
-/* 273 */
+/* 242 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-	
-	var __import0 = __webpack_require__(189);
-	
-	var stack = __webpack_require__(251);
-	
-	var Storage = __webpack_require__(274);
-	
-	var t = __import0.t;
-	stack = stack && stack.__esModule ? stack['default'] : stack;
-	Storage = Storage && Storage.__esModule ? Storage['default'] : Storage;
-	
-	function recompute(state, newState, oldState, isInitial) {
-		if (isInitial || 'item' in newState && differs(state.item, oldState.item)) {
-			state.isBusy = newState.isBusy = template.computed.isBusy(state.item);
-			state.fileIcon = newState.fileIcon = template.computed.fileIcon(state.item);
-			state.dataIcon = newState.dataIcon = template.computed.dataIcon(state.item);
-			state.label = newState.label = template.computed.label(state.item);
-		}
-	}
-	
-	var template = function () {
-		return {
-			computed: {
-				isBusy: function isBusy(item) {
-					if (!item.component) {
-						return false;
-					}
-	
-					if (item.component === 'storage') {
-						item.currentDiskUsage !== null;
-					}
-				},
-				fileIcon: function fileIcon(item) {
-					if (!item.icon) {
-						return false;
-					}
-	
-					if (item.icon.cached) {
-						return {
-							src: item.icon.src
-						};
-					} else {
-						return {
-							src: __webpack_require__(275),
-							class: 'blurry'
-						};
-					}
-				},
-				dataIcon: function dataIcon(item) {
-					if (!item.icon) {
-						return 'icon-' + item.slug;
-					}
-				},
-				label: function label(item) {
-					if (item.name) {
-						var displayName = (item.editor ? item.editor + ' ' : '') + item.name;
-						if (item.l10n == null || item.l10n) {
-							return t(displayName);
-						} else {
-							return displayName;
-						}
-					} else if (item.slug) {
-						if (item.l10n == null || item.l10n) {
-							return t(item.slug);
-						} else {
-							return item.slug;
-						}
-					}
-				}
-			},
-	
-			helpers: { t: t },
-	
-			methods: {
-				proxy: function proxy(actionName) {
-					stack[actionName]();
-				}
-			}
-		};
-	}();
-	
-	function create_main_fragment(state, component) {
-		var li = createElement('li');
-		li.className = "coz-nav-item";
-	
-		function get_block(state) {
-			if (state.item.component) return create_if_block;
-			if (state.item.inactive) return create_if_block_2;
-			if (state.item.href) return create_if_block_3;
-			if (state.item.action) return create_if_block_5;
-			if (state.item.event) return create_if_block_7;
-			if (state.item.comingSoon) return create_if_block_9;
-			return create_if_block_11;
-		}
-	
-		var current_block = get_block(state);
-		var if_block = current_block(state, component);
-	
-		if_block.mount(li, null);
-	
-		return {
-			mount: function mount(target, anchor) {
-				insertNode(li, target, anchor);
-			},
-	
-			update: function update(changed, state) {
-				if (current_block === (current_block = get_block(state)) && if_block) {
-					if_block.update(changed, state);
-				} else {
-					if_block.destroy(true);
-					if_block = current_block(state, component);
-					if_block.mount(li, null);
-				}
-			},
-	
-			destroy: function destroy(detach) {
-				if_block.destroy(false);
-	
-				if (detach) {
-					detachNode(li);
-				}
-			}
-		};
-	}
-	
-	function create_if_block_1(state, component) {
-		var storage = new Storage({
-			target: null,
-			_root: component._root,
-			data: {
-				diskUsageFromStack: state.item.currentDiskUsage,
-				diskQuotaFromStack: state.item.currentDiskQuota
-			}
-		});
-	
-		return {
-			mount: function mount(target, anchor) {
-				storage._fragment.mount(target, anchor);
-			},
-	
-			update: function update(changed, state) {
-				var storage_changes = {};
-	
-				if ('item' in changed) storage_changes.diskUsageFromStack = state.item.currentDiskUsage;
-				if ('item' in changed) storage_changes.diskQuotaFromStack = state.item.currentDiskQuota;
-	
-				if (Object.keys(storage_changes).length) storage.set(storage_changes);
-			},
-	
-			destroy: function destroy(detach) {
-				storage.destroy(detach);
-			}
-		};
-	}
-	
-	function create_if_block_4(state, component) {
-		var img_src_value, img_class_value;
-	
-		var img = createElement('img');
-		img.src = img_src_value = state.fileIcon.src;
-		img.alt = '';
-		img.width = "64";
-		img.height = "64";
-		img.className = img_class_value = state.fileIcon.class ? state.fileIcon.class : "";
-	
-		return {
-			mount: function mount(target, anchor) {
-				insertNode(img, target, anchor);
-			},
-	
-			update: function update(changed, state) {
-				if (img_src_value !== (img_src_value = state.fileIcon.src)) {
-					img.src = img_src_value;
-				}
-	
-				if (img_class_value !== (img_class_value = state.fileIcon.class ? state.fileIcon.class : "")) {
-					img.className = img_class_value;
-				}
-			},
-	
-			destroy: function destroy(detach) {
-				if (detach) {
-					detachNode(img);
-				}
-			}
-		};
-	}
-	
-	function create_if_block_6(state, component) {
-		var img_src_value, img_class_value;
-	
-		var img = createElement('img');
-		img.src = img_src_value = state.fileIcon.src;
-		img.alt = '';
-		img.width = "64";
-		img.height = "64";
-		img.className = img_class_value = state.fileIcon.class ? state.fileIcon.class : "";
-	
-		return {
-			mount: function mount(target, anchor) {
-				insertNode(img, target, anchor);
-			},
-	
-			update: function update(changed, state) {
-				if (img_src_value !== (img_src_value = state.fileIcon.src)) {
-					img.src = img_src_value;
-				}
-	
-				if (img_class_value !== (img_class_value = state.fileIcon.class ? state.fileIcon.class : "")) {
-					img.className = img_class_value;
-				}
-			},
-	
-			destroy: function destroy(detach) {
-				if (detach) {
-					detachNode(img);
-				}
-			}
-		};
-	}
-	
-	function create_if_block_8(state, component) {
-		var img_src_value, img_class_value;
-	
-		var img = createElement('img');
-		img.src = img_src_value = state.fileIcon.src;
-		img.alt = '';
-		img.width = "64";
-		img.height = "64";
-		img.className = img_class_value = state.fileIcon.class ? state.fileIcon.class : "";
-	
-		return {
-			mount: function mount(target, anchor) {
-				insertNode(img, target, anchor);
-			},
-	
-			update: function update(changed, state) {
-				if (img_src_value !== (img_src_value = state.fileIcon.src)) {
-					img.src = img_src_value;
-				}
-	
-				if (img_class_value !== (img_class_value = state.fileIcon.class ? state.fileIcon.class : "")) {
-					img.className = img_class_value;
-				}
-			},
-	
-			destroy: function destroy(detach) {
-				if (detach) {
-					detachNode(img);
-				}
-			}
-		};
-	}
-	
-	function create_if_block_10(state, component) {
-		var img_src_value, img_class_value, text_1_value;
-	
-		var img = createElement('img');
-		img.src = img_src_value = state.fileIcon.src;
-		img.alt = '';
-		img.width = "64";
-		img.height = "64";
-		img.className = img_class_value = state.fileIcon.class ? state.fileIcon.class : "";
-		var text = createText("\n        ");
-		var span = createElement('span');
-		span.className = "coz-bar-coming-soon-badge";
-		var text_1 = createText(text_1_value = template.helpers.t('soon'));
-		appendNode(text_1, span);
-	
-		return {
-			mount: function mount(target, anchor) {
-				insertNode(img, target, anchor);
-				insertNode(text, target, anchor);
-				insertNode(span, target, anchor);
-			},
-	
-			update: function update(changed, state) {
-				if (img_src_value !== (img_src_value = state.fileIcon.src)) {
-					img.src = img_src_value;
-				}
-	
-				if (img_class_value !== (img_class_value = state.fileIcon.class ? state.fileIcon.class : "")) {
-					img.className = img_class_value;
-				}
-	
-				if (text_1_value !== (text_1_value = template.helpers.t('soon'))) {
-					text_1.data = text_1_value;
-				}
-			},
-	
-			destroy: function destroy(detach) {
-				if (detach) {
-					detachNode(img);
-					detachNode(text);
-					detachNode(span);
-				}
-			}
-		};
-	}
-	
-	function create_if_block(state, component) {
-		var div_data_icon_value, div_aria_busy_value, text_value;
-	
-		var div = createElement('div');
-		setAttribute(div, 'role', "menuitem");
-		setAttribute(div, 'data-icon', div_data_icon_value = state.dataIcon ? state.dataIcon : "");
-		setAttribute(div, 'aria-busy', div_aria_busy_value = state.isBusy);
-		var text = createText(text_value = state.label);
-		appendNode(text, div);
-		appendNode(createText("\n      "), div);
-	
-		var if_block_1 = state.item.component === 'storage' && create_if_block_1(state, component);
-	
-		if (if_block_1) if_block_1.mount(div, null);
-	
-		return {
-			mount: function mount(target, anchor) {
-				insertNode(div, target, anchor);
-			},
-	
-			update: function update(changed, state) {
-				if (div_data_icon_value !== (div_data_icon_value = state.dataIcon ? state.dataIcon : "")) {
-					setAttribute(div, 'data-icon', div_data_icon_value);
-				}
-	
-				if (div_aria_busy_value !== (div_aria_busy_value = state.isBusy)) {
-					setAttribute(div, 'aria-busy', div_aria_busy_value);
-				}
-	
-				if (text_value !== (text_value = state.label)) {
-					text.data = text_value;
-				}
-	
-				if (state.item.component === 'storage') {
-					if (if_block_1) {
-						if_block_1.update(changed, state);
-					} else {
-						if_block_1 = create_if_block_1(state, component);
-						if_block_1.mount(div, null);
-					}
-				} else if (if_block_1) {
-					if_block_1.destroy(true);
-					if_block_1 = null;
-				}
-			},
-	
-			destroy: function destroy(detach) {
-				if (if_block_1) if_block_1.destroy(false);
-	
-				if (detach) {
-					detachNode(div);
-				}
-			}
-		};
-	}
-	
-	function create_if_block_2(state, component) {
-		var text_value;
-	
-		var div = createElement('div');
-		setAttribute(div, 'role', "menuitem");
-		var p = createElement('p');
-		appendNode(p, div);
-		p.className = "coz-bar-text-item coz-bar-text-item--inactive";
-		var text = createText(text_value = state.label);
-		appendNode(text, p);
-	
-		return {
-			mount: function mount(target, anchor) {
-				insertNode(div, target, anchor);
-			},
-	
-			update: function update(changed, state) {
-				if (text_value !== (text_value = state.label)) {
-					text.data = text_value;
-				}
-			},
-	
-			destroy: function destroy(detach) {
-				if (detach) {
-					detachNode(div);
-				}
-			}
-		};
-	}
-	
-	function create_if_block_3(state, component) {
-		var a_href_value, a_target_value, a_data_icon_value, a_title_value, text_1_value;
-	
-		var a = createElement('a');
-		setAttribute(a, 'role', "menuitem");
-		a.href = a_href_value = state.item.href;
-		a.target = a_target_value = state.item.external ? "_blank" : "_self";
-		setAttribute(a, 'data-icon', a_data_icon_value = state.dataIcon ? state.dataIcon : "");
-		a.title = a_title_value = state.label;
-	
-		var if_block_2 = state.fileIcon && create_if_block_4(state, component);
-	
-		if (if_block_2) if_block_2.mount(a, null);
-		var text = createText("\n      ");
-		appendNode(text, a);
-		var p = createElement('p');
-		appendNode(p, a);
-		p.className = "coz-label";
-		var text_1 = createText(text_1_value = state.label);
-		appendNode(text_1, p);
-	
-		return {
-			mount: function mount(target, anchor) {
-				insertNode(a, target, anchor);
-			},
-	
-			update: function update(changed, state) {
-				if (a_href_value !== (a_href_value = state.item.href)) {
-					a.href = a_href_value;
-				}
-	
-				if (a_target_value !== (a_target_value = state.item.external ? "_blank" : "_self")) {
-					a.target = a_target_value;
-				}
-	
-				if (a_data_icon_value !== (a_data_icon_value = state.dataIcon ? state.dataIcon : "")) {
-					setAttribute(a, 'data-icon', a_data_icon_value);
-				}
-	
-				if (a_title_value !== (a_title_value = state.label)) {
-					a.title = a_title_value;
-				}
-	
-				if (state.fileIcon) {
-					if (if_block_2) {
-						if_block_2.update(changed, state);
-					} else {
-						if_block_2 = create_if_block_4(state, component);
-						if_block_2.mount(a, text);
-					}
-				} else if (if_block_2) {
-					if_block_2.destroy(true);
-					if_block_2 = null;
-				}
-	
-				if (text_1_value !== (text_1_value = state.label)) {
-					text_1.data = text_1_value;
-				}
-			},
-	
-			destroy: function destroy(detach) {
-				if (if_block_2) if_block_2.destroy(false);
-	
-				if (detach) {
-					detachNode(a);
-				}
-			}
-		};
-	}
-	
-	function create_if_block_5(state, component) {
-		var button_data_icon_value, button_title_value, text_1_value;
-	
-		var button = createElement('button');
-		setAttribute(button, 'role', "menuitem");
-		setAttribute(button, 'data-icon', button_data_icon_value = state.dataIcon ? state.dataIcon : "");
-		button.title = button_title_value = state.label;
-	
-		function click_handler(event) {
-			var state = component.get();
-			component.proxy(state.item.action);
-		}
-	
-		addEventListener(button, 'click', click_handler);
-	
-		var if_block_3 = state.fileIcon && create_if_block_6(state, component);
-	
-		if (if_block_3) if_block_3.mount(button, null);
-		var text = createText("\n      ");
-		appendNode(text, button);
-		var text_1 = createText(text_1_value = state.label);
-		appendNode(text_1, button);
-	
-		return {
-			mount: function mount(target, anchor) {
-				insertNode(button, target, anchor);
-			},
-	
-			update: function update(changed, state) {
-				if (button_data_icon_value !== (button_data_icon_value = state.dataIcon ? state.dataIcon : "")) {
-					setAttribute(button, 'data-icon', button_data_icon_value);
-				}
-	
-				if (button_title_value !== (button_title_value = state.label)) {
-					button.title = button_title_value;
-				}
-	
-				if (state.fileIcon) {
-					if (if_block_3) {
-						if_block_3.update(changed, state);
-					} else {
-						if_block_3 = create_if_block_6(state, component);
-						if_block_3.mount(button, text);
-					}
-				} else if (if_block_3) {
-					if_block_3.destroy(true);
-					if_block_3 = null;
-				}
-	
-				if (text_1_value !== (text_1_value = state.label)) {
-					text_1.data = text_1_value;
-				}
-			},
-	
-			destroy: function destroy(detach) {
-				removeEventListener(button, 'click', click_handler);
-				if (if_block_3) if_block_3.destroy(false);
-	
-				if (detach) {
-					detachNode(button);
-				}
-			}
-		};
-	}
-	
-	function create_if_block_7(state, component) {
-		var button_data_icon_value, text_1_value;
-	
-		var button = createElement('button');
-		setAttribute(button, 'role', "menuitem");
-		setAttribute(button, 'data-icon', button_data_icon_value = state.dataIcon ? state.dataIcon : "");
-	
-		function click_handler(event) {
-			var state = component.get();
-			component.fire(state.item.event);
-		}
-	
-		addEventListener(button, 'click', click_handler);
-	
-		var if_block_4 = state.fileIcon && create_if_block_8(state, component);
-	
-		if (if_block_4) if_block_4.mount(button, null);
-		var text = createText("\n      ");
-		appendNode(text, button);
-		var text_1 = createText(text_1_value = state.label);
-		appendNode(text_1, button);
-	
-		return {
-			mount: function mount(target, anchor) {
-				insertNode(button, target, anchor);
-			},
-	
-			update: function update(changed, state) {
-				if (button_data_icon_value !== (button_data_icon_value = state.dataIcon ? state.dataIcon : "")) {
-					setAttribute(button, 'data-icon', button_data_icon_value);
-				}
-	
-				if (state.fileIcon) {
-					if (if_block_4) {
-						if_block_4.update(changed, state);
-					} else {
-						if_block_4 = create_if_block_8(state, component);
-						if_block_4.mount(button, text);
-					}
-				} else if (if_block_4) {
-					if_block_4.destroy(true);
-					if_block_4 = null;
-				}
-	
-				if (text_1_value !== (text_1_value = state.label)) {
-					text_1.data = text_1_value;
-				}
-			},
-	
-			destroy: function destroy(detach) {
-				removeEventListener(button, 'click', click_handler);
-				if (if_block_4) if_block_4.destroy(false);
-	
-				if (detach) {
-					detachNode(button);
-				}
-			}
-		};
-	}
-	
-	function create_if_block_9(state, component) {
-		var a_data_icon_value, a_title_value, text_1_value;
-	
-		var a = createElement('a');
-		setAttribute(a, 'role', "menuitem");
-		setAttribute(a, 'data-icon', a_data_icon_value = state.dataIcon ? state.dataIcon : "");
-		a.className = "coz-bar-coming-soon-app";
-		a.title = a_title_value = state.label;
-	
-		var if_block_5 = state.fileIcon && create_if_block_10(state, component);
-	
-		if (if_block_5) if_block_5.mount(a, null);
-		var text = createText("\n      ");
-		appendNode(text, a);
-		var p = createElement('p');
-		appendNode(p, a);
-		p.className = "coz-label";
-		var text_1 = createText(text_1_value = state.label);
-		appendNode(text_1, p);
-	
-		return {
-			mount: function mount(target, anchor) {
-				insertNode(a, target, anchor);
-			},
-	
-			update: function update(changed, state) {
-				if (a_data_icon_value !== (a_data_icon_value = state.dataIcon ? state.dataIcon : "")) {
-					setAttribute(a, 'data-icon', a_data_icon_value);
-				}
-	
-				if (a_title_value !== (a_title_value = state.label)) {
-					a.title = a_title_value;
-				}
-	
-				if (state.fileIcon) {
-					if (if_block_5) {
-						if_block_5.update(changed, state);
-					} else {
-						if_block_5 = create_if_block_10(state, component);
-						if_block_5.mount(a, text);
-					}
-				} else if (if_block_5) {
-					if_block_5.destroy(true);
-					if_block_5 = null;
-				}
-	
-				if (text_1_value !== (text_1_value = state.label)) {
-					text_1.data = text_1_value;
-				}
-			},
-	
-			destroy: function destroy(detach) {
-				if (if_block_5) if_block_5.destroy(false);
-	
-				if (detach) {
-					detachNode(a);
-				}
-			}
-		};
-	}
-	
-	function create_if_block_11(state, component) {
-		var text_value;
-	
-		var div = createElement('div');
-		setAttribute(div, 'role', "menuitem");
-		var p = createElement('p');
-		appendNode(p, div);
-		p.className = "coz-bar-text-item";
-		var text = createText(text_value = state.label);
-		appendNode(text, p);
-	
-		return {
-			mount: function mount(target, anchor) {
-				insertNode(div, target, anchor);
-			},
-	
-			update: function update(changed, state) {
-				if (text_value !== (text_value = state.label)) {
-					text.data = text_value;
-				}
-			},
-
-			destroy: function destroy(detach) {
-				if (detach) {
-					detachNode(div);
-				}
-			}
-		};
-	}
-
-	function NavigationItem(options) {
-		options = options || {};
-		this._state = options.data || {};
-		recompute(this._state, this._state, {}, true);
-
-		this._observers = {
-			pre: Object.create(null),
-			post: Object.create(null)
-		};
-
-		this._handlers = Object.create(null);
-
-		this._root = options._root || this;
-		this._yield = options._yield;
-
-		this._torndown = false;
-		this._renderHooks = [];
-
-		this._fragment = create_main_fragment(this._state, this);
-		if (options.target) this._fragment.mount(options.target, null);
-		this._flush();
-	}
-
-	assign(NavigationItem.prototype, template.methods, {
-		get: get,
-		fire: fire,
-		observe: observe,
-		on: on,
-		set: set,
-		_flush: _flush
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
 	});
-
-	NavigationItem.prototype._set = function _set(newState) {
-		var oldState = this._state;
-		this._state = assign({}, oldState, newState);
-		recompute(this._state, newState, oldState, false);
-		dispatchObservers(this, this._observers.pre, newState, oldState);
-		this._fragment.update(newState, this._state);
-		dispatchObservers(this, this._observers.post, newState, oldState);
-		this._flush();
+	
+	var _react = __webpack_require__(189);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _ClaudyMenu = __webpack_require__(243);
+	
+	var _ClaudyMenu2 = _interopRequireDefault(_ClaudyMenu);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var Claudy = function Claudy(_ref) {
+	  var opened = _ref.opened,
+	      onToggle = _ref.onToggle,
+	      config = _ref.config,
+	      usageTracker = _ref.usageTracker,
+	      appsList = _ref.appsList;
+	  return _react2.default.createElement(
+	    'div',
+	    { 'class': 'coz-claudy ' + (opened ? 'coz-claudy--opened' : '') },
+	    _react2.default.createElement('button', { 'class': 'coz-claudy-icon coz-bar-hide-sm', 'data-claudy-opened': opened, onClick: onToggle }),
+	    _react2.default.createElement(_ClaudyMenu2.default, { actions: config.actions, onClose: onToggle, usageTracker: usageTracker, appsList: appsList })
+	  );
 	};
-
-	NavigationItem.prototype.teardown = NavigationItem.prototype.destroy = function destroy(detach) {
-		this.fire('destroy');
-
-		this._fragment.destroy(detach !== false);
-		this._fragment = null;
-
-		this._state = {};
-		this._torndown = true;
-	};
-
-	function createElement(name) {
-		return document.createElement(name);
-	}
-
-	function insertNode(node, target, anchor) {
-		target.insertBefore(node, anchor);
-	}
-
-	function detachNode(node) {
-		node.parentNode.removeChild(node);
-	}
-
-	function setAttribute(node, attribute, value) {
-		node.setAttribute(attribute, value);
-	}
-
-	function createText(data) {
-		return document.createTextNode(data);
-	}
-
-	function appendNode(node, target) {
-		target.appendChild(node);
-	}
-
-	function addEventListener(node, event, handler) {
-		node.addEventListener(event, handler, false);
-	}
-
-	function removeEventListener(node, event, handler) {
-		node.removeEventListener(event, handler, false);
-	}
-
-	function differs(a, b) {
-		return a !== b || a && (typeof a === 'undefined' ? 'undefined' : _typeof(a)) === 'object' || typeof a === 'function';
-	}
-
-	function assign(target) {
-		for (var i = 1; i < arguments.length; i += 1) {
-			var source = arguments[i];
-			for (var k in source) {
-				target[k] = source[k];
-			}
-		}
-
-		return target;
-	}
-
-	function dispatchObservers(component, group, newState, oldState) {
-		for (var key in group) {
-			if (!(key in newState)) continue;
-
-			var newValue = newState[key];
-			var oldValue = oldState[key];
-
-			if (differs(newValue, oldValue)) {
-				var callbacks = group[key];
-				if (!callbacks) continue;
-
-				for (var i = 0; i < callbacks.length; i += 1) {
-					var callback = callbacks[i];
-					if (callback.__calling) continue;
-
-					callback.__calling = true;
-					callback.call(component, newValue, oldValue);
-					callback.__calling = false;
-				}
-			}
-		}
-	}
-
-	function get(key) {
-		return key ? this._state[key] : this._state;
-	}
-
-	function fire(eventName, data) {
-		var handlers = eventName in this._handlers && this._handlers[eventName].slice();
-		if (!handlers) return;
-
-		for (var i = 0; i < handlers.length; i += 1) {
-			handlers[i].call(this, data);
-		}
-	}
-
-	function observe(key, callback, options) {
-		var group = options && options.defer ? this._observers.post : this._observers.pre;
-
-		(group[key] || (group[key] = [])).push(callback);
-
-		if (!options || options.init !== false) {
-			callback.__calling = true;
-			callback.call(this, this._state[key]);
-			callback.__calling = false;
-		}
-
-		return {
-			cancel: function cancel() {
-				var index = group[key].indexOf(callback);
-				if (~index) group[key].splice(index, 1);
-			}
-		};
-	}
-
-	function on(eventName, handler) {
-		if (eventName === 'teardown') return this.on('destroy', handler);
-
-		var handlers = this._handlers[eventName] || (this._handlers[eventName] = []);
-		handlers.push(handler);
-
-		return {
-			cancel: function cancel() {
-				var index = handlers.indexOf(handler);
-				if (~index) handlers.splice(index, 1);
-			}
-		};
-	}
-
-	function set(newState) {
-		this._set(assign({}, newState));
-		this._root._flush();
-	}
-
-	function _flush() {
-		if (!this._renderHooks) return;
-
-		while (this._renderHooks.length) {
-			this._renderHooks.pop()();
-		}
-	}
-
-	module.exports = NavigationItem;
+	
+	exports.default = Claudy;
 
 /***/ },
-/* 274 */
+/* 243 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-	
-	var __import0 = __webpack_require__(189);
-	
-	var t = __import0.t;
-	
-	function recompute(state, newState, oldState, isInitial) {
-		if (isInitial || 'diskQuotaFromStack' in newState && differs(state.diskQuotaFromStack, oldState.diskQuotaFromStack)) {
-			state.diskQuota = newState.diskQuota = template.computed.diskQuota(state.diskQuotaFromStack);
-		}
-	
-		if (isInitial || 'diskUsageFromStack' in newState && differs(state.diskUsageFromStack, oldState.diskUsageFromStack)) {
-			state.diskUsage = newState.diskUsage = template.computed.diskUsage(state.diskUsageFromStack);
-		}
-	}
-	
-	var template = function () {
-		return {
-			computed: {
-				diskQuota: function diskQuota(diskQuotaFromStack) {
-					if (Number.isInteger(diskQuotaFromStack)) {
-						return (diskQuotaFromStack / (1024 * 1024 * 1024)).toFixed(2);
-					}
-					return diskQuotaFromStack;
-				},
-				diskUsage: function diskUsage(diskUsageFromStack) {
-					if (Number.isInteger(diskUsageFromStack)) {
-						return (diskUsageFromStack / (1024 * 1024 * 1024)).toFixed(2);
-					}
-					return diskUsageFromStack;
-				}
-			},
-	
-			helpers: { t: t }
-		};
-	}();
-	
-	function create_main_fragment(state, component) {
-		var div = createElement('div');
-		div.className = "coz-nav-storage";
-	
-		function get_block(state) {
-			if (state.diskUsage && !state.diskUsage.error) return create_if_block;
-			if (state.diskUsage && state.diskUsage.error) return create_if_block_1;
-			return null;
-		}
-	
-		var current_block = get_block(state);
-		var if_block = current_block && current_block(state, component);
-	
-		if (if_block) if_block.mount(div, null);
-	
-		return {
-			mount: function mount(target, anchor) {
-				insertNode(div, target, anchor);
-			},
-	
-			update: function update(changed, state) {
-				if (current_block === (current_block = get_block(state)) && if_block) {
-					if_block.update(changed, state);
-				} else {
-					if (if_block) if_block.destroy(true);
-					if_block = current_block && current_block(state, component);
-					if (if_block) if_block.mount(div, null);
-				}
-			},
-	
-			destroy: function destroy(detach) {
-				if (if_block) if_block.destroy(false);
-	
-				if (detach) {
-					detachNode(div);
-				}
-			}
-		};
-	}
-	
-	function create_if_block(state, component) {
-		var text_value, progress_value_value, progress_max_value;
-	
-		var p = createElement('p');
-		p.className = "coz-nav-storage-text";
-		var text = createText(text_value = template.helpers.t('storage_phrase', {
-			diskUsage: state.diskUsage,
-			diskQuota: state.diskQuota
-		}));
-		appendNode(text, p);
-		var text_1 = createText("\n  ");
-		var progress = createElement('progress');
-		progress.className = "cozy-nav-storage-bar";
-		progress.value = progress_value_value = state.diskUsage;
-		progress.max = progress_max_value = state.diskQuota;
-		setAttribute(progress, 'min', "0");
-	
-		return {
-			mount: function mount(target, anchor) {
-				insertNode(p, target, anchor);
-				insertNode(text_1, target, anchor);
-				insertNode(progress, target, anchor);
-			},
-	
-			update: function update(changed, state) {
-				if (text_value !== (text_value = template.helpers.t('storage_phrase', {
-					diskUsage: state.diskUsage,
-					diskQuota: state.diskQuota
-				}))) {
-					text.data = text_value;
-				}
-	
-				if (progress_value_value !== (progress_value_value = state.diskUsage)) {
-					progress.value = progress_value_value;
-				}
-	
-				if (progress_max_value !== (progress_max_value = state.diskQuota)) {
-					progress.max = progress_max_value;
-				}
-			},
-	
-			destroy: function destroy(detach) {
-				if (detach) {
-					detachNode(p);
-					detachNode(text_1);
-					detachNode(progress);
-				}
-			}
-		};
-	}
-	
-	function create_if_block_1(state, component) {
-		var text_value;
-	
-		var p = createElement('p');
-		p.className = "coz-nav--error";
-		var text = createText(text_value = template.helpers.t('error_' + state.diskUsage.error));
-		appendNode(text, p);
-	
-		return {
-			mount: function mount(target, anchor) {
-				insertNode(p, target, anchor);
-			},
-	
-			update: function update(changed, state) {
-				if (text_value !== (text_value = template.helpers.t('error_' + state.diskUsage.error))) {
-					text.data = text_value;
-				}
-			},
-
-			destroy: function destroy(detach) {
-				if (detach) {
-					detachNode(p);
-				}
-			}
-		};
-	}
-
-	function Storage(options) {
-		options = options || {};
-		this._state = options.data || {};
-		recompute(this._state, this._state, {}, true);
-
-		this._observers = {
-			pre: Object.create(null),
-			post: Object.create(null)
-		};
-
-		this._handlers = Object.create(null);
-
-		this._root = options._root || this;
-		this._yield = options._yield;
-
-		this._torndown = false;
-
-		this._fragment = create_main_fragment(this._state, this);
-		if (options.target) this._fragment.mount(options.target, null);
-	}
-
-	assign(Storage.prototype, {
-		get: get,
-		fire: fire,
-		observe: observe,
-		on: on,
-		set: set,
-		_flush: _flush
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
 	});
-
-	Storage.prototype._set = function _set(newState) {
-		var oldState = this._state;
-		this._state = assign({}, oldState, newState);
-		recompute(this._state, newState, oldState, false);
-		dispatchObservers(this, this._observers.pre, newState, oldState);
-		this._fragment.update(newState, this._state);
-		dispatchObservers(this, this._observers.post, newState, oldState);
-	};
-
-	Storage.prototype.teardown = Storage.prototype.destroy = function destroy(detach) {
-		this.fire('destroy');
-
-		this._fragment.destroy(detach !== false);
-		this._fragment = null;
-
-		this._state = {};
-		this._torndown = true;
-	};
-
-	function createElement(name) {
-		return document.createElement(name);
-	}
-
-	function insertNode(node, target, anchor) {
-		target.insertBefore(node, anchor);
-	}
-
-	function detachNode(node) {
-		node.parentNode.removeChild(node);
-	}
-
-	function createText(data) {
-		return document.createTextNode(data);
-	}
-
-	function appendNode(node, target) {
-		target.appendChild(node);
-	}
-
-	function setAttribute(node, attribute, value) {
-		node.setAttribute(attribute, value);
-	}
-
-	function differs(a, b) {
-		return a !== b || a && (typeof a === 'undefined' ? 'undefined' : _typeof(a)) === 'object' || typeof a === 'function';
-	}
-
-	function assign(target) {
-		for (var i = 1; i < arguments.length; i += 1) {
-			var source = arguments[i];
-			for (var k in source) {
-				target[k] = source[k];
-			}
-		}
-
-		return target;
-	}
-
-	function dispatchObservers(component, group, newState, oldState) {
-		for (var key in group) {
-			if (!(key in newState)) continue;
-
-			var newValue = newState[key];
-			var oldValue = oldState[key];
-
-			if (differs(newValue, oldValue)) {
-				var callbacks = group[key];
-				if (!callbacks) continue;
-
-				for (var i = 0; i < callbacks.length; i += 1) {
-					var callback = callbacks[i];
-					if (callback.__calling) continue;
-
-					callback.__calling = true;
-					callback.call(component, newValue, oldValue);
-					callback.__calling = false;
-				}
-			}
-		}
-	}
-
-	function get(key) {
-		return key ? this._state[key] : this._state;
-	}
-
-	function fire(eventName, data) {
-		var handlers = eventName in this._handlers && this._handlers[eventName].slice();
-		if (!handlers) return;
-
-		for (var i = 0; i < handlers.length; i += 1) {
-			handlers[i].call(this, data);
-		}
-	}
-
-	function observe(key, callback, options) {
-		var group = options && options.defer ? this._observers.post : this._observers.pre;
-
-		(group[key] || (group[key] = [])).push(callback);
-
-		if (!options || options.init !== false) {
-			callback.__calling = true;
-			callback.call(this, this._state[key]);
-			callback.__calling = false;
-		}
-
-		return {
-			cancel: function cancel() {
-				var index = group[key].indexOf(callback);
-				if (~index) group[key].splice(index, 1);
-			}
-		};
-	}
-
-	function on(eventName, handler) {
-		if (eventName === 'teardown') return this.on('destroy', handler);
-
-		var handlers = this._handlers[eventName] || (this._handlers[eventName] = []);
-		handlers.push(handler);
-
-		return {
-			cancel: function cancel() {
-				var index = handlers.indexOf(handler);
-				if (~index) handlers.splice(index, 1);
-			}
-		};
-	}
-
-	function set(newState) {
-		this._set(assign({}, newState));
-		this._root._flush();
-	}
-
-	function _flush() {
-		if (!this._renderHooks) return;
-
-		while (this._renderHooks.length) {
-			this._renderHooks.pop()();
-		}
-	}
-
-	module.exports = Storage;
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(189);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _I18n = __webpack_require__(199);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var ClaudyMenu = function (_Component) {
+	  _inherits(ClaudyMenu, _Component);
+	
+	  function ClaudyMenu(props) {
+	    _classCallCheck(this, ClaudyMenu);
+	
+	    var _this = _possibleConstructorReturn(this, (ClaudyMenu.__proto__ || Object.getPrototypeOf(ClaudyMenu)).call(this, props));
+	
+	    _this.state = {
+	      openedAction: false,
+	      selectedAction: null
+	    };
+	
+	    _this.computeSelectedActionUrl = _this.computeSelectedActionUrl.bind(_this);
+	    _this.goBack = _this.goBack.bind(_this);
+	    _this.selectAction = _this.selectAction.bind(_this);
+	    _this.trackActionLink = _this.trackActionLink.bind(_this);
+	    _this.getIcon = _this.getIcon.bind(_this);
+	    return _this;
+	  }
+	
+	  _createClass(ClaudyMenu, [{
+	    key: 'getIcon',
+	    value: function getIcon(iconName) {
+	      return __webpack_require__(244)("./" + iconName);
+	    }
+	  }, {
+	    key: 'computeSelectedActionUrl',
+	    value: function computeSelectedActionUrl() {
+	      if (!this.state.selectedAction) return null;
+	      var action = this.state.selectedAction;
+	      var _props = this.props,
+	          t = _props.t,
+	          appsList = _props.appsList;
+	
+	      if (action.link.type === 'apps' && action.link.appSlug) {
+	        if (!appsList) {
+	          console.warn('No apps found on the Cozy');
+	          return null;
+	        }
+	        var app = appsList.find(function (a) {
+	          return a.slug === action.link.appSlug;
+	        });
+	        if (app && app.href) {
+	          var appUrl = '' + app.href + (action.link.path || '');
+	          return appUrl;
+	        } else {
+	          console.warn('No app with slug \'' + action.link.appSlug + '\' found on the Cozy.');
+	          return null;
+	        }
+	      } else {
+	        var url = t('claudy.actions.' + action.slug + '.link');
+	        return url;
+	      }
+	    }
+	  }, {
+	    key: 'goBack',
+	    value: function goBack() {
+	      this.setState({ openedAction: false });
+	    }
+	  }, {
+	    key: 'trackActionLink',
+	    value: function trackActionLink(action) {
+	      var usageTracker = this.props.usageTracker;
+	      if (usageTracker) {
+	        usageTracker.push(['trackEvent', 'Claudy', 'openActionLink', '' + action.slug]);
+	      }
+	    }
+	  }, {
+	    key: 'selectAction',
+	    value: function selectAction(action) {
+	      var usageTracker = this.props.usageTracker;
+	      if (usageTracker) {
+	        usageTracker.push(['trackEvent', 'Claudy', 'openAction', '' + action.slug]);
+	      }
+	      this.setState({ selectedAction: action, openedAction: true });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _this2 = this;
+	
+	      var _props2 = this.props,
+	          t = _props2.t,
+	          onClose = _props2.onClose,
+	          actions = _props2.actions;
+	      var _state = this.state,
+	          openedAction = _state.openedAction,
+	          selectedAction = _state.selectedAction;
+	
+	      var selectedActionUrl = selectedAction && this.computeSelectedActionUrl() || null;
+	      return _react2.default.createElement(
+	        'div',
+	        { 'class': 'coz-claudy-menu ' + (openedAction ? 'coz-claudy-menu--action-selected' : '') },
+	        _react2.default.createElement(
+	          'header',
+	          { 'class': 'coz-claudy-menu-header' },
+	          _react2.default.createElement(
+	            'h2',
+	            { 'class': 'coz-claudy-menu-title' },
+	            t('claudy.title')
+	          ),
+	          _react2.default.createElement('button', { 'class': 'coz-btn-close', onClick: onClose }),
+	          _react2.default.createElement('button', { 'class': 'coz-claudy-menu-header-back-button', onClick: this.goBack })
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { 'class': 'coz-claudy-menu-content-wrapper' },
+	          _react2.default.createElement(
+	            'div',
+	            { 'class': 'coz-claudy-menu-content' },
+	            _react2.default.createElement(
+	              'div',
+	              { 'class': 'coz-claudy-menu-actions-list' },
+	              actions.map(function (action) {
+	                return _react2.default.createElement(
+	                  'a',
+	                  { 'class': 'coz-claudy-menu-action', onClick: function onClick() {
+	                      return _this2.selectAction(action);
+	                    } },
+	                  _react2.default.createElement('img', {
+	                    'class': 'coz-claudy-menu-action-icon',
+	                    src: _this2.getIcon(action.icon)
+	                  }),
+	                  _react2.default.createElement(
+	                    'p',
+	                    { 'class': 'coz-claudy-menu-action-title' },
+	                    t('claudy.actions.' + action.slug + '.title')
+	                  )
+	                );
+	              })
+	            ),
+	            selectedAction && _react2.default.createElement(
+	              'div',
+	              { 'class': 'coz-claudy-menu-action-description' },
+	              _react2.default.createElement(
+	                'div',
+	                { 'class': 'coz-claudy-menu-action-description-header' },
+	                _react2.default.createElement('img', {
+	                  'class': 'coz-claudy-menu-action-icon',
+	                  src: this.getIcon(selectedAction.icon)
+	                }),
+	                _react2.default.createElement(
+	                  'p',
+	                  { 'class': 'coz-claudy-menu-action-title' },
+	                  t('claudy.actions.' + selectedAction.slug + '.title')
+	                )
+	              ),
+	              _react2.default.createElement(
+	                'div',
+	                { 'class': 'coz-claudy-menu-action-description-content' },
+	                _react2.default.createElement(
+	                  'p',
+	                  { 'class': 'coz-claudy-menu-action-description-text' },
+	                  t('claudy.actions.' + selectedAction.slug + '.description')
+	                ),
+	                selectedActionUrl ? _react2.default.createElement(
+	                  'a',
+	                  {
+	                    href: selectedActionUrl,
+	                    role: 'button',
+	                    target: selectedAction.link.type === 'external' ? '_blank' : '_self',
+	                    'class': 'coz-btn-regular coz-claudy-menu-action-description-button',
+	                    onClick: function onClick() {
+	                      return _this2.trackActionLink(selectedAction);
+	                    }
+	                  },
+	                  t('claudy.actions.' + selectedAction.slug + '.button')
+	                ) : _react2.default.createElement(
+	                  'a',
+	                  {
+	                    role: 'button',
+	                    'class': 'coz-btn-regular coz-claudy-menu-action-description-button',
+	                    disabled: true,
+	                    title: 'App ' + selectedAction.slug + ' not found'
+	                  },
+	                  t('claudy.actions.' + selectedAction.slug + '.button')
+	                )
+	              )
+	            )
+	          )
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return ClaudyMenu;
+	}(_react.Component);
+	
+	exports.default = (0, _I18n.translate)()(ClaudyMenu);
 
 /***/ },
-/* 275 */
-/***/ function(module, exports) {
-
-	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICA8ZyBmaWxsPSIjOTU5OTlEIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0yODggLTMyKSI+CiAgICA8cGF0aCBkPSJNMjg5LDQzLjAwODYyOTYgQzI4OSw0My41NTg2NzMyIDI4OS4zOTY0MDcsNDQuMjMxMDg5OSAyODkuODcyNDAxLDQ0LjUwMzA4NjggTDI5NS4xMjc1OTksNDcuNTA2MDU2NiBDMjk1LjYwOTQxMyw0Ny43ODEzNzg5IDI5Niw0Ny41NTc4NzMgMjk2LDQ3LjAwODYyOTYgTDI5Niw0MS41MDA1MTM4IEMyOTYsNDAuOTUwNDcwMiAyOTUuNjAzNTkzLDQwLjI3ODA1MzUgMjk1LjEyNzU5OSw0MC4wMDYwNTY2IEwyODkuODcyNDAxLDM3LjAwMzA4NjggQzI4OS4zOTA1ODcsMzYuNzI3NzY0NSAyODksMzYuOTUxMjcwNCAyODksMzcuNTAwNTEzOCBMMjg5LDQzLjAwODYyOTYgWiBNMzA0LDQzLjAwODYyOTYgQzMwNCw0My41NTg2NzMyIDMwMy42MDM1OTMsNDQuMjMxMDg5OSAzMDMuMTI3NTk5LDQ0LjUwMzA4NjggTDI5Ny44NzI0MDEsNDcuNTA2MDU2NiBDMjk3LjM5MDU4Nyw0Ny43ODEzNzg5IDI5Nyw0Ny41NTc4NzMgMjk3LDQ3LjAwODYyOTYgTDI5Nyw0MS41MDA1MTM4IEMyOTcsNDAuOTUwNDcwMiAyOTcuMzk2NDA3LDQwLjI3ODA1MzUgMjk3Ljg3MjQwMSw0MC4wMDYwNTY2IEwzMDMuMTI3NTk5LDM3LjAwMzA4NjggQzMwMy42MDk0MTMsMzYuNzI3NzY0NSAzMDQsMzYuOTUxMjcwNCAzMDQsMzcuNTAwNTEzOCBMMzA0LDQzLjAwODYyOTYgWiBNMjk3LjM0OTc2MSwzOC45ODE2NDE2IEMyOTYuODgwNDUxLDM5LjI3MDQ0NzkgMjk2LjExMjg2MSwzOS4yNjYzMzI0IDI5NS42NTAyMzksMzguOTgxNjQxNiBMMjkwLjg0OTc2MSwzNi4wMjc1MDE4IEMyOTAuMzgwNDUxLDM1LjczODY5NTUgMjkwLjM4NzEzOSwzNS4yOTYxMTIzIDI5MC44NzY2MTksMzUuMDMyNTQ2MSBMMjk1LjYyMzM4MSwzMi40NzY1OTczIEMyOTYuMTA3NTI0LDMyLjIxNTkwNDggMjk2Ljg4NzEzOSwzMi4yMTMwMzExIDI5Ny4zNzY2MTksMzIuNDc2NTk3MyBMMzAyLjEyMzM4MSwzNS4wMzI1NDYxIEMzMDIuNjA3NTI0LDM1LjI5MzIzODcgMzAyLjYxMjg2MSwzNS43NDI4MTEgMzAyLjE1MDIzOSwzNi4wMjc1MDE4IEwyOTcuMzQ5NzYxLDM4Ljk4MTY0MTYgWiIvPgogICAgPHBhdGggZD0iTTI4OSw0My4wMDg2Mjk2IEMyODksNDMuNTU4NjczMiAyODkuMzk2NDA3LDQ0LjIzMTA4OTkgMjg5Ljg3MjQwMSw0NC41MDMwODY4IEwyOTUuMTI3NTk5LDQ3LjUwNjA1NjYgQzI5NS42MDk0MTMsNDcuNzgxMzc4OSAyOTYsNDcuNTU3ODczIDI5Niw0Ny4wMDg2Mjk2IEwyOTYsNDEuNTAwNTEzOCBDMjk2LDQwLjk1MDQ3MDIgMjk1LjYwMzU5Myw0MC4yNzgwNTM1IDI5NS4xMjc1OTksNDAuMDA2MDU2NiBMMjg5Ljg3MjQwMSwzNy4wMDMwODY4IEMyODkuMzkwNTg3LDM2LjcyNzc2NDUgMjg5LDM2Ljk1MTI3MDQgMjg5LDM3LjUwMDUxMzggTDI4OSw0My4wMDg2Mjk2IFogTTMwNCw0My4wMDg2Mjk2IEMzMDQsNDMuNTU4NjczMiAzMDMuNjAzNTkzLDQ0LjIzMTA4OTkgMzAzLjEyNzU5OSw0NC41MDMwODY4IEwyOTcuODcyNDAxLDQ3LjUwNjA1NjYgQzI5Ny4zOTA1ODcsNDcuNzgxMzc4OSAyOTcsNDcuNTU3ODczIDI5Nyw0Ny4wMDg2Mjk2IEwyOTcsNDEuNTAwNTEzOCBDMjk3LDQwLjk1MDQ3MDIgMjk3LjM5NjQwNyw0MC4yNzgwNTM1IDI5Ny44NzI0MDEsNDAuMDA2MDU2NiBMMzAzLjEyNzU5OSwzNy4wMDMwODY4IEMzMDMuNjA5NDEzLDM2LjcyNzc2NDUgMzA0LDM2Ljk1MTI3MDQgMzA0LDM3LjUwMDUxMzggTDMwNCw0My4wMDg2Mjk2IFogTTI5Ny4zNDk3NjEsMzguOTgxNjQxNiBDMjk2Ljg4MDQ1MSwzOS4yNzA0NDc5IDI5Ni4xMTI4NjEsMzkuMjY2MzMyNCAyOTUuNjUwMjM5LDM4Ljk4MTY0MTYgTDI5MC44NDk3NjEsMzYuMDI3NTAxOCBDMjkwLjM4MDQ1MSwzNS43Mzg2OTU1IDI5MC4zODcxMzksMzUuMjk2MTEyMyAyOTAuODc2NjE5LDM1LjAzMjU0NjEgTDI5NS42MjMzODEsMzIuNDc2NTk3MyBDMjk2LjEwNzUyNCwzMi4yMTU5MDQ4IDI5Ni44ODcxMzksMzIuMjEzMDMxMSAyOTcuMzc2NjE5LDMyLjQ3NjU5NzMgTDMwMi4xMjMzODEsMzUuMDMyNTQ2MSBDMzAyLjYwNzUyNCwzNS4yOTMyMzg3IDMwMi42MTI4NjEsMzUuNzQyODExIDMwMi4xNTAyMzksMzYuMDI3NTAxOCBMMjk3LjM0OTc2MSwzOC45ODE2NDE2IFoiLz4KICA8L2c+Cjwvc3ZnPgo="
-
-/***/ },
-/* 276 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-	
-	var __import0 = __webpack_require__(189);
-	
-	var __import1 = __webpack_require__(271);
-	
-	var NavigationGroup = __webpack_require__(272);
-	
-	var t = __import0.t;
-	var getCategorizedItems = __import1.getCategorizedItems;
-	NavigationGroup = NavigationGroup && NavigationGroup.__esModule ? NavigationGroup['default'] : NavigationGroup;
-	
-	function recompute(state, newState, oldState, isInitial) {
-		if (isInitial || 'content' in newState && differs(state.content, oldState.content)) {
-			state.categories = newState.categories = template.computed.categories(state.content);
-		}
-	}
-	
-	var template = function () {
-		var toggleDrawerObserver = void 0;
-	
-		return {
-			computed: {
-				categories: function categories(content) {
-					return getCategorizedItems(content);
-				}
-			},
-	
-			oncreate: function oncreate() {
-				var _this = this;
-	
-				var SWIPE_CLASS = 'swipe-active';
-	
-				/**
-	    * We manage the [aria-hidden] attribute manually, as it serves for CSS
-	    * transitions, and needs to be wrapped in next frames ticks to ensure
-	    * smooth movements.
-	    */
-				this.refs.wrapper.setAttribute('aria-hidden', !this.get('visible'));
-	
-				/**
-	    * Animation engine, based on CSS transitions
-	    *
-	    * This is how it works :
-	    * 1. it first adds the `SWIPE_CLASS` class on wrapper
-	    * 2. it register a `transitionend` listener that:
-	    *    - remove the SWIPE_CLASS on frame after transition's last one
-	    *    - unregister the listener to prevent memory leaks
-	    * 3. on next frame after adding SWIPE_CLASS, it starts animation by
-	    *    setting aria-hidden attribute
-	    *
-	    * So animation lifecycle is:
-	    * | Frame id          | Action                                          |
-	    * | :---------------- | ----------------------------------------------- |
-	    * | 1                 | Add SWIPE_CLASS                                 |
-	    * | 2                 | Set aria-hidden attribute                       |
-	    * | transitionEnd + 1 | Remove SWIPE_CLASS                              |
-	    */
-				var animateTo = function animateTo(target) {
-					if (_this.refs.wrapper.getAttribute('aria-hidden') === target.toString()) {
-						return;
-					}
-	
-					var startState = function startState() {
-						_this.refs.wrapper.setAttribute('aria-hidden', target);
-					};
-					var endState = function endState() {
-						setTimeout(function () {
-							_this.refs.wrapper.classList.remove(SWIPE_CLASS);
-						}, 10);
-						_this.refs.aside.removeEventListener('transitionend', endState);
-					};
-	
-					_this.refs.wrapper.classList.add(SWIPE_CLASS);
-					_this.refs.aside.addEventListener('transitionend', endState);
-					setTimeout(startState, 10);
-				};
-	
-				toggleDrawerObserver = this.observe('visible', function (visible) {
-					animateTo(!visible);
-				});
-			},
-			ondestroy: function ondestroy() {
-				toggleDrawerObserver.cancel();
-			},
-	
-	
-			helpers: { t: t }
-		};
-	}();
-	
-	function create_main_fragment(state, component) {
-		var div = createElement('div');
-		div.className = "coz-drawer-wrapper";
-	
-		function click_handler(event) {
-			component.fire("close");
-		}
-	
-		addEventListener(div, 'click', click_handler);
-		component.refs.wrapper = div;
-		var aside = createElement('aside');
-		appendNode(aside, div);
-	
-		function click_handler_1(event) {
-			event.stopPropagation();
-		}
-	
-		addEventListener(aside, 'click', click_handler_1);
-		component.refs.aside = aside;
-		var nav = createElement('nav');
-		appendNode(nav, aside);
-		nav.className = "coz-drawer--apps";
-		var each_block_value = state.categories;
-	
-		var each_block_iterations = [];
-	
-		for (var i = 0; i < each_block_value.length; i += 1) {
-			each_block_iterations[i] = create_each_block(state, each_block_value, each_block_value[i], i, component);
-			each_block_iterations[i].mount(nav, null);
-		}
-	
-		appendNode(createText("\n    "), aside);
-		var hr = createElement('hr');
-		appendNode(hr, aside);
-		hr.className = "coz-sep-flex";
-		appendNode(createText("\n    "), aside);
-		var nav_1 = createElement('nav');
-		appendNode(nav_1, aside);
-		var each_block_value_1 = state.footer;
-	
-		var each_block_1_iterations = [];
-	
-		for (var i = 0; i < each_block_value_1.length; i += 1) {
-			each_block_1_iterations[i] = create_each_block_1(state, each_block_value_1, each_block_value_1[i], i, component);
-			each_block_1_iterations[i].mount(nav_1, null);
-		}
-	
-		return {
-			mount: function mount(target, anchor) {
-				insertNode(div, target, anchor);
-			},
-	
-			update: function update(changed, state) {
-				var each_block_value = state.categories;
-	
-				if ('categories' in changed) {
-					for (var i = 0; i < each_block_value.length; i += 1) {
-						if (each_block_iterations[i]) {
-							each_block_iterations[i].update(changed, state, each_block_value, each_block_value[i], i);
-						} else {
-							each_block_iterations[i] = create_each_block(state, each_block_value, each_block_value[i], i, component);
-							each_block_iterations[i].mount(nav, null);
-						}
-					}
-	
-					destroyEach(each_block_iterations, true, each_block_value.length);
-					each_block_iterations.length = each_block_value.length;
-				}
-	
-				var each_block_value_1 = state.footer;
-	
-				if ('footer' in changed) {
-					for (var i = 0; i < each_block_value_1.length; i += 1) {
-						if (each_block_1_iterations[i]) {
-							each_block_1_iterations[i].update(changed, state, each_block_value_1, each_block_value_1[i], i);
-						} else {
-							each_block_1_iterations[i] = create_each_block_1(state, each_block_value_1, each_block_value_1[i], i, component);
-							each_block_1_iterations[i].mount(nav_1, null);
-						}
-					}
-	
-					destroyEach(each_block_1_iterations, true, each_block_value_1.length);
-					each_block_1_iterations.length = each_block_value_1.length;
-				}
-			},
-	
-			destroy: function destroy(detach) {
-				removeEventListener(div, 'click', click_handler);
-				if (component.refs.wrapper === div) component.refs.wrapper = null;
-				removeEventListener(aside, 'click', click_handler_1);
-				if (component.refs.aside === aside) component.refs.aside = null;
-	
-				destroyEach(each_block_iterations, false, 0);
-	
-				destroyEach(each_block_1_iterations, false, 0);
-	
-				if (detach) {
-					detachNode(div);
-				}
-			}
-		};
-	}
-	
-	function create_each_block(state, each_block_value, category, category_index, component) {
-		var text_value;
-	
-		var h2 = createElement('h2');
-		h2.className = "coz-nav-category";
-		var text = createText(text_value = template.helpers.t('Categories.' + category.slug));
-		appendNode(text, h2);
-		var text_1 = createText("\n        ");
-	
-		var navigationgroup = new NavigationGroup({
-			target: null,
-			_root: component._root,
-			data: {
-				separator: "bottom",
-				group: category.items,
-				itemsLimit: 3
-			}
-		});
-	
-		return {
-			mount: function mount(target, anchor) {
-				insertNode(h2, target, anchor);
-				insertNode(text_1, target, anchor);
-				navigationgroup._fragment.mount(target, anchor);
-			},
-	
-			update: function update(changed, state, each_block_value, category, category_index) {
-				if (text_value !== (text_value = template.helpers.t('Categories.' + category.slug))) {
-					text.data = text_value;
-				}
-	
-				var navigationgroup_changes = {};
-	
-				if ('categories' in changed) navigationgroup_changes.group = category.items;
-				navigationgroup_changes.itemsLimit = 3;
-	
-				if (Object.keys(navigationgroup_changes).length) navigationgroup.set(navigationgroup_changes);
-			},
-	
-			destroy: function destroy(detach) {
-				navigationgroup.destroy(detach);
-	
-				if (detach) {
-					detachNode(h2);
-					detachNode(text_1);
-				}
-			}
-		};
-	}
-	
-	function create_each_block_1(state, each_block_value_1, group, group_index, component) {
-		var navigationgroup = new NavigationGroup({
-			target: null,
-			_root: component._root,
-			data: { separator: "top", group: group }
-		});
-	
-		navigationgroup.on('claudy', function (event) {
-			component.fire("claudy");
-		});
-	
-		return {
-			mount: function mount(target, anchor) {
-				navigationgroup._fragment.mount(target, anchor);
-			},
-	
-			update: function update(changed, state, each_block_value_1, group, group_index) {
-				var navigationgroup_changes = {};
-	
-				if ('footer' in changed) navigationgroup_changes.group = group;
-	
-				if (Object.keys(navigationgroup_changes).length) navigationgroup.set(navigationgroup_changes);
-			},
-
-			destroy: function destroy(detach) {
-				navigationgroup.destroy(detach);
-			}
-		};
-	}
-
-	function Drawer(options) {
-		options = options || {};
-		this.refs = {};
-		this._state = options.data || {};
-		recompute(this._state, this._state, {}, true);
-
-		this._observers = {
-			pre: Object.create(null),
-			post: Object.create(null)
-		};
-
-		this._handlers = Object.create(null);
-
-		this._root = options._root || this;
-		this._yield = options._yield;
-
-		this._torndown = false;
-		this._renderHooks = [];
-
-		this._fragment = create_main_fragment(this._state, this);
-		if (options.target) this._fragment.mount(options.target, null);
-		this._flush();
-
-		if (options._root) {
-			options._root._renderHooks.push(template.oncreate.bind(this));
-		} else {
-			template.oncreate.call(this);
-		}
-	}
-
-	assign(Drawer.prototype, {
-		get: get,
-		fire: fire,
-		observe: observe,
-		on: on,
-		set: set,
-		_flush: _flush
-	});
-
-	Drawer.prototype._set = function _set(newState) {
-		var oldState = this._state;
-		this._state = assign({}, oldState, newState);
-		recompute(this._state, newState, oldState, false);
-		dispatchObservers(this, this._observers.pre, newState, oldState);
-		this._fragment.update(newState, this._state);
-		dispatchObservers(this, this._observers.post, newState, oldState);
-		this._flush();
-	};
-
-	Drawer.prototype.teardown = Drawer.prototype.destroy = function destroy(detach) {
-		this.fire('destroy');
-		template.ondestroy.call(this);
-
-		this._fragment.destroy(detach !== false);
-		this._fragment = null;
-
-		this._state = {};
-		this._torndown = true;
-	};
-
-	function createElement(name) {
-		return document.createElement(name);
-	}
-
-	function insertNode(node, target, anchor) {
-		target.insertBefore(node, anchor);
-	}
-
-	function detachNode(node) {
-		node.parentNode.removeChild(node);
-	}
-
-	function addEventListener(node, event, handler) {
-		node.addEventListener(event, handler, false);
-	}
-
-	function removeEventListener(node, event, handler) {
-		node.removeEventListener(event, handler, false);
-	}
-
-	function appendNode(node, target) {
-		target.appendChild(node);
-	}
-
-	function destroyEach(iterations, detach, start) {
-		for (var i = start; i < iterations.length; i += 1) {
-			if (iterations[i]) iterations[i].destroy(detach);
-		}
-	}
-
-	function createText(data) {
-		return document.createTextNode(data);
-	}
-
-	function differs(a, b) {
-		return a !== b || a && (typeof a === 'undefined' ? 'undefined' : _typeof(a)) === 'object' || typeof a === 'function';
-	}
-
-	function assign(target) {
-		for (var i = 1; i < arguments.length; i += 1) {
-			var source = arguments[i];
-			for (var k in source) {
-				target[k] = source[k];
-			}
-		}
-
-		return target;
-	}
-
-	function dispatchObservers(component, group, newState, oldState) {
-		for (var key in group) {
-			if (!(key in newState)) continue;
-
-			var newValue = newState[key];
-			var oldValue = oldState[key];
-
-			if (differs(newValue, oldValue)) {
-				var callbacks = group[key];
-				if (!callbacks) continue;
-
-				for (var i = 0; i < callbacks.length; i += 1) {
-					var callback = callbacks[i];
-					if (callback.__calling) continue;
-
-					callback.__calling = true;
-					callback.call(component, newValue, oldValue);
-					callback.__calling = false;
-				}
-			}
-		}
-	}
-
-	function get(key) {
-		return key ? this._state[key] : this._state;
-	}
-
-	function fire(eventName, data) {
-		var handlers = eventName in this._handlers && this._handlers[eventName].slice();
-		if (!handlers) return;
-
-		for (var i = 0; i < handlers.length; i += 1) {
-			handlers[i].call(this, data);
-		}
-	}
-
-	function observe(key, callback, options) {
-		var group = options && options.defer ? this._observers.post : this._observers.pre;
-
-		(group[key] || (group[key] = [])).push(callback);
-
-		if (!options || options.init !== false) {
-			callback.__calling = true;
-			callback.call(this, this._state[key]);
-			callback.__calling = false;
-		}
-
-		return {
-			cancel: function cancel() {
-				var index = group[key].indexOf(callback);
-				if (~index) group[key].splice(index, 1);
-			}
-		};
-	}
-
-	function on(eventName, handler) {
-		if (eventName === 'teardown') return this.on('destroy', handler);
-
-		var handlers = this._handlers[eventName] || (this._handlers[eventName] = []);
-		handlers.push(handler);
-
-		return {
-			cancel: function cancel() {
-				var index = handlers.indexOf(handler);
-				if (~index) handlers.splice(index, 1);
-			}
-		};
-	}
-
-	function set(newState) {
-		this._set(assign({}, newState));
-		this._root._flush();
-	}
-
-	function _flush() {
-		if (!this._renderHooks) return;
-
-		while (this._renderHooks.length) {
-			this._renderHooks.pop()();
-		}
-	}
-
-	module.exports = Drawer;
-
-/***/ },
-/* 277 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-	
-	var ClaudyMenu = __webpack_require__(278);
-	
-	ClaudyMenu = ClaudyMenu && ClaudyMenu.__esModule ? ClaudyMenu['default'] : ClaudyMenu;
-	
-	function create_main_fragment(state, component) {
-		var div_class_value, button_data_claudy_opened_value;
-	
-		var div = createElement('div');
-		div.className = div_class_value = 'coz-claudy ' + (state.opened ? "coz-claudy--opened" : "");
-		var button = createElement('button');
-		appendNode(button, div);
-		button.className = "coz-claudy-icon coz-bar-hide-sm";
-		setAttribute(button, 'data-claudy-opened', button_data_claudy_opened_value = state.opened);
-	
-		function click_handler(event) {
-			component.fire("toggle");
-		}
-	
-		addEventListener(button, 'click', click_handler);
-		appendNode(createText("\n  "), div);
-	
-		var claudymenu = new ClaudyMenu({
-			target: div,
-			_root: component._root,
-			data: {
-				actions: state.config.actions,
-				usageTracker: state.usageTracker,
-				appsList: state.appsList
-			}
-		});
-	
-		claudymenu.on('close', function (event) {
-			component.fire("toggle");
-		});
-	
-		return {
-			mount: function mount(target, anchor) {
-				insertNode(div, target, anchor);
-			},
-	
-			update: function update(changed, state) {
-				if (div_class_value !== (div_class_value = 'coz-claudy ' + (state.opened ? "coz-claudy--opened" : ""))) {
-					div.className = div_class_value;
-				}
-	
-				if (button_data_claudy_opened_value !== (button_data_claudy_opened_value = state.opened)) {
-					setAttribute(button, 'data-claudy-opened', button_data_claudy_opened_value);
-				}
-	
-				var claudymenu_changes = {};
-	
-				if ('config' in changed) claudymenu_changes.actions = state.config.actions;
-				if ('usageTracker' in changed) claudymenu_changes.usageTracker = state.usageTracker;
-				if ('appsList' in changed) claudymenu_changes.appsList = state.appsList;
-	
-				if (Object.keys(claudymenu_changes).length) claudymenu.set(claudymenu_changes);
-			},
-
-			destroy: function destroy(detach) {
-				removeEventListener(button, 'click', click_handler);
-				claudymenu.destroy(false);
-
-				if (detach) {
-					detachNode(div);
-				}
-			}
-		};
-	}
-
-	function Claudy(options) {
-		options = options || {};
-		this._state = options.data || {};
-
-		this._observers = {
-			pre: Object.create(null),
-			post: Object.create(null)
-		};
-
-		this._handlers = Object.create(null);
-
-		this._root = options._root || this;
-		this._yield = options._yield;
-
-		this._torndown = false;
-		this._renderHooks = [];
-
-		this._fragment = create_main_fragment(this._state, this);
-		if (options.target) this._fragment.mount(options.target, null);
-		this._flush();
-	}
-
-	assign(Claudy.prototype, {
-		get: get,
-		fire: fire,
-		observe: observe,
-		on: on,
-		set: set,
-		_flush: _flush
-	});
-
-	Claudy.prototype._set = function _set(newState) {
-		var oldState = this._state;
-		this._state = assign({}, oldState, newState);
-		dispatchObservers(this, this._observers.pre, newState, oldState);
-		this._fragment.update(newState, this._state);
-		dispatchObservers(this, this._observers.post, newState, oldState);
-		this._flush();
-	};
-
-	Claudy.prototype.teardown = Claudy.prototype.destroy = function destroy(detach) {
-		this.fire('destroy');
-
-		this._fragment.destroy(detach !== false);
-		this._fragment = null;
-
-		this._state = {};
-		this._torndown = true;
-	};
-
-	function createElement(name) {
-		return document.createElement(name);
-	}
-
-	function insertNode(node, target, anchor) {
-		target.insertBefore(node, anchor);
-	}
-
-	function detachNode(node) {
-		node.parentNode.removeChild(node);
-	}
-
-	function appendNode(node, target) {
-		target.appendChild(node);
-	}
-
-	function setAttribute(node, attribute, value) {
-		node.setAttribute(attribute, value);
-	}
-
-	function addEventListener(node, event, handler) {
-		node.addEventListener(event, handler, false);
-	}
-
-	function removeEventListener(node, event, handler) {
-		node.removeEventListener(event, handler, false);
-	}
-
-	function createText(data) {
-		return document.createTextNode(data);
-	}
-
-	function assign(target) {
-		for (var i = 1; i < arguments.length; i += 1) {
-			var source = arguments[i];
-			for (var k in source) {
-				target[k] = source[k];
-			}
-		}
-
-		return target;
-	}
-
-	function dispatchObservers(component, group, newState, oldState) {
-		for (var key in group) {
-			if (!(key in newState)) continue;
-
-			var newValue = newState[key];
-			var oldValue = oldState[key];
-
-			if (differs(newValue, oldValue)) {
-				var callbacks = group[key];
-				if (!callbacks) continue;
-
-				for (var i = 0; i < callbacks.length; i += 1) {
-					var callback = callbacks[i];
-					if (callback.__calling) continue;
-
-					callback.__calling = true;
-					callback.call(component, newValue, oldValue);
-					callback.__calling = false;
-				}
-			}
-		}
-	}
-
-	function get(key) {
-		return key ? this._state[key] : this._state;
-	}
-
-	function fire(eventName, data) {
-		var handlers = eventName in this._handlers && this._handlers[eventName].slice();
-		if (!handlers) return;
-
-		for (var i = 0; i < handlers.length; i += 1) {
-			handlers[i].call(this, data);
-		}
-	}
-
-	function observe(key, callback, options) {
-		var group = options && options.defer ? this._observers.post : this._observers.pre;
-
-		(group[key] || (group[key] = [])).push(callback);
-
-		if (!options || options.init !== false) {
-			callback.__calling = true;
-			callback.call(this, this._state[key]);
-			callback.__calling = false;
-		}
-
-		return {
-			cancel: function cancel() {
-				var index = group[key].indexOf(callback);
-				if (~index) group[key].splice(index, 1);
-			}
-		};
-	}
-
-	function on(eventName, handler) {
-		if (eventName === 'teardown') return this.on('destroy', handler);
-
-		var handlers = this._handlers[eventName] || (this._handlers[eventName] = []);
-		handlers.push(handler);
-
-		return {
-			cancel: function cancel() {
-				var index = handlers.indexOf(handler);
-				if (~index) handlers.splice(index, 1);
-			}
-		};
-	}
-
-	function set(newState) {
-		this._set(assign({}, newState));
-		this._root._flush();
-	}
-
-	function _flush() {
-		if (!this._renderHooks) return;
-
-		while (this._renderHooks.length) {
-			this._renderHooks.pop()();
-		}
-	}
-
-	function differs(a, b) {
-		return a !== b || a && (typeof a === 'undefined' ? 'undefined' : _typeof(a)) === 'object' || typeof a === 'function';
-	}
-
-	module.exports = Claudy;
-
-/***/ },
-/* 278 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-	
-	var __import0 = __webpack_require__(189);
-	
-	var t = __import0.t;
-	
-	var template = function () {
-		return {
-			data: function data() {
-				return {
-					openedAction: false,
-					selectedAction: null,
-					selectedActionUrl: '',
-					getIcon: function getIcon(iconName) {
-						return __webpack_require__(279)("./" + iconName);
-					},
-					computeUrl: function computeUrl(action) {
-						var appsList = this.appsList;
-						if (action.link.type === 'apps' && action.link.appSlug) {
-							if (!appsList) {
-								console.warn('No apps found on the Cozy');
-								this.selectedActionUrl = '';
-								return '';
-							}
-							var app = appsList.find(function (a) {
-								return a.slug === action.link.appSlug;
-							});
-							if (app && app.href) {
-								var appUrl = '' + app.href + (action.link.path || '');
-								this.selectedActionUrl = appUrl;
-								return appUrl;
-							} else {
-								console.warn('No app with slug "' + action.link.appSlug + '" found on the Cozy.');
-								this.selectedActionUrl = '';
-								return '';
-							}
-						} else {
-							var url = t('claudy.actions.' + action.slug + '.link');
-							this.selectedActionUrl = url;
-							return url;
-						}
-					}
-				};
-			},
-	
-			methods: {
-				goBack: function goBack() {
-					this.set({ openedAction: false });
-				},
-				trackActionLink: function trackActionLink(action) {
-					var usageTracker = this.get('usageTracker');
-					if (usageTracker) {
-						usageTracker.push(['trackEvent', 'Claudy', 'openActionLink', '' + action.slug]);
-					}
-				},
-				selectAction: function selectAction(action) {
-					var usageTracker = this.get('usageTracker');
-					if (usageTracker) {
-						usageTracker.push(['trackEvent', 'Claudy', 'openAction', '' + action.slug]);
-					}
-					this.set({ selectedAction: action, openedAction: true });
-				}
-			},
-			helpers: { t: t }
-		};
-	}();
-	
-	function create_main_fragment(state, component) {
-		var div_class_value, text_value;
-	
-		var div = createElement('div');
-		div.className = div_class_value = 'coz-claudy-menu ' + (state.openedAction ? "coz-claudy-menu--action-selected" : "");
-		var header = createElement('header');
-		appendNode(header, div);
-		header.className = "coz-claudy-menu-header";
-		var h2 = createElement('h2');
-		appendNode(h2, header);
-		h2.className = "coz-claudy-menu-title";
-		var text = createText(text_value = template.helpers.t('claudy.title'));
-		appendNode(text, h2);
-		appendNode(createText("\n    "), header);
-		var button = createElement('button');
-		appendNode(button, header);
-		button.className = "coz-btn-close";
-	
-		function click_handler(event) {
-			component.fire("close");
-		}
-	
-		addEventListener(button, 'click', click_handler);
-		appendNode(createText("\n    "), header);
-		var button_1 = createElement('button');
-		appendNode(button_1, header);
-		button_1.className = "coz-claudy-menu-header-back-button";
-	
-		function click_handler_1(event) {
-			component.goBack();
-		}
-	
-		addEventListener(button_1, 'click', click_handler_1);
-		appendNode(createText("\n  "), div);
-		var div_1 = createElement('div');
-		appendNode(div_1, div);
-		div_1.className = "coz-claudy-menu-content-wrapper";
-		var div_2 = createElement('div');
-		appendNode(div_2, div_1);
-		div_2.className = "coz-claudy-menu-content";
-		var div_3 = createElement('div');
-		appendNode(div_3, div_2);
-		div_3.className = "coz-claudy-menu-actions-list";
-		var each_block_value = state.actions;
-	
-		var each_block_iterations = [];
-	
-		for (var i = 0; i < each_block_value.length; i += 1) {
-			each_block_iterations[i] = create_each_block(state, each_block_value, each_block_value[i], i, component);
-			each_block_iterations[i].mount(div_3, null);
-		}
-	
-		appendNode(createText("\n      "), div_2);
-		var div_4 = createElement('div');
-		appendNode(div_4, div_2);
-		div_4.className = "coz-claudy-menu-action-description";
-	
-		var if_block = state.selectedAction && create_if_block(state, component);
-	
-		if (if_block) if_block.mount(div_4, null);
-	
-		return {
-			mount: function mount(target, anchor) {
-				insertNode(div, target, anchor);
-			},
-	
-			update: function update(changed, state) {
-				if (div_class_value !== (div_class_value = 'coz-claudy-menu ' + (state.openedAction ? "coz-claudy-menu--action-selected" : ""))) {
-					div.className = div_class_value;
-				}
-	
-				if (text_value !== (text_value = template.helpers.t('claudy.title'))) {
-					text.data = text_value;
-				}
-	
-				var each_block_value = state.actions;
-	
-				if ('getIcon' in changed || 'actions' in changed) {
-					for (var i = 0; i < each_block_value.length; i += 1) {
-						if (each_block_iterations[i]) {
-							each_block_iterations[i].update(changed, state, each_block_value, each_block_value[i], i);
-						} else {
-							each_block_iterations[i] = create_each_block(state, each_block_value, each_block_value[i], i, component);
-							each_block_iterations[i].mount(div_3, null);
-						}
-					}
-	
-					destroyEach(each_block_iterations, true, each_block_value.length);
-					each_block_iterations.length = each_block_value.length;
-				}
-	
-				if (state.selectedAction) {
-					if (if_block) {
-						if_block.update(changed, state);
-					} else {
-						if_block = create_if_block(state, component);
-						if_block.mount(div_4, null);
-					}
-				} else if (if_block) {
-					if_block.destroy(true);
-					if_block = null;
-				}
-			},
-	
-			destroy: function destroy(detach) {
-				removeEventListener(button, 'click', click_handler);
-				removeEventListener(button_1, 'click', click_handler_1);
-	
-				destroyEach(each_block_iterations, false, 0);
-	
-				if (if_block) if_block.destroy(false);
-	
-				if (detach) {
-					detachNode(div);
-				}
-			}
-		};
-	}
-	
-	function create_each_block(state, each_block_value, action, action_index, component) {
-		var img_src_value, text_1_value;
-	
-		var a = createElement('a');
-		a.className = "coz-claudy-menu-action";
-		addEventListener(a, 'click', click_handler);
-	
-		a._svelte = {
-			component: component,
-			each_block_value: each_block_value,
-			action_index: action_index
-		};
-	
-		var img = createElement('img');
-		appendNode(img, a);
-		img.className = "coz-claudy-menu-action-icon";
-		img.src = img_src_value = state.getIcon(action.icon);
-		appendNode(createText("\n            "), a);
-		var p = createElement('p');
-		appendNode(p, a);
-		p.className = "coz-claudy-menu-action-title";
-		var text_1 = createText(text_1_value = template.helpers.t('claudy.actions.' + action.slug + '.title'));
-		appendNode(text_1, p);
-	
-		return {
-			mount: function mount(target, anchor) {
-				insertNode(a, target, anchor);
-			},
-	
-			update: function update(changed, state, each_block_value, action, action_index) {
-				a._svelte.each_block_value = each_block_value;
-				a._svelte.action_index = action_index;
-	
-				if (img_src_value !== (img_src_value = state.getIcon(action.icon))) {
-					img.src = img_src_value;
-				}
-	
-				if (text_1_value !== (text_1_value = template.helpers.t('claudy.actions.' + action.slug + '.title'))) {
-					text_1.data = text_1_value;
-				}
-			},
-	
-			destroy: function destroy(detach) {
-				removeEventListener(a, 'click', click_handler);
-	
-				if (detach) {
-					detachNode(a);
-				}
-			}
-		};
-	}
-	
-	function create_if_block_2(state, component) {
-		var a_href_value, a_target_value, text_value;
-	
-		var a = createElement('a');
-		a.href = a_href_value = state.selectedActionUrl;
-		setAttribute(a, 'role', "button");
-		a.target = a_target_value = state.selectedAction.link.type === "external" ? "_blank" : "_self";
-		a.className = "coz-btn-regular coz-claudy-menu-action-description-button";
-	
-		function click_handler_1(event) {
-			var state = component.get();
-			component.trackActionLink(state.selectedAction);
-		}
-	
-		addEventListener(a, 'click', click_handler_1);
-		var text = createText(text_value = template.helpers.t('claudy.actions.' + state.selectedAction.slug + '.button'));
-		appendNode(text, a);
-	
-		return {
-			mount: function mount(target, anchor) {
-				insertNode(a, target, anchor);
-			},
-	
-			update: function update(changed, state) {
-				if (a_href_value !== (a_href_value = state.selectedActionUrl)) {
-					a.href = a_href_value;
-				}
-	
-				if (a_target_value !== (a_target_value = state.selectedAction.link.type === "external" ? "_blank" : "_self")) {
-					a.target = a_target_value;
-				}
-	
-				if (text_value !== (text_value = template.helpers.t('claudy.actions.' + state.selectedAction.slug + '.button'))) {
-					text.data = text_value;
-				}
-			},
-	
-			destroy: function destroy(detach) {
-				removeEventListener(a, 'click', click_handler_1);
-	
-				if (detach) {
-					detachNode(a);
-				}
-			}
-		};
-	}
-	
-	function create_if_block_3(state, component) {
-		var a_title_value, text_value;
-	
-		var a = createElement('a');
-		setAttribute(a, 'role', "button");
-		a.className = "coz-btn-regular coz-claudy-menu-action-description-button";
-		setAttribute(a, 'disabled', true);
-		a.title = a_title_value = 'App ' + state.selectedAction.slug + ' not found';
-		var text = createText(text_value = template.helpers.t('claudy.actions.' + state.selectedAction.slug + '.button'));
-		appendNode(text, a);
-	
-		return {
-			mount: function mount(target, anchor) {
-				insertNode(a, target, anchor);
-			},
-	
-			update: function update(changed, state) {
-				if (a_title_value !== (a_title_value = 'App ' + state.selectedAction.slug + ' not found')) {
-					a.title = a_title_value;
-				}
-	
-				if (text_value !== (text_value = template.helpers.t('claudy.actions.' + state.selectedAction.slug + '.button'))) {
-					text.data = text_value;
-				}
-			},
-	
-			destroy: function destroy(detach) {
-				if (detach) {
-					detachNode(a);
-				}
-			}
-		};
-	}
-	
-	function create_if_block_1(state, component) {
-		function get_block(state) {
-			if (state.computeUrl(state.selectedAction) !== '') return create_if_block_2;
-			return create_if_block_3;
-		}
-	
-		var current_block = get_block(state);
-		var if_block_2 = current_block(state, component);
-	
-		var if_block_2_anchor = createComment();
-	
-		return {
-			mount: function mount(target, anchor) {
-				if_block_2.mount(target, anchor);
-				insertNode(if_block_2_anchor, target, anchor);
-			},
-	
-			update: function update(changed, state) {
-				if (current_block === (current_block = get_block(state)) && if_block_2) {
-					if_block_2.update(changed, state);
-				} else {
-					if_block_2.destroy(true);
-					if_block_2 = current_block(state, component);
-					if_block_2.mount(if_block_2_anchor.parentNode, if_block_2_anchor);
-				}
-			},
-	
-			destroy: function destroy(detach) {
-				if_block_2.destroy(detach);
-	
-				if (detach) {
-					detachNode(if_block_2_anchor);
-				}
-			}
-		};
-	}
-	
-	function create_if_block(state, component) {
-		var img_src_value, text_1_value, text_3_value;
-	
-		var div = createElement('div');
-		div.className = "coz-claudy-menu-action-description-header";
-		var img = createElement('img');
-		appendNode(img, div);
-		img.className = "coz-claudy-menu-action-icon";
-		img.src = img_src_value = state.getIcon(state.selectedAction.icon);
-		appendNode(createText("\n            "), div);
-		var p = createElement('p');
-		appendNode(p, div);
-		p.className = "coz-claudy-menu-action-title";
-		var text_1 = createText(text_1_value = template.helpers.t('claudy.actions.' + state.selectedAction.slug + '.title'));
-		appendNode(text_1, p);
-		var text_2 = createText("\n          ");
-		var div_1 = createElement('div');
-		div_1.className = "coz-claudy-menu-action-description-content";
-		var p_1 = createElement('p');
-		appendNode(p_1, div_1);
-		p_1.className = "coz-claudy-menu-action-description-text";
-		var text_3 = createText(text_3_value = template.helpers.t('claudy.actions.' + state.selectedAction.slug + '.description'));
-		appendNode(text_3, p_1);
-		appendNode(createText("\n            "), div_1);
-	
-		var if_block_1 = state.selectedAction.link && create_if_block_1(state, component);
-	
-		if (if_block_1) if_block_1.mount(div_1, null);
-	
-		return {
-			mount: function mount(target, anchor) {
-				insertNode(div, target, anchor);
-				insertNode(text_2, target, anchor);
-				insertNode(div_1, target, anchor);
-			},
-	
-			update: function update(changed, state) {
-				if (img_src_value !== (img_src_value = state.getIcon(state.selectedAction.icon))) {
-					img.src = img_src_value;
-				}
-	
-				if (text_1_value !== (text_1_value = template.helpers.t('claudy.actions.' + state.selectedAction.slug + '.title'))) {
-					text_1.data = text_1_value;
-				}
-	
-				if (text_3_value !== (text_3_value = template.helpers.t('claudy.actions.' + state.selectedAction.slug + '.description'))) {
-					text_3.data = text_3_value;
-				}
-	
-				if (state.selectedAction.link) {
-					if (if_block_1) {
-						if_block_1.update(changed, state);
-					} else {
-						if_block_1 = create_if_block_1(state, component);
-						if_block_1.mount(div_1, null);
-					}
-				} else if (if_block_1) {
-					if_block_1.destroy(true);
-					if_block_1 = null;
-				}
-			},
-	
-			destroy: function destroy(detach) {
-				if (if_block_1) if_block_1.destroy(false);
-	
-				if (detach) {
-					detachNode(div);
-					detachNode(text_2);
-					detachNode(div_1);
-				}
-			}
-		};
-	}
-	
-	function click_handler(event) {
-		var component = this._svelte.component;
-		var each_block_value = this._svelte.each_block_value,
-		    action_index = this._svelte.action_index,
-		    action = each_block_value[action_index];
-		component.selectAction(action);
-	}
-
-	function ClaudyMenu(options) {
-		options = options || {};
-		this._state = assign(template.data(), options.data);
-
-		this._observers = {
-			pre: Object.create(null),
-			post: Object.create(null)
-		};
-
-		this._handlers = Object.create(null);
-
-		this._root = options._root || this;
-		this._yield = options._yield;
-
-		this._torndown = false;
-
-		this._fragment = create_main_fragment(this._state, this);
-		if (options.target) this._fragment.mount(options.target, null);
-	}
-
-	assign(ClaudyMenu.prototype, template.methods, {
-		get: get,
-		fire: fire,
-		observe: observe,
-		on: on,
-		set: set,
-		_flush: _flush
-	});
-
-	ClaudyMenu.prototype._set = function _set(newState) {
-		var oldState = this._state;
-		this._state = assign({}, oldState, newState);
-		dispatchObservers(this, this._observers.pre, newState, oldState);
-		this._fragment.update(newState, this._state);
-		dispatchObservers(this, this._observers.post, newState, oldState);
-	};
-
-	ClaudyMenu.prototype.teardown = ClaudyMenu.prototype.destroy = function destroy(detach) {
-		this.fire('destroy');
-
-		this._fragment.destroy(detach !== false);
-		this._fragment = null;
-
-		this._state = {};
-		this._torndown = true;
-	};
-
-	function createElement(name) {
-		return document.createElement(name);
-	}
-
-	function insertNode(node, target, anchor) {
-		target.insertBefore(node, anchor);
-	}
-
-	function detachNode(node) {
-		node.parentNode.removeChild(node);
-	}
-
-	function appendNode(node, target) {
-		target.appendChild(node);
-	}
-
-	function createText(data) {
-		return document.createTextNode(data);
-	}
-
-	function addEventListener(node, event, handler) {
-		node.addEventListener(event, handler, false);
-	}
-
-	function removeEventListener(node, event, handler) {
-		node.removeEventListener(event, handler, false);
-	}
-
-	function destroyEach(iterations, detach, start) {
-		for (var i = start; i < iterations.length; i += 1) {
-			if (iterations[i]) iterations[i].destroy(detach);
-		}
-	}
-
-	function setAttribute(node, attribute, value) {
-		node.setAttribute(attribute, value);
-	}
-
-	function createComment() {
-		return document.createComment('');
-	}
-
-	function assign(target) {
-		for (var i = 1; i < arguments.length; i += 1) {
-			var source = arguments[i];
-			for (var k in source) {
-				target[k] = source[k];
-			}
-		}
-
-		return target;
-	}
-
-	function dispatchObservers(component, group, newState, oldState) {
-		for (var key in group) {
-			if (!(key in newState)) continue;
-
-			var newValue = newState[key];
-			var oldValue = oldState[key];
-
-			if (differs(newValue, oldValue)) {
-				var callbacks = group[key];
-				if (!callbacks) continue;
-
-				for (var i = 0; i < callbacks.length; i += 1) {
-					var callback = callbacks[i];
-					if (callback.__calling) continue;
-
-					callback.__calling = true;
-					callback.call(component, newValue, oldValue);
-					callback.__calling = false;
-				}
-			}
-		}
-	}
-
-	function get(key) {
-		return key ? this._state[key] : this._state;
-	}
-
-	function fire(eventName, data) {
-		var handlers = eventName in this._handlers && this._handlers[eventName].slice();
-		if (!handlers) return;
-
-		for (var i = 0; i < handlers.length; i += 1) {
-			handlers[i].call(this, data);
-		}
-	}
-
-	function observe(key, callback, options) {
-		var group = options && options.defer ? this._observers.post : this._observers.pre;
-
-		(group[key] || (group[key] = [])).push(callback);
-
-		if (!options || options.init !== false) {
-			callback.__calling = true;
-			callback.call(this, this._state[key]);
-			callback.__calling = false;
-		}
-
-		return {
-			cancel: function cancel() {
-				var index = group[key].indexOf(callback);
-				if (~index) group[key].splice(index, 1);
-			}
-		};
-	}
-
-	function on(eventName, handler) {
-		if (eventName === 'teardown') return this.on('destroy', handler);
-
-		var handlers = this._handlers[eventName] || (this._handlers[eventName] = []);
-		handlers.push(handler);
-
-		return {
-			cancel: function cancel() {
-				var index = handlers.indexOf(handler);
-				if (~index) handlers.splice(index, 1);
-			}
-		};
-	}
-
-	function set(newState) {
-		this._set(assign({}, newState));
-		this._root._flush();
-	}
-
-	function _flush() {
-		if (!this._renderHooks) return;
-
-		while (this._renderHooks.length) {
-			this._renderHooks.pop()();
-		}
-	}
-
-	function differs(a, b) {
-		return a !== b || a && (typeof a === 'undefined' ? 'undefined' : _typeof(a)) === 'object' || typeof a === 'function';
-	}
-
-	module.exports = ClaudyMenu;
-
-/***/ },
-/* 279 */
+/* 244 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var map = {
-		"./icon-bills.svg": 280,
-		"./icon-laptop.svg": 281,
-		"./icon-phone.svg": 282,
-		"./icon-question-mark.svg": 283
+		"./icon-bills.svg": 245,
+		"./icon-laptop.svg": 246,
+		"./icon-phone.svg": 247,
+		"./icon-question-mark.svg": 248
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -16277,44 +11919,450 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 	webpackContext.resolve = webpackContextResolve;
 	module.exports = webpackContext;
-	webpackContext.id = 279;
+	webpackContext.id = 244;
 
 
 /***/ },
-/* 280 */
+/* 245 */
 /***/ function(module, exports) {
 
 	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDQ4IDQ4Ij4KICA8ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDUpIj4KICAgIDxwb2x5Z29uIGZpbGw9IiNGRkRFQzEiIHBvaW50cz0iMCAwIDcuNSAzIDEzLjUgMCAxOS41IDMgMjUuNSAwIDMxLjUgMyAzOSAwIDM5IDQ4IDMxLjUgNDUgMjUuNSA0OCAxOS41IDQ1IDEzLjUgNDggNy41IDQ1IDAgNDgiLz4KICAgIDxwYXRoIGZpbGw9IiNGRjdGMUIiIGQ9Ik05IDEyTDMwIDEyIDMwIDE1IDkgMTUgOSAxMnpNOSAxOEwzMCAxOCAzMCAyMSA5IDIxIDkgMTh6TTkgMjRMMjEgMjQgMjEgMjcgOSAyNyA5IDI0ek05IDMwTDIxIDMwIDIxIDMzIDkgMzMgOSAzMHpNMzQuMjY0Mjg4OSAyOS4xNzgyNzM1QzMzLjM4OTY3OSAyNy45MjQxMTYgMzIuMjUxMDM2MSAyNyAzMC4yMzc3ODMzIDI3IDI3Ljg5NDQ4OSAyNyAyNi4yMTEyNzc3IDI4LjYwMDcwMSAyNS41NTExOTQ4IDMwLjgyODQ4MDdMMjQgMzAuODI4NDgwNyAyNCAzMi4yMzExNTY5IDI1LjI4NzE2MTYgMzIuMjMxMTU2OUMyNS4yNTQxNTc1IDMyLjQ3ODY4OCAyNS4yNTQxNTc1IDMyLjc0MjcyMTEgMjUuMjU0MTU3NSAzMi45OTAyNTIyIDI1LjI1NDE1NzUgMzMuMjA0Nzc5MSAyNS4yNTQxNTc1IDMzLjQxOTMwNjEgMjUuMjcwNjU5NiAzMy42MTczMzA5TDI0IDMzLjYxNzMzMDkgMjQgMzUuMDM2NTA5MSAyNS41MDE2ODg2IDM1LjAzNjUwOTFDMjYuMTQ1MjY5NCAzNy4zNzk4MDM0IDI3Ljg2MTQ4NDkgMzguOTQ3NTAwMiAzMC4zMDM3OTE2IDM4Ljk0NzUwMDIgMzIuMTg1MDI3OCAzOC45NDc1MDAyIDMzLjM1NjY3NDkgMzcuOTkwMzggMzQuMjk3MjkzIDM2LjYyMDcwODFMMzIuODQ1MTEwNyAzNS41NDgwNzM0QzMyLjA4NjAxNTMgMzYuNTU0Njk5OCAzMS40MjU5MzI1IDM3LjEzMjI3MjMgMzAuMzIwMjkzNiAzNy4xMzIyNzIzIDI5LjAzMzEzMiAzNy4xMzIyNzIzIDI4LjA5MjUxMzkgMzYuMzQwMTcyOCAyNy42MzA0NTU5IDM1LjAzNjUwOTFMMzEuMTk0OTAzNSAzNS4wMzY1MDkxIDMxLjE5NDkwMzUgMzMuNjE3MzMwOSAyNy4zMTY5MTY1IDMzLjYxNzMzMDlDMjcuMzAwNDE0NCAzMy40MDI4MDQgMjcuMzAwNDE0NCAzMy4xODgyNzcxIDI3LjMwMDQxNDQgMzIuOTU3MjQ4IDI3LjMwMDQxNDQgMzIuNzA5NzE3IDI3LjMwMDQxNDQgMzIuNDYyMTg1OSAyNy4zMzM0MTg2IDMyLjIzMTE1NjlMMzEuMTk0OTAzNSAzMi4yMzExNTY5IDMxLjE5NDkwMzUgMzAuODI4NDgwNyAyNy42NDY5NTc5IDMwLjgyODQ4MDdDMjguMTA5MDE2IDI5LjU5MDgyNTMgMjkuMDE2NjI5OSAyOC44MTUyMjc5IDMwLjE4ODI3NzEgMjguODE1MjI3OSAzMS4zNDM0MjIxIDI4LjgxNTIyNzkgMzIuMDIwMDA3MSAyOS4zNDMyOTQyIDMyLjcyOTU5NjIgMzAuMzE2OTE2NUwzNC4yNjQyODg5IDI5LjE3ODI3MzV6Ii8+CiAgPC9nPgo8L3N2Zz4K"
 
 /***/ },
-/* 281 */
+/* 246 */
 /***/ function(module, exports) {
 
 	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDQ4IDQ4Ij4KICA8ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDAgNikiPgogICAgPHBhdGggZmlsbD0iIzM1Q0U2OCIgZD0iTTMsMzEuNSBMMywzIEwzLDMgQzMsMS4zNDMxNDU3NSA0LjM0MzE0NTc1LDMuMDQzNTkxODhlLTE2IDYsMCBMNDIsMCBMNDIsMCBDNDMuNjU2ODU0MiwtMy4wNDM1OTE4OGUtMTYgNDUsMS4zNDMxNDU3NSA0NSwzIEw0NSwzMS41IEwzLDMxLjUgWiIvPgogICAgPHJlY3Qgd2lkdGg9IjM2IiBoZWlnaHQ9IjI0IiB4PSI2IiB5PSIzIiBmaWxsPSIjQkNFRkNEIi8+CiAgICA8cGF0aCBmaWxsPSIjQkNFRkNEIiBkPSJNMjgsMzEuNSBMMTguNSwzMS41IEwxOC41LDMxLjUgQzE4LjIyMzg1NzYsMzEuNSAxOCwzMS4yNzYxNDI0IDE4LDMxIEwxOCwzMC41IEwxOCwzMC41IEMxOCwzMC4yMjM4NTc2IDE3Ljc3NjE0MjQsMzAgMTcuNSwzMCBMMC41LDMwIEwwLjUsMzAgQzAuMjIzODU3NjI1LDMwIC0zLjM4MTc2ODc2ZS0xNywzMC4yMjM4NTc2IDAsMzAuNSBMMCwzMyBMMCwzMyBDMi4wMjkwNjEyNWUtMTYsMzQuNjU2ODU0MiAxLjM0MzE0NTc1LDM2IDMsMzYgTDQ1LDM2IEw0NSwzNiBDNDYuNjU2ODU0MiwzNiA0OCwzNC42NTY4NTQyIDQ4LDMzIEw0OCwzMC41IEw0OCwzMC41IEM0OCwzMC4yMjM4NTc2IDQ3Ljc3NjE0MjQsMzAgNDcuNSwzMCBMMjksMzAgTDI5LDMwIEMyOC43MjM4NTc2LDMwIDI4LjUsMzAuMjIzODU3NiAyOC41LDMwLjUgTDI4LjUsMzEgTDI4LjUsMzEgQzI4LjUsMzEuMjc2MTQyNCAyOC4yNzYxNDI0LDMxLjUgMjgsMzEuNSBaIi8+CiAgPC9nPgo8L3N2Zz4K"
 
 /***/ },
-/* 282 */
+/* 247 */
 /***/ function(module, exports) {
 
 	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDMwIDQ4Ij4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCIgb3BhY2l0eT0iLjUiPgogICAgICAgIDxwYXRoIGZpbGw9IiNGQzRDODMiIGQ9Ik0yNiA0OEg0Yy0yLjIxIDAtNC0xLjg3LTQtNC4xNzRWNC4xNzRDMCAxLjg3IDEuNzkgMCA0IDBoMjJjMi4yMDggMCA0IDEuODcgNCA0LjE3NHYzOS42NTJDMzAgNDYuMTMgMjguMjA4IDQ4IDI2IDQ4eiIvPgogICAgICAgIDxwYXRoIHN0cm9rZT0iI0Y1RjZGNyIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBkPSJNMTIgMi4yNTFsNi0uMDAxIi8+CiAgICAgICAgPHBhdGggZmlsbD0iI0Y1RjZGNyIgZD0iTTE3LjI1IDQ0LjI1YTIuMjUgMi4yNSAwIDEgMS00LjUwMi0uMDAyIDIuMjUgMi4yNSAwIDAgMSA0LjUwMi4wMDJ6Ii8+CiAgICAgICAgPHBhdGggZmlsbD0iI0ZFQzRENiIgZD0iTTEuNSA0LjVoMjdWNDJoLTI3eiIvPgogICAgPC9nPgo8L3N2Zz4K"
 
 /***/ },
-/* 283 */
+/* 248 */
 /***/ function(module, exports) {
 
 	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDQ4IDQ4Ij4KICA8ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgogICAgPGNpcmNsZSBjeD0iMjQiIGN5PSIyNCIgcj0iMjQiIGZpbGw9IiNFMkM5RUUiLz4KICAgIDxwYXRoIGZpbGw9IiNBNzVCQ0IiIGQ9Ik0yNSwyNS45MyBMMjUsMzEgQzI1LDMxLjU1NCAyNC41NSwzMiAyNCwzMiBDMjMuNDQ4LDMyIDIzLDMxLjU1NCAyMywzMSBMMjMsMjUgQzIzLDI0LjQ0OCAyMy40NDgsMjQgMjQsMjQgQzI2Ljc1NiwyNCAyOSwyMS43NTggMjksMTkgQzI5LDE2LjI0MiAyNi43NTYsMTQgMjQsMTQgQzIxLjI0MiwxNCAxOSwxNi4yNDIgMTksMTkgQzE5LDE5LjU1NCAxOC41NSwyMCAxOCwyMCBDMTcuNDQ4LDIwIDE3LDE5LjU1NCAxNywxOSBDMTcsMTUuMTQgMjAuMTM4LDEyIDI0LDEyIEMyNy44NiwxMiAzMSwxNS4xNCAzMSwxOSBDMzEsMjIuNTIgMjguMzg2LDI1LjQ0MiAyNSwyNS45MyBaIE0yNCwzOCBDMjIuODk0LDM4IDIyLDM3LjEwNiAyMiwzNiBDMjIsMzQuODk2IDIyLjg5NCwzNCAyNCwzNCBDMjUuMTAyLDM0IDI2LDM0Ljg5NiAyNiwzNiBDMjYsMzcuMTA2IDI1LjEwMiwzOCAyNCwzOCBaIi8+CiAgPC9nPgo8L3N2Zz4K"
 
 /***/ },
-/* 284 */
+/* 249 */
+/***/ function(module, exports, __webpack_require__) {
+
+	(function (global, factory) {
+		 true ? factory(__webpack_require__(198)) :
+		typeof define === 'function' && define.amd ? define(['preact'], factory) :
+		(factory(global.preact));
+	}(this, (function (preact) { 'use strict';
+	
+	// render modes
+	
+	var ATTR_KEY = '__preactattr_';
+	
+	/* global __REACT_DEVTOOLS_GLOBAL_HOOK__ */
+	
+	// Internal helpers from preact
+	/**
+	 * Return a ReactElement-compatible object for the current state of a preact
+	 * component.
+	 */
+	function createReactElement(component) {
+		return {
+			type: component.constructor,
+			key: component.key,
+			ref: null, // Unsupported
+			props: component.props
+		};
+	}
+	
+	/**
+	 * Create a ReactDOMComponent-compatible object for a given DOM node rendered
+	 * by preact.
+	 *
+	 * This implements the subset of the ReactDOMComponent interface that
+	 * React DevTools requires in order to display DOM nodes in the inspector with
+	 * the correct type and properties.
+	 *
+	 * @param {Node} node
+	 */
+	function createReactDOMComponent(node) {
+		var childNodes = node.nodeType === Node.ELEMENT_NODE ? Array.from(node.childNodes) : [];
+	
+		var isText = node.nodeType === Node.TEXT_NODE;
+	
+		return {
+			// --- ReactDOMComponent interface
+			_currentElement: isText ? node.textContent : {
+				type: node.nodeName.toLowerCase(),
+				props: node[ATTR_KEY]
+			},
+			_renderedChildren: childNodes.map(function (child) {
+				if (child._component) {
+					return updateReactComponent(child._component);
+				}
+				return updateReactComponent(child);
+			}),
+			_stringText: isText ? node.textContent : null,
+	
+			// --- Additional properties used by preact devtools
+	
+			// A flag indicating whether the devtools have been notified about the
+			// existence of this component instance yet.
+			// This is used to send the appropriate notifications when DOM components
+			// are added or updated between composite component updates.
+			_inDevTools: false,
+			node: node
+		};
+	}
+	
+	/**
+	 * Return the name of a component created by a `ReactElement`-like object.
+	 *
+	 * @param {ReactElement} element
+	 */
+	function typeName(element) {
+		if (typeof element.type === 'function') {
+			return element.type.displayName || element.type.name;
+		}
+		return element.type;
+	}
+	
+	/**
+	 * Return a ReactCompositeComponent-compatible object for a given preact
+	 * component instance.
+	 *
+	 * This implements the subset of the ReactCompositeComponent interface that
+	 * the DevTools requires in order to walk the component tree and inspect the
+	 * component's properties.
+	 *
+	 * See https://github.com/facebook/react-devtools/blob/e31ec5825342eda570acfc9bcb43a44258fceb28/backend/getData.js
+	 */
+	function createReactCompositeComponent(component) {
+		var _currentElement = createReactElement(component);
+		var node = component.base;
+	
+		var instance = {
+			// --- ReactDOMComponent properties
+			getName: function getName() {
+				return typeName(_currentElement);
+			},
+			_currentElement: createReactElement(component),
+			props: component.props,
+			state: component.state,
+			forceUpdate: component.forceUpdate && component.forceUpdate.bind(component),
+			setState: component.setState && component.setState.bind(component),
+	
+			// --- Additional properties used by preact devtools
+			node: node
+		};
+	
+		// React DevTools exposes the `_instance` field of the selected item in the
+		// component tree as `$r` in the console.  `_instance` must refer to a
+		// React Component (or compatible) class instance with `props` and `state`
+		// fields and `setState()`, `forceUpdate()` methods.
+		instance._instance = component;
+	
+		// If the root node returned by this component instance's render function
+		// was itself a composite component, there will be a `_component` property
+		// containing the child component instance.
+		if (component._component) {
+			instance._renderedComponent = updateReactComponent(component._component);
+		} else {
+			// Otherwise, if the render() function returned an HTML/SVG element,
+			// create a ReactDOMComponent-like object for the DOM node itself.
+			instance._renderedComponent = updateReactComponent(node);
+		}
+	
+		return instance;
+	}
+	
+	/**
+	 * Map of Component|Node to ReactDOMComponent|ReactCompositeComponent-like
+	 * object.
+	 *
+	 * The same React*Component instance must be used when notifying devtools
+	 * about the initial mount of a component and subsequent updates.
+	 */
+	var instanceMap = typeof Map === 'function' && new Map();
+	
+	/**
+	 * Update (and create if necessary) the ReactDOMComponent|ReactCompositeComponent-like
+	 * instance for a given preact component instance or DOM Node.
+	 *
+	 * @param {Component|Node} componentOrNode
+	 */
+	function updateReactComponent(componentOrNode) {
+		var newInstance = componentOrNode instanceof Node ? createReactDOMComponent(componentOrNode) : createReactCompositeComponent(componentOrNode);
+		if (instanceMap.has(componentOrNode)) {
+			var inst = instanceMap.get(componentOrNode);
+			Object.assign(inst, newInstance);
+			return inst;
+		}
+		instanceMap.set(componentOrNode, newInstance);
+		return newInstance;
+	}
+	
+	function nextRootKey(roots) {
+		return '.' + Object.keys(roots).length;
+	}
+	
+	/**
+	 * Find all root component instances rendered by preact in `node`'s children
+	 * and add them to the `roots` map.
+	 *
+	 * @param {DOMElement} node
+	 * @param {[key: string] => ReactDOMComponent|ReactCompositeComponent}
+	 */
+	function findRoots(node, roots) {
+		Array.from(node.childNodes).forEach(function (child) {
+			if (child._component) {
+				roots[nextRootKey(roots)] = updateReactComponent(child._component);
+			} else {
+				findRoots(child, roots);
+			}
+		});
+	}
+	
+	/**
+	 * Create a bridge for exposing preact's component tree to React DevTools.
+	 *
+	 * It creates implementations of the interfaces that ReactDOM passes to
+	 * devtools to enable it to query the component tree and hook into component
+	 * updates.
+	 *
+	 * See https://github.com/facebook/react/blob/59ff7749eda0cd858d5ee568315bcba1be75a1ca/src/renderers/dom/ReactDOM.js
+	 * for how ReactDOM exports its internals for use by the devtools and
+	 * the `attachRenderer()` function in
+	 * https://github.com/facebook/react-devtools/blob/e31ec5825342eda570acfc9bcb43a44258fceb28/backend/attachRenderer.js
+	 * for how the devtools consumes the resulting objects.
+	 */
+	function createDevToolsBridge() {
+		// The devtools has different paths for interacting with the renderers from
+		// React Native, legacy React DOM and current React DOM.
+		//
+		// Here we emulate the interface for the current React DOM (v15+) lib.
+	
+		// ReactDOMComponentTree-like object
+		var ComponentTree = {
+			getNodeFromInstance: function getNodeFromInstance(instance) {
+				return instance.node;
+			},
+			getClosestInstanceFromNode: function getClosestInstanceFromNode(node) {
+				while (node && !node._component) {
+					node = node.parentNode;
+				}
+				return node ? updateReactComponent(node._component) : null;
+			}
+		};
+	
+		// Map of root ID (the ID is unimportant) to component instance.
+		var roots = {};
+		findRoots(document.body, roots);
+	
+		// ReactMount-like object
+		//
+		// Used by devtools to discover the list of root component instances and get
+		// notified when new root components are rendered.
+		var Mount = {
+			_instancesByReactRootID: roots,
+	
+			// Stub - React DevTools expects to find this method and replace it
+			// with a wrapper in order to observe new root components being added
+			_renderNewRootComponent: function _renderNewRootComponent() /* instance, ... */{}
+		};
+	
+		// ReactReconciler-like object
+		var Reconciler = {
+			// Stubs - React DevTools expects to find these methods and replace them
+			// with wrappers in order to observe components being mounted, updated and
+			// unmounted
+			mountComponent: function mountComponent() /* instance, ... */{},
+			performUpdateIfNecessary: function performUpdateIfNecessary() /* instance, ... */{},
+			receiveComponent: function receiveComponent() /* instance, ... */{},
+			unmountComponent: function unmountComponent() /* instance, ... */{}
+		};
+	
+		/** Notify devtools that a new component instance has been mounted into the DOM. */
+		var componentAdded = function componentAdded(component) {
+			var instance = updateReactComponent(component);
+			if (isRootComponent(component)) {
+				instance._rootID = nextRootKey(roots);
+				roots[instance._rootID] = instance;
+				Mount._renderNewRootComponent(instance);
+			}
+			visitNonCompositeChildren(instance, function (childInst) {
+				childInst._inDevTools = true;
+				Reconciler.mountComponent(childInst);
+			});
+			Reconciler.mountComponent(instance);
+		};
+	
+		/** Notify devtools that a component has been updated with new props/state. */
+		var componentUpdated = function componentUpdated(component) {
+			var prevRenderedChildren = [];
+			visitNonCompositeChildren(instanceMap.get(component), function (childInst) {
+				prevRenderedChildren.push(childInst);
+			});
+	
+			// Notify devtools about updates to this component and any non-composite
+			// children
+			var instance = updateReactComponent(component);
+			Reconciler.receiveComponent(instance);
+			visitNonCompositeChildren(instance, function (childInst) {
+				if (!childInst._inDevTools) {
+					// New DOM child component
+					childInst._inDevTools = true;
+					Reconciler.mountComponent(childInst);
+				} else {
+					// Updated DOM child component
+					Reconciler.receiveComponent(childInst);
+				}
+			});
+	
+			// For any non-composite children that were removed by the latest render,
+			// remove the corresponding ReactDOMComponent-like instances and notify
+			// the devtools
+			prevRenderedChildren.forEach(function (childInst) {
+				if (!document.body.contains(childInst.node)) {
+					instanceMap['delete'](childInst.node);
+					Reconciler.unmountComponent(childInst);
+				}
+			});
+		};
+	
+		/** Notify devtools that a component has been unmounted from the DOM. */
+		var componentRemoved = function componentRemoved(component) {
+			var instance = updateReactComponent(component);
+			visitNonCompositeChildren(function (childInst) {
+				instanceMap['delete'](childInst.node);
+				Reconciler.unmountComponent(childInst);
+			});
+			Reconciler.unmountComponent(instance);
+			instanceMap['delete'](component);
+			if (instance._rootID) {
+				delete roots[instance._rootID];
+			}
+		};
+	
+		return {
+			componentAdded: componentAdded,
+			componentUpdated: componentUpdated,
+			componentRemoved: componentRemoved,
+	
+			// Interfaces passed to devtools via __REACT_DEVTOOLS_GLOBAL_HOOK__.inject()
+			ComponentTree: ComponentTree,
+			Mount: Mount,
+			Reconciler: Reconciler
+		};
+	}
+	
+	/**
+	 * Return `true` if a preact component is a top level component rendered by
+	 * `render()` into a container Element.
+	 */
+	function isRootComponent(component) {
+		// `_parentComponent` is actually `__u` after minification
+		if (component._parentComponent || component.__u) {
+			// Component with a composite parent
+			return false;
+		}
+		if (component.base.parentElement && component.base.parentElement[ATTR_KEY]) {
+			// Component with a parent DOM element rendered by Preact
+			return false;
+		}
+		return true;
+	}
+	
+	/**
+	 * Visit all child instances of a ReactCompositeComponent-like object that are
+	 * not composite components (ie. they represent DOM elements or text)
+	 *
+	 * @param {Component} component
+	 * @param {(Component) => void} visitor
+	 */
+	function visitNonCompositeChildren(component, visitor) {
+		if (component._renderedComponent) {
+			if (!component._renderedComponent._component) {
+				visitor(component._renderedComponent);
+				visitNonCompositeChildren(component._renderedComponent, visitor);
+			}
+		} else if (component._renderedChildren) {
+			component._renderedChildren.forEach(function (child) {
+				visitor(child);
+				if (!child._component) visitNonCompositeChildren(child, visitor);
+			});
+		}
+	}
+	
+	/**
+	 * Create a bridge between the preact component tree and React's dev tools
+	 * and register it.
+	 *
+	 * After this function is called, the React Dev Tools should be able to detect
+	 * "React" on the page and show the component tree.
+	 *
+	 * This function hooks into preact VNode creation in order to expose functional
+	 * components correctly, so it should be called before the root component(s)
+	 * are rendered.
+	 *
+	 * Returns a cleanup function which unregisters the hooks.
+	 */
+	
+	function initDevTools() {
+		if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ === 'undefined') {
+			// React DevTools are not installed
+			return;
+		}
+	
+		// Notify devtools when preact components are mounted, updated or unmounted
+		var bridge = createDevToolsBridge();
+	
+		var nextAfterMount = preact.options.afterMount;
+		preact.options.afterMount = function (component) {
+			bridge.componentAdded(component);
+			if (nextAfterMount) nextAfterMount(component);
+		};
+	
+		var nextAfterUpdate = preact.options.afterUpdate;
+		preact.options.afterUpdate = function (component) {
+			bridge.componentUpdated(component);
+			if (nextAfterUpdate) nextAfterUpdate(component);
+		};
+	
+		var nextBeforeUnmount = preact.options.beforeUnmount;
+		preact.options.beforeUnmount = function (component) {
+			bridge.componentRemoved(component);
+			if (nextBeforeUnmount) nextBeforeUnmount(component);
+		};
+	
+		// Notify devtools about this instance of "React"
+		__REACT_DEVTOOLS_GLOBAL_HOOK__.inject(bridge);
+	
+		return function () {
+			preact.options.afterMount = nextAfterMount;
+			preact.options.afterUpdate = nextAfterUpdate;
+			preact.options.beforeUnmount = nextBeforeUnmount;
+		};
+	}
+	
+	initDevTools();
+	
+	})));
+	//# sourceMappingURL=devtools.js.map
+
+
+/***/ },
+/* 250 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(285);
+	var content = __webpack_require__(251);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(298)(content, {});
+	var update = __webpack_require__(264)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -16331,21 +12379,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 285 */
+/* 251 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(286)();
+	exports = module.exports = __webpack_require__(252)();
 	// imports
 	
 	
 	// module
-	exports.push([module.id, "[role=banner] .coz-sep-flex {\n  margin: 0;\n  border: none;\n  flex: 1 0;\n}\n\n\n[role=banner] [data-icon] {\n  background-repeat: no-repeat;\n  background-position: 0 50%;\n  padding-left: calc(16px + .5em)\n}\n\n\n[role=banner] [data-icon='icon-profile'] {\n  background-image: url(" + __webpack_require__(287) + ")\n}\n\n\n[role=banner] [data-icon='icon-connectedDevices'] {\n  background-image: url(" + __webpack_require__(288) + ")\n}\n\n\n[role=banner] [data-icon='icon-help'] {\n  background-image: url(" + __webpack_require__(289) + ")\n}\n\n\n[role=banner] [data-icon='icon-logout'] {\n  background-image: url(" + __webpack_require__(290) + ")\n}\n\n\n[role=banner] [data-icon='icon-storage'] {\n  background-image: url(" + __webpack_require__(291) + ")\n}\n\n\n[role=banner] [data-icon='icon-cog'] {\n  background-image: url(" + __webpack_require__(292) + ")\n}\n\n\n[role=banner] [data-icon='icon-hamburger'] {\n  background-image: url(" + __webpack_require__(293) + ")\n}\n\n\n[role=banner] [data-icon='icon-cube'] {\n  background-image: url(" + __webpack_require__(275) + ")\n}\n\n\n[role=banner] [data-icon='icon-claudy'] {\n  background-image: url(" + __webpack_require__(294) + ")\n}\n\n\n/* Spinner */\n\n\n@keyframes spin {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(359deg);\n  }\n}\n\n\n[role=banner] [aria-busy=true] {\n  position: relative;\n}\n\n\n[role=banner] [aria-busy=true]::after {\n  content: \"\";\n  position: absolute;\n  right: 0;\n  top: 0;\n  display: block;\n  width: 1em;\n  height: 1em;\n  background-position: center;\n  background-repeat: no-repeat;\n  background-size: cover;\n  background-image: url(" + __webpack_require__(295) + ");\n  animation: 1s linear infinite spin;\n}\n\n\n/* Progress bar */\n\n\n[role=banner] progress[value] {\n  /* Reset the default appearance */\n  appearance: none;\n  background-color: #f5f6f7;\n  border: solid 1px #d6d8da;\n  border-radius: 2px;\n  color: #297ef2;\n}\n\n\n[role=banner] progress[value]::-webkit-progress-bar {\n  background: #f5f6f7;\n  border-radius: 2px;\n}\n\n\n[role=banner] progress[value]::-webkit-progress-value {\n  background: #297ef2;\n  border-radius: 1px;\n}\n\n\n[role=banner] progress[value]::-moz-progress-bar {\n  background: #297ef2;\n  border-radius: 1px;\n}\n\n\n/* Errors */\n\n\n[role=banner] .coz-nav--error {\n  margin: 0 0 .1em 0;\n  font-weight: normal;\n  font-size: .875em;\n  color: #F52D2D;\n}\n\n\n[role=banner] {\n  position: relative;\n  z-index: 20;\n  min-height: 3em;\n  flex-shrink: 0;\n  display: flex;\n  align-items: stretch;\n  padding: 0 1.25em 0 1em;\n  box-shadow: inset 0 -1px 0 0 #d6d8da;\n  font-family: Lato, sans-serif;\n  font-size: 1rem;\n}\n\n\n@media (max-width: 48em) {\n  [role=banner] {\n    padding: 0 1em 0 0;\n  }\n\n  [role=banner][data-drawer-visible=true] {\n    /* Force the BAR to be above selection bar in mobile mode,\n     * only when drawer is opened\n     */\n    z-index: 31;\n  }\n}\n\n\n[role=banner] .coz-bar-title {\n  display: flex;\n  margin: 0;\n  align-items: center;\n  font-size: 1.5em;\n  font-weight: normal;\n  color: #32363f;\n}\n\n\n@media (max-width: 48em) {\n  [role=banner] .coz-bar-title {\n    font-size: 1.25em\n  }\n}\n\n\n[role=banner] .coz-bar-title img {\n  margin-right: .45em;\n}\n\n\n[role=banner] .coz-bar-title span {\n  margin-right: .25em;\n}\n\n\n[role=banner] .coz-bar-title strong {\n  font-weight: bold;\n}\n\n\n[role=banner] .coz-bar-title .coz-bar-beta-status {\n  color: #95999d;\n  text-transform: uppercase;\n  font-size: .55em;\n  font-style: italic;\n  font-weight: 700;\n}\n\n\n@media (max-width: 30em) {\n  [role=banner] .coz-bar-hide-sm {\n    display: none;\n  }\n\n  [role=banner] .coz-bar-title strong {\n    padding: 0;\n    text-transform: capitalize;\n  }\n}\n\n\n[role=banner] .coz-bar-burger {\n  width: 2.5em;\n  margin-right: 0.25em;\n  padding: 0;\n  border: none;\n  background-color: transparent;\n  background-position: center;\n}\n\n\n@media (min-width: 48.0625em) {\n  [role=banner] .coz-bar-burger,\n  [role=banner] .coz-drawer-wrapper {\n    display: none;\n  }\n}\n\n\n@media (max-width: 48em) {\n  [role=banner] .coz-bar-hide-sm {\n    display: none;\n  }\n}\n\n\n[role=banner] .coz-nav ul {\n  margin: 0;\n  padding: 0;\n  list-style-type: none;\n}\n\n\n[role=banner] .coz-nav > ul {\n  display: flex;\n}\n\n\n@media (max-width: 48em) {\n  [role=banner] .coz-nav {\n    display: none;\n  }\n}\n\n\n[role=banner] .coz-nav-section {\n  position: relative;\n}\n\n\n[role=banner] .coz-nav-section [aria-controls] {\n  display: flex;\n  align-items: baseline;\n  padding: 1.285em 1.5em;\n  font-size: .875em;\n  text-transform: uppercase;\n  color: #5d6165;\n  cursor: pointer;\n}\n\n\n[role=banner] .coz-nav-section [aria-controls]:hover {\n  background-color: #f5f6f7;\n  box-shadow: inset 0 -1px 0 0 #d6d8da;\n  color: #32363f;\n}\n\n\n[role=banner] .coz-nav-section [aria-controls]:focus {\n  background-color: #f5f6f7;\n  box-shadow: inset 0 -1px 0 0 #d6d8da;\n  color: #32363f;\n}\n\n\n[role=banner] [aria-controls][aria-busy]::after {\n  position: relative;\n  top: .12em;\n  margin-left: .5em;\n}\n\n\n[role=banner] [aria-controls][aria-busy=true] {\n  padding-right: 0;\n}\n\n\n[role=banner] .coz-nav-section [aria-controls][data-icon] {\n  padding-left: calc(1.25em + 16px + .5em);\n  background-position: 1.25em calc(50% - 1px);\n}\n\n\n[role=banner] .coz-nav-icon {\n  margin-right: .5em;\n}\n\n\n[role=banner] .coz-nav-pop[aria-hidden=true] {\n  display: none;\n}\n\n\n[role=banner] .coz-nav-pop {\n  position: absolute;\n  top: calc(100% - .5em);\n  right: 0;\n  box-sizing: border-box;\n  min-width: 100%;\n  background-color: #fff;\n  border-radius: 8px;\n  border: solid 1px rgba(50, 54, 63, 0.12);\n  box-shadow: 0 1px 3px 0 rgba(50, 54, 63, 0.19), 0 6px 18px 0 rgba(50, 54, 63, 0.19);\n}\n\n\n[role=banner] .coz-nav-pop ul {\n  padding: .5em 0;\n}\n\n\n[role=banner] .coz-nav-pop ul:last-of-type {\n  border-radius: 0 0 8px 8px;\n}\n\n\n[role=banner] .coz-nav-pop ul:first-of-type {\n  border-radius: 8px 8px 0 0;\n}\n\n\n[role=banner] .coz-nav-pop hr {\n  margin: 0;\n  border: none;\n  border-bottom: solid 1px #d6d8da;\n}\n\n\n[role=banner] .coz-nav-pop ul:last-of-type + hr {\n  display: none;\n}\n\n\n[role=banner] .coz-nav-pop--apps .coz-nav-group:not(.coz-nav--error) {\n  display: flex;\n  padding: .25em .25em 1em .25em;\n}\n\n\n[role=banner] .coz-nav-pop--apps .coz-nav-group--wrapping.coz-nav-group:not(.coz-nav--error) {\n  flex-wrap: wrap;\n  width: 36em;\n}\n\n\n@media (min-width: 48em) and (max-width: 51em) {\n    [role=banner] .coz-nav-pop.coz-nav-pop--apps {\n        right: -3em;\n    }\n}\n\n\n[role=banner] .coz-nav-pop--apps .coz-nav-group:not(.coz-nav--error) .coz-nav-item {\n    width: 8em;\n    padding: 0 .5em;\n}\n\n\n[role=banner] .coz-nav-group:not(.coz-nav--error).coz-nav-group--inactive {\n  background-color: #f5f6f7\n}\n\n\n[role=banner] .coz-nav-group.coz-nav--error {\n  padding: 0.75em;\n  min-width: 20em;\n}\n\n\n[role=banner] .coz-nav-pop--apps .coz-nav-group a {\n  display: flex;\n  flex-direction: column;\n  padding: .5em;\n}\n\n\n[role=banner] .coz-nav-pop--apps .coz-nav-group a img {\n  margin-bottom: .75em;\n}\n\n\n[role=banner] .coz-nav-pop--apps .coz-nav-group a .coz-label {\n  width: 100%;\n  overflow: hidden;\n  white-space: nowrap;\n  text-align: center;\n  text-overflow: ellipsis;\n  font-size: 15px;\n}\n\n\n[role=banner] .coz-nav-pop--apps .coz-nav-category {\n  font-size: 1em;\n  padding: 0 2em;\n  margin: 2em 0 .5em 0;\n}\n\n\n[role=banner] .blurry {\n  opacity: .5;\n  filter: blur(5px);\n}\n\n\n[role=banner] .coz-nav-item [role=menuitem] {\n  position: relative;\n  z-index: 0;\n  display: block;\n  box-sizing: border-box;\n  width: 100%;\n  padding: .5em 1.5em .5em calc(1.5em + 16px + .5em);\n  border: none;\n  align-items: center;\n  background-position: 1.5em 50%;\n  background-color: transparent;\n  text-align: left;\n  white-space: nowrap;\n  color: #32363f;\n  text-decoration: none;\n  outline: none;\n}\n\n\n/* Force pointer on clickable elements*/\n\n\n[role=banner] .coz-nav-item a[role=menuitem],\n[role=banner] .coz-nav-item button[role=menuitem] {\n  cursor: pointer;\n}\n\n\n/* Hover effect */\n\n\n[role=banner] .coz-nav-item a[role=menuitem]:not(.coz-bar-coming-soon-app):hover:before {\n  content: '';\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  z-index: -1;\n  background-color: #f5f6f7;\n  background-image: inherit;\n  background-position: inherit;\n  background-repeat: inherit;\n}\n\n\n[role=banner] .coz-nav-item a[role=menuitem]:not(.coz-bar-coming-soon-app):focus:before {\n  content: '';\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  z-index: -1;\n  background-color: #f5f6f7;\n  background-image: inherit;\n  background-position: inherit;\n  background-repeat: inherit;\n}\n\n\n[role=banner] .coz-nav-item button[role=menuitem]:hover:before {\n  content: '';\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  z-index: -1;\n  background-color: #f5f6f7;\n  background-image: inherit;\n  background-position: inherit;\n  background-repeat: inherit;\n}\n\n\n[role=banner] .coz-nav-item button[role=menuitem]:focus:before {\n  content: '';\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  z-index: -1;\n  background-color: #f5f6f7;\n  background-image: inherit;\n  background-position: inherit;\n  background-repeat: inherit;\n}\n\n\n[role=banner] [role=menuitem][aria-busy=true]::after {\n  right: 1.5em;\n  top: .5em;\n}\n\n\n/* Remove default margin for p elements */\n\n\n[role=banner] .coz-nav-item a[role=menuitem] p.coz-label {\n  margin: 0;\n}\n\n\n[role=banner] .coz-nav-item div[role=menuitem]:not([data-icon]) {\n  margin: 0;\n  padding-left: 1.5em;\n}\n\n\n[role=banner] .coz-nav-item [role=menuitem] .coz-bar-text-item {\n  margin: 0;\n}\n\n\n[role=banner] .coz-nav-item [role=menuitem] .coz-bar-text-item--inactive {\n  font-style: italic;\n}\n\n\n/* Coming soon styles */\n\n\n[role=banner] .coz-nav-item a[role=menuitem].coz-bar-coming-soon-app {\n    cursor: default;\n}\n\n\n[role=banner] .coz-nav-item [role=menuitem].coz-bar-coming-soon-app img,\n[role=banner] .coz-nav-item [role=menuitem].coz-bar-coming-soon-app .coz-label\n{\n  opacity: .4;\n}\n\n\n[role=banner] .coz-nav-item [role=menuitem].coz-bar-coming-soon-app .coz-bar-coming-soon-badge {\n  position: absolute;\n  display: block;\n  right: 2.5em;\n  bottom: 4.5em;\n  background: #297ef2;\n  border-radius: 2px;\n  padding: .25em;\n  font-size: .6em;\n  color: white;\n  text-transform: uppercase;\n}\n\n\n[role=banner] [role=menuitem][data-icon=icon-storage] {\n  background-position: 1.5em calc(.5em + 1px);\n}\n\n\n[role=banner] .coz-nav-storage {\n  display: flex;\n  flex-direction: column;\n  align-items: left;\n  padding-top: .5em;\n  color: #95999d;\n}\n\n\n[role=banner] .coz-nav-storage-text {\n  margin: 0 0 .1em 0;\n  font-weight: normal;\n  font-size: .875em;\n}\n\n\n[role=banner] .cozy-nav-storage-bar {\n    height: .5em;\n    margin: .2em 0 .1em 0;\n}\n\n\n[role=banner] .coz-drawer-wrapper {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100vw;\n  height: 100vh;\n  /* Prepare for transitions */\n  display: none;\n  visibility: visible;\n}\n\n\n[role=banner] .coz-drawer-wrapper[aria-hidden=false],\n[role=banner] .coz-drawer-wrapper.swipe-active {\n  display: block;\n}\n\n\n[role=banner] .coz-drawer-wrapper::before {\n  content: '';\n  display: block;\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background-color: #32363f;\n  opacity: 0;\n  transition: opacity 250ms ease-out;\n}\n\n\n[role=banner] .coz-drawer-wrapper[aria-hidden=false]::before {\n  opacity: .5;\n}\n\n\n[role=banner] .coz-drawer-wrapper aside {\n  position: absolute;\n  bottom: 0;\n  left: 0;\n  width: 90%;\n  max-width: 30em;\n  height: 100%;\n  display: flex;\n  flex-direction: column;\n  background-color: #fff;\n  transform: translateX(-100vw);\n  transition: transform 500ms ease-out;\n}\n\n\n[role=banner] .coz-drawer-wrapper[aria-hidden=false] aside {\n  transform: translateX(0);\n}\n\n\n[role=banner] .coz-drawer-wrapper ul {\n  margin: 0;\n  padding: .8em 0;\n  list-style-type: none;\n}\n\n\n@media (max-width: 48em) {\n    [role=banner] .coz-drawer-wrapper ul {\n        padding: .5em 0;\n    }\n}\n\n\n[role=banner] .coz-drawer-wrapper nav hr {\n  margin: 0;\n  border: none;\n  border-bottom: solid 1px #d6d8da;\n}\n\n\n[role=banner] .coz-drawer-wrapper .coz-nav-icon {\n  margin-right: .5em;\n}\n\n\n[role=banner] .coz-drawer--apps {\n    flex: 0 1 auto;\n    overflow-y: scroll;\n}\n\n\n[role=banner] .coz-drawer--apps ul {\n  padding: 0 0 1em 0;\n  display: flex;\n}\n\n\n[role=banner] .coz-drawer--apps ul li {\n  flex: 0 0 calc(100% /3);\n  max-width: calc(100% / 3);\n}\n\n\n[role=banner] .coz-drawer--apps ul:last-of-type + hr {\n  display: none;\n}\n\n\n[role=banner] .coz-drawer--apps ul.coz-nav-group--wrapping {\n  flex-wrap: wrap;\n}\n\n\n[role=banner] .coz-drawer--apps [role=menuitem] {\n  display: flex;\n  flex-direction: column;\n  padding: .5em 1em;\n  border-radius: 2px;\n}\n\n\n[role=banner] .coz-drawer--apps [role=menuitem]:hover {\n  background-color: rgba(25, 123, 255, 0.1);\n}\n\n\n[role=banner] .coz-drawer--apps li img {\n  margin-bottom: .5em;\n}\n\n\n[role=banner] .coz-drawer--apps li p.coz-label {\n  overflow: hidden;\n  white-space: nowrap;\n  text-overflow: ellipsis;\n  min-width: 0;\n  width: 100%;\n  text-align: center;\n  font-size: 14px;\n}\n\n\n[role=banner] .coz-drawer--apps .coz-nav-category {\n  font-size: 1em;\n  padding: 0 2em;\n  margin: 2em 0 .5em 0;\n}\n\n\n[role=banner] .coz-claudy {\n  position: fixed;\n  bottom: 5em;\n  right: 2em;\n}\n\n\n@media (min-width: 64em) {\n  [role=banner] .coz-claudy {\n    bottom: 2em;\n  }\n}\n\n\n[role=banner] .coz-claudy-icon {\n  width: 3.5em;\n  height: 3.5em;\n  border-radius: 100%;\n  border: none;\n  background-color: #297ef2;\n  background-image: url(" + __webpack_require__(296) + ");\n  background-repeat: no-repeat;\n  background-size: 2.5em;\n  background-position: .5em;\n  box-shadow: 0 1px 3px 0 rgba(50, 54, 63, 0.19), 0 6px 18px 0 rgba(50, 54, 63, 0.39);\n  cursor: pointer;\n  opacity: .5;\n  transition: all .2s ease-out;\n  outline: 0;\n}\n\n\n[role=banner] .coz-claudy-icon:hover,\n[role=banner] .coz-claudy-icon:focus,\n[role=banner] .coz-claudy-icon:active,\n[role=banner] .coz-claudy [data-claudy-opened=true] {\n  transform: scale(1.1);\n  opacity: 1;\n  transition: all .2s ease-out;\n}\n\n\n[role=banner] .coz-claudy .coz-claudy-menu {\n  position: fixed;\n  bottom: 9.5em;\n  right: 2em;\n  width: 25em;\n  border-radius: .3em;\n  background: white;\n  transform-origin: 100% 100% 0;\n  transform: scale(0) translateY(4em);\n  filter: drop-shadow(0 4px 6px rgba(50, 54, 63, 0.5));\n  opacity: 0;\n  transition: .2s transform ease-in, .1s opacity ease-in;\n}\n\n\n[role=banner] .coz-claudy--opened .coz-claudy-menu {\n  transform: scale(1) translateY(0);\n  opacity: 1;\n  transition: .2s transform cubic-bezier(0.2, 0.75, 0.3, 1.15), .1s opacity ease-in;\n}\n\n\n@media (min-width: 64em) {\n  [role=banner] .coz-claudy .coz-claudy-menu {\n    bottom: 6.5em;\n  }\n}\n\n\n@media (max-width: 48em) {\n  [role=banner] .coz-claudy .coz-claudy-menu {\n    width: calc(100% - 2em);\n    height: calc(100% - 2em);\n    right: 1em;\n    top: 1em;\n    transform-origin: 50% 50% 0;\n  }\n\n  [role=banner] .coz-claudy-menu::after {\n    display: none;\n  }\n}\n\n\n[role=banner] .coz-claudy-menu-header {\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n  height: 2em;\n  padding: .75em;\n  background: #f5f6f7;\n  border-radius: .3em .3em 0 0;\n  border-bottom: 1px solid #d6d8da;\n  overflow: hidden;\n}\n\n\n[role=banner] .coz-claudy-menu-title {\n  opacity: 1;\n  transition: .2s all ease-in-out;\n}\n\n\n[role=banner] .coz-claudy-menu-header-back-button {\n  position: absolute;\n  width: 2em;\n  height: 2em;\n  background: url(" + __webpack_require__(297) + ") center / 1.5em no-repeat;\n  border: none;\n  cursor: pointer;\n  left: 10em;\n  opacity: 0;\n  transition: .2s all ease-in-out;\n}\n\n\n[role=banner] .coz-claudy-menu--action-selected .coz-claudy-menu-title {\n  transform: translateX(-50%);\n  opacity: 0;\n  transition: .2s all ease-in-out;\n}\n\n\n[role=banner] .coz-claudy-menu--action-selected .coz-claudy-menu-header-back-button {\n  opacity: 1;\n  left: 1em;\n  transition: .2s all ease-in-out;\n}\n\n\n[role=banner] .coz-claudy-menu-title {\n  font-size: 18px;\n  margin: .4em 0 0 0;\n}\n\n\n[role=banner] .coz-claudy-menu-content-wrapper {\n  overflow: hidden;\n}\n\n\n[role=banner] .coz-claudy-menu-content {\n  display: flex;\n  flex-direction: row;\n  width: 200%; /* actions-list + action-description */\n  padding: .5em 0;\n  transform: translateX(0);\n  transition: .2s transform ease-in-out;\n}\n\n\n[role=banner] .coz-claudy-menu--action-selected .coz-claudy-menu-content {\n  transform: translateX(-50%);\n  transition: .2s transform ease-in-out;\n}\n\n\n[role=banner] .coz-claudy-menu-actions-list,\n[role=banner] .coz-claudy-menu-action-description {\n  min-width: 50%;\n  max-width: 50%;\n  padding: 0;\n}\n\n\n[role=banner] .coz-claudy-menu::after {\n  position: fixed;\n  content: '';\n  right: 3em;\n  width: 0;\n  height: 0;\n  /* Make it a bit taller to avoid browser spacing issue\n  between it and the tooltip */\n  border-bottom: .8em solid transparent;\n  border-right: 1.5em solid white;\n  bottom: -.6em;\n}\n\n\n[role=banner] .coz-claudy-menu-action {\n  display: flex;\n  flex-direction: row;\n  align-items: center;\n  cursor: pointer;\n  height: 3em;\n  color: #297ef2;\n  padding: .5em 1em;\n}\n\n\n[role=banner] .coz-claudy-menu-action:hover {\n  background: #f5f6f7\n}\n\n\n[role=banner] .coz-claudy-menu-action-icon {\n  height: 3em;\n  width: 3em;\n}\n\n\n[role=banner] .coz-claudy-menu-action-title {\n  padding-left: 1em;\n}\n\n\n[role=banner] .coz-claudy-menu-action-description-header {\n  display: flex;\n  flex-direction: row;\n  align-items: center;\n  padding: .5em 1em;\n  color: black;\n  font-weight: 700;\n}\n\n\n[role=banner] .coz-claudy-menu-action-description-header .coz-claudy-menu-action-title{\n  margin: 0;\n}\n\n\n[role=banner] .coz-claudy-menu-action-description-content {\n  padding: .5em 1em 1em 1em;\n}\n\n\n[role=banner] .coz-claudy-menu-action-description-text {\n  margin-top: 0;\n}\n\n\n[role=banner] .coz-claudy-menu-action-description-button {\n  width: 100%;\n  margin: 0;\n}\n\n\n[role=banner].coz-target--mobile {\n  padding-left: 1em;\n}\n\n\n.coz-bar-hidden {\n  position: absolute !important;\n  border: 0 !important;\n  width: 1px !important;\n  height: 1px !important;\n  overflow: hidden !important;\n  padding: 0 !important;\n  white-space: nowrap !important;\n  clip: rect(1px, 1px, 1px, 1px) !important;\n  clip-path: inset(50%) !important;\n}\n\n\n@-moz-keyframes spin {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(359deg);\n  }\n}\n\n\n@-webkit-keyframes spin {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(359deg);\n  }\n}\n\n\n@-o-keyframes spin {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(359deg);\n  }\n}\n\n\n@keyframes spin {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(359deg);\n  }\n}\n\n\n.coz-btn-regular[aria-busy=true]::after {\n  content: '';\n  display: inline-block;\n  vertical-align: middle;\n  margin-left: 0.5em;\n  background-position: center;\n  background-repeat: no-repeat;\n  background-size: cover;\n}\n\n\n.coz-btn-regular[aria-busy=true]::after,\n.coz-btn-close[aria-busy=true]::after {\n  width: 1rem;\n  height: 1rem;\n}\n\n\n.coz-btn-regular[aria-busy=true]::after {\n  animation: spin 1s linear infinite;\n}\n\n\n.coz-btn-regular[aria-busy=true]::after {\n  background-image: url(\"data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAzMiAzMicgd2lkdGg9JzEyJyBoZWlnaHQ9JzEyJyBmaWxsPSd3aGl0ZSc+PHBhdGggb3BhY2l0eT0nLjI1JyBkPSdNMTYgMGExNiAxNiAwIDAgMCAwIDMyIDE2IDE2IDAgMCAwIDAtMzJtMCA0YTEyIDEyIDAgMCAxIDAgMjQgMTIgMTIgMCAwIDEgMC0yNCcvPjxwYXRoIGQ9J00xNiAwYTE2IDE2IDAgMCAxIDE2IDE2aC00YTEyIDEyIDAgMCAwLTEyLTEyeicvPjwvc3ZnPgo=\");\n}\n\n\n.coz-btn-regular,\n.coz-btn-close {\n  box-sizing: border-box;\n  display: inline-block;\n  margin: 0 0.25em;\n  border: 1px solid #fff;\n  border-radius: 2px;\n  min-height: em(40px, 14px);\n  padding: em(13px, 14px) em(15px, 14px) em(11px, 14px);\n  background: transparent;\n  vertical-align: top;\n  text-align: center;\n  font-size: 14px /* [1] */;\n  line-height: 1;\n  text-transform: uppercase;\n  text-decoration: none;\n  cursor: pointer;\n}\n\n\n.coz-btn-regular[disabled],\n.coz-btn-close[disabled],\n.coz-btn-regular[aria-disabled=true],\n.coz-btn-close[aria-disabled=true] {\n  opacity: 0.5;\n  cursor: not-allowed;\n}\n\n\n.coz-btn-regular[aria-busy=true]::after,\n.coz-btn-close[aria-busy=true]::after {\n  position: relative;\n  top: em(-1px);\n}\n\n\n.coz-btn-regular {\n  border-color: #297ef2;\n  background-color: #297ef2;\n  color: #fff;\n}\n\n\n.coz-btn-regular:active,\n.coz-btn-regular:not([disabled]):not([aria-disabled=true]):hover,\n.coz-btn-regular:focus {\n  border-color: #0b61d6;\n  background-color: #0b61d6;\n}\n\n\n.coz-btn-close {\n  border: 0;\n  width: em(46px);\n  background-image: url(\"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICA8cGF0aCBmaWxsPSIjOTU5OTlEIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xMDYuNTg1Nzg2LDQ0IEw5Ni4yOTI4OTMyLDMzLjcwNzEwNjggQzk1LjkwMjM2ODksMzMuMzE2NTgyNSA5NS45MDIzNjg5LDMyLjY4MzQxNzUgOTYuMjkyODkzMiwzMi4yOTI4OTMyIEM5Ni42ODM0MTc1LDMxLjkwMjM2ODkgOTcuMzE2NTgyNSwzMS45MDIzNjg5IDk3LjcwNzEwNjgsMzIuMjkyODkzMiBMMTA4LDQyLjU4NTc4NjQgTDExOC4yOTI4OTMsMzIuMjkyODkzMiBDMTE4LjY4MzQxOCwzMS45MDIzNjg5IDExOS4zMTY1ODIsMzEuOTAyMzY4OSAxMTkuNzA3MTA3LDMyLjI5Mjg5MzIgQzEyMC4wOTc2MzEsMzIuNjgzNDE3NSAxMjAuMDk3NjMxLDMzLjMxNjU4MjUgMTE5LjcwNzEwNywzMy43MDcxMDY4IEwxMDkuNDE0MjE0LDQ0IEwxMTkuNzA3MTA3LDU0LjI5Mjg5MzIgQzEyMC4wOTc2MzEsNTQuNjgzNDE3NSAxMjAuMDk3NjMxLDU1LjMxNjU4MjUgMTE5LjcwNzEwNyw1NS43MDcxMDY4IEMxMTkuMzE2NTgyLDU2LjA5NzYzMTEgMTE4LjY4MzQxOCw1Ni4wOTc2MzExIDExOC4yOTI4OTMsNTUuNzA3MTA2OCBMMTA4LDQ1LjQxNDIxMzYgTDk3LjcwNzEwNjgsNTUuNzA3MTA2OCBDOTcuMzE2NTgyNSw1Ni4wOTc2MzExIDk2LjY4MzQxNzUsNTYuMDk3NjMxMSA5Ni4yOTI4OTMyLDU1LjcwNzEwNjggQzk1LjkwMjM2ODksNTUuMzE2NTgyNSA5NS45MDIzNjg5LDU0LjY4MzQxNzUgOTYuMjkyODkzMiw1NC4yOTI4OTMyIEwxMDYuNTg1Nzg2LDQ0IFoiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC05NiAtMzIpIi8+Cjwvc3ZnPgo=\");\n  background-position: center center;\n  background-repeat: no-repeat;\n}\n\n\n.coz-btn-regular {\n  min-height: 40px;\n  padding: 13px 15px 11px;\n}\n\n\n.coz-btn-close {\n  width: 32px;\n  padding: 0;\n  margin: 0;\n}\n", ""]);
+	exports.push([module.id, "[role=banner] .coz-sep-flex {\n  margin: 0;\n  border: none;\n  flex: 1 0;\n}\n\n\n[role=banner] [data-icon] {\n  background-repeat: no-repeat;\n  background-position: 0 50%;\n  padding-left: calc(16px + .5em)\n}\n\n\n[role=banner] [data-icon='icon-profile'] {\n  background-image: url(" + __webpack_require__(253) + ")\n}\n\n\n[role=banner] [data-icon='icon-connectedDevices'] {\n  background-image: url(" + __webpack_require__(254) + ")\n}\n\n\n[role=banner] [data-icon='icon-help'] {\n  background-image: url(" + __webpack_require__(255) + ")\n}\n\n\n[role=banner] [data-icon='icon-logout'] {\n  background-image: url(" + __webpack_require__(256) + ")\n}\n\n\n[role=banner] [data-icon='icon-storage'] {\n  background-image: url(" + __webpack_require__(257) + ")\n}\n\n\n[role=banner] [data-icon='icon-cog'] {\n  background-image: url(" + __webpack_require__(258) + ")\n}\n\n\n[role=banner] [data-icon='icon-hamburger'] {\n  background-image: url(" + __webpack_require__(259) + ")\n}\n\n\n[role=banner] [data-icon='icon-cube'] {\n  background-image: url(" + __webpack_require__(237) + ")\n}\n\n\n[role=banner] [data-icon='icon-claudy'] {\n  background-image: url(" + __webpack_require__(260) + ")\n}\n\n\n/* Spinner */\n\n\n@keyframes spin {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(359deg);\n  }\n}\n\n\n[role=banner] [aria-busy=true] {\n  position: relative;\n}\n\n\n[role=banner] [aria-busy=true]::after {\n  content: \"\";\n  position: absolute;\n  right: 0;\n  top: 0;\n  display: block;\n  width: 1em;\n  height: 1em;\n  background-position: center;\n  background-repeat: no-repeat;\n  background-size: cover;\n  background-image: url(" + __webpack_require__(261) + ");\n  animation: 1s linear infinite spin;\n}\n\n\n/* Progress bar */\n\n\n[role=banner] progress[value] {\n  /* Reset the default appearance */\n  appearance: none;\n  background-color: #f5f6f7;\n  border: solid 1px #d6d8da;\n  border-radius: 2px;\n  color: #297ef2;\n}\n\n\n[role=banner] progress[value]::-webkit-progress-bar {\n  background: #f5f6f7;\n  border-radius: 2px;\n}\n\n\n[role=banner] progress[value]::-webkit-progress-value {\n  background: #297ef2;\n  border-radius: 1px;\n}\n\n\n[role=banner] progress[value]::-moz-progress-bar {\n  background: #297ef2;\n  border-radius: 1px;\n}\n\n\n/* Errors */\n\n\n[role=banner] .coz-nav--error {\n  margin: 0 0 .1em 0;\n  font-weight: normal;\n  font-size: .875em;\n  color: #F52D2D;\n}\n\n\n[role=banner] {\n  position: relative;\n  z-index: 20;\n  min-height: 3em;\n  flex-shrink: 0;\n  display: flex;\n  align-items: stretch;\n  padding: 0 1.25em 0 1em;\n  box-shadow: inset 0 -1px 0 0 #d6d8da;\n  font-family: Lato, sans-serif;\n  font-size: 1rem;\n}\n\n\n[role=banner] .coz-bar-container {\n  display: flex;\n  width: 100%;\n}\n\n\n[role=banner] .coz-bar-flex-container {\n  display: flex;\n}\n\n\n@media (max-width: 48em) {\n  [role=banner] {\n    padding: 0 1em 0 0;\n  }\n\n  [role=banner] .coz-bar-flex-container {\n    width: 100%;\n  }\n\n  [role=banner][data-drawer-visible=true] {\n    /* Force the BAR to be above selection bar in mobile mode,\n     * only when drawer is opened\n     */\n    z-index: 31;\n  }\n}\n\n\n[role=banner] .coz-bar-title {\n  display: flex;\n  margin: 0;\n  align-items: center;\n  font-size: 1.5em;\n  font-weight: normal;\n  color: #32363f;\n}\n\n\n@media (max-width: 48em) {\n  [role=banner] .coz-bar-title {\n    font-size: 1.25em\n  }\n}\n\n\n[role=banner] .coz-bar-title img {\n  margin-right: .45em;\n}\n\n\n[role=banner] .coz-bar-title span {\n  margin-right: .25em;\n}\n\n\n[role=banner] .coz-bar-title strong {\n  font-weight: bold;\n}\n\n\n[role=banner] .coz-bar-title .coz-bar-beta-status {\n  color: #95999d;\n  text-transform: uppercase;\n  font-size: .55em;\n  font-style: italic;\n  font-weight: 700;\n}\n\n\n@media (max-width: 30em) {\n  [role=banner] .coz-bar-hide-sm {\n    display: none;\n  }\n\n  [role=banner] .coz-bar-title strong {\n    padding: 0;\n    text-transform: capitalize;\n  }\n}\n\n\n[role=banner] .coz-bar-burger {\n  width: 2.5em;\n  margin-right: 0.25em;\n  padding: 0;\n  border: none;\n  background-color: transparent;\n  background-position: center;\n}\n\n\n@media (min-width: 48.0625em) {\n  [role=banner] .coz-bar-burger,\n  [role=banner] .coz-drawer-wrapper {\n    display: none;\n  }\n}\n\n\n@media (max-width: 48em) {\n  [role=banner] .coz-bar-hide-sm {\n    display: none;\n  }\n}\n\n\n[role=banner] .coz-nav ul {\n  margin: 0;\n  padding: 0;\n  list-style-type: none;\n}\n\n\n[role=banner] .coz-nav > ul {\n  display: flex;\n}\n\n\n@media (max-width: 48em) {\n  [role=banner] .coz-nav {\n    display: none;\n  }\n}\n\n\n[role=banner] .coz-nav-section {\n  position: relative;\n}\n\n\n[role=banner] .coz-nav-section [aria-controls] {\n  display: flex;\n  align-items: baseline;\n  padding: 1.285em 1.5em;\n  font-size: .875em;\n  text-transform: uppercase;\n  color: #5d6165;\n  cursor: pointer;\n}\n\n\n[role=banner] .coz-nav-section [aria-controls]:hover {\n  background-color: #f5f6f7;\n  box-shadow: inset 0 -1px 0 0 #d6d8da;\n  color: #32363f;\n}\n\n\n[role=banner] .coz-nav-section [aria-controls]:focus {\n  background-color: #f5f6f7;\n  box-shadow: inset 0 -1px 0 0 #d6d8da;\n  color: #32363f;\n}\n\n\n[role=banner] [aria-controls][aria-busy]::after {\n  position: relative;\n  top: .12em;\n  margin: 0 .355em;\n  font-size: .875em;\n}\n\n\n[role=banner] [aria-controls][aria-busy=true] {\n  padding-right: 0;\n}\n\n\n[role=banner] .coz-nav-section [aria-controls][data-icon] {\n  padding-left: calc(1.25em + 16px + .5em);\n  background-position: 1.25em calc(50% - 1px);\n}\n\n\n[role=banner] .coz-nav-icon {\n  margin-right: .5em;\n}\n\n\n[role=banner] .coz-nav-pop[aria-hidden=true] {\n  display: flex;\n  visibility: visible;\n  transform: scale(0);\n  opacity: 0;\n  transition: .2s transform ease-in, .1s opacity ease-in;\n}\n\n\n[role=banner] .coz-nav-pop {\n  position: absolute;\n  top: calc(100% - .5em);\n  right: 0;\n  box-sizing: border-box;\n  min-width: 100%;\n  background-color: #fff;\n  border-radius: 8px;\n  border: solid 1px rgba(50, 54, 63, 0.12);\n  box-shadow: 0 1px 3px 0 rgba(50, 54, 63, 0.19), 0 6px 18px 0 rgba(50, 54, 63, 0.19);\n  opacity: 1;\n  transform: scale(1);\n  transform-origin: 80% 0%;\n  transition: .2s transform cubic-bezier(0.2, 0.75, 0.3, 1.15);\n}\n\n\n[role=banner] .coz-nav-pop ul {\n  padding: 0;\n}\n\n\n[role=banner] .coz-nav-pop ul:last-of-type {\n  border-radius: 0 0 8px 8px;\n}\n\n\n[role=banner] .coz-nav-pop ul:first-of-type {\n  border-radius: 8px 8px 0 0;\n}\n\n\n[role=banner] .coz-nav-pop hr {\n  margin: 0;\n  border: none;\n  border-bottom: solid 1px #d6d8da;\n}\n\n\n[role=banner] .coz-nav-pop ul:last-of-type + hr {\n  display: none;\n}\n\n\n[role=banner] .coz-nav-pop--apps .coz-nav-group:not(.coz-nav--error) {\n  display: flex;\n  padding: .25em;\n}\n\n\n[role=banner] .coz-nav-pop--apps .coz-nav-group--wrapping.coz-nav-group:not(.coz-nav--error) {\n  flex-wrap: wrap;\n  width: 36em;\n}\n\n\n@media (min-width: 48em) and (max-width: 51em) {\n    [role=banner] .coz-nav-pop.coz-nav-pop--apps {\n        right: -3em;\n    }\n}\n\n\n[role=banner] .coz-nav-pop--apps .coz-nav-group:not(.coz-nav--error) .coz-nav-item {\n    width: 8em;\n    padding: 0 .5em;\n}\n\n\n[role=banner] .coz-nav-group:not(.coz-nav--error).coz-nav-group--inactive {\n  background-color: #f5f6f7\n}\n\n\n[role=banner] .coz-nav-group.coz-nav--error {\n  padding: 0.75em;\n  min-width: 20em;\n}\n\n\n[role=banner] .coz-nav-pop--apps .coz-nav-group a {\n  display: flex;\n  flex-direction: column;\n  padding: .5em;\n}\n\n\n[role=banner] .coz-nav-pop--apps .coz-nav-group a img {\n  margin-bottom: .75em;\n}\n\n\n[role=banner] .coz-nav-pop--apps .coz-nav-group a .coz-label {\n  width: 100%;\n  overflow: hidden;\n  white-space: nowrap;\n  text-align: center;\n  text-overflow: ellipsis;\n  font-size: 15px;\n}\n\n\n[role=banner] .coz-nav-pop--apps .coz-nav-category {\n  font-size: 1em;\n  padding: 0 2em;\n  margin: 1em 0 .5em 0;\n}\n\n\n[role=banner] .blurry {\n  opacity: .5;\n  filter: blur(5px);\n}\n\n\n[role=banner] .coz-nav-item [role=menuitem] {\n  position: relative;\n  z-index: 0;\n  display: block;\n  box-sizing: border-box;\n  width: 100%;\n  padding: .8em 1.5em .8em calc(1.5em + 16px + .5em);\n  border: none;\n  align-items: center;\n  background-position: 1.5em 50%;\n  background-color: transparent;\n  text-align: left;\n  white-space: nowrap;\n  color: #32363f;\n  text-decoration: none;\n  outline: none;\n}\n\n\n/* Force pointer on clickable elements*/\n\n\n[role=banner] .coz-nav-item a[role=menuitem],\n[role=banner] .coz-nav-item button[role=menuitem] {\n  cursor: pointer;\n}\n\n\n/* Hover effect */\n\n\n[role=banner] .coz-nav-item a[role=menuitem]:not(.coz-bar-coming-soon-app):hover:before {\n  content: '';\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  z-index: -1;\n  background-color: #f5f6f7;\n  background-image: inherit;\n  background-position: inherit;\n  background-repeat: inherit;\n}\n\n\n[role=banner] .coz-nav-item a[role=menuitem]:not(.coz-bar-coming-soon-app):focus:before {\n  content: '';\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  z-index: -1;\n  background-color: #f5f6f7;\n  background-image: inherit;\n  background-position: inherit;\n  background-repeat: inherit;\n}\n\n\n[role=banner] .coz-nav-item button[role=menuitem]:hover:before {\n  content: '';\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  z-index: -1;\n  background-color: #f5f6f7;\n  background-image: inherit;\n  background-position: inherit;\n  background-repeat: inherit;\n}\n\n\n[role=banner] .coz-nav-item button[role=menuitem]:focus:before {\n  content: '';\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  z-index: -1;\n  background-color: #f5f6f7;\n  background-image: inherit;\n  background-position: inherit;\n  background-repeat: inherit;\n}\n\n\n[role=banner] [role=menuitem][aria-busy=true]::after {\n  right: 1.5em;\n  top: .5em;\n}\n\n\n/* Remove default margin for p elements */\n\n\n[role=banner] .coz-nav-item a[role=menuitem] p.coz-label {\n  margin: 0;\n}\n\n\n[role=banner] .coz-nav-item div[role=menuitem]:not([data-icon]) {\n  margin: 0;\n  padding-left: 1.5em;\n}\n\n\n[role=banner] .coz-nav-item [role=menuitem] .coz-bar-text-item {\n  margin: 0;\n}\n\n\n[role=banner] .coz-nav-item [role=menuitem] .coz-bar-text-item--inactive {\n  font-style: italic;\n}\n\n\n/* Coming soon styles */\n\n\n[role=banner] .coz-nav-item a[role=menuitem].coz-bar-coming-soon-app {\n    cursor: default;\n}\n\n\n[role=banner] .coz-nav-item [role=menuitem].coz-bar-coming-soon-app img,\n[role=banner] .coz-nav-item [role=menuitem].coz-bar-coming-soon-app .coz-label\n{\n  opacity: .4;\n}\n\n\n[role=banner] .coz-nav-item [role=menuitem].coz-bar-coming-soon-app .coz-bar-coming-soon-badge {\n  position: absolute;\n  display: block;\n  right: 2.5em;\n  bottom: 4.5em;\n  background: #297ef2;\n  border-radius: 2px;\n  padding: .25em;\n  font-size: .6em;\n  color: white;\n  text-transform: uppercase;\n}\n\n\n[role=banner] [role=menuitem][data-icon=icon-storage] {\n  background-position: 1.5em calc(.8em + 1px);\n}\n\n\n[role=banner] .coz-nav-storage {\n  display: flex;\n  flex-direction: column;\n  align-items: left;\n  padding-top: .5em;\n  color: #95999d;\n}\n\n\n[role=banner] .coz-nav-storage-text {\n  margin: 0 0 .1em 0;\n  font-weight: normal;\n  font-size: .875em;\n}\n\n\n[role=banner] .cozy-nav-storage-bar {\n    height: .5em;\n    margin: .2em 0 .1em 0;\n}\n\n\n[role=banner] .coz-drawer-wrapper {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100vw;\n  height: 100vh;\n  display: flex;\n  visibility: visible; /* overwrite default [aria-hidden=true] style */\n}\n\n\n[role=banner] .coz-drawer-wrapper[aria-hidden=true] {\n  pointer-events: none;\n}\n\n\n[role=banner] .coz-drawer-wrapper[aria-hidden=false] {\n  pointer-events: auto;\n}\n\n\n[role=banner] .coz-drawer-wrapper::before {\n  content: '';\n  display: block;\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background-color: #32363f;\n  opacity: 0;\n  transition: opacity .2s ease-out .1s;\n}\n\n\n[role=banner] .coz-drawer-wrapper[aria-hidden=false]::before {\n  opacity: .5;\n  transition: opacity .2s ease-out;\n}\n\n\n[role=banner] .coz-drawer-wrapper aside {\n  position: absolute;\n  bottom: 0;\n  left: 0;\n  width: 90%;\n  max-width: 30em;\n  height: 100%;\n  display: flex;\n  flex-direction: column;\n  background-color: #fff;\n  transform: scaleX(0);\n  transform-origin: 0% 0%;\n  transition: transform .2s ease-out;\n}\n\n\n[role=banner] .coz-drawer-wrapper[aria-hidden=false] aside {\n  transform: scaleX(1);\n  transition: transform .3s cubic-bezier(0.2, 0.75, 0.3, 1.15);\n}\n\n\n[role=banner] .coz-drawer-wrapper ul {\n  margin: 0;\n  padding: 0;\n  list-style-type: none;\n}\n\n\n[role=banner] .coz-drawer-wrapper nav hr {\n  margin: 0;\n  border: none;\n  border-bottom: solid 1px #d6d8da;\n}\n\n\n[role=banner] .coz-drawer-wrapper .coz-nav-icon {\n  margin-right: .5em;\n}\n\n\n[role=banner] .coz-drawer--apps {\n    flex: 0 1 auto;\n    overflow-y: scroll;\n}\n\n\n[role=banner] .coz-drawer--apps ul {\n  padding: 0 0 1em 0;\n  display: flex;\n}\n\n\n[role=banner] .coz-drawer--apps ul li {\n  flex: 0 0 calc(100% /3);\n  max-width: calc(100% / 3);\n}\n\n\n[role=banner] .coz-drawer--apps ul:last-of-type + hr {\n  display: none;\n}\n\n\n[role=banner] .coz-drawer--apps ul.coz-nav-group--wrapping {\n  flex-wrap: wrap;\n}\n\n\n[role=banner] .coz-drawer--apps [role=menuitem] {\n  display: flex;\n  flex-direction: column;\n  padding: .5em 1em;\n  border-radius: 2px;\n}\n\n\n[role=banner] .coz-drawer--apps [role=menuitem]:hover {\n  background-color: rgba(25, 123, 255, 0.1);\n}\n\n\n[role=banner] .coz-drawer--apps li img {\n  margin-bottom: .5em;\n}\n\n\n[role=banner] .coz-drawer--apps li p.coz-label {\n  overflow: hidden;\n  white-space: nowrap;\n  text-overflow: ellipsis;\n  min-width: 0;\n  width: 100%;\n  text-align: center;\n  font-size: 14px;\n}\n\n\n[role=banner] .coz-drawer--apps .coz-nav-category {\n  font-size: 1em;\n  padding: 0 2em;\n  margin: 2em 0 .5em 0;\n}\n\n\n[role=banner] .coz-claudy {\n  position: fixed;\n  bottom: 5em;\n  right: 2em;\n}\n\n\n@media (min-width: 64em) {\n  [role=banner] .coz-claudy {\n    bottom: 2em;\n  }\n}\n\n\n[role=banner] .coz-claudy-icon {\n  width: 3.5em;\n  height: 3.5em;\n  border-radius: 100%;\n  border: none;\n  background-color: #297ef2;\n  background-image: url(" + __webpack_require__(262) + ");\n  background-repeat: no-repeat;\n  background-size: 2.5em;\n  background-position: .5em;\n  box-shadow: 0 1px 3px 0 rgba(50, 54, 63, 0.19), 0 6px 18px 0 rgba(50, 54, 63, 0.39);\n  cursor: pointer;\n  opacity: .5;\n  transition: all .2s ease-out;\n  outline: 0;\n}\n\n\n[role=banner] .coz-claudy-icon:hover,\n[role=banner] .coz-claudy-icon:focus,\n[role=banner] .coz-claudy-icon:active,\n[role=banner] .coz-claudy [data-claudy-opened=true] {\n  transform: scale(1.1);\n  opacity: 1;\n  transition: all .2s ease-out;\n}\n\n\n[role=banner] .coz-claudy .coz-claudy-menu {\n  position: fixed;\n  bottom: 9.5em;\n  right: 2em;\n  width: 25em;\n  border-radius: .3em;\n  background: white;\n  transform-origin: 100% 100% 0;\n  transform: scale(0) translateY(4em);\n  filter: drop-shadow(0 4px 6px rgba(50, 54, 63, 0.5));\n  opacity: 0;\n  transition: .2s transform ease-in, .1s opacity ease-in;\n}\n\n\n[role=banner] .coz-claudy--opened .coz-claudy-menu {\n  transform: scale(1) translateY(0);\n  opacity: 1;\n  transition: .2s transform cubic-bezier(0.2, 0.75, 0.3, 1.15), .1s opacity ease-in;\n}\n\n\n@media (min-width: 64em) {\n  [role=banner] .coz-claudy .coz-claudy-menu {\n    bottom: 6.5em;\n  }\n}\n\n\n@media (max-width: 48em) {\n  [role=banner] .coz-claudy .coz-claudy-menu {\n    width: calc(100% - 2em);\n    height: calc(100% - 2em);\n    right: 1em;\n    top: 1em;\n    transform-origin: 50% 50% 0;\n  }\n\n  [role=banner] .coz-claudy-menu::after {\n    display: none;\n  }\n}\n\n\n[role=banner] .coz-claudy-menu-header {\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n  height: 2em;\n  padding: .75em;\n  background: #f5f6f7;\n  border-radius: .3em .3em 0 0;\n  border-bottom: 1px solid #d6d8da;\n  overflow: hidden;\n}\n\n\n[role=banner] .coz-claudy-menu-title {\n  opacity: 1;\n  transition: .2s all ease-in-out;\n}\n\n\n[role=banner] .coz-claudy-menu-header-back-button {\n  position: absolute;\n  width: 2em;\n  height: 2em;\n  background: url(" + __webpack_require__(263) + ") center / 1.5em no-repeat;\n  border: none;\n  cursor: pointer;\n  left: 10em;\n  opacity: 0;\n  transition: .2s all ease-in-out;\n}\n\n\n[role=banner] .coz-claudy-menu--action-selected .coz-claudy-menu-title {\n  transform: translateX(-50%);\n  opacity: 0;\n  transition: .2s all ease-in-out;\n}\n\n\n[role=banner] .coz-claudy-menu--action-selected .coz-claudy-menu-header-back-button {\n  opacity: 1;\n  left: 1em;\n  transition: .2s all ease-in-out;\n}\n\n\n[role=banner] .coz-claudy-menu-title {\n  font-size: 18px;\n  margin: .4em 0 0 0;\n}\n\n\n[role=banner] .coz-claudy-menu-content-wrapper {\n  overflow: hidden;\n}\n\n\n[role=banner] .coz-claudy-menu-content {\n  display: flex;\n  flex-direction: row;\n  width: 200%; /* actions-list + action-description */\n  padding: .5em 0;\n  transform: translateX(0);\n  transition: .2s transform ease-in-out;\n}\n\n\n[role=banner] .coz-claudy-menu--action-selected .coz-claudy-menu-content {\n  transform: translateX(-50%);\n  transition: .2s transform ease-in-out;\n}\n\n\n[role=banner] .coz-claudy-menu-actions-list,\n[role=banner] .coz-claudy-menu-action-description {\n  min-width: 50%;\n  max-width: 50%;\n  padding: 0;\n}\n\n\n[role=banner] .coz-claudy-menu::after {\n  position: fixed;\n  content: '';\n  right: 3em;\n  width: 0;\n  height: 0;\n  /* Make it a bit taller to avoid browser spacing issue\n  between it and the tooltip */\n  border-bottom: .8em solid transparent;\n  border-right: 1.5em solid white;\n  bottom: -.6em;\n}\n\n\n[role=banner] .coz-claudy-menu-action {\n  display: flex;\n  flex-direction: row;\n  align-items: center;\n  cursor: pointer;\n  height: 3em;\n  color: #297ef2;\n  padding: .5em 1em;\n}\n\n\n[role=banner] .coz-claudy-menu-action:hover {\n  background: #f5f6f7\n}\n\n\n[role=banner] .coz-claudy-menu-action-icon {\n  height: 3em;\n  width: 3em;\n}\n\n\n[role=banner] .coz-claudy-menu-action-title {\n  padding-left: 1em;\n}\n\n\n[role=banner] .coz-claudy-menu-action-description-header {\n  display: flex;\n  flex-direction: row;\n  align-items: center;\n  padding: .5em 1em;\n  color: black;\n  font-weight: 700;\n}\n\n\n[role=banner] .coz-claudy-menu-action-description-header .coz-claudy-menu-action-title{\n  margin: 0;\n}\n\n\n[role=banner] .coz-claudy-menu-action-description-content {\n  padding: .5em 1em 1em 1em;\n}\n\n\n[role=banner] .coz-claudy-menu-action-description-text {\n  margin-top: 0;\n}\n\n\n[role=banner] .coz-claudy-menu-action-description-button {\n  width: 100%;\n  margin: 0;\n}\n\n\n[role=banner].coz-target--mobile {\n  padding-left: 1em;\n}\n\n\n.coz-bar-hidden {\n  position: absolute !important;\n  border: 0 !important;\n  width: 1px !important;\n  height: 1px !important;\n  overflow: hidden !important;\n  padding: 0 !important;\n  white-space: nowrap !important;\n  clip: rect(1px, 1px, 1px, 1px) !important;\n  clip-path: inset(50%) !important;\n}\n\n\n@-moz-keyframes spin {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(359deg);\n  }\n}\n\n\n@-webkit-keyframes spin {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(359deg);\n  }\n}\n\n\n@-o-keyframes spin {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(359deg);\n  }\n}\n\n\n@keyframes spin {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(359deg);\n  }\n}\n\n\n.coz-btn-regular[aria-busy=true]::after {\n  content: '';\n  display: inline-block;\n  vertical-align: middle;\n  margin-left: 0.5em;\n  background-position: center;\n  background-repeat: no-repeat;\n  background-size: cover;\n}\n\n\n.coz-btn-regular[aria-busy=true]::after,\n.coz-btn-close[aria-busy=true]::after {\n  width: 1rem;\n  height: 1rem;\n}\n\n\n.coz-btn-regular[aria-busy=true]::after {\n  animation: spin 1s linear infinite;\n}\n\n\n.coz-btn-regular[aria-busy=true]::after {\n  background-image: url(\"data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAzMiAzMicgd2lkdGg9JzEyJyBoZWlnaHQ9JzEyJyBmaWxsPSd3aGl0ZSc+PHBhdGggb3BhY2l0eT0nLjI1JyBkPSdNMTYgMGExNiAxNiAwIDAgMCAwIDMyIDE2IDE2IDAgMCAwIDAtMzJtMCA0YTEyIDEyIDAgMCAxIDAgMjQgMTIgMTIgMCAwIDEgMC0yNCcvPjxwYXRoIGQ9J00xNiAwYTE2IDE2IDAgMCAxIDE2IDE2aC00YTEyIDEyIDAgMCAwLTEyLTEyeicvPjwvc3ZnPgo=\");\n}\n\n\n.coz-btn-regular,\n.coz-btn-close {\n  box-sizing: border-box;\n  display: inline-block;\n  margin: 0 0.25em;\n  border: 1px solid #fff;\n  border-radius: 2px;\n  min-height: em(40px, 14px);\n  padding: em(13px, 14px) em(15px, 14px) em(11px, 14px);\n  background: transparent;\n  vertical-align: top;\n  text-align: center;\n  font-size: 14px /* [1] */;\n  line-height: 1;\n  text-transform: uppercase;\n  text-decoration: none;\n  cursor: pointer;\n}\n\n\n.coz-btn-regular[disabled],\n.coz-btn-close[disabled],\n.coz-btn-regular[aria-disabled=true],\n.coz-btn-close[aria-disabled=true] {\n  opacity: 0.5;\n  cursor: not-allowed;\n}\n\n\n.coz-btn-regular[aria-busy=true]::after,\n.coz-btn-close[aria-busy=true]::after {\n  position: relative;\n  top: em(-1px);\n}\n\n\n.coz-btn-regular {\n  border-color: #297ef2;\n  background-color: #297ef2;\n  color: #fff;\n}\n\n\n.coz-btn-regular:active,\n.coz-btn-regular:not([disabled]):not([aria-disabled=true]):hover,\n.coz-btn-regular:focus {\n  border-color: #0b61d6;\n  background-color: #0b61d6;\n}\n\n\n.coz-btn-close {\n  border: 0;\n  width: em(46px);\n  background-image: url(\"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICA8cGF0aCBmaWxsPSIjOTU5OTlEIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xMDYuNTg1Nzg2LDQ0IEw5Ni4yOTI4OTMyLDMzLjcwNzEwNjggQzk1LjkwMjM2ODksMzMuMzE2NTgyNSA5NS45MDIzNjg5LDMyLjY4MzQxNzUgOTYuMjkyODkzMiwzMi4yOTI4OTMyIEM5Ni42ODM0MTc1LDMxLjkwMjM2ODkgOTcuMzE2NTgyNSwzMS45MDIzNjg5IDk3LjcwNzEwNjgsMzIuMjkyODkzMiBMMTA4LDQyLjU4NTc4NjQgTDExOC4yOTI4OTMsMzIuMjkyODkzMiBDMTE4LjY4MzQxOCwzMS45MDIzNjg5IDExOS4zMTY1ODIsMzEuOTAyMzY4OSAxMTkuNzA3MTA3LDMyLjI5Mjg5MzIgQzEyMC4wOTc2MzEsMzIuNjgzNDE3NSAxMjAuMDk3NjMxLDMzLjMxNjU4MjUgMTE5LjcwNzEwNywzMy43MDcxMDY4IEwxMDkuNDE0MjE0LDQ0IEwxMTkuNzA3MTA3LDU0LjI5Mjg5MzIgQzEyMC4wOTc2MzEsNTQuNjgzNDE3NSAxMjAuMDk3NjMxLDU1LjMxNjU4MjUgMTE5LjcwNzEwNyw1NS43MDcxMDY4IEMxMTkuMzE2NTgyLDU2LjA5NzYzMTEgMTE4LjY4MzQxOCw1Ni4wOTc2MzExIDExOC4yOTI4OTMsNTUuNzA3MTA2OCBMMTA4LDQ1LjQxNDIxMzYgTDk3LjcwNzEwNjgsNTUuNzA3MTA2OCBDOTcuMzE2NTgyNSw1Ni4wOTc2MzExIDk2LjY4MzQxNzUsNTYuMDk3NjMxMSA5Ni4yOTI4OTMyLDU1LjcwNzEwNjggQzk1LjkwMjM2ODksNTUuMzE2NTgyNSA5NS45MDIzNjg5LDU0LjY4MzQxNzUgOTYuMjkyODkzMiw1NC4yOTI4OTMyIEwxMDYuNTg1Nzg2LDQ0IFoiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC05NiAtMzIpIi8+Cjwvc3ZnPgo=\");\n  background-position: center center;\n  background-repeat: no-repeat;\n}\n\n\n.coz-btn-regular {\n  min-height: 40px;\n  padding: 13px 15px 11px;\n}\n\n\n.coz-btn-close {\n  width: 32px;\n  padding: 0;\n  margin: 0;\n}\n", ""]);
 	
 	// exports
 
 
 /***/ },
-/* 286 */
+/* 252 */
 /***/ function(module, exports) {
 
 	/*
@@ -16401,73 +12449,73 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 287 */
+/* 253 */
 /***/ function(module, exports) {
 
 	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICA8cGF0aCBmaWxsPSIjNUQ2MTY1IiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xMzYsNzMgQzEzOC4yMDkxMzksNzMgMTQwLDcwLjk4NTI4MTQgMTQwLDY4LjUgQzE0MCw2Ni4wMTQ3MTg2IDEzOC4yMDkxMzksNjQgMTM2LDY0IEMxMzMuNzkwODYxLDY0IDEzMiw2Ni4wMTQ3MTg2IDEzMiw2OC41IEMxMzIsNzAuOTg1MjgxNCAxMzMuNzkwODYxLDczIDEzNiw3MyBaIE0xMjgsNzggQzEyOCw3NyAxMzAsNzQgMTMyLDc0IEMxMzQsNzQgMTMzLDc1IDEzNiw3NSBDMTM5LDc1IDEzOCw3NCAxNDAsNzQgQzE0Miw3NCAxNDQsNzcgMTQ0LDc4IEMxNDQsNzkgMTQ0LDgwIDE0Myw4MCBMMTI5LDgwIEMxMjgsODAgMTI4LDc5IDEyOCw3OCBaIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMTI4IC02NCkiLz4KPC9zdmc+Cg=="
 
 /***/ },
-/* 288 */
+/* 254 */
 /***/ function(module, exports) {
 
 	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICA8cGF0aCBmaWxsPSIjNUQ2MTY1IiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xNjIsNjUuMDAwODcxNyBDMTYyLDY0LjQ0ODEwNTUgMTYyLjQ1NTc2MSw2NCAxNjMuMDAyNDczLDY0IEwxNzIuOTk3NTI3LDY0IEMxNzMuNTUxMTc3LDY0IDE3NCw2NC40NDQ2MzA5IDE3NCw2NS4wMDA4NzE3IEwxNzQsNzguOTk5MTI4MyBDMTc0LDc5LjU1MTg5NDUgMTczLjU0NDIzOSw4MCAxNzIuOTk3NTI3LDgwIEwxNjMuMDAyNDczLDgwIEMxNjIuNDQ4ODIzLDgwIDE2Miw3OS41NTUzNjkxIDE2Miw3OC45OTkxMjgzIEwxNjIsNjUuMDAwODcxNyBaIE0xNjQsNjYgTDE3Miw2NiBMMTcyLDc2IEwxNjQsNzYgTDE2NCw2NiBaIE0xNjgsNzkgQzE2OC41NTIyODUsNzkgMTY5LDc4LjU1MjI4NDcgMTY5LDc4IEMxNjksNzcuNDQ3NzE1MyAxNjguNTUyMjg1LDc3IDE2OCw3NyBDMTY3LjQ0NzcxNSw3NyAxNjcsNzcuNDQ3NzE1MyAxNjcsNzggQzE2Nyw3OC41NTIyODQ3IDE2Ny40NDc3MTUsNzkgMTY4LDc5IFoiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0xNjAgLTY0KSIvPgo8L3N2Zz4K"
 
 /***/ },
-/* 289 */
+/* 255 */
 /***/ function(module, exports) {
 
 	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICA8cGF0aCBmaWxsPSIjNUQ2MTY1IiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0yOTYsODAgQzMwMC40MTgyNzgsODAgMzA0LDc2LjQxODI3OCAzMDQsNzIgQzMwNCw2Ny41ODE3MjIgMzAwLjQxODI3OCw2NCAyOTYsNjQgQzI5MS41ODE3MjIsNjQgMjg4LDY3LjU4MTcyMiAyODgsNzIgQzI4OCw3Ni40MTgyNzggMjkxLjU4MTcyMiw4MCAyOTYsODAgWiBNMjk3LDcyLjgwMjExMyBDMjk4LjEyMTgwOSw3Mi4zNTQ1NTY4IDI5OSw3MS4yMDg5OTQ2IDI5OSw3MCBDMjk5LDY4LjQ0NzcxNTMgMjk3LjU1MjI4NSw2NyAyOTYsNjcgQzI5NC40NDc3MTUsNjcgMjkzLDY4LjQ0NzcxNTMgMjkzLDcwIEwyOTUsNzAgQzI5NSw2OS41NTIyODQ3IDI5NS41NTIyODUsNjkgMjk2LDY5IEMyOTYuNDQ3NzE1LDY5IDI5Nyw2OS41NTIyODQ3IDI5Nyw3MCBDMjk3LDcwLjQ0NzcxNTMgMjk2LjQ0NzcxNSw3MSAyOTYsNzEgQzI5NS40NDc3MTUsNzEgMjk1LDcxLjQ0NzcxNTMgMjk1LDcyIEwyOTUsNzQgTDI5Nyw3NCBMMjk3LDcyLjgwMjExMyBaIE0yOTUsNzUgTDI5Nyw3NSBMMjk3LDc3IEwyOTUsNzcgTDI5NSw3NSBaIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMjg4IC02NCkiLz4KPC9zdmc+Cg=="
 
 /***/ },
-/* 290 */
+/* 256 */
 /***/ function(module, exports) {
 
 	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICA8cGF0aCBmaWxsPSIjNUQ2MTY1IiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0zMjcsOTkuNDE0MjEzNiBMMzI1LjcwNzEwNywxMDAuNzA3MTA3IEMzMjUuMzE2NTgyLDEwMS4wOTc2MzEgMzI0LjY4MzQxOCwxMDEuMDk3NjMxIDMyNC4yOTI4OTMsMTAwLjcwNzEwNyBDMzIzLjkwMjM2OSwxMDAuMzE2NTgyIDMyMy45MDIzNjksOTkuNjgzNDE3NSAzMjQuMjkyODkzLDk5LjI5Mjg5MzIgTDMyNy4yOTI4OTMsOTYuMjkyODkzMiBDMzI3LjY4MzQxOCw5NS45MDIzNjg5IDMyOC4zMTY1ODIsOTUuOTAyMzY4OSAzMjguNzA3MTA3LDk2LjI5Mjg5MzIgTDMzMS43MDcxMDcsOTkuMjkyODkzMiBDMzMyLjA5NzYzMSw5OS42ODM0MTc1IDMzMi4wOTc2MzEsMTAwLjMxNjU4MiAzMzEuNzA3MTA3LDEwMC43MDcxMDcgQzMzMS4zMTY1ODIsMTAxLjA5NzYzMSAzMzAuNjgzNDE4LDEwMS4wOTc2MzEgMzMwLjI5Mjg5MywxMDAuNzA3MTA3IEwzMjksOTkuNDE0MjEzNiBMMzI5LDEwNyBDMzI5LDEwNy41NTIyODUgMzI4LjU1MjI4NSwxMDggMzI4LDEwOCBDMzI3LjQ0NzcxNSwxMDggMzI3LDEwNy41NTIyODUgMzI3LDEwNyBMMzI3LDk5LjQxNDIxMzYgWiBNMzIxLDExMiBMMzM1LDExMiBDMzM1LjU1MjI4NSwxMTIgMzM2LDExMS41NTIyODUgMzM2LDExMSBDMzM2LDExMC40NDc3MTUgMzM1LjU1MjI4NSwxMTAgMzM1LDExMCBMMzIxLDExMCBDMzIwLjQ0NzcxNSwxMTAgMzIwLDExMC40NDc3MTUgMzIwLDExMSBDMzIwLDExMS41NTIyODUgMzIwLjQ0NzcxNSwxMTIgMzIxLDExMiBaIiB0cmFuc2Zvcm09InJvdGF0ZSg5MCAyMTYgLTEwNCkiLz4KPC9zdmc+Cg=="
 
 /***/ },
-/* 291 */
+/* 257 */
 /***/ function(module, exports) {
 
 	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICA8cGF0aCBmaWxsPSIjNUQ2MTY1IiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0yMjUsNjggTDIzOSw2OCBMMjM5LDc4LjAwNDQyMjUgQzIzOSw3OC41NTQyNjQ4IDIzOC41NTAwNTEsNzkgMjM3Ljk5MzE1NSw3OSBMMjI2LjAwNjg0NSw3OSBDMjI1LjQ1MDc4LDc5IDIyNSw3OC41NTUxNjMgMjI1LDc4LjAwNDQyMjUgTDIyNSw2OCBaIE0yMjQsNjYgQzIyNCw2NS40NDc3MTUzIDIyNC40NDQ2MzEsNjUgMjI1LjAwMDg3Miw2NSBMMjM4Ljk5OTEyOCw2NSBDMjM5LjU1MTg5NCw2NSAyNDAsNjUuNDQzODY0OCAyNDAsNjYgTDI0MCw2NyBMMjI0LDY3IEwyMjQsNjYgWiBNMjI5LDcwIEwyMzUsNzAgTDIzNSw3MiBMMjI5LDcyIEwyMjksNzAgWiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTIyNCAtNjQpIi8+Cjwvc3ZnPgo="
 
 /***/ },
-/* 292 */
+/* 258 */
 /***/ function(module, exports) {
 
 	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICA8ZyBmaWxsPSIjOTU5OTlEIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0yMjQgLTMyKSI+CiAgICA8cGF0aCBkPSJNMjM4LjI0OTM1NiwzOS4wNzgyOTczIEMyMzguMzAxNDA3LDM5LjMzNzE0MzYgMjM4LjMyNzQzMiwzOS42NDU5NjAyIDIzOC4zMjc0MzIsNDAuMDAzNzQ3OCBDMjM4LjMyNzQzMiw0MC4zNjE1MzUzIDIzOC4zMDE0MDcsNDAuNjY5MzUyNiAyMzguMjQ5MzU2LDQwLjkyOTE5ODMgTDIzOS44Njk5NDYsNDIuMjYyNDA2NyBDMjQwLjAwMDA3NCw0Mi4zNDgzNTU3IDI0MC4wMzIxMDUsNDIuNDY1Mjg2MiAyMzkuOTY4MDQyLDQyLjYxNDE5NzggQzIzOS42NDI3MjMsNDMuNTY0NjMzNSAyMzkuMTA5MTk5LDQ0LjQ0MDExMzcgMjM4LjM2NjQ3LDQ1LjI0MTYzNzggQzIzOC4yNjIzNjgsNDUuMzY1NTY0MiAyMzguMTM3MjQ2LDQ1LjM5NjU0NTggMjM3Ljk5NTEwNiw0NS4zMzU1ODIgTDIzNS45NjQxMTMsNDQuNjY3OTc4NCBDMjM1LjQ0MzYwMiw0NS4wNjM3NDM0IDIzNC44ODQwNTMsNDUuMzcyNTYgMjM0LjI4NDQ2NCw0NS41OTQ0MjgzIEwyMzMuODc1MDYyLDQ3LjU5MzI0MTUgQzIzMy44NDkwMzcsNDcuNzQwMTU0MyAyMzMuNzU3OTQ4LDQ3LjgyNzEwMjcgMjMzLjYwMTc5NCw0Ny44NTIwODc4IEMyMzMuMDQxMjQ0LDQ3Ljk1MjAyODUgMjMyLjUwNzcyMSw0OCAyMzIuMDAwMjIyLDQ4IEMyMzEuNDkyNzI0LDQ4IDIzMC45NTgyLDQ3Ljk1MTAyOTEgMjMwLjM5ODY1MSw0Ny44NTIwODc4IEMyMzAuMjQyNDk3LDQ3LjgyODEwMjEgMjMwLjE1MTQwOCw0Ny43NDExNTM3IDIzMC4xMjUzODIsNDcuNTkzMjQxNSBMMjI5LjcxNTk4MSw0NS41OTQ0MjgzIEMyMjkuMDc3MzU0LDQ1LjM2MDU2NzIgMjI4LjUxNzgwNSw0NS4wNTA3NTExIDIyOC4wMzYzMzIsNDQuNjY3OTc4NCBMMjI2LjAwNTMzOSw0NS4zMzU1ODIgQzIyNS44NjExOTcsNDUuMzk3NTQ1MiAyMjUuNzM4MDc3LDQ1LjM2NTU2NDIgMjI1LjYzMzk3NCw0NS4yNDE2Mzc4IEMyMjQuODkyMjQ2LDQ0LjQ0MDExMzcgMjI0LjM1ODcyMyw0My41NjQ2MzM1IDIyNC4wMzI0MDMsNDIuNjE0MTk3OCBDMjIzLjk2NzMzOSw0Mi40NjYyODU2IDIyNC4wMDAzNzEsNDIuMzQ4MzU1NyAyMjQuMTMwNDk5LDQyLjI2MjQwNjcgTDIyNS43NTEwODksNDAuOTI5MTk4MyBDMjI1LjY5OTAzOCw0MC42NjkzNTI2IDIyNS42NzMwMTMsNDAuMzYyNTM0NyAyMjUuNjczMDEzLDQwLjAwMzc0NzggQzIyNS42NzMwMTMsMzkuNjQ1OTYwMiAyMjUuNjk5MDM4LDM5LjMzNzE0MzYgMjI1Ljc1MTA4OSwzOS4wNzgyOTczIEwyMjQuMTMwNDk5LDM3Ljc0NjA4ODMgQzIyNC4wMDAzNzEsMzcuNjYwMTM5MyAyMjMuOTY3MzM5LDM3LjU0MjIwOTMgMjI0LjAzMjQwMywzNy4zOTQyOTcxIEMyMjQuMzU3NzIyLDM2LjQ0NDg2MDkgMjI0Ljg5MTI0NSwzNS41NjgzODEzIDIyNS42MzM5NzQsMzQuNzY2ODU3MiBDMjI1LjczODA3NywzNC42NDM5MzAyIDIyNS44NjIxOTgsMzQuNjEyOTQ4NiAyMjYuMDA1MzM5LDM0LjY3MzkxMjQgTDIyOC4wMzYzMzIsMzUuMzQwNTE2NiBDMjI4LjUxNjgwNCwzNC45NTc3NDM4IDIyOS4wNzczNTQsMzQuNjQ5OTI2NiAyMjkuNzE1OTgxLDM0LjQxNTA2NjEgTDIzMC4xMjUzODIsMzIuNDE2MjUyOCBDMjMwLjE1MTQwOCwzMi4yNjgzNDA3IDIzMC4yNDI0OTcsMzIuMTgyMzkxNyAyMzAuMzk4NjUxLDMyLjE1NzQwNjUgQzIzMS40NjU2OTgsMzEuOTQ3NTMxMiAyMzIuNTMzNzQ2LDMxLjk0NzUzMTIgMjMzLjYwMDc5MywzMi4xNTc0MDY1IEMyMzMuNzU2OTQ3LDMyLjE4MTM5MjMgMjMzLjg0ODAzNiwzMi4yNjgzNDA3IDIzMy44NzQwNjEsMzIuNDE2MjUyOCBMMjM0LjI4MzQ2MywzNC40MTUwNjYxIEMyMzQuODgzMDUyLDM0LjYzNzkzMzcgMjM1LjQ0MjYwMSwzNC45NDU3NTEgMjM1Ljk2MzExMiwzNS4zNDA1MTY2IEwyMzcuOTk0MTA1LDM0LjY3MzkxMjQgQzIzOC4xMzcyNDYsMzQuNjExOTQ5MiAyMzguMjYxMzY3LDM0LjY0MzkzMDIgMjM4LjM2NTQ3LDM0Ljc2Njg1NzIgQzIzOS4xMDcxOTcsMzUuNTY5MzgwNyAyMzkuNjQwNzIxLDM2LjQ0NDg2MDkgMjM5Ljk2NzA0MSwzNy4zOTQyOTcxIEMyNDAuMDMxMTA0LDM3LjU0MjIwOTMgMjM5Ljk5OTA3MywzNy42NjAxMzkzIDIzOS44Njg5NDUsMzcuNzQ2MDg4MyBMMjM4LjI0OTM1NiwzOS4wNzgyOTczIEwyMzguMjQ5MzU2LDM5LjA3ODI5NzMgWiBNMjMyLDM2LjUgQzIzMC4wNjcxMjUsMzYuNSAyMjguNSwzOC4wNjcxMjUgMjI4LjUsNDAgQzIyOC41LDQxLjkzMjg3NSAyMzAuMDY3MTI1LDQzLjUgMjMyLDQzLjUgQzIzMy45MzI4NzUsNDMuNSAyMzUuNSw0MS45MzI4NzUgMjM1LjUsNDAgQzIzNS41LDM4LjA2NzEyNSAyMzMuOTMyODc1LDM2LjUgMjMyLDM2LjUgTDIzMiwzNi41IFoiLz4KICAgIDxwYXRoIGQ9Ik0yMzguMjQ5MzU2LDM5LjA3ODI5NzMgQzIzOC4zMDE0MDcsMzkuMzM3MTQzNiAyMzguMzI3NDMyLDM5LjY0NTk2MDIgMjM4LjMyNzQzMiw0MC4wMDM3NDc4IEMyMzguMzI3NDMyLDQwLjM2MTUzNTMgMjM4LjMwMTQwNyw0MC42NjkzNTI2IDIzOC4yNDkzNTYsNDAuOTI5MTk4MyBMMjM5Ljg2OTk0Niw0Mi4yNjI0MDY3IEMyNDAuMDAwMDc0LDQyLjM0ODM1NTcgMjQwLjAzMjEwNSw0Mi40NjUyODYyIDIzOS45NjgwNDIsNDIuNjE0MTk3OCBDMjM5LjY0MjcyMyw0My41NjQ2MzM1IDIzOS4xMDkxOTksNDQuNDQwMTEzNyAyMzguMzY2NDcsNDUuMjQxNjM3OCBDMjM4LjI2MjM2OCw0NS4zNjU1NjQyIDIzOC4xMzcyNDYsNDUuMzk2NTQ1OCAyMzcuOTk1MTA2LDQ1LjMzNTU4MiBMMjM1Ljk2NDExMyw0NC42Njc5Nzg0IEMyMzUuNDQzNjAyLDQ1LjA2Mzc0MzQgMjM0Ljg4NDA1Myw0NS4zNzI1NiAyMzQuMjg0NDY0LDQ1LjU5NDQyODMgTDIzMy44NzUwNjIsNDcuNTkzMjQxNSBDMjMzLjg0OTAzNyw0Ny43NDAxNTQzIDIzMy43NTc5NDgsNDcuODI3MTAyNyAyMzMuNjAxNzk0LDQ3Ljg1MjA4NzggQzIzMy4wNDEyNDQsNDcuOTUyMDI4NSAyMzIuNTA3NzIxLDQ4IDIzMi4wMDAyMjIsNDggQzIzMS40OTI3MjQsNDggMjMwLjk1ODIsNDcuOTUxMDI5MSAyMzAuMzk4NjUxLDQ3Ljg1MjA4NzggQzIzMC4yNDI0OTcsNDcuODI4MTAyMSAyMzAuMTUxNDA4LDQ3Ljc0MTE1MzcgMjMwLjEyNTM4Miw0Ny41OTMyNDE1IEwyMjkuNzE1OTgxLDQ1LjU5NDQyODMgQzIyOS4wNzczNTQsNDUuMzYwNTY3MiAyMjguNTE3ODA1LDQ1LjA1MDc1MTEgMjI4LjAzNjMzMiw0NC42Njc5Nzg0IEwyMjYuMDA1MzM5LDQ1LjMzNTU4MiBDMjI1Ljg2MTE5Nyw0NS4zOTc1NDUyIDIyNS43MzgwNzcsNDUuMzY1NTY0MiAyMjUuNjMzOTc0LDQ1LjI0MTYzNzggQzIyNC44OTIyNDYsNDQuNDQwMTEzNyAyMjQuMzU4NzIzLDQzLjU2NDYzMzUgMjI0LjAzMjQwMyw0Mi42MTQxOTc4IEMyMjMuOTY3MzM5LDQyLjQ2NjI4NTYgMjI0LjAwMDM3MSw0Mi4zNDgzNTU3IDIyNC4xMzA0OTksNDIuMjYyNDA2NyBMMjI1Ljc1MTA4OSw0MC45MjkxOTgzIEMyMjUuNjk5MDM4LDQwLjY2OTM1MjYgMjI1LjY3MzAxMyw0MC4zNjI1MzQ3IDIyNS42NzMwMTMsNDAuMDAzNzQ3OCBDMjI1LjY3MzAxMywzOS42NDU5NjAyIDIyNS42OTkwMzgsMzkuMzM3MTQzNiAyMjUuNzUxMDg5LDM5LjA3ODI5NzMgTDIyNC4xMzA0OTksMzcuNzQ2MDg4MyBDMjI0LjAwMDM3MSwzNy42NjAxMzkzIDIyMy45NjczMzksMzcuNTQyMjA5MyAyMjQuMDMyNDAzLDM3LjM5NDI5NzEgQzIyNC4zNTc3MjIsMzYuNDQ0ODYwOSAyMjQuODkxMjQ1LDM1LjU2ODM4MTMgMjI1LjYzMzk3NCwzNC43NjY4NTcyIEMyMjUuNzM4MDc3LDM0LjY0MzkzMDIgMjI1Ljg2MjE5OCwzNC42MTI5NDg2IDIyNi4wMDUzMzksMzQuNjczOTEyNCBMMjI4LjAzNjMzMiwzNS4zNDA1MTY2IEMyMjguNTE2ODA0LDM0Ljk1Nzc0MzggMjI5LjA3NzM1NCwzNC42NDk5MjY2IDIyOS43MTU5ODEsMzQuNDE1MDY2MSBMMjMwLjEyNTM4MiwzMi40MTYyNTI4IEMyMzAuMTUxNDA4LDMyLjI2ODM0MDcgMjMwLjI0MjQ5NywzMi4xODIzOTE3IDIzMC4zOTg2NTEsMzIuMTU3NDA2NSBDMjMxLjQ2NTY5OCwzMS45NDc1MzEyIDIzMi41MzM3NDYsMzEuOTQ3NTMxMiAyMzMuNjAwNzkzLDMyLjE1NzQwNjUgQzIzMy43NTY5NDcsMzIuMTgxMzkyMyAyMzMuODQ4MDM2LDMyLjI2ODM0MDcgMjMzLjg3NDA2MSwzMi40MTYyNTI4IEwyMzQuMjgzNDYzLDM0LjQxNTA2NjEgQzIzNC44ODMwNTIsMzQuNjM3OTMzNyAyMzUuNDQyNjAxLDM0Ljk0NTc1MSAyMzUuOTYzMTEyLDM1LjM0MDUxNjYgTDIzNy45OTQxMDUsMzQuNjczOTEyNCBDMjM4LjEzNzI0NiwzNC42MTE5NDkyIDIzOC4yNjEzNjcsMzQuNjQzOTMwMiAyMzguMzY1NDcsMzQuNzY2ODU3MiBDMjM5LjEwNzE5NywzNS41NjkzODA3IDIzOS42NDA3MjEsMzYuNDQ0ODYwOSAyMzkuOTY3MDQxLDM3LjM5NDI5NzEgQzI0MC4wMzExMDQsMzcuNTQyMjA5MyAyMzkuOTk5MDczLDM3LjY2MDEzOTMgMjM5Ljg2ODk0NSwzNy43NDYwODgzIEwyMzguMjQ5MzU2LDM5LjA3ODI5NzMgTDIzOC4yNDkzNTYsMzkuMDc4Mjk3MyBaIE0yMzIsMzYuNSBDMjMwLjA2NzEyNSwzNi41IDIyOC41LDM4LjA2NzEyNSAyMjguNSw0MCBDMjI4LjUsNDEuOTMyODc1IDIzMC4wNjcxMjUsNDMuNSAyMzIsNDMuNSBDMjMzLjkzMjg3NSw0My41IDIzNS41LDQxLjkzMjg3NSAyMzUuNSw0MCBDMjM1LjUsMzguMDY3MTI1IDIzMy45MzI4NzUsMzYuNSAyMzIsMzYuNSBMMjMyLDM2LjUgWiIvPgogIDwvZz4KPC9zdmc+Cg=="
 
 /***/ },
-/* 293 */
+/* 259 */
 /***/ function(module, exports) {
 
 	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICA8cGF0aCBmaWxsPSIjOTU5OTlEIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0yMjQsMTMxIEMyMjQsMTMwLjQ0NzcxNSAyMjQuNDQ0NjMxLDEzMCAyMjUuMDAwODcyLDEzMCBMMjM4Ljk5OTEyOCwxMzAgQzIzOS41NTE4OTQsMTMwIDI0MCwxMzAuNDQzODY1IDI0MCwxMzEgQzI0MCwxMzEuNTUyMjg1IDIzOS41NTUzNjksMTMyIDIzOC45OTkxMjgsMTMyIEwyMjUuMDAwODcyLDEzMiBDMjI0LjQ0ODEwNiwxMzIgMjI0LDEzMS41NTYxMzUgMjI0LDEzMSBaIE0yMjQsMTQxIEMyMjQsMTQwLjQ0NzcxNSAyMjQuNDQ0NjMxLDE0MCAyMjUuMDAwODcyLDE0MCBMMjM4Ljk5OTEyOCwxNDAgQzIzOS41NTE4OTQsMTQwIDI0MCwxNDAuNDQzODY1IDI0MCwxNDEgQzI0MCwxNDEuNTUyMjg1IDIzOS41NTUzNjksMTQyIDIzOC45OTkxMjgsMTQyIEwyMjUuMDAwODcyLDE0MiBDMjI0LjQ0ODEwNiwxNDIgMjI0LDE0MS41NTYxMzUgMjI0LDE0MSBaIE0yMjQsMTM2IEMyMjQsMTM1LjQ0NzcxNSAyMjQuNDQ0NjMxLDEzNSAyMjUuMDAwODcyLDEzNSBMMjM4Ljk5OTEyOCwxMzUgQzIzOS41NTE4OTQsMTM1IDI0MCwxMzUuNDQzODY1IDI0MCwxMzYgQzI0MCwxMzYuNTUyMjg1IDIzOS41NTUzNjksMTM3IDIzOC45OTkxMjgsMTM3IEwyMjUuMDAwODcyLDEzNyBDMjI0LjQ0ODEwNiwxMzcgMjI0LDEzNi41NTYxMzUgMjI0LDEzNiBaIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMjI0IC0xMjgpIi8+Cjwvc3ZnPgo="
 
 /***/ },
-/* 294 */
+/* 260 */
 /***/ function(module, exports) {
 
 	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDMyIDMyIj4KICA8ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgogICAgPHBhdGggZmlsbD0iIzVENjE2NSIgZD0iTTE4LjkwNjY0MzEsMTcuMTQ2MjcyNyBDMTcuOTc2MzkwMSwxNy44ODc3NjA1IDE2Ljg2NTE1ODYsMTguMyAxNS43NzI3ODU4LDE4LjMgQzE0LjY1Mzc3ODUsMTguMyAxMy41MTQ0Mzc2LDE3Ljg2Njc0NjUgMTIuNTcwNjM5MiwxNy4wOTAwMDA5IEMxMi42NDQwOTEzLDE2Ljg4ODkwOTkgMTIuNjkyODE4OSwxNi42NzQwNzgzIDEyLjcxMzcxNDYsMTYuNDUyMjM0NyBDMTIuNzM5NjEwMiwxNi4xNzczMDkyIDEyLjUzNzczMTUsMTUuOTMzNDQ1NiAxMi4yNjI4MDYsMTUuOTA3NTUgQzExLjk4Nzg4MDUsMTUuODgxNjU0NSAxMS43NDQwMTY4LDE2LjA4MzUzMzIgMTEuNzE4MTIxMywxNi4zNTg0NTg3IEMxMS42Nzk0NDc5LDE2Ljc2OTA0MzMgMTEuNDg4NzQ5LDE3LjEyMTgzNjUgMTEuMjMyMDM4LDE3LjI5NjMwMjkgQzExLjAwMzY0ODMsMTcuNDUxNTIxNCAxMC45NDQzMzE0LDE3Ljc2MjQ5NzIgMTEuMDk5NTQ5OSwxNy45OTA4ODY4IEMxMS4yNTQ3Njg0LDE4LjIxOTI3NjUgMTEuNTY1NzQ0MywxOC4yNzg1OTM0IDExLjc5NDEzMzksMTguMTIzMzc0OSBDMTEuODc2MjA3MiwxOC4wNjc1OTYxIDExLjk1Mzc4NzEsMTguMDA0ODQ2MiAxMi4wMjY0ODkzLDE3LjkzNTk1NzYgQzEzLjEyNzAxOTMsMTguODA5OTg1MyAxNC40NTE5MzIxLDE5LjMgMTUuNzcyNzg1OCwxOS4zIEMxNy4wNzQ3NDc3LDE5LjMgMTguMzgwMjMyLDE4LjgyNDQ5NTggMTkuNDcxMzExMywxNy45NzQ0NTc5IEMxOS41MzE3MjIyLDE4LjAyODM4MDcgMTkuNTk1Mjg5MywxOC4wNzgxNjczIDE5LjY2MTgwOCwxOC4xMjMzNzQ5IEMxOS44OTAxOTc3LDE4LjI3ODU5MzQgMjAuMjAxMTczNSwxOC4yMTkyNzY1IDIwLjM1NjM5MiwxNy45OTA4ODY4IEMyMC41MTE2MTA1LDE3Ljc2MjQ5NzIgMjAuNDUyMjkzNiwxNy40NTE1MjE0IDIwLjIyMzkwNCwxNy4yOTYzMDI5IEMxOS45NjcxOTI5LDE3LjEyMTgzNjUgMTkuNzc2NDk0MSwxNi43NjkwNDMzIDE5LjczNzgyMDYsMTYuMzU4NDU4NyBDMTkuNzExOTI1MSwxNi4wODM1MzMyIDE5LjQ2ODA2MTUsMTUuODgxNjU0NSAxOS4xOTMxMzU5LDE1LjkwNzU1IEMxOC45MTgyMTA0LDE1LjkzMzQ0NTYgMTguNzE2MzMxOCwxNi4xNzczMDkyIDE4Ljc0MjIyNzMsMTYuNDUyMjM0NyBDMTguNzY1MDg0OSwxNi42OTQ5MDcgMTguODIxMjQ2LDE2LjkyOTE4ODggMTguOTA2NjQzMSwxNy4xNDYyNzI3IFogTTguNDczMjQzMDQsMjYuNTA1MjYzMiBDMy44MDAwMjgwMSwyNi41MDUyNjMyIDAsMjIuNjgwMDM1NyAwLDE3Ljk3NzgwNDggQzAsMTUuNzM1NDMgMC44NTc4MjMwMzQsMTMuNjE3MjM4NSAyLjQxNjYyODMyLDEyLjAxNDQzOTIgQzMuNzgyMTAzMzUsMTAuNjExNzQ4NSA1LjU1MDg4MzIzLDkuNzM4NjA1NzUgNy40NjQzNDA3Myw5LjUxMTQ3Mjc5IEM3LjY5MDMxOTQ4LDcuNTg1NjY4NjIgOC41NTcxMDQ4NSw1LjgwNTI4MDk5IDkuOTUyMDI3NTMsNC40MzE1NDQ5NSBDMTEuNTQ0NzYxNiwyLjg2MjIwNDM1IDEzLjY0ODk4ODcsMiAxNS44Nzc0MDgxLDIgQzE4LjEwNTE4NzMsMiAyMC4yMTAwNTQ2LDIuODYyMjA0MzUgMjEuODAyNzg4Nyw0LjQzMDkwMTUxIEMyMy4xOTE5NDk5LDUuNzk4ODQ2NjIgMjQuMDU2MTc0Niw3LjU2OTU4MjcyIDI0LjI4NzkxNDksOS40ODUwOTE5NiBDMjguNjA0NTU3Miw5Ljg3NDM3MDc0IDMyLDEzLjUzNDg3ODcgMzIsMTcuOTc4NDQ4MiBDMzIsMjIuNjgwMDM1NyAyOC4xOTc0MTEzLDI2LjUwNTI2MzIgMjMuNTI2MTE2OCwyNi41MDUyNjMyIEw4LjQ3MzI0MzA0LDI2LjUwNTI2MzIgWiIvPgogIDwvZz4KPC9zdmc+Cg=="
 
 /***/ },
-/* 295 */
+/* 261 */
 /***/ function(module, exports) {
 
 	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAzMiAzMicgd2lkdGg9JzEyJyBoZWlnaHQ9JzEyJyBmaWxsPScjMjk3RUYyJz4KICA8cGF0aCBvcGFjaXR5PScuMjUnIGQ9J00xNiAwYTE2IDE2IDAgMCAwIDAgMzIgMTYgMTYgMCAwIDAgMC0zMm0wIDRhMTIgMTIgMCAwIDEgMCAyNCAxMiAxMiAwIDAgMSAwLTI0Jy8+CiAgPHBhdGggZD0nTTE2IDBhMTYgMTYgMCAwIDEgMTYgMTZoLTRhMTIgMTIgMCAwIDAtMTItMTJ6Jy8+Cjwvc3ZnPgo="
 
 /***/ },
-/* 296 */
+/* 262 */
 /***/ function(module, exports) {
 
 	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgdmlld0JveD0iMCAwIDMyIDMyIj4KICA8ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgogICAgPHBhdGggZmlsbD0iI0ZGRkZGRiIgZD0iTTE4LjkwNjY0MzEsMTcuMTQ2MjcyNyBDMTcuOTc2MzkwMSwxNy44ODc3NjA1IDE2Ljg2NTE1ODYsMTguMyAxNS43NzI3ODU4LDE4LjMgQzE0LjY1Mzc3ODUsMTguMyAxMy41MTQ0Mzc2LDE3Ljg2Njc0NjUgMTIuNTcwNjM5MiwxNy4wOTAwMDA5IEMxMi42NDQwOTEzLDE2Ljg4ODkwOTkgMTIuNjkyODE4OSwxNi42NzQwNzgzIDEyLjcxMzcxNDYsMTYuNDUyMjM0NyBDMTIuNzM5NjEwMiwxNi4xNzczMDkyIDEyLjUzNzczMTUsMTUuOTMzNDQ1NiAxMi4yNjI4MDYsMTUuOTA3NTUgQzExLjk4Nzg4MDUsMTUuODgxNjU0NSAxMS43NDQwMTY4LDE2LjA4MzUzMzIgMTEuNzE4MTIxMywxNi4zNTg0NTg3IEMxMS42Nzk0NDc5LDE2Ljc2OTA0MzMgMTEuNDg4NzQ5LDE3LjEyMTgzNjUgMTEuMjMyMDM4LDE3LjI5NjMwMjkgQzExLjAwMzY0ODMsMTcuNDUxNTIxNCAxMC45NDQzMzE0LDE3Ljc2MjQ5NzIgMTEuMDk5NTQ5OSwxNy45OTA4ODY4IEMxMS4yNTQ3Njg0LDE4LjIxOTI3NjUgMTEuNTY1NzQ0MywxOC4yNzg1OTM0IDExLjc5NDEzMzksMTguMTIzMzc0OSBDMTEuODc2MjA3MiwxOC4wNjc1OTYxIDExLjk1Mzc4NzEsMTguMDA0ODQ2MiAxMi4wMjY0ODkzLDE3LjkzNTk1NzYgQzEzLjEyNzAxOTMsMTguODA5OTg1MyAxNC40NTE5MzIxLDE5LjMgMTUuNzcyNzg1OCwxOS4zIEMxNy4wNzQ3NDc3LDE5LjMgMTguMzgwMjMyLDE4LjgyNDQ5NTggMTkuNDcxMzExMywxNy45NzQ0NTc5IEMxOS41MzE3MjIyLDE4LjAyODM4MDcgMTkuNTk1Mjg5MywxOC4wNzgxNjczIDE5LjY2MTgwOCwxOC4xMjMzNzQ5IEMxOS44OTAxOTc3LDE4LjI3ODU5MzQgMjAuMjAxMTczNSwxOC4yMTkyNzY1IDIwLjM1NjM5MiwxNy45OTA4ODY4IEMyMC41MTE2MTA1LDE3Ljc2MjQ5NzIgMjAuNDUyMjkzNiwxNy40NTE1MjE0IDIwLjIyMzkwNCwxNy4yOTYzMDI5IEMxOS45NjcxOTI5LDE3LjEyMTgzNjUgMTkuNzc2NDk0MSwxNi43NjkwNDMzIDE5LjczNzgyMDYsMTYuMzU4NDU4NyBDMTkuNzExOTI1MSwxNi4wODM1MzMyIDE5LjQ2ODA2MTUsMTUuODgxNjU0NSAxOS4xOTMxMzU5LDE1LjkwNzU1IEMxOC45MTgyMTA0LDE1LjkzMzQ0NTYgMTguNzE2MzMxOCwxNi4xNzczMDkyIDE4Ljc0MjIyNzMsMTYuNDUyMjM0NyBDMTguNzY1MDg0OSwxNi42OTQ5MDcgMTguODIxMjQ2LDE2LjkyOTE4ODggMTguOTA2NjQzMSwxNy4xNDYyNzI3IFogTTguNDczMjQzMDQsMjYuNTA1MjYzMiBDMy44MDAwMjgwMSwyNi41MDUyNjMyIDAsMjIuNjgwMDM1NyAwLDE3Ljk3NzgwNDggQzAsMTUuNzM1NDMgMC44NTc4MjMwMzQsMTMuNjE3MjM4NSAyLjQxNjYyODMyLDEyLjAxNDQzOTIgQzMuNzgyMTAzMzUsMTAuNjExNzQ4NSA1LjU1MDg4MzIzLDkuNzM4NjA1NzUgNy40NjQzNDA3Myw5LjUxMTQ3Mjc5IEM3LjY5MDMxOTQ4LDcuNTg1NjY4NjIgOC41NTcxMDQ4NSw1LjgwNTI4MDk5IDkuOTUyMDI3NTMsNC40MzE1NDQ5NSBDMTEuNTQ0NzYxNiwyLjg2MjIwNDM1IDEzLjY0ODk4ODcsMiAxNS44Nzc0MDgxLDIgQzE4LjEwNTE4NzMsMiAyMC4yMTAwNTQ2LDIuODYyMjA0MzUgMjEuODAyNzg4Nyw0LjQzMDkwMTUxIEMyMy4xOTE5NDk5LDUuNzk4ODQ2NjIgMjQuMDU2MTc0Niw3LjU2OTU4MjcyIDI0LjI4NzkxNDksOS40ODUwOTE5NiBDMjguNjA0NTU3Miw5Ljg3NDM3MDc0IDMyLDEzLjUzNDg3ODcgMzIsMTcuOTc4NDQ4MiBDMzIsMjIuNjgwMDM1NyAyOC4xOTc0MTEzLDI2LjUwNTI2MzIgMjMuNTI2MTE2OCwyNi41MDUyNjMyIEw4LjQ3MzI0MzA0LDI2LjUwNTI2MzIgWiIvPgogIDwvZz4KPC9zdmc+Cg=="
 
 /***/ },
-/* 297 */
+/* 263 */
 /***/ function(module, exports) {
 
 	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICA8cGF0aCBmaWxsPSIjOTU5OTlEIiBkPSJNMzUuNTcwODAxOSw0NS4wMDAwMDU5IEw0NS42NzU3MjQ2LDU0LjI2Mjg1MTggQzQ2LjA4Mjg0MzYsNTQuNjM2MDQ0MiA0Ni4xMTAzNDY1LDU1LjI2ODYxMTUgNDUuNzM3MTU0MSw1NS42NzU3MzA1IEM0NS4zNjM5NjE3LDU2LjA4Mjg0OTUgNDQuNzMxMzk0NCw1Ni4xMTAzNTI0IDQ0LjMyNDI3NTQsNTUuNzM3MTYgTDMyLjMyNzAxMTcsNDQuNzM5NjY4MyBDMzIuMTI2MTAxNSw0NC41NTY3NjE5IDMyLDQ0LjI5MzExMDIgMzIsNDQuMDAwMDA1OSBDMzIsNDMuNzA2OTAxNiAzMi4xMjYxMDE1LDQzLjQ0MzI0OTkgMzIuMzI3MDExNyw0My4yNjAzNDM1IEw0NC4zMjQyNzU0LDMyLjI2Mjg1MTggQzQ0LjczMTM5NDQsMzEuODg5NjU5MyA0NS4zNjM5NjE3LDMxLjkxNzE2MjMgNDUuNzM3MTU0MSwzMi4zMjQyODEzIEM0Ni4xMTAzNDY1LDMyLjczMTQwMDMgNDYuMDgyODQzNiwzMy4zNjM5Njc2IDQ1LjY3NTcyNDYsMzMuNzM3MTYgTDM1LjU3MDgwMTksNDMuMDAwMDA1OSBMNTUsNDMuMDAwMDA1OSBDNTUuNTUyMjg0Nyw0My4wMDAwMDU5IDU2LDQzLjQ0NzcyMTEgNTYsNDQuMDAwMDA1OSBDNTYsNDQuNTUyMjkwNiA1NS41NTIyODQ3LDQ1LjAwMDAwNTkgNTUsNDUuMDAwMDA1OSBMMzUuNTcwODAxOSw0NS4wMDAwMDU5IFoiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0zMiAtMzIpIi8+Cjwvc3ZnPgo="
 
 /***/ },
-/* 298 */
+/* 264 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -16717,6 +12765,2246 @@ return /******/ (function(modules) { // webpackBootstrap
 			URL.revokeObjectURL(oldSrc);
 	}
 
+
+/***/ },
+/* 265 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var map = {
+		"./ar": 266,
+		"./ar.json": 266,
+		"./ca": 267,
+		"./ca.json": 267,
+		"./ca_ES": 268,
+		"./ca_ES.json": 268,
+		"./cs": 269,
+		"./cs.json": 269,
+		"./cs_CZ": 270,
+		"./cs_CZ.json": 270,
+		"./da": 271,
+		"./da.json": 271,
+		"./de": 272,
+		"./de.json": 272,
+		"./de_DE": 273,
+		"./de_DE.json": 273,
+		"./el": 274,
+		"./el.json": 274,
+		"./en": 275,
+		"./en.json": 275,
+		"./eo": 276,
+		"./eo.json": 276,
+		"./es": 277,
+		"./es.json": 277,
+		"./es_CO": 278,
+		"./es_CO.json": 278,
+		"./es_ES": 279,
+		"./es_ES.json": 279,
+		"./fr": 280,
+		"./fr.json": 280,
+		"./it": 281,
+		"./it.json": 281,
+		"./ja": 282,
+		"./ja.json": 282,
+		"./ko": 283,
+		"./ko.json": 283,
+		"./nl": 284,
+		"./nl.json": 284,
+		"./nl_NL": 285,
+		"./nl_NL.json": 285,
+		"./pl": 286,
+		"./pl.json": 286,
+		"./pt": 287,
+		"./pt.json": 287,
+		"./pt_BR": 288,
+		"./pt_BR.json": 288,
+		"./ro": 289,
+		"./ro.json": 289,
+		"./ro_RO": 290,
+		"./ro_RO.json": 290,
+		"./ru": 291,
+		"./ru.json": 291,
+		"./ru_RU": 292,
+		"./ru_RU.json": 292,
+		"./sk": 293,
+		"./sk.json": 293,
+		"./sk_SK": 294,
+		"./sk_SK.json": 294,
+		"./sq": 295,
+		"./sq.json": 295,
+		"./sq_AL": 296,
+		"./sq_AL.json": 296,
+		"./sv": 297,
+		"./sv.json": 297,
+		"./tr": 298,
+		"./tr.json": 298,
+		"./uk_UA": 299,
+		"./uk_UA.json": 299,
+		"./zh": 300,
+		"./zh.json": 300,
+		"./zh_CN": 301,
+		"./zh_CN.json": 301,
+		"./zh_TW": 302,
+		"./zh_TW.json": 302
+	};
+	function webpackContext(req) {
+		return __webpack_require__(webpackContextResolve(req));
+	};
+	function webpackContextResolve(req) {
+		return map[req] || (function() { throw new Error("Cannot find module '" + req + "'.") }());
+	};
+	webpackContext.keys = function webpackContextKeys() {
+		return Object.keys(map);
+	};
+	webpackContext.resolve = webpackContextResolve;
+	module.exports = webpackContext;
+	webpackContext.id = 265;
+
+
+/***/ },
+/* 266 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"drawer": "Show menu drawer",
+		"profile": "Profile",
+		"connectedDevices": "Connected devices",
+		"storage": "Storage",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
+		"help": "Help",
+		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"soon": "soon",
+		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"no_apps": "No applications found on the Cozy.",
+		"menu": {
+			"apps": "Apps",
+			"settings": "Settings"
+		},
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"ptnb": "expPTNB",
+			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?",
+			"actions": {
+				"desktop": {
+					"title": "Get access to your files in your computer",
+					"description": "Synchronize all your Cozy Drive files on your computer",
+					"button": "Install Cozy Drive on your desktop",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"mobile": {
+					"title": "Back up and sync your pics from your mobile",
+					"description": "All your memories are safe on your Cozy Drive",
+					"button": "Install the Cozy Drive app on your mobile",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"cozy-collect": {
+					"title": "Get back your bills instantly",
+					"description": "Cozy Collect organize all your files instantly",
+					"button": "Discover Cozy Collect"
+				},
+				"support": {
+					"title": "How can we help you today ?",
+					"description": "Share your idea or your bug on our dedicated interface",
+					"button": "Get access to the support",
+					"link": "https://cozy.io/en/support/"
+				}
+			}
+		}
+	};
+
+/***/ },
+/* 267 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"drawer": "Show menu drawer",
+		"profile": "Profile",
+		"connectedDevices": "Connected devices",
+		"storage": "Storage",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
+		"help": "Help",
+		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"soon": "soon",
+		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"no_apps": "No applications found on the Cozy.",
+		"menu": {
+			"apps": "Apps",
+			"settings": "Settings"
+		},
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"ptnb": "expPTNB",
+			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?",
+			"actions": {
+				"desktop": {
+					"title": "Get access to your files in your computer",
+					"description": "Synchronize all your Cozy Drive files on your computer",
+					"button": "Install Cozy Drive on your desktop",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"mobile": {
+					"title": "Back up and sync your pics from your mobile",
+					"description": "All your memories are safe on your Cozy Drive",
+					"button": "Install the Cozy Drive app on your mobile",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"cozy-collect": {
+					"title": "Get back your bills instantly",
+					"description": "Cozy Collect organize all your files instantly",
+					"button": "Discover Cozy Collect"
+				},
+				"support": {
+					"title": "How can we help you today ?",
+					"description": "Share your idea or your bug on our dedicated interface",
+					"button": "Get access to the support",
+					"link": "https://cozy.io/en/support/"
+				}
+			}
+		}
+	};
+
+/***/ },
+/* 268 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"drawer": "Show menu drawer",
+		"profile": "Profile",
+		"connectedDevices": "Connected devices",
+		"storage": "Storage",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
+		"help": "Help",
+		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"soon": "soon",
+		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"no_apps": "No applications found on the Cozy.",
+		"menu": {
+			"apps": "Apps",
+			"settings": "Settings"
+		},
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"ptnb": "expPTNB",
+			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?",
+			"actions": {
+				"desktop": {
+					"title": "Get access to your files in your computer",
+					"description": "Synchronize all your Cozy Drive files on your computer",
+					"button": "Install Cozy Drive on your desktop",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"mobile": {
+					"title": "Back up and sync your pics from your mobile",
+					"description": "All your memories are safe on your Cozy Drive",
+					"button": "Install the Cozy Drive app on your mobile",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"cozy-collect": {
+					"title": "Get back your bills instantly",
+					"description": "Cozy Collect organize all your files instantly",
+					"button": "Discover Cozy Collect"
+				},
+				"support": {
+					"title": "How can we help you today ?",
+					"description": "Share your idea or your bug on our dedicated interface",
+					"button": "Get access to the support",
+					"link": "https://cozy.io/en/support/"
+				}
+			}
+		}
+	};
+
+/***/ },
+/* 269 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"drawer": "Show menu drawer",
+		"profile": "Profile",
+		"connectedDevices": "Connected devices",
+		"storage": "Storage",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
+		"help": "Help",
+		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"soon": "soon",
+		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"no_apps": "No applications found on the Cozy.",
+		"menu": {
+			"apps": "Apps",
+			"settings": "Settings"
+		},
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"ptnb": "expPTNB",
+			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?",
+			"actions": {
+				"desktop": {
+					"title": "Get access to your files in your computer",
+					"description": "Synchronize all your Cozy Drive files on your computer",
+					"button": "Install Cozy Drive on your desktop",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"mobile": {
+					"title": "Back up and sync your pics from your mobile",
+					"description": "All your memories are safe on your Cozy Drive",
+					"button": "Install the Cozy Drive app on your mobile",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"cozy-collect": {
+					"title": "Get back your bills instantly",
+					"description": "Cozy Collect organize all your files instantly",
+					"button": "Discover Cozy Collect"
+				},
+				"support": {
+					"title": "How can we help you today ?",
+					"description": "Share your idea or your bug on our dedicated interface",
+					"button": "Get access to the support",
+					"link": "https://cozy.io/en/support/"
+				}
+			}
+		}
+	};
+
+/***/ },
+/* 270 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"drawer": "Show menu drawer",
+		"profile": "Profile",
+		"connectedDevices": "Connected devices",
+		"storage": "Storage",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
+		"help": "Help",
+		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"soon": "soon",
+		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"no_apps": "No applications found on the Cozy.",
+		"menu": {
+			"apps": "Apps",
+			"settings": "Settings"
+		},
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"ptnb": "expPTNB",
+			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?",
+			"actions": {
+				"desktop": {
+					"title": "Get access to your files in your computer",
+					"description": "Synchronize all your Cozy Drive files on your computer",
+					"button": "Install Cozy Drive on your desktop",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"mobile": {
+					"title": "Back up and sync your pics from your mobile",
+					"description": "All your memories are safe on your Cozy Drive",
+					"button": "Install the Cozy Drive app on your mobile",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"cozy-collect": {
+					"title": "Get back your bills instantly",
+					"description": "Cozy Collect organize all your files instantly",
+					"button": "Discover Cozy Collect"
+				},
+				"support": {
+					"title": "How can we help you today ?",
+					"description": "Share your idea or your bug on our dedicated interface",
+					"button": "Get access to the support",
+					"link": "https://cozy.io/en/support/"
+				}
+			}
+		}
+	};
+
+/***/ },
+/* 271 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"drawer": "Show menu drawer",
+		"profile": "Profile",
+		"connectedDevices": "Connected devices",
+		"storage": "Storage",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
+		"help": "Help",
+		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"soon": "soon",
+		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"no_apps": "No applications found on the Cozy.",
+		"menu": {
+			"apps": "Apps",
+			"settings": "Settings"
+		},
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"ptnb": "expPTNB",
+			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?",
+			"actions": {
+				"desktop": {
+					"title": "Get access to your files in your computer",
+					"description": "Synchronize all your Cozy Drive files on your computer",
+					"button": "Install Cozy Drive on your desktop",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"mobile": {
+					"title": "Back up and sync your pics from your mobile",
+					"description": "All your memories are safe on your Cozy Drive",
+					"button": "Install the Cozy Drive app on your mobile",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"cozy-collect": {
+					"title": "Get back your bills instantly",
+					"description": "Cozy Collect organize all your files instantly",
+					"button": "Discover Cozy Collect"
+				},
+				"support": {
+					"title": "How can we help you today ?",
+					"description": "Share your idea or your bug on our dedicated interface",
+					"button": "Get access to the support",
+					"link": "https://cozy.io/en/support/"
+				}
+			}
+		}
+	};
+
+/***/ },
+/* 272 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"drawer": "Show menu drawer",
+		"profile": "Profile",
+		"connectedDevices": "Connected devices",
+		"storage": "Storage",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
+		"help": "Help",
+		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"soon": "soon",
+		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"no_apps": "No applications found on the Cozy.",
+		"menu": {
+			"apps": "Apps",
+			"settings": "Settings"
+		},
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"ptnb": "expPTNB",
+			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?",
+			"actions": {
+				"desktop": {
+					"title": "Get access to your files in your computer",
+					"description": "Synchronize all your Cozy Drive files on your computer",
+					"button": "Install Cozy Drive on your desktop",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"mobile": {
+					"title": "Back up and sync your pics from your mobile",
+					"description": "All your memories are safe on your Cozy Drive",
+					"button": "Install the Cozy Drive app on your mobile",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"cozy-collect": {
+					"title": "Get back your bills instantly",
+					"description": "Cozy Collect organize all your files instantly",
+					"button": "Discover Cozy Collect"
+				},
+				"support": {
+					"title": "How can we help you today ?",
+					"description": "Share your idea or your bug on our dedicated interface",
+					"button": "Get access to the support",
+					"link": "https://cozy.io/en/support/"
+				}
+			}
+		}
+	};
+
+/***/ },
+/* 273 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"drawer": "Show menu drawer",
+		"profile": "Profile",
+		"connectedDevices": "Connected devices",
+		"storage": "Storage",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
+		"help": "Help",
+		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"soon": "soon",
+		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"no_apps": "No applications found on the Cozy.",
+		"menu": {
+			"apps": "Apps",
+			"settings": "Settings"
+		},
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"ptnb": "expPTNB",
+			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?",
+			"actions": {
+				"desktop": {
+					"title": "Get access to your files in your computer",
+					"description": "Synchronize all your Cozy Drive files on your computer",
+					"button": "Install Cozy Drive on your desktop",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"mobile": {
+					"title": "Back up and sync your pics from your mobile",
+					"description": "All your memories are safe on your Cozy Drive",
+					"button": "Install the Cozy Drive app on your mobile",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"cozy-collect": {
+					"title": "Get back your bills instantly",
+					"description": "Cozy Collect organize all your files instantly",
+					"button": "Discover Cozy Collect"
+				},
+				"support": {
+					"title": "How can we help you today ?",
+					"description": "Share your idea or your bug on our dedicated interface",
+					"button": "Get access to the support",
+					"link": "https://cozy.io/en/support/"
+				}
+			}
+		}
+	};
+
+/***/ },
+/* 274 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"drawer": "Show menu drawer",
+		"profile": "Profile",
+		"connectedDevices": "Connected devices",
+		"storage": "Storage",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
+		"help": "Help",
+		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"soon": "soon",
+		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"no_apps": "No applications found on the Cozy.",
+		"menu": {
+			"apps": "Apps",
+			"settings": "Settings"
+		},
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"ptnb": "expPTNB",
+			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?",
+			"actions": {
+				"desktop": {
+					"title": "Get access to your files in your computer",
+					"description": "Synchronize all your Cozy Drive files on your computer",
+					"button": "Install Cozy Drive on your desktop",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"mobile": {
+					"title": "Back up and sync your pics from your mobile",
+					"description": "All your memories are safe on your Cozy Drive",
+					"button": "Install the Cozy Drive app on your mobile",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"cozy-collect": {
+					"title": "Get back your bills instantly",
+					"description": "Cozy Collect organize all your files instantly",
+					"button": "Discover Cozy Collect"
+				},
+				"support": {
+					"title": "How can we help you today ?",
+					"description": "Share your idea or your bug on our dedicated interface",
+					"button": "Get access to the support",
+					"link": "https://cozy.io/en/support/"
+				}
+			}
+		}
+	};
+
+/***/ },
+/* 275 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"drawer": "Show menu drawer",
+		"profile": "Profile",
+		"connectedDevices": "Connected devices",
+		"storage": "Storage",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
+		"help": "Help",
+		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"soon": "soon",
+		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"no_apps": "No applications found on the Cozy.",
+		"menu": {
+			"apps": "Apps",
+			"settings": "Settings"
+		},
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"ptnb": "expPTNB",
+			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?",
+			"actions": {
+				"desktop": {
+					"title": "Get access to your files in your computer",
+					"description": "Synchronize all your Cozy Drive files on your computer",
+					"button": "Install Cozy Drive on your desktop",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"mobile": {
+					"title": "Back up and sync your pics from your mobile",
+					"description": "All your memories are safe on your Cozy Drive",
+					"button": "Install the Cozy Drive app on your mobile",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"cozy-collect": {
+					"title": "Get back your bills instantly",
+					"description": "Cozy Collect organize all your files instantly",
+					"button": "Discover Cozy Collect"
+				},
+				"support": {
+					"title": "How can we help you today ?",
+					"description": "Share your idea or your bug on our dedicated interface",
+					"button": "Get access to the support",
+					"link": "https://cozy.io/en/support/"
+				}
+			}
+		}
+	};
+
+/***/ },
+/* 276 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"drawer": "Show menu drawer",
+		"profile": "Profile",
+		"connectedDevices": "Connected devices",
+		"storage": "Storage",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
+		"help": "Help",
+		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"soon": "soon",
+		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"no_apps": "No applications found on the Cozy.",
+		"menu": {
+			"apps": "Apps",
+			"settings": "Settings"
+		},
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"ptnb": "expPTNB",
+			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?",
+			"actions": {
+				"desktop": {
+					"title": "Get access to your files in your computer",
+					"description": "Synchronize all your Cozy Drive files on your computer",
+					"button": "Install Cozy Drive on your desktop",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"mobile": {
+					"title": "Back up and sync your pics from your mobile",
+					"description": "All your memories are safe on your Cozy Drive",
+					"button": "Install the Cozy Drive app on your mobile",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"cozy-collect": {
+					"title": "Get back your bills instantly",
+					"description": "Cozy Collect organize all your files instantly",
+					"button": "Discover Cozy Collect"
+				},
+				"support": {
+					"title": "How can we help you today ?",
+					"description": "Share your idea or your bug on our dedicated interface",
+					"button": "Get access to the support",
+					"link": "https://cozy.io/en/support/"
+				}
+			}
+		}
+	};
+
+/***/ },
+/* 277 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"drawer": "Show menu drawer",
+		"profile": "Perfil",
+		"connectedDevices": "Periféricos conectados",
+		"storage": "Almacenamiento",
+		"storage_phrase": "%{diskUsage} GO de %{diskQuota} GO usados",
+		"help": "Ayuda",
+		"logout": "Finalizar sesión",
+		"beta_status": "Estamos aún en versión beta",
+		"beta": "beta",
+		"soon": "pronto",
+		"error_UnavailableStack": "La pila es inaccesible ( se agotó el tiempo de la conexión ).",
+		"error_UnauthorizedStack": "Faltan algunos permisos, la aplicación no puede acceder al recurso solicitado en la pila.",
+		"no_apps": "No applications found on the Cozy.",
+		"menu": {
+			"apps": "Apps",
+			"settings": "Settings"
+		},
+		"Categories": {
+			"cozy": "Aplicaciones Cozy",
+			"partners": "Aplicaciones de asociados",
+			"ptnb": "expPTNB",
+			"others": "Otras aplicaciones"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?",
+			"actions": {
+				"desktop": {
+					"title": "Get access to your files in your computer",
+					"description": "Synchronize all your Cozy Drive files on your computer",
+					"button": "Install Cozy Drive on your desktop",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"mobile": {
+					"title": "Back up and sync your pics from your mobile",
+					"description": "All your memories are safe on your Cozy Drive",
+					"button": "Install the Cozy Drive app on your mobile",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"cozy-collect": {
+					"title": "Get back your bills instantly",
+					"description": "Cozy Collect organize all your files instantly",
+					"button": "Discover Cozy Collect"
+				},
+				"support": {
+					"title": "How can we help you today ?",
+					"description": "Share your idea or your bug on our dedicated interface",
+					"button": "Get access to the support",
+					"link": "https://cozy.io/en/support/"
+				}
+			}
+		}
+	};
+
+/***/ },
+/* 278 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"drawer": "Show menu drawer",
+		"profile": "Profile",
+		"connectedDevices": "Connected devices",
+		"storage": "Storage",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
+		"help": "Help",
+		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"soon": "soon",
+		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"no_apps": "No applications found on the Cozy.",
+		"menu": {
+			"apps": "Apps",
+			"settings": "Settings"
+		},
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"ptnb": "expPTNB",
+			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?",
+			"actions": {
+				"desktop": {
+					"title": "Get access to your files in your computer",
+					"description": "Synchronize all your Cozy Drive files on your computer",
+					"button": "Install Cozy Drive on your desktop",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"mobile": {
+					"title": "Back up and sync your pics from your mobile",
+					"description": "All your memories are safe on your Cozy Drive",
+					"button": "Install the Cozy Drive app on your mobile",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"cozy-collect": {
+					"title": "Get back your bills instantly",
+					"description": "Cozy Collect organize all your files instantly",
+					"button": "Discover Cozy Collect"
+				},
+				"support": {
+					"title": "How can we help you today ?",
+					"description": "Share your idea or your bug on our dedicated interface",
+					"button": "Get access to the support",
+					"link": "https://cozy.io/en/support/"
+				}
+			}
+		}
+	};
+
+/***/ },
+/* 279 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"drawer": "Show menu drawer",
+		"profile": "Profile",
+		"connectedDevices": "Connected devices",
+		"storage": "Storage",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
+		"help": "Help",
+		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"soon": "soon",
+		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"no_apps": "No applications found on the Cozy.",
+		"menu": {
+			"apps": "Apps",
+			"settings": "Settings"
+		},
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"ptnb": "expPTNB",
+			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?",
+			"actions": {
+				"desktop": {
+					"title": "Get access to your files in your computer",
+					"description": "Synchronize all your Cozy Drive files on your computer",
+					"button": "Install Cozy Drive on your desktop",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"mobile": {
+					"title": "Back up and sync your pics from your mobile",
+					"description": "All your memories are safe on your Cozy Drive",
+					"button": "Install the Cozy Drive app on your mobile",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"cozy-collect": {
+					"title": "Get back your bills instantly",
+					"description": "Cozy Collect organize all your files instantly",
+					"button": "Discover Cozy Collect"
+				},
+				"support": {
+					"title": "How can we help you today ?",
+					"description": "Share your idea or your bug on our dedicated interface",
+					"button": "Get access to the support",
+					"link": "https://cozy.io/en/support/"
+				}
+			}
+		}
+	};
+
+/***/ },
+/* 280 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"drawer": "Afficher le menu latéral",
+		"profile": "Profil",
+		"connectedDevices": "Appareils connectés",
+		"storage": "Espace disque",
+		"storage_phrase": "%{diskUsage} Go sur %{diskQuota} Go",
+		"help": "Aide",
+		"logout": "Déconnexion",
+		"beta_status": "Nous sommes toujours en beta.",
+		"beta": "beta",
+		"soon": "à venir",
+		"error_UnavailableStack": "Connexion à la stack impossible (connection timed-out)",
+		"error_UnauthorizedStack": "Des permissions sont manquante, l'application ne peut accéder aux ressources demandées.",
+		"no_apps": "Pas d'applications Cozy trouvées.",
+		"menu": {
+			"apps": "Applications",
+			"settings": "Paramètres"
+		},
+		"Categories": {
+			"cozy": "Apps Cozy",
+			"partners": "Expérimentation MesInfos",
+			"ptnb": "Expérimentation Carnet du logement",
+			"others": "Autres apps"
+		},
+		"claudy": {
+			"title": "Comment utiliser votre Cozy ?",
+			"actions": {
+				"desktop": {
+					"title": "Accéder à vos fichiers sur votre ordinateur ?",
+					"description": "Synchroniser tous vos fichiers Cozy Drive sur votre ordinateur",
+					"button": "Installer Cozy Drive sur votre ordinateur ",
+					"link": "https://docs.cozy.io/fr/download/"
+				},
+				"mobile": {
+					"title": "Sauvegarder vos photos depuis votre mobile ?",
+					"description": "Vos souvenirs sont sauvegardés et synchronisés sur tous vos appareils",
+					"button": "Installer l'app Cozy Drive sur votre mobile",
+					"link": "https://docs.cozy.io/fr/download/"
+				},
+				"cozy-collect": {
+					"title": "Récupérer automatiquement vos factures ?",
+					"description": "Cozy Collect organise à votre place vos dossiers avec tous vos documents administratifs",
+					"button": "Découvrir Cozy Collect"
+				},
+				"support": {
+					"title": "Comment pouvons-nous vous aider aujourd'hui ? ",
+					"description": "Une idée de fonctionnalité? Un bug? Votre Cozy a besoin de vous pour être amélioré",
+					"button": "Accéder au forum",
+					"link": "https://cozy.io/fr/support/"
+				}
+			}
+		}
+	};
+
+/***/ },
+/* 281 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"drawer": "Show menu drawer",
+		"profile": "Profile",
+		"connectedDevices": "Connected devices",
+		"storage": "Storage",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
+		"help": "Help",
+		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"soon": "soon",
+		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"no_apps": "No applications found on the Cozy.",
+		"menu": {
+			"apps": "Apps",
+			"settings": "Settings"
+		},
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"ptnb": "expPTNB",
+			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?",
+			"actions": {
+				"desktop": {
+					"title": "Get access to your files in your computer",
+					"description": "Synchronize all your Cozy Drive files on your computer",
+					"button": "Install Cozy Drive on your desktop",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"mobile": {
+					"title": "Back up and sync your pics from your mobile",
+					"description": "All your memories are safe on your Cozy Drive",
+					"button": "Install the Cozy Drive app on your mobile",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"cozy-collect": {
+					"title": "Get back your bills instantly",
+					"description": "Cozy Collect organize all your files instantly",
+					"button": "Discover Cozy Collect"
+				},
+				"support": {
+					"title": "How can we help you today ?",
+					"description": "Share your idea or your bug on our dedicated interface",
+					"button": "Get access to the support",
+					"link": "https://cozy.io/en/support/"
+				}
+			}
+		}
+	};
+
+/***/ },
+/* 282 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"drawer": "Show menu drawer",
+		"profile": "プロフィール",
+		"connectedDevices": "接続されたデバイス",
+		"storage": "ストレージ",
+		"storage_phrase": "%{diskUsage} GB / %{diskQuota} GB 使用",
+		"help": "ヘルプ",
+		"logout": "サインアウト",
+		"beta_status": "まだベータ版です",
+		"beta": "ベータ",
+		"soon": "間もなく",
+		"error_UnavailableStack": "スタックに到達できません (接続タイムアウト)。",
+		"error_UnauthorizedStack": "一部のアクセス許可が不足しているため、アプリケーションはスタック上の要求されたリソースにアクセスできません。",
+		"no_apps": "No applications found on the Cozy.",
+		"menu": {
+			"apps": "Apps",
+			"settings": "Settings"
+		},
+		"Categories": {
+			"cozy": "Cozy アプリ",
+			"partners": "パートナーアプリ",
+			"ptnb": "expPTNB",
+			"others": "他のアプリ"
+		},
+		"claudy": {
+			"title": "Cozy をドライブする方法は?",
+			"actions": {
+				"desktop": {
+					"title": "コンピューター内のファイルにアクセスする",
+					"description": "コンピューター上のすべての Cozy ドライブファイルを同期させる",
+					"button": "デスクトップに Cozy ドライブをインストールする",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"mobile": {
+					"title": "お使いの携帯から写真をバックアップして同期させる",
+					"description": "Cozy ドライブで、すべての思い出が安心です",
+					"button": "モバイルに Cozy ドライブアプリをインストールする",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"cozy-collect": {
+					"title": "簡単に請求書を取り戻す",
+					"description": "Cozy コレクトはすぐにすべてのファイルを整理します",
+					"button": "Cozy コレクトを見つける"
+				},
+				"support": {
+					"title": "今日は何をお手伝いしますか?",
+					"description": "専用インターフェースであなたのアイデアやバグを共有する",
+					"button": "サポートにアクセスする",
+					"link": "https://cozy.io/en/support/"
+				}
+			}
+		}
+	};
+
+/***/ },
+/* 283 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"drawer": "Show menu drawer",
+		"profile": "Profile",
+		"connectedDevices": "Connected devices",
+		"storage": "Storage",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
+		"help": "Help",
+		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"soon": "soon",
+		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"no_apps": "No applications found on the Cozy.",
+		"menu": {
+			"apps": "Apps",
+			"settings": "Settings"
+		},
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"ptnb": "expPTNB",
+			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?",
+			"actions": {
+				"desktop": {
+					"title": "Get access to your files in your computer",
+					"description": "Synchronize all your Cozy Drive files on your computer",
+					"button": "Install Cozy Drive on your desktop",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"mobile": {
+					"title": "Back up and sync your pics from your mobile",
+					"description": "All your memories are safe on your Cozy Drive",
+					"button": "Install the Cozy Drive app on your mobile",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"cozy-collect": {
+					"title": "Get back your bills instantly",
+					"description": "Cozy Collect organize all your files instantly",
+					"button": "Discover Cozy Collect"
+				},
+				"support": {
+					"title": "How can we help you today ?",
+					"description": "Share your idea or your bug on our dedicated interface",
+					"button": "Get access to the support",
+					"link": "https://cozy.io/en/support/"
+				}
+			}
+		}
+	};
+
+/***/ },
+/* 284 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"drawer": "Show menu drawer",
+		"profile": "Profiel",
+		"connectedDevices": "Verbonden apparaten",
+		"storage": "Opslag",
+		"storage_phrase": "%{diskUsage} GB van %{diskQuota} GB gebruikt",
+		"help": "Hulp",
+		"logout": "Log uit",
+		"beta_status": "We zijn nog in Beta",
+		"beta": "beta",
+		"soon": "binnenkort",
+		"error_UnavailableStack": "De stapel is onbereikbaar (verbinding verlopen)",
+		"error_UnauthorizedStack": "Sommige toestemmingen missen, de toepassing kan niet alles bereiken.",
+		"no_apps": "No applications found on the Cozy.",
+		"menu": {
+			"apps": "Apps",
+			"settings": "Settings"
+		},
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partner apps",
+			"ptnb": "expPTNB",
+			"others": "Andere apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?",
+			"actions": {
+				"desktop": {
+					"title": "Get access to your files in your computer",
+					"description": "Synchronize all your Cozy Drive files on your computer",
+					"button": "Install Cozy Drive on your desktop",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"mobile": {
+					"title": "Back up and sync your pics from your mobile",
+					"description": "All your memories are safe on your Cozy Drive",
+					"button": "Install the Cozy Drive app on your mobile",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"cozy-collect": {
+					"title": "Get back your bills instantly",
+					"description": "Cozy Collect organize all your files instantly",
+					"button": "Discover Cozy Collect"
+				},
+				"support": {
+					"title": "How can we help you today ?",
+					"description": "Share your idea or your bug on our dedicated interface",
+					"button": "Get access to the support",
+					"link": "https://cozy.io/en/support/"
+				}
+			}
+		}
+	};
+
+/***/ },
+/* 285 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"drawer": "Show menu drawer",
+		"profile": "Profile",
+		"connectedDevices": "Connected devices",
+		"storage": "Storage",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
+		"help": "Help",
+		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"soon": "soon",
+		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"no_apps": "No applications found on the Cozy.",
+		"menu": {
+			"apps": "Apps",
+			"settings": "Settings"
+		},
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"ptnb": "expPTNB",
+			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?",
+			"actions": {
+				"desktop": {
+					"title": "Get access to your files in your computer",
+					"description": "Synchronize all your Cozy Drive files on your computer",
+					"button": "Install Cozy Drive on your desktop",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"mobile": {
+					"title": "Back up and sync your pics from your mobile",
+					"description": "All your memories are safe on your Cozy Drive",
+					"button": "Install the Cozy Drive app on your mobile",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"cozy-collect": {
+					"title": "Get back your bills instantly",
+					"description": "Cozy Collect organize all your files instantly",
+					"button": "Discover Cozy Collect"
+				},
+				"support": {
+					"title": "How can we help you today ?",
+					"description": "Share your idea or your bug on our dedicated interface",
+					"button": "Get access to the support",
+					"link": "https://cozy.io/en/support/"
+				}
+			}
+		}
+	};
+
+/***/ },
+/* 286 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"drawer": "Show menu drawer",
+		"profile": "Profile",
+		"connectedDevices": "Connected devices",
+		"storage": "Storage",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
+		"help": "Help",
+		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"soon": "soon",
+		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"no_apps": "No applications found on the Cozy.",
+		"menu": {
+			"apps": "Apps",
+			"settings": "Settings"
+		},
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"ptnb": "expPTNB",
+			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?",
+			"actions": {
+				"desktop": {
+					"title": "Get access to your files in your computer",
+					"description": "Synchronize all your Cozy Drive files on your computer",
+					"button": "Install Cozy Drive on your desktop",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"mobile": {
+					"title": "Back up and sync your pics from your mobile",
+					"description": "All your memories are safe on your Cozy Drive",
+					"button": "Install the Cozy Drive app on your mobile",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"cozy-collect": {
+					"title": "Get back your bills instantly",
+					"description": "Cozy Collect organize all your files instantly",
+					"button": "Discover Cozy Collect"
+				},
+				"support": {
+					"title": "How can we help you today ?",
+					"description": "Share your idea or your bug on our dedicated interface",
+					"button": "Get access to the support",
+					"link": "https://cozy.io/en/support/"
+				}
+			}
+		}
+	};
+
+/***/ },
+/* 287 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"drawer": "Show menu drawer",
+		"profile": "Profile",
+		"connectedDevices": "Connected devices",
+		"storage": "Storage",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
+		"help": "Help",
+		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"soon": "soon",
+		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"no_apps": "No applications found on the Cozy.",
+		"menu": {
+			"apps": "Apps",
+			"settings": "Settings"
+		},
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"ptnb": "expPTNB",
+			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?",
+			"actions": {
+				"desktop": {
+					"title": "Get access to your files in your computer",
+					"description": "Synchronize all your Cozy Drive files on your computer",
+					"button": "Install Cozy Drive on your desktop",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"mobile": {
+					"title": "Back up and sync your pics from your mobile",
+					"description": "All your memories are safe on your Cozy Drive",
+					"button": "Install the Cozy Drive app on your mobile",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"cozy-collect": {
+					"title": "Get back your bills instantly",
+					"description": "Cozy Collect organize all your files instantly",
+					"button": "Discover Cozy Collect"
+				},
+				"support": {
+					"title": "How can we help you today ?",
+					"description": "Share your idea or your bug on our dedicated interface",
+					"button": "Get access to the support",
+					"link": "https://cozy.io/en/support/"
+				}
+			}
+		}
+	};
+
+/***/ },
+/* 288 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"drawer": "Show menu drawer",
+		"profile": "Profile",
+		"connectedDevices": "Connected devices",
+		"storage": "Storage",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
+		"help": "Help",
+		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"soon": "soon",
+		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"no_apps": "No applications found on the Cozy.",
+		"menu": {
+			"apps": "Apps",
+			"settings": "Settings"
+		},
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"ptnb": "expPTNB",
+			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?",
+			"actions": {
+				"desktop": {
+					"title": "Get access to your files in your computer",
+					"description": "Synchronize all your Cozy Drive files on your computer",
+					"button": "Install Cozy Drive on your desktop",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"mobile": {
+					"title": "Back up and sync your pics from your mobile",
+					"description": "All your memories are safe on your Cozy Drive",
+					"button": "Install the Cozy Drive app on your mobile",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"cozy-collect": {
+					"title": "Get back your bills instantly",
+					"description": "Cozy Collect organize all your files instantly",
+					"button": "Discover Cozy Collect"
+				},
+				"support": {
+					"title": "How can we help you today ?",
+					"description": "Share your idea or your bug on our dedicated interface",
+					"button": "Get access to the support",
+					"link": "https://cozy.io/en/support/"
+				}
+			}
+		}
+	};
+
+/***/ },
+/* 289 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"drawer": "Show menu drawer",
+		"profile": "Profile",
+		"connectedDevices": "Connected devices",
+		"storage": "Storage",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
+		"help": "Help",
+		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"soon": "soon",
+		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"no_apps": "No applications found on the Cozy.",
+		"menu": {
+			"apps": "Apps",
+			"settings": "Settings"
+		},
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"ptnb": "expPTNB",
+			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?",
+			"actions": {
+				"desktop": {
+					"title": "Get access to your files in your computer",
+					"description": "Synchronize all your Cozy Drive files on your computer",
+					"button": "Install Cozy Drive on your desktop",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"mobile": {
+					"title": "Back up and sync your pics from your mobile",
+					"description": "All your memories are safe on your Cozy Drive",
+					"button": "Install the Cozy Drive app on your mobile",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"cozy-collect": {
+					"title": "Get back your bills instantly",
+					"description": "Cozy Collect organize all your files instantly",
+					"button": "Discover Cozy Collect"
+				},
+				"support": {
+					"title": "How can we help you today ?",
+					"description": "Share your idea or your bug on our dedicated interface",
+					"button": "Get access to the support",
+					"link": "https://cozy.io/en/support/"
+				}
+			}
+		}
+	};
+
+/***/ },
+/* 290 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"drawer": "Show menu drawer",
+		"profile": "Profile",
+		"connectedDevices": "Connected devices",
+		"storage": "Storage",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
+		"help": "Help",
+		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"soon": "soon",
+		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"no_apps": "No applications found on the Cozy.",
+		"menu": {
+			"apps": "Apps",
+			"settings": "Settings"
+		},
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"ptnb": "expPTNB",
+			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?",
+			"actions": {
+				"desktop": {
+					"title": "Get access to your files in your computer",
+					"description": "Synchronize all your Cozy Drive files on your computer",
+					"button": "Install Cozy Drive on your desktop",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"mobile": {
+					"title": "Back up and sync your pics from your mobile",
+					"description": "All your memories are safe on your Cozy Drive",
+					"button": "Install the Cozy Drive app on your mobile",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"cozy-collect": {
+					"title": "Get back your bills instantly",
+					"description": "Cozy Collect organize all your files instantly",
+					"button": "Discover Cozy Collect"
+				},
+				"support": {
+					"title": "How can we help you today ?",
+					"description": "Share your idea or your bug on our dedicated interface",
+					"button": "Get access to the support",
+					"link": "https://cozy.io/en/support/"
+				}
+			}
+		}
+	};
+
+/***/ },
+/* 291 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"drawer": "Show menu drawer",
+		"profile": "Профиль",
+		"connectedDevices": "Присоединённые устройства",
+		"storage": "Хранилище",
+		"storage_phrase": "%{diskUsage} ГБ из %{diskQuota} ГБ использовано",
+		"help": "Помощь",
+		"logout": "Выход",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"soon": "soon",
+		"error_UnavailableStack": "Это стек не доступен (превышено время ожидания)",
+		"error_UnauthorizedStack": "Некоторые разрешения отсутствуют, получить доступ к запрашиваемому ресурсу в стеке не возможно.",
+		"no_apps": "No applications found on the Cozy.",
+		"menu": {
+			"apps": "Apps",
+			"settings": "Settings"
+		},
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"ptnb": "expPTNB",
+			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?",
+			"actions": {
+				"desktop": {
+					"title": "Get access to your files in your computer",
+					"description": "Synchronize all your Cozy Drive files on your computer",
+					"button": "Install Cozy Drive on your desktop",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"mobile": {
+					"title": "Back up and sync your pics from your mobile",
+					"description": "All your memories are safe on your Cozy Drive",
+					"button": "Install the Cozy Drive app on your mobile",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"cozy-collect": {
+					"title": "Get back your bills instantly",
+					"description": "Cozy Collect organize all your files instantly",
+					"button": "Discover Cozy Collect"
+				},
+				"support": {
+					"title": "How can we help you today ?",
+					"description": "Share your idea or your bug on our dedicated interface",
+					"button": "Get access to the support",
+					"link": "https://cozy.io/en/support/"
+				}
+			}
+		}
+	};
+
+/***/ },
+/* 292 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"drawer": "Show menu drawer",
+		"profile": "Профиль",
+		"connectedDevices": "Присоединённые устройства",
+		"storage": "Хранилище",
+		"storage_phrase": "%{diskUsage} ГБ из %{diskQuota} ГБ использовано",
+		"help": "Помощь",
+		"logout": "Выход",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"soon": "soon",
+		"error_UnavailableStack": "Это стек не доступен (превышено время ожидания)",
+		"error_UnauthorizedStack": "Некоторые разрешения отсутствуют, получить доступ к запрашиваемому ресурсу в стеке не возможно.",
+		"no_apps": "No applications found on the Cozy.",
+		"menu": {
+			"apps": "Apps",
+			"settings": "Settings"
+		},
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"ptnb": "expPTNB",
+			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?",
+			"actions": {
+				"desktop": {
+					"title": "Get access to your files in your computer",
+					"description": "Synchronize all your Cozy Drive files on your computer",
+					"button": "Install Cozy Drive on your desktop",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"mobile": {
+					"title": "Back up and sync your pics from your mobile",
+					"description": "All your memories are safe on your Cozy Drive",
+					"button": "Install the Cozy Drive app on your mobile",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"cozy-collect": {
+					"title": "Get back your bills instantly",
+					"description": "Cozy Collect organize all your files instantly",
+					"button": "Discover Cozy Collect"
+				},
+				"support": {
+					"title": "How can we help you today ?",
+					"description": "Share your idea or your bug on our dedicated interface",
+					"button": "Get access to the support",
+					"link": "https://cozy.io/en/support/"
+				}
+			}
+		}
+	};
+
+/***/ },
+/* 293 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"drawer": "Show menu drawer",
+		"profile": "Profile",
+		"connectedDevices": "Connected devices",
+		"storage": "Storage",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
+		"help": "Help",
+		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"soon": "soon",
+		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"no_apps": "No applications found on the Cozy.",
+		"menu": {
+			"apps": "Apps",
+			"settings": "Settings"
+		},
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"ptnb": "expPTNB",
+			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?",
+			"actions": {
+				"desktop": {
+					"title": "Get access to your files in your computer",
+					"description": "Synchronize all your Cozy Drive files on your computer",
+					"button": "Install Cozy Drive on your desktop",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"mobile": {
+					"title": "Back up and sync your pics from your mobile",
+					"description": "All your memories are safe on your Cozy Drive",
+					"button": "Install the Cozy Drive app on your mobile",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"cozy-collect": {
+					"title": "Get back your bills instantly",
+					"description": "Cozy Collect organize all your files instantly",
+					"button": "Discover Cozy Collect"
+				},
+				"support": {
+					"title": "How can we help you today ?",
+					"description": "Share your idea or your bug on our dedicated interface",
+					"button": "Get access to the support",
+					"link": "https://cozy.io/en/support/"
+				}
+			}
+		}
+	};
+
+/***/ },
+/* 294 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"drawer": "Show menu drawer",
+		"profile": "Profile",
+		"connectedDevices": "Connected devices",
+		"storage": "Storage",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
+		"help": "Help",
+		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"soon": "soon",
+		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"no_apps": "No applications found on the Cozy.",
+		"menu": {
+			"apps": "Apps",
+			"settings": "Settings"
+		},
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"ptnb": "expPTNB",
+			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?",
+			"actions": {
+				"desktop": {
+					"title": "Get access to your files in your computer",
+					"description": "Synchronize all your Cozy Drive files on your computer",
+					"button": "Install Cozy Drive on your desktop",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"mobile": {
+					"title": "Back up and sync your pics from your mobile",
+					"description": "All your memories are safe on your Cozy Drive",
+					"button": "Install the Cozy Drive app on your mobile",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"cozy-collect": {
+					"title": "Get back your bills instantly",
+					"description": "Cozy Collect organize all your files instantly",
+					"button": "Discover Cozy Collect"
+				},
+				"support": {
+					"title": "How can we help you today ?",
+					"description": "Share your idea or your bug on our dedicated interface",
+					"button": "Get access to the support",
+					"link": "https://cozy.io/en/support/"
+				}
+			}
+		}
+	};
+
+/***/ },
+/* 295 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"drawer": "Show menu drawer",
+		"profile": "Profile",
+		"connectedDevices": "Connected devices",
+		"storage": "Storage",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
+		"help": "Help",
+		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"soon": "soon",
+		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"no_apps": "No applications found on the Cozy.",
+		"menu": {
+			"apps": "Apps",
+			"settings": "Settings"
+		},
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"ptnb": "expPTNB",
+			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?",
+			"actions": {
+				"desktop": {
+					"title": "Get access to your files in your computer",
+					"description": "Synchronize all your Cozy Drive files on your computer",
+					"button": "Install Cozy Drive on your desktop",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"mobile": {
+					"title": "Back up and sync your pics from your mobile",
+					"description": "All your memories are safe on your Cozy Drive",
+					"button": "Install the Cozy Drive app on your mobile",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"cozy-collect": {
+					"title": "Get back your bills instantly",
+					"description": "Cozy Collect organize all your files instantly",
+					"button": "Discover Cozy Collect"
+				},
+				"support": {
+					"title": "How can we help you today ?",
+					"description": "Share your idea or your bug on our dedicated interface",
+					"button": "Get access to the support",
+					"link": "https://cozy.io/en/support/"
+				}
+			}
+		}
+	};
+
+/***/ },
+/* 296 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"drawer": "Show menu drawer",
+		"profile": "Profile",
+		"connectedDevices": "Connected devices",
+		"storage": "Storage",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
+		"help": "Help",
+		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"soon": "soon",
+		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"no_apps": "No applications found on the Cozy.",
+		"menu": {
+			"apps": "Apps",
+			"settings": "Settings"
+		},
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"ptnb": "expPTNB",
+			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?",
+			"actions": {
+				"desktop": {
+					"title": "Get access to your files in your computer",
+					"description": "Synchronize all your Cozy Drive files on your computer",
+					"button": "Install Cozy Drive on your desktop",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"mobile": {
+					"title": "Back up and sync your pics from your mobile",
+					"description": "All your memories are safe on your Cozy Drive",
+					"button": "Install the Cozy Drive app on your mobile",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"cozy-collect": {
+					"title": "Get back your bills instantly",
+					"description": "Cozy Collect organize all your files instantly",
+					"button": "Discover Cozy Collect"
+				},
+				"support": {
+					"title": "How can we help you today ?",
+					"description": "Share your idea or your bug on our dedicated interface",
+					"button": "Get access to the support",
+					"link": "https://cozy.io/en/support/"
+				}
+			}
+		}
+	};
+
+/***/ },
+/* 297 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"drawer": "Show menu drawer",
+		"profile": "Profile",
+		"connectedDevices": "Connected devices",
+		"storage": "Storage",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
+		"help": "Help",
+		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"soon": "soon",
+		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"no_apps": "No applications found on the Cozy.",
+		"menu": {
+			"apps": "Apps",
+			"settings": "Settings"
+		},
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"ptnb": "expPTNB",
+			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?",
+			"actions": {
+				"desktop": {
+					"title": "Get access to your files in your computer",
+					"description": "Synchronize all your Cozy Drive files on your computer",
+					"button": "Install Cozy Drive on your desktop",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"mobile": {
+					"title": "Back up and sync your pics from your mobile",
+					"description": "All your memories are safe on your Cozy Drive",
+					"button": "Install the Cozy Drive app on your mobile",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"cozy-collect": {
+					"title": "Get back your bills instantly",
+					"description": "Cozy Collect organize all your files instantly",
+					"button": "Discover Cozy Collect"
+				},
+				"support": {
+					"title": "How can we help you today ?",
+					"description": "Share your idea or your bug on our dedicated interface",
+					"button": "Get access to the support",
+					"link": "https://cozy.io/en/support/"
+				}
+			}
+		}
+	};
+
+/***/ },
+/* 298 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"drawer": "Show menu drawer",
+		"profile": "Profile",
+		"connectedDevices": "Connected devices",
+		"storage": "Storage",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
+		"help": "Help",
+		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"soon": "soon",
+		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"no_apps": "No applications found on the Cozy.",
+		"menu": {
+			"apps": "Apps",
+			"settings": "Settings"
+		},
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"ptnb": "expPTNB",
+			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?",
+			"actions": {
+				"desktop": {
+					"title": "Get access to your files in your computer",
+					"description": "Synchronize all your Cozy Drive files on your computer",
+					"button": "Install Cozy Drive on your desktop",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"mobile": {
+					"title": "Back up and sync your pics from your mobile",
+					"description": "All your memories are safe on your Cozy Drive",
+					"button": "Install the Cozy Drive app on your mobile",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"cozy-collect": {
+					"title": "Get back your bills instantly",
+					"description": "Cozy Collect organize all your files instantly",
+					"button": "Discover Cozy Collect"
+				},
+				"support": {
+					"title": "How can we help you today ?",
+					"description": "Share your idea or your bug on our dedicated interface",
+					"button": "Get access to the support",
+					"link": "https://cozy.io/en/support/"
+				}
+			}
+		}
+	};
+
+/***/ },
+/* 299 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"drawer": "Show menu drawer",
+		"profile": "Profile",
+		"connectedDevices": "Connected devices",
+		"storage": "Storage",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
+		"help": "Help",
+		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"soon": "soon",
+		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"no_apps": "No applications found on the Cozy.",
+		"menu": {
+			"apps": "Apps",
+			"settings": "Settings"
+		},
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"ptnb": "expPTNB",
+			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?",
+			"actions": {
+				"desktop": {
+					"title": "Get access to your files in your computer",
+					"description": "Synchronize all your Cozy Drive files on your computer",
+					"button": "Install Cozy Drive on your desktop",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"mobile": {
+					"title": "Back up and sync your pics from your mobile",
+					"description": "All your memories are safe on your Cozy Drive",
+					"button": "Install the Cozy Drive app on your mobile",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"cozy-collect": {
+					"title": "Get back your bills instantly",
+					"description": "Cozy Collect organize all your files instantly",
+					"button": "Discover Cozy Collect"
+				},
+				"support": {
+					"title": "How can we help you today ?",
+					"description": "Share your idea or your bug on our dedicated interface",
+					"button": "Get access to the support",
+					"link": "https://cozy.io/en/support/"
+				}
+			}
+		}
+	};
+
+/***/ },
+/* 300 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"drawer": "Show menu drawer",
+		"profile": "Profile",
+		"connectedDevices": "Connected devices",
+		"storage": "Storage",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
+		"help": "Help",
+		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"soon": "soon",
+		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"no_apps": "No applications found on the Cozy.",
+		"menu": {
+			"apps": "Apps",
+			"settings": "Settings"
+		},
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"ptnb": "expPTNB",
+			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?",
+			"actions": {
+				"desktop": {
+					"title": "Get access to your files in your computer",
+					"description": "Synchronize all your Cozy Drive files on your computer",
+					"button": "Install Cozy Drive on your desktop",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"mobile": {
+					"title": "Back up and sync your pics from your mobile",
+					"description": "All your memories are safe on your Cozy Drive",
+					"button": "Install the Cozy Drive app on your mobile",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"cozy-collect": {
+					"title": "Get back your bills instantly",
+					"description": "Cozy Collect organize all your files instantly",
+					"button": "Discover Cozy Collect"
+				},
+				"support": {
+					"title": "How can we help you today ?",
+					"description": "Share your idea or your bug on our dedicated interface",
+					"button": "Get access to the support",
+					"link": "https://cozy.io/en/support/"
+				}
+			}
+		}
+	};
+
+/***/ },
+/* 301 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"drawer": "Show menu drawer",
+		"profile": "Profile",
+		"connectedDevices": "Connected devices",
+		"storage": "储存",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
+		"help": "帮助",
+		"logout": "登出",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"soon": "soon",
+		"error_UnavailableStack": "此堆栈无法连接 (连接超时)",
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"no_apps": "No applications found on the Cozy.",
+		"menu": {
+			"apps": "Apps",
+			"settings": "Settings"
+		},
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"ptnb": "expPTNB",
+			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?",
+			"actions": {
+				"desktop": {
+					"title": "Get access to your files in your computer",
+					"description": "Synchronize all your Cozy Drive files on your computer",
+					"button": "Install Cozy Drive on your desktop",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"mobile": {
+					"title": "Back up and sync your pics from your mobile",
+					"description": "All your memories are safe on your Cozy Drive",
+					"button": "Install the Cozy Drive app on your mobile",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"cozy-collect": {
+					"title": "Get back your bills instantly",
+					"description": "Cozy Collect organize all your files instantly",
+					"button": "Discover Cozy Collect"
+				},
+				"support": {
+					"title": "How can we help you today ?",
+					"description": "Share your idea or your bug on our dedicated interface",
+					"button": "Get access to the support",
+					"link": "https://cozy.io/en/support/"
+				}
+			}
+		}
+	};
+
+/***/ },
+/* 302 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"drawer": "Show menu drawer",
+		"profile": "Profile",
+		"connectedDevices": "Connected devices",
+		"storage": "Storage",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
+		"help": "Help",
+		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"soon": "soon",
+		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"no_apps": "No applications found on the Cozy.",
+		"menu": {
+			"apps": "Apps",
+			"settings": "Settings"
+		},
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"ptnb": "expPTNB",
+			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?",
+			"actions": {
+				"desktop": {
+					"title": "Get access to your files in your computer",
+					"description": "Synchronize all your Cozy Drive files on your computer",
+					"button": "Install Cozy Drive on your desktop",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"mobile": {
+					"title": "Back up and sync your pics from your mobile",
+					"description": "All your memories are safe on your Cozy Drive",
+					"button": "Install the Cozy Drive app on your mobile",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"cozy-collect": {
+					"title": "Get back your bills instantly",
+					"description": "Cozy Collect organize all your files instantly",
+					"button": "Discover Cozy Collect"
+				},
+				"support": {
+					"title": "How can we help you today ?",
+					"description": "Share your idea or your bug on our dedicated interface",
+					"button": "Get access to the support",
+					"link": "https://cozy.io/en/support/"
+				}
+			}
+		}
+	};
 
 /***/ }
 /******/ ])

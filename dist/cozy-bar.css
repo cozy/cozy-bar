@@ -147,9 +147,24 @@
 }
 
 
+[role=banner] .coz-bar-container {
+  display: flex;
+  width: 100%;
+}
+
+
+[role=banner] .coz-bar-flex-container {
+  display: flex;
+}
+
+
 @media (max-width: 48em) {
   [role=banner] {
     padding: 0 1em 0 0;
+  }
+
+  [role=banner] .coz-bar-flex-container {
+    width: 100%;
   }
 
   [role=banner][data-drawer-visible=true] {
@@ -291,7 +306,8 @@
 [role=banner] [aria-controls][aria-busy]::after {
   position: relative;
   top: .12em;
-  margin-left: .5em;
+  margin: 0 .355em;
+  font-size: .875em;
 }
 
 
@@ -312,7 +328,11 @@
 
 
 [role=banner] .coz-nav-pop[aria-hidden=true] {
-  display: none;
+  display: flex;
+  visibility: visible;
+  transform: scale(0);
+  opacity: 0;
+  transition: .2s transform ease-in, .1s opacity ease-in;
 }
 
 
@@ -326,11 +346,15 @@
   border-radius: 8px;
   border: solid 1px rgba(50, 54, 63, 0.12);
   box-shadow: 0 1px 3px 0 rgba(50, 54, 63, 0.19), 0 6px 18px 0 rgba(50, 54, 63, 0.19);
+  opacity: 1;
+  transform: scale(1);
+  transform-origin: 80% 0%;
+  transition: .2s transform cubic-bezier(0.2, 0.75, 0.3, 1.15);
 }
 
 
 [role=banner] .coz-nav-pop ul {
-  padding: .5em 0;
+  padding: 0;
 }
 
 
@@ -358,7 +382,7 @@
 
 [role=banner] .coz-nav-pop--apps .coz-nav-group:not(.coz-nav--error) {
   display: flex;
-  padding: .25em .25em 1em .25em;
+  padding: .25em;
 }
 
 
@@ -417,7 +441,7 @@
 [role=banner] .coz-nav-pop--apps .coz-nav-category {
   font-size: 1em;
   padding: 0 2em;
-  margin: 2em 0 .5em 0;
+  margin: 1em 0 .5em 0;
 }
 
 
@@ -433,7 +457,7 @@
   display: block;
   box-sizing: border-box;
   width: 100%;
-  padding: .5em 1.5em .5em calc(1.5em + 16px + .5em);
+  padding: .8em 1.5em .8em calc(1.5em + 16px + .5em);
   border: none;
   align-items: center;
   background-position: 1.5em 50%;
@@ -578,7 +602,7 @@
 
 
 [role=banner] [role=menuitem][data-icon=icon-storage] {
-  background-position: 1.5em calc(.5em + 1px);
+  background-position: 1.5em calc(.8em + 1px);
 }
 
 
@@ -610,15 +634,18 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  /* Prepare for transitions */
-  display: none;
-  visibility: visible;
+  display: flex;
+  visibility: visible; /* overwrite default [aria-hidden=true] style */
 }
 
 
-[role=banner] .coz-drawer-wrapper[aria-hidden=false],
-[role=banner] .coz-drawer-wrapper.swipe-active {
-  display: block;
+[role=banner] .coz-drawer-wrapper[aria-hidden=true] {
+  pointer-events: none;
+}
+
+
+[role=banner] .coz-drawer-wrapper[aria-hidden=false] {
+  pointer-events: auto;
 }
 
 
@@ -632,12 +659,13 @@
   height: 100%;
   background-color: #32363f;
   opacity: 0;
-  transition: opacity 250ms ease-out;
+  transition: opacity .2s ease-out .1s;
 }
 
 
 [role=banner] .coz-drawer-wrapper[aria-hidden=false]::before {
   opacity: .5;
+  transition: opacity .2s ease-out;
 }
 
 
@@ -651,27 +679,22 @@
   display: flex;
   flex-direction: column;
   background-color: #fff;
-  transform: translateX(-100vw);
-  transition: transform 500ms ease-out;
+  transform: scaleX(0);
+  transform-origin: 0% 0%;
+  transition: transform .2s ease-out;
 }
 
 
 [role=banner] .coz-drawer-wrapper[aria-hidden=false] aside {
-  transform: translateX(0);
+  transform: scaleX(1);
+  transition: transform .3s cubic-bezier(0.2, 0.75, 0.3, 1.15);
 }
 
 
 [role=banner] .coz-drawer-wrapper ul {
   margin: 0;
-  padding: .8em 0;
+  padding: 0;
   list-style-type: none;
-}
-
-
-@media (max-width: 48em) {
-    [role=banner] .coz-drawer-wrapper ul {
-        padding: .5em 0;
-    }
 }
 
 
