@@ -46,7 +46,8 @@ class Bar extends Component {
     // don't allow to toggle the drawer if claudy opened
     if (this.state.claudyOpened) return
     const drawerVisible = !this.state.drawerVisible
-    this.props.onDrawer(drawerVisible)
+    // don't wait for transitionend if displaying
+    if (drawerVisible) this.props.onDrawer(drawerVisible)
     this.setState({ drawerVisible })
   }
 
@@ -67,7 +68,7 @@ class Bar extends Component {
   render () {
     const { t, lang, appName,
       appEditor, iconPath, replaceTitleOnMobile,
-      isPublic } = this.props
+      onDrawer, isPublic } = this.props
     const { usageTracker, claudyOpened,
       claudyActions, drawerVisible } = this.state
     const { appsList } = this.store // for claudy
@@ -85,7 +86,7 @@ class Bar extends Component {
             <button class='coz-bar-burger' onClick={this.toggleDrawer} data-icon='icon-hamburger'>
               <span class='coz-bar-hidden'>{t('drawer')}</span>
             </button>
-            <Drawer visible={drawerVisible} onClose={this.toggleDrawer} onClaudy={(claudyActions && this.toggleClaudy) || false} />
+            <Drawer visible={drawerVisible} onClose={this.toggleDrawer} onClaudy={(claudyActions && this.toggleClaudy) || false} drawerListener={() => onDrawer(this.state.drawerVisible)} />
             <Nav />
             {claudyActions &&
               <Claudy

@@ -19,6 +19,23 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - none yet
 
 
+## [v4.0.0] - 2017-07-10
+### Changed
+- Rewrited entirely using preact/preact-compat with JSX components
+- Better popups and drawer displaying/hidding transition
+
+### Fixed
+- Bug about displaying blue spinner at apps/settings loading
+- Bug about duplicated items in settings menu
+
+### Added
+- Dependencies due to Preact usage
+
+### Removed
+- SvelteJS usage and dependency
+- Some now unused dependencies
+
+
 ## [v3.2.2] - 2017-07-06
 ### Fixed
 - filter coming soon app

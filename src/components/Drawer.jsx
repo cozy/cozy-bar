@@ -15,7 +15,7 @@ class Drawer extends Component {
   }
 
   onDrawerClick (event) {
-    if (this.props.visible && event.target === this.wrapperRef) {
+    if (event.target === this.wrapperRef) {
       this.props.onClose()
     }
   }
@@ -23,6 +23,10 @@ class Drawer extends Component {
   async componentWillMount () {
     await this.store.fetchAppsList()
     await this.store.fetchSettingsData()
+  }
+
+  componentDidMount () {
+    this.asideRef.addEventListener('transitionend', this.props.drawerListener)
   }
 
   async componentWillReceiveProps (nextProps) {
@@ -42,7 +46,7 @@ class Drawer extends Component {
         aria-hidden={visible ? 'false' : 'true'}
         ref={(node) => { this.wrapperRef = node }}
       >
-        <aside>
+        <aside ref={(node) => { this.asideRef = node }}>
           <nav class='coz-drawer--apps'>
             <AppsList categories={categories} wrappingLimit={3} />
           </nav>

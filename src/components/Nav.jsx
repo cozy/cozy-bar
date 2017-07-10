@@ -72,7 +72,9 @@ class Nav extends Component {
     const { t } = this.props
     const { apps, settings } = this.state
     const { appsList, settingsData } = this.store
-    const categories = getCategorizedItems(appsList, t)
+    const categories = !appsList.error
+      ? getCategorizedItems(appsList, t)
+      : appsList
     return (
       <nav class='coz-nav' ref={(ref) => { this.rootRef = ref }}>
         <ul>
@@ -85,12 +87,12 @@ class Nav extends Component {
               {t('menu.apps')}
             </a>
             <div class='coz-nav-pop coz-nav-pop--apps' id='coz-nav-pop--apps' aria-hidden={!apps.opened}>
-              {apps.error &&
+              {categories.error &&
                 <p class='coz-nav--error coz-nav-group'>
                   {t(`error_${apps.error.name}`)}
                 </p>
               }
-              {apps.length
+              {categories.length
                 ? <AppsList categories={categories} wrappingLimit={4} />
                 : <p class='coz-nav--error coz-nav-group'>{t('no_apps')}</p>
               }
