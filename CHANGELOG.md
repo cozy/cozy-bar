@@ -19,6 +19,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - none yet
 
 
+## [v4.0.1] - 2017-07-11
+### Fixed
+- Fix `__SERVER__ is not defined` error
+
+
 ## [v4.0.0] - 2017-07-10
 ### Changed
 - Rewrited entirely using preact/preact-compat with JSX components
