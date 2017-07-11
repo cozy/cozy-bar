@@ -9606,7 +9606,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _exceptions = __webpack_require__(224);
 	
 	function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; } /* eslint-env browser */
-	/* global __SERVER__ */
 	
 	// the option credentials:include tells fetch to include the cookies in the
 	// request even for cross-origin requests
@@ -9619,7 +9618,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  };
 	}
 	
-	var COZY_URL = __SERVER__;
+	var COZY_URL = void 0;
 	var COZY_TOKEN = void 0;
 	
 	var errorStatuses = {
@@ -13503,7 +13502,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	module.exports = {
-		"drawer": "Show menu drawer",
+		"drawer": "Mostrar el menu drawer",
 		"profile": "Perfil",
 		"connectedDevices": "Periféricos conectados",
 		"storage": "Almacenamiento",
@@ -13515,10 +13514,10 @@ return /******/ (function(modules) { // webpackBootstrap
 		"soon": "pronto",
 		"error_UnavailableStack": "La pila es inaccesible ( se agotó el tiempo de la conexión ).",
 		"error_UnauthorizedStack": "Faltan algunos permisos, la aplicación no puede acceder al recurso solicitado en la pila.",
-		"no_apps": "No applications found on the Cozy.",
+		"no_apps": "No se han encontrado aplicaciones en su Cozy.",
 		"menu": {
-			"apps": "Apps",
-			"settings": "Settings"
+			"apps": "Aplicaciones",
+			"settings": "Opciones"
 		},
 		"Categories": {
 			"cozy": "Aplicaciones Cozy",
@@ -13527,30 +13526,30 @@ return /******/ (function(modules) { // webpackBootstrap
 			"others": "Otras aplicaciones"
 		},
 		"claudy": {
-			"title": "How to drive your Cozy?",
+			"title": "¿Cómo pilotear su Cozy?",
 			"actions": {
 				"desktop": {
-					"title": "Get access to your files in your computer",
-					"description": "Synchronize all your Cozy Drive files on your computer",
-					"button": "Install Cozy Drive on your desktop",
-					"link": "https://docs.cozy.io/en/download/"
+					"title": "Lograr acceder a los archivos de su ordenador",
+					"description": "Sincronice todos sus archivos Cozy Drive con su ordenador",
+					"button": "Inatale Cozy Drive en su escritorio",
+					"link": "https://docs.cozy.io/es/download/"
 				},
 				"mobile": {
-					"title": "Back up and sync your pics from your mobile",
-					"description": "All your memories are safe on your Cozy Drive",
-					"button": "Install the Cozy Drive app on your mobile",
-					"link": "https://docs.cozy.io/en/download/"
+					"title": "Haga una copia de seguridad y sincronice las imágenes de su celular",
+					"description": "Todos sus datos en memoria están seguros en su Cozy Drive",
+					"button": "Instale la aplicación Cozy Drive en su celular",
+					"link": "https://docs.cozy.io/es/download/"
 				},
 				"cozy-collect": {
-					"title": "Get back your bills instantly",
-					"description": "Cozy Collect organize all your files instantly",
-					"button": "Discover Cozy Collect"
+					"title": "Recupere sus facturas inmediatamente",
+					"description": "Cozy Collect organiza instantaneamente todos sus archivos",
+					"button": "Descubra Cozy Collect"
 				},
 				"support": {
-					"title": "How can we help you today ?",
-					"description": "Share your idea or your bug on our dedicated interface",
-					"button": "Get access to the support",
-					"link": "https://cozy.io/en/support/"
+					"title": "¿Cómo podría usted ayudarnos hoy?",
+					"description": "Comparta su idea o su bug en nuetra interface consagrada a tal fin.",
+					"button": "Acceda a la asistencia",
+					"link": "https://cozy.io/es/support/"
 				}
 			}
 		}
@@ -13704,25 +13703,25 @@ return /******/ (function(modules) { // webpackBootstrap
 			"title": "Comment utiliser votre Cozy ?",
 			"actions": {
 				"desktop": {
-					"title": "Accéder à vos fichiers sur votre ordinateur ?",
+					"title": "Accéder à vos fichiers sur votre ordinateur",
 					"description": "Synchroniser tous vos fichiers Cozy Drive sur votre ordinateur",
 					"button": "Installer Cozy Drive sur votre ordinateur ",
 					"link": "https://docs.cozy.io/fr/download/"
 				},
 				"mobile": {
-					"title": "Sauvegarder vos photos depuis votre mobile ?",
+					"title": "Sauvegarder vos photos depuis votre mobile ",
 					"description": "Vos souvenirs sont sauvegardés et synchronisés sur tous vos appareils",
 					"button": "Installer l'app Cozy Drive sur votre mobile",
 					"link": "https://docs.cozy.io/fr/download/"
 				},
 				"cozy-collect": {
-					"title": "Récupérer automatiquement vos factures ?",
+					"title": "Récupérer automatiquement vos factures ",
 					"description": "Cozy Collect organise à votre place vos dossiers avec tous vos documents administratifs",
 					"button": "Découvrir Cozy Collect"
 				},
 				"support": {
 					"title": "Comment pouvons-nous vous aider aujourd'hui ? ",
-					"description": "Une idée de fonctionnalité? Un bug? Votre Cozy a besoin de vous pour être amélioré",
+					"description": "Une idée de fonctionnalité ? Un bug ? Votre Cozy a besoin de vous pour être amélioré.",
 					"button": "Accéder au forum",
 					"link": "https://cozy.io/fr/support/"
 				}
@@ -13793,7 +13792,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	module.exports = {
-		"drawer": "Show menu drawer",
+		"drawer": "メニュードロワーを表示",
 		"profile": "プロフィール",
 		"connectedDevices": "接続されたデバイス",
 		"storage": "ストレージ",
@@ -13805,10 +13804,10 @@ return /******/ (function(modules) { // webpackBootstrap
 		"soon": "間もなく",
 		"error_UnavailableStack": "スタックに到達できません (接続タイムアウト)。",
 		"error_UnauthorizedStack": "一部のアクセス許可が不足しているため、アプリケーションはスタック上の要求されたリソースにアクセスできません。",
-		"no_apps": "No applications found on the Cozy.",
+		"no_apps": "Cozy にアプリケーションはありません。",
 		"menu": {
-			"apps": "Apps",
-			"settings": "Settings"
+			"apps": "アプリ",
+			"settings": "設定"
 		},
 		"Categories": {
 			"cozy": "Cozy アプリ",

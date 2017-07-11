@@ -1,5 +1,4 @@
 /* eslint-env browser */
-/* global __SERVER__ */
 
 import 'babel-polyfill'
 
@@ -23,7 +22,7 @@ function fetchOptions () {
   }
 }
 
-let COZY_URL = __SERVER__
+let COZY_URL
 let COZY_TOKEN
 
 const errorStatuses = {
