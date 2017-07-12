@@ -32,7 +32,7 @@ const AppsList = ({ t, categories, wrappingLimit }) => (
                 </a>
               </li>
               : <li class='coz-nav-item'>
-                <a role='menuitem' href={app.href} target='_blank' data-icon={dataIcon} title={label}>
+                <a role='menuitem' href={app.href} data-icon={dataIcon} title={label}>
                   {fileIcon &&
                     <img src={fileIcon.src} alt='' width='64' height='64' class={fileIcon.class ? fileIcon.class : ''} />
                   }
