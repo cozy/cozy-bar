@@ -373,7 +373,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  injectBarInDOM({ lang: lang, appName: appName, appEditor: appEditor, iconPath: iconPath, replaceTitleOnMobile: replaceTitleOnMobile, isPublic: isPublic });
 	};
 	
-	module.exports = { init: init, version: ("4.0.1") };
+	module.exports = { init: init, version: ("4.0.2") };
 
 /***/ },
 /* 1 */
@@ -11152,7 +11152,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	              { 'class': 'coz-nav-item' },
 	              _react2.default.createElement(
 	                'a',
-	                { role: 'menuitem', href: app.href, target: '_blank', 'data-icon': dataIcon, title: label },
+	                { role: 'menuitem', href: app.href, 'data-icon': dataIcon, title: label },
 	                fileIcon && _react2.default.createElement('img', { src: fileIcon.src, alt: '', width: '64', height: '64', 'class': fileIcon.class ? fileIcon.class : '' }),
 	                _react2.default.createElement(
 	                  'p',
