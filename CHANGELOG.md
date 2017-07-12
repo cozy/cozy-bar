@@ -19,6 +19,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - none yet
 
 
+## [v4.0.2] - 2017-07-12
+### Fixed
+- Apps are now opened in the same tab
+
+
 ## [v4.0.1] - 2017-07-11
 ### Fixed
 - Fix `__SERVER__ is not defined` error
@@ -90,7 +95,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 - Support link href
 
-[Unreleased]: https://github.com/cozy/cozy-bar/compare/v3.2.1...HEAD
+[Unreleased]: https://github.com/cozy/cozy-bar/compare/v4.0.2...HEAD
+[v4.0.2]: https://github.com/cozy/cozy-bar/compare/v4.0.1...v4.0.2
+[v4.0.1]: https://github.com/cozy/cozy-bar/compare/v4.0.0...v4.0.1
+[v4.0.0]: https://github.com/cozy/cozy-bar/compare/v3.2.1...4.0.0
 [v3.2.1]: https://github.com/cozy/cozy-bar/compare/v3.2.0...v3.2.1
 [v3.2.0]: https://github.com/cozy/cozy-bar/compare/v3.1.1...v3.2.0
 [v3.1.1]: https://github.com/cozy/cozy-bar/compare/v3.1.0...v3.1.1
