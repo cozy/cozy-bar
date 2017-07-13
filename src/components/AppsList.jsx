@@ -8,8 +8,8 @@ const AppsList = ({ t, categories, wrappingLimit }) => (
       const wrapping = category.items.length > wrappingLimit
       return (
         <div>
-          <h2 class='coz-nav-category'>{t(`Categories.${category.slug}`)}</h2>
-          <ul class={`
+          <h2 className='coz-nav-category'>{t(`Categories.${category.slug}`)}</h2>
+          <ul className={`
               ${wrapping ? 'coz-nav-group coz-nav-group--wrapping' : 'coz-nav-group'}
           `}>
             {category.items.map(app => {
@@ -22,21 +22,21 @@ const AppsList = ({ t, categories, wrappingLimit }) => (
                 }
               const label = (app.editor ? (app.editor + ' ') : '') + app.name
               return app.comingSoon
-              ? <li class='coz-nav-item'>
-                <a role='menuitem' data-icon={dataIcon} class='coz-bar-coming-soon-app' title={label}>
+              ? <li className='coz-nav-item'>
+                <a role='menuitem' data-icon={dataIcon} className='coz-bar-coming-soon-app' title={label}>
                   {fileIcon &&
-                    <img src={fileIcon.src} alt='' width='64' height='64' class={fileIcon.class ? fileIcon.class : ''} />
+                    <img src={fileIcon.src} alt='' width='64' height='64' className={fileIcon.class ? fileIcon.class : ''} />
                   }
-                  <span class='coz-bar-coming-soon-badge'>{t('soon')}</span>
-                  <p class='coz-label'>{label}</p>
+                  <span className='coz-bar-coming-soon-badge'>{t('soon')}</span>
+                  <p className='coz-label'>{label}</p>
                 </a>
               </li>
-              : <li class='coz-nav-item'>
+              : <li className='coz-nav-item'>
                 <a role='menuitem' href={app.href} data-icon={dataIcon} title={label}>
                   {fileIcon &&
-                    <img src={fileIcon.src} alt='' width='64' height='64' class={fileIcon.class ? fileIcon.class : ''} />
+                    <img src={fileIcon.src} alt='' width='64' height='64' className={fileIcon.class ? fileIcon.class : ''} />
                   }
-                  <p class='coz-label'>{label}</p>
+                  <p className='coz-label'>{label}</p>
                 </a>
               </li>
             })}

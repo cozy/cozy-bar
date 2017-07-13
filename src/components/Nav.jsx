@@ -76,9 +76,9 @@ class Nav extends Component {
       ? getCategorizedItems(appsList, t)
       : appsList
     return (
-      <nav class='coz-nav' ref={(ref) => { this.rootRef = ref }}>
+      <nav className='coz-nav' ref={(ref) => { this.rootRef = ref }}>
         <ul>
-          <li class='coz-nav-section'>
+          <li className='coz-nav-section'>
             <a
               onClick={() => this.toggleMenu('apps')}
               aria-controls='coz-nav-pop--apps' aria-busy={apps.busy}
@@ -86,19 +86,19 @@ class Nav extends Component {
             >
               {t('menu.apps')}
             </a>
-            <div class='coz-nav-pop coz-nav-pop--apps' id='coz-nav-pop--apps' aria-hidden={!apps.opened}>
+            <div className='coz-nav-pop coz-nav-pop--apps' id='coz-nav-pop--apps' aria-hidden={!apps.opened}>
               {categories.error &&
-                <p class='coz-nav--error coz-nav-group'>
+                <p className='coz-nav--error coz-nav-group'>
                   {t(`error_${apps.error.name}`)}
                 </p>
               }
               {categories.length
                 ? <AppsList categories={categories} wrappingLimit={4} />
-                : <p class='coz-nav--error coz-nav-group'>{t('no_apps')}</p>
+                : <p className='coz-nav--error coz-nav-group'>{t('no_apps')}</p>
               }
             </div>
           </li>
-          <li class='coz-nav-section'>
+          <li className='coz-nav-section'>
             <a
               onClick={() => this.toggleMenu('settings')}
               aria-controls='coz-nav-pop--settings' aria-busy={settings.busy}
@@ -106,7 +106,7 @@ class Nav extends Component {
             >
               {t('menu.settings')}
             </a>
-            <div class='coz-nav-pop coz-nav-pop--settings' id='coz-nav-pop--settings' aria-hidden={!settings.opened}>
+            <div className='coz-nav-pop coz-nav-pop--settings' id='coz-nav-pop--settings' aria-hidden={!settings.opened}>
               {settingsData &&
                 <Settings
                   onLogOut={() => this.store.logout()}

@@ -8,30 +8,30 @@ const Settings = ({ t, onLogOut, settingsData, onClaudy, isDrawer = false }) => 
   <div>
     {isDrawer && <hr />}
     {settingsData.settingsAppURL &&
-      <ul class='coz-nav-group'>
-        <li class='coz-nav-item'>
+      <ul className='coz-nav-group'>
+        <li className='coz-nav-item'>
           <a role='menuitem'
             href={`${settingsData.settingsAppURL}#/profile`}
             target='_self' data-icon='icon-profile' title={t('profile')}
           >
-            <p class='coz-label'>{t('profile')}</p>
+            <p className='coz-label'>{t('profile')}</p>
           </a>
         </li>
-        <li class='coz-nav-item'>
+        <li className='coz-nav-item'>
           <a role='menuitem'
             href={`${settingsData.settingsAppURL}#/connectedDevices`}
             target='_self' data-icon='icon-connectedDevices'
             title={t('connectedDevices')}
           >
-            <p class='coz-label'>{t('connectedDevices')}</p>
+            <p className='coz-label'>{t('connectedDevices')}</p>
           </a>
         </li>
         <hr />
       </ul>
     }
     {isDrawer && onClaudy &&
-      <ul class='coz-nav-group'>
-        <li class='coz-nav-item'>
+      <ul className='coz-nav-group'>
+        <li className='coz-nav-item'>
           <button role='menuitem' data-icon='icon-claudy' onClick={onClaudy} title={t('claudy.title')}>
             {t('claudy.title')}
           </button>
@@ -40,8 +40,8 @@ const Settings = ({ t, onLogOut, settingsData, onClaudy, isDrawer = false }) => 
       </ul>
     }
     {!isDrawer && settingsData.storageData &&
-      <ul class='coz-nav-group'>
-        <li class='coz-nav-item'>
+      <ul className='coz-nav-group'>
+        <li className='coz-nav-item'>
           <div role='menuitem' data-icon='icon-storage'>
             {t('storage')}
             <StorageData data={settingsData.storageData} />
@@ -51,27 +51,27 @@ const Settings = ({ t, onLogOut, settingsData, onClaudy, isDrawer = false }) => 
       </ul>
     }
     {settingsData.helpLink &&
-      <ul class='coz-nav-group'>
-        <li class='coz-nav-item'>
+      <ul className='coz-nav-group'>
+        <li className='coz-nav-item'>
           <a role='menuitem' href={settingsData.helpLink} target='_blank' data-icon='icon-help' title={t('help')}>
-            <p class='coz-label'>{t('help')}</p>
+            <p className='coz-label'>{t('help')}</p>
           </a>
         </li>
         <hr />
       </ul>
     }
-    <ul class='coz-nav-group'>
-      <li class='coz-nav-item'>
+    <ul className='coz-nav-group'>
+      <li className='coz-nav-item'>
         <button role='menuitem' data-icon='icon-logout' onClick={onLogOut} title={t('logout')}>
           {t('logout')}
         </button>
       </li>
     </ul>
     <hr />
-    <ul class='coz-nav-group coz-nav-group--inactive'>
-      <li class='coz-nav-item'>
+    <ul className='coz-nav-group coz-nav-group--inactive'>
+      <li className='coz-nav-item'>
         <div role='menuitem'>
-          <p class='coz-bar-text-item coz-bar-text-item--inactive'>{t('beta_status')}</p>
+          <p className='coz-bar-text-item coz-bar-text-item--inactive'>{t('beta_status')}</p>
         </div>
       </li>
     </ul>
