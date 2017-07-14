@@ -41,16 +41,16 @@ class Drawer extends Component {
     const { appsList, settingsData } = this.store
     const categories = getCategorizedItems(appsList, t)
     return (
-      <div class='coz-drawer-wrapper'
+      <div className='coz-drawer-wrapper'
         onClick={this.onDrawerClick}
         aria-hidden={visible ? 'false' : 'true'}
         ref={(node) => { this.wrapperRef = node }}
       >
         <aside ref={(node) => { this.asideRef = node }}>
-          <nav class='coz-drawer--apps'>
+          <nav className='coz-drawer--apps'>
             <AppsList categories={categories} wrappingLimit={3} />
           </nav>
-          <hr class='coz-sep-flex' />
+          <hr className='coz-sep-flex' />
           <nav>
             {settingsData &&
               <Settings

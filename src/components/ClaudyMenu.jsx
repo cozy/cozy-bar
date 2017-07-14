@@ -77,41 +77,41 @@ class ClaudyMenu extends Component {
     const { openedAction, selectedAction } = this.state
     const selectedActionUrl = (selectedAction && this.computeSelectedActionUrl()) || null
     return (
-      <div class={`coz-claudy-menu ${
+      <div className={`coz-claudy-menu ${
         openedAction ? 'coz-claudy-menu--action-selected' : ''}`}>
-        <header class='coz-claudy-menu-header'>
-          <h2 class='coz-claudy-menu-title'>{t('claudy.title')}</h2>
-          <button class='coz-btn-close' onClick={onClose} />
-          <button class='coz-claudy-menu-header-back-button' onClick={this.goBack} />
+        <header className='coz-claudy-menu-header'>
+          <h2 className='coz-claudy-menu-title'>{t('claudy.title')}</h2>
+          <button className='coz-btn-close' onClick={onClose} />
+          <button className='coz-claudy-menu-header-back-button' onClick={this.goBack} />
         </header>
-        <div class='coz-claudy-menu-content-wrapper'>
-          <div class='coz-claudy-menu-content' >
-            <div class='coz-claudy-menu-actions-list'>
+        <div className='coz-claudy-menu-content-wrapper'>
+          <div className='coz-claudy-menu-content' >
+            <div className='coz-claudy-menu-actions-list'>
               {actions.map(action => (
-                <a class='coz-claudy-menu-action' onClick={() => this.selectAction(action)}>
+                <a className='coz-claudy-menu-action' onClick={() => this.selectAction(action)}>
                   <img
-                    class='coz-claudy-menu-action-icon'
+                    className='coz-claudy-menu-action-icon'
                     src={this.getIcon(action.icon)}
                   />
-                  <p class='coz-claudy-menu-action-title'>
+                  <p className='coz-claudy-menu-action-title'>
                     {t(`claudy.actions.${action.slug}.title`)}
                   </p>
                 </a>
               ))}
             </div>
             {selectedAction &&
-              <div class='coz-claudy-menu-action-description'>
-                <div class='coz-claudy-menu-action-description-header'>
+              <div className='coz-claudy-menu-action-description'>
+                <div className='coz-claudy-menu-action-description-header'>
                   <img
-                    class='coz-claudy-menu-action-icon'
+                    className='coz-claudy-menu-action-icon'
                     src={this.getIcon(selectedAction.icon)}
                   />
-                  <p class='coz-claudy-menu-action-title'>
+                  <p className='coz-claudy-menu-action-title'>
                     {t(`claudy.actions.${selectedAction.slug}.title`)}
                   </p>
                 </div>
-                <div class='coz-claudy-menu-action-description-content'>
-                  <p class='coz-claudy-menu-action-description-text'>
+                <div className='coz-claudy-menu-action-description-content'>
+                  <p className='coz-claudy-menu-action-description-text'>
                     {t(`claudy.actions.${selectedAction.slug}.description`)}
                   </p>
                   {selectedActionUrl
@@ -119,14 +119,14 @@ class ClaudyMenu extends Component {
                         href={selectedActionUrl}
                         role='button'
                         target={selectedAction.link.type === 'external' ? '_blank' : '_self'}
-                        class='coz-btn-regular coz-claudy-menu-action-description-button'
+                        className='coz-btn-regular coz-claudy-menu-action-description-button'
                         onClick={() => this.trackActionLink(selectedAction)}
                       >
                         {t(`claudy.actions.${selectedAction.slug}.button`)}
                       </a>
                     : <a
                       role='button'
-                      class='coz-btn-regular coz-claudy-menu-action-description-button'
+                      className='coz-btn-regular coz-claudy-menu-action-description-button'
                       disabled
                       title={`App ${selectedAction.slug} not found`}
                     >

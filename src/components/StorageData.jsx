@@ -9,15 +9,15 @@ const StorageData = ({ t, data }) => {
     ? (data.usage / (1024 * 1024 * 1024)).toFixed(2)
     : data.usage
   return (
-    <div class='coz-nav-storage'>
-      <p class='coz-nav-storage-text'>
+    <div className='coz-nav-storage'>
+      <p className='coz-nav-storage-text'>
         {t('storage_phrase', {
           diskUsage,
           diskQuota
         })}
       </p>
       <progress
-        class='cozy-nav-storage-bar'
+        className='cozy-nav-storage-bar'
         value={diskUsage} max={diskQuota} min='0'
       />
     </div>
