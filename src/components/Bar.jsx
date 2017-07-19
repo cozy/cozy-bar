@@ -14,19 +14,18 @@ class Bar extends Component {
     super(props)
     this.store = context.store
     this.state = {
-      claudyActions: null, // no claudy by default
+      enableClaudy: null, // no claudy by default
+      fireClaudy: false, // true to fire claudy (used by the drawer)
       claudyOpened: false,
       drawerVisible: false,
       usageTracker: null
     }
     this.toggleDrawer = this.toggleDrawer.bind(this)
-    this.toggleClaudy = this.toggleClaudy.bind(this)
   }
 
   async componentWillMount () {
-    await this.store.fetchAppsList()
-    const claudyActions = await this.store.getClaudyActions()
-    this.setState({ claudyActions })
+    const enableClaudy = await this.store.shouldEnableClaudy()
+    this.setState({ enableClaudy })
   }
 
   componentDidMount () {
@@ -43,17 +42,22 @@ class Bar extends Component {
   }
 
   toggleDrawer () {
-    // don't allow to toggle the drawer if claudy opened
-    if (this.state.claudyOpened) return
+    // don't allow to toggle the drawer if claudy opened or is opening
+    if (this.state.claudyOpened || this.state.fireClaudy) return
     const drawerVisible = !this.state.drawerVisible
     // don't wait for transitionend if displaying
     if (drawerVisible) this.props.onDrawer(drawerVisible)
     this.setState({ drawerVisible })
   }
 
-  toggleClaudy () {
-    if (!this.state.claudyActions) return
+  toggleClaudy (isFromDrawer = false) {
+    if (!this.state.enableClaudy) return
     const { usageTracker, claudyOpened } = this.state
+    if (isFromDrawer && !claudyOpened) { // if opened from drawer
+      // reset to toggle via the Claudy component
+      return this.setState({fireClaudy: true})
+    }
+    if (this.state.fireClaudy) this.setState({fireClaudy: false})
     if (usageTracker) {
       usageTracker.push([
         'trackEvent',
@@ -70,8 +74,7 @@ class Bar extends Component {
       appEditor, iconPath, replaceTitleOnMobile,
       onDrawer, isPublic } = this.props
     const { usageTracker, claudyOpened,
-      claudyActions, drawerVisible } = this.state
-    const { appsList } = this.store // for claudy
+      enableClaudy, drawerVisible, fireClaudy } = this.state
     return (
       <div class='coz-bar-container'>
         <h1 lang={lang} class={`coz-bar-title ${replaceTitleOnMobile ? 'coz-bar-hide-sm' : ''}`}>
@@ -86,12 +89,14 @@ class Bar extends Component {
             <button class='coz-bar-burger' onClick={this.toggleDrawer} data-icon='icon-hamburger'>
               <span class='coz-bar-hidden'>{t('drawer')}</span>
             </button>
-            <Drawer visible={drawerVisible} onClose={this.toggleDrawer} onClaudy={(claudyActions && this.toggleClaudy) || false} drawerListener={() => onDrawer(this.state.drawerVisible)} />
+            <Drawer visible={drawerVisible} onClose={this.toggleDrawer} onClaudy={(enableClaudy && (() => this.toggleClaudy(true))) || false} isClaudyLoading={fireClaudy} drawerListener={() => onDrawer(this.state.drawerVisible)} />
             <Nav />
-            {claudyActions &&
+            {enableClaudy &&
               <Claudy
-                config={claudyActions} usageTracker={usageTracker}
-                onToggle={this.toggleClaudy} opened={claudyOpened} appsList={appsList}
+                usageTracker={usageTracker}
+                fireClaudy={fireClaudy}
+                onToggle={() => this.toggleClaudy(false)}
+                opened={claudyOpened}
               />
             }
           </div>

@@ -4,7 +4,7 @@ import { translate } from '../lib/I18n'
 
 import StorageData from './StorageData'
 
-const Settings = ({ t, onLogOut, settingsData, onClaudy, isDrawer = false }) => (
+const Settings = ({ t, onLogOut, settingsData, onClaudy, isDrawer = false, isClaudyLoading }) => (
   <div>
     {isDrawer && <hr />}
     {settingsData.settingsAppURL &&
@@ -32,7 +32,7 @@ const Settings = ({ t, onLogOut, settingsData, onClaudy, isDrawer = false }) => 
     {isDrawer && onClaudy &&
       <ul className='coz-nav-group'>
         <li className='coz-nav-item'>
-          <button role='menuitem' data-icon='icon-claudy' onClick={onClaudy} title={t('claudy.title')}>
+          <button role='menuitem' data-icon='icon-claudy' aria-busy={isClaudyLoading} onClick={onClaudy} title={t('claudy.title')}>
             {t('claudy.title')}
           </button>
         </li>
