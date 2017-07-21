@@ -19,6 +19,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - none yet
 
 
+## [v4.1.0] - 2017-07-21
+### Changed
+- Now the Claudy menu is displayed as an intent using a `cozy-settings` service.
+
+
 ## [v4.0.2] - 2017-07-12
 ### Fixed
 - Apps are now opened in the same tab
