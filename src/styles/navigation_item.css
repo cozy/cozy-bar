@@ -45,6 +45,11 @@
   top: .5em;
 }
 
+[role=banner] .coz-drawer-wrapper [role=menuitem][aria-busy=true]::after {
+  top: .8em;
+}
+
+
 /* Remove default margin for p elements */
 [role=banner] .coz-nav-item a[role=menuitem] p.coz-label {
   margin: 0;

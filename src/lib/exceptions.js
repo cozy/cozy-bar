@@ -28,6 +28,16 @@ class NotFoundException extends Error {
   }
 }
 
+class MethodNotAllowedException extends Error {
+  constructor (message) {
+    super()
+
+    this.name = 'MethodNotAllowed'
+    this.message = message || 'Method not allowed'
+    this.stack = (new Error()).stack
+  }
+}
+
 class UnavailableStackException extends Error {
   constructor (message) {
     super()
@@ -62,6 +72,7 @@ export {
   ForbiddenException,
   ServerErrorException,
   NotFoundException,
+  MethodNotAllowedException,
   UnavailableStackException,
   UnavailableSettingsException,
   UnauthorizedStackException

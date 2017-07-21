@@ -37,7 +37,7 @@ class Drawer extends Component {
   }
 
   render () {
-    const { t, onClaudy, visible } = this.props
+    const { t, onClaudy, visible, isClaudyLoading } = this.props
     const { appsList, settingsData } = this.store
     const categories = getCategorizedItems(appsList, t)
     return (
@@ -56,6 +56,7 @@ class Drawer extends Component {
               <Settings
                 onLogOut={() => this.store.logout()}
                 settingsData={settingsData}
+                isClaudyLoading={isClaudyLoading}
                 onClaudy={onClaudy}
                 isDrawer
               />

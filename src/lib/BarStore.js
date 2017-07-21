@@ -3,6 +3,7 @@
 
 import { Component } from 'react'
 import stack from '../lib/stack'
+import { create as createIntent } from '../lib/intents'
 
 import CLAUDY_ACTIONS from '../config/claudyActions'
 
@@ -18,6 +19,10 @@ export default class BarStore {
     this.installedApps = [] // to cache already fetched apps icons
     this.helpLink = ''
     this.settingsAppURL = ''
+  }
+
+  getClaudyIntent (data) {
+    return createIntent(null, 'CLAUDY', 'io.cozy.settings', data)
   }
 
   async fetchApps () {
@@ -100,12 +105,12 @@ export default class BarStore {
     return this.appsList
   }
 
-  getClaudyActions () {
+  shouldEnableClaudy () {
     if (this.claudyActions) return Promise.resolve(this.claudyActions)
     return stack.get.context()
     .then(context => {
       const contextActions = (context.data && context.data.attributes && context.data.attributes['claudy_actions']) || null
-      if (!contextActions) return null
+      if (!contextActions) return false
       // get an arrays of action
       const claudyActions = contextActions.map(slug => {
         if (CLAUDY_ACTIONS.hasOwnProperty(slug)) {
@@ -113,14 +118,11 @@ export default class BarStore {
           return Object.assign({}, CLAUDY_ACTIONS[slug], { slug })
         }
       }).filter(action => action)
-      this.claudyActions = claudyActions
-      return {
-        actions: claudyActions
-      }
+      return claudyActions.length
     })
     .catch(error => {
       console.warn && console.warn(`Cozy-bar cannot fetch Claudy: ${error.message}`)
-      return null
+      return false
     })
   }
 

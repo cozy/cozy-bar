@@ -6,6 +6,7 @@ import {
   ForbiddenException,
   ServerErrorException,
   NotFoundException,
+  MethodNotAllowedException,
   UnavailableStackException,
   UnavailableSettingsException,
   UnauthorizedStackException
@@ -29,6 +30,7 @@ const errorStatuses = {
   '401': UnauthorizedStackException,
   '403': ForbiddenException,
   '404': NotFoundException,
+  '405': MethodNotAllowedException,
   '500': ServerErrorException
 }
 
@@ -54,6 +56,28 @@ function fetchJSON (url, options) {
     }
 
     return res.json()
+  })
+}
+
+// fetch function with the same interface than in cozy-client-js
+function cozyFetchJSON (cozy, method, path, body, options = {}) {
+  const requestOptions = Object.assign({}, fetchOptions(), {
+    method
+  })
+  requestOptions.headers['Accept'] = 'application/json'
+  if (method !== 'GET' && method !== 'HEAD' && body !== undefined) {
+    if (requestOptions.headers['Content-Type']) {
+      requestOptions.body = body
+    } else {
+      requestOptions.headers['Content-Type'] = 'application/json'
+      requestOptions.body = JSON.stringify(body)
+    }
+  }
+  return fetchJSON(`${COZY_URL}${path}`, requestOptions)
+  .then(json => {
+    const responseData = Object.assign({}, json.data)
+    if (responseData.id) responseData._id = responseData.id
+    return Promise.resolve(responseData)
   })
 }
 
@@ -142,5 +166,6 @@ module.exports = {
     .catch(e => {
       throw new UnavailableStackException()
     })
-  }
+  },
+  cozyFetchJSON // used in intents library
 }
