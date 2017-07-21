@@ -373,7 +373,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  injectBarInDOM({ lang: lang, appName: appName, appEditor: appEditor, iconPath: iconPath, replaceTitleOnMobile: replaceTitleOnMobile, isPublic: isPublic });
 	};
 	
-	module.exports = { init: init, version: ("4.1.0") };
+	module.exports = { init: init, version: ("4.1.1") };
 
 /***/ },
 /* 1 */
@@ -11694,14 +11694,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	  _createClass(Nav, [{
 	    key: 'onClickOutside',
 	    value: function onClickOutside(event) {
-	      // if it's not a cozy-bar nav popup, close the opened popup
-	      if (!this.rootRef.contains(event.target)) {
-	        this.setState({ // reset all
-	          apps: { busy: false, opened: false },
-	          settings: { busy: false, opened: false }
-	        });
+	      if (this.state.apps.busy || this.state.apps.opened || this.state.settings.busy || this.state.settings.opened) {
+	        // if it's not a cozy-bar nav popup, close the opened popup
+	        if (!this.rootRef.contains(event.target)) {
+	          this.setState({ // reset all
+	            apps: { busy: false, opened: false },
+	            settings: { busy: false, opened: false }
+	          });
+	        }
+	        event.stopPropagation();
 	      }
-	      event.stopPropagation();
 	    }
 	  }, {
 	    key: 'toggleMenu',
