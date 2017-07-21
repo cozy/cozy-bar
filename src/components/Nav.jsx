@@ -28,14 +28,20 @@ class Nav extends Component {
   }
 
   onClickOutside (event) {
-    // if it's not a cozy-bar nav popup, close the opened popup
-    if (!this.rootRef.contains(event.target)) {
-      this.setState({ // reset all
-        apps: {busy: false, opened: false},
-        settings: {busy: false, opened: false}
-      })
+    if (this.state.apps.busy ||
+        this.state.apps.opened ||
+        this.state.settings.busy ||
+        this.state.settings.opened
+        ) {
+        // if it's not a cozy-bar nav popup, close the opened popup
+        if (!this.rootRef.contains(event.target)) {
+          this.setState({ // reset all
+            apps: {busy: false, opened: false},
+            settings: {busy: false, opened: false}
+          })
+        }
+        event.stopPropagation()
     }
-    event.stopPropagation()
   }
 
   async toggleMenu (slug) {
