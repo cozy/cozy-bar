@@ -548,6 +548,11 @@
 }
 
 
+[role=banner] .coz-drawer-wrapper [role=menuitem][aria-busy=true]::after {
+  top: .8em;
+}
+
+
 /* Remove default margin for p elements */
 
 
@@ -799,6 +804,7 @@
   background-size: 2.5em;
   background-position: .5em;
   box-shadow: 0 1px 3px 0 rgba(50, 54, 63, 0.19), 0 6px 18px 0 rgba(50, 54, 63, 0.39);
+  animation: none;
   cursor: pointer;
   opacity: .5;
   transition: all .2s ease-out;
@@ -810,13 +816,25 @@
 [role=banner] .coz-claudy-icon:focus,
 [role=banner] .coz-claudy-icon:active,
 [role=banner] .coz-claudy [data-claudy-opened=true] {
+  animation: none;
   transform: scale(1.1);
   opacity: 1;
   transition: all .2s ease-out;
 }
 
 
-[role=banner] .coz-claudy .coz-claudy-menu {
+@keyframes fadein {
+    from   { opacity: .5; }
+    to  { opacity: .8; }
+}
+
+
+[role=banner] .coz-claudy [data-claudy-loading=true] {
+  animation: fadein .3s infinite alternate;
+}
+
+
+[role=banner] .coz-claudy .coz-claudy-intent-wrapper {
   position: fixed;
   bottom: 9.5em;
   right: 2em;
@@ -831,117 +849,14 @@
 }
 
 
-[role=banner] .coz-claudy--opened .coz-claudy-menu {
+[role=banner] .coz-claudy--opened .coz-claudy-intent-wrapper {
   transform: scale(1) translateY(0);
   opacity: 1;
   transition: .2s transform cubic-bezier(0.2, 0.75, 0.3, 1.15), .1s opacity ease-in;
 }
 
 
-@media (min-width: 64em) {
-  [role=banner] .coz-claudy .coz-claudy-menu {
-    bottom: 6.5em;
-  }
-}
-
-
-@media (max-width: 48em) {
-  [role=banner] .coz-claudy .coz-claudy-menu {
-    width: calc(100% - 2em);
-    height: calc(100% - 2em);
-    right: 1em;
-    top: 1em;
-    transform-origin: 50% 50% 0;
-  }
-
-  [role=banner] .coz-claudy-menu::after {
-    display: none;
-  }
-}
-
-
-[role=banner] .coz-claudy-menu-header {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  height: 2em;
-  padding: .75em;
-  background: #f5f6f7;
-  border-radius: .3em .3em 0 0;
-  border-bottom: 1px solid #d6d8da;
-  overflow: hidden;
-}
-
-
-[role=banner] .coz-claudy-menu-title {
-  opacity: 1;
-  transition: .2s all ease-in-out;
-}
-
-
-[role=banner] .coz-claudy-menu-header-back-button {
-  position: absolute;
-  width: 2em;
-  height: 2em;
-  background: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICA8cGF0aCBmaWxsPSIjOTU5OTlEIiBkPSJNMzUuNTcwODAxOSw0NS4wMDAwMDU5IEw0NS42NzU3MjQ2LDU0LjI2Mjg1MTggQzQ2LjA4Mjg0MzYsNTQuNjM2MDQ0MiA0Ni4xMTAzNDY1LDU1LjI2ODYxMTUgNDUuNzM3MTU0MSw1NS42NzU3MzA1IEM0NS4zNjM5NjE3LDU2LjA4Mjg0OTUgNDQuNzMxMzk0NCw1Ni4xMTAzNTI0IDQ0LjMyNDI3NTQsNTUuNzM3MTYgTDMyLjMyNzAxMTcsNDQuNzM5NjY4MyBDMzIuMTI2MTAxNSw0NC41NTY3NjE5IDMyLDQ0LjI5MzExMDIgMzIsNDQuMDAwMDA1OSBDMzIsNDMuNzA2OTAxNiAzMi4xMjYxMDE1LDQzLjQ0MzI0OTkgMzIuMzI3MDExNyw0My4yNjAzNDM1IEw0NC4zMjQyNzU0LDMyLjI2Mjg1MTggQzQ0LjczMTM5NDQsMzEuODg5NjU5MyA0NS4zNjM5NjE3LDMxLjkxNzE2MjMgNDUuNzM3MTU0MSwzMi4zMjQyODEzIEM0Ni4xMTAzNDY1LDMyLjczMTQwMDMgNDYuMDgyODQzNiwzMy4zNjM5Njc2IDQ1LjY3NTcyNDYsMzMuNzM3MTYgTDM1LjU3MDgwMTksNDMuMDAwMDA1OSBMNTUsNDMuMDAwMDA1OSBDNTUuNTUyMjg0Nyw0My4wMDAwMDU5IDU2LDQzLjQ0NzcyMTEgNTYsNDQuMDAwMDA1OSBDNTYsNDQuNTUyMjkwNiA1NS41NTIyODQ3LDQ1LjAwMDAwNTkgNTUsNDUuMDAwMDA1OSBMMzUuNTcwODAxOSw0NS4wMDAwMDU5IFoiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0zMiAtMzIpIi8+Cjwvc3ZnPgo=) center / 1.5em no-repeat;
-  border: none;
-  cursor: pointer;
-  left: 10em;
-  opacity: 0;
-  transition: .2s all ease-in-out;
-}
-
-
-[role=banner] .coz-claudy-menu--action-selected .coz-claudy-menu-title {
-  transform: translateX(-50%);
-  opacity: 0;
-  transition: .2s all ease-in-out;
-}
-
-
-[role=banner] .coz-claudy-menu--action-selected .coz-claudy-menu-header-back-button {
-  opacity: 1;
-  left: 1em;
-  transition: .2s all ease-in-out;
-}
-
-
-[role=banner] .coz-claudy-menu-title {
-  font-size: 18px;
-  margin: .4em 0 0 0;
-}
-
-
-[role=banner] .coz-claudy-menu-content-wrapper {
-  overflow: hidden;
-}
-
-
-[role=banner] .coz-claudy-menu-content {
-  display: flex;
-  flex-direction: row;
-  width: 200%; /* actions-list + action-description */
-  padding: .5em 0;
-  transform: translateX(0);
-  transition: .2s transform ease-in-out;
-}
-
-
-[role=banner] .coz-claudy-menu--action-selected .coz-claudy-menu-content {
-  transform: translateX(-50%);
-  transition: .2s transform ease-in-out;
-}
-
-
-[role=banner] .coz-claudy-menu-actions-list,
-[role=banner] .coz-claudy-menu-action-description {
-  min-width: 50%;
-  max-width: 50%;
-  padding: 0;
-}
-
-
-[role=banner] .coz-claudy-menu::after {
+[role=banner] .coz-claudy-intent-wrapper::after {
   position: fixed;
   content: '';
   right: 3em;
@@ -955,61 +870,33 @@
 }
 
 
-[role=banner] .coz-claudy-menu-action {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  cursor: pointer;
-  height: 3em;
-  color: #297ef2;
-  padding: .5em 1em;
-}
-
-
-[role=banner] .coz-claudy-menu-action:hover {
-  background: #f5f6f7
-}
-
-
-[role=banner] .coz-claudy-menu-action-icon {
-  height: 3em;
-  width: 3em;
-}
-
-
-[role=banner] .coz-claudy-menu-action-title {
-  padding-left: 1em;
-}
-
-
-[role=banner] .coz-claudy-menu-action-description-header {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  padding: .5em 1em;
-  color: black;
-  font-weight: 700;
-}
-
-
-[role=banner] .coz-claudy-menu-action-description-header .coz-claudy-menu-action-title{
-  margin: 0;
-}
-
-
-[role=banner] .coz-claudy-menu-action-description-content {
-  padding: .5em 1em 1em 1em;
-}
-
-
-[role=banner] .coz-claudy-menu-action-description-text {
-  margin-top: 0;
-}
-
-
-[role=banner] .coz-claudy-menu-action-description-button {
+[role=banner] .coz-claudy .coz-claudy-intent-wrapper .coz-intent{
   width: 100%;
-  margin: 0;
+  height: 100%;
+  border: none;
+  border-radius: .3em;
+}
+
+
+@media (min-width: 64em) {
+  [role=banner] .coz-claudy .coz-claudy-intent-wrapper {
+    bottom: 6.5em;
+  }
+}
+
+
+@media (max-width: 48em) {
+  [role=banner] .coz-claudy .coz-claudy-intent-wrapper {
+    width: calc(100% - 2em);
+    height: calc(100% - 2em)!important; /* overwritte intent setSize here */
+    right: 1em;
+    top: 1em;
+    transform-origin: 50% 50% 0;
+  }
+
+  [role=banner] .coz-claudy-intent-wrapper::after {
+    display: none;
+  }
 }
 
 

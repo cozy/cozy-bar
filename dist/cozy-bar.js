@@ -246,7 +246,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _BarStore2 = _interopRequireDefault(_BarStore);
 	
-	var _Bar = __webpack_require__(231);
+	var _Bar = __webpack_require__(232);
 	
 	var _Bar2 = _interopRequireDefault(_Bar);
 	
@@ -257,7 +257,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	if (true) {
 	  // Enables React dev tools for Preact
 	  // Cannot use import as we are in a condition
-	  __webpack_require__(249);
+	  __webpack_require__(244);
 	
 	  // Export React to window for the devtools
 	  window.React = _react2.default;
@@ -276,7 +276,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return;
 	  }
 	
-	  __webpack_require__(250);
+	  __webpack_require__(245);
 	
 	  var barNode = createBarElement();
 	  var appNode = document.querySelector(APP_SELECTOR);
@@ -302,7 +302,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      {
 	        lang: data.lang,
 	        dictRequire: function dictRequire(lang) {
-	          return __webpack_require__(263)("./" + lang);
+	          return __webpack_require__(257)("./" + lang);
 	        }
 	      },
 	      _react2.default.createElement(_Bar2.default, data)
@@ -373,7 +373,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  injectBarInDOM({ lang: lang, appName: appName, appEditor: appEditor, iconPath: iconPath, replaceTitleOnMobile: replaceTitleOnMobile, isPublic: isPublic });
 	};
 	
-	module.exports = { init: init, version: ("4.0.2") };
+	module.exports = { init: init, version: ("4.1.0") };
 
 /***/ },
 /* 1 */
@@ -9426,7 +9426,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }, _callee, this, [[10, 14]]);
 	  }));
 	
-	  return function getIcon(_x) {
+	  return function getIcon(_x2) {
 	    return _ref.apply(this, arguments);
 	  };
 	}();
@@ -9625,6 +9625,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  '401': _exceptions.UnauthorizedStackException,
 	  '403': _exceptions.ForbiddenException,
 	  '404': _exceptions.NotFoundException,
+	  '405': _exceptions.MethodNotAllowedException,
 	  '500': _exceptions.ServerErrorException
 	};
 	
@@ -9648,6 +9649,29 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	
 	    return res.json();
+	  });
+	}
+	
+	// fetch function with the same interface than in cozy-client-js
+	function cozyFetchJSON(cozy, method, path, body) {
+	  var options = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : {};
+	
+	  var requestOptions = Object.assign({}, fetchOptions(), {
+	    method: method
+	  });
+	  requestOptions.headers['Accept'] = 'application/json';
+	  if (method !== 'GET' && method !== 'HEAD' && body !== undefined) {
+	    if (requestOptions.headers['Content-Type']) {
+	      requestOptions.body = body;
+	    } else {
+	      requestOptions.headers['Content-Type'] = 'application/json';
+	      requestOptions.body = JSON.stringify(body);
+	    }
+	  }
+	  return fetchJSON('' + COZY_URL + path, requestOptions).then(function (json) {
+	    var responseData = Object.assign({}, json.data);
+	    if (responseData.id) responseData._id = responseData.id;
+	    return Promise.resolve(responseData);
 	  });
 	}
 	
@@ -9724,7 +9748,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }).catch(function (e) {
 	      throw new _exceptions.UnavailableStackException();
 	    });
-	  }
+	  },
+	
+	  cozyFetchJSON: cozyFetchJSON // used in intents library
 	};
 
 /***/ },
@@ -9794,52 +9820,69 @@ return /******/ (function(modules) { // webpackBootstrap
 	  return NotFoundException;
 	}(Error);
 	
-	var UnavailableStackException = function (_Error4) {
-	  _inherits(UnavailableStackException, _Error4);
+	var MethodNotAllowedException = function (_Error4) {
+	  _inherits(MethodNotAllowedException, _Error4);
+	
+	  function MethodNotAllowedException(message) {
+	    _classCallCheck(this, MethodNotAllowedException);
+	
+	    var _this4 = _possibleConstructorReturn(this, (MethodNotAllowedException.__proto__ || Object.getPrototypeOf(MethodNotAllowedException)).call(this));
+	
+	    _this4.name = 'MethodNotAllowed';
+	    _this4.message = message || 'Method not allowed';
+	    _this4.stack = new Error().stack;
+	    return _this4;
+	  }
+	
+	  return MethodNotAllowedException;
+	}(Error);
+	
+	var UnavailableStackException = function (_Error5) {
+	  _inherits(UnavailableStackException, _Error5);
 	
 	  function UnavailableStackException(message) {
 	    _classCallCheck(this, UnavailableStackException);
 	
-	    var _this4 = _possibleConstructorReturn(this, (UnavailableStackException.__proto__ || Object.getPrototypeOf(UnavailableStackException)).call(this));
+	    var _this5 = _possibleConstructorReturn(this, (UnavailableStackException.__proto__ || Object.getPrototypeOf(UnavailableStackException)).call(this));
 	
-	    _this4.name = 'UnavailableStack';
-	    _this4.message = message || 'The stack is temporarily unavailable';
-	    _this4.stack = new Error().stack;
-	    return _this4;
+	    _this5.name = 'UnavailableStack';
+	    _this5.message = message || 'The stack is temporarily unavailable';
+	    _this5.stack = new Error().stack;
+	    return _this5;
 	  }
 	
 	  return UnavailableStackException;
 	}(Error);
 	
-	var UnauthorizedStackException = function (_Error5) {
-	  _inherits(UnauthorizedStackException, _Error5);
+	var UnauthorizedStackException = function (_Error6) {
+	  _inherits(UnauthorizedStackException, _Error6);
 	
 	  function UnauthorizedStackException(message) {
 	    _classCallCheck(this, UnauthorizedStackException);
 	
-	    var _this5 = _possibleConstructorReturn(this, (UnauthorizedStackException.__proto__ || Object.getPrototypeOf(UnauthorizedStackException)).call(this));
+	    var _this6 = _possibleConstructorReturn(this, (UnauthorizedStackException.__proto__ || Object.getPrototypeOf(UnauthorizedStackException)).call(this));
 	
-	    _this5.name = 'UnauthorizedStack';
-	    _this5.message = message || 'The app is not allowed to access to the requested resource';
-	    _this5.stack = new Error().stack;
-	    return _this5;
+	    _this6.name = 'UnauthorizedStack';
+	    _this6.message = message || 'The app is not allowed to access to the requested resource';
+	    _this6.stack = new Error().stack;
+	    return _this6;
 	  }
 	
 	  return UnauthorizedStackException;
 	}(Error);
 	
-	var UnavailableSettingsException = function (_Error6) {
-	  _inherits(UnavailableSettingsException, _Error6);
+	var UnavailableSettingsException = function (_Error7) {
+	  _inherits(UnavailableSettingsException, _Error7);
 	
 	  function UnavailableSettingsException(message) {
 	    _classCallCheck(this, UnavailableSettingsException);
 	
-	    var _this6 = _possibleConstructorReturn(this, (UnavailableSettingsException.__proto__ || Object.getPrototypeOf(UnavailableSettingsException)).call(this));
+	    var _this7 = _possibleConstructorReturn(this, (UnavailableSettingsException.__proto__ || Object.getPrototypeOf(UnavailableSettingsException)).call(this));
 	
-	    _this6.name = 'UnavailableSettings';
-	    _this6.message = message || "The 'Settings' application isn't available or installed in the stack";
-	    _this6.stack = new Error().stack;
-	    return _this6;
+	    _this7.name = 'UnavailableSettings';
+	    _this7.message = message || "The 'Settings' application isn't available or installed in the stack";
+	    _this7.stack = new Error().stack;
+	    return _this7;
 	  }
 	
 	  return UnavailableSettingsException;
@@ -9848,6 +9891,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.ForbiddenException = ForbiddenException;
 	exports.ServerErrorException = ServerErrorException;
 	exports.NotFoundException = NotFoundException;
+	exports.MethodNotAllowedException = MethodNotAllowedException;
 	exports.UnavailableStackException = UnavailableStackException;
 	exports.UnavailableSettingsException = UnavailableSettingsException;
 	exports.UnauthorizedStackException = UnauthorizedStackException;
@@ -9872,7 +9916,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _stack2 = _interopRequireDefault(_stack);
 	
-	var _claudyActions = __webpack_require__(226);
+	var _intents = __webpack_require__(226);
+	
+	var _claudyActions = __webpack_require__(227);
 	
 	var _claudyActions2 = _interopRequireDefault(_claudyActions);
 	
@@ -9903,6 +9949,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 	
 	  _createClass(BarStore, [{
+	    key: 'getClaudyIntent',
+	    value: function getClaudyIntent(data) {
+	      return (0, _intents.create)(null, 'CLAUDY', 'io.cozy.settings', data);
+	    }
+	  }, {
 	    key: 'fetchApps',
 	    value: function () {
 	      var _ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee2() {
@@ -10024,7 +10075,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          try {
 	            icon = app.slug && {
 	              cached: true,
-	              src: __webpack_require__(227)("./icon-" + app.slug + '.svg')
+	              src: __webpack_require__(228)("./icon-" + app.slug + '.svg')
 	            };
 	          } catch (error) {
 	            console.warn && console.warn('Cannot retrieve icon for app ' + app.name + ':', error.message);
@@ -10095,14 +10146,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	      return fetchAppsList;
 	    }()
 	  }, {
-	    key: 'getClaudyActions',
-	    value: function getClaudyActions() {
-	      var _this2 = this;
-	
+	    key: 'shouldEnableClaudy',
+	    value: function shouldEnableClaudy() {
 	      if (this.claudyActions) return Promise.resolve(this.claudyActions);
 	      return _stack2.default.get.context().then(function (context) {
 	        var contextActions = context.data && context.data.attributes && context.data.attributes['claudy_actions'] || null;
-	        if (!contextActions) return null;
+	        if (!contextActions) return false;
 	        // get an arrays of action
 	        var claudyActions = contextActions.map(function (slug) {
 	          if (_claudyActions2.default.hasOwnProperty(slug)) {
@@ -10112,24 +10161,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }).filter(function (action) {
 	          return action;
 	        });
-	        _this2.claudyActions = claudyActions;
-	        return {
-	          actions: claudyActions
-	        };
+	        return claudyActions.length;
 	      }).catch(function (error) {
 	        console.warn && console.warn('Cozy-bar cannot fetch Claudy: ' + error.message);
-	        return null;
+	        return false;
 	      });
 	    }
 	  }, {
 	    key: 'getHelpLink',
 	    value: function getHelpLink() {
-	      var _this3 = this;
+	      var _this2 = this;
 	
 	      if (this.helpLink) return Promise.resolve(this.helpLink);
 	      return _stack2.default.get.context().then(function (context) {
-	        _this3.helpLink = context.data && context.data.attributes && context.data.attributes['help_link'] || null;
-	        return _this3.helpLink;
+	        _this2.helpLink = context.data && context.data.attributes && context.data.attributes['help_link'] || null;
+	        return _this2.helpLink;
 	      }).catch(function (e) {
 	        console.warn && console.warn('Cannot get Cozy help link');
 	        return null;
@@ -10146,13 +10192,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: 'getSettingsAppURL',
 	    value: function getSettingsAppURL() {
-	      var _this4 = this;
+	      var _this3 = this;
 	
 	      // If the `settings` app is available, it will used to add the links 'Profile' and 'Connected Devices'
 	      if (this.settingsAppURL) return Promise.resolve(this.settingsAppURL);
 	      return _stack2.default.get.settingsAppURL().then(function (settingsAppURL) {
-	        _this4.settingsAppURL = settingsAppURL;
-	        return _this4.settingsAppURL;
+	        _this3.settingsAppURL = settingsAppURL;
+	        return _this3.settingsAppURL;
 	      }).catch(function (e) {
 	        console.warn && console.warn('Settings app is unavailable, settings links are disabled');
 	        return null;
@@ -10224,10 +10270,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	  function Provider(props, context) {
 	    _classCallCheck(this, Provider);
 	
-	    var _this5 = _possibleConstructorReturn(this, (Provider.__proto__ || Object.getPrototypeOf(Provider)).call(this, props, context));
+	    var _this4 = _possibleConstructorReturn(this, (Provider.__proto__ || Object.getPrototypeOf(Provider)).call(this, props, context));
 	
-	    _this5.store = props.store;
-	    return _this5;
+	    _this4.store = props.store;
+	    return _this4;
 	  }
 	
 	  _createClass(Provider, [{
@@ -10244,6 +10290,164 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 226 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.create = create;
+	
+	var _stack = __webpack_require__(223);
+	
+	/*********************************************
+	This following code should never be changed here since it's must be the exact same than in cozy-client-js/src/intents.js
+	Service creating functions have been removed since it's not used by the bar
+	**********************************************/
+	
+	var intentClass = 'coz-intent';
+	
+	// helper to serialize/deserialize an error for/from postMessage
+	var errorSerializer = function () {
+	  function mapErrorProperties(from, to) {
+	    var result = Object.assign(to, from);
+	    var nativeProperties = ['name', 'message'];
+	    return nativeProperties.reduce(function (result, property) {
+	      if (from[property]) {
+	        to[property] = from[property];
+	      }
+	      return result;
+	    }, result);
+	  }
+	  return {
+	    serialize: function serialize(error) {
+	      return mapErrorProperties(error, {});
+	    },
+	    deserialize: function deserialize(data) {
+	      return mapErrorProperties(data, new Error(data.message));
+	    }
+	  };
+	}();
+	
+	// inject iframe for service in given element
+	function injectService(url, element, intent, data, onReadyCallback) {
+	  var document = element.ownerDocument;
+	  if (!document) throw new Error('Cannot retrieve document object from given element');
+	
+	  var window = document.defaultView;
+	  if (!window) throw new Error('Cannot retrieve window object from document');
+	
+	  var iframe = document.createElement('iframe');
+	  // if callback provided for when iframe is loaded
+	  if (typeof onReadyCallback === 'function') iframe.onload = onReadyCallback;
+	  iframe.setAttribute('src', url);
+	  iframe.classList.add(intentClass);
+	  element.appendChild(iframe);
+	
+	  // Keeps only http://domain:port/
+	  var serviceOrigin = url.split('/', 3).join('/');
+	
+	  return new Promise(function (resolve, reject) {
+	    var handshaken = false;
+	    var messageHandler = function messageHandler(event) {
+	      if (event.origin !== serviceOrigin) return;
+	
+	      if (event.data.type === 'load') {
+	        // Safari 9.1 (At least) send a MessageEvent when the iframe loads,
+	        // making the handshake fails.
+	        console.warn && console.warn('Cozy Client ignored MessageEvent having data.type `load`.');
+	        return;
+	      }
+	
+	      if (event.data.type === 'intent-' + intent._id + ':ready') {
+	        handshaken = true;
+	        return event.source.postMessage(data, event.origin);
+	      }
+	
+	      if (handshaken && event.data.type === 'intent-' + intent._id + ':resize') {
+	        ['width', 'height', 'maxWidth', 'maxHeight'].forEach(function (prop) {
+	          if (event.data.dimensions[prop]) element.style[prop] = event.data.dimensions[prop] + 'px';
+	        });
+	
+	        return true;
+	      }
+	
+	      window.removeEventListener('message', messageHandler);
+	      var removeIntentFrame = function removeIntentFrame() {
+	        iframe.parentNode.removeChild(iframe);
+	      };
+	
+	      if (handshaken && event.data.type === 'intent-' + intent._id + ':exposeFrameRemoval') {
+	        return resolve({ removeIntentFrame: removeIntentFrame, doc: event.data.document });
+	      }
+	
+	      removeIntentFrame();
+	
+	      if (event.data.type === 'intent-' + intent._id + ':error') {
+	        return reject(errorSerializer.deserialize(event.data.error));
+	      }
+	
+	      if (handshaken && event.data.type === 'intent-' + intent._id + ':cancel') {
+	        return resolve(null);
+	      }
+	
+	      if (handshaken && event.data.type === 'intent-' + intent._id + ':done') {
+	        return resolve(event.data.document);
+	      }
+	
+	      if (!handshaken) {
+	        return reject(new Error('Unexpected handshake message from intent service'));
+	      }
+	
+	      // We may be in a state where the messageHandler is still attached to then
+	      // window, but will not be needed anymore. For example, the service failed
+	      // before adding the `unload` listener, so no `intent:cancel` message has
+	      // never been sent.
+	      // So we simply ignore other messages, and this listener will stay here,
+	      // waiting for a message which will never come, forever (almost).
+	    };
+	
+	    window.addEventListener('message', messageHandler);
+	  });
+	}
+	
+	function create(cozy, action, type) {
+	  var data = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
+	  var permissions = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : [];
+	
+	  if (!action) throw new Error('Misformed intent, "action" property must be provided');
+	  if (!type) throw new Error('Misformed intent, "type" property must be provided');
+	
+	  var createPromise = (0, _stack.cozyFetchJSON)(cozy, 'POST', '/intents', {
+	    data: {
+	      type: 'io.cozy.intents',
+	      attributes: {
+	        action: action,
+	        type: type,
+	        data: data,
+	        permissions: permissions
+	      }
+	    }
+	  });
+	
+	  createPromise.start = function (element, onReadyCallback) {
+	    return createPromise.then(function (intent) {
+	      var service = intent.attributes.services && intent.attributes.services[0];
+	
+	      if (!service) {
+	        return Promise.reject(new Error('Unable to find a service'));
+	      }
+	
+	      return injectService(service.href, element, intent, data, onReadyCallback);
+	    });
+	  };
+	
+	  return createPromise;
+	}
+
+/***/ },
+/* 227 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -10276,13 +10480,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 227 */
+/* 228 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var map = {
-		"./icon-bank.svg": 228,
-		"./icon-sante.svg": 229,
-		"./icon-store.svg": 230
+		"./icon-bank.svg": 229,
+		"./icon-sante.svg": 230,
+		"./icon-store.svg": 231
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -10295,14 +10499,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 	webpackContext.resolve = webpackContextResolve;
 	module.exports = webpackContext;
-	webpackContext.id = 227;
+	webpackContext.id = 228;
 
-
-/***/ },
-/* 228 */
-/***/ function(module, exports) {
-
-	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI5NiIgaGVpZ2h0PSI5NiIgdmlld0JveD0iMCAwIDk2IDk2Ij4KICA8ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgogICAgPHJlY3Qgd2lkdGg9Ijk2IiBoZWlnaHQ9Ijk2IiBmaWxsPSIjNUE5QjlFIiByeD0iOCIvPgogICAgPHRleHQgZmlsbD0iIzMxNUY3RSIgZm9udC1mYW1pbHk9IkxhdG8tQmxhY2ssIExhdG8iIGZvbnQtc2l6ZT0iMTYiIGZvbnQtd2VpZ2h0PSI3MDAiPgogICAgICA8dHNwYW4geD0iNTAuNzUyIiB5PSI5MCI+TGFiczwvdHNwYW4+CiAgICA8L3RleHQ+CiAgICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxMiAxMCkiPgogICAgICA8cGF0aCBmaWxsPSIjMzE1RjdFIiBkPSJNMjgsMTguNTQ1NDU0NSBMNy44OTAzMzE4Nyw1NS4xMDg0ODc1IEw3Ljg5MDMzMTg3LDU1LjEwODQ4NzUgQzcuNDAzMTAzNDMsNTUuOTk0MzU3NCA3LjE0NzYyNzMzLDU2Ljk4ODk4MjIgNy4xNDc2MjczMyw1OCBDNy4xNDc2MjczMyw2MS4zMTM3MDg1IDkuODMzOTE4ODMsNjQgMTMuMTQ3NjI3Myw2NCBMMTMuMTQ3NjI3Myw2NCBMNTguODUyMzcyNyw2NCBDNTkuODYzMzkwNSw2NCA2MC44NTgwMTUzLDYzLjc0NDUyMzkgNjEuNzQzODg1Miw2My4yNTcyOTU1IEM2NC42NDc0MDkzLDYxLjY2MDM1NzIgNjUuNzA2NjA2NCw1OC4wMTIwMTE2IDY0LjEwOTY2ODEsNTUuMTA4NDg3NSBMNjQuMTA5NjY4MSw1NS4xMDg0ODc1IEw0NCwxOC41NDU0NTQ1IEw0NCw0IEwyOCw0IEwyOCwxOC41NDU0NTQ1IFogTTI4LDAgTDQ0LDAgQzQ1LjEwNDU2OTUsLTIuMDI5MDYxMjVlLTE2IDQ2LDAuODk1NDMwNSA0NiwyIEw0NiwyIEM0NiwzLjEwNDU2OTUgNDUuMTA0NTY5NSw0IDQ0LDQgTDI4LDQgQzI2Ljg5NTQzMDUsNCAyNiwzLjEwNDU2OTUgMjYsMiBMMjYsMiBMMjYsMiBDMjYsMC44OTU0MzA1IDI2Ljg5NTQzMDUsMi4wMjkwNjEyNWUtMTYgMjgsMCBaIi8+CiAgICAgIDxwYXRoIGZpbGw9IiNGRkZGRkYiIGQ9Ik0wLDUyIEwwLDM2IEw3LDM2IEwxMiw0NiBMMTcsMzYgTDI0LDM2IEwyNCw1MiBMMTgsNTIgTDE4LDQwIEwxMiw1MiBMOSw1MiBMMyw0MCBMMyw1MiBMMCw1MiBaIE0yNSw1MiBMMzIsMzYgTDM4LDM2IEw0NSw1MiBMMzksNTIgTDM4LDQ5IEwzMCw0OSBMMjguNjk5OTUxMiw1MiBMMjUsNTIgWiBNMzEsNDYgTDM3LDQ2IEwzNCw0MCBMMzEsNDYgWiBNNDcsMzYgTDUyLDM2IEw1Miw1MiBMNDcsNTIgTDQ3LDM2IFogTTU2LDM2IEw3MiwzNiBMNzIsMzkgTDYxLDM5IEw2MSw0NCBMNzIsNDQgTDcyLDQ3IEw2MSw0NyBMNjEsNTIgTDU2LDUyIEw1NiwzNiBaIi8+CiAgICA8L2c+CiAgPC9nPgo8L3N2Zz4K"
 
 /***/ },
 /* 229 */
@@ -10314,10 +10512,16 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 230 */
 /***/ function(module, exports) {
 
-	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgdmlld0JveD0iMCAwIDMyIDMyIj4KICA8ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgogICAgPHBhdGggZmlsbD0iI0ZDQkFCQSIgZD0iTTIsMjkuOTk4MjAyNiBMMiwxOC41IEw2LDE4LjUgTDYsMjYuNSBMMTYsMjYuNSBMMTYsMTguNSBMMzAsMTguNSBMMzAsMjkuOTk4MjAyNiBDMzAsMzAuNTU1MTE4NCAyOS41NTI3NTE5LDMxIDI5LjAwMTA0MzQsMzEgTDI3Ljk5ODk1NjYsMzEgQzI3LjQ0MjY2MDMsMzEgMjcsMzAuNTUyMDkxMyAyNywyOS45OTk1Njc5IEwyNywxOS41IEwyMCwxOS41IEwyMCwyOS45OTk1Njc5IEMyMCwzMC41NDkxODY0IDE5LjU1NTI0MDcsMzEgMTkuMDA2NjAyMywzMSBMMi45OTMzOTc2OCwzMSBDMi40NDQ5NDYyOSwzMSAyLDMwLjU1MTQ4IDIsMjkuOTk4MjAyNiBaIE0yLDIuMDAxMzgwMDYgQzIsMS40NDgzMzMxMyAyLjQzOTgxMzE0LDEgMi45OTY1MzQ4MiwxIEwyOS4wMDM0NjUyLDEgQzI5LjU1MzgzNjIsMSAzMCwxLjQ0Njc3MTMyIDMwLDIuMDAxMzgwMDYgTDMwLDcuNSBMMiw3LjUgTDIsMi4wMDEzODAwNiBaIi8+CiAgICA8cGF0aCBmaWxsPSIjRjYyQzJDIiBkPSJNMSwxOS41IEwzMSwxOS41IEwzMSwxOS41IEMzMS41NTIyODQ3LDE5LjUgMzIsMTkuMDUyMjg0NyAzMiwxOC41IEwzMiwxNS42MDk3NzIyIEwzMiwxNS42MDk3NzIyIEMzMiwxNS41MzY4MDk5IDMxLjk5MjAxNDgsMTUuNDY0MDY2NyAzMS45NzYxODcxLDE1LjM5Mjg0MTggTDMwLDYuNSBMMiw2LjUgTDAuMDIzODEyOTM5OCwxNS4zOTI4NDE4IEwwLjAyMzgxMjkzOTgsMTUuMzkyODQxOCBDMC4wMDc5ODUxODQ3MSwxNS40NjQwNjY3IC04Ljg5MDcxOTUxZS0xNSwxNS41MzY4MDk5IC04Ljg4MTc4NDJlLTE1LDE1LjYwOTc3MjIgTDAsMTguNSBMMCwxOC41IEM2Ljc2MzUzNzUxZS0xNywxOS4wNTIyODQ3IDAuNDQ3NzE1MjUsMTkuNSAxLDE5LjUgWiIvPgogIDwvZz4KPC9zdmc+Cg=="
+	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI5NiIgaGVpZ2h0PSI5NiIgdmlld0JveD0iMCAwIDk2IDk2Ij4KICA8ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgogICAgPHJlY3Qgd2lkdGg9Ijk2IiBoZWlnaHQ9Ijk2IiBmaWxsPSIjNUE5QjlFIiByeD0iOCIvPgogICAgPHRleHQgZmlsbD0iIzMxNUY3RSIgZm9udC1mYW1pbHk9IkxhdG8tQmxhY2ssIExhdG8iIGZvbnQtc2l6ZT0iMTYiIGZvbnQtd2VpZ2h0PSI3MDAiPgogICAgICA8dHNwYW4geD0iNTAuNzUyIiB5PSI5MCI+TGFiczwvdHNwYW4+CiAgICA8L3RleHQ+CiAgICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxMiAxMCkiPgogICAgICA8cGF0aCBmaWxsPSIjMzE1RjdFIiBkPSJNMjgsMTguNTQ1NDU0NSBMNy44OTAzMzE4Nyw1NS4xMDg0ODc1IEw3Ljg5MDMzMTg3LDU1LjEwODQ4NzUgQzcuNDAzMTAzNDMsNTUuOTk0MzU3NCA3LjE0NzYyNzMzLDU2Ljk4ODk4MjIgNy4xNDc2MjczMyw1OCBDNy4xNDc2MjczMyw2MS4zMTM3MDg1IDkuODMzOTE4ODMsNjQgMTMuMTQ3NjI3Myw2NCBMMTMuMTQ3NjI3Myw2NCBMNTguODUyMzcyNyw2NCBDNTkuODYzMzkwNSw2NCA2MC44NTgwMTUzLDYzLjc0NDUyMzkgNjEuNzQzODg1Miw2My4yNTcyOTU1IEM2NC42NDc0MDkzLDYxLjY2MDM1NzIgNjUuNzA2NjA2NCw1OC4wMTIwMTE2IDY0LjEwOTY2ODEsNTUuMTA4NDg3NSBMNjQuMTA5NjY4MSw1NS4xMDg0ODc1IEw0NCwxOC41NDU0NTQ1IEw0NCw0IEwyOCw0IEwyOCwxOC41NDU0NTQ1IFogTTI4LDAgTDQ0LDAgQzQ1LjEwNDU2OTUsLTIuMDI5MDYxMjVlLTE2IDQ2LDAuODk1NDMwNSA0NiwyIEw0NiwyIEM0NiwzLjEwNDU2OTUgNDUuMTA0NTY5NSw0IDQ0LDQgTDI4LDQgQzI2Ljg5NTQzMDUsNCAyNiwzLjEwNDU2OTUgMjYsMiBMMjYsMiBMMjYsMiBDMjYsMC44OTU0MzA1IDI2Ljg5NTQzMDUsMi4wMjkwNjEyNWUtMTYgMjgsMCBaIi8+CiAgICAgIDxwYXRoIGZpbGw9IiNGRkZGRkYiIGQ9Ik0wLDUyIEwwLDM2IEw3LDM2IEwxMiw0NiBMMTcsMzYgTDI0LDM2IEwyNCw1MiBMMTgsNTIgTDE4LDQwIEwxMiw1MiBMOSw1MiBMMyw0MCBMMyw1MiBMMCw1MiBaIE0yNSw1MiBMMzIsMzYgTDM4LDM2IEw0NSw1MiBMMzksNTIgTDM4LDQ5IEwzMCw0OSBMMjguNjk5OTUxMiw1MiBMMjUsNTIgWiBNMzEsNDYgTDM3LDQ2IEwzNCw0MCBMMzEsNDYgWiBNNDcsMzYgTDUyLDM2IEw1Miw1MiBMNDcsNTIgTDQ3LDM2IFogTTU2LDM2IEw3MiwzNiBMNzIsMzkgTDYxLDM5IEw2MSw0NCBMNzIsNDQgTDcyLDQ3IEw2MSw0NyBMNjEsNTIgTDU2LDUyIEw1NiwzNiBaIi8+CiAgICA8L2c+CiAgPC9nPgo8L3N2Zz4K"
 
 /***/ },
 /* 231 */
+/***/ function(module, exports) {
+
+	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgdmlld0JveD0iMCAwIDMyIDMyIj4KICA8ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgogICAgPHBhdGggZmlsbD0iI0ZDQkFCQSIgZD0iTTIsMjkuOTk4MjAyNiBMMiwxOC41IEw2LDE4LjUgTDYsMjYuNSBMMTYsMjYuNSBMMTYsMTguNSBMMzAsMTguNSBMMzAsMjkuOTk4MjAyNiBDMzAsMzAuNTU1MTE4NCAyOS41NTI3NTE5LDMxIDI5LjAwMTA0MzQsMzEgTDI3Ljk5ODk1NjYsMzEgQzI3LjQ0MjY2MDMsMzEgMjcsMzAuNTUyMDkxMyAyNywyOS45OTk1Njc5IEwyNywxOS41IEwyMCwxOS41IEwyMCwyOS45OTk1Njc5IEMyMCwzMC41NDkxODY0IDE5LjU1NTI0MDcsMzEgMTkuMDA2NjAyMywzMSBMMi45OTMzOTc2OCwzMSBDMi40NDQ5NDYyOSwzMSAyLDMwLjU1MTQ4IDIsMjkuOTk4MjAyNiBaIE0yLDIuMDAxMzgwMDYgQzIsMS40NDgzMzMxMyAyLjQzOTgxMzE0LDEgMi45OTY1MzQ4MiwxIEwyOS4wMDM0NjUyLDEgQzI5LjU1MzgzNjIsMSAzMCwxLjQ0Njc3MTMyIDMwLDIuMDAxMzgwMDYgTDMwLDcuNSBMMiw3LjUgTDIsMi4wMDEzODAwNiBaIi8+CiAgICA8cGF0aCBmaWxsPSIjRjYyQzJDIiBkPSJNMSwxOS41IEwzMSwxOS41IEwzMSwxOS41IEMzMS41NTIyODQ3LDE5LjUgMzIsMTkuMDUyMjg0NyAzMiwxOC41IEwzMiwxNS42MDk3NzIyIEwzMiwxNS42MDk3NzIyIEMzMiwxNS41MzY4MDk5IDMxLjk5MjAxNDgsMTUuNDY0MDY2NyAzMS45NzYxODcxLDE1LjM5Mjg0MTggTDMwLDYuNSBMMiw2LjUgTDAuMDIzODEyOTM5OCwxNS4zOTI4NDE4IEwwLjAyMzgxMjkzOTgsMTUuMzkyODQxOCBDMC4wMDc5ODUxODQ3MSwxNS40NjQwNjY3IC04Ljg5MDcxOTUxZS0xNSwxNS41MzY4MDk5IC04Ljg4MTc4NDJlLTE1LDE1LjYwOTc3MjIgTDAsMTguNSBMMCwxOC41IEM2Ljc2MzUzNzUxZS0xNywxOS4wNTIyODQ3IDAuNDQ3NzE1MjUsMTkuNSAxLDE5LjUgWiIvPgogIDwvZz4KPC9zdmc+Cg=="
+
+/***/ },
+/* 232 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -10334,17 +10538,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _I18n = __webpack_require__(199);
 	
-	var _tracker = __webpack_require__(232);
+	var _tracker = __webpack_require__(233);
 	
-	var _Drawer = __webpack_require__(235);
+	var _Drawer = __webpack_require__(236);
 	
 	var _Drawer2 = _interopRequireDefault(_Drawer);
 	
-	var _Nav = __webpack_require__(241);
+	var _Nav = __webpack_require__(242);
 	
 	var _Nav2 = _interopRequireDefault(_Nav);
 	
-	var _Claudy = __webpack_require__(242);
+	var _Claudy = __webpack_require__(243);
 	
 	var _Claudy2 = _interopRequireDefault(_Claudy);
 	
@@ -10369,13 +10573,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	    _this.store = context.store;
 	    _this.state = {
-	      claudyActions: null, // no claudy by default
+	      enableClaudy: null, // no claudy by default
+	      fireClaudy: false, // true to fire claudy (used by the drawer)
 	      claudyOpened: false,
 	      drawerVisible: false,
 	      usageTracker: null
 	    };
 	    _this.toggleDrawer = _this.toggleDrawer.bind(_this);
-	    _this.toggleClaudy = _this.toggleClaudy.bind(_this);
 	    return _this;
 	  }
 	
@@ -10383,24 +10587,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	    key: 'componentWillMount',
 	    value: function () {
 	      var _ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee() {
-	        var claudyActions;
+	        var enableClaudy;
 	        return regeneratorRuntime.wrap(function _callee$(_context) {
 	          while (1) {
 	            switch (_context.prev = _context.next) {
 	              case 0:
 	                _context.next = 2;
-	                return this.store.fetchAppsList();
+	                return this.store.shouldEnableClaudy();
 	
 	              case 2:
-	                _context.next = 4;
-	                return this.store.getClaudyActions();
+	                enableClaudy = _context.sent;
+	
+	                this.setState({ enableClaudy: enableClaudy });
 	
 	              case 4:
-	                claudyActions = _context.sent;
-	
-	                this.setState({ claudyActions: claudyActions });
-	
-	              case 6:
 	              case 'end':
 	                return _context.stop();
 	            }
@@ -10431,8 +10631,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: 'toggleDrawer',
 	    value: function toggleDrawer() {
-	      // don't allow to toggle the drawer if claudy opened
-	      if (this.state.claudyOpened) return;
+	      // don't allow to toggle the drawer if claudy opened or is opening
+	      if (this.state.claudyOpened || this.state.fireClaudy) return;
 	      var drawerVisible = !this.state.drawerVisible;
 	      // don't wait for transitionend if displaying
 	      if (drawerVisible) this.props.onDrawer(drawerVisible);
@@ -10441,11 +10641,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: 'toggleClaudy',
 	    value: function toggleClaudy() {
-	      if (!this.state.claudyActions) return;
+	      var isFromDrawer = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+	
+	      if (!this.state.enableClaudy) return;
 	      var _state = this.state,
 	          usageTracker = _state.usageTracker,
 	          claudyOpened = _state.claudyOpened;
 	
+	      if (isFromDrawer && !claudyOpened) {
+	        // if opened from drawer
+	        // reset to toggle via the Claudy component
+	        return this.setState({ fireClaudy: true });
+	      }
+	      if (this.state.fireClaudy) this.setState({ fireClaudy: false });
 	      if (usageTracker) {
 	        usageTracker.push(['trackEvent', 'Claudy', claudyOpened ? 'close' : 'open', 'claudy']);
 	      }
@@ -10468,9 +10676,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var _state2 = this.state,
 	          usageTracker = _state2.usageTracker,
 	          claudyOpened = _state2.claudyOpened,
-	          claudyActions = _state2.claudyActions,
-	          drawerVisible = _state2.drawerVisible;
-	      var appsList = this.store.appsList; // for claudy
+	          enableClaudy = _state2.enableClaudy,
+	          drawerVisible = _state2.drawerVisible,
+	          fireClaudy = _state2.fireClaudy;
 	
 	      return _react2.default.createElement(
 	        'div',
@@ -10509,13 +10717,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	              t('drawer')
 	            )
 	          ),
-	          _react2.default.createElement(_Drawer2.default, { visible: drawerVisible, onClose: this.toggleDrawer, onClaudy: claudyActions && this.toggleClaudy || false, drawerListener: function drawerListener() {
+	          _react2.default.createElement(_Drawer2.default, { visible: drawerVisible, onClose: this.toggleDrawer, onClaudy: enableClaudy && function () {
+	              return _this2.toggleClaudy(true);
+	            } || false, isClaudyLoading: fireClaudy, drawerListener: function drawerListener() {
 	              return onDrawer(_this2.state.drawerVisible);
 	            } }),
 	          _react2.default.createElement(_Nav2.default, null),
-	          claudyActions && _react2.default.createElement(_Claudy2.default, {
-	            config: claudyActions, usageTracker: usageTracker,
-	            onToggle: this.toggleClaudy, opened: claudyOpened, appsList: appsList
+	          enableClaudy && _react2.default.createElement(_Claudy2.default, {
+	            usageTracker: usageTracker,
+	            fireClaudy: fireClaudy,
+	            onToggle: function onToggle() {
+	              return _this2.toggleClaudy(false);
+	            },
+	            opened: claudyOpened
 	          })
 	        )
 	      );
@@ -10528,7 +10742,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = (0, _I18n.translate)()(Bar);
 
 /***/ },
-/* 232 */
+/* 233 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -10577,7 +10791,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    // the next line is just there to throw in case the script is missing
 	    if (injectScript === false) Piwik.getTracker();
 	
-	    var PiwikReactRouter = __webpack_require__(233);
+	    var PiwikReactRouter = __webpack_require__(234);
 	
 	    trackerInstance = PiwikReactRouter({
 	      url: trackerUrl || ("https://piwik.cozycloud.cc"),
@@ -10672,13 +10886,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 233 */
+/* 234 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 	
 	var warning = __webpack_require__(203);
-	var urljoin = __webpack_require__(234);
+	var urljoin = __webpack_require__(235);
 	
 	// api shim. used for serverside rendering and misconfigured tracker instances
 	var apiShim = {
@@ -10858,7 +11072,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(188)))
 
 /***/ },
-/* 234 */
+/* 235 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (name, context, definition) {
@@ -10902,7 +11116,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 235 */
+/* 236 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -10919,15 +11133,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _I18n = __webpack_require__(199);
 	
-	var _AppsList = __webpack_require__(236);
+	var _AppsList = __webpack_require__(237);
 	
 	var _AppsList2 = _interopRequireDefault(_AppsList);
 	
-	var _Settings = __webpack_require__(238);
+	var _Settings = __webpack_require__(239);
 	
 	var _Settings2 = _interopRequireDefault(_Settings);
 	
-	var _helpers = __webpack_require__(240);
+	var _helpers = __webpack_require__(241);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -11036,7 +11250,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var _props = this.props,
 	          t = _props.t,
 	          onClaudy = _props.onClaudy,
-	          visible = _props.visible;
+	          visible = _props.visible,
+	          isClaudyLoading = _props.isClaudyLoading;
 	      var _store = this.store,
 	          appsList = _store.appsList,
 	          settingsData = _store.settingsData;
@@ -11044,7 +11259,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var categories = (0, _helpers.getCategorizedItems)(appsList, t);
 	      return _react2.default.createElement(
 	        'div',
-	        { 'class': 'coz-drawer-wrapper',
+	        { className: 'coz-drawer-wrapper',
 	          onClick: this.onDrawerClick,
 	          'aria-hidden': visible ? 'false' : 'true',
 	          ref: function ref(node) {
@@ -11058,10 +11273,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	            } },
 	          _react2.default.createElement(
 	            'nav',
-	            { 'class': 'coz-drawer--apps' },
+	            { className: 'coz-drawer--apps' },
 	            _react2.default.createElement(_AppsList2.default, { categories: categories, wrappingLimit: 3 })
 	          ),
-	          _react2.default.createElement('hr', { 'class': 'coz-sep-flex' }),
+	          _react2.default.createElement('hr', { className: 'coz-sep-flex' }),
 	          _react2.default.createElement(
 	            'nav',
 	            null,
@@ -11070,6 +11285,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                return _this2.store.logout();
 	              },
 	              settingsData: settingsData,
+	              isClaudyLoading: isClaudyLoading,
 	              onClaudy: onClaudy,
 	              isDrawer: true
 	            })
@@ -11085,7 +11301,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = (0, _I18n.translate)()(Drawer);
 
 /***/ },
-/* 236 */
+/* 237 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -11116,47 +11332,47 @@ return /******/ (function(modules) { // webpackBootstrap
 	        null,
 	        _react2.default.createElement(
 	          'h2',
-	          { 'class': 'coz-nav-category' },
+	          { className: 'coz-nav-category' },
 	          t('Categories.' + category.slug)
 	        ),
 	        _react2.default.createElement(
 	          'ul',
-	          { 'class': '\n              ' + (wrapping ? 'coz-nav-group coz-nav-group--wrapping' : 'coz-nav-group') + '\n          ' },
+	          { className: '\n              ' + (wrapping ? 'coz-nav-group coz-nav-group--wrapping' : 'coz-nav-group') + '\n          ' },
 	          category.items.map(function (app) {
 	            var dataIcon = app.icon ? 'icon-' + app.slug : '';
 	            var fileIcon = app.icon.cached ? { src: app.icon.src } : {
-	              src: __webpack_require__(237),
+	              src: __webpack_require__(238),
 	              class: 'blurry'
 	            };
 	            var label = (app.editor ? app.editor + ' ' : '') + app.name;
 	            return app.comingSoon ? _react2.default.createElement(
 	              'li',
-	              { 'class': 'coz-nav-item' },
+	              { className: 'coz-nav-item' },
 	              _react2.default.createElement(
 	                'a',
-	                { role: 'menuitem', 'data-icon': dataIcon, 'class': 'coz-bar-coming-soon-app', title: label },
-	                fileIcon && _react2.default.createElement('img', { src: fileIcon.src, alt: '', width: '64', height: '64', 'class': fileIcon.class ? fileIcon.class : '' }),
+	                { role: 'menuitem', 'data-icon': dataIcon, className: 'coz-bar-coming-soon-app', title: label },
+	                fileIcon && _react2.default.createElement('img', { src: fileIcon.src, alt: '', width: '64', height: '64', className: fileIcon.class ? fileIcon.class : '' }),
 	                _react2.default.createElement(
 	                  'span',
-	                  { 'class': 'coz-bar-coming-soon-badge' },
+	                  { className: 'coz-bar-coming-soon-badge' },
 	                  t('soon')
 	                ),
 	                _react2.default.createElement(
 	                  'p',
-	                  { 'class': 'coz-label' },
+	                  { className: 'coz-label' },
 	                  label
 	                )
 	              )
 	            ) : _react2.default.createElement(
 	              'li',
-	              { 'class': 'coz-nav-item' },
+	              { className: 'coz-nav-item' },
 	              _react2.default.createElement(
 	                'a',
 	                { role: 'menuitem', href: app.href, 'data-icon': dataIcon, title: label },
-	                fileIcon && _react2.default.createElement('img', { src: fileIcon.src, alt: '', width: '64', height: '64', 'class': fileIcon.class ? fileIcon.class : '' }),
+	                fileIcon && _react2.default.createElement('img', { src: fileIcon.src, alt: '', width: '64', height: '64', className: fileIcon.class ? fileIcon.class : '' }),
 	                _react2.default.createElement(
 	                  'p',
-	                  { 'class': 'coz-label' },
+	                  { className: 'coz-label' },
 	                  label
 	                )
 	              )
@@ -11172,13 +11388,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = (0, _I18n.translate)()(AppsList);
 
 /***/ },
-/* 237 */
+/* 238 */
 /***/ function(module, exports) {
 
 	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICA8ZyBmaWxsPSIjOTU5OTlEIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0yODggLTMyKSI+CiAgICA8cGF0aCBkPSJNMjg5LDQzLjAwODYyOTYgQzI4OSw0My41NTg2NzMyIDI4OS4zOTY0MDcsNDQuMjMxMDg5OSAyODkuODcyNDAxLDQ0LjUwMzA4NjggTDI5NS4xMjc1OTksNDcuNTA2MDU2NiBDMjk1LjYwOTQxMyw0Ny43ODEzNzg5IDI5Niw0Ny41NTc4NzMgMjk2LDQ3LjAwODYyOTYgTDI5Niw0MS41MDA1MTM4IEMyOTYsNDAuOTUwNDcwMiAyOTUuNjAzNTkzLDQwLjI3ODA1MzUgMjk1LjEyNzU5OSw0MC4wMDYwNTY2IEwyODkuODcyNDAxLDM3LjAwMzA4NjggQzI4OS4zOTA1ODcsMzYuNzI3NzY0NSAyODksMzYuOTUxMjcwNCAyODksMzcuNTAwNTEzOCBMMjg5LDQzLjAwODYyOTYgWiBNMzA0LDQzLjAwODYyOTYgQzMwNCw0My41NTg2NzMyIDMwMy42MDM1OTMsNDQuMjMxMDg5OSAzMDMuMTI3NTk5LDQ0LjUwMzA4NjggTDI5Ny44NzI0MDEsNDcuNTA2MDU2NiBDMjk3LjM5MDU4Nyw0Ny43ODEzNzg5IDI5Nyw0Ny41NTc4NzMgMjk3LDQ3LjAwODYyOTYgTDI5Nyw0MS41MDA1MTM4IEMyOTcsNDAuOTUwNDcwMiAyOTcuMzk2NDA3LDQwLjI3ODA1MzUgMjk3Ljg3MjQwMSw0MC4wMDYwNTY2IEwzMDMuMTI3NTk5LDM3LjAwMzA4NjggQzMwMy42MDk0MTMsMzYuNzI3NzY0NSAzMDQsMzYuOTUxMjcwNCAzMDQsMzcuNTAwNTEzOCBMMzA0LDQzLjAwODYyOTYgWiBNMjk3LjM0OTc2MSwzOC45ODE2NDE2IEMyOTYuODgwNDUxLDM5LjI3MDQ0NzkgMjk2LjExMjg2MSwzOS4yNjYzMzI0IDI5NS42NTAyMzksMzguOTgxNjQxNiBMMjkwLjg0OTc2MSwzNi4wMjc1MDE4IEMyOTAuMzgwNDUxLDM1LjczODY5NTUgMjkwLjM4NzEzOSwzNS4yOTYxMTIzIDI5MC44NzY2MTksMzUuMDMyNTQ2MSBMMjk1LjYyMzM4MSwzMi40NzY1OTczIEMyOTYuMTA3NTI0LDMyLjIxNTkwNDggMjk2Ljg4NzEzOSwzMi4yMTMwMzExIDI5Ny4zNzY2MTksMzIuNDc2NTk3MyBMMzAyLjEyMzM4MSwzNS4wMzI1NDYxIEMzMDIuNjA3NTI0LDM1LjI5MzIzODcgMzAyLjYxMjg2MSwzNS43NDI4MTEgMzAyLjE1MDIzOSwzNi4wMjc1MDE4IEwyOTcuMzQ5NzYxLDM4Ljk4MTY0MTYgWiIvPgogICAgPHBhdGggZD0iTTI4OSw0My4wMDg2Mjk2IEMyODksNDMuNTU4NjczMiAyODkuMzk2NDA3LDQ0LjIzMTA4OTkgMjg5Ljg3MjQwMSw0NC41MDMwODY4IEwyOTUuMTI3NTk5LDQ3LjUwNjA1NjYgQzI5NS42MDk0MTMsNDcuNzgxMzc4OSAyOTYsNDcuNTU3ODczIDI5Niw0Ny4wMDg2Mjk2IEwyOTYsNDEuNTAwNTEzOCBDMjk2LDQwLjk1MDQ3MDIgMjk1LjYwMzU5Myw0MC4yNzgwNTM1IDI5NS4xMjc1OTksNDAuMDA2MDU2NiBMMjg5Ljg3MjQwMSwzNy4wMDMwODY4IEMyODkuMzkwNTg3LDM2LjcyNzc2NDUgMjg5LDM2Ljk1MTI3MDQgMjg5LDM3LjUwMDUxMzggTDI4OSw0My4wMDg2Mjk2IFogTTMwNCw0My4wMDg2Mjk2IEMzMDQsNDMuNTU4NjczMiAzMDMuNjAzNTkzLDQ0LjIzMTA4OTkgMzAzLjEyNzU5OSw0NC41MDMwODY4IEwyOTcuODcyNDAxLDQ3LjUwNjA1NjYgQzI5Ny4zOTA1ODcsNDcuNzgxMzc4OSAyOTcsNDcuNTU3ODczIDI5Nyw0Ny4wMDg2Mjk2IEwyOTcsNDEuNTAwNTEzOCBDMjk3LDQwLjk1MDQ3MDIgMjk3LjM5NjQwNyw0MC4yNzgwNTM1IDI5Ny44NzI0MDEsNDAuMDA2MDU2NiBMMzAzLjEyNzU5OSwzNy4wMDMwODY4IEMzMDMuNjA5NDEzLDM2LjcyNzc2NDUgMzA0LDM2Ljk1MTI3MDQgMzA0LDM3LjUwMDUxMzggTDMwNCw0My4wMDg2Mjk2IFogTTI5Ny4zNDk3NjEsMzguOTgxNjQxNiBDMjk2Ljg4MDQ1MSwzOS4yNzA0NDc5IDI5Ni4xMTI4NjEsMzkuMjY2MzMyNCAyOTUuNjUwMjM5LDM4Ljk4MTY0MTYgTDI5MC44NDk3NjEsMzYuMDI3NTAxOCBDMjkwLjM4MDQ1MSwzNS43Mzg2OTU1IDI5MC4zODcxMzksMzUuMjk2MTEyMyAyOTAuODc2NjE5LDM1LjAzMjU0NjEgTDI5NS42MjMzODEsMzIuNDc2NTk3MyBDMjk2LjEwNzUyNCwzMi4yMTU5MDQ4IDI5Ni44ODcxMzksMzIuMjEzMDMxMSAyOTcuMzc2NjE5LDMyLjQ3NjU5NzMgTDMwMi4xMjMzODEsMzUuMDMyNTQ2MSBDMzAyLjYwNzUyNCwzNS4yOTMyMzg3IDMwMi42MTI4NjEsMzUuNzQyODExIDMwMi4xNTAyMzksMzYuMDI3NTAxOCBMMjk3LjM0OTc2MSwzOC45ODE2NDE2IFoiLz4KICA8L2c+Cjwvc3ZnPgo="
 
 /***/ },
-/* 238 */
+/* 239 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -11193,7 +11409,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _I18n = __webpack_require__(199);
 	
-	var _StorageData = __webpack_require__(239);
+	var _StorageData = __webpack_require__(240);
 	
 	var _StorageData2 = _interopRequireDefault(_StorageData);
 	
@@ -11205,17 +11421,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	      settingsData = _ref.settingsData,
 	      onClaudy = _ref.onClaudy,
 	      _ref$isDrawer = _ref.isDrawer,
-	      isDrawer = _ref$isDrawer === undefined ? false : _ref$isDrawer;
+	      isDrawer = _ref$isDrawer === undefined ? false : _ref$isDrawer,
+	      isClaudyLoading = _ref.isClaudyLoading;
 	  return _react2.default.createElement(
 	    'div',
 	    null,
 	    isDrawer && _react2.default.createElement('hr', null),
 	    settingsData.settingsAppURL && _react2.default.createElement(
 	      'ul',
-	      { 'class': 'coz-nav-group' },
+	      { className: 'coz-nav-group' },
 	      _react2.default.createElement(
 	        'li',
-	        { 'class': 'coz-nav-item' },
+	        { className: 'coz-nav-item' },
 	        _react2.default.createElement(
 	          'a',
 	          { role: 'menuitem',
@@ -11224,14 +11441,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	          },
 	          _react2.default.createElement(
 	            'p',
-	            { 'class': 'coz-label' },
+	            { className: 'coz-label' },
 	            t('profile')
 	          )
 	        )
 	      ),
 	      _react2.default.createElement(
 	        'li',
-	        { 'class': 'coz-nav-item' },
+	        { className: 'coz-nav-item' },
 	        _react2.default.createElement(
 	          'a',
 	          { role: 'menuitem',
@@ -11241,7 +11458,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          },
 	          _react2.default.createElement(
 	            'p',
-	            { 'class': 'coz-label' },
+	            { className: 'coz-label' },
 	            t('connectedDevices')
 	          )
 	        )
@@ -11250,13 +11467,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	    ),
 	    isDrawer && onClaudy && _react2.default.createElement(
 	      'ul',
-	      { 'class': 'coz-nav-group' },
+	      { className: 'coz-nav-group' },
 	      _react2.default.createElement(
 	        'li',
-	        { 'class': 'coz-nav-item' },
+	        { className: 'coz-nav-item' },
 	        _react2.default.createElement(
 	          'button',
-	          { role: 'menuitem', 'data-icon': 'icon-claudy', onClick: onClaudy, title: t('claudy.title') },
+	          { role: 'menuitem', 'data-icon': 'icon-claudy', 'aria-busy': isClaudyLoading, onClick: onClaudy, title: t('claudy.title') },
 	          t('claudy.title')
 	        )
 	      ),
@@ -11264,10 +11481,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	    ),
 	    !isDrawer && settingsData.storageData && _react2.default.createElement(
 	      'ul',
-	      { 'class': 'coz-nav-group' },
+	      { className: 'coz-nav-group' },
 	      _react2.default.createElement(
 	        'li',
-	        { 'class': 'coz-nav-item' },
+	        { className: 'coz-nav-item' },
 	        _react2.default.createElement(
 	          'div',
 	          { role: 'menuitem', 'data-icon': 'icon-storage' },
@@ -11279,16 +11496,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	    ),
 	    settingsData.helpLink && _react2.default.createElement(
 	      'ul',
-	      { 'class': 'coz-nav-group' },
+	      { className: 'coz-nav-group' },
 	      _react2.default.createElement(
 	        'li',
-	        { 'class': 'coz-nav-item' },
+	        { className: 'coz-nav-item' },
 	        _react2.default.createElement(
 	          'a',
 	          { role: 'menuitem', href: settingsData.helpLink, target: '_blank', 'data-icon': 'icon-help', title: t('help') },
 	          _react2.default.createElement(
 	            'p',
-	            { 'class': 'coz-label' },
+	            { className: 'coz-label' },
 	            t('help')
 	          )
 	        )
@@ -11297,10 +11514,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	    ),
 	    _react2.default.createElement(
 	      'ul',
-	      { 'class': 'coz-nav-group' },
+	      { className: 'coz-nav-group' },
 	      _react2.default.createElement(
 	        'li',
-	        { 'class': 'coz-nav-item' },
+	        { className: 'coz-nav-item' },
 	        _react2.default.createElement(
 	          'button',
 	          { role: 'menuitem', 'data-icon': 'icon-logout', onClick: onLogOut, title: t('logout') },
@@ -11311,16 +11528,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	    _react2.default.createElement('hr', null),
 	    _react2.default.createElement(
 	      'ul',
-	      { 'class': 'coz-nav-group coz-nav-group--inactive' },
+	      { className: 'coz-nav-group coz-nav-group--inactive' },
 	      _react2.default.createElement(
 	        'li',
-	        { 'class': 'coz-nav-item' },
+	        { className: 'coz-nav-item' },
 	        _react2.default.createElement(
 	          'div',
 	          { role: 'menuitem' },
 	          _react2.default.createElement(
 	            'p',
-	            { 'class': 'coz-bar-text-item coz-bar-text-item--inactive' },
+	            { className: 'coz-bar-text-item coz-bar-text-item--inactive' },
 	            t('beta_status')
 	          )
 	        )
@@ -11332,7 +11549,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = (0, _I18n.translate)()(Settings);
 
 /***/ },
-/* 239 */
+/* 240 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -11357,17 +11574,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var diskUsage = Number.isInteger(data.usage) ? (data.usage / (1024 * 1024 * 1024)).toFixed(2) : data.usage;
 	  return _react2.default.createElement(
 	    'div',
-	    { 'class': 'coz-nav-storage' },
+	    { className: 'coz-nav-storage' },
 	    _react2.default.createElement(
 	      'p',
-	      { 'class': 'coz-nav-storage-text' },
+	      { className: 'coz-nav-storage-text' },
 	      t('storage_phrase', {
 	        diskUsage: diskUsage,
 	        diskQuota: diskQuota
 	      })
 	    ),
 	    _react2.default.createElement('progress', {
-	      'class': 'cozy-nav-storage-bar',
+	      className: 'cozy-nav-storage-bar',
 	      value: diskUsage, max: diskQuota, min: '0'
 	    })
 	  );
@@ -11376,7 +11593,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = (0, _I18n.translate)()(StorageData);
 
 /***/ },
-/* 240 */
+/* 241 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -11408,7 +11625,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 241 */
+/* 242 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -11425,13 +11642,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _I18n = __webpack_require__(199);
 	
-	var _helpers = __webpack_require__(240);
+	var _helpers = __webpack_require__(241);
 	
-	var _AppsList = __webpack_require__(236);
+	var _AppsList = __webpack_require__(237);
 	
 	var _AppsList2 = _interopRequireDefault(_AppsList);
 	
-	var _Settings = __webpack_require__(238);
+	var _Settings = __webpack_require__(239);
 	
 	var _Settings2 = _interopRequireDefault(_Settings);
 	
@@ -11574,7 +11791,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var categories = !appsList.error ? (0, _helpers.getCategorizedItems)(appsList, t) : appsList;
 	      return _react2.default.createElement(
 	        'nav',
-	        { 'class': 'coz-nav', ref: function ref(_ref2) {
+	        { className: 'coz-nav', ref: function ref(_ref2) {
 	            _this3.rootRef = _ref2;
 	          } },
 	        _react2.default.createElement(
@@ -11582,7 +11799,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          null,
 	          _react2.default.createElement(
 	            'li',
-	            { 'class': 'coz-nav-section' },
+	            { className: 'coz-nav-section' },
 	            _react2.default.createElement(
 	              'a',
 	              {
@@ -11596,22 +11813,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	            ),
 	            _react2.default.createElement(
 	              'div',
-	              { 'class': 'coz-nav-pop coz-nav-pop--apps', id: 'coz-nav-pop--apps', 'aria-hidden': !apps.opened },
+	              { className: 'coz-nav-pop coz-nav-pop--apps', id: 'coz-nav-pop--apps', 'aria-hidden': !apps.opened },
 	              categories.error && _react2.default.createElement(
 	                'p',
-	                { 'class': 'coz-nav--error coz-nav-group' },
+	                { className: 'coz-nav--error coz-nav-group' },
 	                t('error_' + apps.error.name)
 	              ),
 	              categories.length ? _react2.default.createElement(_AppsList2.default, { categories: categories, wrappingLimit: 4 }) : _react2.default.createElement(
 	                'p',
-	                { 'class': 'coz-nav--error coz-nav-group' },
+	                { className: 'coz-nav--error coz-nav-group' },
 	                t('no_apps')
 	              )
 	            )
 	          ),
 	          _react2.default.createElement(
 	            'li',
-	            { 'class': 'coz-nav-section' },
+	            { className: 'coz-nav-section' },
 	            _react2.default.createElement(
 	              'a',
 	              {
@@ -11625,7 +11842,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            ),
 	            _react2.default.createElement(
 	              'div',
-	              { 'class': 'coz-nav-pop coz-nav-pop--settings', id: 'coz-nav-pop--settings', 'aria-hidden': !settings.opened },
+	              { className: 'coz-nav-pop coz-nav-pop--settings', id: 'coz-nav-pop--settings', 'aria-hidden': !settings.opened },
 	              settingsData && _react2.default.createElement(_Settings2.default, {
 	                onLogOut: function onLogOut() {
 	                  return _this3.store.logout();
@@ -11645,42 +11862,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = (0, _I18n.translate)()(Nav);
 
 /***/ },
-/* 242 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(189);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _ClaudyMenu = __webpack_require__(243);
-	
-	var _ClaudyMenu2 = _interopRequireDefault(_ClaudyMenu);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var Claudy = function Claudy(_ref) {
-	  var opened = _ref.opened,
-	      onToggle = _ref.onToggle,
-	      config = _ref.config,
-	      usageTracker = _ref.usageTracker,
-	      appsList = _ref.appsList;
-	  return _react2.default.createElement(
-	    'div',
-	    { 'class': 'coz-claudy ' + (opened ? 'coz-claudy--opened' : '') },
-	    _react2.default.createElement('button', { 'class': 'coz-claudy-icon coz-bar-hide-sm', 'data-claudy-opened': opened, onClick: onToggle }),
-	    _react2.default.createElement(_ClaudyMenu2.default, { actions: config.actions, onClose: onToggle, usageTracker: usageTracker, appsList: appsList })
-	  );
-	};
-	
-	exports.default = Claudy;
-
-/***/ },
 /* 243 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -11696,8 +11877,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _I18n = __webpack_require__(199);
-	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -11706,247 +11885,83 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var ClaudyMenu = function (_Component) {
-	  _inherits(ClaudyMenu, _Component);
+	var Claudy = function (_Component) {
+	  _inherits(Claudy, _Component);
 	
-	  function ClaudyMenu(props) {
-	    _classCallCheck(this, ClaudyMenu);
+	  function Claudy(props, context) {
+	    _classCallCheck(this, Claudy);
 	
-	    var _this = _possibleConstructorReturn(this, (ClaudyMenu.__proto__ || Object.getPrototypeOf(ClaudyMenu)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (Claudy.__proto__ || Object.getPrototypeOf(Claudy)).call(this, props));
 	
+	    _this.store = context.store;
 	    _this.state = {
-	      openedAction: false,
-	      selectedAction: null
+	      isLoading: false
 	    };
 	
-	    _this.computeSelectedActionUrl = _this.computeSelectedActionUrl.bind(_this);
-	    _this.goBack = _this.goBack.bind(_this);
-	    _this.selectAction = _this.selectAction.bind(_this);
-	    _this.trackActionLink = _this.trackActionLink.bind(_this);
-	    _this.getIcon = _this.getIcon.bind(_this);
+	    _this.toggle = _this.toggle.bind(_this);
 	    return _this;
 	  }
 	
-	  _createClass(ClaudyMenu, [{
-	    key: 'getIcon',
-	    value: function getIcon(iconName) {
-	      return __webpack_require__(244)("./" + iconName);
+	  _createClass(Claudy, [{
+	    key: 'componentWillReceiveProps',
+	    value: function componentWillReceiveProps(nextProps) {
+	      if (nextProps.fireClaudy) this.toggle();
 	    }
 	  }, {
-	    key: 'computeSelectedActionUrl',
-	    value: function computeSelectedActionUrl() {
-	      if (!this.state.selectedAction) return null;
-	      var action = this.state.selectedAction;
-	      var _props = this.props,
-	          t = _props.t,
-	          appsList = _props.appsList;
+	    key: 'toggle',
+	    value: function toggle() {
+	      var _this2 = this;
 	
-	      if (action.link.type === 'apps' && action.link.appSlug) {
-	        if (!appsList) {
-	          console.warn('No apps found on the Cozy');
-	          return null;
-	        }
-	        var app = appsList.find(function (a) {
-	          return a.slug === action.link.appSlug;
+	      if (!this.props.opened && !this.intentWrapperRef.childNodes.length) {
+	        this.setState({ isLoading: true });
+	        this.store.getClaudyIntent({ exposeIntentFrameRemoval: true }).start(this.intentWrapperRef, function () {
+	          _this2.setState({ isLoading: false });
+	          _this2.props.onToggle(); // toggle claudy when the intent is loaded
+	        }).then(function (_ref) {
+	          var removeIntentFrame = _ref.removeIntentFrame;
+	          // exposeFrameRemoval intent event
+	          // remove the intent frame at the end of the menu closing transition
+	          _this2.intentWrapperRef.addEventListener('transitionend', function closed(event) {
+	            if (event.propertyName === 'transform') {
+	              removeIntentFrame();
+	              this.removeEventListener('transitionend', closed, false);
+	            }
+	          });
+	          _this2.props.onToggle();
 	        });
-	        if (app && app.href) {
-	          var appUrl = '' + app.href + (action.link.path || '');
-	          return appUrl;
-	        } else {
-	          console.warn('No app with slug \'' + action.link.appSlug + '\' found on the Cozy.');
-	          return null;
-	        }
 	      } else {
-	        var url = t('claudy.actions.' + action.slug + '.link');
-	        return url;
+	        this.props.onToggle();
 	      }
-	    }
-	  }, {
-	    key: 'goBack',
-	    value: function goBack() {
-	      this.setState({ openedAction: false });
-	    }
-	  }, {
-	    key: 'trackActionLink',
-	    value: function trackActionLink(action) {
-	      var usageTracker = this.props.usageTracker;
-	      if (usageTracker) {
-	        usageTracker.push(['trackEvent', 'Claudy', 'openActionLink', '' + action.slug]);
-	      }
-	    }
-	  }, {
-	    key: 'selectAction',
-	    value: function selectAction(action) {
-	      var usageTracker = this.props.usageTracker;
-	      if (usageTracker) {
-	        usageTracker.push(['trackEvent', 'Claudy', 'openAction', '' + action.slug]);
-	      }
-	      this.setState({ selectedAction: action, openedAction: true });
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _this2 = this;
+	      var _this3 = this;
 	
-	      var _props2 = this.props,
-	          t = _props2.t,
-	          onClose = _props2.onClose,
-	          actions = _props2.actions;
-	      var _state = this.state,
-	          openedAction = _state.openedAction,
-	          selectedAction = _state.selectedAction;
+	      var opened = this.props.opened;
+	      var isLoading = this.state.isLoading;
 	
-	      var selectedActionUrl = selectedAction && this.computeSelectedActionUrl() || null;
 	      return _react2.default.createElement(
 	        'div',
-	        { 'class': 'coz-claudy-menu ' + (openedAction ? 'coz-claudy-menu--action-selected' : '') },
-	        _react2.default.createElement(
-	          'header',
-	          { 'class': 'coz-claudy-menu-header' },
-	          _react2.default.createElement(
-	            'h2',
-	            { 'class': 'coz-claudy-menu-title' },
-	            t('claudy.title')
-	          ),
-	          _react2.default.createElement('button', { 'class': 'coz-btn-close', onClick: onClose }),
-	          _react2.default.createElement('button', { 'class': 'coz-claudy-menu-header-back-button', onClick: this.goBack })
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          { 'class': 'coz-claudy-menu-content-wrapper' },
-	          _react2.default.createElement(
-	            'div',
-	            { 'class': 'coz-claudy-menu-content' },
-	            _react2.default.createElement(
-	              'div',
-	              { 'class': 'coz-claudy-menu-actions-list' },
-	              actions.map(function (action) {
-	                return _react2.default.createElement(
-	                  'a',
-	                  { 'class': 'coz-claudy-menu-action', onClick: function onClick() {
-	                      return _this2.selectAction(action);
-	                    } },
-	                  _react2.default.createElement('img', {
-	                    'class': 'coz-claudy-menu-action-icon',
-	                    src: _this2.getIcon(action.icon)
-	                  }),
-	                  _react2.default.createElement(
-	                    'p',
-	                    { 'class': 'coz-claudy-menu-action-title' },
-	                    t('claudy.actions.' + action.slug + '.title')
-	                  )
-	                );
-	              })
-	            ),
-	            selectedAction && _react2.default.createElement(
-	              'div',
-	              { 'class': 'coz-claudy-menu-action-description' },
-	              _react2.default.createElement(
-	                'div',
-	                { 'class': 'coz-claudy-menu-action-description-header' },
-	                _react2.default.createElement('img', {
-	                  'class': 'coz-claudy-menu-action-icon',
-	                  src: this.getIcon(selectedAction.icon)
-	                }),
-	                _react2.default.createElement(
-	                  'p',
-	                  { 'class': 'coz-claudy-menu-action-title' },
-	                  t('claudy.actions.' + selectedAction.slug + '.title')
-	                )
-	              ),
-	              _react2.default.createElement(
-	                'div',
-	                { 'class': 'coz-claudy-menu-action-description-content' },
-	                _react2.default.createElement(
-	                  'p',
-	                  { 'class': 'coz-claudy-menu-action-description-text' },
-	                  t('claudy.actions.' + selectedAction.slug + '.description')
-	                ),
-	                selectedActionUrl ? _react2.default.createElement(
-	                  'a',
-	                  {
-	                    href: selectedActionUrl,
-	                    role: 'button',
-	                    target: selectedAction.link.type === 'external' ? '_blank' : '_self',
-	                    'class': 'coz-btn-regular coz-claudy-menu-action-description-button',
-	                    onClick: function onClick() {
-	                      return _this2.trackActionLink(selectedAction);
-	                    }
-	                  },
-	                  t('claudy.actions.' + selectedAction.slug + '.button')
-	                ) : _react2.default.createElement(
-	                  'a',
-	                  {
-	                    role: 'button',
-	                    'class': 'coz-btn-regular coz-claudy-menu-action-description-button',
-	                    disabled: true,
-	                    title: 'App ' + selectedAction.slug + ' not found'
-	                  },
-	                  t('claudy.actions.' + selectedAction.slug + '.button')
-	                )
-	              )
-	            )
-	          )
-	        )
+	        { className: 'coz-claudy ' + (opened ? 'coz-claudy--opened' : '') },
+	        _react2.default.createElement('button', { className: 'coz-claudy-icon coz-bar-hide-sm', 'data-claudy-opened': opened, 'data-claudy-loading': isLoading, onClick: this.toggle }),
+	        _react2.default.createElement('div', {
+	          'class': 'coz-claudy-intent-wrapper',
+	          ref: function ref(wrapper) {
+	            _this3.intentWrapperRef = wrapper;
+	          }
+	        })
 	      );
 	    }
 	  }]);
 	
-	  return ClaudyMenu;
+	  return Claudy;
 	}(_react.Component);
 	
-	exports.default = (0, _I18n.translate)()(ClaudyMenu);
+	exports.default = Claudy;
 
 /***/ },
 /* 244 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var map = {
-		"./icon-bills.svg": 245,
-		"./icon-laptop.svg": 246,
-		"./icon-phone.svg": 247,
-		"./icon-question-mark.svg": 248
-	};
-	function webpackContext(req) {
-		return __webpack_require__(webpackContextResolve(req));
-	};
-	function webpackContextResolve(req) {
-		return map[req] || (function() { throw new Error("Cannot find module '" + req + "'.") }());
-	};
-	webpackContext.keys = function webpackContextKeys() {
-		return Object.keys(map);
-	};
-	webpackContext.resolve = webpackContextResolve;
-	module.exports = webpackContext;
-	webpackContext.id = 244;
-
-
-/***/ },
-/* 245 */
-/***/ function(module, exports) {
-
-	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDQ4IDQ4Ij4KICA8ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDUpIj4KICAgIDxwb2x5Z29uIGZpbGw9IiNGRkRFQzEiIHBvaW50cz0iMCAwIDcuNSAzIDEzLjUgMCAxOS41IDMgMjUuNSAwIDMxLjUgMyAzOSAwIDM5IDQ4IDMxLjUgNDUgMjUuNSA0OCAxOS41IDQ1IDEzLjUgNDggNy41IDQ1IDAgNDgiLz4KICAgIDxwYXRoIGZpbGw9IiNGRjdGMUIiIGQ9Ik05IDEyTDMwIDEyIDMwIDE1IDkgMTUgOSAxMnpNOSAxOEwzMCAxOCAzMCAyMSA5IDIxIDkgMTh6TTkgMjRMMjEgMjQgMjEgMjcgOSAyNyA5IDI0ek05IDMwTDIxIDMwIDIxIDMzIDkgMzMgOSAzMHpNMzQuMjY0Mjg4OSAyOS4xNzgyNzM1QzMzLjM4OTY3OSAyNy45MjQxMTYgMzIuMjUxMDM2MSAyNyAzMC4yMzc3ODMzIDI3IDI3Ljg5NDQ4OSAyNyAyNi4yMTEyNzc3IDI4LjYwMDcwMSAyNS41NTExOTQ4IDMwLjgyODQ4MDdMMjQgMzAuODI4NDgwNyAyNCAzMi4yMzExNTY5IDI1LjI4NzE2MTYgMzIuMjMxMTU2OUMyNS4yNTQxNTc1IDMyLjQ3ODY4OCAyNS4yNTQxNTc1IDMyLjc0MjcyMTEgMjUuMjU0MTU3NSAzMi45OTAyNTIyIDI1LjI1NDE1NzUgMzMuMjA0Nzc5MSAyNS4yNTQxNTc1IDMzLjQxOTMwNjEgMjUuMjcwNjU5NiAzMy42MTczMzA5TDI0IDMzLjYxNzMzMDkgMjQgMzUuMDM2NTA5MSAyNS41MDE2ODg2IDM1LjAzNjUwOTFDMjYuMTQ1MjY5NCAzNy4zNzk4MDM0IDI3Ljg2MTQ4NDkgMzguOTQ3NTAwMiAzMC4zMDM3OTE2IDM4Ljk0NzUwMDIgMzIuMTg1MDI3OCAzOC45NDc1MDAyIDMzLjM1NjY3NDkgMzcuOTkwMzggMzQuMjk3MjkzIDM2LjYyMDcwODFMMzIuODQ1MTEwNyAzNS41NDgwNzM0QzMyLjA4NjAxNTMgMzYuNTU0Njk5OCAzMS40MjU5MzI1IDM3LjEzMjI3MjMgMzAuMzIwMjkzNiAzNy4xMzIyNzIzIDI5LjAzMzEzMiAzNy4xMzIyNzIzIDI4LjA5MjUxMzkgMzYuMzQwMTcyOCAyNy42MzA0NTU5IDM1LjAzNjUwOTFMMzEuMTk0OTAzNSAzNS4wMzY1MDkxIDMxLjE5NDkwMzUgMzMuNjE3MzMwOSAyNy4zMTY5MTY1IDMzLjYxNzMzMDlDMjcuMzAwNDE0NCAzMy40MDI4MDQgMjcuMzAwNDE0NCAzMy4xODgyNzcxIDI3LjMwMDQxNDQgMzIuOTU3MjQ4IDI3LjMwMDQxNDQgMzIuNzA5NzE3IDI3LjMwMDQxNDQgMzIuNDYyMTg1OSAyNy4zMzM0MTg2IDMyLjIzMTE1NjlMMzEuMTk0OTAzNSAzMi4yMzExNTY5IDMxLjE5NDkwMzUgMzAuODI4NDgwNyAyNy42NDY5NTc5IDMwLjgyODQ4MDdDMjguMTA5MDE2IDI5LjU5MDgyNTMgMjkuMDE2NjI5OSAyOC44MTUyMjc5IDMwLjE4ODI3NzEgMjguODE1MjI3OSAzMS4zNDM0MjIxIDI4LjgxNTIyNzkgMzIuMDIwMDA3MSAyOS4zNDMyOTQyIDMyLjcyOTU5NjIgMzAuMzE2OTE2NUwzNC4yNjQyODg5IDI5LjE3ODI3MzV6Ii8+CiAgPC9nPgo8L3N2Zz4K"
-
-/***/ },
-/* 246 */
-/***/ function(module, exports) {
-
-	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDQ4IDQ4Ij4KICA8ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDAgNikiPgogICAgPHBhdGggZmlsbD0iIzM1Q0U2OCIgZD0iTTMsMzEuNSBMMywzIEwzLDMgQzMsMS4zNDMxNDU3NSA0LjM0MzE0NTc1LDMuMDQzNTkxODhlLTE2IDYsMCBMNDIsMCBMNDIsMCBDNDMuNjU2ODU0MiwtMy4wNDM1OTE4OGUtMTYgNDUsMS4zNDMxNDU3NSA0NSwzIEw0NSwzMS41IEwzLDMxLjUgWiIvPgogICAgPHJlY3Qgd2lkdGg9IjM2IiBoZWlnaHQ9IjI0IiB4PSI2IiB5PSIzIiBmaWxsPSIjQkNFRkNEIi8+CiAgICA8cGF0aCBmaWxsPSIjQkNFRkNEIiBkPSJNMjgsMzEuNSBMMTguNSwzMS41IEwxOC41LDMxLjUgQzE4LjIyMzg1NzYsMzEuNSAxOCwzMS4yNzYxNDI0IDE4LDMxIEwxOCwzMC41IEwxOCwzMC41IEMxOCwzMC4yMjM4NTc2IDE3Ljc3NjE0MjQsMzAgMTcuNSwzMCBMMC41LDMwIEwwLjUsMzAgQzAuMjIzODU3NjI1LDMwIC0zLjM4MTc2ODc2ZS0xNywzMC4yMjM4NTc2IDAsMzAuNSBMMCwzMyBMMCwzMyBDMi4wMjkwNjEyNWUtMTYsMzQuNjU2ODU0MiAxLjM0MzE0NTc1LDM2IDMsMzYgTDQ1LDM2IEw0NSwzNiBDNDYuNjU2ODU0MiwzNiA0OCwzNC42NTY4NTQyIDQ4LDMzIEw0OCwzMC41IEw0OCwzMC41IEM0OCwzMC4yMjM4NTc2IDQ3Ljc3NjE0MjQsMzAgNDcuNSwzMCBMMjksMzAgTDI5LDMwIEMyOC43MjM4NTc2LDMwIDI4LjUsMzAuMjIzODU3NiAyOC41LDMwLjUgTDI4LjUsMzEgTDI4LjUsMzEgQzI4LjUsMzEuMjc2MTQyNCAyOC4yNzYxNDI0LDMxLjUgMjgsMzEuNSBaIi8+CiAgPC9nPgo8L3N2Zz4K"
-
-/***/ },
-/* 247 */
-/***/ function(module, exports) {
-
-	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDMwIDQ4Ij4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCIgb3BhY2l0eT0iLjUiPgogICAgICAgIDxwYXRoIGZpbGw9IiNGQzRDODMiIGQ9Ik0yNiA0OEg0Yy0yLjIxIDAtNC0xLjg3LTQtNC4xNzRWNC4xNzRDMCAxLjg3IDEuNzkgMCA0IDBoMjJjMi4yMDggMCA0IDEuODcgNCA0LjE3NHYzOS42NTJDMzAgNDYuMTMgMjguMjA4IDQ4IDI2IDQ4eiIvPgogICAgICAgIDxwYXRoIHN0cm9rZT0iI0Y1RjZGNyIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBkPSJNMTIgMi4yNTFsNi0uMDAxIi8+CiAgICAgICAgPHBhdGggZmlsbD0iI0Y1RjZGNyIgZD0iTTE3LjI1IDQ0LjI1YTIuMjUgMi4yNSAwIDEgMS00LjUwMi0uMDAyIDIuMjUgMi4yNSAwIDAgMSA0LjUwMi4wMDJ6Ii8+CiAgICAgICAgPHBhdGggZmlsbD0iI0ZFQzRENiIgZD0iTTEuNSA0LjVoMjdWNDJoLTI3eiIvPgogICAgPC9nPgo8L3N2Zz4K"
-
-/***/ },
-/* 248 */
-/***/ function(module, exports) {
-
-	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDQ4IDQ4Ij4KICA8ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgogICAgPGNpcmNsZSBjeD0iMjQiIGN5PSIyNCIgcj0iMjQiIGZpbGw9IiNFMkM5RUUiLz4KICAgIDxwYXRoIGZpbGw9IiNBNzVCQ0IiIGQ9Ik0yNSwyNS45MyBMMjUsMzEgQzI1LDMxLjU1NCAyNC41NSwzMiAyNCwzMiBDMjMuNDQ4LDMyIDIzLDMxLjU1NCAyMywzMSBMMjMsMjUgQzIzLDI0LjQ0OCAyMy40NDgsMjQgMjQsMjQgQzI2Ljc1NiwyNCAyOSwyMS43NTggMjksMTkgQzI5LDE2LjI0MiAyNi43NTYsMTQgMjQsMTQgQzIxLjI0MiwxNCAxOSwxNi4yNDIgMTksMTkgQzE5LDE5LjU1NCAxOC41NSwyMCAxOCwyMCBDMTcuNDQ4LDIwIDE3LDE5LjU1NCAxNywxOSBDMTcsMTUuMTQgMjAuMTM4LDEyIDI0LDEyIEMyNy44NiwxMiAzMSwxNS4xNCAzMSwxOSBDMzEsMjIuNTIgMjguMzg2LDI1LjQ0MiAyNSwyNS45MyBaIE0yNCwzOCBDMjIuODk0LDM4IDIyLDM3LjEwNiAyMiwzNiBDMjIsMzQuODk2IDIyLjg5NCwzNCAyNCwzNCBDMjUuMTAyLDM0IDI2LDM0Ljg5NiAyNiwzNiBDMjYsMzcuMTA2IDI1LjEwMiwzOCAyNCwzOCBaIi8+CiAgPC9nPgo8L3N2Zz4K"
-
-/***/ },
-/* 249 */
 /***/ function(module, exports, __webpack_require__) {
 
 	(function (global, factory) {
@@ -12352,102 +12367,101 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 250 */
+/* 245 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
+/* 246 */,
+/* 247 */,
+/* 248 */,
+/* 249 */,
+/* 250 */,
 /* 251 */,
 /* 252 */,
 /* 253 */,
 /* 254 */,
 /* 255 */,
 /* 256 */,
-/* 257 */,
-/* 258 */,
-/* 259 */,
-/* 260 */,
-/* 261 */,
-/* 262 */,
-/* 263 */
+/* 257 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var map = {
-		"./ar": 264,
-		"./ar.json": 264,
-		"./ca": 265,
-		"./ca.json": 265,
-		"./ca_ES": 266,
-		"./ca_ES.json": 266,
-		"./cs": 267,
-		"./cs.json": 267,
-		"./cs_CZ": 268,
-		"./cs_CZ.json": 268,
-		"./da": 269,
-		"./da.json": 269,
-		"./de": 270,
-		"./de.json": 270,
-		"./de_DE": 271,
-		"./de_DE.json": 271,
-		"./el": 272,
-		"./el.json": 272,
-		"./en": 273,
-		"./en.json": 273,
-		"./eo": 274,
-		"./eo.json": 274,
-		"./es": 275,
-		"./es.json": 275,
-		"./es_CO": 276,
-		"./es_CO.json": 276,
-		"./es_ES": 277,
-		"./es_ES.json": 277,
-		"./fr": 278,
-		"./fr.json": 278,
-		"./it": 279,
-		"./it.json": 279,
-		"./ja": 280,
-		"./ja.json": 280,
-		"./ko": 281,
-		"./ko.json": 281,
-		"./nl": 282,
-		"./nl.json": 282,
-		"./nl_NL": 283,
-		"./nl_NL.json": 283,
-		"./pl": 284,
-		"./pl.json": 284,
-		"./pt": 285,
-		"./pt.json": 285,
-		"./pt_BR": 286,
-		"./pt_BR.json": 286,
-		"./ro": 287,
-		"./ro.json": 287,
-		"./ro_RO": 288,
-		"./ro_RO.json": 288,
-		"./ru": 289,
-		"./ru.json": 289,
-		"./ru_RU": 290,
-		"./ru_RU.json": 290,
-		"./sk": 291,
-		"./sk.json": 291,
-		"./sk_SK": 292,
-		"./sk_SK.json": 292,
-		"./sq": 293,
-		"./sq.json": 293,
-		"./sq_AL": 294,
-		"./sq_AL.json": 294,
-		"./sv": 295,
-		"./sv.json": 295,
-		"./tr": 296,
-		"./tr.json": 296,
-		"./uk_UA": 297,
-		"./uk_UA.json": 297,
-		"./zh": 298,
-		"./zh.json": 298,
-		"./zh_CN": 299,
-		"./zh_CN.json": 299,
-		"./zh_TW": 300,
-		"./zh_TW.json": 300
+		"./ar": 258,
+		"./ar.json": 258,
+		"./ca": 259,
+		"./ca.json": 259,
+		"./ca_ES": 260,
+		"./ca_ES.json": 260,
+		"./cs": 261,
+		"./cs.json": 261,
+		"./cs_CZ": 262,
+		"./cs_CZ.json": 262,
+		"./da": 263,
+		"./da.json": 263,
+		"./de": 264,
+		"./de.json": 264,
+		"./de_DE": 265,
+		"./de_DE.json": 265,
+		"./el": 266,
+		"./el.json": 266,
+		"./en": 267,
+		"./en.json": 267,
+		"./eo": 268,
+		"./eo.json": 268,
+		"./es": 269,
+		"./es.json": 269,
+		"./es_CO": 270,
+		"./es_CO.json": 270,
+		"./es_ES": 271,
+		"./es_ES.json": 271,
+		"./fr": 272,
+		"./fr.json": 272,
+		"./it": 273,
+		"./it.json": 273,
+		"./ja": 274,
+		"./ja.json": 274,
+		"./ko": 275,
+		"./ko.json": 275,
+		"./nl": 276,
+		"./nl.json": 276,
+		"./nl_NL": 277,
+		"./nl_NL.json": 277,
+		"./pl": 278,
+		"./pl.json": 278,
+		"./pt": 279,
+		"./pt.json": 279,
+		"./pt_BR": 280,
+		"./pt_BR.json": 280,
+		"./ro": 281,
+		"./ro.json": 281,
+		"./ro_RO": 282,
+		"./ro_RO.json": 282,
+		"./ru": 283,
+		"./ru.json": 283,
+		"./ru_RU": 284,
+		"./ru_RU.json": 284,
+		"./sk": 285,
+		"./sk.json": 285,
+		"./sk_SK": 286,
+		"./sk_SK.json": 286,
+		"./sq": 287,
+		"./sq.json": 287,
+		"./sq_AL": 288,
+		"./sq_AL.json": 288,
+		"./sv": 289,
+		"./sv.json": 289,
+		"./tr": 290,
+		"./tr.json": 290,
+		"./uk_UA": 291,
+		"./uk_UA.json": 291,
+		"./zh": 292,
+		"./zh.json": 292,
+		"./zh_CN": 293,
+		"./zh_CN.json": 293,
+		"./zh_TW": 294,
+		"./zh_TW.json": 294
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -12460,8 +12474,356 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 	webpackContext.resolve = webpackContextResolve;
 	module.exports = webpackContext;
-	webpackContext.id = 263;
+	webpackContext.id = 257;
 
+
+/***/ },
+/* 258 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"drawer": "Show menu drawer",
+		"profile": "Profile",
+		"connectedDevices": "Connected devices",
+		"storage": "Storage",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
+		"help": "Help",
+		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"soon": "soon",
+		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"no_apps": "No applications found on the Cozy.",
+		"menu": {
+			"apps": "Apps",
+			"settings": "Settings"
+		},
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"ptnb": "expPTNB",
+			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?",
+			"actions": {
+				"desktop": {
+					"title": "Get access to your files in your computer",
+					"description": "Synchronize all your Cozy Drive files on your computer",
+					"button": "Install Cozy Drive on your desktop",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"mobile": {
+					"title": "Back up and sync your pics from your mobile",
+					"description": "All your memories are safe on your Cozy Drive",
+					"button": "Install the Cozy Drive app on your mobile",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"cozy-collect": {
+					"title": "Get back your bills instantly",
+					"description": "Cozy Collect organize all your files instantly",
+					"button": "Discover Cozy Collect"
+				},
+				"support": {
+					"title": "How can we help you today ?",
+					"description": "Share your idea or your bug on our dedicated interface",
+					"button": "Get access to the support",
+					"link": "https://cozy.io/en/support/"
+				}
+			}
+		}
+	};
+
+/***/ },
+/* 259 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"drawer": "Show menu drawer",
+		"profile": "Profile",
+		"connectedDevices": "Connected devices",
+		"storage": "Storage",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
+		"help": "Help",
+		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"soon": "soon",
+		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"no_apps": "No applications found on the Cozy.",
+		"menu": {
+			"apps": "Apps",
+			"settings": "Settings"
+		},
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"ptnb": "expPTNB",
+			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?",
+			"actions": {
+				"desktop": {
+					"title": "Get access to your files in your computer",
+					"description": "Synchronize all your Cozy Drive files on your computer",
+					"button": "Install Cozy Drive on your desktop",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"mobile": {
+					"title": "Back up and sync your pics from your mobile",
+					"description": "All your memories are safe on your Cozy Drive",
+					"button": "Install the Cozy Drive app on your mobile",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"cozy-collect": {
+					"title": "Get back your bills instantly",
+					"description": "Cozy Collect organize all your files instantly",
+					"button": "Discover Cozy Collect"
+				},
+				"support": {
+					"title": "How can we help you today ?",
+					"description": "Share your idea or your bug on our dedicated interface",
+					"button": "Get access to the support",
+					"link": "https://cozy.io/en/support/"
+				}
+			}
+		}
+	};
+
+/***/ },
+/* 260 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"drawer": "Show menu drawer",
+		"profile": "Profile",
+		"connectedDevices": "Connected devices",
+		"storage": "Storage",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
+		"help": "Help",
+		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"soon": "soon",
+		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"no_apps": "No applications found on the Cozy.",
+		"menu": {
+			"apps": "Apps",
+			"settings": "Settings"
+		},
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"ptnb": "expPTNB",
+			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?",
+			"actions": {
+				"desktop": {
+					"title": "Get access to your files in your computer",
+					"description": "Synchronize all your Cozy Drive files on your computer",
+					"button": "Install Cozy Drive on your desktop",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"mobile": {
+					"title": "Back up and sync your pics from your mobile",
+					"description": "All your memories are safe on your Cozy Drive",
+					"button": "Install the Cozy Drive app on your mobile",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"cozy-collect": {
+					"title": "Get back your bills instantly",
+					"description": "Cozy Collect organize all your files instantly",
+					"button": "Discover Cozy Collect"
+				},
+				"support": {
+					"title": "How can we help you today ?",
+					"description": "Share your idea or your bug on our dedicated interface",
+					"button": "Get access to the support",
+					"link": "https://cozy.io/en/support/"
+				}
+			}
+		}
+	};
+
+/***/ },
+/* 261 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"drawer": "Show menu drawer",
+		"profile": "Profile",
+		"connectedDevices": "Connected devices",
+		"storage": "Storage",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
+		"help": "Help",
+		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"soon": "soon",
+		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"no_apps": "No applications found on the Cozy.",
+		"menu": {
+			"apps": "Apps",
+			"settings": "Settings"
+		},
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"ptnb": "expPTNB",
+			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?",
+			"actions": {
+				"desktop": {
+					"title": "Get access to your files in your computer",
+					"description": "Synchronize all your Cozy Drive files on your computer",
+					"button": "Install Cozy Drive on your desktop",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"mobile": {
+					"title": "Back up and sync your pics from your mobile",
+					"description": "All your memories are safe on your Cozy Drive",
+					"button": "Install the Cozy Drive app on your mobile",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"cozy-collect": {
+					"title": "Get back your bills instantly",
+					"description": "Cozy Collect organize all your files instantly",
+					"button": "Discover Cozy Collect"
+				},
+				"support": {
+					"title": "How can we help you today ?",
+					"description": "Share your idea or your bug on our dedicated interface",
+					"button": "Get access to the support",
+					"link": "https://cozy.io/en/support/"
+				}
+			}
+		}
+	};
+
+/***/ },
+/* 262 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"drawer": "Show menu drawer",
+		"profile": "Profile",
+		"connectedDevices": "Connected devices",
+		"storage": "Storage",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
+		"help": "Help",
+		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"soon": "soon",
+		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"no_apps": "No applications found on the Cozy.",
+		"menu": {
+			"apps": "Apps",
+			"settings": "Settings"
+		},
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"ptnb": "expPTNB",
+			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?",
+			"actions": {
+				"desktop": {
+					"title": "Get access to your files in your computer",
+					"description": "Synchronize all your Cozy Drive files on your computer",
+					"button": "Install Cozy Drive on your desktop",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"mobile": {
+					"title": "Back up and sync your pics from your mobile",
+					"description": "All your memories are safe on your Cozy Drive",
+					"button": "Install the Cozy Drive app on your mobile",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"cozy-collect": {
+					"title": "Get back your bills instantly",
+					"description": "Cozy Collect organize all your files instantly",
+					"button": "Discover Cozy Collect"
+				},
+				"support": {
+					"title": "How can we help you today ?",
+					"description": "Share your idea or your bug on our dedicated interface",
+					"button": "Get access to the support",
+					"link": "https://cozy.io/en/support/"
+				}
+			}
+		}
+	};
+
+/***/ },
+/* 263 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"drawer": "Show menu drawer",
+		"profile": "Profile",
+		"connectedDevices": "Connected devices",
+		"storage": "Storage",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
+		"help": "Help",
+		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"soon": "soon",
+		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"no_apps": "No applications found on the Cozy.",
+		"menu": {
+			"apps": "Apps",
+			"settings": "Settings"
+		},
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"ptnb": "expPTNB",
+			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?",
+			"actions": {
+				"desktop": {
+					"title": "Get access to your files in your computer",
+					"description": "Synchronize all your Cozy Drive files on your computer",
+					"button": "Install Cozy Drive on your desktop",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"mobile": {
+					"title": "Back up and sync your pics from your mobile",
+					"description": "All your memories are safe on your Cozy Drive",
+					"button": "Install the Cozy Drive app on your mobile",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"cozy-collect": {
+					"title": "Get back your bills instantly",
+					"description": "Cozy Collect organize all your files instantly",
+					"button": "Discover Cozy Collect"
+				},
+				"support": {
+					"title": "How can we help you today ?",
+					"description": "Share your idea or your bug on our dedicated interface",
+					"button": "Get access to the support",
+					"link": "https://cozy.io/en/support/"
+				}
+			}
+		}
+	};
 
 /***/ },
 /* 264 */
@@ -12758,54 +13120,54 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	module.exports = {
-		"drawer": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
-		"help": "Help",
-		"logout": "Sign out",
-		"beta_status": "We are still in beta",
+		"drawer": "Mostrar el menu drawer",
+		"profile": "Perfil",
+		"connectedDevices": "Periféricos conectados",
+		"storage": "Almacenamiento",
+		"storage_phrase": "%{diskUsage} GO de %{diskQuota} GO usados",
+		"help": "Ayuda",
+		"logout": "Finalizar sesión",
+		"beta_status": "Estamos aún en versión beta",
 		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
-		"no_apps": "No applications found on the Cozy.",
+		"soon": "pronto",
+		"error_UnavailableStack": "La pila es inaccesible ( se agotó el tiempo de la conexión ).",
+		"error_UnauthorizedStack": "Faltan algunos permisos, la aplicación no puede acceder al recurso solicitado en la pila.",
+		"no_apps": "No se han encontrado aplicaciones en su Cozy.",
 		"menu": {
-			"apps": "Apps",
-			"settings": "Settings"
+			"apps": "Aplicaciones",
+			"settings": "Opciones"
 		},
 		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
+			"cozy": "Aplicaciones Cozy",
+			"partners": "Aplicaciones de asociados",
 			"ptnb": "expPTNB",
-			"others": "Other apps"
+			"others": "Otras aplicaciones"
 		},
 		"claudy": {
-			"title": "How to drive your Cozy?",
+			"title": "¿Cómo pilotear su Cozy?",
 			"actions": {
 				"desktop": {
-					"title": "Get access to your files in your computer",
-					"description": "Synchronize all your Cozy Drive files on your computer",
-					"button": "Install Cozy Drive on your desktop",
-					"link": "https://docs.cozy.io/en/download/"
+					"title": "Lograr acceder a los archivos de su ordenador",
+					"description": "Sincronice todos sus archivos Cozy Drive con su ordenador",
+					"button": "Inatale Cozy Drive en su escritorio",
+					"link": "https://docs.cozy.io/es/download/"
 				},
 				"mobile": {
-					"title": "Back up and sync your pics from your mobile",
-					"description": "All your memories are safe on your Cozy Drive",
-					"button": "Install the Cozy Drive app on your mobile",
-					"link": "https://docs.cozy.io/en/download/"
+					"title": "Haga una copia de seguridad y sincronice las imágenes de su celular",
+					"description": "Todos sus datos en memoria están seguros en su Cozy Drive",
+					"button": "Instale la aplicación Cozy Drive en su celular",
+					"link": "https://docs.cozy.io/es/download/"
 				},
 				"cozy-collect": {
-					"title": "Get back your bills instantly",
-					"description": "Cozy Collect organize all your files instantly",
-					"button": "Discover Cozy Collect"
+					"title": "Recupere sus facturas inmediatamente",
+					"description": "Cozy Collect organiza instantaneamente todos sus archivos",
+					"button": "Descubra Cozy Collect"
 				},
 				"support": {
-					"title": "How can we help you today ?",
-					"description": "Share your idea or your bug on our dedicated interface",
-					"button": "Get access to the support",
-					"link": "https://cozy.io/en/support/"
+					"title": "¿Cómo podría usted ayudarnos hoy?",
+					"description": "Comparta su idea o su bug en nuetra interface consagrada a tal fin.",
+					"button": "Acceda a la asistencia",
+					"link": "https://cozy.io/es/support/"
 				}
 			}
 		}
@@ -12932,54 +13294,54 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	module.exports = {
-		"drawer": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
-		"help": "Help",
-		"logout": "Sign out",
-		"beta_status": "We are still in beta",
+		"drawer": "Afficher le menu latéral",
+		"profile": "Profil",
+		"connectedDevices": "Appareils connectés",
+		"storage": "Espace disque",
+		"storage_phrase": "%{diskUsage} Go sur %{diskQuota} Go",
+		"help": "Aide",
+		"logout": "Déconnexion",
+		"beta_status": "Nous sommes toujours en beta.",
 		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
-		"no_apps": "No applications found on the Cozy.",
+		"soon": "à venir",
+		"error_UnavailableStack": "Connexion à la stack impossible (connection timed-out)",
+		"error_UnauthorizedStack": "Des permissions sont manquante, l'application ne peut accéder aux ressources demandées.",
+		"no_apps": "Pas d'applications Cozy trouvées.",
 		"menu": {
-			"apps": "Apps",
-			"settings": "Settings"
+			"apps": "Applications",
+			"settings": "Paramètres"
 		},
 		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
-			"ptnb": "expPTNB",
-			"others": "Other apps"
+			"cozy": "Apps Cozy",
+			"partners": "Expérimentation MesInfos",
+			"ptnb": "Expérimentation Carnet du logement",
+			"others": "Autres apps"
 		},
 		"claudy": {
-			"title": "How to drive your Cozy?",
+			"title": "Comment utiliser votre Cozy ?",
 			"actions": {
 				"desktop": {
-					"title": "Get access to your files in your computer",
-					"description": "Synchronize all your Cozy Drive files on your computer",
-					"button": "Install Cozy Drive on your desktop",
-					"link": "https://docs.cozy.io/en/download/"
+					"title": "Accéder à vos fichiers sur votre ordinateur",
+					"description": "Synchroniser tous vos fichiers Cozy Drive sur votre ordinateur",
+					"button": "Installer Cozy Drive sur votre ordinateur ",
+					"link": "https://docs.cozy.io/fr/download/"
 				},
 				"mobile": {
-					"title": "Back up and sync your pics from your mobile",
-					"description": "All your memories are safe on your Cozy Drive",
-					"button": "Install the Cozy Drive app on your mobile",
-					"link": "https://docs.cozy.io/en/download/"
+					"title": "Sauvegarder vos photos depuis votre mobile ",
+					"description": "Vos souvenirs sont sauvegardés et synchronisés sur tous vos appareils",
+					"button": "Installer l'app Cozy Drive sur votre mobile",
+					"link": "https://docs.cozy.io/fr/download/"
 				},
 				"cozy-collect": {
-					"title": "Get back your bills instantly",
-					"description": "Cozy Collect organize all your files instantly",
-					"button": "Discover Cozy Collect"
+					"title": "Récupérer automatiquement vos factures ",
+					"description": "Cozy Collect organise à votre place vos dossiers avec tous vos documents administratifs",
+					"button": "Découvrir Cozy Collect"
 				},
 				"support": {
-					"title": "How can we help you today ?",
-					"description": "Share your idea or your bug on our dedicated interface",
-					"button": "Get access to the support",
-					"link": "https://cozy.io/en/support/"
+					"title": "Comment pouvons-nous vous aider aujourd'hui ? ",
+					"description": "Une idée de fonctionnalité ? Un bug ? Votre Cozy a besoin de vous pour être amélioré.",
+					"button": "Accéder au forum",
+					"link": "https://cozy.io/fr/support/"
 				}
 			}
 		}
@@ -13048,6 +13410,64 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	module.exports = {
+		"drawer": "メニュードロワーを表示",
+		"profile": "プロフィール",
+		"connectedDevices": "接続されたデバイス",
+		"storage": "ストレージ",
+		"storage_phrase": "%{diskUsage} GB / %{diskQuota} GB 使用",
+		"help": "ヘルプ",
+		"logout": "サインアウト",
+		"beta_status": "まだベータ版です",
+		"beta": "ベータ",
+		"soon": "間もなく",
+		"error_UnavailableStack": "スタックに到達できません (接続タイムアウト)。",
+		"error_UnauthorizedStack": "一部のアクセス許可が不足しているため、アプリケーションはスタック上の要求されたリソースにアクセスできません。",
+		"no_apps": "Cozy にアプリケーションはありません。",
+		"menu": {
+			"apps": "アプリ",
+			"settings": "設定"
+		},
+		"Categories": {
+			"cozy": "Cozy アプリ",
+			"partners": "パートナーアプリ",
+			"ptnb": "expPTNB",
+			"others": "他のアプリ"
+		},
+		"claudy": {
+			"title": "Cozy をドライブする方法は?",
+			"actions": {
+				"desktop": {
+					"title": "コンピューター内のファイルにアクセスする",
+					"description": "コンピューター上のすべての Cozy ドライブファイルを同期させる",
+					"button": "デスクトップに Cozy ドライブをインストールする",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"mobile": {
+					"title": "お使いの携帯から写真をバックアップして同期させる",
+					"description": "Cozy ドライブで、すべての思い出が安心です",
+					"button": "モバイルに Cozy ドライブアプリをインストールする",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"cozy-collect": {
+					"title": "簡単に請求書を取り戻す",
+					"description": "Cozy コレクトはすぐにすべてのファイルを整理します",
+					"button": "Cozy コレクトを見つける"
+				},
+				"support": {
+					"title": "今日は何をお手伝いしますか?",
+					"description": "専用インターフェースであなたのアイデアやバグを共有する",
+					"button": "サポートにアクセスする",
+					"link": "https://cozy.io/en/support/"
+				}
+			}
+		}
+	};
+
+/***/ },
+/* 275 */
+/***/ function(module, exports) {
+
+	module.exports = {
 		"drawer": "Show menu drawer",
 		"profile": "Profile",
 		"connectedDevices": "Connected devices",
@@ -13102,80 +13522,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 275 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"drawer": "Mostrar el menu drawer",
-		"profile": "Perfil",
-		"connectedDevices": "Periféricos conectados",
-		"storage": "Almacenamiento",
-		"storage_phrase": "%{diskUsage} GO de %{diskQuota} GO usados",
-		"help": "Ayuda",
-		"logout": "Finalizar sesión",
-		"beta_status": "Estamos aún en versión beta",
-		"beta": "beta",
-		"soon": "pronto",
-		"error_UnavailableStack": "La pila es inaccesible ( se agotó el tiempo de la conexión ).",
-		"error_UnauthorizedStack": "Faltan algunos permisos, la aplicación no puede acceder al recurso solicitado en la pila.",
-		"no_apps": "No se han encontrado aplicaciones en su Cozy.",
-		"menu": {
-			"apps": "Aplicaciones",
-			"settings": "Opciones"
-		},
-		"Categories": {
-			"cozy": "Aplicaciones Cozy",
-			"partners": "Aplicaciones de asociados",
-			"ptnb": "expPTNB",
-			"others": "Otras aplicaciones"
-		},
-		"claudy": {
-			"title": "¿Cómo pilotear su Cozy?",
-			"actions": {
-				"desktop": {
-					"title": "Lograr acceder a los archivos de su ordenador",
-					"description": "Sincronice todos sus archivos Cozy Drive con su ordenador",
-					"button": "Inatale Cozy Drive en su escritorio",
-					"link": "https://docs.cozy.io/es/download/"
-				},
-				"mobile": {
-					"title": "Haga una copia de seguridad y sincronice las imágenes de su celular",
-					"description": "Todos sus datos en memoria están seguros en su Cozy Drive",
-					"button": "Instale la aplicación Cozy Drive en su celular",
-					"link": "https://docs.cozy.io/es/download/"
-				},
-				"cozy-collect": {
-					"title": "Recupere sus facturas inmediatamente",
-					"description": "Cozy Collect organiza instantaneamente todos sus archivos",
-					"button": "Descubra Cozy Collect"
-				},
-				"support": {
-					"title": "¿Cómo podría usted ayudarnos hoy?",
-					"description": "Comparta su idea o su bug en nuetra interface consagrada a tal fin.",
-					"button": "Acceda a la asistencia",
-					"link": "https://cozy.io/es/support/"
-				}
-			}
-		}
-	};
-
-/***/ },
 /* 276 */
 /***/ function(module, exports) {
 
 	module.exports = {
 		"drawer": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
-		"help": "Help",
-		"logout": "Sign out",
-		"beta_status": "We are still in beta",
+		"profile": "Profiel",
+		"connectedDevices": "Verbonden apparaten",
+		"storage": "Opslag",
+		"storage_phrase": "%{diskUsage} GB van %{diskQuota} GB gebruikt",
+		"help": "Hulp",
+		"logout": "Log uit",
+		"beta_status": "We zijn nog in Beta",
 		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"soon": "binnenkort",
+		"error_UnavailableStack": "De stapel is onbereikbaar (verbinding verlopen)",
+		"error_UnauthorizedStack": "Sommige toestemmingen missen, de toepassing kan niet alles bereiken.",
 		"no_apps": "No applications found on the Cozy.",
 		"menu": {
 			"apps": "Apps",
@@ -13183,9 +13545,9 @@ return /******/ (function(modules) { // webpackBootstrap
 		},
 		"Categories": {
 			"cozy": "Cozy apps",
-			"partners": "Partners apps",
+			"partners": "Partner apps",
 			"ptnb": "expPTNB",
-			"others": "Other apps"
+			"others": "Andere apps"
 		},
 		"claudy": {
 			"title": "How to drive your Cozy?",
@@ -13280,54 +13642,54 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	module.exports = {
-		"drawer": "Afficher le menu latéral",
-		"profile": "Profil",
-		"connectedDevices": "Appareils connectés",
-		"storage": "Espace disque",
-		"storage_phrase": "%{diskUsage} Go sur %{diskQuota} Go",
-		"help": "Aide",
-		"logout": "Déconnexion",
-		"beta_status": "Nous sommes toujours en beta.",
+		"drawer": "Show menu drawer",
+		"profile": "Profile",
+		"connectedDevices": "Connected devices",
+		"storage": "Storage",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
+		"help": "Help",
+		"logout": "Sign out",
+		"beta_status": "We are still in beta",
 		"beta": "beta",
-		"soon": "à venir",
-		"error_UnavailableStack": "Connexion à la stack impossible (connection timed-out)",
-		"error_UnauthorizedStack": "Des permissions sont manquante, l'application ne peut accéder aux ressources demandées.",
-		"no_apps": "Pas d'applications Cozy trouvées.",
+		"soon": "soon",
+		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"no_apps": "No applications found on the Cozy.",
 		"menu": {
-			"apps": "Applications",
-			"settings": "Paramètres"
+			"apps": "Apps",
+			"settings": "Settings"
 		},
 		"Categories": {
-			"cozy": "Apps Cozy",
-			"partners": "Expérimentation MesInfos",
-			"ptnb": "Expérimentation Carnet du logement",
-			"others": "Autres apps"
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"ptnb": "expPTNB",
+			"others": "Other apps"
 		},
 		"claudy": {
-			"title": "Comment utiliser votre Cozy ?",
+			"title": "How to drive your Cozy?",
 			"actions": {
 				"desktop": {
-					"title": "Accéder à vos fichiers sur votre ordinateur",
-					"description": "Synchroniser tous vos fichiers Cozy Drive sur votre ordinateur",
-					"button": "Installer Cozy Drive sur votre ordinateur ",
-					"link": "https://docs.cozy.io/fr/download/"
+					"title": "Get access to your files in your computer",
+					"description": "Synchronize all your Cozy Drive files on your computer",
+					"button": "Install Cozy Drive on your desktop",
+					"link": "https://docs.cozy.io/en/download/"
 				},
 				"mobile": {
-					"title": "Sauvegarder vos photos depuis votre mobile ",
-					"description": "Vos souvenirs sont sauvegardés et synchronisés sur tous vos appareils",
-					"button": "Installer l'app Cozy Drive sur votre mobile",
-					"link": "https://docs.cozy.io/fr/download/"
+					"title": "Back up and sync your pics from your mobile",
+					"description": "All your memories are safe on your Cozy Drive",
+					"button": "Install the Cozy Drive app on your mobile",
+					"link": "https://docs.cozy.io/en/download/"
 				},
 				"cozy-collect": {
-					"title": "Récupérer automatiquement vos factures ",
-					"description": "Cozy Collect organise à votre place vos dossiers avec tous vos documents administratifs",
-					"button": "Découvrir Cozy Collect"
+					"title": "Get back your bills instantly",
+					"description": "Cozy Collect organize all your files instantly",
+					"button": "Discover Cozy Collect"
 				},
 				"support": {
-					"title": "Comment pouvons-nous vous aider aujourd'hui ? ",
-					"description": "Une idée de fonctionnalité ? Un bug ? Votre Cozy a besoin de vous pour être amélioré.",
-					"button": "Accéder au forum",
-					"link": "https://cozy.io/fr/support/"
+					"title": "How can we help you today ?",
+					"description": "Share your idea or your bug on our dedicated interface",
+					"button": "Get access to the support",
+					"link": "https://cozy.io/en/support/"
 				}
 			}
 		}
@@ -13396,53 +13758,53 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	module.exports = {
-		"drawer": "メニュードロワーを表示",
-		"profile": "プロフィール",
-		"connectedDevices": "接続されたデバイス",
-		"storage": "ストレージ",
-		"storage_phrase": "%{diskUsage} GB / %{diskQuota} GB 使用",
-		"help": "ヘルプ",
-		"logout": "サインアウト",
-		"beta_status": "まだベータ版です",
-		"beta": "ベータ",
-		"soon": "間もなく",
-		"error_UnavailableStack": "スタックに到達できません (接続タイムアウト)。",
-		"error_UnauthorizedStack": "一部のアクセス許可が不足しているため、アプリケーションはスタック上の要求されたリソースにアクセスできません。",
-		"no_apps": "Cozy にアプリケーションはありません。",
+		"drawer": "Show menu drawer",
+		"profile": "Profile",
+		"connectedDevices": "Connected devices",
+		"storage": "Storage",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
+		"help": "Help",
+		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"soon": "soon",
+		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"no_apps": "No applications found on the Cozy.",
 		"menu": {
-			"apps": "アプリ",
-			"settings": "設定"
+			"apps": "Apps",
+			"settings": "Settings"
 		},
 		"Categories": {
-			"cozy": "Cozy アプリ",
-			"partners": "パートナーアプリ",
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
 			"ptnb": "expPTNB",
-			"others": "他のアプリ"
+			"others": "Other apps"
 		},
 		"claudy": {
-			"title": "Cozy をドライブする方法は?",
+			"title": "How to drive your Cozy?",
 			"actions": {
 				"desktop": {
-					"title": "コンピューター内のファイルにアクセスする",
-					"description": "コンピューター上のすべての Cozy ドライブファイルを同期させる",
-					"button": "デスクトップに Cozy ドライブをインストールする",
+					"title": "Get access to your files in your computer",
+					"description": "Synchronize all your Cozy Drive files on your computer",
+					"button": "Install Cozy Drive on your desktop",
 					"link": "https://docs.cozy.io/en/download/"
 				},
 				"mobile": {
-					"title": "お使いの携帯から写真をバックアップして同期させる",
-					"description": "Cozy ドライブで、すべての思い出が安心です",
-					"button": "モバイルに Cozy ドライブアプリをインストールする",
+					"title": "Back up and sync your pics from your mobile",
+					"description": "All your memories are safe on your Cozy Drive",
+					"button": "Install the Cozy Drive app on your mobile",
 					"link": "https://docs.cozy.io/en/download/"
 				},
 				"cozy-collect": {
-					"title": "簡単に請求書を取り戻す",
-					"description": "Cozy コレクトはすぐにすべてのファイルを整理します",
-					"button": "Cozy コレクトを見つける"
+					"title": "Get back your bills instantly",
+					"description": "Cozy Collect organize all your files instantly",
+					"button": "Discover Cozy Collect"
 				},
 				"support": {
-					"title": "今日は何をお手伝いしますか?",
-					"description": "専用インターフェースであなたのアイデアやバグを共有する",
-					"button": "サポートにアクセスする",
+					"title": "How can we help you today ?",
+					"description": "Share your idea or your bug on our dedicated interface",
+					"button": "Get access to the support",
 					"link": "https://cozy.io/en/support/"
 				}
 			}
@@ -13513,64 +13875,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	module.exports = {
 		"drawer": "Show menu drawer",
-		"profile": "Profiel",
-		"connectedDevices": "Verbonden apparaten",
-		"storage": "Opslag",
-		"storage_phrase": "%{diskUsage} GB van %{diskQuota} GB gebruikt",
-		"help": "Hulp",
-		"logout": "Log uit",
-		"beta_status": "We zijn nog in Beta",
-		"beta": "beta",
-		"soon": "binnenkort",
-		"error_UnavailableStack": "De stapel is onbereikbaar (verbinding verlopen)",
-		"error_UnauthorizedStack": "Sommige toestemmingen missen, de toepassing kan niet alles bereiken.",
-		"no_apps": "No applications found on the Cozy.",
-		"menu": {
-			"apps": "Apps",
-			"settings": "Settings"
-		},
-		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partner apps",
-			"ptnb": "expPTNB",
-			"others": "Andere apps"
-		},
-		"claudy": {
-			"title": "How to drive your Cozy?",
-			"actions": {
-				"desktop": {
-					"title": "Get access to your files in your computer",
-					"description": "Synchronize all your Cozy Drive files on your computer",
-					"button": "Install Cozy Drive on your desktop",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"mobile": {
-					"title": "Back up and sync your pics from your mobile",
-					"description": "All your memories are safe on your Cozy Drive",
-					"button": "Install the Cozy Drive app on your mobile",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"cozy-collect": {
-					"title": "Get back your bills instantly",
-					"description": "Cozy Collect organize all your files instantly",
-					"button": "Discover Cozy Collect"
-				},
-				"support": {
-					"title": "How can we help you today ?",
-					"description": "Share your idea or your bug on our dedicated interface",
-					"button": "Get access to the support",
-					"link": "https://cozy.io/en/support/"
-				}
-			}
-		}
-	};
-
-/***/ },
-/* 283 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"drawer": "Show menu drawer",
 		"profile": "Profile",
 		"connectedDevices": "Connected devices",
 		"storage": "Storage",
@@ -13624,22 +13928,80 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
+/* 283 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"drawer": "Show menu drawer",
+		"profile": "Профиль",
+		"connectedDevices": "Присоединённые устройства",
+		"storage": "Хранилище",
+		"storage_phrase": "%{diskUsage} ГБ из %{diskQuota} ГБ использовано",
+		"help": "Помощь",
+		"logout": "Выход",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"soon": "soon",
+		"error_UnavailableStack": "Это стек не доступен (превышено время ожидания)",
+		"error_UnauthorizedStack": "Некоторые разрешения отсутствуют, получить доступ к запрашиваемому ресурсу в стеке не возможно.",
+		"no_apps": "No applications found on the Cozy.",
+		"menu": {
+			"apps": "Apps",
+			"settings": "Settings"
+		},
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"ptnb": "expPTNB",
+			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?",
+			"actions": {
+				"desktop": {
+					"title": "Get access to your files in your computer",
+					"description": "Synchronize all your Cozy Drive files on your computer",
+					"button": "Install Cozy Drive on your desktop",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"mobile": {
+					"title": "Back up and sync your pics from your mobile",
+					"description": "All your memories are safe on your Cozy Drive",
+					"button": "Install the Cozy Drive app on your mobile",
+					"link": "https://docs.cozy.io/en/download/"
+				},
+				"cozy-collect": {
+					"title": "Get back your bills instantly",
+					"description": "Cozy Collect organize all your files instantly",
+					"button": "Discover Cozy Collect"
+				},
+				"support": {
+					"title": "How can we help you today ?",
+					"description": "Share your idea or your bug on our dedicated interface",
+					"button": "Get access to the support",
+					"link": "https://cozy.io/en/support/"
+				}
+			}
+		}
+	};
+
+/***/ },
 /* 284 */
 /***/ function(module, exports) {
 
 	module.exports = {
 		"drawer": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
-		"help": "Help",
-		"logout": "Sign out",
+		"profile": "Профиль",
+		"connectedDevices": "Присоединённые устройства",
+		"storage": "Хранилище",
+		"storage_phrase": "%{diskUsage} ГБ из %{diskQuota} ГБ использовано",
+		"help": "Помощь",
+		"logout": "Выход",
 		"beta_status": "We are still in beta",
 		"beta": "beta",
 		"soon": "soon",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"error_UnavailableStack": "Это стек не доступен (превышено время ожидания)",
+		"error_UnauthorizedStack": "Некоторые разрешения отсутствуют, получить доступ к запрашиваемому ресурсу в стеке не возможно.",
 		"no_apps": "No applications found on the Cozy.",
 		"menu": {
 			"apps": "Apps",
@@ -13919,17 +14281,17 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	module.exports = {
 		"drawer": "Show menu drawer",
-		"profile": "Профиль",
-		"connectedDevices": "Присоединённые устройства",
-		"storage": "Хранилище",
-		"storage_phrase": "%{diskUsage} ГБ из %{diskQuota} ГБ использовано",
-		"help": "Помощь",
-		"logout": "Выход",
+		"profile": "Profile",
+		"connectedDevices": "Connected devices",
+		"storage": "Storage",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
+		"help": "Help",
+		"logout": "Sign out",
 		"beta_status": "We are still in beta",
 		"beta": "beta",
 		"soon": "soon",
-		"error_UnavailableStack": "Это стек не доступен (превышено время ожидания)",
-		"error_UnauthorizedStack": "Некоторые разрешения отсутствуют, получить доступ к запрашиваемому ресурсу в стеке не возможно.",
+		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
 		"no_apps": "No applications found on the Cozy.",
 		"menu": {
 			"apps": "Apps",
@@ -13977,17 +14339,17 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	module.exports = {
 		"drawer": "Show menu drawer",
-		"profile": "Профиль",
-		"connectedDevices": "Присоединённые устройства",
-		"storage": "Хранилище",
-		"storage_phrase": "%{diskUsage} ГБ из %{diskQuota} ГБ использовано",
-		"help": "Помощь",
-		"logout": "Выход",
+		"profile": "Profile",
+		"connectedDevices": "Connected devices",
+		"storage": "Storage",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
+		"help": "Help",
+		"logout": "Sign out",
 		"beta_status": "We are still in beta",
 		"beta": "beta",
 		"soon": "soon",
-		"error_UnavailableStack": "Это стек не доступен (превышено время ожидания)",
-		"error_UnauthorizedStack": "Некоторые разрешения отсутствуют, получить доступ к запрашиваемому ресурсу в стеке не возможно.",
+		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
 		"no_apps": "No applications found on the Cozy.",
 		"menu": {
 			"apps": "Apps",
@@ -14153,354 +14515,6 @@ return /******/ (function(modules) { // webpackBootstrap
 		"drawer": "Show menu drawer",
 		"profile": "Profile",
 		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
-		"help": "Help",
-		"logout": "Sign out",
-		"beta_status": "We are still in beta",
-		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
-		"no_apps": "No applications found on the Cozy.",
-		"menu": {
-			"apps": "Apps",
-			"settings": "Settings"
-		},
-		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
-			"ptnb": "expPTNB",
-			"others": "Other apps"
-		},
-		"claudy": {
-			"title": "How to drive your Cozy?",
-			"actions": {
-				"desktop": {
-					"title": "Get access to your files in your computer",
-					"description": "Synchronize all your Cozy Drive files on your computer",
-					"button": "Install Cozy Drive on your desktop",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"mobile": {
-					"title": "Back up and sync your pics from your mobile",
-					"description": "All your memories are safe on your Cozy Drive",
-					"button": "Install the Cozy Drive app on your mobile",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"cozy-collect": {
-					"title": "Get back your bills instantly",
-					"description": "Cozy Collect organize all your files instantly",
-					"button": "Discover Cozy Collect"
-				},
-				"support": {
-					"title": "How can we help you today ?",
-					"description": "Share your idea or your bug on our dedicated interface",
-					"button": "Get access to the support",
-					"link": "https://cozy.io/en/support/"
-				}
-			}
-		}
-	};
-
-/***/ },
-/* 294 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"drawer": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
-		"help": "Help",
-		"logout": "Sign out",
-		"beta_status": "We are still in beta",
-		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
-		"no_apps": "No applications found on the Cozy.",
-		"menu": {
-			"apps": "Apps",
-			"settings": "Settings"
-		},
-		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
-			"ptnb": "expPTNB",
-			"others": "Other apps"
-		},
-		"claudy": {
-			"title": "How to drive your Cozy?",
-			"actions": {
-				"desktop": {
-					"title": "Get access to your files in your computer",
-					"description": "Synchronize all your Cozy Drive files on your computer",
-					"button": "Install Cozy Drive on your desktop",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"mobile": {
-					"title": "Back up and sync your pics from your mobile",
-					"description": "All your memories are safe on your Cozy Drive",
-					"button": "Install the Cozy Drive app on your mobile",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"cozy-collect": {
-					"title": "Get back your bills instantly",
-					"description": "Cozy Collect organize all your files instantly",
-					"button": "Discover Cozy Collect"
-				},
-				"support": {
-					"title": "How can we help you today ?",
-					"description": "Share your idea or your bug on our dedicated interface",
-					"button": "Get access to the support",
-					"link": "https://cozy.io/en/support/"
-				}
-			}
-		}
-	};
-
-/***/ },
-/* 295 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"drawer": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
-		"help": "Help",
-		"logout": "Sign out",
-		"beta_status": "We are still in beta",
-		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
-		"no_apps": "No applications found on the Cozy.",
-		"menu": {
-			"apps": "Apps",
-			"settings": "Settings"
-		},
-		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
-			"ptnb": "expPTNB",
-			"others": "Other apps"
-		},
-		"claudy": {
-			"title": "How to drive your Cozy?",
-			"actions": {
-				"desktop": {
-					"title": "Get access to your files in your computer",
-					"description": "Synchronize all your Cozy Drive files on your computer",
-					"button": "Install Cozy Drive on your desktop",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"mobile": {
-					"title": "Back up and sync your pics from your mobile",
-					"description": "All your memories are safe on your Cozy Drive",
-					"button": "Install the Cozy Drive app on your mobile",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"cozy-collect": {
-					"title": "Get back your bills instantly",
-					"description": "Cozy Collect organize all your files instantly",
-					"button": "Discover Cozy Collect"
-				},
-				"support": {
-					"title": "How can we help you today ?",
-					"description": "Share your idea or your bug on our dedicated interface",
-					"button": "Get access to the support",
-					"link": "https://cozy.io/en/support/"
-				}
-			}
-		}
-	};
-
-/***/ },
-/* 296 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"drawer": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
-		"help": "Help",
-		"logout": "Sign out",
-		"beta_status": "We are still in beta",
-		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
-		"no_apps": "No applications found on the Cozy.",
-		"menu": {
-			"apps": "Apps",
-			"settings": "Settings"
-		},
-		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
-			"ptnb": "expPTNB",
-			"others": "Other apps"
-		},
-		"claudy": {
-			"title": "How to drive your Cozy?",
-			"actions": {
-				"desktop": {
-					"title": "Get access to your files in your computer",
-					"description": "Synchronize all your Cozy Drive files on your computer",
-					"button": "Install Cozy Drive on your desktop",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"mobile": {
-					"title": "Back up and sync your pics from your mobile",
-					"description": "All your memories are safe on your Cozy Drive",
-					"button": "Install the Cozy Drive app on your mobile",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"cozy-collect": {
-					"title": "Get back your bills instantly",
-					"description": "Cozy Collect organize all your files instantly",
-					"button": "Discover Cozy Collect"
-				},
-				"support": {
-					"title": "How can we help you today ?",
-					"description": "Share your idea or your bug on our dedicated interface",
-					"button": "Get access to the support",
-					"link": "https://cozy.io/en/support/"
-				}
-			}
-		}
-	};
-
-/***/ },
-/* 297 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"drawer": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
-		"help": "Help",
-		"logout": "Sign out",
-		"beta_status": "We are still in beta",
-		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
-		"no_apps": "No applications found on the Cozy.",
-		"menu": {
-			"apps": "Apps",
-			"settings": "Settings"
-		},
-		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
-			"ptnb": "expPTNB",
-			"others": "Other apps"
-		},
-		"claudy": {
-			"title": "How to drive your Cozy?",
-			"actions": {
-				"desktop": {
-					"title": "Get access to your files in your computer",
-					"description": "Synchronize all your Cozy Drive files on your computer",
-					"button": "Install Cozy Drive on your desktop",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"mobile": {
-					"title": "Back up and sync your pics from your mobile",
-					"description": "All your memories are safe on your Cozy Drive",
-					"button": "Install the Cozy Drive app on your mobile",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"cozy-collect": {
-					"title": "Get back your bills instantly",
-					"description": "Cozy Collect organize all your files instantly",
-					"button": "Discover Cozy Collect"
-				},
-				"support": {
-					"title": "How can we help you today ?",
-					"description": "Share your idea or your bug on our dedicated interface",
-					"button": "Get access to the support",
-					"link": "https://cozy.io/en/support/"
-				}
-			}
-		}
-	};
-
-/***/ },
-/* 298 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"drawer": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
-		"help": "Help",
-		"logout": "Sign out",
-		"beta_status": "We are still in beta",
-		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
-		"no_apps": "No applications found on the Cozy.",
-		"menu": {
-			"apps": "Apps",
-			"settings": "Settings"
-		},
-		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
-			"ptnb": "expPTNB",
-			"others": "Other apps"
-		},
-		"claudy": {
-			"title": "How to drive your Cozy?",
-			"actions": {
-				"desktop": {
-					"title": "Get access to your files in your computer",
-					"description": "Synchronize all your Cozy Drive files on your computer",
-					"button": "Install Cozy Drive on your desktop",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"mobile": {
-					"title": "Back up and sync your pics from your mobile",
-					"description": "All your memories are safe on your Cozy Drive",
-					"button": "Install the Cozy Drive app on your mobile",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"cozy-collect": {
-					"title": "Get back your bills instantly",
-					"description": "Cozy Collect organize all your files instantly",
-					"button": "Discover Cozy Collect"
-				},
-				"support": {
-					"title": "How can we help you today ?",
-					"description": "Share your idea or your bug on our dedicated interface",
-					"button": "Get access to the support",
-					"link": "https://cozy.io/en/support/"
-				}
-			}
-		}
-	};
-
-/***/ },
-/* 299 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"drawer": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
 		"storage": "储存",
 		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "帮助",
@@ -14552,7 +14566,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 300 */
+/* 294 */
 /***/ function(module, exports) {
 
 	module.exports = {
