@@ -38,15 +38,6 @@
   transition: all .2s ease-out;
 }
 
-@keyframes fadein {
-    from   { opacity: .5; }
-    to  { opacity: .8; }
-}
-
-[role=banner] .coz-claudy [data-claudy-loading=true] {
-  animation: fadein .3s infinite alternate;
-}
-
 [role=banner] .coz-claudy .coz-claudy-intent-wrapper {
   position: fixed;
   bottom: 9.5em;
