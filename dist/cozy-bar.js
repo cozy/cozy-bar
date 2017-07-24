@@ -373,7 +373,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  injectBarInDOM({ lang: lang, appName: appName, appEditor: appEditor, iconPath: iconPath, replaceTitleOnMobile: replaceTitleOnMobile, isPublic: isPublic });
 	};
 	
-	module.exports = { init: init, version: ("4.1.1") };
+	module.exports = { init: init, version: ("4.1.2") };
 
 /***/ },
 /* 1 */
@@ -12508,32 +12508,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			"others": "Other apps"
 		},
 		"claudy": {
-			"title": "How to drive your Cozy?",
-			"actions": {
-				"desktop": {
-					"title": "Get access to your files in your computer",
-					"description": "Synchronize all your Cozy Drive files on your computer",
-					"button": "Install Cozy Drive on your desktop",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"mobile": {
-					"title": "Back up and sync your pics from your mobile",
-					"description": "All your memories are safe on your Cozy Drive",
-					"button": "Install the Cozy Drive app on your mobile",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"cozy-collect": {
-					"title": "Get back your bills instantly",
-					"description": "Cozy Collect organize all your files instantly",
-					"button": "Discover Cozy Collect"
-				},
-				"support": {
-					"title": "How can we help you today ?",
-					"description": "Share your idea or your bug on our dedicated interface",
-					"button": "Get access to the support",
-					"link": "https://cozy.io/en/support/"
-				}
-			}
+			"title": "How to drive your Cozy?"
 		}
 	};
 
@@ -12566,32 +12541,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			"others": "Other apps"
 		},
 		"claudy": {
-			"title": "How to drive your Cozy?",
-			"actions": {
-				"desktop": {
-					"title": "Get access to your files in your computer",
-					"description": "Synchronize all your Cozy Drive files on your computer",
-					"button": "Install Cozy Drive on your desktop",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"mobile": {
-					"title": "Back up and sync your pics from your mobile",
-					"description": "All your memories are safe on your Cozy Drive",
-					"button": "Install the Cozy Drive app on your mobile",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"cozy-collect": {
-					"title": "Get back your bills instantly",
-					"description": "Cozy Collect organize all your files instantly",
-					"button": "Discover Cozy Collect"
-				},
-				"support": {
-					"title": "How can we help you today ?",
-					"description": "Share your idea or your bug on our dedicated interface",
-					"button": "Get access to the support",
-					"link": "https://cozy.io/en/support/"
-				}
-			}
+			"title": "How to drive your Cozy?"
 		}
 	};
 
@@ -12624,32 +12574,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			"others": "Other apps"
 		},
 		"claudy": {
-			"title": "How to drive your Cozy?",
-			"actions": {
-				"desktop": {
-					"title": "Get access to your files in your computer",
-					"description": "Synchronize all your Cozy Drive files on your computer",
-					"button": "Install Cozy Drive on your desktop",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"mobile": {
-					"title": "Back up and sync your pics from your mobile",
-					"description": "All your memories are safe on your Cozy Drive",
-					"button": "Install the Cozy Drive app on your mobile",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"cozy-collect": {
-					"title": "Get back your bills instantly",
-					"description": "Cozy Collect organize all your files instantly",
-					"button": "Discover Cozy Collect"
-				},
-				"support": {
-					"title": "How can we help you today ?",
-					"description": "Share your idea or your bug on our dedicated interface",
-					"button": "Get access to the support",
-					"link": "https://cozy.io/en/support/"
-				}
-			}
+			"title": "How to drive your Cozy?"
 		}
 	};
 
@@ -12682,32 +12607,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			"others": "Other apps"
 		},
 		"claudy": {
-			"title": "How to drive your Cozy?",
-			"actions": {
-				"desktop": {
-					"title": "Get access to your files in your computer",
-					"description": "Synchronize all your Cozy Drive files on your computer",
-					"button": "Install Cozy Drive on your desktop",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"mobile": {
-					"title": "Back up and sync your pics from your mobile",
-					"description": "All your memories are safe on your Cozy Drive",
-					"button": "Install the Cozy Drive app on your mobile",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"cozy-collect": {
-					"title": "Get back your bills instantly",
-					"description": "Cozy Collect organize all your files instantly",
-					"button": "Discover Cozy Collect"
-				},
-				"support": {
-					"title": "How can we help you today ?",
-					"description": "Share your idea or your bug on our dedicated interface",
-					"button": "Get access to the support",
-					"link": "https://cozy.io/en/support/"
-				}
-			}
+			"title": "How to drive your Cozy?"
 		}
 	};
 
@@ -12740,32 +12640,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			"others": "Other apps"
 		},
 		"claudy": {
-			"title": "How to drive your Cozy?",
-			"actions": {
-				"desktop": {
-					"title": "Get access to your files in your computer",
-					"description": "Synchronize all your Cozy Drive files on your computer",
-					"button": "Install Cozy Drive on your desktop",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"mobile": {
-					"title": "Back up and sync your pics from your mobile",
-					"description": "All your memories are safe on your Cozy Drive",
-					"button": "Install the Cozy Drive app on your mobile",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"cozy-collect": {
-					"title": "Get back your bills instantly",
-					"description": "Cozy Collect organize all your files instantly",
-					"button": "Discover Cozy Collect"
-				},
-				"support": {
-					"title": "How can we help you today ?",
-					"description": "Share your idea or your bug on our dedicated interface",
-					"button": "Get access to the support",
-					"link": "https://cozy.io/en/support/"
-				}
-			}
+			"title": "How to drive your Cozy?"
 		}
 	};
 
@@ -12798,32 +12673,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			"others": "Other apps"
 		},
 		"claudy": {
-			"title": "How to drive your Cozy?",
-			"actions": {
-				"desktop": {
-					"title": "Get access to your files in your computer",
-					"description": "Synchronize all your Cozy Drive files on your computer",
-					"button": "Install Cozy Drive on your desktop",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"mobile": {
-					"title": "Back up and sync your pics from your mobile",
-					"description": "All your memories are safe on your Cozy Drive",
-					"button": "Install the Cozy Drive app on your mobile",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"cozy-collect": {
-					"title": "Get back your bills instantly",
-					"description": "Cozy Collect organize all your files instantly",
-					"button": "Discover Cozy Collect"
-				},
-				"support": {
-					"title": "How can we help you today ?",
-					"description": "Share your idea or your bug on our dedicated interface",
-					"button": "Get access to the support",
-					"link": "https://cozy.io/en/support/"
-				}
-			}
+			"title": "How to drive your Cozy?"
 		}
 	};
 
@@ -12856,32 +12706,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			"others": "Other apps"
 		},
 		"claudy": {
-			"title": "How to drive your Cozy?",
-			"actions": {
-				"desktop": {
-					"title": "Get access to your files in your computer",
-					"description": "Synchronize all your Cozy Drive files on your computer",
-					"button": "Install Cozy Drive on your desktop",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"mobile": {
-					"title": "Back up and sync your pics from your mobile",
-					"description": "All your memories are safe on your Cozy Drive",
-					"button": "Install the Cozy Drive app on your mobile",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"cozy-collect": {
-					"title": "Get back your bills instantly",
-					"description": "Cozy Collect organize all your files instantly",
-					"button": "Discover Cozy Collect"
-				},
-				"support": {
-					"title": "How can we help you today ?",
-					"description": "Share your idea or your bug on our dedicated interface",
-					"button": "Get access to the support",
-					"link": "https://cozy.io/en/support/"
-				}
-			}
+			"title": "How to drive your Cozy?"
 		}
 	};
 
@@ -12914,32 +12739,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			"others": "Other apps"
 		},
 		"claudy": {
-			"title": "How to drive your Cozy?",
-			"actions": {
-				"desktop": {
-					"title": "Get access to your files in your computer",
-					"description": "Synchronize all your Cozy Drive files on your computer",
-					"button": "Install Cozy Drive on your desktop",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"mobile": {
-					"title": "Back up and sync your pics from your mobile",
-					"description": "All your memories are safe on your Cozy Drive",
-					"button": "Install the Cozy Drive app on your mobile",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"cozy-collect": {
-					"title": "Get back your bills instantly",
-					"description": "Cozy Collect organize all your files instantly",
-					"button": "Discover Cozy Collect"
-				},
-				"support": {
-					"title": "How can we help you today ?",
-					"description": "Share your idea or your bug on our dedicated interface",
-					"button": "Get access to the support",
-					"link": "https://cozy.io/en/support/"
-				}
-			}
+			"title": "How to drive your Cozy?"
 		}
 	};
 
@@ -12972,32 +12772,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			"others": "Other apps"
 		},
 		"claudy": {
-			"title": "How to drive your Cozy?",
-			"actions": {
-				"desktop": {
-					"title": "Get access to your files in your computer",
-					"description": "Synchronize all your Cozy Drive files on your computer",
-					"button": "Install Cozy Drive on your desktop",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"mobile": {
-					"title": "Back up and sync your pics from your mobile",
-					"description": "All your memories are safe on your Cozy Drive",
-					"button": "Install the Cozy Drive app on your mobile",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"cozy-collect": {
-					"title": "Get back your bills instantly",
-					"description": "Cozy Collect organize all your files instantly",
-					"button": "Discover Cozy Collect"
-				},
-				"support": {
-					"title": "How can we help you today ?",
-					"description": "Share your idea or your bug on our dedicated interface",
-					"button": "Get access to the support",
-					"link": "https://cozy.io/en/support/"
-				}
-			}
+			"title": "How to drive your Cozy?"
 		}
 	};
 
@@ -13030,32 +12805,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			"others": "Other apps"
 		},
 		"claudy": {
-			"title": "How to drive your Cozy?",
-			"actions": {
-				"desktop": {
-					"title": "Get access to your files in your computer",
-					"description": "Synchronize all your Cozy Drive files on your computer",
-					"button": "Install Cozy Drive on your desktop",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"mobile": {
-					"title": "Back up and sync your pics from your mobile",
-					"description": "All your memories are safe on your Cozy Drive",
-					"button": "Install the Cozy Drive app on your mobile",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"cozy-collect": {
-					"title": "Get back your bills instantly",
-					"description": "Cozy Collect organize all your files instantly",
-					"button": "Discover Cozy Collect"
-				},
-				"support": {
-					"title": "How can we help you today ?",
-					"description": "Share your idea or your bug on our dedicated interface",
-					"button": "Get access to the support",
-					"link": "https://cozy.io/en/support/"
-				}
-			}
+			"title": "How to drive your Cozy?"
 		}
 	};
 
@@ -13088,32 +12838,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			"others": "Other apps"
 		},
 		"claudy": {
-			"title": "How to drive your Cozy?",
-			"actions": {
-				"desktop": {
-					"title": "Get access to your files in your computer",
-					"description": "Synchronize all your Cozy Drive files on your computer",
-					"button": "Install Cozy Drive on your desktop",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"mobile": {
-					"title": "Back up and sync your pics from your mobile",
-					"description": "All your memories are safe on your Cozy Drive",
-					"button": "Install the Cozy Drive app on your mobile",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"cozy-collect": {
-					"title": "Get back your bills instantly",
-					"description": "Cozy Collect organize all your files instantly",
-					"button": "Discover Cozy Collect"
-				},
-				"support": {
-					"title": "How can we help you today ?",
-					"description": "Share your idea or your bug on our dedicated interface",
-					"button": "Get access to the support",
-					"link": "https://cozy.io/en/support/"
-				}
-			}
+			"title": "How to drive your Cozy?"
 		}
 	};
 
@@ -13146,32 +12871,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			"others": "Otras aplicaciones"
 		},
 		"claudy": {
-			"title": "¿Cómo pilotear su Cozy?",
-			"actions": {
-				"desktop": {
-					"title": "Lograr acceder a los archivos de su ordenador",
-					"description": "Sincronice todos sus archivos Cozy Drive con su ordenador",
-					"button": "Inatale Cozy Drive en su escritorio",
-					"link": "https://docs.cozy.io/es/download/"
-				},
-				"mobile": {
-					"title": "Haga una copia de seguridad y sincronice las imágenes de su celular",
-					"description": "Todos sus datos en memoria están seguros en su Cozy Drive",
-					"button": "Instale la aplicación Cozy Drive en su celular",
-					"link": "https://docs.cozy.io/es/download/"
-				},
-				"cozy-collect": {
-					"title": "Recupere sus facturas inmediatamente",
-					"description": "Cozy Collect organiza instantaneamente todos sus archivos",
-					"button": "Descubra Cozy Collect"
-				},
-				"support": {
-					"title": "¿Cómo podría usted ayudarnos hoy?",
-					"description": "Comparta su idea o su bug en nuetra interface consagrada a tal fin.",
-					"button": "Acceda a la asistencia",
-					"link": "https://cozy.io/es/support/"
-				}
-			}
+			"title": "¿Cómo pilotear su Cozy?"
 		}
 	};
 
@@ -13204,32 +12904,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			"others": "Other apps"
 		},
 		"claudy": {
-			"title": "How to drive your Cozy?",
-			"actions": {
-				"desktop": {
-					"title": "Get access to your files in your computer",
-					"description": "Synchronize all your Cozy Drive files on your computer",
-					"button": "Install Cozy Drive on your desktop",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"mobile": {
-					"title": "Back up and sync your pics from your mobile",
-					"description": "All your memories are safe on your Cozy Drive",
-					"button": "Install the Cozy Drive app on your mobile",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"cozy-collect": {
-					"title": "Get back your bills instantly",
-					"description": "Cozy Collect organize all your files instantly",
-					"button": "Discover Cozy Collect"
-				},
-				"support": {
-					"title": "How can we help you today ?",
-					"description": "Share your idea or your bug on our dedicated interface",
-					"button": "Get access to the support",
-					"link": "https://cozy.io/en/support/"
-				}
-			}
+			"title": "How to drive your Cozy?"
 		}
 	};
 
@@ -13262,32 +12937,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			"others": "Other apps"
 		},
 		"claudy": {
-			"title": "How to drive your Cozy?",
-			"actions": {
-				"desktop": {
-					"title": "Get access to your files in your computer",
-					"description": "Synchronize all your Cozy Drive files on your computer",
-					"button": "Install Cozy Drive on your desktop",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"mobile": {
-					"title": "Back up and sync your pics from your mobile",
-					"description": "All your memories are safe on your Cozy Drive",
-					"button": "Install the Cozy Drive app on your mobile",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"cozy-collect": {
-					"title": "Get back your bills instantly",
-					"description": "Cozy Collect organize all your files instantly",
-					"button": "Discover Cozy Collect"
-				},
-				"support": {
-					"title": "How can we help you today ?",
-					"description": "Share your idea or your bug on our dedicated interface",
-					"button": "Get access to the support",
-					"link": "https://cozy.io/en/support/"
-				}
-			}
+			"title": "How to drive your Cozy?"
 		}
 	};
 
@@ -13320,32 +12970,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			"others": "Autres apps"
 		},
 		"claudy": {
-			"title": "Comment utiliser votre Cozy ?",
-			"actions": {
-				"desktop": {
-					"title": "Accéder à vos fichiers sur votre ordinateur",
-					"description": "Synchroniser tous vos fichiers Cozy Drive sur votre ordinateur",
-					"button": "Installer Cozy Drive sur votre ordinateur ",
-					"link": "https://docs.cozy.io/fr/download/"
-				},
-				"mobile": {
-					"title": "Sauvegarder vos photos depuis votre mobile ",
-					"description": "Vos souvenirs sont sauvegardés et synchronisés sur tous vos appareils",
-					"button": "Installer l'app Cozy Drive sur votre mobile",
-					"link": "https://docs.cozy.io/fr/download/"
-				},
-				"cozy-collect": {
-					"title": "Récupérer automatiquement vos factures ",
-					"description": "Cozy Collect organise à votre place vos dossiers avec tous vos documents administratifs",
-					"button": "Découvrir Cozy Collect"
-				},
-				"support": {
-					"title": "Comment pouvons-nous vous aider aujourd'hui ? ",
-					"description": "Une idée de fonctionnalité ? Un bug ? Votre Cozy a besoin de vous pour être amélioré.",
-					"button": "Accéder au forum",
-					"link": "https://cozy.io/fr/support/"
-				}
-			}
+			"title": "Comment utiliser votre Cozy ?"
 		}
 	};
 
@@ -13378,32 +13003,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			"others": "Other apps"
 		},
 		"claudy": {
-			"title": "How to drive your Cozy?",
-			"actions": {
-				"desktop": {
-					"title": "Get access to your files in your computer",
-					"description": "Synchronize all your Cozy Drive files on your computer",
-					"button": "Install Cozy Drive on your desktop",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"mobile": {
-					"title": "Back up and sync your pics from your mobile",
-					"description": "All your memories are safe on your Cozy Drive",
-					"button": "Install the Cozy Drive app on your mobile",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"cozy-collect": {
-					"title": "Get back your bills instantly",
-					"description": "Cozy Collect organize all your files instantly",
-					"button": "Discover Cozy Collect"
-				},
-				"support": {
-					"title": "How can we help you today ?",
-					"description": "Share your idea or your bug on our dedicated interface",
-					"button": "Get access to the support",
-					"link": "https://cozy.io/en/support/"
-				}
-			}
+			"title": "How to drive your Cozy?"
 		}
 	};
 
@@ -13436,32 +13036,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			"others": "他のアプリ"
 		},
 		"claudy": {
-			"title": "Cozy をドライブする方法は?",
-			"actions": {
-				"desktop": {
-					"title": "コンピューター内のファイルにアクセスする",
-					"description": "コンピューター上のすべての Cozy ドライブファイルを同期させる",
-					"button": "デスクトップに Cozy ドライブをインストールする",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"mobile": {
-					"title": "お使いの携帯から写真をバックアップして同期させる",
-					"description": "Cozy ドライブで、すべての思い出が安心です",
-					"button": "モバイルに Cozy ドライブアプリをインストールする",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"cozy-collect": {
-					"title": "簡単に請求書を取り戻す",
-					"description": "Cozy コレクトはすぐにすべてのファイルを整理します",
-					"button": "Cozy コレクトを見つける"
-				},
-				"support": {
-					"title": "今日は何をお手伝いしますか?",
-					"description": "専用インターフェースであなたのアイデアやバグを共有する",
-					"button": "サポートにアクセスする",
-					"link": "https://cozy.io/en/support/"
-				}
-			}
+			"title": "Cozy をドライブする方法は?"
 		}
 	};
 
@@ -13494,32 +13069,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			"others": "Other apps"
 		},
 		"claudy": {
-			"title": "How to drive your Cozy?",
-			"actions": {
-				"desktop": {
-					"title": "Get access to your files in your computer",
-					"description": "Synchronize all your Cozy Drive files on your computer",
-					"button": "Install Cozy Drive on your desktop",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"mobile": {
-					"title": "Back up and sync your pics from your mobile",
-					"description": "All your memories are safe on your Cozy Drive",
-					"button": "Install the Cozy Drive app on your mobile",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"cozy-collect": {
-					"title": "Get back your bills instantly",
-					"description": "Cozy Collect organize all your files instantly",
-					"button": "Discover Cozy Collect"
-				},
-				"support": {
-					"title": "How can we help you today ?",
-					"description": "Share your idea or your bug on our dedicated interface",
-					"button": "Get access to the support",
-					"link": "https://cozy.io/en/support/"
-				}
-			}
+			"title": "How to drive your Cozy?"
 		}
 	};
 
@@ -13552,32 +13102,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			"others": "Andere apps"
 		},
 		"claudy": {
-			"title": "How to drive your Cozy?",
-			"actions": {
-				"desktop": {
-					"title": "Get access to your files in your computer",
-					"description": "Synchronize all your Cozy Drive files on your computer",
-					"button": "Install Cozy Drive on your desktop",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"mobile": {
-					"title": "Back up and sync your pics from your mobile",
-					"description": "All your memories are safe on your Cozy Drive",
-					"button": "Install the Cozy Drive app on your mobile",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"cozy-collect": {
-					"title": "Get back your bills instantly",
-					"description": "Cozy Collect organize all your files instantly",
-					"button": "Discover Cozy Collect"
-				},
-				"support": {
-					"title": "How can we help you today ?",
-					"description": "Share your idea or your bug on our dedicated interface",
-					"button": "Get access to the support",
-					"link": "https://cozy.io/en/support/"
-				}
-			}
+			"title": "How to drive your Cozy?"
 		}
 	};
 
@@ -13610,32 +13135,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			"others": "Other apps"
 		},
 		"claudy": {
-			"title": "How to drive your Cozy?",
-			"actions": {
-				"desktop": {
-					"title": "Get access to your files in your computer",
-					"description": "Synchronize all your Cozy Drive files on your computer",
-					"button": "Install Cozy Drive on your desktop",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"mobile": {
-					"title": "Back up and sync your pics from your mobile",
-					"description": "All your memories are safe on your Cozy Drive",
-					"button": "Install the Cozy Drive app on your mobile",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"cozy-collect": {
-					"title": "Get back your bills instantly",
-					"description": "Cozy Collect organize all your files instantly",
-					"button": "Discover Cozy Collect"
-				},
-				"support": {
-					"title": "How can we help you today ?",
-					"description": "Share your idea or your bug on our dedicated interface",
-					"button": "Get access to the support",
-					"link": "https://cozy.io/en/support/"
-				}
-			}
+			"title": "How to drive your Cozy?"
 		}
 	};
 
@@ -13668,32 +13168,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			"others": "Other apps"
 		},
 		"claudy": {
-			"title": "How to drive your Cozy?",
-			"actions": {
-				"desktop": {
-					"title": "Get access to your files in your computer",
-					"description": "Synchronize all your Cozy Drive files on your computer",
-					"button": "Install Cozy Drive on your desktop",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"mobile": {
-					"title": "Back up and sync your pics from your mobile",
-					"description": "All your memories are safe on your Cozy Drive",
-					"button": "Install the Cozy Drive app on your mobile",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"cozy-collect": {
-					"title": "Get back your bills instantly",
-					"description": "Cozy Collect organize all your files instantly",
-					"button": "Discover Cozy Collect"
-				},
-				"support": {
-					"title": "How can we help you today ?",
-					"description": "Share your idea or your bug on our dedicated interface",
-					"button": "Get access to the support",
-					"link": "https://cozy.io/en/support/"
-				}
-			}
+			"title": "How to drive your Cozy?"
 		}
 	};
 
@@ -13726,32 +13201,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			"others": "Other apps"
 		},
 		"claudy": {
-			"title": "How to drive your Cozy?",
-			"actions": {
-				"desktop": {
-					"title": "Get access to your files in your computer",
-					"description": "Synchronize all your Cozy Drive files on your computer",
-					"button": "Install Cozy Drive on your desktop",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"mobile": {
-					"title": "Back up and sync your pics from your mobile",
-					"description": "All your memories are safe on your Cozy Drive",
-					"button": "Install the Cozy Drive app on your mobile",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"cozy-collect": {
-					"title": "Get back your bills instantly",
-					"description": "Cozy Collect organize all your files instantly",
-					"button": "Discover Cozy Collect"
-				},
-				"support": {
-					"title": "How can we help you today ?",
-					"description": "Share your idea or your bug on our dedicated interface",
-					"button": "Get access to the support",
-					"link": "https://cozy.io/en/support/"
-				}
-			}
+			"title": "How to drive your Cozy?"
 		}
 	};
 
@@ -13784,32 +13234,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			"others": "Other apps"
 		},
 		"claudy": {
-			"title": "How to drive your Cozy?",
-			"actions": {
-				"desktop": {
-					"title": "Get access to your files in your computer",
-					"description": "Synchronize all your Cozy Drive files on your computer",
-					"button": "Install Cozy Drive on your desktop",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"mobile": {
-					"title": "Back up and sync your pics from your mobile",
-					"description": "All your memories are safe on your Cozy Drive",
-					"button": "Install the Cozy Drive app on your mobile",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"cozy-collect": {
-					"title": "Get back your bills instantly",
-					"description": "Cozy Collect organize all your files instantly",
-					"button": "Discover Cozy Collect"
-				},
-				"support": {
-					"title": "How can we help you today ?",
-					"description": "Share your idea or your bug on our dedicated interface",
-					"button": "Get access to the support",
-					"link": "https://cozy.io/en/support/"
-				}
-			}
+			"title": "How to drive your Cozy?"
 		}
 	};
 
@@ -13842,32 +13267,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			"others": "Other apps"
 		},
 		"claudy": {
-			"title": "How to drive your Cozy?",
-			"actions": {
-				"desktop": {
-					"title": "Get access to your files in your computer",
-					"description": "Synchronize all your Cozy Drive files on your computer",
-					"button": "Install Cozy Drive on your desktop",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"mobile": {
-					"title": "Back up and sync your pics from your mobile",
-					"description": "All your memories are safe on your Cozy Drive",
-					"button": "Install the Cozy Drive app on your mobile",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"cozy-collect": {
-					"title": "Get back your bills instantly",
-					"description": "Cozy Collect organize all your files instantly",
-					"button": "Discover Cozy Collect"
-				},
-				"support": {
-					"title": "How can we help you today ?",
-					"description": "Share your idea or your bug on our dedicated interface",
-					"button": "Get access to the support",
-					"link": "https://cozy.io/en/support/"
-				}
-			}
+			"title": "How to drive your Cozy?"
 		}
 	};
 
@@ -13900,32 +13300,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			"others": "Other apps"
 		},
 		"claudy": {
-			"title": "How to drive your Cozy?",
-			"actions": {
-				"desktop": {
-					"title": "Get access to your files in your computer",
-					"description": "Synchronize all your Cozy Drive files on your computer",
-					"button": "Install Cozy Drive on your desktop",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"mobile": {
-					"title": "Back up and sync your pics from your mobile",
-					"description": "All your memories are safe on your Cozy Drive",
-					"button": "Install the Cozy Drive app on your mobile",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"cozy-collect": {
-					"title": "Get back your bills instantly",
-					"description": "Cozy Collect organize all your files instantly",
-					"button": "Discover Cozy Collect"
-				},
-				"support": {
-					"title": "How can we help you today ?",
-					"description": "Share your idea or your bug on our dedicated interface",
-					"button": "Get access to the support",
-					"link": "https://cozy.io/en/support/"
-				}
-			}
+			"title": "How to drive your Cozy?"
 		}
 	};
 
@@ -13958,32 +13333,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			"others": "Other apps"
 		},
 		"claudy": {
-			"title": "How to drive your Cozy?",
-			"actions": {
-				"desktop": {
-					"title": "Get access to your files in your computer",
-					"description": "Synchronize all your Cozy Drive files on your computer",
-					"button": "Install Cozy Drive on your desktop",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"mobile": {
-					"title": "Back up and sync your pics from your mobile",
-					"description": "All your memories are safe on your Cozy Drive",
-					"button": "Install the Cozy Drive app on your mobile",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"cozy-collect": {
-					"title": "Get back your bills instantly",
-					"description": "Cozy Collect organize all your files instantly",
-					"button": "Discover Cozy Collect"
-				},
-				"support": {
-					"title": "How can we help you today ?",
-					"description": "Share your idea or your bug on our dedicated interface",
-					"button": "Get access to the support",
-					"link": "https://cozy.io/en/support/"
-				}
-			}
+			"title": "How to drive your Cozy?"
 		}
 	};
 
@@ -14016,32 +13366,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			"others": "Other apps"
 		},
 		"claudy": {
-			"title": "How to drive your Cozy?",
-			"actions": {
-				"desktop": {
-					"title": "Get access to your files in your computer",
-					"description": "Synchronize all your Cozy Drive files on your computer",
-					"button": "Install Cozy Drive on your desktop",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"mobile": {
-					"title": "Back up and sync your pics from your mobile",
-					"description": "All your memories are safe on your Cozy Drive",
-					"button": "Install the Cozy Drive app on your mobile",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"cozy-collect": {
-					"title": "Get back your bills instantly",
-					"description": "Cozy Collect organize all your files instantly",
-					"button": "Discover Cozy Collect"
-				},
-				"support": {
-					"title": "How can we help you today ?",
-					"description": "Share your idea or your bug on our dedicated interface",
-					"button": "Get access to the support",
-					"link": "https://cozy.io/en/support/"
-				}
-			}
+			"title": "How to drive your Cozy?"
 		}
 	};
 
@@ -14074,32 +13399,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			"others": "Other apps"
 		},
 		"claudy": {
-			"title": "How to drive your Cozy?",
-			"actions": {
-				"desktop": {
-					"title": "Get access to your files in your computer",
-					"description": "Synchronize all your Cozy Drive files on your computer",
-					"button": "Install Cozy Drive on your desktop",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"mobile": {
-					"title": "Back up and sync your pics from your mobile",
-					"description": "All your memories are safe on your Cozy Drive",
-					"button": "Install the Cozy Drive app on your mobile",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"cozy-collect": {
-					"title": "Get back your bills instantly",
-					"description": "Cozy Collect organize all your files instantly",
-					"button": "Discover Cozy Collect"
-				},
-				"support": {
-					"title": "How can we help you today ?",
-					"description": "Share your idea or your bug on our dedicated interface",
-					"button": "Get access to the support",
-					"link": "https://cozy.io/en/support/"
-				}
-			}
+			"title": "How to drive your Cozy?"
 		}
 	};
 
@@ -14132,32 +13432,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			"others": "Other apps"
 		},
 		"claudy": {
-			"title": "How to drive your Cozy?",
-			"actions": {
-				"desktop": {
-					"title": "Get access to your files in your computer",
-					"description": "Synchronize all your Cozy Drive files on your computer",
-					"button": "Install Cozy Drive on your desktop",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"mobile": {
-					"title": "Back up and sync your pics from your mobile",
-					"description": "All your memories are safe on your Cozy Drive",
-					"button": "Install the Cozy Drive app on your mobile",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"cozy-collect": {
-					"title": "Get back your bills instantly",
-					"description": "Cozy Collect organize all your files instantly",
-					"button": "Discover Cozy Collect"
-				},
-				"support": {
-					"title": "How can we help you today ?",
-					"description": "Share your idea or your bug on our dedicated interface",
-					"button": "Get access to the support",
-					"link": "https://cozy.io/en/support/"
-				}
-			}
+			"title": "How to drive your Cozy?"
 		}
 	};
 
@@ -14190,32 +13465,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			"others": "Other apps"
 		},
 		"claudy": {
-			"title": "How to drive your Cozy?",
-			"actions": {
-				"desktop": {
-					"title": "Get access to your files in your computer",
-					"description": "Synchronize all your Cozy Drive files on your computer",
-					"button": "Install Cozy Drive on your desktop",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"mobile": {
-					"title": "Back up and sync your pics from your mobile",
-					"description": "All your memories are safe on your Cozy Drive",
-					"button": "Install the Cozy Drive app on your mobile",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"cozy-collect": {
-					"title": "Get back your bills instantly",
-					"description": "Cozy Collect organize all your files instantly",
-					"button": "Discover Cozy Collect"
-				},
-				"support": {
-					"title": "How can we help you today ?",
-					"description": "Share your idea or your bug on our dedicated interface",
-					"button": "Get access to the support",
-					"link": "https://cozy.io/en/support/"
-				}
-			}
+			"title": "How to drive your Cozy?"
 		}
 	};
 
@@ -14248,32 +13498,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			"others": "Other apps"
 		},
 		"claudy": {
-			"title": "How to drive your Cozy?",
-			"actions": {
-				"desktop": {
-					"title": "Get access to your files in your computer",
-					"description": "Synchronize all your Cozy Drive files on your computer",
-					"button": "Install Cozy Drive on your desktop",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"mobile": {
-					"title": "Back up and sync your pics from your mobile",
-					"description": "All your memories are safe on your Cozy Drive",
-					"button": "Install the Cozy Drive app on your mobile",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"cozy-collect": {
-					"title": "Get back your bills instantly",
-					"description": "Cozy Collect organize all your files instantly",
-					"button": "Discover Cozy Collect"
-				},
-				"support": {
-					"title": "How can we help you today ?",
-					"description": "Share your idea or your bug on our dedicated interface",
-					"button": "Get access to the support",
-					"link": "https://cozy.io/en/support/"
-				}
-			}
+			"title": "How to drive your Cozy?"
 		}
 	};
 
@@ -14306,32 +13531,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			"others": "Other apps"
 		},
 		"claudy": {
-			"title": "How to drive your Cozy?",
-			"actions": {
-				"desktop": {
-					"title": "Get access to your files in your computer",
-					"description": "Synchronize all your Cozy Drive files on your computer",
-					"button": "Install Cozy Drive on your desktop",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"mobile": {
-					"title": "Back up and sync your pics from your mobile",
-					"description": "All your memories are safe on your Cozy Drive",
-					"button": "Install the Cozy Drive app on your mobile",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"cozy-collect": {
-					"title": "Get back your bills instantly",
-					"description": "Cozy Collect organize all your files instantly",
-					"button": "Discover Cozy Collect"
-				},
-				"support": {
-					"title": "How can we help you today ?",
-					"description": "Share your idea or your bug on our dedicated interface",
-					"button": "Get access to the support",
-					"link": "https://cozy.io/en/support/"
-				}
-			}
+			"title": "How to drive your Cozy?"
 		}
 	};
 
@@ -14364,32 +13564,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			"others": "Other apps"
 		},
 		"claudy": {
-			"title": "How to drive your Cozy?",
-			"actions": {
-				"desktop": {
-					"title": "Get access to your files in your computer",
-					"description": "Synchronize all your Cozy Drive files on your computer",
-					"button": "Install Cozy Drive on your desktop",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"mobile": {
-					"title": "Back up and sync your pics from your mobile",
-					"description": "All your memories are safe on your Cozy Drive",
-					"button": "Install the Cozy Drive app on your mobile",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"cozy-collect": {
-					"title": "Get back your bills instantly",
-					"description": "Cozy Collect organize all your files instantly",
-					"button": "Discover Cozy Collect"
-				},
-				"support": {
-					"title": "How can we help you today ?",
-					"description": "Share your idea or your bug on our dedicated interface",
-					"button": "Get access to the support",
-					"link": "https://cozy.io/en/support/"
-				}
-			}
+			"title": "How to drive your Cozy?"
 		}
 	};
 
@@ -14422,32 +13597,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			"others": "Other apps"
 		},
 		"claudy": {
-			"title": "How to drive your Cozy?",
-			"actions": {
-				"desktop": {
-					"title": "Get access to your files in your computer",
-					"description": "Synchronize all your Cozy Drive files on your computer",
-					"button": "Install Cozy Drive on your desktop",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"mobile": {
-					"title": "Back up and sync your pics from your mobile",
-					"description": "All your memories are safe on your Cozy Drive",
-					"button": "Install the Cozy Drive app on your mobile",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"cozy-collect": {
-					"title": "Get back your bills instantly",
-					"description": "Cozy Collect organize all your files instantly",
-					"button": "Discover Cozy Collect"
-				},
-				"support": {
-					"title": "How can we help you today ?",
-					"description": "Share your idea or your bug on our dedicated interface",
-					"button": "Get access to the support",
-					"link": "https://cozy.io/en/support/"
-				}
-			}
+			"title": "How to drive your Cozy?"
 		}
 	};
 
@@ -14480,32 +13630,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			"others": "Other apps"
 		},
 		"claudy": {
-			"title": "How to drive your Cozy?",
-			"actions": {
-				"desktop": {
-					"title": "Get access to your files in your computer",
-					"description": "Synchronize all your Cozy Drive files on your computer",
-					"button": "Install Cozy Drive on your desktop",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"mobile": {
-					"title": "Back up and sync your pics from your mobile",
-					"description": "All your memories are safe on your Cozy Drive",
-					"button": "Install the Cozy Drive app on your mobile",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"cozy-collect": {
-					"title": "Get back your bills instantly",
-					"description": "Cozy Collect organize all your files instantly",
-					"button": "Discover Cozy Collect"
-				},
-				"support": {
-					"title": "How can we help you today ?",
-					"description": "Share your idea or your bug on our dedicated interface",
-					"button": "Get access to the support",
-					"link": "https://cozy.io/en/support/"
-				}
-			}
+			"title": "How to drive your Cozy?"
 		}
 	};
 
@@ -14538,32 +13663,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			"others": "Other apps"
 		},
 		"claudy": {
-			"title": "How to drive your Cozy?",
-			"actions": {
-				"desktop": {
-					"title": "Get access to your files in your computer",
-					"description": "Synchronize all your Cozy Drive files on your computer",
-					"button": "Install Cozy Drive on your desktop",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"mobile": {
-					"title": "Back up and sync your pics from your mobile",
-					"description": "All your memories are safe on your Cozy Drive",
-					"button": "Install the Cozy Drive app on your mobile",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"cozy-collect": {
-					"title": "Get back your bills instantly",
-					"description": "Cozy Collect organize all your files instantly",
-					"button": "Discover Cozy Collect"
-				},
-				"support": {
-					"title": "How can we help you today ?",
-					"description": "Share your idea or your bug on our dedicated interface",
-					"button": "Get access to the support",
-					"link": "https://cozy.io/en/support/"
-				}
-			}
+			"title": "How to drive your Cozy?"
 		}
 	};
 
@@ -14596,32 +13696,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			"others": "Other apps"
 		},
 		"claudy": {
-			"title": "How to drive your Cozy?",
-			"actions": {
-				"desktop": {
-					"title": "Get access to your files in your computer",
-					"description": "Synchronize all your Cozy Drive files on your computer",
-					"button": "Install Cozy Drive on your desktop",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"mobile": {
-					"title": "Back up and sync your pics from your mobile",
-					"description": "All your memories are safe on your Cozy Drive",
-					"button": "Install the Cozy Drive app on your mobile",
-					"link": "https://docs.cozy.io/en/download/"
-				},
-				"cozy-collect": {
-					"title": "Get back your bills instantly",
-					"description": "Cozy Collect organize all your files instantly",
-					"button": "Discover Cozy Collect"
-				},
-				"support": {
-					"title": "How can we help you today ?",
-					"description": "Share your idea or your bug on our dedicated interface",
-					"button": "Get access to the support",
-					"link": "https://cozy.io/en/support/"
-				}
-			}
+			"title": "How to drive your Cozy?"
 		}
 	};
 
