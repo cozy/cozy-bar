@@ -57,5 +57,21 @@
   margin: 0 0 .1em 0;
   font-weight: normal;
   font-size: .875em;
-  color: #F52D2D;
+  color: var(--pomegranate);
+}
+
+/* Claudy loading */
+[role=banner] .coz-claudy [data-claudy-loading=true]::before {
+  position: absolute;
+  content: '';
+  width: 100%;
+  height: 100%;
+  bottom: 0;
+  right: 0;
+  background: none;
+  border-radius: 100%;
+  border: .2em solid var(--science-blue);
+  border-right: .2em solid white;
+  box-sizing: border-box;
+  animation: 1s linear infinite spin;
 }
