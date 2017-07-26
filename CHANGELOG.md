@@ -119,8 +119,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Support link href
 
 [Unreleased]: https://github.com/cozy/cozy-bar/compare/v4.1.3...HEAD
-[v4.1.1]: https://github.com/cozy/cozy-bar/compare/v4.1.2...v4.1.3
-[v4.1.1]: https://github.com/cozy/cozy-bar/compare/v4.1.1...v4.1.2
+[v4.1.3]: https://github.com/cozy/cozy-bar/compare/v4.1.2...v4.1.3
+[v4.1.2]: https://github.com/cozy/cozy-bar/compare/v4.1.1...v4.1.2
 [v4.1.1]: https://github.com/cozy/cozy-bar/compare/v4.1.0...v4.1.1
 [v4.1.0]: https://github.com/cozy/cozy-bar/compare/v4.0.2...v4.1.0
 [v4.0.2]: https://github.com/cozy/cozy-bar/compare/v4.0.1...v4.0.2

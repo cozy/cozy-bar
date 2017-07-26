@@ -373,7 +373,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  injectBarInDOM({ lang: lang, appName: appName, appEditor: appEditor, iconPath: iconPath, replaceTitleOnMobile: replaceTitleOnMobile, isPublic: isPublic });
 	};
 	
-	module.exports = { init: init, version: ("4.1.2") };
+	module.exports = { init: init, version: ("4.1.3") };
 
 /***/ },
 /* 1 */
@@ -10124,7 +10124,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                comingSoonApps = comingSoonApps
 	                // drop coming soon apps already installed
 	                .filter(function (comingSoonApp) {
-	                  return apps.filter(function (app) {
+	                  return !apps.find(function (app) {
 	                    return app.slug === comingSoonApp.slug;
 	                  });
 	                });
@@ -12682,31 +12682,31 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	module.exports = {
-		"drawer": "Show menu drawer",
+		"drawer": "Menü anzeigen",
 		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
-		"help": "Help",
-		"logout": "Sign out",
-		"beta_status": "We are still in beta",
-		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
-		"no_apps": "No applications found on the Cozy.",
+		"connectedDevices": "Verbundene Geräte",
+		"storage": "Speicher",
+		"storage_phrase": "%{diskUsage} GB von %{diskQuota} GB benutzt",
+		"help": "Hilfe",
+		"logout": "Ausloggen",
+		"beta_status": "Wir sind noch in der Betaphase",
+		"beta": "Betaphase",
+		"soon": "Später",
+		"error_UnavailableStack": "Der Stapel ist nicht erreichbar (Verbindung Zeitüberschreitung).",
+		"error_UnauthorizedStack": "Einige Berechtigungen fehlen, die Anwendung kann nicht auf die angeforderte Ressource auf dem Stapel zugreifen.",
+		"no_apps": "Keine Anwendungen für Cozy gefunden.",
 		"menu": {
-			"apps": "Apps",
-			"settings": "Settings"
+			"apps": "Anwendungen",
+			"settings": "Einstellungen"
 		},
 		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
+			"cozy": "Cozy Anwendungen",
+			"partners": "Partner Anwendungen",
 			"ptnb": "expPTNB",
-			"others": "Other apps"
+			"others": "Andere Anwendungen"
 		},
 		"claudy": {
-			"title": "How to drive your Cozy?"
+			"title": "Wie willst du dein Cozy steuern?"
 		}
 	};
 
