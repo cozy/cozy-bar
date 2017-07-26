@@ -99,8 +99,7 @@ export default class BarStore {
     let comingSoonApps = await this.fetchComingSoonApps()
     comingSoonApps = comingSoonApps
       // drop coming soon apps already installed
-      .filter(comingSoonApp =>
-        apps.filter(app => app.slug === comingSoonApp.slug))
+      .filter(comingSoonApp => !apps.find(app => app.slug === comingSoonApp.slug))
     this.appsList = apps.concat(comingSoonApps)
     return this.appsList
   }
