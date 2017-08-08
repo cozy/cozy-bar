@@ -62,6 +62,7 @@ function injectService (url, element, intent, data, onReadyCallback) {
 
       if (handshaken && event.data.type === `intent-${intent._id}:resize`) {
         ['width', 'height', 'maxWidth', 'maxHeight'].forEach(prop => {
+          if (event.data.transition) element.style.transition = event.data.transition
           if (event.data.dimensions[prop]) element.style[prop] = `${event.data.dimensions[prop]}px`
         })
 
