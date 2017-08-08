@@ -19,6 +19,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - none yet
 
 
+## [v4.1.4] - 2017-08-08
+### Changed
+- Update intent lib according to new cozy-client-js update to handle `resizeClient()` css transition
+- Better handling Claudy active status (desktop version)
+
 ## [v4.1.3] - 2017-07-26
 ### Fixed
 - Bug about coming soon apps filtering

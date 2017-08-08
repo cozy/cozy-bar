@@ -373,7 +373,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  injectBarInDOM({ lang: lang, appName: appName, appEditor: appEditor, iconPath: iconPath, replaceTitleOnMobile: replaceTitleOnMobile, isPublic: isPublic });
 	};
 	
-	module.exports = { init: init, version: ("4.1.3") };
+	module.exports = { init: init, version: ("4.1.4") };
 
 /***/ },
 /* 1 */
@@ -10367,6 +10367,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	      if (handshaken && event.data.type === 'intent-' + intent._id + ':resize') {
 	        ['width', 'height', 'maxWidth', 'maxHeight'].forEach(function (prop) {
+	          if (event.data.transition) element.style.transition = event.data.transition;
 	          if (event.data.dimensions[prop]) element.style[prop] = event.data.dimensions[prop] + 'px';
 	        });
 	
@@ -11897,7 +11898,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	    _this.store = context.store;
 	    _this.state = {
-	      isLoading: false
+	      isLoading: false,
+	      isActive: false
 	    };
 	
 	    _this.toggle = _this.toggle.bind(_this);
@@ -11917,21 +11919,24 @@ return /******/ (function(modules) { // webpackBootstrap
 	      if (!this.props.opened && !this.intentWrapperRef.childNodes.length) {
 	        this.setState({ isLoading: true });
 	        this.store.getClaudyIntent({ exposeIntentFrameRemoval: true }).start(this.intentWrapperRef, function () {
-	          _this2.setState({ isLoading: false });
+	          _this2.setState({ isLoading: false, isActive: true });
 	          _this2.props.onToggle(); // toggle claudy when the intent is loaded
 	        }).then(function (_ref) {
 	          var removeIntentFrame = _ref.removeIntentFrame;
 	          // exposeFrameRemoval intent event
 	          // remove the intent frame at the end of the menu closing transition
-	          _this2.intentWrapperRef.addEventListener('transitionend', function closed(event) {
-	            if (event.propertyName === 'transform') {
+	          var closedListener = function closedListener(e) {
+	            if (e.propertyName === 'transform') {
 	              removeIntentFrame();
-	              this.removeEventListener('transitionend', closed, false);
+	              _this2.setState({ isActive: false });
+	              e.target.removeEventListener('transitionend', closedListener);
 	            }
-	          });
+	          };
+	          _this2.intentWrapperRef.addEventListener('transitionend', closedListener, false);
 	          _this2.props.onToggle();
 	        });
 	      } else {
+	        this.setState({ isActive: !this.state.isActive });
 	        this.props.onToggle();
 	      }
 	    }
@@ -11941,12 +11946,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var _this3 = this;
 	
 	      var opened = this.props.opened;
-	      var isLoading = this.state.isLoading;
+	      var _state = this.state,
+	          isLoading = _state.isLoading,
+	          isActive = _state.isActive;
 	
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'coz-claudy ' + (opened ? 'coz-claudy--opened' : '') },
-	        _react2.default.createElement('button', { className: 'coz-claudy-icon coz-bar-hide-sm', 'data-claudy-opened': opened, 'data-claudy-loading': isLoading, onClick: this.toggle }),
+	        _react2.default.createElement('button', { className: 'coz-claudy-icon coz-bar-hide-sm', 'data-claudy-opened': isActive, 'data-claudy-loading': isLoading, onClick: this.toggle }),
 	        _react2.default.createElement('div', {
 	          'class': 'coz-claudy-intent-wrapper',
 	          ref: function ref(wrapper) {
