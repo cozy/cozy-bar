@@ -64,7 +64,8 @@
     "node-polyglot": "^2.2.2",
     "piwik-react-router": "^0.8.2",
     "preact": "^8.1.0",
-    "preact-compat": "^3.16.0"
+    "preact-compat": "^3.16.0",
+    "react-autosuggest": "^9.3.2"
   },
   "standard": {
     "env": [

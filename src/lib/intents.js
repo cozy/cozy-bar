@@ -1,5 +1,20 @@
 import { cozyFetchJSON } from './stack'
 
+// This is a function that does the bare minimum in order to bypass the normal intent flow. To be replaced in th next version of intents.
+export function fetchRawIntent (action, type, data = {}, permissions = []) {
+  return cozyFetchJSON(null, 'POST', '/intents', {
+    data: {
+      type: 'io.cozy.intents',
+      attributes: {
+        action: action,
+        type: type,
+        data: data,
+        permissions: permissions
+      }
+    }
+  })
+}
+
 /*********************************************
 This following code should never be changed here since it's must be the exact same than in cozy-client-js/src/intents.js
 Service creating functions have been removed since it's not used by the bar

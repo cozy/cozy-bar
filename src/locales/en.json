@@ -27,5 +27,9 @@
 
   "claudy": {
     "title": "How to drive your Cozy?"
+  },
+  
+  "searchbar": {
+    "placeholder": "Search anything"
   }
 }
