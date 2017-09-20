@@ -257,7 +257,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	if (true) {
 	  // Enables React dev tools for Preact
 	  // Cannot use import as we are in a condition
-	  __webpack_require__(244);
+	  __webpack_require__(258);
 	
 	  // Export React to window for the devtools
 	  window.React = _react2.default;
@@ -276,7 +276,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return;
 	  }
 	
-	  __webpack_require__(245);
+	  __webpack_require__(259);
 	
 	  var barNode = createBarElement();
 	  var appNode = document.querySelector(APP_SELECTOR);
@@ -302,7 +302,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      {
 	        lang: data.lang,
 	        dictRequire: function dictRequire(lang) {
-	          return __webpack_require__(257)("./" + lang);
+	          return __webpack_require__(272)("./" + lang);
 	        }
 	      },
 	      _react2.default.createElement(_Bar2.default, data)
@@ -373,7 +373,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  injectBarInDOM({ lang: lang, appName: appName, appEditor: appEditor, iconPath: iconPath, replaceTitleOnMobile: replaceTitleOnMobile, isPublic: isPublic });
 	};
 	
-	module.exports = { init: init, version: ("4.1.4") };
+	module.exports = { init: init, version: ("4.2.0") };
 
 /***/ },
 /* 1 */
@@ -10297,9 +10297,28 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	exports.fetchRawIntent = fetchRawIntent;
 	exports.create = create;
 	
 	var _stack = __webpack_require__(223);
+	
+	// This is a function that does the bare minimum in order to bypass the normal intent flow. To be replaced in th next version of intents.
+	function fetchRawIntent(action, type) {
+	  var data = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+	  var permissions = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : [];
+	
+	  return (0, _stack.cozyFetchJSON)(null, 'POST', '/intents', {
+	    data: {
+	      type: 'io.cozy.intents',
+	      attributes: {
+	        action: action,
+	        type: type,
+	        data: data,
+	        permissions: permissions
+	      }
+	    }
+	  });
+	}
 	
 	/*********************************************
 	This following code should never be changed here since it's must be the exact same than in cozy-client-js/src/intents.js
@@ -10545,11 +10564,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _Drawer2 = _interopRequireDefault(_Drawer);
 	
-	var _Nav = __webpack_require__(242);
+	var _SearchBar = __webpack_require__(242);
+	
+	var _SearchBar2 = _interopRequireDefault(_SearchBar);
+	
+	var _Nav = __webpack_require__(256);
 	
 	var _Nav2 = _interopRequireDefault(_Nav);
 	
-	var _Claudy = __webpack_require__(243);
+	var _Claudy = __webpack_require__(257);
 	
 	var _Claudy2 = _interopRequireDefault(_Claudy);
 	
@@ -10706,6 +10729,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          )
 	        ),
 	        _react2.default.createElement('hr', { 'class': 'coz-sep-flex' }),
+	        ("browser") !== 'mobile' && !isPublic && _react2.default.createElement(_SearchBar2.default, null),
 	        ("browser") !== 'mobile' && !isPublic && _react2.default.createElement(
 	          'div',
 	          { 'class': 'coz-bar-flex-container' },
@@ -11635,6 +11659,2210 @@ return /******/ (function(modules) { // webpackBootstrap
 	  value: true
 	});
 	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(189);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _I18n = __webpack_require__(199);
+	
+	var _reactAutosuggest = __webpack_require__(243);
+	
+	var _reactAutosuggest2 = _interopRequireDefault(_reactAutosuggest);
+	
+	var _intents = __webpack_require__(226);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+	
+	function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var INTENT_VERB = 'OPEN';
+	var INTENT_DOCTYPE = 'io.cozy.suggestions';
+	var SUGGESTIONS_PER_SOURCE = 10;
+	
+	var SearchBar = function (_Component) {
+	  _inherits(SearchBar, _Component);
+	
+	  function SearchBar() {
+	    var _ref,
+	        _this2 = this;
+	
+	    var _temp, _this, _ret;
+	
+	    _classCallCheck(this, SearchBar);
+	
+	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	      args[_key] = arguments[_key];
+	    }
+	
+	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = SearchBar.__proto__ || Object.getPrototypeOf(SearchBar)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
+	      query: '',
+	      suggestions: [],
+	      sourceURLs: []
+	    }, _this.onMessageFromSource = function (sources) {
+	      return function (event) {
+	        // this re-implements a subset of injectService found in lib/intents, though only the part that are useful for suggestions
+	        var source = sources.find(function (source) {
+	          return source.origin === event.origin;
+	        });
+	
+	        if (!source) return null;
+	
+	        if (event.data.type === 'intent-' + source.id + ':ready') {
+	          source.ready = true;
+	          source.window = event.source;
+	
+	          source.window.postMessage({}, event.origin);
+	        } else if (event.data.type === 'intent-' + source.id + ':data' && source.resolve) {
+	          source.resolve({
+	            id: source.id,
+	            suggestions: event.data.suggestions
+	          });
+	          source.resolve = null;
+	        } else {
+	          console.log('unhandled message:', event);
+	        }
+	      };
+	    }, _this.onChange = function (event, _ref2) {
+	      var newValue = _ref2.newValue;
+	
+	      _this.setState({
+	        query: newValue
+	      });
+	    }, _this.clearSuggestions = function () {
+	      _this.setState({
+	        suggestions: []
+	      });
+	    }, _this.onSuggestionsFetchRequested = function (_ref3) {
+	      var value = _ref3.value;
+	
+	      _this.clearSuggestions();
+	
+	      _this.sources.filter(function (source) {
+	        return source.ready;
+	      }).forEach(function () {
+	        var _ref4 = _asyncToGenerator(regeneratorRuntime.mark(function _callee(source) {
+	          var _ref5, id, suggestions;
+	
+	          return regeneratorRuntime.wrap(function _callee$(_context) {
+	            while (1) {
+	              switch (_context.prev = _context.next) {
+	                case 0:
+	                  _context.next = 2;
+	                  return new Promise(function (resolve) {
+	                    source.resolve = resolve;
+	                    source.window.postMessage({ query: value }, source.origin);
+	                  });
+	
+	                case 2:
+	                  _ref5 = _context.sent;
+	                  id = _ref5.id;
+	                  suggestions = _ref5.suggestions;
+	
+	
+	                  _this.setState(function (state) {
+	                    return _extends({}, state, {
+	                      suggestions: [].concat(_toConsumableArray(state.suggestions), [{
+	                        title: _this.sources.find(function (source) {
+	                          return source.id === id;
+	                        }).slug,
+	                        suggestions: suggestions
+	                      }])
+	                    });
+	                  });
+	
+	                case 6:
+	                case 'end':
+	                  return _context.stop();
+	              }
+	            }
+	          }, _callee, _this2);
+	        }));
+	
+	        return function (_x) {
+	          return _ref4.apply(this, arguments);
+	        };
+	      }());
+	    }, _this.onSuggestionSelected = function (event, _ref6) {
+	      var suggestion = _ref6.suggestion;
+	      var onSelect = suggestion.onSelect;
+	      // `onSelect` is a string that describes what should happen when the suggestion is selected. Currently, the only format we're supporting is `open:http://example.com` to change the url of the current page.
+	
+	      if (/^open:/.test(onSelect)) {
+	        var url = onSelect.substr(5);
+	        window.location.href = url;
+	      } else {
+	        console.log('suggestion onSelect (' + onSelect + ') could not be executed');
+	      }
+	
+	      _this.setState({ query: '' });
+	    }, _this.getSectionSuggestions = function (section) {
+	      return section.suggestions.slice(0, SUGGESTIONS_PER_SOURCE);
+	    }, _this.getSuggestionValue = function (suggestion) {
+	      return suggestion.term || suggestion.title;
+	    }, _this.renderSectionTitle = function (section) {
+	      return null;
+	    }, _this.renderSuggestion = function (suggestion) {
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'coz-searchbar-autosuggest-suggestion-content' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'coz-searchbar-autosuggest-suggestion-title' },
+	          suggestion.title
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'coz-searchbar-autosuggest-suggestion-subtitle' },
+	          suggestion.subtitle
+	        )
+	      );
+	    }, _temp), _possibleConstructorReturn(_this, _ret);
+	  }
+	
+	  _createClass(SearchBar, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      var _this3 = this;
+	
+	      // The searchbar has one or more sources that provide suggestions. These sources are iframes into other apps, provied by thee intent system.
+	      // Since we need to call the sources whenever the query changes, we are taking manual control over the intent process.
+	      (0, _intents.fetchRawIntent)(INTENT_VERB, INTENT_DOCTYPE).then(function (intent) {
+	        var services = intent.attributes.services;
+	
+	        if (!services) return null;
+	
+	        _this3.sources = services.map(function (service) {
+	          var url = service.href;
+	          _this3.setState(function (state) {
+	            return _extends({}, state, { sourceURLs: [].concat(_toConsumableArray(state.sourceURLs), [url]) });
+	          });
+	          var serviceOrigin = url.split('/', 3).join('/');
+	
+	          return {
+	            slug: service.slug, // can be used to show where a suggestion comes from
+	            origin: serviceOrigin,
+	            id: intent._id,
+	            ready: false,
+	            window: null, // will hold a reference to the window we're sending messages to
+	            resolve: null // a reference to a function to call when the source sends suggestions
+	          };
+	        });
+	
+	        window.addEventListener('message', _this3.onMessageFromSource(_this3.sources));
+	      });
+	    } // we only have one section at the moment, but if we decide to sort suggestions by section/source, we can use this callback
+	
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _state = this.state,
+	          query = _state.query,
+	          suggestions = _state.suggestions,
+	          sourceURLs = _state.sourceURLs;
+	      var t = this.props.t;
+	
+	
+	      var inputProps = {
+	        placeholder: t('searchbar.placeholder'),
+	        value: query,
+	        onChange: this.onChange
+	      };
+	
+	      var theme = {
+	        container: 'coz-searchbar-autosuggest-container',
+	        input: 'coz-searchbar-autosuggest-input',
+	        inputFocused: 'coz-searchbar-autosuggest-input-focused',
+	        suggestionsContainer: 'coz-searchbar-autosuggest-suggestions-container',
+	        suggestionsContainerOpen: 'coz-searchbar-autosuggest-suggestions-container--open',
+	        suggestionsList: 'coz-searchbar-autosuggest-suggestions-list',
+	        suggestion: 'coz-searchbar-autosuggest-suggestion',
+	        suggestionHighlighted: 'coz-searchbar-autosuggest-suggestion-highlighted',
+	        sectionTitle: 'coz-searchbar-autosuggest-section-title'
+	      };
+	
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'coz-searchbar' },
+	        sourceURLs.map(function (url) {
+	          return _react2.default.createElement('iframe', { src: url, style: { display: 'none' } });
+	        }),
+	        _react2.default.createElement(_reactAutosuggest2.default, {
+	          theme: theme,
+	          suggestions: suggestions,
+	          multiSection: true,
+	          onSuggestionsFetchRequested: this.onSuggestionsFetchRequested,
+	          onSuggestionsClearRequested: this.clearSuggestions,
+	          onSuggestionSelected: this.onSuggestionSelected,
+	          getSuggestionValue: this.getSuggestionValue,
+	          getSectionSuggestions: this.getSectionSuggestions,
+	          renderSectionTitle: this.renderSectionTitle,
+	          renderSuggestion: this.renderSuggestion,
+	          inputProps: inputProps,
+	          focusInputOnSuggestionClick: false
+	        })
+	      );
+	    }
+	  }]);
+	
+	  return SearchBar;
+	}(_react.Component);
+	
+	exports.default = (0, _I18n.translate)()(SearchBar);
+
+/***/ },
+/* 243 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	module.exports = __webpack_require__(244).default;
+
+/***/ },
+/* 244 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(189);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _propTypes = __webpack_require__(190);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
+	var _arrays = __webpack_require__(245);
+	
+	var _arrays2 = _interopRequireDefault(_arrays);
+	
+	var _reactAutowhatever = __webpack_require__(246);
+	
+	var _reactAutowhatever2 = _interopRequireDefault(_reactAutowhatever);
+	
+	var _theme = __webpack_require__(255);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var alwaysTrue = function alwaysTrue() {
+	  return true;
+	};
+	var defaultShouldRenderSuggestions = function defaultShouldRenderSuggestions(value) {
+	  return value.trim().length > 0;
+	};
+	var defaultRenderSuggestionsContainer = function defaultRenderSuggestionsContainer(_ref) {
+	  var containerProps = _ref.containerProps,
+	      children = _ref.children;
+	  return _react2.default.createElement(
+	    'div',
+	    containerProps,
+	    children
+	  );
+	};
+	
+	var Autosuggest = function (_Component) {
+	  _inherits(Autosuggest, _Component);
+	
+	  function Autosuggest(_ref2) {
+	    var alwaysRenderSuggestions = _ref2.alwaysRenderSuggestions;
+	
+	    _classCallCheck(this, Autosuggest);
+	
+	    var _this = _possibleConstructorReturn(this, (Autosuggest.__proto__ || Object.getPrototypeOf(Autosuggest)).call(this));
+	
+	    _initialiseProps.call(_this);
+	
+	    _this.state = {
+	      isFocused: false,
+	      isCollapsed: !alwaysRenderSuggestions,
+	      highlightedSectionIndex: null,
+	      highlightedSuggestionIndex: null,
+	      valueBeforeUpDown: null
+	    };
+	
+	    _this.justPressedUpDown = false;
+	    return _this;
+	  }
+	
+	  _createClass(Autosuggest, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      document.addEventListener('mousedown', this.onDocumentMouseDown);
+	
+	      this.input = this.autowhatever.input;
+	      this.suggestionsContainer = this.autowhatever.itemsContainer;
+	    }
+	  }, {
+	    key: 'componentWillReceiveProps',
+	    value: function componentWillReceiveProps(nextProps) {
+	      if ((0, _arrays2.default)(nextProps.suggestions, this.props.suggestions)) {
+	        if (nextProps.highlightFirstSuggestion && nextProps.suggestions.length > 0 && this.justPressedUpDown === false) {
+	          this.highlightFirstSuggestion();
+	        }
+	      } else {
+	        if (this.willRenderSuggestions(nextProps)) {
+	          if (nextProps.highlightFirstSuggestion) {
+	            this.highlightFirstSuggestion();
+	          }
+	
+	          if (this.state.isCollapsed && !this.justSelectedSuggestion) {
+	            this.revealSuggestions();
+	          }
+	        } else {
+	          this.resetHighlightedSuggestion();
+	        }
+	      }
+	    }
+	  }, {
+	    key: 'componentDidUpdate',
+	    value: function componentDidUpdate(prevProps, prevState) {
+	      var onSuggestionHighlighted = this.props.onSuggestionHighlighted;
+	
+	
+	      if (!onSuggestionHighlighted) {
+	        return;
+	      }
+	
+	      var _state = this.state,
+	          highlightedSectionIndex = _state.highlightedSectionIndex,
+	          highlightedSuggestionIndex = _state.highlightedSuggestionIndex;
+	
+	
+	      if (highlightedSectionIndex !== prevState.highlightedSectionIndex || highlightedSuggestionIndex !== prevState.highlightedSuggestionIndex) {
+	        var suggestion = this.getHighlightedSuggestion();
+	
+	        onSuggestionHighlighted({ suggestion: suggestion });
+	      }
+	    }
+	  }, {
+	    key: 'componentWillUnmount',
+	    value: function componentWillUnmount() {
+	      document.removeEventListener('mousedown', this.onDocumentMouseDown);
+	    }
+	  }, {
+	    key: 'updateHighlightedSuggestion',
+	    value: function updateHighlightedSuggestion(sectionIndex, suggestionIndex, prevValue) {
+	      this.setState(function (state) {
+	        var valueBeforeUpDown = state.valueBeforeUpDown;
+	
+	
+	        if (suggestionIndex === null) {
+	          valueBeforeUpDown = null;
+	        } else if (valueBeforeUpDown === null && typeof prevValue !== 'undefined') {
+	          valueBeforeUpDown = prevValue;
+	        }
+	
+	        return {
+	          highlightedSectionIndex: sectionIndex,
+	          highlightedSuggestionIndex: suggestionIndex,
+	          valueBeforeUpDown: valueBeforeUpDown
+	        };
+	      });
+	    }
+	  }, {
+	    key: 'resetHighlightedSuggestion',
+	    value: function resetHighlightedSuggestion() {
+	      var shouldResetValueBeforeUpDown = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
+	
+	      this.setState(function (state) {
+	        var valueBeforeUpDown = state.valueBeforeUpDown;
+	
+	
+	        return {
+	          highlightedSectionIndex: null,
+	          highlightedSuggestionIndex: null,
+	          valueBeforeUpDown: shouldResetValueBeforeUpDown ? null : valueBeforeUpDown
+	        };
+	      });
+	    }
+	  }, {
+	    key: 'revealSuggestions',
+	    value: function revealSuggestions() {
+	      this.setState({
+	        isCollapsed: false
+	      });
+	    }
+	  }, {
+	    key: 'closeSuggestions',
+	    value: function closeSuggestions() {
+	      this.setState({
+	        highlightedSectionIndex: null,
+	        highlightedSuggestionIndex: null,
+	        valueBeforeUpDown: null,
+	        isCollapsed: true
+	      });
+	    }
+	  }, {
+	    key: 'getSuggestion',
+	    value: function getSuggestion(sectionIndex, suggestionIndex) {
+	      var _props = this.props,
+	          suggestions = _props.suggestions,
+	          multiSection = _props.multiSection,
+	          getSectionSuggestions = _props.getSectionSuggestions;
+	
+	
+	      if (multiSection) {
+	        return getSectionSuggestions(suggestions[sectionIndex])[suggestionIndex];
+	      }
+	
+	      return suggestions[suggestionIndex];
+	    }
+	  }, {
+	    key: 'getHighlightedSuggestion',
+	    value: function getHighlightedSuggestion() {
+	      var _state2 = this.state,
+	          highlightedSectionIndex = _state2.highlightedSectionIndex,
+	          highlightedSuggestionIndex = _state2.highlightedSuggestionIndex;
+	
+	
+	      if (highlightedSuggestionIndex === null) {
+	        return null;
+	      }
+	
+	      return this.getSuggestion(highlightedSectionIndex, highlightedSuggestionIndex);
+	    }
+	  }, {
+	    key: 'getSuggestionValueByIndex',
+	    value: function getSuggestionValueByIndex(sectionIndex, suggestionIndex) {
+	      var getSuggestionValue = this.props.getSuggestionValue;
+	
+	
+	      return getSuggestionValue(this.getSuggestion(sectionIndex, suggestionIndex));
+	    }
+	  }, {
+	    key: 'getSuggestionIndices',
+	    value: function getSuggestionIndices(suggestionElement) {
+	      var sectionIndex = suggestionElement.getAttribute('data-section-index');
+	      var suggestionIndex = suggestionElement.getAttribute('data-suggestion-index');
+	
+	      return {
+	        sectionIndex: typeof sectionIndex === 'string' ? parseInt(sectionIndex, 10) : null,
+	        suggestionIndex: parseInt(suggestionIndex, 10)
+	      };
+	    }
+	  }, {
+	    key: 'findSuggestionElement',
+	    value: function findSuggestionElement(startNode) {
+	      var node = startNode;
+	
+	      do {
+	        if (node.getAttribute('data-suggestion-index') !== null) {
+	          return node;
+	        }
+	
+	        node = node.parentNode;
+	      } while (node !== null);
+	
+	      console.error('Clicked element:', startNode); // eslint-disable-line no-console
+	      throw new Error("Couldn't find suggestion element");
+	    }
+	  }, {
+	    key: 'maybeCallOnChange',
+	    value: function maybeCallOnChange(event, newValue, method) {
+	      var _props$inputProps = this.props.inputProps,
+	          value = _props$inputProps.value,
+	          onChange = _props$inputProps.onChange;
+	
+	
+	      if (newValue !== value) {
+	        onChange(event, { newValue: newValue, method: method });
+	      }
+	    }
+	  }, {
+	    key: 'willRenderSuggestions',
+	    value: function willRenderSuggestions(props) {
+	      var suggestions = props.suggestions,
+	          inputProps = props.inputProps,
+	          shouldRenderSuggestions = props.shouldRenderSuggestions;
+	      var value = inputProps.value;
+	
+	
+	      return suggestions.length > 0 && shouldRenderSuggestions(value);
+	    }
+	  }, {
+	    key: 'getQuery',
+	    value: function getQuery() {
+	      var inputProps = this.props.inputProps;
+	      var value = inputProps.value;
+	      var valueBeforeUpDown = this.state.valueBeforeUpDown;
+	
+	
+	      return (valueBeforeUpDown || value).trim();
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _this2 = this;
+	
+	      var _props2 = this.props,
+	          suggestions = _props2.suggestions,
+	          renderInputComponent = _props2.renderInputComponent,
+	          onSuggestionsFetchRequested = _props2.onSuggestionsFetchRequested,
+	          renderSuggestion = _props2.renderSuggestion,
+	          inputProps = _props2.inputProps,
+	          multiSection = _props2.multiSection,
+	          renderSectionTitle = _props2.renderSectionTitle,
+	          id = _props2.id,
+	          getSectionSuggestions = _props2.getSectionSuggestions,
+	          theme = _props2.theme,
+	          getSuggestionValue = _props2.getSuggestionValue,
+	          alwaysRenderSuggestions = _props2.alwaysRenderSuggestions;
+	      var _state3 = this.state,
+	          isFocused = _state3.isFocused,
+	          isCollapsed = _state3.isCollapsed,
+	          highlightedSectionIndex = _state3.highlightedSectionIndex,
+	          highlightedSuggestionIndex = _state3.highlightedSuggestionIndex,
+	          valueBeforeUpDown = _state3.valueBeforeUpDown;
+	
+	      var shouldRenderSuggestions = alwaysRenderSuggestions ? alwaysTrue : this.props.shouldRenderSuggestions;
+	      var value = inputProps.value,
+	          _onFocus = inputProps.onFocus,
+	          _onKeyDown = inputProps.onKeyDown;
+	
+	      var willRenderSuggestions = this.willRenderSuggestions(this.props);
+	      var isOpen = alwaysRenderSuggestions || isFocused && !isCollapsed && willRenderSuggestions;
+	      var items = isOpen ? suggestions : [];
+	      var autowhateverInputProps = _extends({}, inputProps, {
+	        onFocus: function onFocus(event) {
+	          if (!_this2.justSelectedSuggestion && !_this2.justClickedOnSuggestionsContainer) {
+	            var shouldRender = shouldRenderSuggestions(value);
+	
+	            _this2.setState({
+	              isFocused: true,
+	              isCollapsed: !shouldRender
+	            });
+	
+	            _onFocus && _onFocus(event);
+	
+	            if (shouldRender) {
+	              onSuggestionsFetchRequested({ value: value, reason: 'input-focused' });
+	            }
+	          }
+	        },
+	        onBlur: function onBlur(event) {
+	          if (_this2.justClickedOnSuggestionsContainer) {
+	            _this2.input.focus();
+	            return;
+	          }
+	
+	          _this2.blurEvent = event;
+	
+	          if (!_this2.justSelectedSuggestion) {
+	            _this2.onBlur();
+	            _this2.onSuggestionsClearRequested();
+	          }
+	        },
+	        onChange: function onChange(event) {
+	          var value = event.target.value;
+	
+	          var shouldRender = shouldRenderSuggestions(value);
+	
+	          _this2.maybeCallOnChange(event, value, 'type');
+	
+	          _this2.setState({
+	            highlightedSectionIndex: null,
+	            highlightedSuggestionIndex: null,
+	            valueBeforeUpDown: null,
+	            isCollapsed: !shouldRender
+	          });
+	
+	          if (shouldRender) {
+	            onSuggestionsFetchRequested({ value: value, reason: 'input-changed' });
+	          } else {
+	            _this2.onSuggestionsClearRequested();
+	          }
+	        },
+	        onKeyDown: function onKeyDown(event, data) {
+	          var keyCode = event.keyCode;
+	
+	
+	          switch (keyCode) {
+	            case 40: // ArrowDown
+	            case 38:
+	              // ArrowUp
+	              if (isCollapsed) {
+	                if (shouldRenderSuggestions(value)) {
+	                  onSuggestionsFetchRequested({
+	                    value: value,
+	                    reason: 'suggestions-revealed'
+	                  });
+	                  _this2.revealSuggestions();
+	                }
+	              } else if (suggestions.length > 0) {
+	                var newHighlightedSectionIndex = data.newHighlightedSectionIndex,
+	                    newHighlightedItemIndex = data.newHighlightedItemIndex;
+	
+	
+	                var newValue = void 0;
+	
+	                if (newHighlightedItemIndex === null) {
+	                  // valueBeforeUpDown can be null if, for example, user
+	                  // hovers on the first suggestion and then pressed Up.
+	                  // If that happens, use the original input value.
+	                  newValue = valueBeforeUpDown === null ? value : valueBeforeUpDown;
+	                } else {
+	                  newValue = _this2.getSuggestionValueByIndex(newHighlightedSectionIndex, newHighlightedItemIndex);
+	                }
+	
+	                _this2.updateHighlightedSuggestion(newHighlightedSectionIndex, newHighlightedItemIndex, value);
+	                _this2.maybeCallOnChange(event, newValue, keyCode === 40 ? 'down' : 'up');
+	              }
+	
+	              event.preventDefault(); // Prevents the cursor from moving
+	
+	              _this2.justPressedUpDown = true;
+	
+	              setTimeout(function () {
+	                _this2.justPressedUpDown = false;
+	              });
+	
+	              break;
+	
+	            // Enter
+	            case 13:
+	              {
+	                // See #388
+	                if (event.keyCode === 229) {
+	                  break;
+	                }
+	
+	                var highlightedSuggestion = _this2.getHighlightedSuggestion();
+	
+	                if (isOpen && !alwaysRenderSuggestions) {
+	                  _this2.closeSuggestions();
+	                }
+	
+	                if (highlightedSuggestion !== null) {
+	                  var _newValue = getSuggestionValue(highlightedSuggestion);
+	
+	                  _this2.maybeCallOnChange(event, _newValue, 'enter');
+	
+	                  _this2.onSuggestionSelected(event, {
+	                    suggestion: highlightedSuggestion,
+	                    suggestionValue: _newValue,
+	                    suggestionIndex: highlightedSuggestionIndex,
+	                    sectionIndex: highlightedSectionIndex,
+	                    method: 'enter'
+	                  });
+	
+	                  _this2.justSelectedSuggestion = true;
+	
+	                  setTimeout(function () {
+	                    _this2.justSelectedSuggestion = false;
+	                  });
+	                }
+	
+	                break;
+	              }
+	
+	            // Escape
+	            case 27:
+	              {
+	                if (isOpen) {
+	                  // If input.type === 'search', the browser clears the input
+	                  // when Escape is pressed. We want to disable this default
+	                  // behaviour so that, when suggestions are shown, we just hide
+	                  // them, without clearing the input.
+	                  event.preventDefault();
+	                }
+	
+	                var willCloseSuggestions = isOpen && !alwaysRenderSuggestions;
+	
+	                if (valueBeforeUpDown === null) {
+	                  // Didn't interact with Up/Down
+	                  if (!willCloseSuggestions) {
+	                    var _newValue2 = '';
+	
+	                    _this2.maybeCallOnChange(event, _newValue2, 'escape');
+	
+	                    if (shouldRenderSuggestions(_newValue2)) {
+	                      onSuggestionsFetchRequested({
+	                        value: _newValue2,
+	                        reason: 'escape-pressed'
+	                      });
+	                    } else {
+	                      _this2.onSuggestionsClearRequested();
+	                    }
+	                  }
+	                } else {
+	                  // Interacted with Up/Down
+	                  _this2.maybeCallOnChange(event, valueBeforeUpDown, 'escape');
+	                }
+	
+	                if (willCloseSuggestions) {
+	                  _this2.onSuggestionsClearRequested();
+	                  _this2.closeSuggestions();
+	                } else {
+	                  _this2.resetHighlightedSuggestion();
+	                }
+	
+	                break;
+	              }
+	          }
+	
+	          _onKeyDown && _onKeyDown(event);
+	        }
+	      });
+	      var renderSuggestionData = {
+	        query: this.getQuery()
+	      };
+	
+	      return _react2.default.createElement(_reactAutowhatever2.default, {
+	        multiSection: multiSection,
+	        items: items,
+	        renderInputComponent: renderInputComponent,
+	        renderItemsContainer: this.renderSuggestionsContainer,
+	        renderItem: renderSuggestion,
+	        renderItemData: renderSuggestionData,
+	        renderSectionTitle: renderSectionTitle,
+	        getSectionItems: getSectionSuggestions,
+	        highlightedSectionIndex: highlightedSectionIndex,
+	        highlightedItemIndex: highlightedSuggestionIndex,
+	        inputProps: autowhateverInputProps,
+	        itemProps: this.itemProps,
+	        theme: (0, _theme.mapToAutowhateverTheme)(theme),
+	        id: id,
+	        ref: this.storeAutowhateverRef
+	      });
+	    }
+	  }]);
+	
+	  return Autosuggest;
+	}(_react.Component);
+	
+	Autosuggest.propTypes = {
+	  suggestions: _propTypes2.default.array.isRequired,
+	  onSuggestionsFetchRequested: function onSuggestionsFetchRequested(props, propName) {
+	    var onSuggestionsFetchRequested = props[propName];
+	
+	    if (typeof onSuggestionsFetchRequested !== 'function') {
+	      throw new Error("'onSuggestionsFetchRequested' must be implemented. See: https://github.com/moroshko/react-autosuggest#onSuggestionsFetchRequestedProp");
+	    }
+	  },
+	  onSuggestionsClearRequested: function onSuggestionsClearRequested(props, propName) {
+	    var onSuggestionsClearRequested = props[propName];
+	
+	    if (props.alwaysRenderSuggestions === false && typeof onSuggestionsClearRequested !== 'function') {
+	      throw new Error("'onSuggestionsClearRequested' must be implemented. See: https://github.com/moroshko/react-autosuggest#onSuggestionsClearRequestedProp");
+	    }
+	  },
+	  onSuggestionSelected: _propTypes2.default.func,
+	  onSuggestionHighlighted: _propTypes2.default.func,
+	  renderInputComponent: _propTypes2.default.func,
+	  renderSuggestionsContainer: _propTypes2.default.func,
+	  getSuggestionValue: _propTypes2.default.func.isRequired,
+	  renderSuggestion: _propTypes2.default.func.isRequired,
+	  inputProps: function inputProps(props, propName) {
+	    var inputProps = props[propName];
+	
+	    if (!inputProps.hasOwnProperty('value')) {
+	      throw new Error("'inputProps' must have 'value'.");
+	    }
+	
+	    if (!inputProps.hasOwnProperty('onChange')) {
+	      throw new Error("'inputProps' must have 'onChange'.");
+	    }
+	  },
+	  shouldRenderSuggestions: _propTypes2.default.func,
+	  alwaysRenderSuggestions: _propTypes2.default.bool,
+	  multiSection: _propTypes2.default.bool,
+	  renderSectionTitle: function renderSectionTitle(props, propName) {
+	    var renderSectionTitle = props[propName];
+	
+	    if (props.multiSection === true && typeof renderSectionTitle !== 'function') {
+	      throw new Error("'renderSectionTitle' must be implemented. See: https://github.com/moroshko/react-autosuggest#renderSectionTitleProp");
+	    }
+	  },
+	  getSectionSuggestions: function getSectionSuggestions(props, propName) {
+	    var getSectionSuggestions = props[propName];
+	
+	    if (props.multiSection === true && typeof getSectionSuggestions !== 'function') {
+	      throw new Error("'getSectionSuggestions' must be implemented. See: https://github.com/moroshko/react-autosuggest#getSectionSuggestionsProp");
+	    }
+	  },
+	  focusInputOnSuggestionClick: _propTypes2.default.bool,
+	  highlightFirstSuggestion: _propTypes2.default.bool,
+	  theme: _propTypes2.default.object,
+	  id: _propTypes2.default.string
+	};
+	Autosuggest.defaultProps = {
+	  renderSuggestionsContainer: defaultRenderSuggestionsContainer,
+	  shouldRenderSuggestions: defaultShouldRenderSuggestions,
+	  alwaysRenderSuggestions: false,
+	  multiSection: false,
+	  focusInputOnSuggestionClick: true,
+	  highlightFirstSuggestion: false,
+	  theme: _theme.defaultTheme,
+	  id: '1'
+	};
+	
+	var _initialiseProps = function _initialiseProps() {
+	  var _this3 = this;
+	
+	  this.onDocumentMouseDown = function (event) {
+	    _this3.justClickedOnSuggestionsContainer = false;
+	
+	    var node = event.detail && event.detail.target || // This is for testing only. Please show me a better way to emulate this.
+	    event.target;
+	
+	    while (node !== null && node !== document) {
+	      if (node.getAttribute('data-suggestion-index') !== null) {
+	        // Suggestion was clicked
+	        return;
+	      }
+	
+	      if (node === _this3.suggestionsContainer) {
+	        // Something else inside suggestions container was clicked
+	        _this3.justClickedOnSuggestionsContainer = true;
+	        return;
+	      }
+	
+	      node = node.parentNode;
+	    }
+	  };
+	
+	  this.storeAutowhateverRef = function (autowhatever) {
+	    if (autowhatever !== null) {
+	      _this3.autowhatever = autowhatever;
+	    }
+	  };
+	
+	  this.onSuggestionMouseEnter = function (event, _ref3) {
+	    var sectionIndex = _ref3.sectionIndex,
+	        itemIndex = _ref3.itemIndex;
+	
+	    _this3.updateHighlightedSuggestion(sectionIndex, itemIndex);
+	  };
+	
+	  this.highlightFirstSuggestion = function () {
+	    _this3.updateHighlightedSuggestion(_this3.props.multiSection ? 0 : null, 0);
+	  };
+	
+	  this.onSuggestionMouseDown = function () {
+	    _this3.justSelectedSuggestion = true;
+	  };
+	
+	  this.onSuggestionsClearRequested = function () {
+	    var onSuggestionsClearRequested = _this3.props.onSuggestionsClearRequested;
+	
+	
+	    onSuggestionsClearRequested && onSuggestionsClearRequested();
+	  };
+	
+	  this.onSuggestionSelected = function (event, data) {
+	    var _props3 = _this3.props,
+	        alwaysRenderSuggestions = _props3.alwaysRenderSuggestions,
+	        onSuggestionSelected = _props3.onSuggestionSelected,
+	        onSuggestionsFetchRequested = _props3.onSuggestionsFetchRequested;
+	
+	
+	    onSuggestionSelected && onSuggestionSelected(event, data);
+	
+	    if (alwaysRenderSuggestions) {
+	      onSuggestionsFetchRequested({
+	        value: data.suggestionValue,
+	        reason: 'suggestion-selected'
+	      });
+	    } else {
+	      _this3.onSuggestionsClearRequested();
+	    }
+	
+	    _this3.resetHighlightedSuggestion();
+	  };
+	
+	  this.onSuggestionClick = function (event) {
+	    var _props4 = _this3.props,
+	        alwaysRenderSuggestions = _props4.alwaysRenderSuggestions,
+	        focusInputOnSuggestionClick = _props4.focusInputOnSuggestionClick;
+	
+	    var _getSuggestionIndices = _this3.getSuggestionIndices(_this3.findSuggestionElement(event.target)),
+	        sectionIndex = _getSuggestionIndices.sectionIndex,
+	        suggestionIndex = _getSuggestionIndices.suggestionIndex;
+	
+	    var clickedSuggestion = _this3.getSuggestion(sectionIndex, suggestionIndex);
+	    var clickedSuggestionValue = _this3.props.getSuggestionValue(clickedSuggestion);
+	
+	    _this3.maybeCallOnChange(event, clickedSuggestionValue, 'click');
+	    _this3.onSuggestionSelected(event, {
+	      suggestion: clickedSuggestion,
+	      suggestionValue: clickedSuggestionValue,
+	      suggestionIndex: suggestionIndex,
+	      sectionIndex: sectionIndex,
+	      method: 'click'
+	    });
+	
+	    if (!alwaysRenderSuggestions) {
+	      _this3.closeSuggestions();
+	    }
+	
+	    if (focusInputOnSuggestionClick === true) {
+	      _this3.input.focus();
+	    } else {
+	      _this3.onBlur();
+	    }
+	
+	    setTimeout(function () {
+	      _this3.justSelectedSuggestion = false;
+	    });
+	  };
+	
+	  this.onBlur = function () {
+	    var _props5 = _this3.props,
+	        inputProps = _props5.inputProps,
+	        shouldRenderSuggestions = _props5.shouldRenderSuggestions;
+	    var value = inputProps.value,
+	        onBlur = inputProps.onBlur;
+	
+	    var highlightedSuggestion = _this3.getHighlightedSuggestion();
+	    var shouldRender = shouldRenderSuggestions(value);
+	
+	    _this3.setState({
+	      isFocused: false,
+	      highlightedSectionIndex: null,
+	      highlightedSuggestionIndex: null,
+	      valueBeforeUpDown: null,
+	      isCollapsed: !shouldRender
+	    });
+	
+	    onBlur && onBlur(_this3.blurEvent, { highlightedSuggestion: highlightedSuggestion });
+	  };
+	
+	  this.resetHighlightedSuggestionOnMouseLeave = function () {
+	    _this3.resetHighlightedSuggestion(false); // shouldResetValueBeforeUpDown
+	  };
+	
+	  this.itemProps = function (_ref4) {
+	    var sectionIndex = _ref4.sectionIndex,
+	        itemIndex = _ref4.itemIndex;
+	
+	    return {
+	      'data-section-index': sectionIndex,
+	      'data-suggestion-index': itemIndex,
+	      onMouseEnter: _this3.onSuggestionMouseEnter,
+	      onMouseLeave: _this3.resetHighlightedSuggestionOnMouseLeave,
+	      onMouseDown: _this3.onSuggestionMouseDown,
+	      onTouchStart: _this3.onSuggestionMouseDown, // Because on iOS `onMouseDown` is not triggered
+	      onClick: _this3.onSuggestionClick
+	    };
+	  };
+	
+	  this.renderSuggestionsContainer = function (_ref5) {
+	    var containerProps = _ref5.containerProps,
+	        children = _ref5.children;
+	    var renderSuggestionsContainer = _this3.props.renderSuggestionsContainer;
+	
+	
+	    return renderSuggestionsContainer({
+	      containerProps: containerProps,
+	      children: children,
+	      query: _this3.getQuery()
+	    });
+	  };
+	};
+	
+	exports.default = Autosuggest;
+
+/***/ },
+/* 245 */
+/***/ function(module, exports) {
+
+	module.exports = function shallowEqualArrays(arrA, arrB) {
+	  if (arrA === arrB) {
+	    return true;
+	  }
+	
+	  var len = arrA.length;
+	
+	  if (arrB.length !== len) {
+	    return false;
+	  }
+	
+	  for (var i = 0; i < len; i++) {
+	    if (arrA[i] !== arrB[i]) {
+	      return false;
+	    }
+	  }
+	
+	  return true;
+	};
+
+
+/***/ },
+/* 246 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	module.exports = __webpack_require__(247).default;
+
+/***/ },
+/* 247 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(189);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _propTypes = __webpack_require__(190);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
+	var _sectionIterator = __webpack_require__(248);
+	
+	var _sectionIterator2 = _interopRequireDefault(_sectionIterator);
+	
+	var _reactThemeable = __webpack_require__(249);
+	
+	var _reactThemeable2 = _interopRequireDefault(_reactThemeable);
+	
+	var _SectionTitle = __webpack_require__(251);
+	
+	var _SectionTitle2 = _interopRequireDefault(_SectionTitle);
+	
+	var _ItemsList = __webpack_require__(253);
+	
+	var _ItemsList2 = _interopRequireDefault(_ItemsList);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var emptyObject = {};
+	var defaultRenderInputComponent = function defaultRenderInputComponent(props) {
+	  return _react2.default.createElement('input', props);
+	};
+	var defaultRenderItemsContainer = function defaultRenderItemsContainer(_ref) {
+	  var containerProps = _ref.containerProps,
+	      children = _ref.children;
+	  return _react2.default.createElement(
+	    'div',
+	    containerProps,
+	    children
+	  );
+	};
+	var defaultTheme = {
+	  container: 'react-autowhatever__container',
+	  containerOpen: 'react-autowhatever__container--open',
+	  input: 'react-autowhatever__input',
+	  inputOpen: 'react-autowhatever__input--open',
+	  inputFocused: 'react-autowhatever__input--focused',
+	  itemsContainer: 'react-autowhatever__items-container',
+	  itemsContainerOpen: 'react-autowhatever__items-container--open',
+	  itemsList: 'react-autowhatever__items-list',
+	  item: 'react-autowhatever__item',
+	  itemFirst: 'react-autowhatever__item--first',
+	  itemHighlighted: 'react-autowhatever__item--highlighted',
+	  sectionContainer: 'react-autowhatever__section-container',
+	  sectionContainerFirst: 'react-autowhatever__section-container--first',
+	  sectionTitle: 'react-autowhatever__section-title'
+	};
+	
+	var Autowhatever = function (_Component) {
+	  _inherits(Autowhatever, _Component);
+	
+	  function Autowhatever(props) {
+	    _classCallCheck(this, Autowhatever);
+	
+	    var _this = _possibleConstructorReturn(this, (Autowhatever.__proto__ || Object.getPrototypeOf(Autowhatever)).call(this, props));
+	
+	    _this.storeInputReference = function (input) {
+	      if (input !== null) {
+	        _this.input = input;
+	      }
+	    };
+	
+	    _this.storeItemsContainerReference = function (itemsContainer) {
+	      if (itemsContainer !== null) {
+	        _this.itemsContainer = itemsContainer;
+	      }
+	    };
+	
+	    _this.onHighlightedItemChange = function (highlightedItem) {
+	      _this.highlightedItem = highlightedItem;
+	    };
+	
+	    _this.getItemId = function (sectionIndex, itemIndex) {
+	      if (itemIndex === null) {
+	        return null;
+	      }
+	
+	      var id = _this.props.id;
+	
+	      var section = sectionIndex === null ? '' : 'section-' + sectionIndex;
+	
+	      return 'react-autowhatever-' + id + '-' + section + '-item-' + itemIndex;
+	    };
+	
+	    _this.onFocus = function (event) {
+	      var inputProps = _this.props.inputProps;
+	
+	
+	      _this.setState({
+	        isInputFocused: true
+	      });
+	
+	      inputProps.onFocus && inputProps.onFocus(event);
+	    };
+	
+	    _this.onBlur = function (event) {
+	      var inputProps = _this.props.inputProps;
+	
+	
+	      _this.setState({
+	        isInputFocused: false
+	      });
+	
+	      inputProps.onBlur && inputProps.onBlur(event);
+	    };
+	
+	    _this.onKeyDown = function (event) {
+	      var _this$props = _this.props,
+	          inputProps = _this$props.inputProps,
+	          highlightedSectionIndex = _this$props.highlightedSectionIndex,
+	          highlightedItemIndex = _this$props.highlightedItemIndex;
+	
+	
+	      switch (event.key) {
+	        case 'ArrowDown':
+	        case 'ArrowUp':
+	          {
+	            var nextPrev = event.key === 'ArrowDown' ? 'next' : 'prev';
+	
+	            var _this$sectionIterator = _this.sectionIterator[nextPrev]([highlightedSectionIndex, highlightedItemIndex]),
+	                _this$sectionIterator2 = _slicedToArray(_this$sectionIterator, 2),
+	                newHighlightedSectionIndex = _this$sectionIterator2[0],
+	                newHighlightedItemIndex = _this$sectionIterator2[1];
+	
+	            inputProps.onKeyDown(event, { newHighlightedSectionIndex: newHighlightedSectionIndex, newHighlightedItemIndex: newHighlightedItemIndex });
+	            break;
+	          }
+	
+	        default:
+	          inputProps.onKeyDown(event, { highlightedSectionIndex: highlightedSectionIndex, highlightedItemIndex: highlightedItemIndex });
+	      }
+	    };
+	
+	    _this.highlightedItem = null;
+	
+	    _this.state = {
+	      isInputFocused: false
+	    };
+	
+	    _this.setSectionsItems(props);
+	    _this.setSectionIterator(props);
+	    _this.setTheme(props);
+	    return _this;
+	  }
+	
+	  _createClass(Autowhatever, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      this.ensureHighlightedItemIsVisible();
+	    }
+	  }, {
+	    key: 'componentWillReceiveProps',
+	    value: function componentWillReceiveProps(nextProps) {
+	      if (nextProps.items !== this.props.items) {
+	        this.setSectionsItems(nextProps);
+	      }
+	
+	      if (nextProps.items !== this.props.items || nextProps.multiSection !== this.props.multiSection) {
+	        this.setSectionIterator(nextProps);
+	      }
+	
+	      if (nextProps.theme !== this.props.theme) {
+	        this.setTheme(nextProps);
+	      }
+	    }
+	  }, {
+	    key: 'componentDidUpdate',
+	    value: function componentDidUpdate() {
+	      this.ensureHighlightedItemIsVisible();
+	    }
+	  }, {
+	    key: 'setSectionsItems',
+	    value: function setSectionsItems(props) {
+	      if (props.multiSection) {
+	        this.sectionsItems = props.items.map(function (section) {
+	          return props.getSectionItems(section);
+	        });
+	        this.sectionsLengths = this.sectionsItems.map(function (items) {
+	          return items.length;
+	        });
+	        this.allSectionsAreEmpty = this.sectionsLengths.every(function (itemsCount) {
+	          return itemsCount === 0;
+	        });
+	      }
+	    }
+	  }, {
+	    key: 'setSectionIterator',
+	    value: function setSectionIterator(props) {
+	      this.sectionIterator = (0, _sectionIterator2.default)({
+	        multiSection: props.multiSection,
+	        data: props.multiSection ? this.sectionsLengths : props.items.length
+	      });
+	    }
+	  }, {
+	    key: 'setTheme',
+	    value: function setTheme(props) {
+	      this.theme = (0, _reactThemeable2.default)(props.theme);
+	    }
+	  }, {
+	    key: 'renderSections',
+	    value: function renderSections() {
+	      var _this2 = this;
+	
+	      if (this.allSectionsAreEmpty) {
+	        return null;
+	      }
+	
+	      var theme = this.theme;
+	      var _props = this.props,
+	          id = _props.id,
+	          items = _props.items,
+	          renderItem = _props.renderItem,
+	          renderItemData = _props.renderItemData,
+	          renderSectionTitle = _props.renderSectionTitle,
+	          highlightedSectionIndex = _props.highlightedSectionIndex,
+	          highlightedItemIndex = _props.highlightedItemIndex,
+	          itemProps = _props.itemProps;
+	
+	
+	      return items.map(function (section, sectionIndex) {
+	        var keyPrefix = 'react-autowhatever-' + id + '-';
+	        var sectionKeyPrefix = keyPrefix + 'section-' + sectionIndex + '-';
+	        var isFirstSection = sectionIndex === 0;
+	
+	        // `key` is provided by theme()
+	        /* eslint-disable react/jsx-key */
+	        return _react2.default.createElement(
+	          'div',
+	          theme(sectionKeyPrefix + 'container', 'sectionContainer', isFirstSection && 'sectionContainerFirst'),
+	          _react2.default.createElement(_SectionTitle2.default, {
+	            section: section,
+	            renderSectionTitle: renderSectionTitle,
+	            theme: theme,
+	            sectionKeyPrefix: sectionKeyPrefix
+	          }),
+	          _react2.default.createElement(_ItemsList2.default, {
+	            items: _this2.sectionsItems[sectionIndex],
+	            itemProps: itemProps,
+	            renderItem: renderItem,
+	            renderItemData: renderItemData,
+	            sectionIndex: sectionIndex,
+	            highlightedItemIndex: highlightedSectionIndex === sectionIndex ? highlightedItemIndex : null,
+	            onHighlightedItemChange: _this2.onHighlightedItemChange,
+	            getItemId: _this2.getItemId,
+	            theme: theme,
+	            keyPrefix: keyPrefix,
+	            ref: _this2.storeItemsListReference
+	          })
+	        );
+	        /* eslint-enable react/jsx-key */
+	      });
+	    }
+	  }, {
+	    key: 'renderItems',
+	    value: function renderItems() {
+	      var items = this.props.items;
+	
+	
+	      if (items.length === 0) {
+	        return null;
+	      }
+	
+	      var theme = this.theme;
+	      var _props2 = this.props,
+	          id = _props2.id,
+	          renderItem = _props2.renderItem,
+	          renderItemData = _props2.renderItemData,
+	          highlightedSectionIndex = _props2.highlightedSectionIndex,
+	          highlightedItemIndex = _props2.highlightedItemIndex,
+	          itemProps = _props2.itemProps;
+	
+	
+	      return _react2.default.createElement(_ItemsList2.default, {
+	        items: items,
+	        itemProps: itemProps,
+	        renderItem: renderItem,
+	        renderItemData: renderItemData,
+	        highlightedItemIndex: highlightedSectionIndex === null ? highlightedItemIndex : null,
+	        onHighlightedItemChange: this.onHighlightedItemChange,
+	        getItemId: this.getItemId,
+	        theme: theme,
+	        keyPrefix: 'react-autowhatever-' + id + '-'
+	      });
+	    }
+	  }, {
+	    key: 'ensureHighlightedItemIsVisible',
+	    value: function ensureHighlightedItemIsVisible() {
+	      var highlightedItem = this.highlightedItem;
+	
+	
+	      if (!highlightedItem) {
+	        return;
+	      }
+	
+	      var itemsContainer = this.itemsContainer;
+	
+	      var itemOffsetRelativeToContainer = highlightedItem.offsetParent === itemsContainer ? highlightedItem.offsetTop : highlightedItem.offsetTop - itemsContainer.offsetTop;
+	
+	      var scrollTop = itemsContainer.scrollTop; // Top of the visible area
+	
+	      if (itemOffsetRelativeToContainer < scrollTop) {
+	        // Item is off the top of the visible area
+	        scrollTop = itemOffsetRelativeToContainer;
+	      } else if (itemOffsetRelativeToContainer + highlightedItem.offsetHeight > scrollTop + itemsContainer.offsetHeight) {
+	        // Item is off the bottom of the visible area
+	        scrollTop = itemOffsetRelativeToContainer + highlightedItem.offsetHeight - itemsContainer.offsetHeight;
+	      }
+	
+	      if (scrollTop !== itemsContainer.scrollTop) {
+	        itemsContainer.scrollTop = scrollTop;
+	      }
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var theme = this.theme;
+	      var _props3 = this.props,
+	          id = _props3.id,
+	          multiSection = _props3.multiSection,
+	          renderInputComponent = _props3.renderInputComponent,
+	          renderItemsContainer = _props3.renderItemsContainer,
+	          highlightedSectionIndex = _props3.highlightedSectionIndex,
+	          highlightedItemIndex = _props3.highlightedItemIndex;
+	      var isInputFocused = this.state.isInputFocused;
+	
+	      var renderedItems = multiSection ? this.renderSections() : this.renderItems();
+	      var isOpen = renderedItems !== null;
+	      var ariaActivedescendant = this.getItemId(highlightedSectionIndex, highlightedItemIndex);
+	      var containerProps = theme('react-autowhatever-' + id + '-container', 'container', isOpen && 'containerOpen');
+	      var itemsContainerId = 'react-autowhatever-' + id;
+	      var inputComponent = renderInputComponent(_extends({
+	        type: 'text',
+	        value: '',
+	        autoComplete: 'off',
+	        role: 'combobox',
+	        'aria-autocomplete': 'list',
+	        'aria-owns': itemsContainerId,
+	        'aria-expanded': isOpen,
+	        'aria-haspopup': isOpen,
+	        'aria-activedescendant': ariaActivedescendant
+	      }, theme('react-autowhatever-' + id + '-input', 'input', isOpen && 'inputOpen', isInputFocused && 'inputFocused'), this.props.inputProps, {
+	        onFocus: this.onFocus,
+	        onBlur: this.onBlur,
+	        onKeyDown: this.props.inputProps.onKeyDown && this.onKeyDown,
+	        ref: this.storeInputReference
+	      }));
+	      var itemsContainer = renderItemsContainer({
+	        containerProps: _extends({
+	          id: itemsContainerId
+	        }, theme('react-autowhatever-' + id + '-items-container', 'itemsContainer', isOpen && 'itemsContainerOpen'), {
+	          ref: this.storeItemsContainerReference
+	        }),
+	        children: renderedItems
+	      });
+	
+	      return _react2.default.createElement(
+	        'div',
+	        containerProps,
+	        inputComponent,
+	        itemsContainer
+	      );
+	    }
+	  }]);
+	
+	  return Autowhatever;
+	}(_react.Component);
+	
+	Autowhatever.propTypes = {
+	  id: _propTypes2.default.string, // Used in aria-* attributes. If multiple Autowhatever's are rendered on a page, they must have unique ids.
+	  multiSection: _propTypes2.default.bool, // Indicates whether a multi section layout should be rendered.
+	  renderInputComponent: _propTypes2.default.func, // When specified, it is used to render the input element.
+	  renderItemsContainer: _propTypes2.default.func, // Renders the items container.
+	  items: _propTypes2.default.array.isRequired, // Array of items or sections to render.
+	  renderItem: _propTypes2.default.func, // This function renders a single item.
+	  renderItemData: _propTypes2.default.object, // Arbitrary data that will be passed to renderItem()
+	  renderSectionTitle: _propTypes2.default.func, // This function gets a section and renders its title.
+	  getSectionItems: _propTypes2.default.func, // This function gets a section and returns its items, which will be passed into `renderItem` for rendering.
+	  inputProps: _propTypes2.default.object, // Arbitrary input props
+	  itemProps: _propTypes2.default.oneOfType([// Arbitrary item props
+	  _propTypes2.default.object, _propTypes2.default.func]),
+	  highlightedSectionIndex: _propTypes2.default.number, // Section index of the highlighted item
+	  highlightedItemIndex: _propTypes2.default.number, // Highlighted item index (within a section)
+	  theme: _propTypes2.default.oneOfType([// Styles. See: https://github.com/markdalgleish/react-themeable
+	  _propTypes2.default.object, _propTypes2.default.array])
+	};
+	Autowhatever.defaultProps = {
+	  id: '1',
+	  multiSection: false,
+	  renderInputComponent: defaultRenderInputComponent,
+	  renderItemsContainer: defaultRenderItemsContainer,
+	  renderItem: function renderItem() {
+	    throw new Error('`renderItem` must be provided');
+	  },
+	  renderItemData: emptyObject,
+	  renderSectionTitle: function renderSectionTitle() {
+	    throw new Error('`renderSectionTitle` must be provided');
+	  },
+	  getSectionItems: function getSectionItems() {
+	    throw new Error('`getSectionItems` must be provided');
+	  },
+	  inputProps: emptyObject,
+	  itemProps: emptyObject,
+	  highlightedSectionIndex: null,
+	  highlightedItemIndex: null,
+	  theme: defaultTheme
+	};
+	exports.default = Autowhatever;
+
+/***/ },
+/* 248 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+	
+	module.exports = function (_ref) {
+	  var data = _ref.data;
+	  var multiSection = _ref.multiSection;
+	
+	  function nextNonEmptySectionIndex(sectionIndex) {
+	    if (sectionIndex === null) {
+	      sectionIndex = 0;
+	    } else {
+	      sectionIndex++;
+	    }
+	
+	    while (sectionIndex < data.length && data[sectionIndex] === 0) {
+	      sectionIndex++;
+	    }
+	
+	    return sectionIndex === data.length ? null : sectionIndex;
+	  }
+	
+	  function prevNonEmptySectionIndex(sectionIndex) {
+	    if (sectionIndex === null) {
+	      sectionIndex = data.length - 1;
+	    } else {
+	      sectionIndex--;
+	    }
+	
+	    while (sectionIndex >= 0 && data[sectionIndex] === 0) {
+	      sectionIndex--;
+	    }
+	
+	    return sectionIndex === -1 ? null : sectionIndex;
+	  }
+	
+	  function next(position) {
+	    var _position = _slicedToArray(position, 2);
+	
+	    var sectionIndex = _position[0];
+	    var itemIndex = _position[1];
+	
+	
+	    if (multiSection) {
+	      if (itemIndex === null || itemIndex === data[sectionIndex] - 1) {
+	        sectionIndex = nextNonEmptySectionIndex(sectionIndex);
+	
+	        if (sectionIndex === null) {
+	          return [null, null];
+	        }
+	
+	        return [sectionIndex, 0];
+	      }
+	
+	      return [sectionIndex, itemIndex + 1];
+	    }
+	
+	    if (data === 0 || itemIndex === data - 1) {
+	      return [null, null];
+	    }
+	
+	    if (itemIndex === null) {
+	      return [null, 0];
+	    }
+	
+	    return [null, itemIndex + 1];
+	  }
+	
+	  function prev(position) {
+	    var _position2 = _slicedToArray(position, 2);
+	
+	    var sectionIndex = _position2[0];
+	    var itemIndex = _position2[1];
+	
+	
+	    if (multiSection) {
+	      if (itemIndex === null || itemIndex === 0) {
+	        sectionIndex = prevNonEmptySectionIndex(sectionIndex);
+	
+	        if (sectionIndex === null) {
+	          return [null, null];
+	        }
+	
+	        return [sectionIndex, data[sectionIndex] - 1];
+	      }
+	
+	      return [sectionIndex, itemIndex - 1];
+	    }
+	
+	    if (data === 0 || itemIndex === 0) {
+	      return [null, null];
+	    }
+	
+	    if (itemIndex === null) {
+	      return [null, data - 1];
+	    }
+	
+	    return [null, itemIndex - 1];
+	  }
+	
+	  function isLast(position) {
+	    return next(position)[1] === null;
+	  }
+	
+	  return {
+	    next: next,
+	    prev: prev,
+	    isLast: isLast
+	  };
+	};
+
+
+/***/ },
+/* 249 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	
+	var _slicedToArray = (function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i['return']) _i['return'](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError('Invalid attempt to destructure non-iterable instance'); } }; })();
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) arr2[i] = arr[i]; return arr2; } else { return Array.from(arr); } }
+	
+	var _objectAssign = __webpack_require__(250);
+	
+	var _objectAssign2 = _interopRequireDefault(_objectAssign);
+	
+	var truthy = function truthy(x) {
+	  return x;
+	};
+	
+	exports['default'] = function (input) {
+	  var _ref = Array.isArray(input) && input.length === 2 ? input : [input, null];
+	
+	  var _ref2 = _slicedToArray(_ref, 2);
+	
+	  var theme = _ref2[0];
+	  var classNameDecorator = _ref2[1];
+	
+	  return function (key) {
+	    for (var _len = arguments.length, names = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+	      names[_key - 1] = arguments[_key];
+	    }
+	
+	    var styles = names.map(function (name) {
+	      return theme[name];
+	    }).filter(truthy);
+	
+	    return typeof styles[0] === 'string' || typeof classNameDecorator === 'function' ? { key: key, className: classNameDecorator ? classNameDecorator.apply(undefined, _toConsumableArray(styles)) : styles.join(' ') } : { key: key, style: _objectAssign2['default'].apply(undefined, [{}].concat(_toConsumableArray(styles))) };
+	  };
+	};
+	
+	module.exports = exports['default'];
+
+/***/ },
+/* 250 */
+/***/ function(module, exports) {
+
+	'use strict';
+	var propIsEnumerable = Object.prototype.propertyIsEnumerable;
+	
+	function ToObject(val) {
+		if (val == null) {
+			throw new TypeError('Object.assign cannot be called with null or undefined');
+		}
+	
+		return Object(val);
+	}
+	
+	function ownEnumerableKeys(obj) {
+		var keys = Object.getOwnPropertyNames(obj);
+	
+		if (Object.getOwnPropertySymbols) {
+			keys = keys.concat(Object.getOwnPropertySymbols(obj));
+		}
+	
+		return keys.filter(function (key) {
+			return propIsEnumerable.call(obj, key);
+		});
+	}
+	
+	module.exports = Object.assign || function (target, source) {
+		var from;
+		var keys;
+		var to = ToObject(target);
+	
+		for (var s = 1; s < arguments.length; s++) {
+			from = arguments[s];
+			keys = ownEnumerableKeys(Object(from));
+	
+			for (var i = 0; i < keys.length; i++) {
+				to[keys[i]] = from[keys[i]];
+			}
+		}
+	
+		return to;
+	};
+
+
+/***/ },
+/* 251 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(189);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _propTypes = __webpack_require__(190);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
+	var _compareObjects = __webpack_require__(252);
+	
+	var _compareObjects2 = _interopRequireDefault(_compareObjects);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var SectionTitle = function (_Component) {
+	  _inherits(SectionTitle, _Component);
+	
+	  function SectionTitle() {
+	    _classCallCheck(this, SectionTitle);
+	
+	    return _possibleConstructorReturn(this, (SectionTitle.__proto__ || Object.getPrototypeOf(SectionTitle)).apply(this, arguments));
+	  }
+	
+	  _createClass(SectionTitle, [{
+	    key: 'shouldComponentUpdate',
+	    value: function shouldComponentUpdate(nextProps) {
+	      return (0, _compareObjects2.default)(nextProps, this.props);
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _props = this.props,
+	          section = _props.section,
+	          renderSectionTitle = _props.renderSectionTitle,
+	          theme = _props.theme,
+	          sectionKeyPrefix = _props.sectionKeyPrefix;
+	
+	      var sectionTitle = renderSectionTitle(section);
+	
+	      if (!sectionTitle) {
+	        return null;
+	      }
+	
+	      return _react2.default.createElement(
+	        'div',
+	        theme(sectionKeyPrefix + 'title', 'sectionTitle'),
+	        sectionTitle
+	      );
+	    }
+	  }]);
+	
+	  return SectionTitle;
+	}(_react.Component);
+	
+	SectionTitle.propTypes = {
+	  section: _propTypes2.default.any.isRequired,
+	  renderSectionTitle: _propTypes2.default.func.isRequired,
+	  theme: _propTypes2.default.func.isRequired,
+	  sectionKeyPrefix: _propTypes2.default.string.isRequired
+	};
+	exports.default = SectionTitle;
+
+/***/ },
+/* 252 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+	
+	exports.default = compareObjects;
+	function compareObjects(objA, objB) {
+	  var keys = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
+	
+	  if (objA === objB) {
+	    return false;
+	  }
+	
+	  var aKeys = Object.keys(objA);
+	  var bKeys = Object.keys(objB);
+	
+	  if (aKeys.length !== bKeys.length) {
+	    return true;
+	  }
+	
+	  var keysMap = {};
+	  var i = void 0,
+	      len = void 0;
+	
+	  for (i = 0, len = keys.length; i < len; i++) {
+	    keysMap[keys[i]] = true;
+	  }
+	
+	  for (i = 0, len = aKeys.length; i < len; i++) {
+	    var key = aKeys[i];
+	    var aValue = objA[key];
+	    var bValue = objB[key];
+	
+	    if (aValue === bValue) {
+	      continue;
+	    }
+	
+	    if (!keysMap[key] || aValue === null || bValue === null || (typeof aValue === 'undefined' ? 'undefined' : _typeof(aValue)) !== 'object' || (typeof bValue === 'undefined' ? 'undefined' : _typeof(bValue)) !== 'object') {
+	      return true;
+	    }
+	
+	    var aValueKeys = Object.keys(aValue);
+	    var bValueKeys = Object.keys(bValue);
+	
+	    if (aValueKeys.length !== bValueKeys.length) {
+	      return true;
+	    }
+	
+	    for (var n = 0, length = aValueKeys.length; n < length; n++) {
+	      var aValueKey = aValueKeys[n];
+	
+	      if (aValue[aValueKey] !== bValue[aValueKey]) {
+	        return true;
+	      }
+	    }
+	  }
+	
+	  return false;
+	}
+
+/***/ },
+/* 253 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(189);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _propTypes = __webpack_require__(190);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
+	var _Item = __webpack_require__(254);
+	
+	var _Item2 = _interopRequireDefault(_Item);
+	
+	var _compareObjects = __webpack_require__(252);
+	
+	var _compareObjects2 = _interopRequireDefault(_compareObjects);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var ItemsList = function (_Component) {
+	  _inherits(ItemsList, _Component);
+	
+	  function ItemsList() {
+	    var _ref;
+	
+	    var _temp, _this, _ret;
+	
+	    _classCallCheck(this, ItemsList);
+	
+	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	      args[_key] = arguments[_key];
+	    }
+	
+	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = ItemsList.__proto__ || Object.getPrototypeOf(ItemsList)).call.apply(_ref, [this].concat(args))), _this), _this.storeHighlightedItemReference = function (highlightedItem) {
+	      _this.props.onHighlightedItemChange(highlightedItem === null ? null : highlightedItem.item);
+	    }, _temp), _possibleConstructorReturn(_this, _ret);
+	  }
+	
+	  _createClass(ItemsList, [{
+	    key: 'shouldComponentUpdate',
+	    value: function shouldComponentUpdate(nextProps) {
+	      return (0, _compareObjects2.default)(nextProps, this.props, ['itemProps']);
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _this2 = this;
+	
+	      var _props = this.props,
+	          items = _props.items,
+	          itemProps = _props.itemProps,
+	          renderItem = _props.renderItem,
+	          renderItemData = _props.renderItemData,
+	          sectionIndex = _props.sectionIndex,
+	          highlightedItemIndex = _props.highlightedItemIndex,
+	          getItemId = _props.getItemId,
+	          theme = _props.theme,
+	          keyPrefix = _props.keyPrefix;
+	
+	      var sectionPrefix = sectionIndex === null ? keyPrefix : keyPrefix + 'section-' + sectionIndex + '-';
+	      var isItemPropsFunction = typeof itemProps === 'function';
+	
+	      return _react2.default.createElement(
+	        'ul',
+	        _extends({ role: 'listbox' }, theme(sectionPrefix + 'items-list', 'itemsList')),
+	        items.map(function (item, itemIndex) {
+	          var isFirst = itemIndex === 0;
+	          var isHighlighted = itemIndex === highlightedItemIndex;
+	          var itemKey = sectionPrefix + 'item-' + itemIndex;
+	          var itemPropsObj = isItemPropsFunction ? itemProps({ sectionIndex: sectionIndex, itemIndex: itemIndex }) : itemProps;
+	          var allItemProps = _extends({
+	            id: getItemId(sectionIndex, itemIndex)
+	          }, theme(itemKey, 'item', isFirst && 'itemFirst', isHighlighted && 'itemHighlighted'), itemPropsObj);
+	
+	          if (isHighlighted) {
+	            allItemProps.ref = _this2.storeHighlightedItemReference;
+	          }
+	
+	          // `key` is provided by theme()
+	          /* eslint-disable react/jsx-key */
+	          return _react2.default.createElement(_Item2.default, _extends({}, allItemProps, {
+	            sectionIndex: sectionIndex,
+	            isHighlighted: isHighlighted,
+	            itemIndex: itemIndex,
+	            item: item,
+	            renderItem: renderItem,
+	            renderItemData: renderItemData
+	          }));
+	          /* eslint-enable react/jsx-key */
+	        })
+	      );
+	    }
+	  }]);
+	
+	  return ItemsList;
+	}(_react.Component);
+	
+	ItemsList.propTypes = {
+	  items: _propTypes2.default.array.isRequired,
+	  itemProps: _propTypes2.default.oneOfType([_propTypes2.default.object, _propTypes2.default.func]),
+	  renderItem: _propTypes2.default.func.isRequired,
+	  renderItemData: _propTypes2.default.object.isRequired,
+	  sectionIndex: _propTypes2.default.number,
+	  highlightedItemIndex: _propTypes2.default.number,
+	  onHighlightedItemChange: _propTypes2.default.func.isRequired,
+	  getItemId: _propTypes2.default.func.isRequired,
+	  theme: _propTypes2.default.func.isRequired,
+	  keyPrefix: _propTypes2.default.string.isRequired
+	};
+	ItemsList.defaultProps = {
+	  sectionIndex: null
+	};
+	exports.default = ItemsList;
+
+/***/ },
+/* 254 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(189);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _propTypes = __webpack_require__(190);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
+	var _compareObjects = __webpack_require__(252);
+	
+	var _compareObjects2 = _interopRequireDefault(_compareObjects);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Item = function (_Component) {
+	  _inherits(Item, _Component);
+	
+	  function Item() {
+	    var _ref;
+	
+	    var _temp, _this, _ret;
+	
+	    _classCallCheck(this, Item);
+	
+	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	      args[_key] = arguments[_key];
+	    }
+	
+	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Item.__proto__ || Object.getPrototypeOf(Item)).call.apply(_ref, [this].concat(args))), _this), _this.storeItemReference = function (item) {
+	      if (item !== null) {
+	        _this.item = item;
+	      }
+	    }, _this.onMouseEnter = function (event) {
+	      var _this$props = _this.props,
+	          sectionIndex = _this$props.sectionIndex,
+	          itemIndex = _this$props.itemIndex;
+	
+	
+	      _this.props.onMouseEnter(event, { sectionIndex: sectionIndex, itemIndex: itemIndex });
+	    }, _this.onMouseLeave = function (event) {
+	      var _this$props2 = _this.props,
+	          sectionIndex = _this$props2.sectionIndex,
+	          itemIndex = _this$props2.itemIndex;
+	
+	
+	      _this.props.onMouseLeave(event, { sectionIndex: sectionIndex, itemIndex: itemIndex });
+	    }, _this.onMouseDown = function (event) {
+	      var _this$props3 = _this.props,
+	          sectionIndex = _this$props3.sectionIndex,
+	          itemIndex = _this$props3.itemIndex;
+	
+	
+	      _this.props.onMouseDown(event, { sectionIndex: sectionIndex, itemIndex: itemIndex });
+	    }, _this.onClick = function (event) {
+	      var _this$props4 = _this.props,
+	          sectionIndex = _this$props4.sectionIndex,
+	          itemIndex = _this$props4.itemIndex;
+	
+	
+	      _this.props.onClick(event, { sectionIndex: sectionIndex, itemIndex: itemIndex });
+	    }, _temp), _possibleConstructorReturn(_this, _ret);
+	  }
+	
+	  _createClass(Item, [{
+	    key: 'shouldComponentUpdate',
+	    value: function shouldComponentUpdate(nextProps) {
+	      return (0, _compareObjects2.default)(nextProps, this.props, ['renderItemData']);
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _props = this.props,
+	          isHighlighted = _props.isHighlighted,
+	          item = _props.item,
+	          renderItem = _props.renderItem,
+	          renderItemData = _props.renderItemData,
+	          restProps = _objectWithoutProperties(_props, ['isHighlighted', 'item', 'renderItem', 'renderItemData']);
+	
+	      delete restProps.sectionIndex;
+	      delete restProps.itemIndex;
+	
+	      if (typeof restProps.onMouseEnter === 'function') {
+	        restProps.onMouseEnter = this.onMouseEnter;
+	      }
+	
+	      if (typeof restProps.onMouseLeave === 'function') {
+	        restProps.onMouseLeave = this.onMouseLeave;
+	      }
+	
+	      if (typeof restProps.onMouseDown === 'function') {
+	        restProps.onMouseDown = this.onMouseDown;
+	      }
+	
+	      if (typeof restProps.onClick === 'function') {
+	        restProps.onClick = this.onClick;
+	      }
+	
+	      return _react2.default.createElement(
+	        'li',
+	        _extends({ role: 'option' }, restProps, { ref: this.storeItemReference }),
+	        renderItem(item, _extends({ isHighlighted: isHighlighted }, renderItemData))
+	      );
+	    }
+	  }]);
+	
+	  return Item;
+	}(_react.Component);
+	
+	Item.propTypes = {
+	  sectionIndex: _propTypes2.default.number,
+	  isHighlighted: _propTypes2.default.bool.isRequired,
+	  itemIndex: _propTypes2.default.number.isRequired,
+	  item: _propTypes2.default.any.isRequired,
+	  renderItem: _propTypes2.default.func.isRequired,
+	  renderItemData: _propTypes2.default.object.isRequired,
+	  onMouseEnter: _propTypes2.default.func,
+	  onMouseLeave: _propTypes2.default.func,
+	  onMouseDown: _propTypes2.default.func,
+	  onClick: _propTypes2.default.func
+	};
+	exports.default = Item;
+
+/***/ },
+/* 255 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var defaultTheme = exports.defaultTheme = {
+	  container: 'react-autosuggest__container',
+	  containerOpen: 'react-autosuggest__container--open',
+	  input: 'react-autosuggest__input',
+	  inputOpen: 'react-autosuggest__input--open',
+	  inputFocused: 'react-autosuggest__input--focused',
+	  suggestionsContainer: 'react-autosuggest__suggestions-container',
+	  suggestionsContainerOpen: 'react-autosuggest__suggestions-container--open',
+	  suggestionsList: 'react-autosuggest__suggestions-list',
+	  suggestion: 'react-autosuggest__suggestion',
+	  suggestionFirst: 'react-autosuggest__suggestion--first',
+	  suggestionHighlighted: 'react-autosuggest__suggestion--highlighted',
+	  sectionContainer: 'react-autosuggest__section-container',
+	  sectionContainerFirst: 'react-autosuggest__section-container--first',
+	  sectionTitle: 'react-autosuggest__section-title'
+	};
+	
+	var mapToAutowhateverTheme = exports.mapToAutowhateverTheme = function mapToAutowhateverTheme(theme) {
+	  var result = {};
+	
+	  for (var key in theme) {
+	    switch (key) {
+	      case 'suggestionsContainer':
+	        result['itemsContainer'] = theme[key];
+	        break;
+	
+	      case 'suggestionsContainerOpen':
+	        result['itemsContainerOpen'] = theme[key];
+	        break;
+	
+	      case 'suggestion':
+	        result['item'] = theme[key];
+	        break;
+	
+	      case 'suggestionFirst':
+	        result['itemFirst'] = theme[key];
+	        break;
+	
+	      case 'suggestionHighlighted':
+	        result['itemHighlighted'] = theme[key];
+	        break;
+	
+	      case 'suggestionsList':
+	        result['itemsList'] = theme[key];
+	        break;
+	
+	      default:
+	        result[key] = theme[key];
+	    }
+	  }
+	
+	  return result;
+	};
+
+/***/ },
+/* 256 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
 	var _react = __webpack_require__(189);
@@ -11865,7 +14093,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = (0, _I18n.translate)()(Nav);
 
 /***/ },
-/* 243 */
+/* 257 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -11970,7 +14198,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = Claudy;
 
 /***/ },
-/* 244 */
+/* 258 */
 /***/ function(module, exports, __webpack_require__) {
 
 	(function (global, factory) {
@@ -12376,101 +14604,102 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 245 */
+/* 259 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 246 */,
-/* 247 */,
-/* 248 */,
-/* 249 */,
-/* 250 */,
-/* 251 */,
-/* 252 */,
-/* 253 */,
-/* 254 */,
-/* 255 */,
-/* 256 */,
-/* 257 */
+/* 260 */,
+/* 261 */,
+/* 262 */,
+/* 263 */,
+/* 264 */,
+/* 265 */,
+/* 266 */,
+/* 267 */,
+/* 268 */,
+/* 269 */,
+/* 270 */,
+/* 271 */,
+/* 272 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var map = {
-		"./ar": 258,
-		"./ar.json": 258,
-		"./ca": 259,
-		"./ca.json": 259,
-		"./ca_ES": 260,
-		"./ca_ES.json": 260,
-		"./cs": 261,
-		"./cs.json": 261,
-		"./cs_CZ": 262,
-		"./cs_CZ.json": 262,
-		"./da": 263,
-		"./da.json": 263,
-		"./de": 264,
-		"./de.json": 264,
-		"./de_DE": 265,
-		"./de_DE.json": 265,
-		"./el": 266,
-		"./el.json": 266,
-		"./en": 267,
-		"./en.json": 267,
-		"./eo": 268,
-		"./eo.json": 268,
-		"./es": 269,
-		"./es.json": 269,
-		"./es_CO": 270,
-		"./es_CO.json": 270,
-		"./es_ES": 271,
-		"./es_ES.json": 271,
-		"./fr": 272,
-		"./fr.json": 272,
-		"./it": 273,
-		"./it.json": 273,
-		"./ja": 274,
-		"./ja.json": 274,
-		"./ko": 275,
-		"./ko.json": 275,
-		"./nl": 276,
-		"./nl.json": 276,
-		"./nl_NL": 277,
-		"./nl_NL.json": 277,
-		"./pl": 278,
-		"./pl.json": 278,
-		"./pt": 279,
-		"./pt.json": 279,
-		"./pt_BR": 280,
-		"./pt_BR.json": 280,
-		"./ro": 281,
-		"./ro.json": 281,
-		"./ro_RO": 282,
-		"./ro_RO.json": 282,
-		"./ru": 283,
-		"./ru.json": 283,
-		"./ru_RU": 284,
-		"./ru_RU.json": 284,
-		"./sk": 285,
-		"./sk.json": 285,
-		"./sk_SK": 286,
-		"./sk_SK.json": 286,
-		"./sq": 287,
-		"./sq.json": 287,
-		"./sq_AL": 288,
-		"./sq_AL.json": 288,
-		"./sv": 289,
-		"./sv.json": 289,
-		"./tr": 290,
-		"./tr.json": 290,
-		"./uk_UA": 291,
-		"./uk_UA.json": 291,
-		"./zh": 292,
-		"./zh.json": 292,
-		"./zh_CN": 293,
-		"./zh_CN.json": 293,
-		"./zh_TW": 294,
-		"./zh_TW.json": 294
+		"./ar": 273,
+		"./ar.json": 273,
+		"./ca": 274,
+		"./ca.json": 274,
+		"./ca_ES": 275,
+		"./ca_ES.json": 275,
+		"./cs": 276,
+		"./cs.json": 276,
+		"./cs_CZ": 277,
+		"./cs_CZ.json": 277,
+		"./da": 278,
+		"./da.json": 278,
+		"./de": 279,
+		"./de.json": 279,
+		"./de_DE": 280,
+		"./de_DE.json": 280,
+		"./el": 281,
+		"./el.json": 281,
+		"./en": 282,
+		"./en.json": 282,
+		"./eo": 283,
+		"./eo.json": 283,
+		"./es": 284,
+		"./es.json": 284,
+		"./es_CO": 285,
+		"./es_CO.json": 285,
+		"./es_ES": 286,
+		"./es_ES.json": 286,
+		"./fr": 287,
+		"./fr.json": 287,
+		"./it": 288,
+		"./it.json": 288,
+		"./ja": 289,
+		"./ja.json": 289,
+		"./ko": 290,
+		"./ko.json": 290,
+		"./nl": 291,
+		"./nl.json": 291,
+		"./nl_NL": 292,
+		"./nl_NL.json": 292,
+		"./pl": 293,
+		"./pl.json": 293,
+		"./pt": 294,
+		"./pt.json": 294,
+		"./pt_BR": 295,
+		"./pt_BR.json": 295,
+		"./ro": 296,
+		"./ro.json": 296,
+		"./ro_RO": 297,
+		"./ro_RO.json": 297,
+		"./ru": 298,
+		"./ru.json": 298,
+		"./ru_RU": 299,
+		"./ru_RU.json": 299,
+		"./sk": 300,
+		"./sk.json": 300,
+		"./sk_SK": 301,
+		"./sk_SK.json": 301,
+		"./sq": 302,
+		"./sq.json": 302,
+		"./sq_AL": 303,
+		"./sq_AL.json": 303,
+		"./sv": 304,
+		"./sv.json": 304,
+		"./tr": 305,
+		"./tr.json": 305,
+		"./uk_UA": 306,
+		"./uk_UA.json": 306,
+		"./zh": 307,
+		"./zh.json": 307,
+		"./zh_CN": 308,
+		"./zh_CN.json": 308,
+		"./zh_TW": 309,
+		"./zh_TW.json": 309
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -12483,503 +14712,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 	webpackContext.resolve = webpackContextResolve;
 	module.exports = webpackContext;
-	webpackContext.id = 257;
+	webpackContext.id = 272;
 
-
-/***/ },
-/* 258 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"drawer": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
-		"help": "Help",
-		"logout": "Sign out",
-		"beta_status": "We are still in beta",
-		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
-		"no_apps": "No applications found on the Cozy.",
-		"menu": {
-			"apps": "Apps",
-			"settings": "Settings"
-		},
-		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
-			"ptnb": "expPTNB",
-			"others": "Other apps"
-		},
-		"claudy": {
-			"title": "How to drive your Cozy?"
-		}
-	};
-
-/***/ },
-/* 259 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"drawer": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
-		"help": "Help",
-		"logout": "Sign out",
-		"beta_status": "We are still in beta",
-		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
-		"no_apps": "No applications found on the Cozy.",
-		"menu": {
-			"apps": "Apps",
-			"settings": "Settings"
-		},
-		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
-			"ptnb": "expPTNB",
-			"others": "Other apps"
-		},
-		"claudy": {
-			"title": "How to drive your Cozy?"
-		}
-	};
-
-/***/ },
-/* 260 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"drawer": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
-		"help": "Help",
-		"logout": "Sign out",
-		"beta_status": "We are still in beta",
-		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
-		"no_apps": "No applications found on the Cozy.",
-		"menu": {
-			"apps": "Apps",
-			"settings": "Settings"
-		},
-		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
-			"ptnb": "expPTNB",
-			"others": "Other apps"
-		},
-		"claudy": {
-			"title": "How to drive your Cozy?"
-		}
-	};
-
-/***/ },
-/* 261 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"drawer": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
-		"help": "Help",
-		"logout": "Sign out",
-		"beta_status": "We are still in beta",
-		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
-		"no_apps": "No applications found on the Cozy.",
-		"menu": {
-			"apps": "Apps",
-			"settings": "Settings"
-		},
-		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
-			"ptnb": "expPTNB",
-			"others": "Other apps"
-		},
-		"claudy": {
-			"title": "How to drive your Cozy?"
-		}
-	};
-
-/***/ },
-/* 262 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"drawer": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
-		"help": "Help",
-		"logout": "Sign out",
-		"beta_status": "We are still in beta",
-		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
-		"no_apps": "No applications found on the Cozy.",
-		"menu": {
-			"apps": "Apps",
-			"settings": "Settings"
-		},
-		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
-			"ptnb": "expPTNB",
-			"others": "Other apps"
-		},
-		"claudy": {
-			"title": "How to drive your Cozy?"
-		}
-	};
-
-/***/ },
-/* 263 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"drawer": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
-		"help": "Help",
-		"logout": "Sign out",
-		"beta_status": "We are still in beta",
-		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
-		"no_apps": "No applications found on the Cozy.",
-		"menu": {
-			"apps": "Apps",
-			"settings": "Settings"
-		},
-		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
-			"ptnb": "expPTNB",
-			"others": "Other apps"
-		},
-		"claudy": {
-			"title": "How to drive your Cozy?"
-		}
-	};
-
-/***/ },
-/* 264 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"drawer": "Menü anzeigen",
-		"profile": "Profile",
-		"connectedDevices": "Verbundene Geräte",
-		"storage": "Speicher",
-		"storage_phrase": "%{diskUsage} GB von %{diskQuota} GB benutzt",
-		"help": "Hilfe",
-		"logout": "Ausloggen",
-		"beta_status": "Wir sind noch in der Betaphase",
-		"beta": "Betaphase",
-		"soon": "Später",
-		"error_UnavailableStack": "Der Stapel ist nicht erreichbar (Verbindung Zeitüberschreitung).",
-		"error_UnauthorizedStack": "Einige Berechtigungen fehlen, die Anwendung kann nicht auf die angeforderte Ressource auf dem Stapel zugreifen.",
-		"no_apps": "Keine Anwendungen für Cozy gefunden.",
-		"menu": {
-			"apps": "Anwendungen",
-			"settings": "Einstellungen"
-		},
-		"Categories": {
-			"cozy": "Cozy Anwendungen",
-			"partners": "Partner Anwendungen",
-			"ptnb": "expPTNB",
-			"others": "Andere Anwendungen"
-		},
-		"claudy": {
-			"title": "Wie willst du dein Cozy steuern?"
-		}
-	};
-
-/***/ },
-/* 265 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"drawer": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
-		"help": "Help",
-		"logout": "Sign out",
-		"beta_status": "We are still in beta",
-		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
-		"no_apps": "No applications found on the Cozy.",
-		"menu": {
-			"apps": "Apps",
-			"settings": "Settings"
-		},
-		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
-			"ptnb": "expPTNB",
-			"others": "Other apps"
-		},
-		"claudy": {
-			"title": "How to drive your Cozy?"
-		}
-	};
-
-/***/ },
-/* 266 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"drawer": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
-		"help": "Help",
-		"logout": "Sign out",
-		"beta_status": "We are still in beta",
-		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
-		"no_apps": "No applications found on the Cozy.",
-		"menu": {
-			"apps": "Apps",
-			"settings": "Settings"
-		},
-		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
-			"ptnb": "expPTNB",
-			"others": "Other apps"
-		},
-		"claudy": {
-			"title": "How to drive your Cozy?"
-		}
-	};
-
-/***/ },
-/* 267 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"drawer": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
-		"help": "Help",
-		"logout": "Sign out",
-		"beta_status": "We are still in beta",
-		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
-		"no_apps": "No applications found on the Cozy.",
-		"menu": {
-			"apps": "Apps",
-			"settings": "Settings"
-		},
-		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
-			"ptnb": "expPTNB",
-			"others": "Other apps"
-		},
-		"claudy": {
-			"title": "How to drive your Cozy?"
-		}
-	};
-
-/***/ },
-/* 268 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"drawer": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
-		"help": "Help",
-		"logout": "Sign out",
-		"beta_status": "We are still in beta",
-		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
-		"no_apps": "No applications found on the Cozy.",
-		"menu": {
-			"apps": "Apps",
-			"settings": "Settings"
-		},
-		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
-			"ptnb": "expPTNB",
-			"others": "Other apps"
-		},
-		"claudy": {
-			"title": "How to drive your Cozy?"
-		}
-	};
-
-/***/ },
-/* 269 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"drawer": "Mostrar el menu drawer",
-		"profile": "Perfil",
-		"connectedDevices": "Periféricos conectados",
-		"storage": "Almacenamiento",
-		"storage_phrase": "%{diskUsage} GO de %{diskQuota} GO usados",
-		"help": "Ayuda",
-		"logout": "Finalizar sesión",
-		"beta_status": "Estamos aún en versión beta",
-		"beta": "beta",
-		"soon": "pronto",
-		"error_UnavailableStack": "La pila es inaccesible ( se agotó el tiempo de la conexión ).",
-		"error_UnauthorizedStack": "Faltan algunos permisos, la aplicación no puede acceder al recurso solicitado en la pila.",
-		"no_apps": "No se han encontrado aplicaciones en su Cozy.",
-		"menu": {
-			"apps": "Aplicaciones",
-			"settings": "Opciones"
-		},
-		"Categories": {
-			"cozy": "Aplicaciones Cozy",
-			"partners": "Aplicaciones de asociados",
-			"ptnb": "expPTNB",
-			"others": "Otras aplicaciones"
-		},
-		"claudy": {
-			"title": "¿Cómo pilotear su Cozy?"
-		}
-	};
-
-/***/ },
-/* 270 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"drawer": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
-		"help": "Help",
-		"logout": "Sign out",
-		"beta_status": "We are still in beta",
-		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
-		"no_apps": "No applications found on the Cozy.",
-		"menu": {
-			"apps": "Apps",
-			"settings": "Settings"
-		},
-		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
-			"ptnb": "expPTNB",
-			"others": "Other apps"
-		},
-		"claudy": {
-			"title": "How to drive your Cozy?"
-		}
-	};
-
-/***/ },
-/* 271 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"drawer": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
-		"help": "Help",
-		"logout": "Sign out",
-		"beta_status": "We are still in beta",
-		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
-		"no_apps": "No applications found on the Cozy.",
-		"menu": {
-			"apps": "Apps",
-			"settings": "Settings"
-		},
-		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
-			"ptnb": "expPTNB",
-			"others": "Other apps"
-		},
-		"claudy": {
-			"title": "How to drive your Cozy?"
-		}
-	};
-
-/***/ },
-/* 272 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"drawer": "Afficher le menu latéral",
-		"profile": "Profil",
-		"connectedDevices": "Appareils connectés",
-		"storage": "Espace disque",
-		"storage_phrase": "%{diskUsage} Go sur %{diskQuota} Go",
-		"help": "Aide",
-		"logout": "Déconnexion",
-		"beta_status": "Nous sommes toujours en beta.",
-		"beta": "beta",
-		"soon": "à venir",
-		"error_UnavailableStack": "Connexion à la stack impossible (connection timed-out)",
-		"error_UnauthorizedStack": "Des permissions sont manquante, l'application ne peut accéder aux ressources demandées.",
-		"no_apps": "Pas d'applications Cozy trouvées.",
-		"menu": {
-			"apps": "Applications",
-			"settings": "Paramètres"
-		},
-		"Categories": {
-			"cozy": "Apps Cozy",
-			"partners": "Expérimentation MesInfos",
-			"ptnb": "Expérimentation Carnet du logement",
-			"others": "Autres apps"
-		},
-		"claudy": {
-			"title": "Comment utiliser votre Cozy ?"
-		}
-	};
 
 /***/ },
 /* 273 */
@@ -13019,31 +14753,31 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	module.exports = {
-		"drawer": "メニュードロワーを表示",
-		"profile": "プロフィール",
-		"connectedDevices": "接続されたデバイス",
-		"storage": "ストレージ",
-		"storage_phrase": "%{diskUsage} GB / %{diskQuota} GB 使用",
-		"help": "ヘルプ",
-		"logout": "サインアウト",
-		"beta_status": "まだベータ版です",
-		"beta": "ベータ",
-		"soon": "間もなく",
-		"error_UnavailableStack": "スタックに到達できません (接続タイムアウト)。",
-		"error_UnauthorizedStack": "一部のアクセス許可が不足しているため、アプリケーションはスタック上の要求されたリソースにアクセスできません。",
-		"no_apps": "Cozy にアプリケーションはありません。",
+		"drawer": "Show menu drawer",
+		"profile": "Profile",
+		"connectedDevices": "Connected devices",
+		"storage": "Storage",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
+		"help": "Help",
+		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"soon": "soon",
+		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"no_apps": "No applications found on the Cozy.",
 		"menu": {
-			"apps": "アプリ",
-			"settings": "設定"
+			"apps": "Apps",
+			"settings": "Settings"
 		},
 		"Categories": {
-			"cozy": "Cozy アプリ",
-			"partners": "パートナーアプリ",
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
 			"ptnb": "expPTNB",
-			"others": "他のアプリ"
+			"others": "Other apps"
 		},
 		"claudy": {
-			"title": "Cozy をドライブする方法は?"
+			"title": "How to drive your Cozy?"
 		}
 	};
 
@@ -13086,17 +14820,17 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	module.exports = {
 		"drawer": "Show menu drawer",
-		"profile": "Profiel",
-		"connectedDevices": "Verbonden apparaten",
-		"storage": "Opslag",
-		"storage_phrase": "%{diskUsage} GB van %{diskQuota} GB gebruikt",
-		"help": "Hulp",
-		"logout": "Log uit",
-		"beta_status": "We zijn nog in Beta",
+		"profile": "Profile",
+		"connectedDevices": "Connected devices",
+		"storage": "Storage",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
+		"help": "Help",
+		"logout": "Sign out",
+		"beta_status": "We are still in beta",
 		"beta": "beta",
-		"soon": "binnenkort",
-		"error_UnavailableStack": "De stapel is onbereikbaar (verbinding verlopen)",
-		"error_UnauthorizedStack": "Sommige toestemmingen missen, de toepassing kan niet alles bereiken.",
+		"soon": "soon",
+		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
 		"no_apps": "No applications found on the Cozy.",
 		"menu": {
 			"apps": "Apps",
@@ -13104,9 +14838,9 @@ return /******/ (function(modules) { // webpackBootstrap
 		},
 		"Categories": {
 			"cozy": "Cozy apps",
-			"partners": "Partner apps",
+			"partners": "Partners apps",
 			"ptnb": "expPTNB",
-			"others": "Andere apps"
+			"others": "Other apps"
 		},
 		"claudy": {
 			"title": "How to drive your Cozy?"
@@ -13184,31 +14918,31 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	module.exports = {
-		"drawer": "Show menu drawer",
+		"drawer": "Menü anzeigen",
 		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
-		"help": "Help",
-		"logout": "Sign out",
-		"beta_status": "We are still in beta",
-		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
-		"no_apps": "No applications found on the Cozy.",
+		"connectedDevices": "Verbundene Geräte",
+		"storage": "Speicher",
+		"storage_phrase": "%{diskUsage} GB von %{diskQuota} GB benutzt",
+		"help": "Hilfe",
+		"logout": "Ausloggen",
+		"beta_status": "Wir sind noch in der Betaphase",
+		"beta": "Betaphase",
+		"soon": "Später",
+		"error_UnavailableStack": "Der Stapel ist nicht erreichbar (Verbindung Zeitüberschreitung).",
+		"error_UnauthorizedStack": "Einige Berechtigungen fehlen, die Anwendung kann nicht auf die angeforderte Ressource auf dem Stapel zugreifen.",
+		"no_apps": "Keine Anwendungen für Cozy gefunden.",
 		"menu": {
-			"apps": "Apps",
-			"settings": "Settings"
+			"apps": "Anwendungen",
+			"settings": "Einstellungen"
 		},
 		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
+			"cozy": "Cozy Anwendungen",
+			"partners": "Partner Anwendungen",
 			"ptnb": "expPTNB",
-			"others": "Other apps"
+			"others": "Andere Anwendungen"
 		},
 		"claudy": {
-			"title": "How to drive your Cozy?"
+			"title": "Wie willst du dein Cozy steuern?"
 		}
 	};
 
@@ -13308,6 +15042,9 @@ return /******/ (function(modules) { // webpackBootstrap
 		},
 		"claudy": {
 			"title": "How to drive your Cozy?"
+		},
+		"searchbar": {
+			"placeholder": "Search anything"
 		}
 	};
 
@@ -13317,17 +15054,17 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	module.exports = {
 		"drawer": "Show menu drawer",
-		"profile": "Профиль",
-		"connectedDevices": "Присоединённые устройства",
-		"storage": "Хранилище",
-		"storage_phrase": "%{diskUsage} ГБ из %{diskQuota} ГБ использовано",
-		"help": "Помощь",
-		"logout": "Выход",
+		"profile": "Profile",
+		"connectedDevices": "Connected devices",
+		"storage": "Storage",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
+		"help": "Help",
+		"logout": "Sign out",
 		"beta_status": "We are still in beta",
 		"beta": "beta",
 		"soon": "soon",
-		"error_UnavailableStack": "Это стек не доступен (превышено время ожидания)",
-		"error_UnauthorizedStack": "Некоторые разрешения отсутствуют, получить доступ к запрашиваемому ресурсу в стеке не возможно.",
+		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
 		"no_apps": "No applications found on the Cozy.",
 		"menu": {
 			"apps": "Apps",
@@ -13349,31 +15086,31 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	module.exports = {
-		"drawer": "Show menu drawer",
-		"profile": "Профиль",
-		"connectedDevices": "Присоединённые устройства",
-		"storage": "Хранилище",
-		"storage_phrase": "%{diskUsage} ГБ из %{diskQuota} ГБ использовано",
-		"help": "Помощь",
-		"logout": "Выход",
-		"beta_status": "We are still in beta",
+		"drawer": "Mostrar el menu drawer",
+		"profile": "Perfil",
+		"connectedDevices": "Periféricos conectados",
+		"storage": "Almacenamiento",
+		"storage_phrase": "%{diskUsage} GO de %{diskQuota} GO usados",
+		"help": "Ayuda",
+		"logout": "Finalizar sesión",
+		"beta_status": "Estamos aún en versión beta",
 		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "Это стек не доступен (превышено время ожидания)",
-		"error_UnauthorizedStack": "Некоторые разрешения отсутствуют, получить доступ к запрашиваемому ресурсу в стеке не возможно.",
-		"no_apps": "No applications found on the Cozy.",
+		"soon": "pronto",
+		"error_UnavailableStack": "La pila es inaccesible ( se agotó el tiempo de la conexión ).",
+		"error_UnauthorizedStack": "Faltan algunos permisos, la aplicación no puede acceder al recurso solicitado en la pila.",
+		"no_apps": "No se han encontrado aplicaciones en su Cozy.",
 		"menu": {
-			"apps": "Apps",
-			"settings": "Settings"
+			"apps": "Aplicaciones",
+			"settings": "Opciones"
 		},
 		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
+			"cozy": "Aplicaciones Cozy",
+			"partners": "Aplicaciones de asociados",
 			"ptnb": "expPTNB",
-			"others": "Other apps"
+			"others": "Otras aplicaciones"
 		},
 		"claudy": {
-			"title": "How to drive your Cozy?"
+			"title": "¿Cómo pilotear su Cozy?"
 		}
 	};
 
@@ -13448,31 +15185,31 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	module.exports = {
-		"drawer": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
-		"help": "Help",
-		"logout": "Sign out",
-		"beta_status": "We are still in beta",
+		"drawer": "Afficher le menu latéral",
+		"profile": "Profil",
+		"connectedDevices": "Appareils connectés",
+		"storage": "Espace disque",
+		"storage_phrase": "%{diskUsage} Go sur %{diskQuota} Go",
+		"help": "Aide",
+		"logout": "Déconnexion",
+		"beta_status": "Nous sommes toujours en beta.",
 		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
-		"no_apps": "No applications found on the Cozy.",
+		"soon": "à venir",
+		"error_UnavailableStack": "Connexion à la stack impossible (connection timed-out)",
+		"error_UnauthorizedStack": "Des permissions sont manquante, l'application ne peut accéder aux ressources demandées.",
+		"no_apps": "Pas d'applications Cozy trouvées.",
 		"menu": {
-			"apps": "Apps",
-			"settings": "Settings"
+			"apps": "Applications",
+			"settings": "Paramètres"
 		},
 		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
-			"ptnb": "expPTNB",
-			"others": "Other apps"
+			"cozy": "Apps Cozy",
+			"partners": "Expérimentation MesInfos",
+			"ptnb": "Expérimentation Carnet du logement",
+			"others": "Autres apps"
 		},
 		"claudy": {
-			"title": "How to drive your Cozy?"
+			"title": "Comment utiliser votre Cozy ?"
 		}
 	};
 
@@ -13514,31 +15251,31 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	module.exports = {
-		"drawer": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
-		"help": "Help",
-		"logout": "Sign out",
-		"beta_status": "We are still in beta",
-		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
-		"no_apps": "No applications found on the Cozy.",
+		"drawer": "メニュードロワーを表示",
+		"profile": "プロフィール",
+		"connectedDevices": "接続されたデバイス",
+		"storage": "ストレージ",
+		"storage_phrase": "%{diskUsage} GB / %{diskQuota} GB 使用",
+		"help": "ヘルプ",
+		"logout": "サインアウト",
+		"beta_status": "まだベータ版です",
+		"beta": "ベータ",
+		"soon": "間もなく",
+		"error_UnavailableStack": "スタックに到達できません (接続タイムアウト)。",
+		"error_UnauthorizedStack": "一部のアクセス許可が不足しているため、アプリケーションはスタック上の要求されたリソースにアクセスできません。",
+		"no_apps": "Cozy にアプリケーションはありません。",
 		"menu": {
-			"apps": "Apps",
-			"settings": "Settings"
+			"apps": "アプリ",
+			"settings": "設定"
 		},
 		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
+			"cozy": "Cozy アプリ",
+			"partners": "パートナーアプリ",
 			"ptnb": "expPTNB",
-			"others": "Other apps"
+			"others": "他のアプリ"
 		},
 		"claudy": {
-			"title": "How to drive your Cozy?"
+			"title": "Cozy をドライブする方法は?"
 		}
 	};
 
@@ -13581,17 +15318,17 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	module.exports = {
 		"drawer": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
-		"help": "Help",
-		"logout": "Sign out",
-		"beta_status": "We are still in beta",
+		"profile": "Profiel",
+		"connectedDevices": "Verbonden apparaten",
+		"storage": "Opslag",
+		"storage_phrase": "%{diskUsage} GB van %{diskQuota} GB gebruikt",
+		"help": "Hulp",
+		"logout": "Log uit",
+		"beta_status": "We zijn nog in Beta",
 		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"soon": "binnenkort",
+		"error_UnavailableStack": "De stapel is onbereikbaar (verbinding verlopen)",
+		"error_UnauthorizedStack": "Sommige toestemmingen missen, de toepassing kan niet alles bereiken.",
 		"no_apps": "No applications found on the Cozy.",
 		"menu": {
 			"apps": "Apps",
@@ -13599,9 +15336,9 @@ return /******/ (function(modules) { // webpackBootstrap
 		},
 		"Categories": {
 			"cozy": "Cozy apps",
-			"partners": "Partners apps",
+			"partners": "Partner apps",
 			"ptnb": "expPTNB",
-			"others": "Other apps"
+			"others": "Andere apps"
 		},
 		"claudy": {
 			"title": "How to drive your Cozy?"
@@ -13649,6 +15386,501 @@ return /******/ (function(modules) { // webpackBootstrap
 		"drawer": "Show menu drawer",
 		"profile": "Profile",
 		"connectedDevices": "Connected devices",
+		"storage": "Storage",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
+		"help": "Help",
+		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"soon": "soon",
+		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"no_apps": "No applications found on the Cozy.",
+		"menu": {
+			"apps": "Apps",
+			"settings": "Settings"
+		},
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"ptnb": "expPTNB",
+			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?"
+		}
+	};
+
+/***/ },
+/* 294 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"drawer": "Show menu drawer",
+		"profile": "Profile",
+		"connectedDevices": "Connected devices",
+		"storage": "Storage",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
+		"help": "Help",
+		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"soon": "soon",
+		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"no_apps": "No applications found on the Cozy.",
+		"menu": {
+			"apps": "Apps",
+			"settings": "Settings"
+		},
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"ptnb": "expPTNB",
+			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?"
+		}
+	};
+
+/***/ },
+/* 295 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"drawer": "Show menu drawer",
+		"profile": "Profile",
+		"connectedDevices": "Connected devices",
+		"storage": "Storage",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
+		"help": "Help",
+		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"soon": "soon",
+		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"no_apps": "No applications found on the Cozy.",
+		"menu": {
+			"apps": "Apps",
+			"settings": "Settings"
+		},
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"ptnb": "expPTNB",
+			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?"
+		}
+	};
+
+/***/ },
+/* 296 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"drawer": "Show menu drawer",
+		"profile": "Profile",
+		"connectedDevices": "Connected devices",
+		"storage": "Storage",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
+		"help": "Help",
+		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"soon": "soon",
+		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"no_apps": "No applications found on the Cozy.",
+		"menu": {
+			"apps": "Apps",
+			"settings": "Settings"
+		},
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"ptnb": "expPTNB",
+			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?"
+		}
+	};
+
+/***/ },
+/* 297 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"drawer": "Show menu drawer",
+		"profile": "Profile",
+		"connectedDevices": "Connected devices",
+		"storage": "Storage",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
+		"help": "Help",
+		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"soon": "soon",
+		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"no_apps": "No applications found on the Cozy.",
+		"menu": {
+			"apps": "Apps",
+			"settings": "Settings"
+		},
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"ptnb": "expPTNB",
+			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?"
+		}
+	};
+
+/***/ },
+/* 298 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"drawer": "Show menu drawer",
+		"profile": "Профиль",
+		"connectedDevices": "Присоединённые устройства",
+		"storage": "Хранилище",
+		"storage_phrase": "%{diskUsage} ГБ из %{diskQuota} ГБ использовано",
+		"help": "Помощь",
+		"logout": "Выход",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"soon": "soon",
+		"error_UnavailableStack": "Это стек не доступен (превышено время ожидания)",
+		"error_UnauthorizedStack": "Некоторые разрешения отсутствуют, получить доступ к запрашиваемому ресурсу в стеке не возможно.",
+		"no_apps": "No applications found on the Cozy.",
+		"menu": {
+			"apps": "Apps",
+			"settings": "Settings"
+		},
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"ptnb": "expPTNB",
+			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?"
+		}
+	};
+
+/***/ },
+/* 299 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"drawer": "Show menu drawer",
+		"profile": "Профиль",
+		"connectedDevices": "Присоединённые устройства",
+		"storage": "Хранилище",
+		"storage_phrase": "%{diskUsage} ГБ из %{diskQuota} ГБ использовано",
+		"help": "Помощь",
+		"logout": "Выход",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"soon": "soon",
+		"error_UnavailableStack": "Это стек не доступен (превышено время ожидания)",
+		"error_UnauthorizedStack": "Некоторые разрешения отсутствуют, получить доступ к запрашиваемому ресурсу в стеке не возможно.",
+		"no_apps": "No applications found on the Cozy.",
+		"menu": {
+			"apps": "Apps",
+			"settings": "Settings"
+		},
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"ptnb": "expPTNB",
+			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?"
+		}
+	};
+
+/***/ },
+/* 300 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"drawer": "Show menu drawer",
+		"profile": "Profile",
+		"connectedDevices": "Connected devices",
+		"storage": "Storage",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
+		"help": "Help",
+		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"soon": "soon",
+		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"no_apps": "No applications found on the Cozy.",
+		"menu": {
+			"apps": "Apps",
+			"settings": "Settings"
+		},
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"ptnb": "expPTNB",
+			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?"
+		}
+	};
+
+/***/ },
+/* 301 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"drawer": "Show menu drawer",
+		"profile": "Profile",
+		"connectedDevices": "Connected devices",
+		"storage": "Storage",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
+		"help": "Help",
+		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"soon": "soon",
+		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"no_apps": "No applications found on the Cozy.",
+		"menu": {
+			"apps": "Apps",
+			"settings": "Settings"
+		},
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"ptnb": "expPTNB",
+			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?"
+		}
+	};
+
+/***/ },
+/* 302 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"drawer": "Show menu drawer",
+		"profile": "Profile",
+		"connectedDevices": "Connected devices",
+		"storage": "Storage",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
+		"help": "Help",
+		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"soon": "soon",
+		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"no_apps": "No applications found on the Cozy.",
+		"menu": {
+			"apps": "Apps",
+			"settings": "Settings"
+		},
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"ptnb": "expPTNB",
+			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?"
+		}
+	};
+
+/***/ },
+/* 303 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"drawer": "Show menu drawer",
+		"profile": "Profile",
+		"connectedDevices": "Connected devices",
+		"storage": "Storage",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
+		"help": "Help",
+		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"soon": "soon",
+		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"no_apps": "No applications found on the Cozy.",
+		"menu": {
+			"apps": "Apps",
+			"settings": "Settings"
+		},
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"ptnb": "expPTNB",
+			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?"
+		}
+	};
+
+/***/ },
+/* 304 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"drawer": "Show menu drawer",
+		"profile": "Profile",
+		"connectedDevices": "Connected devices",
+		"storage": "Storage",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
+		"help": "Help",
+		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"soon": "soon",
+		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"no_apps": "No applications found on the Cozy.",
+		"menu": {
+			"apps": "Apps",
+			"settings": "Settings"
+		},
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"ptnb": "expPTNB",
+			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?"
+		}
+	};
+
+/***/ },
+/* 305 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"drawer": "Show menu drawer",
+		"profile": "Profile",
+		"connectedDevices": "Connected devices",
+		"storage": "Storage",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
+		"help": "Help",
+		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"soon": "soon",
+		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"no_apps": "No applications found on the Cozy.",
+		"menu": {
+			"apps": "Apps",
+			"settings": "Settings"
+		},
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"ptnb": "expPTNB",
+			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?"
+		}
+	};
+
+/***/ },
+/* 306 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"drawer": "Show menu drawer",
+		"profile": "Profile",
+		"connectedDevices": "Connected devices",
+		"storage": "Storage",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
+		"help": "Help",
+		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"soon": "soon",
+		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"no_apps": "No applications found on the Cozy.",
+		"menu": {
+			"apps": "Apps",
+			"settings": "Settings"
+		},
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"ptnb": "expPTNB",
+			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?"
+		}
+	};
+
+/***/ },
+/* 307 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"drawer": "Show menu drawer",
+		"profile": "Profile",
+		"connectedDevices": "Connected devices",
+		"storage": "Storage",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
+		"help": "Help",
+		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"soon": "soon",
+		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"no_apps": "No applications found on the Cozy.",
+		"menu": {
+			"apps": "Apps",
+			"settings": "Settings"
+		},
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"ptnb": "expPTNB",
+			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?"
+		}
+	};
+
+/***/ },
+/* 308 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"drawer": "Show menu drawer",
+		"profile": "Profile",
+		"connectedDevices": "Connected devices",
 		"storage": "储存",
 		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "帮助",
@@ -13675,7 +15907,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 294 */
+/* 309 */
 /***/ function(module, exports) {
 
 	module.exports = {
