@@ -84,7 +84,6 @@ class Bar extends Component {
           <strong>{appName}</strong>
           <sup class='coz-bar-hide-sm coz-bar-beta-status'>{t('beta')}</sup>
         </h1>
-        <hr class='coz-sep-flex' />
         {__TARGET__ !== 'mobile' && !isPublic &&
           <SearchBar />
         }
