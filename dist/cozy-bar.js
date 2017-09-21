@@ -373,7 +373,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  injectBarInDOM({ lang: lang, appName: appName, appEditor: appEditor, iconPath: iconPath, replaceTitleOnMobile: replaceTitleOnMobile, isPublic: isPublic });
 	};
 	
-	module.exports = { init: init, version: ("4.2.0") };
+	module.exports = { init: init, version: ("4.2.1") };
 
 /***/ },
 /* 1 */
@@ -10728,7 +10728,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	            t('beta')
 	          )
 	        ),
-	        _react2.default.createElement('hr', { 'class': 'coz-sep-flex' }),
 	        ("browser") !== 'mobile' && !isPublic && _react2.default.createElement(_SearchBar2.default, null),
 	        ("browser") !== 'mobile' && !isPublic && _react2.default.createElement(
 	          'div',
@@ -14745,6 +14744,9 @@ return /******/ (function(modules) { // webpackBootstrap
 		},
 		"claudy": {
 			"title": "How to drive your Cozy?"
+		},
+		"searchbar": {
+			"placeholder": "Search anything"
 		}
 	};
 
@@ -14778,6 +14780,9 @@ return /******/ (function(modules) { // webpackBootstrap
 		},
 		"claudy": {
 			"title": "How to drive your Cozy?"
+		},
+		"searchbar": {
+			"placeholder": "Search anything"
 		}
 	};
 
@@ -14811,6 +14816,9 @@ return /******/ (function(modules) { // webpackBootstrap
 		},
 		"claudy": {
 			"title": "How to drive your Cozy?"
+		},
+		"searchbar": {
+			"placeholder": "Search anything"
 		}
 	};
 
@@ -14844,6 +14852,9 @@ return /******/ (function(modules) { // webpackBootstrap
 		},
 		"claudy": {
 			"title": "How to drive your Cozy?"
+		},
+		"searchbar": {
+			"placeholder": "Search anything"
 		}
 	};
 
@@ -14877,6 +14888,9 @@ return /******/ (function(modules) { // webpackBootstrap
 		},
 		"claudy": {
 			"title": "How to drive your Cozy?"
+		},
+		"searchbar": {
+			"placeholder": "Search anything"
 		}
 	};
 
@@ -14910,6 +14924,9 @@ return /******/ (function(modules) { // webpackBootstrap
 		},
 		"claudy": {
 			"title": "How to drive your Cozy?"
+		},
+		"searchbar": {
+			"placeholder": "Search anything"
 		}
 	};
 
@@ -14943,6 +14960,9 @@ return /******/ (function(modules) { // webpackBootstrap
 		},
 		"claudy": {
 			"title": "Wie willst du dein Cozy steuern?"
+		},
+		"searchbar": {
+			"placeholder": "Search anything"
 		}
 	};
 
@@ -14976,6 +14996,9 @@ return /******/ (function(modules) { // webpackBootstrap
 		},
 		"claudy": {
 			"title": "How to drive your Cozy?"
+		},
+		"searchbar": {
+			"placeholder": "Search anything"
 		}
 	};
 
@@ -15009,6 +15032,9 @@ return /******/ (function(modules) { // webpackBootstrap
 		},
 		"claudy": {
 			"title": "How to drive your Cozy?"
+		},
+		"searchbar": {
+			"placeholder": "Search anything"
 		}
 	};
 
@@ -15078,6 +15104,9 @@ return /******/ (function(modules) { // webpackBootstrap
 		},
 		"claudy": {
 			"title": "How to drive your Cozy?"
+		},
+		"searchbar": {
+			"placeholder": "Search anything"
 		}
 	};
 
@@ -15111,6 +15140,9 @@ return /******/ (function(modules) { // webpackBootstrap
 		},
 		"claudy": {
 			"title": "¿Cómo pilotear su Cozy?"
+		},
+		"searchbar": {
+			"placeholder": "Search anything"
 		}
 	};
 
@@ -15144,6 +15176,9 @@ return /******/ (function(modules) { // webpackBootstrap
 		},
 		"claudy": {
 			"title": "How to drive your Cozy?"
+		},
+		"searchbar": {
+			"placeholder": "Search anything"
 		}
 	};
 
@@ -15177,6 +15212,9 @@ return /******/ (function(modules) { // webpackBootstrap
 		},
 		"claudy": {
 			"title": "How to drive your Cozy?"
+		},
+		"searchbar": {
+			"placeholder": "Search anything"
 		}
 	};
 
@@ -15210,6 +15248,9 @@ return /******/ (function(modules) { // webpackBootstrap
 		},
 		"claudy": {
 			"title": "Comment utiliser votre Cozy ?"
+		},
+		"searchbar": {
+			"placeholder": "Rechercher"
 		}
 	};
 
@@ -15243,6 +15284,9 @@ return /******/ (function(modules) { // webpackBootstrap
 		},
 		"claudy": {
 			"title": "How to drive your Cozy?"
+		},
+		"searchbar": {
+			"placeholder": "Search anything"
 		}
 	};
 
@@ -15276,6 +15320,9 @@ return /******/ (function(modules) { // webpackBootstrap
 		},
 		"claudy": {
 			"title": "Cozy をドライブする方法は?"
+		},
+		"searchbar": {
+			"placeholder": "検索します"
 		}
 	};
 
@@ -15309,6 +15356,9 @@ return /******/ (function(modules) { // webpackBootstrap
 		},
 		"claudy": {
 			"title": "How to drive your Cozy?"
+		},
+		"searchbar": {
+			"placeholder": "Search anything"
 		}
 	};
 
@@ -15342,6 +15392,9 @@ return /******/ (function(modules) { // webpackBootstrap
 		},
 		"claudy": {
 			"title": "How to drive your Cozy?"
+		},
+		"searchbar": {
+			"placeholder": "Search anything"
 		}
 	};
 
@@ -15375,6 +15428,9 @@ return /******/ (function(modules) { // webpackBootstrap
 		},
 		"claudy": {
 			"title": "How to drive your Cozy?"
+		},
+		"searchbar": {
+			"placeholder": "Search anything"
 		}
 	};
 
@@ -15408,6 +15464,9 @@ return /******/ (function(modules) { // webpackBootstrap
 		},
 		"claudy": {
 			"title": "How to drive your Cozy?"
+		},
+		"searchbar": {
+			"placeholder": "Search anything"
 		}
 	};
 
@@ -15441,6 +15500,9 @@ return /******/ (function(modules) { // webpackBootstrap
 		},
 		"claudy": {
 			"title": "How to drive your Cozy?"
+		},
+		"searchbar": {
+			"placeholder": "Search anything"
 		}
 	};
 
@@ -15474,6 +15536,9 @@ return /******/ (function(modules) { // webpackBootstrap
 		},
 		"claudy": {
 			"title": "How to drive your Cozy?"
+		},
+		"searchbar": {
+			"placeholder": "Search anything"
 		}
 	};
 
@@ -15507,6 +15572,9 @@ return /******/ (function(modules) { // webpackBootstrap
 		},
 		"claudy": {
 			"title": "How to drive your Cozy?"
+		},
+		"searchbar": {
+			"placeholder": "Search anything"
 		}
 	};
 
@@ -15540,6 +15608,9 @@ return /******/ (function(modules) { // webpackBootstrap
 		},
 		"claudy": {
 			"title": "How to drive your Cozy?"
+		},
+		"searchbar": {
+			"placeholder": "Search anything"
 		}
 	};
 
@@ -15573,6 +15644,9 @@ return /******/ (function(modules) { // webpackBootstrap
 		},
 		"claudy": {
 			"title": "How to drive your Cozy?"
+		},
+		"searchbar": {
+			"placeholder": "Search anything"
 		}
 	};
 
@@ -15606,6 +15680,9 @@ return /******/ (function(modules) { // webpackBootstrap
 		},
 		"claudy": {
 			"title": "How to drive your Cozy?"
+		},
+		"searchbar": {
+			"placeholder": "Search anything"
 		}
 	};
 
@@ -15639,6 +15716,9 @@ return /******/ (function(modules) { // webpackBootstrap
 		},
 		"claudy": {
 			"title": "How to drive your Cozy?"
+		},
+		"searchbar": {
+			"placeholder": "Search anything"
 		}
 	};
 
@@ -15672,6 +15752,9 @@ return /******/ (function(modules) { // webpackBootstrap
 		},
 		"claudy": {
 			"title": "How to drive your Cozy?"
+		},
+		"searchbar": {
+			"placeholder": "Search anything"
 		}
 	};
 
@@ -15705,6 +15788,9 @@ return /******/ (function(modules) { // webpackBootstrap
 		},
 		"claudy": {
 			"title": "How to drive your Cozy?"
+		},
+		"searchbar": {
+			"placeholder": "Search anything"
 		}
 	};
 
@@ -15738,6 +15824,9 @@ return /******/ (function(modules) { // webpackBootstrap
 		},
 		"claudy": {
 			"title": "How to drive your Cozy?"
+		},
+		"searchbar": {
+			"placeholder": "Search anything"
 		}
 	};
 
@@ -15771,6 +15860,9 @@ return /******/ (function(modules) { // webpackBootstrap
 		},
 		"claudy": {
 			"title": "How to drive your Cozy?"
+		},
+		"searchbar": {
+			"placeholder": "Search anything"
 		}
 	};
 
@@ -15804,6 +15896,9 @@ return /******/ (function(modules) { // webpackBootstrap
 		},
 		"claudy": {
 			"title": "How to drive your Cozy?"
+		},
+		"searchbar": {
+			"placeholder": "Search anything"
 		}
 	};
 
@@ -15837,6 +15932,9 @@ return /******/ (function(modules) { // webpackBootstrap
 		},
 		"claudy": {
 			"title": "How to drive your Cozy?"
+		},
+		"searchbar": {
+			"placeholder": "Search anything"
 		}
 	};
 
@@ -15870,6 +15968,9 @@ return /******/ (function(modules) { // webpackBootstrap
 		},
 		"claudy": {
 			"title": "How to drive your Cozy?"
+		},
+		"searchbar": {
+			"placeholder": "Search anything"
 		}
 	};
 
@@ -15903,6 +16004,9 @@ return /******/ (function(modules) { // webpackBootstrap
 		},
 		"claudy": {
 			"title": "How to drive your Cozy?"
+		},
+		"searchbar": {
+			"placeholder": "Search anything"
 		}
 	};
 
@@ -15936,6 +16040,9 @@ return /******/ (function(modules) { // webpackBootstrap
 		},
 		"claudy": {
 			"title": "How to drive your Cozy?"
+		},
+		"searchbar": {
+			"placeholder": "Search anything"
 		}
 	};
 

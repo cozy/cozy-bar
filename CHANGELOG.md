@@ -18,6 +18,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Removed
 - none yet
 
+## [v4.2.1] - 2017-09-21
+### Fixed
+- Prevent the search bar from taking up too much space
+
 ## [v4.2.0] - 2017-09-19
 ### Changed
 - Updated cozy-client-js
@@ -130,7 +134,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 - Support link href
 
-[Unreleased]: https://github.com/cozy/cozy-bar/compare/v4.2.0...HEAD
+[Unreleased]: https://github.com/cozy/cozy-bar/compare/v4.2.1...HEAD
+[v4.2.1]: https://github.com/cozy/cozy-bar/compare/v4.2.0...v4.2.1
 [v4.2.0]: https://github.com/cozy/cozy-bar/compare/v4.1.4...v4.2.0
 [v4.1.4]: https://github.com/cozy/cozy-bar/compare/v4.1.3...v4.1.4
 [v4.1.3]: https://github.com/cozy/cozy-bar/compare/v4.1.2...v4.1.3
