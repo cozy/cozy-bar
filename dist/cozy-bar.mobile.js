@@ -257,7 +257,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	if (true) {
 	  // Enables React dev tools for Preact
 	  // Cannot use import as we are in a condition
-	  __webpack_require__(258);
+	  __webpack_require__(244);
 	
 	  // Export React to window for the devtools
 	  window.React = _react2.default;
@@ -276,7 +276,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return;
 	  }
 	
-	  __webpack_require__(259);
+	  __webpack_require__(245);
 	
 	  var barNode = createBarElement();
 	  var appNode = document.querySelector(APP_SELECTOR);
@@ -302,7 +302,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      {
 	        lang: data.lang,
 	        dictRequire: function dictRequire(lang) {
-	          return __webpack_require__(274)("./" + lang);
+	          return __webpack_require__(260)("./" + lang);
 	        }
 	      },
 	      _react2.default.createElement(_Bar2.default, data)
@@ -373,7 +373,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  injectBarInDOM({ lang: lang, appName: appName, appEditor: appEditor, iconPath: iconPath, replaceTitleOnMobile: replaceTitleOnMobile, isPublic: isPublic });
 	};
 	
-	module.exports = { init: init, version: ("4.2.1") };
+	module.exports = { init: init, version: ("4.2.2") };
 
 /***/ },
 /* 1 */
@@ -10564,15 +10564,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _Drawer2 = _interopRequireDefault(_Drawer);
 	
-	var _SearchBar = __webpack_require__(242);
-	
-	var _SearchBar2 = _interopRequireDefault(_SearchBar);
-	
-	var _Nav = __webpack_require__(256);
+	var _Nav = __webpack_require__(242);
 	
 	var _Nav2 = _interopRequireDefault(_Nav);
 	
-	var _Claudy = __webpack_require__(257);
+	var _Claudy = __webpack_require__(243);
 	
 	var _Claudy2 = _interopRequireDefault(_Claudy);
 	
@@ -10728,7 +10724,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	            t('beta')
 	          )
 	        ),
-	        ("mobile") !== 'mobile' && !isPublic && _react2.default.createElement(_SearchBar2.default, null),
 	        ("mobile") !== 'mobile' && !isPublic && _react2.default.createElement(
 	          'div',
 	          { 'class': 'coz-bar-flex-container' },
@@ -11658,2210 +11653,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	  value: true
 	});
 	
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(189);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _I18n = __webpack_require__(199);
-	
-	var _reactAutosuggest = __webpack_require__(243);
-	
-	var _reactAutosuggest2 = _interopRequireDefault(_reactAutosuggest);
-	
-	var _intents = __webpack_require__(226);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-	
-	function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var INTENT_VERB = 'OPEN';
-	var INTENT_DOCTYPE = 'io.cozy.suggestions';
-	var SUGGESTIONS_PER_SOURCE = 10;
-	
-	var SearchBar = function (_Component) {
-	  _inherits(SearchBar, _Component);
-	
-	  function SearchBar() {
-	    var _ref,
-	        _this2 = this;
-	
-	    var _temp, _this, _ret;
-	
-	    _classCallCheck(this, SearchBar);
-	
-	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-	      args[_key] = arguments[_key];
-	    }
-	
-	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = SearchBar.__proto__ || Object.getPrototypeOf(SearchBar)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
-	      query: '',
-	      suggestions: [],
-	      sourceURLs: []
-	    }, _this.onMessageFromSource = function (sources) {
-	      return function (event) {
-	        // this re-implements a subset of injectService found in lib/intents, though only the part that are useful for suggestions
-	        var source = sources.find(function (source) {
-	          return source.origin === event.origin;
-	        });
-	
-	        if (!source) return null;
-	
-	        if (event.data.type === 'intent-' + source.id + ':ready') {
-	          source.ready = true;
-	          source.window = event.source;
-	
-	          source.window.postMessage({}, event.origin);
-	        } else if (event.data.type === 'intent-' + source.id + ':data' && source.resolve) {
-	          source.resolve({
-	            id: source.id,
-	            suggestions: event.data.suggestions
-	          });
-	          source.resolve = null;
-	        } else {
-	          console.log('unhandled message:', event);
-	        }
-	      };
-	    }, _this.onChange = function (event, _ref2) {
-	      var newValue = _ref2.newValue;
-	
-	      _this.setState({
-	        query: newValue
-	      });
-	    }, _this.clearSuggestions = function () {
-	      _this.setState({
-	        suggestions: []
-	      });
-	    }, _this.onSuggestionsFetchRequested = function (_ref3) {
-	      var value = _ref3.value;
-	
-	      _this.clearSuggestions();
-	
-	      _this.sources.filter(function (source) {
-	        return source.ready;
-	      }).forEach(function () {
-	        var _ref4 = _asyncToGenerator(regeneratorRuntime.mark(function _callee(source) {
-	          var _ref5, id, suggestions;
-	
-	          return regeneratorRuntime.wrap(function _callee$(_context) {
-	            while (1) {
-	              switch (_context.prev = _context.next) {
-	                case 0:
-	                  _context.next = 2;
-	                  return new Promise(function (resolve) {
-	                    source.resolve = resolve;
-	                    source.window.postMessage({ query: value }, source.origin);
-	                  });
-	
-	                case 2:
-	                  _ref5 = _context.sent;
-	                  id = _ref5.id;
-	                  suggestions = _ref5.suggestions;
-	
-	
-	                  _this.setState(function (state) {
-	                    return _extends({}, state, {
-	                      suggestions: [].concat(_toConsumableArray(state.suggestions), [{
-	                        title: _this.sources.find(function (source) {
-	                          return source.id === id;
-	                        }).slug,
-	                        suggestions: suggestions
-	                      }])
-	                    });
-	                  });
-	
-	                case 6:
-	                case 'end':
-	                  return _context.stop();
-	              }
-	            }
-	          }, _callee, _this2);
-	        }));
-	
-	        return function (_x) {
-	          return _ref4.apply(this, arguments);
-	        };
-	      }());
-	    }, _this.onSuggestionSelected = function (event, _ref6) {
-	      var suggestion = _ref6.suggestion;
-	      var onSelect = suggestion.onSelect;
-	      // `onSelect` is a string that describes what should happen when the suggestion is selected. Currently, the only format we're supporting is `open:http://example.com` to change the url of the current page.
-	
-	      if (/^open:/.test(onSelect)) {
-	        var url = onSelect.substr(5);
-	        window.location.href = url;
-	      } else {
-	        console.log('suggestion onSelect (' + onSelect + ') could not be executed');
-	      }
-	
-	      _this.setState({ query: '' });
-	    }, _this.getSectionSuggestions = function (section) {
-	      return section.suggestions.slice(0, SUGGESTIONS_PER_SOURCE);
-	    }, _this.getSuggestionValue = function (suggestion) {
-	      return suggestion.term || suggestion.title;
-	    }, _this.renderSectionTitle = function (section) {
-	      return null;
-	    }, _this.renderSuggestion = function (suggestion) {
-	      return _react2.default.createElement(
-	        'div',
-	        { className: 'coz-searchbar-autosuggest-suggestion-content' },
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'coz-searchbar-autosuggest-suggestion-title' },
-	          suggestion.title
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'coz-searchbar-autosuggest-suggestion-subtitle' },
-	          suggestion.subtitle
-	        )
-	      );
-	    }, _temp), _possibleConstructorReturn(_this, _ret);
-	  }
-	
-	  _createClass(SearchBar, [{
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      var _this3 = this;
-	
-	      // The searchbar has one or more sources that provide suggestions. These sources are iframes into other apps, provied by thee intent system.
-	      // Since we need to call the sources whenever the query changes, we are taking manual control over the intent process.
-	      (0, _intents.fetchRawIntent)(INTENT_VERB, INTENT_DOCTYPE).then(function (intent) {
-	        var services = intent.attributes.services;
-	
-	        if (!services) return null;
-	
-	        _this3.sources = services.map(function (service) {
-	          var url = service.href;
-	          _this3.setState(function (state) {
-	            return _extends({}, state, { sourceURLs: [].concat(_toConsumableArray(state.sourceURLs), [url]) });
-	          });
-	          var serviceOrigin = url.split('/', 3).join('/');
-	
-	          return {
-	            slug: service.slug, // can be used to show where a suggestion comes from
-	            origin: serviceOrigin,
-	            id: intent._id,
-	            ready: false,
-	            window: null, // will hold a reference to the window we're sending messages to
-	            resolve: null // a reference to a function to call when the source sends suggestions
-	          };
-	        });
-	
-	        window.addEventListener('message', _this3.onMessageFromSource(_this3.sources));
-	      });
-	    } // we only have one section at the moment, but if we decide to sort suggestions by section/source, we can use this callback
-	
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var _state = this.state,
-	          query = _state.query,
-	          suggestions = _state.suggestions,
-	          sourceURLs = _state.sourceURLs;
-	      var t = this.props.t;
-	
-	
-	      var inputProps = {
-	        placeholder: t('searchbar.placeholder'),
-	        value: query,
-	        onChange: this.onChange
-	      };
-	
-	      var theme = {
-	        container: 'coz-searchbar-autosuggest-container',
-	        input: 'coz-searchbar-autosuggest-input',
-	        inputFocused: 'coz-searchbar-autosuggest-input-focused',
-	        suggestionsContainer: 'coz-searchbar-autosuggest-suggestions-container',
-	        suggestionsContainerOpen: 'coz-searchbar-autosuggest-suggestions-container--open',
-	        suggestionsList: 'coz-searchbar-autosuggest-suggestions-list',
-	        suggestion: 'coz-searchbar-autosuggest-suggestion',
-	        suggestionHighlighted: 'coz-searchbar-autosuggest-suggestion-highlighted',
-	        sectionTitle: 'coz-searchbar-autosuggest-section-title'
-	      };
-	
-	      return _react2.default.createElement(
-	        'div',
-	        { className: 'coz-searchbar' },
-	        sourceURLs.map(function (url) {
-	          return _react2.default.createElement('iframe', { src: url, style: { display: 'none' } });
-	        }),
-	        _react2.default.createElement(_reactAutosuggest2.default, {
-	          theme: theme,
-	          suggestions: suggestions,
-	          multiSection: true,
-	          onSuggestionsFetchRequested: this.onSuggestionsFetchRequested,
-	          onSuggestionsClearRequested: this.clearSuggestions,
-	          onSuggestionSelected: this.onSuggestionSelected,
-	          getSuggestionValue: this.getSuggestionValue,
-	          getSectionSuggestions: this.getSectionSuggestions,
-	          renderSectionTitle: this.renderSectionTitle,
-	          renderSuggestion: this.renderSuggestion,
-	          inputProps: inputProps,
-	          focusInputOnSuggestionClick: false
-	        })
-	      );
-	    }
-	  }]);
-	
-	  return SearchBar;
-	}(_react.Component);
-	
-	exports.default = (0, _I18n.translate)()(SearchBar);
-
-/***/ },
-/* 243 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	module.exports = __webpack_require__(244).default;
-
-/***/ },
-/* 244 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(189);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _propTypes = __webpack_require__(190);
-	
-	var _propTypes2 = _interopRequireDefault(_propTypes);
-	
-	var _arrays = __webpack_require__(245);
-	
-	var _arrays2 = _interopRequireDefault(_arrays);
-	
-	var _reactAutowhatever = __webpack_require__(246);
-	
-	var _reactAutowhatever2 = _interopRequireDefault(_reactAutowhatever);
-	
-	var _theme = __webpack_require__(255);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var alwaysTrue = function alwaysTrue() {
-	  return true;
-	};
-	var defaultShouldRenderSuggestions = function defaultShouldRenderSuggestions(value) {
-	  return value.trim().length > 0;
-	};
-	var defaultRenderSuggestionsContainer = function defaultRenderSuggestionsContainer(_ref) {
-	  var containerProps = _ref.containerProps,
-	      children = _ref.children;
-	  return _react2.default.createElement(
-	    'div',
-	    containerProps,
-	    children
-	  );
-	};
-	
-	var Autosuggest = function (_Component) {
-	  _inherits(Autosuggest, _Component);
-	
-	  function Autosuggest(_ref2) {
-	    var alwaysRenderSuggestions = _ref2.alwaysRenderSuggestions;
-	
-	    _classCallCheck(this, Autosuggest);
-	
-	    var _this = _possibleConstructorReturn(this, (Autosuggest.__proto__ || Object.getPrototypeOf(Autosuggest)).call(this));
-	
-	    _initialiseProps.call(_this);
-	
-	    _this.state = {
-	      isFocused: false,
-	      isCollapsed: !alwaysRenderSuggestions,
-	      highlightedSectionIndex: null,
-	      highlightedSuggestionIndex: null,
-	      valueBeforeUpDown: null
-	    };
-	
-	    _this.justPressedUpDown = false;
-	    return _this;
-	  }
-	
-	  _createClass(Autosuggest, [{
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      document.addEventListener('mousedown', this.onDocumentMouseDown);
-	
-	      this.input = this.autowhatever.input;
-	      this.suggestionsContainer = this.autowhatever.itemsContainer;
-	    }
-	  }, {
-	    key: 'componentWillReceiveProps',
-	    value: function componentWillReceiveProps(nextProps) {
-	      if ((0, _arrays2.default)(nextProps.suggestions, this.props.suggestions)) {
-	        if (nextProps.highlightFirstSuggestion && nextProps.suggestions.length > 0 && this.justPressedUpDown === false) {
-	          this.highlightFirstSuggestion();
-	        }
-	      } else {
-	        if (this.willRenderSuggestions(nextProps)) {
-	          if (nextProps.highlightFirstSuggestion) {
-	            this.highlightFirstSuggestion();
-	          }
-	
-	          if (this.state.isCollapsed && !this.justSelectedSuggestion) {
-	            this.revealSuggestions();
-	          }
-	        } else {
-	          this.resetHighlightedSuggestion();
-	        }
-	      }
-	    }
-	  }, {
-	    key: 'componentDidUpdate',
-	    value: function componentDidUpdate(prevProps, prevState) {
-	      var onSuggestionHighlighted = this.props.onSuggestionHighlighted;
-	
-	
-	      if (!onSuggestionHighlighted) {
-	        return;
-	      }
-	
-	      var _state = this.state,
-	          highlightedSectionIndex = _state.highlightedSectionIndex,
-	          highlightedSuggestionIndex = _state.highlightedSuggestionIndex;
-	
-	
-	      if (highlightedSectionIndex !== prevState.highlightedSectionIndex || highlightedSuggestionIndex !== prevState.highlightedSuggestionIndex) {
-	        var suggestion = this.getHighlightedSuggestion();
-	
-	        onSuggestionHighlighted({ suggestion: suggestion });
-	      }
-	    }
-	  }, {
-	    key: 'componentWillUnmount',
-	    value: function componentWillUnmount() {
-	      document.removeEventListener('mousedown', this.onDocumentMouseDown);
-	    }
-	  }, {
-	    key: 'updateHighlightedSuggestion',
-	    value: function updateHighlightedSuggestion(sectionIndex, suggestionIndex, prevValue) {
-	      this.setState(function (state) {
-	        var valueBeforeUpDown = state.valueBeforeUpDown;
-	
-	
-	        if (suggestionIndex === null) {
-	          valueBeforeUpDown = null;
-	        } else if (valueBeforeUpDown === null && typeof prevValue !== 'undefined') {
-	          valueBeforeUpDown = prevValue;
-	        }
-	
-	        return {
-	          highlightedSectionIndex: sectionIndex,
-	          highlightedSuggestionIndex: suggestionIndex,
-	          valueBeforeUpDown: valueBeforeUpDown
-	        };
-	      });
-	    }
-	  }, {
-	    key: 'resetHighlightedSuggestion',
-	    value: function resetHighlightedSuggestion() {
-	      var shouldResetValueBeforeUpDown = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
-	
-	      this.setState(function (state) {
-	        var valueBeforeUpDown = state.valueBeforeUpDown;
-	
-	
-	        return {
-	          highlightedSectionIndex: null,
-	          highlightedSuggestionIndex: null,
-	          valueBeforeUpDown: shouldResetValueBeforeUpDown ? null : valueBeforeUpDown
-	        };
-	      });
-	    }
-	  }, {
-	    key: 'revealSuggestions',
-	    value: function revealSuggestions() {
-	      this.setState({
-	        isCollapsed: false
-	      });
-	    }
-	  }, {
-	    key: 'closeSuggestions',
-	    value: function closeSuggestions() {
-	      this.setState({
-	        highlightedSectionIndex: null,
-	        highlightedSuggestionIndex: null,
-	        valueBeforeUpDown: null,
-	        isCollapsed: true
-	      });
-	    }
-	  }, {
-	    key: 'getSuggestion',
-	    value: function getSuggestion(sectionIndex, suggestionIndex) {
-	      var _props = this.props,
-	          suggestions = _props.suggestions,
-	          multiSection = _props.multiSection,
-	          getSectionSuggestions = _props.getSectionSuggestions;
-	
-	
-	      if (multiSection) {
-	        return getSectionSuggestions(suggestions[sectionIndex])[suggestionIndex];
-	      }
-	
-	      return suggestions[suggestionIndex];
-	    }
-	  }, {
-	    key: 'getHighlightedSuggestion',
-	    value: function getHighlightedSuggestion() {
-	      var _state2 = this.state,
-	          highlightedSectionIndex = _state2.highlightedSectionIndex,
-	          highlightedSuggestionIndex = _state2.highlightedSuggestionIndex;
-	
-	
-	      if (highlightedSuggestionIndex === null) {
-	        return null;
-	      }
-	
-	      return this.getSuggestion(highlightedSectionIndex, highlightedSuggestionIndex);
-	    }
-	  }, {
-	    key: 'getSuggestionValueByIndex',
-	    value: function getSuggestionValueByIndex(sectionIndex, suggestionIndex) {
-	      var getSuggestionValue = this.props.getSuggestionValue;
-	
-	
-	      return getSuggestionValue(this.getSuggestion(sectionIndex, suggestionIndex));
-	    }
-	  }, {
-	    key: 'getSuggestionIndices',
-	    value: function getSuggestionIndices(suggestionElement) {
-	      var sectionIndex = suggestionElement.getAttribute('data-section-index');
-	      var suggestionIndex = suggestionElement.getAttribute('data-suggestion-index');
-	
-	      return {
-	        sectionIndex: typeof sectionIndex === 'string' ? parseInt(sectionIndex, 10) : null,
-	        suggestionIndex: parseInt(suggestionIndex, 10)
-	      };
-	    }
-	  }, {
-	    key: 'findSuggestionElement',
-	    value: function findSuggestionElement(startNode) {
-	      var node = startNode;
-	
-	      do {
-	        if (node.getAttribute('data-suggestion-index') !== null) {
-	          return node;
-	        }
-	
-	        node = node.parentNode;
-	      } while (node !== null);
-	
-	      console.error('Clicked element:', startNode); // eslint-disable-line no-console
-	      throw new Error("Couldn't find suggestion element");
-	    }
-	  }, {
-	    key: 'maybeCallOnChange',
-	    value: function maybeCallOnChange(event, newValue, method) {
-	      var _props$inputProps = this.props.inputProps,
-	          value = _props$inputProps.value,
-	          onChange = _props$inputProps.onChange;
-	
-	
-	      if (newValue !== value) {
-	        onChange(event, { newValue: newValue, method: method });
-	      }
-	    }
-	  }, {
-	    key: 'willRenderSuggestions',
-	    value: function willRenderSuggestions(props) {
-	      var suggestions = props.suggestions,
-	          inputProps = props.inputProps,
-	          shouldRenderSuggestions = props.shouldRenderSuggestions;
-	      var value = inputProps.value;
-	
-	
-	      return suggestions.length > 0 && shouldRenderSuggestions(value);
-	    }
-	  }, {
-	    key: 'getQuery',
-	    value: function getQuery() {
-	      var inputProps = this.props.inputProps;
-	      var value = inputProps.value;
-	      var valueBeforeUpDown = this.state.valueBeforeUpDown;
-	
-	
-	      return (valueBeforeUpDown || value).trim();
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var _this2 = this;
-	
-	      var _props2 = this.props,
-	          suggestions = _props2.suggestions,
-	          renderInputComponent = _props2.renderInputComponent,
-	          onSuggestionsFetchRequested = _props2.onSuggestionsFetchRequested,
-	          renderSuggestion = _props2.renderSuggestion,
-	          inputProps = _props2.inputProps,
-	          multiSection = _props2.multiSection,
-	          renderSectionTitle = _props2.renderSectionTitle,
-	          id = _props2.id,
-	          getSectionSuggestions = _props2.getSectionSuggestions,
-	          theme = _props2.theme,
-	          getSuggestionValue = _props2.getSuggestionValue,
-	          alwaysRenderSuggestions = _props2.alwaysRenderSuggestions;
-	      var _state3 = this.state,
-	          isFocused = _state3.isFocused,
-	          isCollapsed = _state3.isCollapsed,
-	          highlightedSectionIndex = _state3.highlightedSectionIndex,
-	          highlightedSuggestionIndex = _state3.highlightedSuggestionIndex,
-	          valueBeforeUpDown = _state3.valueBeforeUpDown;
-	
-	      var shouldRenderSuggestions = alwaysRenderSuggestions ? alwaysTrue : this.props.shouldRenderSuggestions;
-	      var value = inputProps.value,
-	          _onFocus = inputProps.onFocus,
-	          _onKeyDown = inputProps.onKeyDown;
-	
-	      var willRenderSuggestions = this.willRenderSuggestions(this.props);
-	      var isOpen = alwaysRenderSuggestions || isFocused && !isCollapsed && willRenderSuggestions;
-	      var items = isOpen ? suggestions : [];
-	      var autowhateverInputProps = _extends({}, inputProps, {
-	        onFocus: function onFocus(event) {
-	          if (!_this2.justSelectedSuggestion && !_this2.justClickedOnSuggestionsContainer) {
-	            var shouldRender = shouldRenderSuggestions(value);
-	
-	            _this2.setState({
-	              isFocused: true,
-	              isCollapsed: !shouldRender
-	            });
-	
-	            _onFocus && _onFocus(event);
-	
-	            if (shouldRender) {
-	              onSuggestionsFetchRequested({ value: value, reason: 'input-focused' });
-	            }
-	          }
-	        },
-	        onBlur: function onBlur(event) {
-	          if (_this2.justClickedOnSuggestionsContainer) {
-	            _this2.input.focus();
-	            return;
-	          }
-	
-	          _this2.blurEvent = event;
-	
-	          if (!_this2.justSelectedSuggestion) {
-	            _this2.onBlur();
-	            _this2.onSuggestionsClearRequested();
-	          }
-	        },
-	        onChange: function onChange(event) {
-	          var value = event.target.value;
-	
-	          var shouldRender = shouldRenderSuggestions(value);
-	
-	          _this2.maybeCallOnChange(event, value, 'type');
-	
-	          _this2.setState({
-	            highlightedSectionIndex: null,
-	            highlightedSuggestionIndex: null,
-	            valueBeforeUpDown: null,
-	            isCollapsed: !shouldRender
-	          });
-	
-	          if (shouldRender) {
-	            onSuggestionsFetchRequested({ value: value, reason: 'input-changed' });
-	          } else {
-	            _this2.onSuggestionsClearRequested();
-	          }
-	        },
-	        onKeyDown: function onKeyDown(event, data) {
-	          var keyCode = event.keyCode;
-	
-	
-	          switch (keyCode) {
-	            case 40: // ArrowDown
-	            case 38:
-	              // ArrowUp
-	              if (isCollapsed) {
-	                if (shouldRenderSuggestions(value)) {
-	                  onSuggestionsFetchRequested({
-	                    value: value,
-	                    reason: 'suggestions-revealed'
-	                  });
-	                  _this2.revealSuggestions();
-	                }
-	              } else if (suggestions.length > 0) {
-	                var newHighlightedSectionIndex = data.newHighlightedSectionIndex,
-	                    newHighlightedItemIndex = data.newHighlightedItemIndex;
-	
-	
-	                var newValue = void 0;
-	
-	                if (newHighlightedItemIndex === null) {
-	                  // valueBeforeUpDown can be null if, for example, user
-	                  // hovers on the first suggestion and then pressed Up.
-	                  // If that happens, use the original input value.
-	                  newValue = valueBeforeUpDown === null ? value : valueBeforeUpDown;
-	                } else {
-	                  newValue = _this2.getSuggestionValueByIndex(newHighlightedSectionIndex, newHighlightedItemIndex);
-	                }
-	
-	                _this2.updateHighlightedSuggestion(newHighlightedSectionIndex, newHighlightedItemIndex, value);
-	                _this2.maybeCallOnChange(event, newValue, keyCode === 40 ? 'down' : 'up');
-	              }
-	
-	              event.preventDefault(); // Prevents the cursor from moving
-	
-	              _this2.justPressedUpDown = true;
-	
-	              setTimeout(function () {
-	                _this2.justPressedUpDown = false;
-	              });
-	
-	              break;
-	
-	            // Enter
-	            case 13:
-	              {
-	                // See #388
-	                if (event.keyCode === 229) {
-	                  break;
-	                }
-	
-	                var highlightedSuggestion = _this2.getHighlightedSuggestion();
-	
-	                if (isOpen && !alwaysRenderSuggestions) {
-	                  _this2.closeSuggestions();
-	                }
-	
-	                if (highlightedSuggestion !== null) {
-	                  var _newValue = getSuggestionValue(highlightedSuggestion);
-	
-	                  _this2.maybeCallOnChange(event, _newValue, 'enter');
-	
-	                  _this2.onSuggestionSelected(event, {
-	                    suggestion: highlightedSuggestion,
-	                    suggestionValue: _newValue,
-	                    suggestionIndex: highlightedSuggestionIndex,
-	                    sectionIndex: highlightedSectionIndex,
-	                    method: 'enter'
-	                  });
-	
-	                  _this2.justSelectedSuggestion = true;
-	
-	                  setTimeout(function () {
-	                    _this2.justSelectedSuggestion = false;
-	                  });
-	                }
-	
-	                break;
-	              }
-	
-	            // Escape
-	            case 27:
-	              {
-	                if (isOpen) {
-	                  // If input.type === 'search', the browser clears the input
-	                  // when Escape is pressed. We want to disable this default
-	                  // behaviour so that, when suggestions are shown, we just hide
-	                  // them, without clearing the input.
-	                  event.preventDefault();
-	                }
-	
-	                var willCloseSuggestions = isOpen && !alwaysRenderSuggestions;
-	
-	                if (valueBeforeUpDown === null) {
-	                  // Didn't interact with Up/Down
-	                  if (!willCloseSuggestions) {
-	                    var _newValue2 = '';
-	
-	                    _this2.maybeCallOnChange(event, _newValue2, 'escape');
-	
-	                    if (shouldRenderSuggestions(_newValue2)) {
-	                      onSuggestionsFetchRequested({
-	                        value: _newValue2,
-	                        reason: 'escape-pressed'
-	                      });
-	                    } else {
-	                      _this2.onSuggestionsClearRequested();
-	                    }
-	                  }
-	                } else {
-	                  // Interacted with Up/Down
-	                  _this2.maybeCallOnChange(event, valueBeforeUpDown, 'escape');
-	                }
-	
-	                if (willCloseSuggestions) {
-	                  _this2.onSuggestionsClearRequested();
-	                  _this2.closeSuggestions();
-	                } else {
-	                  _this2.resetHighlightedSuggestion();
-	                }
-	
-	                break;
-	              }
-	          }
-	
-	          _onKeyDown && _onKeyDown(event);
-	        }
-	      });
-	      var renderSuggestionData = {
-	        query: this.getQuery()
-	      };
-	
-	      return _react2.default.createElement(_reactAutowhatever2.default, {
-	        multiSection: multiSection,
-	        items: items,
-	        renderInputComponent: renderInputComponent,
-	        renderItemsContainer: this.renderSuggestionsContainer,
-	        renderItem: renderSuggestion,
-	        renderItemData: renderSuggestionData,
-	        renderSectionTitle: renderSectionTitle,
-	        getSectionItems: getSectionSuggestions,
-	        highlightedSectionIndex: highlightedSectionIndex,
-	        highlightedItemIndex: highlightedSuggestionIndex,
-	        inputProps: autowhateverInputProps,
-	        itemProps: this.itemProps,
-	        theme: (0, _theme.mapToAutowhateverTheme)(theme),
-	        id: id,
-	        ref: this.storeAutowhateverRef
-	      });
-	    }
-	  }]);
-	
-	  return Autosuggest;
-	}(_react.Component);
-	
-	Autosuggest.propTypes = {
-	  suggestions: _propTypes2.default.array.isRequired,
-	  onSuggestionsFetchRequested: function onSuggestionsFetchRequested(props, propName) {
-	    var onSuggestionsFetchRequested = props[propName];
-	
-	    if (typeof onSuggestionsFetchRequested !== 'function') {
-	      throw new Error("'onSuggestionsFetchRequested' must be implemented. See: https://github.com/moroshko/react-autosuggest#onSuggestionsFetchRequestedProp");
-	    }
-	  },
-	  onSuggestionsClearRequested: function onSuggestionsClearRequested(props, propName) {
-	    var onSuggestionsClearRequested = props[propName];
-	
-	    if (props.alwaysRenderSuggestions === false && typeof onSuggestionsClearRequested !== 'function') {
-	      throw new Error("'onSuggestionsClearRequested' must be implemented. See: https://github.com/moroshko/react-autosuggest#onSuggestionsClearRequestedProp");
-	    }
-	  },
-	  onSuggestionSelected: _propTypes2.default.func,
-	  onSuggestionHighlighted: _propTypes2.default.func,
-	  renderInputComponent: _propTypes2.default.func,
-	  renderSuggestionsContainer: _propTypes2.default.func,
-	  getSuggestionValue: _propTypes2.default.func.isRequired,
-	  renderSuggestion: _propTypes2.default.func.isRequired,
-	  inputProps: function inputProps(props, propName) {
-	    var inputProps = props[propName];
-	
-	    if (!inputProps.hasOwnProperty('value')) {
-	      throw new Error("'inputProps' must have 'value'.");
-	    }
-	
-	    if (!inputProps.hasOwnProperty('onChange')) {
-	      throw new Error("'inputProps' must have 'onChange'.");
-	    }
-	  },
-	  shouldRenderSuggestions: _propTypes2.default.func,
-	  alwaysRenderSuggestions: _propTypes2.default.bool,
-	  multiSection: _propTypes2.default.bool,
-	  renderSectionTitle: function renderSectionTitle(props, propName) {
-	    var renderSectionTitle = props[propName];
-	
-	    if (props.multiSection === true && typeof renderSectionTitle !== 'function') {
-	      throw new Error("'renderSectionTitle' must be implemented. See: https://github.com/moroshko/react-autosuggest#renderSectionTitleProp");
-	    }
-	  },
-	  getSectionSuggestions: function getSectionSuggestions(props, propName) {
-	    var getSectionSuggestions = props[propName];
-	
-	    if (props.multiSection === true && typeof getSectionSuggestions !== 'function') {
-	      throw new Error("'getSectionSuggestions' must be implemented. See: https://github.com/moroshko/react-autosuggest#getSectionSuggestionsProp");
-	    }
-	  },
-	  focusInputOnSuggestionClick: _propTypes2.default.bool,
-	  highlightFirstSuggestion: _propTypes2.default.bool,
-	  theme: _propTypes2.default.object,
-	  id: _propTypes2.default.string
-	};
-	Autosuggest.defaultProps = {
-	  renderSuggestionsContainer: defaultRenderSuggestionsContainer,
-	  shouldRenderSuggestions: defaultShouldRenderSuggestions,
-	  alwaysRenderSuggestions: false,
-	  multiSection: false,
-	  focusInputOnSuggestionClick: true,
-	  highlightFirstSuggestion: false,
-	  theme: _theme.defaultTheme,
-	  id: '1'
-	};
-	
-	var _initialiseProps = function _initialiseProps() {
-	  var _this3 = this;
-	
-	  this.onDocumentMouseDown = function (event) {
-	    _this3.justClickedOnSuggestionsContainer = false;
-	
-	    var node = event.detail && event.detail.target || // This is for testing only. Please show me a better way to emulate this.
-	    event.target;
-	
-	    while (node !== null && node !== document) {
-	      if (node.getAttribute('data-suggestion-index') !== null) {
-	        // Suggestion was clicked
-	        return;
-	      }
-	
-	      if (node === _this3.suggestionsContainer) {
-	        // Something else inside suggestions container was clicked
-	        _this3.justClickedOnSuggestionsContainer = true;
-	        return;
-	      }
-	
-	      node = node.parentNode;
-	    }
-	  };
-	
-	  this.storeAutowhateverRef = function (autowhatever) {
-	    if (autowhatever !== null) {
-	      _this3.autowhatever = autowhatever;
-	    }
-	  };
-	
-	  this.onSuggestionMouseEnter = function (event, _ref3) {
-	    var sectionIndex = _ref3.sectionIndex,
-	        itemIndex = _ref3.itemIndex;
-	
-	    _this3.updateHighlightedSuggestion(sectionIndex, itemIndex);
-	  };
-	
-	  this.highlightFirstSuggestion = function () {
-	    _this3.updateHighlightedSuggestion(_this3.props.multiSection ? 0 : null, 0);
-	  };
-	
-	  this.onSuggestionMouseDown = function () {
-	    _this3.justSelectedSuggestion = true;
-	  };
-	
-	  this.onSuggestionsClearRequested = function () {
-	    var onSuggestionsClearRequested = _this3.props.onSuggestionsClearRequested;
-	
-	
-	    onSuggestionsClearRequested && onSuggestionsClearRequested();
-	  };
-	
-	  this.onSuggestionSelected = function (event, data) {
-	    var _props3 = _this3.props,
-	        alwaysRenderSuggestions = _props3.alwaysRenderSuggestions,
-	        onSuggestionSelected = _props3.onSuggestionSelected,
-	        onSuggestionsFetchRequested = _props3.onSuggestionsFetchRequested;
-	
-	
-	    onSuggestionSelected && onSuggestionSelected(event, data);
-	
-	    if (alwaysRenderSuggestions) {
-	      onSuggestionsFetchRequested({
-	        value: data.suggestionValue,
-	        reason: 'suggestion-selected'
-	      });
-	    } else {
-	      _this3.onSuggestionsClearRequested();
-	    }
-	
-	    _this3.resetHighlightedSuggestion();
-	  };
-	
-	  this.onSuggestionClick = function (event) {
-	    var _props4 = _this3.props,
-	        alwaysRenderSuggestions = _props4.alwaysRenderSuggestions,
-	        focusInputOnSuggestionClick = _props4.focusInputOnSuggestionClick;
-	
-	    var _getSuggestionIndices = _this3.getSuggestionIndices(_this3.findSuggestionElement(event.target)),
-	        sectionIndex = _getSuggestionIndices.sectionIndex,
-	        suggestionIndex = _getSuggestionIndices.suggestionIndex;
-	
-	    var clickedSuggestion = _this3.getSuggestion(sectionIndex, suggestionIndex);
-	    var clickedSuggestionValue = _this3.props.getSuggestionValue(clickedSuggestion);
-	
-	    _this3.maybeCallOnChange(event, clickedSuggestionValue, 'click');
-	    _this3.onSuggestionSelected(event, {
-	      suggestion: clickedSuggestion,
-	      suggestionValue: clickedSuggestionValue,
-	      suggestionIndex: suggestionIndex,
-	      sectionIndex: sectionIndex,
-	      method: 'click'
-	    });
-	
-	    if (!alwaysRenderSuggestions) {
-	      _this3.closeSuggestions();
-	    }
-	
-	    if (focusInputOnSuggestionClick === true) {
-	      _this3.input.focus();
-	    } else {
-	      _this3.onBlur();
-	    }
-	
-	    setTimeout(function () {
-	      _this3.justSelectedSuggestion = false;
-	    });
-	  };
-	
-	  this.onBlur = function () {
-	    var _props5 = _this3.props,
-	        inputProps = _props5.inputProps,
-	        shouldRenderSuggestions = _props5.shouldRenderSuggestions;
-	    var value = inputProps.value,
-	        onBlur = inputProps.onBlur;
-	
-	    var highlightedSuggestion = _this3.getHighlightedSuggestion();
-	    var shouldRender = shouldRenderSuggestions(value);
-	
-	    _this3.setState({
-	      isFocused: false,
-	      highlightedSectionIndex: null,
-	      highlightedSuggestionIndex: null,
-	      valueBeforeUpDown: null,
-	      isCollapsed: !shouldRender
-	    });
-	
-	    onBlur && onBlur(_this3.blurEvent, { highlightedSuggestion: highlightedSuggestion });
-	  };
-	
-	  this.resetHighlightedSuggestionOnMouseLeave = function () {
-	    _this3.resetHighlightedSuggestion(false); // shouldResetValueBeforeUpDown
-	  };
-	
-	  this.itemProps = function (_ref4) {
-	    var sectionIndex = _ref4.sectionIndex,
-	        itemIndex = _ref4.itemIndex;
-	
-	    return {
-	      'data-section-index': sectionIndex,
-	      'data-suggestion-index': itemIndex,
-	      onMouseEnter: _this3.onSuggestionMouseEnter,
-	      onMouseLeave: _this3.resetHighlightedSuggestionOnMouseLeave,
-	      onMouseDown: _this3.onSuggestionMouseDown,
-	      onTouchStart: _this3.onSuggestionMouseDown, // Because on iOS `onMouseDown` is not triggered
-	      onClick: _this3.onSuggestionClick
-	    };
-	  };
-	
-	  this.renderSuggestionsContainer = function (_ref5) {
-	    var containerProps = _ref5.containerProps,
-	        children = _ref5.children;
-	    var renderSuggestionsContainer = _this3.props.renderSuggestionsContainer;
-	
-	
-	    return renderSuggestionsContainer({
-	      containerProps: containerProps,
-	      children: children,
-	      query: _this3.getQuery()
-	    });
-	  };
-	};
-	
-	exports.default = Autosuggest;
-
-/***/ },
-/* 245 */
-/***/ function(module, exports) {
-
-	module.exports = function shallowEqualArrays(arrA, arrB) {
-	  if (arrA === arrB) {
-	    return true;
-	  }
-	
-	  var len = arrA.length;
-	
-	  if (arrB.length !== len) {
-	    return false;
-	  }
-	
-	  for (var i = 0; i < len; i++) {
-	    if (arrA[i] !== arrB[i]) {
-	      return false;
-	    }
-	  }
-	
-	  return true;
-	};
-
-
-/***/ },
-/* 246 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	module.exports = __webpack_require__(247).default;
-
-/***/ },
-/* 247 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-	
-	var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(189);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _propTypes = __webpack_require__(190);
-	
-	var _propTypes2 = _interopRequireDefault(_propTypes);
-	
-	var _sectionIterator = __webpack_require__(248);
-	
-	var _sectionIterator2 = _interopRequireDefault(_sectionIterator);
-	
-	var _reactThemeable = __webpack_require__(249);
-	
-	var _reactThemeable2 = _interopRequireDefault(_reactThemeable);
-	
-	var _SectionTitle = __webpack_require__(251);
-	
-	var _SectionTitle2 = _interopRequireDefault(_SectionTitle);
-	
-	var _ItemsList = __webpack_require__(253);
-	
-	var _ItemsList2 = _interopRequireDefault(_ItemsList);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var emptyObject = {};
-	var defaultRenderInputComponent = function defaultRenderInputComponent(props) {
-	  return _react2.default.createElement('input', props);
-	};
-	var defaultRenderItemsContainer = function defaultRenderItemsContainer(_ref) {
-	  var containerProps = _ref.containerProps,
-	      children = _ref.children;
-	  return _react2.default.createElement(
-	    'div',
-	    containerProps,
-	    children
-	  );
-	};
-	var defaultTheme = {
-	  container: 'react-autowhatever__container',
-	  containerOpen: 'react-autowhatever__container--open',
-	  input: 'react-autowhatever__input',
-	  inputOpen: 'react-autowhatever__input--open',
-	  inputFocused: 'react-autowhatever__input--focused',
-	  itemsContainer: 'react-autowhatever__items-container',
-	  itemsContainerOpen: 'react-autowhatever__items-container--open',
-	  itemsList: 'react-autowhatever__items-list',
-	  item: 'react-autowhatever__item',
-	  itemFirst: 'react-autowhatever__item--first',
-	  itemHighlighted: 'react-autowhatever__item--highlighted',
-	  sectionContainer: 'react-autowhatever__section-container',
-	  sectionContainerFirst: 'react-autowhatever__section-container--first',
-	  sectionTitle: 'react-autowhatever__section-title'
-	};
-	
-	var Autowhatever = function (_Component) {
-	  _inherits(Autowhatever, _Component);
-	
-	  function Autowhatever(props) {
-	    _classCallCheck(this, Autowhatever);
-	
-	    var _this = _possibleConstructorReturn(this, (Autowhatever.__proto__ || Object.getPrototypeOf(Autowhatever)).call(this, props));
-	
-	    _this.storeInputReference = function (input) {
-	      if (input !== null) {
-	        _this.input = input;
-	      }
-	    };
-	
-	    _this.storeItemsContainerReference = function (itemsContainer) {
-	      if (itemsContainer !== null) {
-	        _this.itemsContainer = itemsContainer;
-	      }
-	    };
-	
-	    _this.onHighlightedItemChange = function (highlightedItem) {
-	      _this.highlightedItem = highlightedItem;
-	    };
-	
-	    _this.getItemId = function (sectionIndex, itemIndex) {
-	      if (itemIndex === null) {
-	        return null;
-	      }
-	
-	      var id = _this.props.id;
-	
-	      var section = sectionIndex === null ? '' : 'section-' + sectionIndex;
-	
-	      return 'react-autowhatever-' + id + '-' + section + '-item-' + itemIndex;
-	    };
-	
-	    _this.onFocus = function (event) {
-	      var inputProps = _this.props.inputProps;
-	
-	
-	      _this.setState({
-	        isInputFocused: true
-	      });
-	
-	      inputProps.onFocus && inputProps.onFocus(event);
-	    };
-	
-	    _this.onBlur = function (event) {
-	      var inputProps = _this.props.inputProps;
-	
-	
-	      _this.setState({
-	        isInputFocused: false
-	      });
-	
-	      inputProps.onBlur && inputProps.onBlur(event);
-	    };
-	
-	    _this.onKeyDown = function (event) {
-	      var _this$props = _this.props,
-	          inputProps = _this$props.inputProps,
-	          highlightedSectionIndex = _this$props.highlightedSectionIndex,
-	          highlightedItemIndex = _this$props.highlightedItemIndex;
-	
-	
-	      switch (event.key) {
-	        case 'ArrowDown':
-	        case 'ArrowUp':
-	          {
-	            var nextPrev = event.key === 'ArrowDown' ? 'next' : 'prev';
-	
-	            var _this$sectionIterator = _this.sectionIterator[nextPrev]([highlightedSectionIndex, highlightedItemIndex]),
-	                _this$sectionIterator2 = _slicedToArray(_this$sectionIterator, 2),
-	                newHighlightedSectionIndex = _this$sectionIterator2[0],
-	                newHighlightedItemIndex = _this$sectionIterator2[1];
-	
-	            inputProps.onKeyDown(event, { newHighlightedSectionIndex: newHighlightedSectionIndex, newHighlightedItemIndex: newHighlightedItemIndex });
-	            break;
-	          }
-	
-	        default:
-	          inputProps.onKeyDown(event, { highlightedSectionIndex: highlightedSectionIndex, highlightedItemIndex: highlightedItemIndex });
-	      }
-	    };
-	
-	    _this.highlightedItem = null;
-	
-	    _this.state = {
-	      isInputFocused: false
-	    };
-	
-	    _this.setSectionsItems(props);
-	    _this.setSectionIterator(props);
-	    _this.setTheme(props);
-	    return _this;
-	  }
-	
-	  _createClass(Autowhatever, [{
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      this.ensureHighlightedItemIsVisible();
-	    }
-	  }, {
-	    key: 'componentWillReceiveProps',
-	    value: function componentWillReceiveProps(nextProps) {
-	      if (nextProps.items !== this.props.items) {
-	        this.setSectionsItems(nextProps);
-	      }
-	
-	      if (nextProps.items !== this.props.items || nextProps.multiSection !== this.props.multiSection) {
-	        this.setSectionIterator(nextProps);
-	      }
-	
-	      if (nextProps.theme !== this.props.theme) {
-	        this.setTheme(nextProps);
-	      }
-	    }
-	  }, {
-	    key: 'componentDidUpdate',
-	    value: function componentDidUpdate() {
-	      this.ensureHighlightedItemIsVisible();
-	    }
-	  }, {
-	    key: 'setSectionsItems',
-	    value: function setSectionsItems(props) {
-	      if (props.multiSection) {
-	        this.sectionsItems = props.items.map(function (section) {
-	          return props.getSectionItems(section);
-	        });
-	        this.sectionsLengths = this.sectionsItems.map(function (items) {
-	          return items.length;
-	        });
-	        this.allSectionsAreEmpty = this.sectionsLengths.every(function (itemsCount) {
-	          return itemsCount === 0;
-	        });
-	      }
-	    }
-	  }, {
-	    key: 'setSectionIterator',
-	    value: function setSectionIterator(props) {
-	      this.sectionIterator = (0, _sectionIterator2.default)({
-	        multiSection: props.multiSection,
-	        data: props.multiSection ? this.sectionsLengths : props.items.length
-	      });
-	    }
-	  }, {
-	    key: 'setTheme',
-	    value: function setTheme(props) {
-	      this.theme = (0, _reactThemeable2.default)(props.theme);
-	    }
-	  }, {
-	    key: 'renderSections',
-	    value: function renderSections() {
-	      var _this2 = this;
-	
-	      if (this.allSectionsAreEmpty) {
-	        return null;
-	      }
-	
-	      var theme = this.theme;
-	      var _props = this.props,
-	          id = _props.id,
-	          items = _props.items,
-	          renderItem = _props.renderItem,
-	          renderItemData = _props.renderItemData,
-	          renderSectionTitle = _props.renderSectionTitle,
-	          highlightedSectionIndex = _props.highlightedSectionIndex,
-	          highlightedItemIndex = _props.highlightedItemIndex,
-	          itemProps = _props.itemProps;
-	
-	
-	      return items.map(function (section, sectionIndex) {
-	        var keyPrefix = 'react-autowhatever-' + id + '-';
-	        var sectionKeyPrefix = keyPrefix + 'section-' + sectionIndex + '-';
-	        var isFirstSection = sectionIndex === 0;
-	
-	        // `key` is provided by theme()
-	        /* eslint-disable react/jsx-key */
-	        return _react2.default.createElement(
-	          'div',
-	          theme(sectionKeyPrefix + 'container', 'sectionContainer', isFirstSection && 'sectionContainerFirst'),
-	          _react2.default.createElement(_SectionTitle2.default, {
-	            section: section,
-	            renderSectionTitle: renderSectionTitle,
-	            theme: theme,
-	            sectionKeyPrefix: sectionKeyPrefix
-	          }),
-	          _react2.default.createElement(_ItemsList2.default, {
-	            items: _this2.sectionsItems[sectionIndex],
-	            itemProps: itemProps,
-	            renderItem: renderItem,
-	            renderItemData: renderItemData,
-	            sectionIndex: sectionIndex,
-	            highlightedItemIndex: highlightedSectionIndex === sectionIndex ? highlightedItemIndex : null,
-	            onHighlightedItemChange: _this2.onHighlightedItemChange,
-	            getItemId: _this2.getItemId,
-	            theme: theme,
-	            keyPrefix: keyPrefix,
-	            ref: _this2.storeItemsListReference
-	          })
-	        );
-	        /* eslint-enable react/jsx-key */
-	      });
-	    }
-	  }, {
-	    key: 'renderItems',
-	    value: function renderItems() {
-	      var items = this.props.items;
-	
-	
-	      if (items.length === 0) {
-	        return null;
-	      }
-	
-	      var theme = this.theme;
-	      var _props2 = this.props,
-	          id = _props2.id,
-	          renderItem = _props2.renderItem,
-	          renderItemData = _props2.renderItemData,
-	          highlightedSectionIndex = _props2.highlightedSectionIndex,
-	          highlightedItemIndex = _props2.highlightedItemIndex,
-	          itemProps = _props2.itemProps;
-	
-	
-	      return _react2.default.createElement(_ItemsList2.default, {
-	        items: items,
-	        itemProps: itemProps,
-	        renderItem: renderItem,
-	        renderItemData: renderItemData,
-	        highlightedItemIndex: highlightedSectionIndex === null ? highlightedItemIndex : null,
-	        onHighlightedItemChange: this.onHighlightedItemChange,
-	        getItemId: this.getItemId,
-	        theme: theme,
-	        keyPrefix: 'react-autowhatever-' + id + '-'
-	      });
-	    }
-	  }, {
-	    key: 'ensureHighlightedItemIsVisible',
-	    value: function ensureHighlightedItemIsVisible() {
-	      var highlightedItem = this.highlightedItem;
-	
-	
-	      if (!highlightedItem) {
-	        return;
-	      }
-	
-	      var itemsContainer = this.itemsContainer;
-	
-	      var itemOffsetRelativeToContainer = highlightedItem.offsetParent === itemsContainer ? highlightedItem.offsetTop : highlightedItem.offsetTop - itemsContainer.offsetTop;
-	
-	      var scrollTop = itemsContainer.scrollTop; // Top of the visible area
-	
-	      if (itemOffsetRelativeToContainer < scrollTop) {
-	        // Item is off the top of the visible area
-	        scrollTop = itemOffsetRelativeToContainer;
-	      } else if (itemOffsetRelativeToContainer + highlightedItem.offsetHeight > scrollTop + itemsContainer.offsetHeight) {
-	        // Item is off the bottom of the visible area
-	        scrollTop = itemOffsetRelativeToContainer + highlightedItem.offsetHeight - itemsContainer.offsetHeight;
-	      }
-	
-	      if (scrollTop !== itemsContainer.scrollTop) {
-	        itemsContainer.scrollTop = scrollTop;
-	      }
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var theme = this.theme;
-	      var _props3 = this.props,
-	          id = _props3.id,
-	          multiSection = _props3.multiSection,
-	          renderInputComponent = _props3.renderInputComponent,
-	          renderItemsContainer = _props3.renderItemsContainer,
-	          highlightedSectionIndex = _props3.highlightedSectionIndex,
-	          highlightedItemIndex = _props3.highlightedItemIndex;
-	      var isInputFocused = this.state.isInputFocused;
-	
-	      var renderedItems = multiSection ? this.renderSections() : this.renderItems();
-	      var isOpen = renderedItems !== null;
-	      var ariaActivedescendant = this.getItemId(highlightedSectionIndex, highlightedItemIndex);
-	      var containerProps = theme('react-autowhatever-' + id + '-container', 'container', isOpen && 'containerOpen');
-	      var itemsContainerId = 'react-autowhatever-' + id;
-	      var inputComponent = renderInputComponent(_extends({
-	        type: 'text',
-	        value: '',
-	        autoComplete: 'off',
-	        role: 'combobox',
-	        'aria-autocomplete': 'list',
-	        'aria-owns': itemsContainerId,
-	        'aria-expanded': isOpen,
-	        'aria-haspopup': isOpen,
-	        'aria-activedescendant': ariaActivedescendant
-	      }, theme('react-autowhatever-' + id + '-input', 'input', isOpen && 'inputOpen', isInputFocused && 'inputFocused'), this.props.inputProps, {
-	        onFocus: this.onFocus,
-	        onBlur: this.onBlur,
-	        onKeyDown: this.props.inputProps.onKeyDown && this.onKeyDown,
-	        ref: this.storeInputReference
-	      }));
-	      var itemsContainer = renderItemsContainer({
-	        containerProps: _extends({
-	          id: itemsContainerId
-	        }, theme('react-autowhatever-' + id + '-items-container', 'itemsContainer', isOpen && 'itemsContainerOpen'), {
-	          ref: this.storeItemsContainerReference
-	        }),
-	        children: renderedItems
-	      });
-	
-	      return _react2.default.createElement(
-	        'div',
-	        containerProps,
-	        inputComponent,
-	        itemsContainer
-	      );
-	    }
-	  }]);
-	
-	  return Autowhatever;
-	}(_react.Component);
-	
-	Autowhatever.propTypes = {
-	  id: _propTypes2.default.string, // Used in aria-* attributes. If multiple Autowhatever's are rendered on a page, they must have unique ids.
-	  multiSection: _propTypes2.default.bool, // Indicates whether a multi section layout should be rendered.
-	  renderInputComponent: _propTypes2.default.func, // When specified, it is used to render the input element.
-	  renderItemsContainer: _propTypes2.default.func, // Renders the items container.
-	  items: _propTypes2.default.array.isRequired, // Array of items or sections to render.
-	  renderItem: _propTypes2.default.func, // This function renders a single item.
-	  renderItemData: _propTypes2.default.object, // Arbitrary data that will be passed to renderItem()
-	  renderSectionTitle: _propTypes2.default.func, // This function gets a section and renders its title.
-	  getSectionItems: _propTypes2.default.func, // This function gets a section and returns its items, which will be passed into `renderItem` for rendering.
-	  inputProps: _propTypes2.default.object, // Arbitrary input props
-	  itemProps: _propTypes2.default.oneOfType([// Arbitrary item props
-	  _propTypes2.default.object, _propTypes2.default.func]),
-	  highlightedSectionIndex: _propTypes2.default.number, // Section index of the highlighted item
-	  highlightedItemIndex: _propTypes2.default.number, // Highlighted item index (within a section)
-	  theme: _propTypes2.default.oneOfType([// Styles. See: https://github.com/markdalgleish/react-themeable
-	  _propTypes2.default.object, _propTypes2.default.array])
-	};
-	Autowhatever.defaultProps = {
-	  id: '1',
-	  multiSection: false,
-	  renderInputComponent: defaultRenderInputComponent,
-	  renderItemsContainer: defaultRenderItemsContainer,
-	  renderItem: function renderItem() {
-	    throw new Error('`renderItem` must be provided');
-	  },
-	  renderItemData: emptyObject,
-	  renderSectionTitle: function renderSectionTitle() {
-	    throw new Error('`renderSectionTitle` must be provided');
-	  },
-	  getSectionItems: function getSectionItems() {
-	    throw new Error('`getSectionItems` must be provided');
-	  },
-	  inputProps: emptyObject,
-	  itemProps: emptyObject,
-	  highlightedSectionIndex: null,
-	  highlightedItemIndex: null,
-	  theme: defaultTheme
-	};
-	exports.default = Autowhatever;
-
-/***/ },
-/* 248 */
-/***/ function(module, exports) {
-
-	"use strict";
-	
-	var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
-	
-	module.exports = function (_ref) {
-	  var data = _ref.data;
-	  var multiSection = _ref.multiSection;
-	
-	  function nextNonEmptySectionIndex(sectionIndex) {
-	    if (sectionIndex === null) {
-	      sectionIndex = 0;
-	    } else {
-	      sectionIndex++;
-	    }
-	
-	    while (sectionIndex < data.length && data[sectionIndex] === 0) {
-	      sectionIndex++;
-	    }
-	
-	    return sectionIndex === data.length ? null : sectionIndex;
-	  }
-	
-	  function prevNonEmptySectionIndex(sectionIndex) {
-	    if (sectionIndex === null) {
-	      sectionIndex = data.length - 1;
-	    } else {
-	      sectionIndex--;
-	    }
-	
-	    while (sectionIndex >= 0 && data[sectionIndex] === 0) {
-	      sectionIndex--;
-	    }
-	
-	    return sectionIndex === -1 ? null : sectionIndex;
-	  }
-	
-	  function next(position) {
-	    var _position = _slicedToArray(position, 2);
-	
-	    var sectionIndex = _position[0];
-	    var itemIndex = _position[1];
-	
-	
-	    if (multiSection) {
-	      if (itemIndex === null || itemIndex === data[sectionIndex] - 1) {
-	        sectionIndex = nextNonEmptySectionIndex(sectionIndex);
-	
-	        if (sectionIndex === null) {
-	          return [null, null];
-	        }
-	
-	        return [sectionIndex, 0];
-	      }
-	
-	      return [sectionIndex, itemIndex + 1];
-	    }
-	
-	    if (data === 0 || itemIndex === data - 1) {
-	      return [null, null];
-	    }
-	
-	    if (itemIndex === null) {
-	      return [null, 0];
-	    }
-	
-	    return [null, itemIndex + 1];
-	  }
-	
-	  function prev(position) {
-	    var _position2 = _slicedToArray(position, 2);
-	
-	    var sectionIndex = _position2[0];
-	    var itemIndex = _position2[1];
-	
-	
-	    if (multiSection) {
-	      if (itemIndex === null || itemIndex === 0) {
-	        sectionIndex = prevNonEmptySectionIndex(sectionIndex);
-	
-	        if (sectionIndex === null) {
-	          return [null, null];
-	        }
-	
-	        return [sectionIndex, data[sectionIndex] - 1];
-	      }
-	
-	      return [sectionIndex, itemIndex - 1];
-	    }
-	
-	    if (data === 0 || itemIndex === 0) {
-	      return [null, null];
-	    }
-	
-	    if (itemIndex === null) {
-	      return [null, data - 1];
-	    }
-	
-	    return [null, itemIndex - 1];
-	  }
-	
-	  function isLast(position) {
-	    return next(position)[1] === null;
-	  }
-	
-	  return {
-	    next: next,
-	    prev: prev,
-	    isLast: isLast
-	  };
-	};
-
-
-/***/ },
-/* 249 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-	
-	var _slicedToArray = (function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i['return']) _i['return'](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError('Invalid attempt to destructure non-iterable instance'); } }; })();
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-	
-	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) arr2[i] = arr[i]; return arr2; } else { return Array.from(arr); } }
-	
-	var _objectAssign = __webpack_require__(250);
-	
-	var _objectAssign2 = _interopRequireDefault(_objectAssign);
-	
-	var truthy = function truthy(x) {
-	  return x;
-	};
-	
-	exports['default'] = function (input) {
-	  var _ref = Array.isArray(input) && input.length === 2 ? input : [input, null];
-	
-	  var _ref2 = _slicedToArray(_ref, 2);
-	
-	  var theme = _ref2[0];
-	  var classNameDecorator = _ref2[1];
-	
-	  return function (key) {
-	    for (var _len = arguments.length, names = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-	      names[_key - 1] = arguments[_key];
-	    }
-	
-	    var styles = names.map(function (name) {
-	      return theme[name];
-	    }).filter(truthy);
-	
-	    return typeof styles[0] === 'string' || typeof classNameDecorator === 'function' ? { key: key, className: classNameDecorator ? classNameDecorator.apply(undefined, _toConsumableArray(styles)) : styles.join(' ') } : { key: key, style: _objectAssign2['default'].apply(undefined, [{}].concat(_toConsumableArray(styles))) };
-	  };
-	};
-	
-	module.exports = exports['default'];
-
-/***/ },
-/* 250 */
-/***/ function(module, exports) {
-
-	'use strict';
-	var propIsEnumerable = Object.prototype.propertyIsEnumerable;
-	
-	function ToObject(val) {
-		if (val == null) {
-			throw new TypeError('Object.assign cannot be called with null or undefined');
-		}
-	
-		return Object(val);
-	}
-	
-	function ownEnumerableKeys(obj) {
-		var keys = Object.getOwnPropertyNames(obj);
-	
-		if (Object.getOwnPropertySymbols) {
-			keys = keys.concat(Object.getOwnPropertySymbols(obj));
-		}
-	
-		return keys.filter(function (key) {
-			return propIsEnumerable.call(obj, key);
-		});
-	}
-	
-	module.exports = Object.assign || function (target, source) {
-		var from;
-		var keys;
-		var to = ToObject(target);
-	
-		for (var s = 1; s < arguments.length; s++) {
-			from = arguments[s];
-			keys = ownEnumerableKeys(Object(from));
-	
-			for (var i = 0; i < keys.length; i++) {
-				to[keys[i]] = from[keys[i]];
-			}
-		}
-	
-		return to;
-	};
-
-
-/***/ },
-/* 251 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(189);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _propTypes = __webpack_require__(190);
-	
-	var _propTypes2 = _interopRequireDefault(_propTypes);
-	
-	var _compareObjects = __webpack_require__(252);
-	
-	var _compareObjects2 = _interopRequireDefault(_compareObjects);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var SectionTitle = function (_Component) {
-	  _inherits(SectionTitle, _Component);
-	
-	  function SectionTitle() {
-	    _classCallCheck(this, SectionTitle);
-	
-	    return _possibleConstructorReturn(this, (SectionTitle.__proto__ || Object.getPrototypeOf(SectionTitle)).apply(this, arguments));
-	  }
-	
-	  _createClass(SectionTitle, [{
-	    key: 'shouldComponentUpdate',
-	    value: function shouldComponentUpdate(nextProps) {
-	      return (0, _compareObjects2.default)(nextProps, this.props);
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var _props = this.props,
-	          section = _props.section,
-	          renderSectionTitle = _props.renderSectionTitle,
-	          theme = _props.theme,
-	          sectionKeyPrefix = _props.sectionKeyPrefix;
-	
-	      var sectionTitle = renderSectionTitle(section);
-	
-	      if (!sectionTitle) {
-	        return null;
-	      }
-	
-	      return _react2.default.createElement(
-	        'div',
-	        theme(sectionKeyPrefix + 'title', 'sectionTitle'),
-	        sectionTitle
-	      );
-	    }
-	  }]);
-	
-	  return SectionTitle;
-	}(_react.Component);
-	
-	SectionTitle.propTypes = {
-	  section: _propTypes2.default.any.isRequired,
-	  renderSectionTitle: _propTypes2.default.func.isRequired,
-	  theme: _propTypes2.default.func.isRequired,
-	  sectionKeyPrefix: _propTypes2.default.string.isRequired
-	};
-	exports.default = SectionTitle;
-
-/***/ },
-/* 252 */
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-	
-	exports.default = compareObjects;
-	function compareObjects(objA, objB) {
-	  var keys = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
-	
-	  if (objA === objB) {
-	    return false;
-	  }
-	
-	  var aKeys = Object.keys(objA);
-	  var bKeys = Object.keys(objB);
-	
-	  if (aKeys.length !== bKeys.length) {
-	    return true;
-	  }
-	
-	  var keysMap = {};
-	  var i = void 0,
-	      len = void 0;
-	
-	  for (i = 0, len = keys.length; i < len; i++) {
-	    keysMap[keys[i]] = true;
-	  }
-	
-	  for (i = 0, len = aKeys.length; i < len; i++) {
-	    var key = aKeys[i];
-	    var aValue = objA[key];
-	    var bValue = objB[key];
-	
-	    if (aValue === bValue) {
-	      continue;
-	    }
-	
-	    if (!keysMap[key] || aValue === null || bValue === null || (typeof aValue === 'undefined' ? 'undefined' : _typeof(aValue)) !== 'object' || (typeof bValue === 'undefined' ? 'undefined' : _typeof(bValue)) !== 'object') {
-	      return true;
-	    }
-	
-	    var aValueKeys = Object.keys(aValue);
-	    var bValueKeys = Object.keys(bValue);
-	
-	    if (aValueKeys.length !== bValueKeys.length) {
-	      return true;
-	    }
-	
-	    for (var n = 0, length = aValueKeys.length; n < length; n++) {
-	      var aValueKey = aValueKeys[n];
-	
-	      if (aValue[aValueKey] !== bValue[aValueKey]) {
-	        return true;
-	      }
-	    }
-	  }
-	
-	  return false;
-	}
-
-/***/ },
-/* 253 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(189);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _propTypes = __webpack_require__(190);
-	
-	var _propTypes2 = _interopRequireDefault(_propTypes);
-	
-	var _Item = __webpack_require__(254);
-	
-	var _Item2 = _interopRequireDefault(_Item);
-	
-	var _compareObjects = __webpack_require__(252);
-	
-	var _compareObjects2 = _interopRequireDefault(_compareObjects);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var ItemsList = function (_Component) {
-	  _inherits(ItemsList, _Component);
-	
-	  function ItemsList() {
-	    var _ref;
-	
-	    var _temp, _this, _ret;
-	
-	    _classCallCheck(this, ItemsList);
-	
-	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-	      args[_key] = arguments[_key];
-	    }
-	
-	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = ItemsList.__proto__ || Object.getPrototypeOf(ItemsList)).call.apply(_ref, [this].concat(args))), _this), _this.storeHighlightedItemReference = function (highlightedItem) {
-	      _this.props.onHighlightedItemChange(highlightedItem === null ? null : highlightedItem.item);
-	    }, _temp), _possibleConstructorReturn(_this, _ret);
-	  }
-	
-	  _createClass(ItemsList, [{
-	    key: 'shouldComponentUpdate',
-	    value: function shouldComponentUpdate(nextProps) {
-	      return (0, _compareObjects2.default)(nextProps, this.props, ['itemProps']);
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var _this2 = this;
-	
-	      var _props = this.props,
-	          items = _props.items,
-	          itemProps = _props.itemProps,
-	          renderItem = _props.renderItem,
-	          renderItemData = _props.renderItemData,
-	          sectionIndex = _props.sectionIndex,
-	          highlightedItemIndex = _props.highlightedItemIndex,
-	          getItemId = _props.getItemId,
-	          theme = _props.theme,
-	          keyPrefix = _props.keyPrefix;
-	
-	      var sectionPrefix = sectionIndex === null ? keyPrefix : keyPrefix + 'section-' + sectionIndex + '-';
-	      var isItemPropsFunction = typeof itemProps === 'function';
-	
-	      return _react2.default.createElement(
-	        'ul',
-	        _extends({ role: 'listbox' }, theme(sectionPrefix + 'items-list', 'itemsList')),
-	        items.map(function (item, itemIndex) {
-	          var isFirst = itemIndex === 0;
-	          var isHighlighted = itemIndex === highlightedItemIndex;
-	          var itemKey = sectionPrefix + 'item-' + itemIndex;
-	          var itemPropsObj = isItemPropsFunction ? itemProps({ sectionIndex: sectionIndex, itemIndex: itemIndex }) : itemProps;
-	          var allItemProps = _extends({
-	            id: getItemId(sectionIndex, itemIndex)
-	          }, theme(itemKey, 'item', isFirst && 'itemFirst', isHighlighted && 'itemHighlighted'), itemPropsObj);
-	
-	          if (isHighlighted) {
-	            allItemProps.ref = _this2.storeHighlightedItemReference;
-	          }
-	
-	          // `key` is provided by theme()
-	          /* eslint-disable react/jsx-key */
-	          return _react2.default.createElement(_Item2.default, _extends({}, allItemProps, {
-	            sectionIndex: sectionIndex,
-	            isHighlighted: isHighlighted,
-	            itemIndex: itemIndex,
-	            item: item,
-	            renderItem: renderItem,
-	            renderItemData: renderItemData
-	          }));
-	          /* eslint-enable react/jsx-key */
-	        })
-	      );
-	    }
-	  }]);
-	
-	  return ItemsList;
-	}(_react.Component);
-	
-	ItemsList.propTypes = {
-	  items: _propTypes2.default.array.isRequired,
-	  itemProps: _propTypes2.default.oneOfType([_propTypes2.default.object, _propTypes2.default.func]),
-	  renderItem: _propTypes2.default.func.isRequired,
-	  renderItemData: _propTypes2.default.object.isRequired,
-	  sectionIndex: _propTypes2.default.number,
-	  highlightedItemIndex: _propTypes2.default.number,
-	  onHighlightedItemChange: _propTypes2.default.func.isRequired,
-	  getItemId: _propTypes2.default.func.isRequired,
-	  theme: _propTypes2.default.func.isRequired,
-	  keyPrefix: _propTypes2.default.string.isRequired
-	};
-	ItemsList.defaultProps = {
-	  sectionIndex: null
-	};
-	exports.default = ItemsList;
-
-/***/ },
-/* 254 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(189);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _propTypes = __webpack_require__(190);
-	
-	var _propTypes2 = _interopRequireDefault(_propTypes);
-	
-	var _compareObjects = __webpack_require__(252);
-	
-	var _compareObjects2 = _interopRequireDefault(_compareObjects);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var Item = function (_Component) {
-	  _inherits(Item, _Component);
-	
-	  function Item() {
-	    var _ref;
-	
-	    var _temp, _this, _ret;
-	
-	    _classCallCheck(this, Item);
-	
-	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-	      args[_key] = arguments[_key];
-	    }
-	
-	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Item.__proto__ || Object.getPrototypeOf(Item)).call.apply(_ref, [this].concat(args))), _this), _this.storeItemReference = function (item) {
-	      if (item !== null) {
-	        _this.item = item;
-	      }
-	    }, _this.onMouseEnter = function (event) {
-	      var _this$props = _this.props,
-	          sectionIndex = _this$props.sectionIndex,
-	          itemIndex = _this$props.itemIndex;
-	
-	
-	      _this.props.onMouseEnter(event, { sectionIndex: sectionIndex, itemIndex: itemIndex });
-	    }, _this.onMouseLeave = function (event) {
-	      var _this$props2 = _this.props,
-	          sectionIndex = _this$props2.sectionIndex,
-	          itemIndex = _this$props2.itemIndex;
-	
-	
-	      _this.props.onMouseLeave(event, { sectionIndex: sectionIndex, itemIndex: itemIndex });
-	    }, _this.onMouseDown = function (event) {
-	      var _this$props3 = _this.props,
-	          sectionIndex = _this$props3.sectionIndex,
-	          itemIndex = _this$props3.itemIndex;
-	
-	
-	      _this.props.onMouseDown(event, { sectionIndex: sectionIndex, itemIndex: itemIndex });
-	    }, _this.onClick = function (event) {
-	      var _this$props4 = _this.props,
-	          sectionIndex = _this$props4.sectionIndex,
-	          itemIndex = _this$props4.itemIndex;
-	
-	
-	      _this.props.onClick(event, { sectionIndex: sectionIndex, itemIndex: itemIndex });
-	    }, _temp), _possibleConstructorReturn(_this, _ret);
-	  }
-	
-	  _createClass(Item, [{
-	    key: 'shouldComponentUpdate',
-	    value: function shouldComponentUpdate(nextProps) {
-	      return (0, _compareObjects2.default)(nextProps, this.props, ['renderItemData']);
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var _props = this.props,
-	          isHighlighted = _props.isHighlighted,
-	          item = _props.item,
-	          renderItem = _props.renderItem,
-	          renderItemData = _props.renderItemData,
-	          restProps = _objectWithoutProperties(_props, ['isHighlighted', 'item', 'renderItem', 'renderItemData']);
-	
-	      delete restProps.sectionIndex;
-	      delete restProps.itemIndex;
-	
-	      if (typeof restProps.onMouseEnter === 'function') {
-	        restProps.onMouseEnter = this.onMouseEnter;
-	      }
-	
-	      if (typeof restProps.onMouseLeave === 'function') {
-	        restProps.onMouseLeave = this.onMouseLeave;
-	      }
-	
-	      if (typeof restProps.onMouseDown === 'function') {
-	        restProps.onMouseDown = this.onMouseDown;
-	      }
-	
-	      if (typeof restProps.onClick === 'function') {
-	        restProps.onClick = this.onClick;
-	      }
-	
-	      return _react2.default.createElement(
-	        'li',
-	        _extends({ role: 'option' }, restProps, { ref: this.storeItemReference }),
-	        renderItem(item, _extends({ isHighlighted: isHighlighted }, renderItemData))
-	      );
-	    }
-	  }]);
-	
-	  return Item;
-	}(_react.Component);
-	
-	Item.propTypes = {
-	  sectionIndex: _propTypes2.default.number,
-	  isHighlighted: _propTypes2.default.bool.isRequired,
-	  itemIndex: _propTypes2.default.number.isRequired,
-	  item: _propTypes2.default.any.isRequired,
-	  renderItem: _propTypes2.default.func.isRequired,
-	  renderItemData: _propTypes2.default.object.isRequired,
-	  onMouseEnter: _propTypes2.default.func,
-	  onMouseLeave: _propTypes2.default.func,
-	  onMouseDown: _propTypes2.default.func,
-	  onClick: _propTypes2.default.func
-	};
-	exports.default = Item;
-
-/***/ },
-/* 255 */
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	var defaultTheme = exports.defaultTheme = {
-	  container: 'react-autosuggest__container',
-	  containerOpen: 'react-autosuggest__container--open',
-	  input: 'react-autosuggest__input',
-	  inputOpen: 'react-autosuggest__input--open',
-	  inputFocused: 'react-autosuggest__input--focused',
-	  suggestionsContainer: 'react-autosuggest__suggestions-container',
-	  suggestionsContainerOpen: 'react-autosuggest__suggestions-container--open',
-	  suggestionsList: 'react-autosuggest__suggestions-list',
-	  suggestion: 'react-autosuggest__suggestion',
-	  suggestionFirst: 'react-autosuggest__suggestion--first',
-	  suggestionHighlighted: 'react-autosuggest__suggestion--highlighted',
-	  sectionContainer: 'react-autosuggest__section-container',
-	  sectionContainerFirst: 'react-autosuggest__section-container--first',
-	  sectionTitle: 'react-autosuggest__section-title'
-	};
-	
-	var mapToAutowhateverTheme = exports.mapToAutowhateverTheme = function mapToAutowhateverTheme(theme) {
-	  var result = {};
-	
-	  for (var key in theme) {
-	    switch (key) {
-	      case 'suggestionsContainer':
-	        result['itemsContainer'] = theme[key];
-	        break;
-	
-	      case 'suggestionsContainerOpen':
-	        result['itemsContainerOpen'] = theme[key];
-	        break;
-	
-	      case 'suggestion':
-	        result['item'] = theme[key];
-	        break;
-	
-	      case 'suggestionFirst':
-	        result['itemFirst'] = theme[key];
-	        break;
-	
-	      case 'suggestionHighlighted':
-	        result['itemHighlighted'] = theme[key];
-	        break;
-	
-	      case 'suggestionsList':
-	        result['itemsList'] = theme[key];
-	        break;
-	
-	      default:
-	        result[key] = theme[key];
-	    }
-	  }
-	
-	  return result;
-	};
-
-/***/ },
-/* 256 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
 	var _react = __webpack_require__(189);
@@ -14092,7 +11883,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = (0, _I18n.translate)()(Nav);
 
 /***/ },
-/* 257 */
+/* 243 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -14197,7 +11988,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = Claudy;
 
 /***/ },
-/* 258 */
+/* 244 */
 /***/ function(module, exports, __webpack_require__) {
 
 	(function (global, factory) {
@@ -14603,16 +12394,16 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 259 */
+/* 245 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(260);
+	var content = __webpack_require__(246);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(273)(content, {});
+	var update = __webpack_require__(259)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -14629,21 +12420,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 260 */
+/* 246 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(261)();
+	exports = module.exports = __webpack_require__(247)();
 	// imports
 	
 	
 	// module
-	exports.push([module.id, "[role=banner] .coz-sep-flex {\n  margin: 0;\n  border: none;\n  flex: 1 0;\n}\n\n\n[role=banner] [data-icon] {\n  background-repeat: no-repeat;\n  background-position: 0 50%;\n  padding-left: calc(16px + .5em)\n}\n\n\n[role=banner] [data-icon='icon-profile'] {\n  background-image: url(" + __webpack_require__(262) + ")\n}\n\n\n[role=banner] [data-icon='icon-connectedDevices'] {\n  background-image: url(" + __webpack_require__(263) + ")\n}\n\n\n[role=banner] [data-icon='icon-help'] {\n  background-image: url(" + __webpack_require__(264) + ")\n}\n\n\n[role=banner] [data-icon='icon-logout'] {\n  background-image: url(" + __webpack_require__(265) + ")\n}\n\n\n[role=banner] [data-icon='icon-storage'] {\n  background-image: url(" + __webpack_require__(266) + ")\n}\n\n\n[role=banner] [data-icon='icon-cog'] {\n  background-image: url(" + __webpack_require__(267) + ")\n}\n\n\n[role=banner] [data-icon='icon-hamburger'] {\n  background-image: url(" + __webpack_require__(268) + ")\n}\n\n\n[role=banner] [data-icon='icon-cube'] {\n  background-image: url(" + __webpack_require__(238) + ")\n}\n\n\n[role=banner] [data-icon='icon-claudy'] {\n  background-image: url(" + __webpack_require__(269) + ")\n}\n\n\n/* Spinner */\n\n\n@keyframes spin {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(359deg);\n  }\n}\n\n\n[role=banner] [aria-busy=true] {\n  position: relative;\n}\n\n\n[role=banner] [aria-busy=true]::after {\n  content: \"\";\n  position: absolute;\n  right: 0;\n  top: 0;\n  display: block;\n  width: 1em;\n  height: 1em;\n  background-position: center;\n  background-repeat: no-repeat;\n  background-size: cover;\n  background-image: url(" + __webpack_require__(270) + ");\n  animation: 1s linear infinite spin;\n}\n\n\n/* Progress bar */\n\n\n[role=banner] progress[value] {\n  /* Reset the default appearance */\n  appearance: none;\n  background-color: #f5f6f7;\n  border: solid 1px #d6d8da;\n  border-radius: 2px;\n  color: #297ef2;\n}\n\n\n[role=banner] progress[value]::-webkit-progress-bar {\n  background: #f5f6f7;\n  border-radius: 2px;\n}\n\n\n[role=banner] progress[value]::-webkit-progress-value {\n  background: #297ef2;\n  border-radius: 1px;\n}\n\n\n[role=banner] progress[value]::-moz-progress-bar {\n  background: #297ef2;\n  border-radius: 1px;\n}\n\n\n/* Errors */\n\n\n[role=banner] .coz-nav--error {\n  margin: 0 0 .1em 0;\n  font-weight: normal;\n  font-size: .875em;\n  color: #f52d2d;\n}\n\n\n/* Claudy loading */\n\n\n[role=banner] .coz-claudy [data-claudy-loading=true]::before {\n  position: absolute;\n  content: '';\n  width: 100%;\n  height: 100%;\n  bottom: 0;\n  right: 0;\n  background: none;\n  border-radius: 100%;\n  border: .2em solid #0b61d6;\n  border-right: .2em solid white;\n  box-sizing: border-box;\n  animation: 1s linear infinite spin;\n}\n\n\n[role=banner] {\n  position: relative;\n  z-index: 20;\n  min-height: 3em;\n  flex-shrink: 0;\n  display: flex;\n  align-items: stretch;\n  padding: 0 1.25em 0 1em;\n  box-shadow: inset 0 -1px 0 0 #d6d8da;\n  font-family: Lato, sans-serif;\n  font-size: 1rem;\n}\n\n\n[role=banner] .coz-bar-container {\n  display: flex;\n  width: 100%;\n}\n\n\n[role=banner] .coz-bar-flex-container {\n  display: flex;\n}\n\n\n@media (max-width: 48em) {\n  [role=banner] {\n    padding: 0 1em 0 0;\n  }\n\n  [role=banner] .coz-bar-flex-container {\n    width: 100%;\n  }\n\n  [role=banner][data-drawer-visible=true] {\n    /* Force the BAR to be above selection bar in mobile mode,\n     * only when drawer is opened\n     */\n    z-index: 31;\n  }\n}\n\n\n[role=banner] .coz-bar-title {\n  display: flex;\n  margin: 0;\n  align-items: center;\n  font-size: 1.5em;\n  font-weight: normal;\n  color: #32363f;\n}\n\n\n@media (max-width: 48em) {\n  [role=banner] .coz-bar-title {\n    font-size: 1.25em\n  }\n}\n\n\n[role=banner] .coz-bar-title img {\n  margin-right: .45em;\n}\n\n\n[role=banner] .coz-bar-title span {\n  margin-right: .25em;\n}\n\n\n[role=banner] .coz-bar-title strong {\n  font-weight: bold;\n}\n\n\n[role=banner] .coz-bar-title .coz-bar-beta-status {\n  color: #95999d;\n  text-transform: uppercase;\n  font-size: .55em;\n  font-style: italic;\n  font-weight: 700;\n}\n\n\n@media (max-width: 30em) {\n  [role=banner] .coz-bar-hide-sm {\n    display: none;\n  }\n\n  [role=banner] .coz-bar-title strong {\n    padding: 0;\n    text-transform: capitalize;\n  }\n}\n\n\n[role=banner] .coz-bar-burger {\n  width: 2.5em;\n  margin-right: 0.25em;\n  padding: 0;\n  border: none;\n  background-color: transparent;\n  background-position: center;\n}\n\n\n@media (min-width: 48.0625em) {\n  [role=banner] .coz-bar-burger,\n  [role=banner] .coz-drawer-wrapper {\n    display: none;\n  }\n}\n\n\n@media (max-width: 48em) {\n  [role=banner] .coz-bar-hide-sm {\n    display: none;\n  }\n}\n\n\n[role=banner] .coz-nav ul {\n  margin: 0;\n  padding: 0;\n  list-style-type: none;\n}\n\n\n[role=banner] .coz-nav > ul {\n  display: flex;\n}\n\n\n@media (max-width: 48em) {\n  [role=banner] .coz-nav {\n    display: none;\n  }\n}\n\n\n[role=banner] .coz-nav-section {\n  position: relative;\n}\n\n\n[role=banner] .coz-nav-section [aria-controls] {\n  display: flex;\n  align-items: baseline;\n  padding: 1.285em 1.5em;\n  font-size: .875em;\n  text-transform: uppercase;\n  color: #5d6165;\n  cursor: pointer;\n}\n\n\n[role=banner] .coz-nav-section [aria-controls]:hover {\n  background-color: #f5f6f7;\n  box-shadow: inset 0 -1px 0 0 #d6d8da;\n  color: #32363f;\n}\n\n\n[role=banner] .coz-nav-section [aria-controls]:focus {\n  background-color: #f5f6f7;\n  box-shadow: inset 0 -1px 0 0 #d6d8da;\n  color: #32363f;\n}\n\n\n[role=banner] [aria-controls][aria-busy]::after {\n  position: relative;\n  top: .12em;\n  margin: 0 .355em;\n  font-size: .875em;\n}\n\n\n[role=banner] [aria-controls][aria-busy=true] {\n  padding-right: 0;\n}\n\n\n[role=banner] .coz-nav-section [aria-controls][data-icon] {\n  padding-left: calc(1.25em + 16px + .5em);\n  background-position: 1.25em calc(50% - 1px);\n}\n\n\n[role=banner] .coz-nav-icon {\n  margin-right: .5em;\n}\n\n\n[role=banner] .coz-nav-pop[aria-hidden=true] {\n  display: flex;\n  visibility: visible;\n  transform: scale(0);\n  opacity: 0;\n  transition: .2s transform ease-in, .1s opacity ease-in;\n}\n\n\n[role=banner] .coz-nav-pop {\n  position: absolute;\n  top: calc(100% - .5em);\n  right: 0;\n  box-sizing: border-box;\n  min-width: 100%;\n  background-color: #fff;\n  border-radius: 8px;\n  border: solid 1px rgba(50, 54, 63, 0.12);\n  box-shadow: 0 1px 3px 0 rgba(50, 54, 63, 0.19), 0 6px 18px 0 rgba(50, 54, 63, 0.19);\n  opacity: 1;\n  transform: scale(1);\n  transform-origin: 80% 0%;\n  transition: .2s transform cubic-bezier(0.2, 0.75, 0.3, 1.15);\n}\n\n\n[role=banner] .coz-nav-pop ul {\n  padding: 0;\n}\n\n\n[role=banner] .coz-nav-pop ul:last-of-type {\n  border-radius: 0 0 8px 8px;\n}\n\n\n[role=banner] .coz-nav-pop ul:first-of-type {\n  border-radius: 8px 8px 0 0;\n}\n\n\n[role=banner] .coz-nav-pop hr {\n  margin: 0;\n  border: none;\n  border-bottom: solid 1px #d6d8da;\n}\n\n\n[role=banner] .coz-nav-pop ul:last-of-type + hr {\n  display: none;\n}\n\n\n[role=banner] .coz-nav-pop--apps .coz-nav-group:not(.coz-nav--error) {\n  display: flex;\n  padding: .25em;\n}\n\n\n[role=banner] .coz-nav-pop--apps .coz-nav-group--wrapping.coz-nav-group:not(.coz-nav--error) {\n  flex-wrap: wrap;\n  width: 36em;\n}\n\n\n@media (min-width: 48em) and (max-width: 51em) {\n    [role=banner] .coz-nav-pop.coz-nav-pop--apps {\n        right: -3em;\n    }\n}\n\n\n[role=banner] .coz-nav-pop--apps .coz-nav-group:not(.coz-nav--error) .coz-nav-item {\n    width: 8em;\n    padding: 0 .5em;\n}\n\n\n[role=banner] .coz-nav-group:not(.coz-nav--error).coz-nav-group--inactive {\n  background-color: #f5f6f7\n}\n\n\n[role=banner] .coz-nav-group.coz-nav--error {\n  padding: 0.75em;\n  min-width: 20em;\n}\n\n\n[role=banner] .coz-nav-pop--apps .coz-nav-group a {\n  display: flex;\n  flex-direction: column;\n  padding: .5em;\n}\n\n\n[role=banner] .coz-nav-pop--apps .coz-nav-group a img {\n  margin-bottom: .75em;\n}\n\n\n[role=banner] .coz-nav-pop--apps .coz-nav-group a .coz-label {\n  width: 100%;\n  overflow: hidden;\n  white-space: nowrap;\n  text-align: center;\n  text-overflow: ellipsis;\n  font-size: 15px;\n}\n\n\n[role=banner] .coz-nav-pop--apps .coz-nav-category {\n  font-size: 1em;\n  padding: 0 2em;\n  margin: 1em 0 .5em 0;\n}\n\n\n[role=banner] .blurry {\n  opacity: .5;\n  filter: blur(5px);\n}\n\n\n[role=banner] .coz-nav-item [role=menuitem] {\n  position: relative;\n  z-index: 0;\n  display: block;\n  box-sizing: border-box;\n  width: 100%;\n  padding: .8em 1.5em .8em calc(1.5em + 16px + .5em);\n  border: none;\n  align-items: center;\n  background-position: 1.5em 50%;\n  background-color: transparent;\n  text-align: left;\n  white-space: nowrap;\n  color: #32363f;\n  text-decoration: none;\n  outline: none;\n}\n\n\n/* Force pointer on clickable elements*/\n\n\n[role=banner] .coz-nav-item a[role=menuitem],\n[role=banner] .coz-nav-item button[role=menuitem] {\n  cursor: pointer;\n}\n\n\n/* Hover effect */\n\n\n[role=banner] .coz-nav-item a[role=menuitem]:not(.coz-bar-coming-soon-app):hover:before {\n  content: '';\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  z-index: -1;\n  background-color: #f5f6f7;\n  background-image: inherit;\n  background-position: inherit;\n  background-repeat: inherit;\n}\n\n\n[role=banner] .coz-nav-item a[role=menuitem]:not(.coz-bar-coming-soon-app):focus:before {\n  content: '';\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  z-index: -1;\n  background-color: #f5f6f7;\n  background-image: inherit;\n  background-position: inherit;\n  background-repeat: inherit;\n}\n\n\n[role=banner] .coz-nav-item button[role=menuitem]:hover:before {\n  content: '';\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  z-index: -1;\n  background-color: #f5f6f7;\n  background-image: inherit;\n  background-position: inherit;\n  background-repeat: inherit;\n}\n\n\n[role=banner] .coz-nav-item button[role=menuitem]:focus:before {\n  content: '';\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  z-index: -1;\n  background-color: #f5f6f7;\n  background-image: inherit;\n  background-position: inherit;\n  background-repeat: inherit;\n}\n\n\n[role=banner] [role=menuitem][aria-busy=true]::after {\n  right: 1.5em;\n  top: .5em;\n}\n\n\n[role=banner] .coz-drawer-wrapper [role=menuitem][aria-busy=true]::after {\n  top: .8em;\n}\n\n\n/* Remove default margin for p elements */\n\n\n[role=banner] .coz-nav-item a[role=menuitem] p.coz-label {\n  margin: 0;\n}\n\n\n[role=banner] .coz-nav-item div[role=menuitem]:not([data-icon]) {\n  margin: 0;\n  padding-left: 1.5em;\n}\n\n\n[role=banner] .coz-nav-item [role=menuitem] .coz-bar-text-item {\n  margin: 0;\n}\n\n\n[role=banner] .coz-nav-item [role=menuitem] .coz-bar-text-item--inactive {\n  font-style: italic;\n}\n\n\n/* Coming soon styles */\n\n\n[role=banner] .coz-nav-item a[role=menuitem].coz-bar-coming-soon-app {\n    cursor: default;\n}\n\n\n[role=banner] .coz-nav-item [role=menuitem].coz-bar-coming-soon-app img,\n[role=banner] .coz-nav-item [role=menuitem].coz-bar-coming-soon-app .coz-label\n{\n  opacity: .4;\n}\n\n\n[role=banner] .coz-nav-item [role=menuitem].coz-bar-coming-soon-app .coz-bar-coming-soon-badge {\n  position: absolute;\n  display: block;\n  right: 2.5em;\n  bottom: 4.5em;\n  background: #297ef2;\n  border-radius: 2px;\n  padding: .25em;\n  font-size: .6em;\n  color: white;\n  text-transform: uppercase;\n}\n\n\n[role=banner] [role=menuitem][data-icon=icon-storage] {\n  background-position: 1.5em calc(.8em + 1px);\n}\n\n\n[role=banner] .coz-nav-storage {\n  display: flex;\n  flex-direction: column;\n  align-items: left;\n  padding-top: .5em;\n  color: #95999d;\n}\n\n\n[role=banner] .coz-nav-storage-text {\n  margin: 0 0 .1em 0;\n  font-weight: normal;\n  font-size: .875em;\n}\n\n\n[role=banner] .cozy-nav-storage-bar {\n    height: .5em;\n    margin: .2em 0 .1em 0;\n}\n\n\n[role=banner] .coz-drawer-wrapper {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100vw;\n  height: 100vh;\n  display: flex;\n  visibility: visible; /* overwrite default [aria-hidden=true] style */\n}\n\n\n[role=banner] .coz-drawer-wrapper[aria-hidden=true] {\n  pointer-events: none;\n}\n\n\n[role=banner] .coz-drawer-wrapper[aria-hidden=false] {\n  pointer-events: auto;\n}\n\n\n[role=banner] .coz-drawer-wrapper::before {\n  content: '';\n  display: block;\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background-color: #32363f;\n  opacity: 0;\n  transition: opacity .2s ease-out .1s;\n}\n\n\n[role=banner] .coz-drawer-wrapper[aria-hidden=false]::before {\n  opacity: .5;\n  transition: opacity .2s ease-out;\n}\n\n\n[role=banner] .coz-drawer-wrapper aside {\n  position: absolute;\n  bottom: 0;\n  left: 0;\n  width: 90%;\n  max-width: 30em;\n  height: 100%;\n  display: flex;\n  flex-direction: column;\n  background-color: #fff;\n  transform: scaleX(0);\n  transform-origin: 0% 0%;\n  transition: transform .2s ease-out;\n}\n\n\n[role=banner] .coz-drawer-wrapper[aria-hidden=false] aside {\n  transform: scaleX(1);\n  transition: transform .3s cubic-bezier(0.2, 0.75, 0.3, 1.15);\n}\n\n\n[role=banner] .coz-drawer-wrapper ul {\n  margin: 0;\n  padding: 0;\n  list-style-type: none;\n}\n\n\n[role=banner] .coz-drawer-wrapper nav hr {\n  margin: 0;\n  border: none;\n  border-bottom: solid 1px #d6d8da;\n}\n\n\n[role=banner] .coz-drawer-wrapper .coz-nav-icon {\n  margin-right: .5em;\n}\n\n\n[role=banner] .coz-drawer--apps {\n    flex: 0 1 auto;\n    overflow-y: scroll;\n}\n\n\n[role=banner] .coz-drawer--apps ul {\n  padding: 0 0 1em 0;\n  display: flex;\n}\n\n\n[role=banner] .coz-drawer--apps ul li {\n  flex: 0 0 calc(100% /3);\n  max-width: calc(100% / 3);\n}\n\n\n[role=banner] .coz-drawer--apps ul:last-of-type + hr {\n  display: none;\n}\n\n\n[role=banner] .coz-drawer--apps ul.coz-nav-group--wrapping {\n  flex-wrap: wrap;\n}\n\n\n[role=banner] .coz-drawer--apps [role=menuitem] {\n  display: flex;\n  flex-direction: column;\n  padding: .5em 1em;\n  border-radius: 2px;\n}\n\n\n[role=banner] .coz-drawer--apps [role=menuitem]:hover {\n  background-color: rgba(25, 123, 255, 0.1);\n}\n\n\n[role=banner] .coz-drawer--apps li img {\n  margin-bottom: .5em;\n}\n\n\n[role=banner] .coz-drawer--apps li p.coz-label {\n  overflow: hidden;\n  white-space: nowrap;\n  text-overflow: ellipsis;\n  min-width: 0;\n  width: 100%;\n  text-align: center;\n  font-size: 14px;\n}\n\n\n[role=banner] .coz-drawer--apps .coz-nav-category {\n  font-size: 1em;\n  padding: 0 2em;\n  margin: 2em 0 .5em 0;\n}\n\n\n[role=banner] .coz-claudy {\n  position: fixed;\n  bottom: 5em;\n  right: 2em;\n}\n\n\n@media (min-width: 64em) {\n  [role=banner] .coz-claudy {\n    bottom: 2em;\n  }\n}\n\n\n[role=banner] .coz-claudy-icon {\n  width: 3.5em;\n  height: 3.5em;\n  border-radius: 100%;\n  border: none;\n  background-color: #297ef2;\n  background-image: url(" + __webpack_require__(271) + ");\n  background-repeat: no-repeat;\n  background-size: 2.5em;\n  background-position: .5em;\n  box-shadow: 0 1px 3px 0 rgba(50, 54, 63, 0.19), 0 6px 18px 0 rgba(50, 54, 63, 0.39);\n  animation: none;\n  cursor: pointer;\n  opacity: .5;\n  transition: all .2s ease-out;\n  outline: 0;\n}\n\n\n[role=banner] .coz-claudy-icon:hover,\n[role=banner] .coz-claudy-icon:focus,\n[role=banner] .coz-claudy-icon:active,\n[role=banner] .coz-claudy [data-claudy-opened=true] {\n  animation: none;\n  transform: scale(1.1);\n  opacity: 1;\n  transition: all .2s ease-out;\n}\n\n\n[role=banner] .coz-claudy .coz-claudy-intent-wrapper {\n  position: fixed;\n  bottom: 9.5em;\n  right: 2em;\n  width: 25em;\n  border-radius: .3em;\n  background: white;\n  transform-origin: 100% 100% 0;\n  transform: scale(0) translateY(6em);\n  filter: drop-shadow(0 4px 6px rgba(50, 54, 63, 0.5));\n  opacity: 0;\n  transition: .2s transform ease-in, .1s opacity ease-in;\n}\n\n\n[role=banner] .coz-claudy--opened .coz-claudy-intent-wrapper {\n  transform: scale(1) translateY(0);\n  opacity: 1;\n  transition: .2s transform cubic-bezier(0.2, 0.75, 0.3, 1.15), .1s opacity ease-in;\n}\n\n\n[role=banner] .coz-claudy-intent-wrapper::after {\n  position: fixed;\n  content: '';\n  right: 3em;\n  width: 0;\n  height: 0;\n  /* Make it a bit taller to avoid browser spacing issue\n  between it and the tooltip */\n  border-bottom: .8em solid transparent;\n  border-right: 1.5em solid white;\n  bottom: -.6em;\n}\n\n\n[role=banner] .coz-claudy .coz-claudy-intent-wrapper .coz-intent{\n  width: 100%;\n  height: 100%;\n  border: none;\n  border-radius: .3em;\n}\n\n\n@media (min-width: 64em) {\n  [role=banner] .coz-claudy .coz-claudy-intent-wrapper {\n    bottom: 6.5em;\n  }\n}\n\n\n@media (max-width: 48em) {\n  [role=banner] .coz-claudy .coz-claudy-intent-wrapper {\n    width: calc(100% - 2em);\n    height: calc(100% - 2em)!important; /* overwritte intent setSize here */\n    right: 1em;\n    top: 1em;\n    transform-origin: 50% 50% 0;\n  }\n\n  [role=banner] .coz-claudy-intent-wrapper::after {\n    display: none;\n  }\n}\n\n\n[role=banner] .coz-searchbar{\n  height: 100%;\n  display: flex;\n  justify-content: flex-start;\n  align-items: center;\n  flex-grow: 1;\n  padding: .3em .8em .3em 2.5em;\n  box-sizing: border-box;\n}\n\n\n[role=banner] .coz-searchbar-autosuggest-container{\n  position: relative;\n  width: 100%;\n}\n\n\n[role=banner] .coz-searchbar-autosuggest-container:before{\n  content: '';\n  display: inline-block;\n  width: 1.6em;\n  height: 100%;\n  position: absolute;\n  left: 0;\n  top: 0;\n  background: url(" + __webpack_require__(272) + ") .6em center no-repeat;\n}\n\n\n[role=banner] .coz-searchbar-autosuggest-input{\n  box-sizing: border-box;\n  width: 100%;\n  padding: .5em;\n  padding-left: 2em;\n  border-width: 1px;\n  border-style: solid;\n  border-color: #d6d8da;\n  border-radius: 4px;\n}\n\n\n[role=banner] .coz-searchbar-autosuggest-input-focused{\n  outline: none;\n  border-color: #297ef2;\n}\n\n\n[role=banner] .coz-searchbar-autosuggest-suggestions-container {\n\tposition: absolute;\n\ttop: 100%;\n\tmargin-top: 3px;\n\twidth: 100%;\n\tmax-height: em(170px);\n\toverflow: auto;\n\tborder-width: 1px;\n  border-style: solid;\n  border-color: #d6d8da;\n\tborder-radius: 4px;\n\tbackground: white;\n  box-shadow: 0 1px 3px 0 rgba(50, 54, 63, 0.19), 0 6px 18px 0 rgba(50, 54, 63, 0.19);\n\tdisplay: none;\n}\n\n\n[role=banner] .coz-searchbar-autosuggest-suggestions-container--open {\n\tdisplay: block;\n}\n\n\n[role=banner] .coz-searchbar-autosuggest-suggestions-list {\n\tmargin: 0;\n\tpadding: 0;\n\tlist-style: none;\n}\n\n\n[role=banner] .coz-searchbar-autosuggest-suggestion {\n\tpadding: .8em .5em;\n  border-width: 0;\n  border-bottom-width: 1px;\n  border-style:  solid;\n  border-color: #d6d8da;\n}\n\n\n[role=banner] .coz-searchbar-autosuggest-suggestion:last-child {\n  border-bottom-width: 0;\n}\n\n\n[role=banner] .coz-searchbar-autosuggest-suggestion-content {\n  display: flex;\n  flex-direction: row;\n  justify-content: flex-start;\n  align-items: center;\n}\n\n\n[role=banner] .coz-searchbar-autosuggest-suggestion-title {\n  flex-grow: 1;\n  max-width: 80%;\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n\n\n[role=banner] .coz-searchbar-autosuggest-suggestion-subtitle {\n  color: #95999d;\n}\n\n\n[role=banner] .coz-searchbar-autosuggest-suggestion-highlighted {\n\tbackground: #f5f6f7;\n}\n\n\n[role=banner] .coz-searchbar-autosuggest-section-title {\n  padding: .5em;\n  font-size: .8em;\n}\n\n\n@media (max-width: 48em) {\n  [role=banner] .coz-searchbar{\n    display: none;\n  }\n}\n\n\n[role=banner].coz-target--mobile {\n  padding-left: 1em;\n}\n\n\n.coz-bar-hidden {\n  position: absolute !important;\n  border: 0 !important;\n  width: 1px !important;\n  height: 1px !important;\n  overflow: hidden !important;\n  padding: 0 !important;\n  white-space: nowrap !important;\n  clip: rect(1px, 1px, 1px, 1px) !important;\n  clip-path: inset(50%) !important;\n}\n\n\n@-moz-keyframes spin {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(359deg);\n  }\n}\n\n\n@-webkit-keyframes spin {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(359deg);\n  }\n}\n\n\n@-o-keyframes spin {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(359deg);\n  }\n}\n\n\n@keyframes spin {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(359deg);\n  }\n}\n\n\n.coz-btn-regular[aria-busy=true]::after {\n  content: '';\n  display: inline-block;\n  vertical-align: middle;\n  margin-left: 0.5em;\n  background-position: center;\n  background-repeat: no-repeat;\n  background-size: cover;\n}\n\n\n.coz-btn-regular[aria-busy=true]::after,\n.coz-btn-close[aria-busy=true]::after {\n  width: 1rem;\n  height: 1rem;\n}\n\n\n.coz-btn-regular[aria-busy=true]::after {\n  animation: spin 1s linear infinite;\n}\n\n\n.coz-btn-regular[aria-busy=true]::after {\n  background-image: url(\"data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAzMiAzMicgd2lkdGg9JzEyJyBoZWlnaHQ9JzEyJyBmaWxsPSd3aGl0ZSc+PHBhdGggb3BhY2l0eT0nLjI1JyBkPSdNMTYgMGExNiAxNiAwIDAgMCAwIDMyIDE2IDE2IDAgMCAwIDAtMzJtMCA0YTEyIDEyIDAgMCAxIDAgMjQgMTIgMTIgMCAwIDEgMC0yNCcvPjxwYXRoIGQ9J00xNiAwYTE2IDE2IDAgMCAxIDE2IDE2aC00YTEyIDEyIDAgMCAwLTEyLTEyeicvPjwvc3ZnPgo=\");\n}\n\n\n.coz-btn-regular,\n.coz-btn-close {\n  box-sizing: border-box;\n  display: inline-block;\n  margin: 0 0.25em;\n  border: 1px solid #fff;\n  border-radius: 2px;\n  min-height: em(40px, 14px);\n  padding: em(13px, 14px) em(15px, 14px) em(11px, 14px);\n  background: transparent;\n  vertical-align: top;\n  text-align: center;\n  font-size: 14px /* [1] */;\n  line-height: 1;\n  text-transform: uppercase;\n  text-decoration: none;\n  cursor: pointer;\n}\n\n\n.coz-btn-regular[disabled],\n.coz-btn-close[disabled],\n.coz-btn-regular[aria-disabled=true],\n.coz-btn-close[aria-disabled=true] {\n  opacity: 0.5;\n  cursor: not-allowed;\n}\n\n\n.coz-btn-regular[aria-busy=true]::after,\n.coz-btn-close[aria-busy=true]::after {\n  position: relative;\n  top: em(-1px);\n}\n\n\n.coz-btn-regular {\n  border-color: #297ef2;\n  background-color: #297ef2;\n  color: #fff;\n}\n\n\n.coz-btn-regular:active,\n.coz-btn-regular:not([disabled]):not([aria-disabled=true]):hover,\n.coz-btn-regular:focus {\n  border-color: #0b61d6;\n  background-color: #0b61d6;\n}\n\n\n.coz-btn-close {\n  border: 0;\n  width: em(46px);\n  background-image: url(\"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICA8cGF0aCBmaWxsPSIjOTU5OTlEIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xMDYuNTg1Nzg2LDQ0IEw5Ni4yOTI4OTMyLDMzLjcwNzEwNjggQzk1LjkwMjM2ODksMzMuMzE2NTgyNSA5NS45MDIzNjg5LDMyLjY4MzQxNzUgOTYuMjkyODkzMiwzMi4yOTI4OTMyIEM5Ni42ODM0MTc1LDMxLjkwMjM2ODkgOTcuMzE2NTgyNSwzMS45MDIzNjg5IDk3LjcwNzEwNjgsMzIuMjkyODkzMiBMMTA4LDQyLjU4NTc4NjQgTDExOC4yOTI4OTMsMzIuMjkyODkzMiBDMTE4LjY4MzQxOCwzMS45MDIzNjg5IDExOS4zMTY1ODIsMzEuOTAyMzY4OSAxMTkuNzA3MTA3LDMyLjI5Mjg5MzIgQzEyMC4wOTc2MzEsMzIuNjgzNDE3NSAxMjAuMDk3NjMxLDMzLjMxNjU4MjUgMTE5LjcwNzEwNywzMy43MDcxMDY4IEwxMDkuNDE0MjE0LDQ0IEwxMTkuNzA3MTA3LDU0LjI5Mjg5MzIgQzEyMC4wOTc2MzEsNTQuNjgzNDE3NSAxMjAuMDk3NjMxLDU1LjMxNjU4MjUgMTE5LjcwNzEwNyw1NS43MDcxMDY4IEMxMTkuMzE2NTgyLDU2LjA5NzYzMTEgMTE4LjY4MzQxOCw1Ni4wOTc2MzExIDExOC4yOTI4OTMsNTUuNzA3MTA2OCBMMTA4LDQ1LjQxNDIxMzYgTDk3LjcwNzEwNjgsNTUuNzA3MTA2OCBDOTcuMzE2NTgyNSw1Ni4wOTc2MzExIDk2LjY4MzQxNzUsNTYuMDk3NjMxMSA5Ni4yOTI4OTMyLDU1LjcwNzEwNjggQzk1LjkwMjM2ODksNTUuMzE2NTgyNSA5NS45MDIzNjg5LDU0LjY4MzQxNzUgOTYuMjkyODkzMiw1NC4yOTI4OTMyIEwxMDYuNTg1Nzg2LDQ0IFoiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC05NiAtMzIpIi8+Cjwvc3ZnPgo=\");\n  background-position: center center;\n  background-repeat: no-repeat;\n}\n\n\n.coz-btn-regular {\n  min-height: 40px;\n  padding: 13px 15px 11px;\n}\n\n\n.coz-btn-close {\n  width: 32px;\n  padding: 0;\n  margin: 0;\n}\n", ""]);
+	exports.push([module.id, "[role=banner] .coz-sep-flex {\n  margin: 0;\n  border: none;\n  flex: 1 0;\n}\n\n\n[role=banner] [data-icon] {\n  background-repeat: no-repeat;\n  background-position: 0 50%;\n  padding-left: calc(16px + .5em)\n}\n\n\n[role=banner] [data-icon='icon-profile'] {\n  background-image: url(" + __webpack_require__(248) + ")\n}\n\n\n[role=banner] [data-icon='icon-connectedDevices'] {\n  background-image: url(" + __webpack_require__(249) + ")\n}\n\n\n[role=banner] [data-icon='icon-help'] {\n  background-image: url(" + __webpack_require__(250) + ")\n}\n\n\n[role=banner] [data-icon='icon-logout'] {\n  background-image: url(" + __webpack_require__(251) + ")\n}\n\n\n[role=banner] [data-icon='icon-storage'] {\n  background-image: url(" + __webpack_require__(252) + ")\n}\n\n\n[role=banner] [data-icon='icon-cog'] {\n  background-image: url(" + __webpack_require__(253) + ")\n}\n\n\n[role=banner] [data-icon='icon-hamburger'] {\n  background-image: url(" + __webpack_require__(254) + ")\n}\n\n\n[role=banner] [data-icon='icon-cube'] {\n  background-image: url(" + __webpack_require__(238) + ")\n}\n\n\n[role=banner] [data-icon='icon-claudy'] {\n  background-image: url(" + __webpack_require__(255) + ")\n}\n\n\n/* Spinner */\n\n\n@keyframes spin {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(359deg);\n  }\n}\n\n\n[role=banner] [aria-busy=true] {\n  position: relative;\n}\n\n\n[role=banner] [aria-busy=true]::after {\n  content: \"\";\n  position: absolute;\n  right: 0;\n  top: 0;\n  display: block;\n  width: 1em;\n  height: 1em;\n  background-position: center;\n  background-repeat: no-repeat;\n  background-size: cover;\n  background-image: url(" + __webpack_require__(256) + ");\n  animation: 1s linear infinite spin;\n}\n\n\n/* Progress bar */\n\n\n[role=banner] progress[value] {\n  /* Reset the default appearance */\n  appearance: none;\n  background-color: #f5f6f7;\n  border: solid 1px #d6d8da;\n  border-radius: 2px;\n  color: #297ef2;\n}\n\n\n[role=banner] progress[value]::-webkit-progress-bar {\n  background: #f5f6f7;\n  border-radius: 2px;\n}\n\n\n[role=banner] progress[value]::-webkit-progress-value {\n  background: #297ef2;\n  border-radius: 1px;\n}\n\n\n[role=banner] progress[value]::-moz-progress-bar {\n  background: #297ef2;\n  border-radius: 1px;\n}\n\n\n/* Errors */\n\n\n[role=banner] .coz-nav--error {\n  margin: 0 0 .1em 0;\n  font-weight: normal;\n  font-size: .875em;\n  color: #f52d2d;\n}\n\n\n/* Claudy loading */\n\n\n[role=banner] .coz-claudy [data-claudy-loading=true]::before {\n  position: absolute;\n  content: '';\n  width: 100%;\n  height: 100%;\n  bottom: 0;\n  right: 0;\n  background: none;\n  border-radius: 100%;\n  border: .2em solid #0b61d6;\n  border-right: .2em solid white;\n  box-sizing: border-box;\n  animation: 1s linear infinite spin;\n}\n\n\n[role=banner] {\n  position: relative;\n  z-index: 20;\n  min-height: 3em;\n  flex-shrink: 0;\n  display: flex;\n  align-items: stretch;\n  padding: 0 1.25em 0 1em;\n  box-shadow: inset 0 -1px 0 0 #d6d8da;\n  font-family: Lato, sans-serif;\n  font-size: 1rem;\n}\n\n\n[role=banner] .coz-bar-container {\n  display: flex;\n  width: 100%;\n}\n\n\n[role=banner] .coz-bar-flex-container {\n  display: flex;\n}\n\n\n@media (max-width: 48em) {\n  [role=banner] {\n    padding: 0 1em 0 0;\n  }\n\n  [role=banner] .coz-bar-flex-container {\n    width: 100%;\n  }\n\n  [role=banner][data-drawer-visible=true] {\n    /* Force the BAR to be above selection bar in mobile mode,\n     * only when drawer is opened\n     */\n    z-index: 31;\n  }\n}\n\n\n[role=banner] .coz-bar-title {\n  display: flex;\n  margin: 0;\n  align-items: center;\n  font-size: 1.5em;\n  font-weight: normal;\n  color: #32363f;\n}\n\n\n@media (max-width: 48em) {\n  [role=banner] .coz-bar-title {\n    font-size: 1.25em\n  }\n}\n\n\n[role=banner] .coz-bar-title img {\n  margin-right: .45em;\n}\n\n\n[role=banner] .coz-bar-title span {\n  margin-right: .25em;\n}\n\n\n[role=banner] .coz-bar-title strong {\n  font-weight: bold;\n}\n\n\n[role=banner] .coz-bar-title .coz-bar-beta-status {\n  color: #95999d;\n  text-transform: uppercase;\n  font-size: .55em;\n  font-style: italic;\n  font-weight: 700;\n}\n\n\n@media (max-width: 30em) {\n  [role=banner] .coz-bar-hide-sm {\n    display: none;\n  }\n\n  [role=banner] .coz-bar-title strong {\n    padding: 0;\n    text-transform: capitalize;\n  }\n}\n\n\n[role=banner] .coz-bar-burger {\n  width: 2.5em;\n  margin-right: 0.25em;\n  padding: 0;\n  border: none;\n  background-color: transparent;\n  background-position: center;\n}\n\n\n@media (min-width: 48.0625em) {\n  [role=banner] .coz-bar-burger,\n  [role=banner] .coz-drawer-wrapper {\n    display: none;\n  }\n}\n\n\n@media (max-width: 48em) {\n  [role=banner] .coz-bar-hide-sm {\n    display: none;\n  }\n}\n\n\n[role=banner] .coz-nav ul {\n  margin: 0;\n  padding: 0;\n  list-style-type: none;\n}\n\n\n[role=banner] .coz-nav > ul {\n  display: flex;\n}\n\n\n@media (max-width: 48em) {\n  [role=banner] .coz-nav {\n    display: none;\n  }\n}\n\n\n[role=banner] .coz-nav-section {\n  position: relative;\n}\n\n\n[role=banner] .coz-nav-section [aria-controls] {\n  display: flex;\n  align-items: baseline;\n  padding: 1.285em 1.5em;\n  font-size: .875em;\n  text-transform: uppercase;\n  color: #5d6165;\n  cursor: pointer;\n}\n\n\n[role=banner] .coz-nav-section [aria-controls]:hover {\n  background-color: #f5f6f7;\n  box-shadow: inset 0 -1px 0 0 #d6d8da;\n  color: #32363f;\n}\n\n\n[role=banner] .coz-nav-section [aria-controls]:focus {\n  background-color: #f5f6f7;\n  box-shadow: inset 0 -1px 0 0 #d6d8da;\n  color: #32363f;\n}\n\n\n[role=banner] [aria-controls][aria-busy]::after {\n  position: relative;\n  top: .12em;\n  margin: 0 .355em;\n  font-size: .875em;\n}\n\n\n[role=banner] [aria-controls][aria-busy=true] {\n  padding-right: 0;\n}\n\n\n[role=banner] .coz-nav-section [aria-controls][data-icon] {\n  padding-left: calc(1.25em + 16px + .5em);\n  background-position: 1.25em calc(50% - 1px);\n}\n\n\n[role=banner] .coz-nav-icon {\n  margin-right: .5em;\n}\n\n\n[role=banner] .coz-nav-pop[aria-hidden=true] {\n  display: flex;\n  visibility: visible;\n  transform: scale(0);\n  opacity: 0;\n  transition: .2s transform ease-in, .1s opacity ease-in;\n}\n\n\n[role=banner] .coz-nav-pop {\n  position: absolute;\n  top: calc(100% - .5em);\n  right: 0;\n  box-sizing: border-box;\n  min-width: 100%;\n  background-color: #fff;\n  border-radius: 8px;\n  border: solid 1px rgba(50, 54, 63, 0.12);\n  box-shadow: 0 1px 3px 0 rgba(50, 54, 63, 0.19), 0 6px 18px 0 rgba(50, 54, 63, 0.19);\n  opacity: 1;\n  transform: scale(1);\n  transform-origin: 80% 0%;\n  transition: .2s transform cubic-bezier(0.2, 0.75, 0.3, 1.15);\n}\n\n\n[role=banner] .coz-nav-pop ul {\n  padding: 0;\n}\n\n\n[role=banner] .coz-nav-pop ul:last-of-type {\n  border-radius: 0 0 8px 8px;\n}\n\n\n[role=banner] .coz-nav-pop ul:first-of-type {\n  border-radius: 8px 8px 0 0;\n}\n\n\n[role=banner] .coz-nav-pop hr {\n  margin: 0;\n  border: none;\n  border-bottom: solid 1px #d6d8da;\n}\n\n\n[role=banner] .coz-nav-pop ul:last-of-type + hr {\n  display: none;\n}\n\n\n[role=banner] .coz-nav-pop--apps .coz-nav-group:not(.coz-nav--error) {\n  display: flex;\n  padding: .25em;\n}\n\n\n[role=banner] .coz-nav-pop--apps .coz-nav-group--wrapping.coz-nav-group:not(.coz-nav--error) {\n  flex-wrap: wrap;\n  width: 36em;\n}\n\n\n@media (min-width: 48em) and (max-width: 51em) {\n    [role=banner] .coz-nav-pop.coz-nav-pop--apps {\n        right: -3em;\n    }\n}\n\n\n[role=banner] .coz-nav-pop--apps .coz-nav-group:not(.coz-nav--error) .coz-nav-item {\n    width: 8em;\n    padding: 0 .5em;\n}\n\n\n[role=banner] .coz-nav-group:not(.coz-nav--error).coz-nav-group--inactive {\n  background-color: #f5f6f7\n}\n\n\n[role=banner] .coz-nav-group.coz-nav--error {\n  padding: 0.75em;\n  min-width: 20em;\n}\n\n\n[role=banner] .coz-nav-pop--apps .coz-nav-group a {\n  display: flex;\n  flex-direction: column;\n  padding: .5em;\n}\n\n\n[role=banner] .coz-nav-pop--apps .coz-nav-group a img {\n  margin-bottom: .75em;\n}\n\n\n[role=banner] .coz-nav-pop--apps .coz-nav-group a .coz-label {\n  width: 100%;\n  overflow: hidden;\n  white-space: nowrap;\n  text-align: center;\n  text-overflow: ellipsis;\n  font-size: 15px;\n}\n\n\n[role=banner] .coz-nav-pop--apps .coz-nav-category {\n  font-size: 1em;\n  padding: 0 2em;\n  margin: 1em 0 .5em 0;\n}\n\n\n[role=banner] .blurry {\n  opacity: .5;\n  filter: blur(5px);\n}\n\n\n[role=banner] .coz-nav-item [role=menuitem] {\n  position: relative;\n  z-index: 0;\n  display: block;\n  box-sizing: border-box;\n  width: 100%;\n  padding: .8em 1.5em .8em calc(1.5em + 16px + .5em);\n  border: none;\n  align-items: center;\n  background-position: 1.5em 50%;\n  background-color: transparent;\n  text-align: left;\n  white-space: nowrap;\n  color: #32363f;\n  text-decoration: none;\n  outline: none;\n}\n\n\n/* Force pointer on clickable elements*/\n\n\n[role=banner] .coz-nav-item a[role=menuitem],\n[role=banner] .coz-nav-item button[role=menuitem] {\n  cursor: pointer;\n}\n\n\n/* Hover effect */\n\n\n[role=banner] .coz-nav-item a[role=menuitem]:not(.coz-bar-coming-soon-app):hover:before {\n  content: '';\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  z-index: -1;\n  background-color: #f5f6f7;\n  background-image: inherit;\n  background-position: inherit;\n  background-repeat: inherit;\n}\n\n\n[role=banner] .coz-nav-item a[role=menuitem]:not(.coz-bar-coming-soon-app):focus:before {\n  content: '';\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  z-index: -1;\n  background-color: #f5f6f7;\n  background-image: inherit;\n  background-position: inherit;\n  background-repeat: inherit;\n}\n\n\n[role=banner] .coz-nav-item button[role=menuitem]:hover:before {\n  content: '';\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  z-index: -1;\n  background-color: #f5f6f7;\n  background-image: inherit;\n  background-position: inherit;\n  background-repeat: inherit;\n}\n\n\n[role=banner] .coz-nav-item button[role=menuitem]:focus:before {\n  content: '';\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  z-index: -1;\n  background-color: #f5f6f7;\n  background-image: inherit;\n  background-position: inherit;\n  background-repeat: inherit;\n}\n\n\n[role=banner] [role=menuitem][aria-busy=true]::after {\n  right: 1.5em;\n  top: .5em;\n}\n\n\n[role=banner] .coz-drawer-wrapper [role=menuitem][aria-busy=true]::after {\n  top: .8em;\n}\n\n\n/* Remove default margin for p elements */\n\n\n[role=banner] .coz-nav-item a[role=menuitem] p.coz-label {\n  margin: 0;\n}\n\n\n[role=banner] .coz-nav-item div[role=menuitem]:not([data-icon]) {\n  margin: 0;\n  padding-left: 1.5em;\n}\n\n\n[role=banner] .coz-nav-item [role=menuitem] .coz-bar-text-item {\n  margin: 0;\n}\n\n\n[role=banner] .coz-nav-item [role=menuitem] .coz-bar-text-item--inactive {\n  font-style: italic;\n}\n\n\n/* Coming soon styles */\n\n\n[role=banner] .coz-nav-item a[role=menuitem].coz-bar-coming-soon-app {\n    cursor: default;\n}\n\n\n[role=banner] .coz-nav-item [role=menuitem].coz-bar-coming-soon-app img,\n[role=banner] .coz-nav-item [role=menuitem].coz-bar-coming-soon-app .coz-label\n{\n  opacity: .4;\n}\n\n\n[role=banner] .coz-nav-item [role=menuitem].coz-bar-coming-soon-app .coz-bar-coming-soon-badge {\n  position: absolute;\n  display: block;\n  right: 2.5em;\n  bottom: 4.5em;\n  background: #297ef2;\n  border-radius: 2px;\n  padding: .25em;\n  font-size: .6em;\n  color: white;\n  text-transform: uppercase;\n}\n\n\n[role=banner] [role=menuitem][data-icon=icon-storage] {\n  background-position: 1.5em calc(.8em + 1px);\n}\n\n\n[role=banner] .coz-nav-storage {\n  display: flex;\n  flex-direction: column;\n  align-items: left;\n  padding-top: .5em;\n  color: #95999d;\n}\n\n\n[role=banner] .coz-nav-storage-text {\n  margin: 0 0 .1em 0;\n  font-weight: normal;\n  font-size: .875em;\n}\n\n\n[role=banner] .cozy-nav-storage-bar {\n    height: .5em;\n    margin: .2em 0 .1em 0;\n}\n\n\n[role=banner] .coz-drawer-wrapper {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100vw;\n  height: 100vh;\n  display: flex;\n  visibility: visible; /* overwrite default [aria-hidden=true] style */\n}\n\n\n[role=banner] .coz-drawer-wrapper[aria-hidden=true] {\n  pointer-events: none;\n}\n\n\n[role=banner] .coz-drawer-wrapper[aria-hidden=false] {\n  pointer-events: auto;\n}\n\n\n[role=banner] .coz-drawer-wrapper::before {\n  content: '';\n  display: block;\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background-color: #32363f;\n  opacity: 0;\n  transition: opacity .2s ease-out .1s;\n}\n\n\n[role=banner] .coz-drawer-wrapper[aria-hidden=false]::before {\n  opacity: .5;\n  transition: opacity .2s ease-out;\n}\n\n\n[role=banner] .coz-drawer-wrapper aside {\n  position: absolute;\n  bottom: 0;\n  left: 0;\n  width: 90%;\n  max-width: 30em;\n  height: 100%;\n  display: flex;\n  flex-direction: column;\n  background-color: #fff;\n  transform: scaleX(0);\n  transform-origin: 0% 0%;\n  transition: transform .2s ease-out;\n}\n\n\n[role=banner] .coz-drawer-wrapper[aria-hidden=false] aside {\n  transform: scaleX(1);\n  transition: transform .3s cubic-bezier(0.2, 0.75, 0.3, 1.15);\n}\n\n\n[role=banner] .coz-drawer-wrapper ul {\n  margin: 0;\n  padding: 0;\n  list-style-type: none;\n}\n\n\n[role=banner] .coz-drawer-wrapper nav hr {\n  margin: 0;\n  border: none;\n  border-bottom: solid 1px #d6d8da;\n}\n\n\n[role=banner] .coz-drawer-wrapper .coz-nav-icon {\n  margin-right: .5em;\n}\n\n\n[role=banner] .coz-drawer--apps {\n    flex: 0 1 auto;\n    overflow-y: scroll;\n}\n\n\n[role=banner] .coz-drawer--apps ul {\n  padding: 0 0 1em 0;\n  display: flex;\n}\n\n\n[role=banner] .coz-drawer--apps ul li {\n  flex: 0 0 calc(100% /3);\n  max-width: calc(100% / 3);\n}\n\n\n[role=banner] .coz-drawer--apps ul:last-of-type + hr {\n  display: none;\n}\n\n\n[role=banner] .coz-drawer--apps ul.coz-nav-group--wrapping {\n  flex-wrap: wrap;\n}\n\n\n[role=banner] .coz-drawer--apps [role=menuitem] {\n  display: flex;\n  flex-direction: column;\n  padding: .5em 1em;\n  border-radius: 2px;\n}\n\n\n[role=banner] .coz-drawer--apps [role=menuitem]:hover {\n  background-color: rgba(25, 123, 255, 0.1);\n}\n\n\n[role=banner] .coz-drawer--apps li img {\n  margin-bottom: .5em;\n}\n\n\n[role=banner] .coz-drawer--apps li p.coz-label {\n  overflow: hidden;\n  white-space: nowrap;\n  text-overflow: ellipsis;\n  min-width: 0;\n  width: 100%;\n  text-align: center;\n  font-size: 14px;\n}\n\n\n[role=banner] .coz-drawer--apps .coz-nav-category {\n  font-size: 1em;\n  padding: 0 2em;\n  margin: 2em 0 .5em 0;\n}\n\n\n[role=banner] .coz-claudy {\n  position: fixed;\n  bottom: 5em;\n  right: 2em;\n}\n\n\n@media (min-width: 64em) {\n  [role=banner] .coz-claudy {\n    bottom: 2em;\n  }\n}\n\n\n[role=banner] .coz-claudy-icon {\n  width: 3.5em;\n  height: 3.5em;\n  border-radius: 100%;\n  border: none;\n  background-color: #297ef2;\n  background-image: url(" + __webpack_require__(257) + ");\n  background-repeat: no-repeat;\n  background-size: 2.5em;\n  background-position: .5em;\n  box-shadow: 0 1px 3px 0 rgba(50, 54, 63, 0.19), 0 6px 18px 0 rgba(50, 54, 63, 0.39);\n  animation: none;\n  cursor: pointer;\n  opacity: .5;\n  transition: all .2s ease-out;\n  outline: 0;\n}\n\n\n[role=banner] .coz-claudy-icon:hover,\n[role=banner] .coz-claudy-icon:focus,\n[role=banner] .coz-claudy-icon:active,\n[role=banner] .coz-claudy [data-claudy-opened=true] {\n  animation: none;\n  transform: scale(1.1);\n  opacity: 1;\n  transition: all .2s ease-out;\n}\n\n\n[role=banner] .coz-claudy .coz-claudy-intent-wrapper {\n  position: fixed;\n  bottom: 9.5em;\n  right: 2em;\n  width: 25em;\n  border-radius: .3em;\n  background: white;\n  transform-origin: 100% 100% 0;\n  transform: scale(0) translateY(6em);\n  filter: drop-shadow(0 4px 6px rgba(50, 54, 63, 0.5));\n  opacity: 0;\n  transition: .2s transform ease-in, .1s opacity ease-in;\n}\n\n\n[role=banner] .coz-claudy--opened .coz-claudy-intent-wrapper {\n  transform: scale(1) translateY(0);\n  opacity: 1;\n  transition: .2s transform cubic-bezier(0.2, 0.75, 0.3, 1.15), .1s opacity ease-in;\n}\n\n\n[role=banner] .coz-claudy-intent-wrapper::after {\n  position: fixed;\n  content: '';\n  right: 3em;\n  width: 0;\n  height: 0;\n  /* Make it a bit taller to avoid browser spacing issue\n  between it and the tooltip */\n  border-bottom: .8em solid transparent;\n  border-right: 1.5em solid white;\n  bottom: -.6em;\n}\n\n\n[role=banner] .coz-claudy .coz-claudy-intent-wrapper .coz-intent{\n  width: 100%;\n  height: 100%;\n  border: none;\n  border-radius: .3em;\n}\n\n\n@media (min-width: 64em) {\n  [role=banner] .coz-claudy .coz-claudy-intent-wrapper {\n    bottom: 6.5em;\n  }\n}\n\n\n@media (max-width: 48em) {\n  [role=banner] .coz-claudy .coz-claudy-intent-wrapper {\n    width: calc(100% - 2em);\n    height: calc(100% - 2em)!important; /* overwritte intent setSize here */\n    right: 1em;\n    top: 1em;\n    transform-origin: 50% 50% 0;\n  }\n\n  [role=banner] .coz-claudy-intent-wrapper::after {\n    display: none;\n  }\n}\n\n\n[role=banner] .coz-searchbar{\n  height: 100%;\n  display: flex;\n  justify-content: flex-start;\n  align-items: center;\n  flex-grow: 1;\n  padding: .3em .8em .3em 2.5em;\n  box-sizing: border-box;\n}\n\n\n[role=banner] .coz-searchbar-autosuggest-container{\n  position: relative;\n  width: 100%;\n}\n\n\n[role=banner] .coz-searchbar-autosuggest-container:before{\n  content: '';\n  display: inline-block;\n  width: 1.6em;\n  height: 100%;\n  position: absolute;\n  left: 0;\n  top: 0;\n  background: url(" + __webpack_require__(258) + ") .6em center no-repeat;\n}\n\n\n[role=banner] .coz-searchbar-autosuggest-input{\n  box-sizing: border-box;\n  width: 100%;\n  padding: .5em;\n  padding-left: 2em;\n  border-width: 1px;\n  border-style: solid;\n  border-color: #d6d8da;\n  border-radius: 4px;\n}\n\n\n[role=banner] .coz-searchbar-autosuggest-input-focused{\n  outline: none;\n  border-color: #297ef2;\n}\n\n\n[role=banner] .coz-searchbar-autosuggest-suggestions-container {\n\tposition: absolute;\n\ttop: 100%;\n\tmargin-top: 3px;\n\twidth: 100%;\n\tmax-height: em(170px);\n\toverflow: auto;\n\tborder-width: 1px;\n  border-style: solid;\n  border-color: #d6d8da;\n\tborder-radius: 4px;\n\tbackground: white;\n  box-shadow: 0 1px 3px 0 rgba(50, 54, 63, 0.19), 0 6px 18px 0 rgba(50, 54, 63, 0.19);\n\tdisplay: none;\n}\n\n\n[role=banner] .coz-searchbar-autosuggest-suggestions-container--open {\n\tdisplay: block;\n}\n\n\n[role=banner] .coz-searchbar-autosuggest-suggestions-list {\n\tmargin: 0;\n\tpadding: 0;\n\tlist-style: none;\n}\n\n\n[role=banner] .coz-searchbar-autosuggest-suggestion {\n\tpadding: .8em .5em;\n  border-width: 0;\n  border-bottom-width: 1px;\n  border-style:  solid;\n  border-color: #d6d8da;\n}\n\n\n[role=banner] .coz-searchbar-autosuggest-suggestion:last-child {\n  border-bottom-width: 0;\n}\n\n\n[role=banner] .coz-searchbar-autosuggest-suggestion-content {\n  display: flex;\n  flex-direction: row;\n  justify-content: flex-start;\n  align-items: center;\n}\n\n\n[role=banner] .coz-searchbar-autosuggest-suggestion-title {\n  flex-grow: 1;\n  max-width: 80%;\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n\n\n[role=banner] .coz-searchbar-autosuggest-suggestion-subtitle {\n  color: #95999d;\n}\n\n\n[role=banner] .coz-searchbar-autosuggest-suggestion-highlighted {\n\tbackground: #f5f6f7;\n}\n\n\n[role=banner] .coz-searchbar-autosuggest-section-title {\n  padding: .5em;\n  font-size: .8em;\n}\n\n\n@media (max-width: 48em) {\n  [role=banner] .coz-searchbar{\n    display: none;\n  }\n}\n\n\n[role=banner].coz-target--mobile {\n  padding-left: 1em;\n}\n\n\n.coz-bar-hidden {\n  position: absolute !important;\n  border: 0 !important;\n  width: 1px !important;\n  height: 1px !important;\n  overflow: hidden !important;\n  padding: 0 !important;\n  white-space: nowrap !important;\n  clip: rect(1px, 1px, 1px, 1px) !important;\n  clip-path: inset(50%) !important;\n}\n\n\n@-moz-keyframes spin {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(359deg);\n  }\n}\n\n\n@-webkit-keyframes spin {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(359deg);\n  }\n}\n\n\n@-o-keyframes spin {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(359deg);\n  }\n}\n\n\n@keyframes spin {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(359deg);\n  }\n}\n\n\n.coz-btn-regular[aria-busy=true]::after {\n  content: '';\n  display: inline-block;\n  vertical-align: middle;\n  margin-left: 0.5em;\n  background-position: center;\n  background-repeat: no-repeat;\n  background-size: cover;\n}\n\n\n.coz-btn-regular[aria-busy=true]::after,\n.coz-btn-close[aria-busy=true]::after {\n  width: 1rem;\n  height: 1rem;\n}\n\n\n.coz-btn-regular[aria-busy=true]::after {\n  animation: spin 1s linear infinite;\n}\n\n\n.coz-btn-regular[aria-busy=true]::after {\n  background-image: url(\"data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAzMiAzMicgd2lkdGg9JzEyJyBoZWlnaHQ9JzEyJyBmaWxsPSd3aGl0ZSc+PHBhdGggb3BhY2l0eT0nLjI1JyBkPSdNMTYgMGExNiAxNiAwIDAgMCAwIDMyIDE2IDE2IDAgMCAwIDAtMzJtMCA0YTEyIDEyIDAgMCAxIDAgMjQgMTIgMTIgMCAwIDEgMC0yNCcvPjxwYXRoIGQ9J00xNiAwYTE2IDE2IDAgMCAxIDE2IDE2aC00YTEyIDEyIDAgMCAwLTEyLTEyeicvPjwvc3ZnPgo=\");\n}\n\n\n.coz-btn-regular,\n.coz-btn-close {\n  box-sizing: border-box;\n  display: inline-block;\n  margin: 0 0.25em;\n  border: 1px solid #fff;\n  border-radius: 2px;\n  min-height: em(40px, 14px);\n  padding: em(13px, 14px) em(15px, 14px) em(11px, 14px);\n  background: transparent;\n  vertical-align: top;\n  text-align: center;\n  font-size: 14px /* [1] */;\n  line-height: 1;\n  text-transform: uppercase;\n  text-decoration: none;\n  cursor: pointer;\n}\n\n\n.coz-btn-regular[disabled],\n.coz-btn-close[disabled],\n.coz-btn-regular[aria-disabled=true],\n.coz-btn-close[aria-disabled=true] {\n  opacity: 0.5;\n  cursor: not-allowed;\n}\n\n\n.coz-btn-regular[aria-busy=true]::after,\n.coz-btn-close[aria-busy=true]::after {\n  position: relative;\n  top: em(-1px);\n}\n\n\n.coz-btn-regular {\n  border-color: #297ef2;\n  background-color: #297ef2;\n  color: #fff;\n}\n\n\n.coz-btn-regular:active,\n.coz-btn-regular:not([disabled]):not([aria-disabled=true]):hover,\n.coz-btn-regular:focus {\n  border-color: #0b61d6;\n  background-color: #0b61d6;\n}\n\n\n.coz-btn-close {\n  border: 0;\n  width: em(46px);\n  background-image: url(\"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICA8cGF0aCBmaWxsPSIjOTU5OTlEIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xMDYuNTg1Nzg2LDQ0IEw5Ni4yOTI4OTMyLDMzLjcwNzEwNjggQzk1LjkwMjM2ODksMzMuMzE2NTgyNSA5NS45MDIzNjg5LDMyLjY4MzQxNzUgOTYuMjkyODkzMiwzMi4yOTI4OTMyIEM5Ni42ODM0MTc1LDMxLjkwMjM2ODkgOTcuMzE2NTgyNSwzMS45MDIzNjg5IDk3LjcwNzEwNjgsMzIuMjkyODkzMiBMMTA4LDQyLjU4NTc4NjQgTDExOC4yOTI4OTMsMzIuMjkyODkzMiBDMTE4LjY4MzQxOCwzMS45MDIzNjg5IDExOS4zMTY1ODIsMzEuOTAyMzY4OSAxMTkuNzA3MTA3LDMyLjI5Mjg5MzIgQzEyMC4wOTc2MzEsMzIuNjgzNDE3NSAxMjAuMDk3NjMxLDMzLjMxNjU4MjUgMTE5LjcwNzEwNywzMy43MDcxMDY4IEwxMDkuNDE0MjE0LDQ0IEwxMTkuNzA3MTA3LDU0LjI5Mjg5MzIgQzEyMC4wOTc2MzEsNTQuNjgzNDE3NSAxMjAuMDk3NjMxLDU1LjMxNjU4MjUgMTE5LjcwNzEwNyw1NS43MDcxMDY4IEMxMTkuMzE2NTgyLDU2LjA5NzYzMTEgMTE4LjY4MzQxOCw1Ni4wOTc2MzExIDExOC4yOTI4OTMsNTUuNzA3MTA2OCBMMTA4LDQ1LjQxNDIxMzYgTDk3LjcwNzEwNjgsNTUuNzA3MTA2OCBDOTcuMzE2NTgyNSw1Ni4wOTc2MzExIDk2LjY4MzQxNzUsNTYuMDk3NjMxMSA5Ni4yOTI4OTMyLDU1LjcwNzEwNjggQzk1LjkwMjM2ODksNTUuMzE2NTgyNSA5NS45MDIzNjg5LDU0LjY4MzQxNzUgOTYuMjkyODkzMiw1NC4yOTI4OTMyIEwxMDYuNTg1Nzg2LDQ0IFoiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC05NiAtMzIpIi8+Cjwvc3ZnPgo=\");\n  background-position: center center;\n  background-repeat: no-repeat;\n}\n\n\n.coz-btn-regular {\n  min-height: 40px;\n  padding: 13px 15px 11px;\n}\n\n\n.coz-btn-close {\n  width: 32px;\n  padding: 0;\n  margin: 0;\n}\n", ""]);
 	
 	// exports
 
 
 /***/ },
-/* 261 */
+/* 247 */
 /***/ function(module, exports) {
 
 	/*
@@ -14699,73 +12490,73 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 262 */
+/* 248 */
 /***/ function(module, exports) {
 
 	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICA8cGF0aCBmaWxsPSIjNUQ2MTY1IiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xMzYsNzMgQzEzOC4yMDkxMzksNzMgMTQwLDcwLjk4NTI4MTQgMTQwLDY4LjUgQzE0MCw2Ni4wMTQ3MTg2IDEzOC4yMDkxMzksNjQgMTM2LDY0IEMxMzMuNzkwODYxLDY0IDEzMiw2Ni4wMTQ3MTg2IDEzMiw2OC41IEMxMzIsNzAuOTg1MjgxNCAxMzMuNzkwODYxLDczIDEzNiw3MyBaIE0xMjgsNzggQzEyOCw3NyAxMzAsNzQgMTMyLDc0IEMxMzQsNzQgMTMzLDc1IDEzNiw3NSBDMTM5LDc1IDEzOCw3NCAxNDAsNzQgQzE0Miw3NCAxNDQsNzcgMTQ0LDc4IEMxNDQsNzkgMTQ0LDgwIDE0Myw4MCBMMTI5LDgwIEMxMjgsODAgMTI4LDc5IDEyOCw3OCBaIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMTI4IC02NCkiLz4KPC9zdmc+Cg=="
 
 /***/ },
-/* 263 */
+/* 249 */
 /***/ function(module, exports) {
 
 	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICA8cGF0aCBmaWxsPSIjNUQ2MTY1IiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xNjIsNjUuMDAwODcxNyBDMTYyLDY0LjQ0ODEwNTUgMTYyLjQ1NTc2MSw2NCAxNjMuMDAyNDczLDY0IEwxNzIuOTk3NTI3LDY0IEMxNzMuNTUxMTc3LDY0IDE3NCw2NC40NDQ2MzA5IDE3NCw2NS4wMDA4NzE3IEwxNzQsNzguOTk5MTI4MyBDMTc0LDc5LjU1MTg5NDUgMTczLjU0NDIzOSw4MCAxNzIuOTk3NTI3LDgwIEwxNjMuMDAyNDczLDgwIEMxNjIuNDQ4ODIzLDgwIDE2Miw3OS41NTUzNjkxIDE2Miw3OC45OTkxMjgzIEwxNjIsNjUuMDAwODcxNyBaIE0xNjQsNjYgTDE3Miw2NiBMMTcyLDc2IEwxNjQsNzYgTDE2NCw2NiBaIE0xNjgsNzkgQzE2OC41NTIyODUsNzkgMTY5LDc4LjU1MjI4NDcgMTY5LDc4IEMxNjksNzcuNDQ3NzE1MyAxNjguNTUyMjg1LDc3IDE2OCw3NyBDMTY3LjQ0NzcxNSw3NyAxNjcsNzcuNDQ3NzE1MyAxNjcsNzggQzE2Nyw3OC41NTIyODQ3IDE2Ny40NDc3MTUsNzkgMTY4LDc5IFoiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0xNjAgLTY0KSIvPgo8L3N2Zz4K"
 
 /***/ },
-/* 264 */
+/* 250 */
 /***/ function(module, exports) {
 
 	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICA8cGF0aCBmaWxsPSIjNUQ2MTY1IiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0yOTYsODAgQzMwMC40MTgyNzgsODAgMzA0LDc2LjQxODI3OCAzMDQsNzIgQzMwNCw2Ny41ODE3MjIgMzAwLjQxODI3OCw2NCAyOTYsNjQgQzI5MS41ODE3MjIsNjQgMjg4LDY3LjU4MTcyMiAyODgsNzIgQzI4OCw3Ni40MTgyNzggMjkxLjU4MTcyMiw4MCAyOTYsODAgWiBNMjk3LDcyLjgwMjExMyBDMjk4LjEyMTgwOSw3Mi4zNTQ1NTY4IDI5OSw3MS4yMDg5OTQ2IDI5OSw3MCBDMjk5LDY4LjQ0NzcxNTMgMjk3LjU1MjI4NSw2NyAyOTYsNjcgQzI5NC40NDc3MTUsNjcgMjkzLDY4LjQ0NzcxNTMgMjkzLDcwIEwyOTUsNzAgQzI5NSw2OS41NTIyODQ3IDI5NS41NTIyODUsNjkgMjk2LDY5IEMyOTYuNDQ3NzE1LDY5IDI5Nyw2OS41NTIyODQ3IDI5Nyw3MCBDMjk3LDcwLjQ0NzcxNTMgMjk2LjQ0NzcxNSw3MSAyOTYsNzEgQzI5NS40NDc3MTUsNzEgMjk1LDcxLjQ0NzcxNTMgMjk1LDcyIEwyOTUsNzQgTDI5Nyw3NCBMMjk3LDcyLjgwMjExMyBaIE0yOTUsNzUgTDI5Nyw3NSBMMjk3LDc3IEwyOTUsNzcgTDI5NSw3NSBaIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMjg4IC02NCkiLz4KPC9zdmc+Cg=="
 
 /***/ },
-/* 265 */
+/* 251 */
 /***/ function(module, exports) {
 
 	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICA8cGF0aCBmaWxsPSIjNUQ2MTY1IiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0zMjcsOTkuNDE0MjEzNiBMMzI1LjcwNzEwNywxMDAuNzA3MTA3IEMzMjUuMzE2NTgyLDEwMS4wOTc2MzEgMzI0LjY4MzQxOCwxMDEuMDk3NjMxIDMyNC4yOTI4OTMsMTAwLjcwNzEwNyBDMzIzLjkwMjM2OSwxMDAuMzE2NTgyIDMyMy45MDIzNjksOTkuNjgzNDE3NSAzMjQuMjkyODkzLDk5LjI5Mjg5MzIgTDMyNy4yOTI4OTMsOTYuMjkyODkzMiBDMzI3LjY4MzQxOCw5NS45MDIzNjg5IDMyOC4zMTY1ODIsOTUuOTAyMzY4OSAzMjguNzA3MTA3LDk2LjI5Mjg5MzIgTDMzMS43MDcxMDcsOTkuMjkyODkzMiBDMzMyLjA5NzYzMSw5OS42ODM0MTc1IDMzMi4wOTc2MzEsMTAwLjMxNjU4MiAzMzEuNzA3MTA3LDEwMC43MDcxMDcgQzMzMS4zMTY1ODIsMTAxLjA5NzYzMSAzMzAuNjgzNDE4LDEwMS4wOTc2MzEgMzMwLjI5Mjg5MywxMDAuNzA3MTA3IEwzMjksOTkuNDE0MjEzNiBMMzI5LDEwNyBDMzI5LDEwNy41NTIyODUgMzI4LjU1MjI4NSwxMDggMzI4LDEwOCBDMzI3LjQ0NzcxNSwxMDggMzI3LDEwNy41NTIyODUgMzI3LDEwNyBMMzI3LDk5LjQxNDIxMzYgWiBNMzIxLDExMiBMMzM1LDExMiBDMzM1LjU1MjI4NSwxMTIgMzM2LDExMS41NTIyODUgMzM2LDExMSBDMzM2LDExMC40NDc3MTUgMzM1LjU1MjI4NSwxMTAgMzM1LDExMCBMMzIxLDExMCBDMzIwLjQ0NzcxNSwxMTAgMzIwLDExMC40NDc3MTUgMzIwLDExMSBDMzIwLDExMS41NTIyODUgMzIwLjQ0NzcxNSwxMTIgMzIxLDExMiBaIiB0cmFuc2Zvcm09InJvdGF0ZSg5MCAyMTYgLTEwNCkiLz4KPC9zdmc+Cg=="
 
 /***/ },
-/* 266 */
+/* 252 */
 /***/ function(module, exports) {
 
 	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICA8cGF0aCBmaWxsPSIjNUQ2MTY1IiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0yMjUsNjggTDIzOSw2OCBMMjM5LDc4LjAwNDQyMjUgQzIzOSw3OC41NTQyNjQ4IDIzOC41NTAwNTEsNzkgMjM3Ljk5MzE1NSw3OSBMMjI2LjAwNjg0NSw3OSBDMjI1LjQ1MDc4LDc5IDIyNSw3OC41NTUxNjMgMjI1LDc4LjAwNDQyMjUgTDIyNSw2OCBaIE0yMjQsNjYgQzIyNCw2NS40NDc3MTUzIDIyNC40NDQ2MzEsNjUgMjI1LjAwMDg3Miw2NSBMMjM4Ljk5OTEyOCw2NSBDMjM5LjU1MTg5NCw2NSAyNDAsNjUuNDQzODY0OCAyNDAsNjYgTDI0MCw2NyBMMjI0LDY3IEwyMjQsNjYgWiBNMjI5LDcwIEwyMzUsNzAgTDIzNSw3MiBMMjI5LDcyIEwyMjksNzAgWiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTIyNCAtNjQpIi8+Cjwvc3ZnPgo="
 
 /***/ },
-/* 267 */
+/* 253 */
 /***/ function(module, exports) {
 
 	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICA8ZyBmaWxsPSIjOTU5OTlEIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0yMjQgLTMyKSI+CiAgICA8cGF0aCBkPSJNMjM4LjI0OTM1NiwzOS4wNzgyOTczIEMyMzguMzAxNDA3LDM5LjMzNzE0MzYgMjM4LjMyNzQzMiwzOS42NDU5NjAyIDIzOC4zMjc0MzIsNDAuMDAzNzQ3OCBDMjM4LjMyNzQzMiw0MC4zNjE1MzUzIDIzOC4zMDE0MDcsNDAuNjY5MzUyNiAyMzguMjQ5MzU2LDQwLjkyOTE5ODMgTDIzOS44Njk5NDYsNDIuMjYyNDA2NyBDMjQwLjAwMDA3NCw0Mi4zNDgzNTU3IDI0MC4wMzIxMDUsNDIuNDY1Mjg2MiAyMzkuOTY4MDQyLDQyLjYxNDE5NzggQzIzOS42NDI3MjMsNDMuNTY0NjMzNSAyMzkuMTA5MTk5LDQ0LjQ0MDExMzcgMjM4LjM2NjQ3LDQ1LjI0MTYzNzggQzIzOC4yNjIzNjgsNDUuMzY1NTY0MiAyMzguMTM3MjQ2LDQ1LjM5NjU0NTggMjM3Ljk5NTEwNiw0NS4zMzU1ODIgTDIzNS45NjQxMTMsNDQuNjY3OTc4NCBDMjM1LjQ0MzYwMiw0NS4wNjM3NDM0IDIzNC44ODQwNTMsNDUuMzcyNTYgMjM0LjI4NDQ2NCw0NS41OTQ0MjgzIEwyMzMuODc1MDYyLDQ3LjU5MzI0MTUgQzIzMy44NDkwMzcsNDcuNzQwMTU0MyAyMzMuNzU3OTQ4LDQ3LjgyNzEwMjcgMjMzLjYwMTc5NCw0Ny44NTIwODc4IEMyMzMuMDQxMjQ0LDQ3Ljk1MjAyODUgMjMyLjUwNzcyMSw0OCAyMzIuMDAwMjIyLDQ4IEMyMzEuNDkyNzI0LDQ4IDIzMC45NTgyLDQ3Ljk1MTAyOTEgMjMwLjM5ODY1MSw0Ny44NTIwODc4IEMyMzAuMjQyNDk3LDQ3LjgyODEwMjEgMjMwLjE1MTQwOCw0Ny43NDExNTM3IDIzMC4xMjUzODIsNDcuNTkzMjQxNSBMMjI5LjcxNTk4MSw0NS41OTQ0MjgzIEMyMjkuMDc3MzU0LDQ1LjM2MDU2NzIgMjI4LjUxNzgwNSw0NS4wNTA3NTExIDIyOC4wMzYzMzIsNDQuNjY3OTc4NCBMMjI2LjAwNTMzOSw0NS4zMzU1ODIgQzIyNS44NjExOTcsNDUuMzk3NTQ1MiAyMjUuNzM4MDc3LDQ1LjM2NTU2NDIgMjI1LjYzMzk3NCw0NS4yNDE2Mzc4IEMyMjQuODkyMjQ2LDQ0LjQ0MDExMzcgMjI0LjM1ODcyMyw0My41NjQ2MzM1IDIyNC4wMzI0MDMsNDIuNjE0MTk3OCBDMjIzLjk2NzMzOSw0Mi40NjYyODU2IDIyNC4wMDAzNzEsNDIuMzQ4MzU1NyAyMjQuMTMwNDk5LDQyLjI2MjQwNjcgTDIyNS43NTEwODksNDAuOTI5MTk4MyBDMjI1LjY5OTAzOCw0MC42NjkzNTI2IDIyNS42NzMwMTMsNDAuMzYyNTM0NyAyMjUuNjczMDEzLDQwLjAwMzc0NzggQzIyNS42NzMwMTMsMzkuNjQ1OTYwMiAyMjUuNjk5MDM4LDM5LjMzNzE0MzYgMjI1Ljc1MTA4OSwzOS4wNzgyOTczIEwyMjQuMTMwNDk5LDM3Ljc0NjA4ODMgQzIyNC4wMDAzNzEsMzcuNjYwMTM5MyAyMjMuOTY3MzM5LDM3LjU0MjIwOTMgMjI0LjAzMjQwMywzNy4zOTQyOTcxIEMyMjQuMzU3NzIyLDM2LjQ0NDg2MDkgMjI0Ljg5MTI0NSwzNS41NjgzODEzIDIyNS42MzM5NzQsMzQuNzY2ODU3MiBDMjI1LjczODA3NywzNC42NDM5MzAyIDIyNS44NjIxOTgsMzQuNjEyOTQ4NiAyMjYuMDA1MzM5LDM0LjY3MzkxMjQgTDIyOC4wMzYzMzIsMzUuMzQwNTE2NiBDMjI4LjUxNjgwNCwzNC45NTc3NDM4IDIyOS4wNzczNTQsMzQuNjQ5OTI2NiAyMjkuNzE1OTgxLDM0LjQxNTA2NjEgTDIzMC4xMjUzODIsMzIuNDE2MjUyOCBDMjMwLjE1MTQwOCwzMi4yNjgzNDA3IDIzMC4yNDI0OTcsMzIuMTgyMzkxNyAyMzAuMzk4NjUxLDMyLjE1NzQwNjUgQzIzMS40NjU2OTgsMzEuOTQ3NTMxMiAyMzIuNTMzNzQ2LDMxLjk0NzUzMTIgMjMzLjYwMDc5MywzMi4xNTc0MDY1IEMyMzMuNzU2OTQ3LDMyLjE4MTM5MjMgMjMzLjg0ODAzNiwzMi4yNjgzNDA3IDIzMy44NzQwNjEsMzIuNDE2MjUyOCBMMjM0LjI4MzQ2MywzNC40MTUwNjYxIEMyMzQuODgzMDUyLDM0LjYzNzkzMzcgMjM1LjQ0MjYwMSwzNC45NDU3NTEgMjM1Ljk2MzExMiwzNS4zNDA1MTY2IEwyMzcuOTk0MTA1LDM0LjY3MzkxMjQgQzIzOC4xMzcyNDYsMzQuNjExOTQ5MiAyMzguMjYxMzY3LDM0LjY0MzkzMDIgMjM4LjM2NTQ3LDM0Ljc2Njg1NzIgQzIzOS4xMDcxOTcsMzUuNTY5MzgwNyAyMzkuNjQwNzIxLDM2LjQ0NDg2MDkgMjM5Ljk2NzA0MSwzNy4zOTQyOTcxIEMyNDAuMDMxMTA0LDM3LjU0MjIwOTMgMjM5Ljk5OTA3MywzNy42NjAxMzkzIDIzOS44Njg5NDUsMzcuNzQ2MDg4MyBMMjM4LjI0OTM1NiwzOS4wNzgyOTczIEwyMzguMjQ5MzU2LDM5LjA3ODI5NzMgWiBNMjMyLDM2LjUgQzIzMC4wNjcxMjUsMzYuNSAyMjguNSwzOC4wNjcxMjUgMjI4LjUsNDAgQzIyOC41LDQxLjkzMjg3NSAyMzAuMDY3MTI1LDQzLjUgMjMyLDQzLjUgQzIzMy45MzI4NzUsNDMuNSAyMzUuNSw0MS45MzI4NzUgMjM1LjUsNDAgQzIzNS41LDM4LjA2NzEyNSAyMzMuOTMyODc1LDM2LjUgMjMyLDM2LjUgTDIzMiwzNi41IFoiLz4KICAgIDxwYXRoIGQ9Ik0yMzguMjQ5MzU2LDM5LjA3ODI5NzMgQzIzOC4zMDE0MDcsMzkuMzM3MTQzNiAyMzguMzI3NDMyLDM5LjY0NTk2MDIgMjM4LjMyNzQzMiw0MC4wMDM3NDc4IEMyMzguMzI3NDMyLDQwLjM2MTUzNTMgMjM4LjMwMTQwNyw0MC42NjkzNTI2IDIzOC4yNDkzNTYsNDAuOTI5MTk4MyBMMjM5Ljg2OTk0Niw0Mi4yNjI0MDY3IEMyNDAuMDAwMDc0LDQyLjM0ODM1NTcgMjQwLjAzMjEwNSw0Mi40NjUyODYyIDIzOS45NjgwNDIsNDIuNjE0MTk3OCBDMjM5LjY0MjcyMyw0My41NjQ2MzM1IDIzOS4xMDkxOTksNDQuNDQwMTEzNyAyMzguMzY2NDcsNDUuMjQxNjM3OCBDMjM4LjI2MjM2OCw0NS4zNjU1NjQyIDIzOC4xMzcyNDYsNDUuMzk2NTQ1OCAyMzcuOTk1MTA2LDQ1LjMzNTU4MiBMMjM1Ljk2NDExMyw0NC42Njc5Nzg0IEMyMzUuNDQzNjAyLDQ1LjA2Mzc0MzQgMjM0Ljg4NDA1Myw0NS4zNzI1NiAyMzQuMjg0NDY0LDQ1LjU5NDQyODMgTDIzMy44NzUwNjIsNDcuNTkzMjQxNSBDMjMzLjg0OTAzNyw0Ny43NDAxNTQzIDIzMy43NTc5NDgsNDcuODI3MTAyNyAyMzMuNjAxNzk0LDQ3Ljg1MjA4NzggQzIzMy4wNDEyNDQsNDcuOTUyMDI4NSAyMzIuNTA3NzIxLDQ4IDIzMi4wMDAyMjIsNDggQzIzMS40OTI3MjQsNDggMjMwLjk1ODIsNDcuOTUxMDI5MSAyMzAuMzk4NjUxLDQ3Ljg1MjA4NzggQzIzMC4yNDI0OTcsNDcuODI4MTAyMSAyMzAuMTUxNDA4LDQ3Ljc0MTE1MzcgMjMwLjEyNTM4Miw0Ny41OTMyNDE1IEwyMjkuNzE1OTgxLDQ1LjU5NDQyODMgQzIyOS4wNzczNTQsNDUuMzYwNTY3MiAyMjguNTE3ODA1LDQ1LjA1MDc1MTEgMjI4LjAzNjMzMiw0NC42Njc5Nzg0IEwyMjYuMDA1MzM5LDQ1LjMzNTU4MiBDMjI1Ljg2MTE5Nyw0NS4zOTc1NDUyIDIyNS43MzgwNzcsNDUuMzY1NTY0MiAyMjUuNjMzOTc0LDQ1LjI0MTYzNzggQzIyNC44OTIyNDYsNDQuNDQwMTEzNyAyMjQuMzU4NzIzLDQzLjU2NDYzMzUgMjI0LjAzMjQwMyw0Mi42MTQxOTc4IEMyMjMuOTY3MzM5LDQyLjQ2NjI4NTYgMjI0LjAwMDM3MSw0Mi4zNDgzNTU3IDIyNC4xMzA0OTksNDIuMjYyNDA2NyBMMjI1Ljc1MTA4OSw0MC45MjkxOTgzIEMyMjUuNjk5MDM4LDQwLjY2OTM1MjYgMjI1LjY3MzAxMyw0MC4zNjI1MzQ3IDIyNS42NzMwMTMsNDAuMDAzNzQ3OCBDMjI1LjY3MzAxMywzOS42NDU5NjAyIDIyNS42OTkwMzgsMzkuMzM3MTQzNiAyMjUuNzUxMDg5LDM5LjA3ODI5NzMgTDIyNC4xMzA0OTksMzcuNzQ2MDg4MyBDMjI0LjAwMDM3MSwzNy42NjAxMzkzIDIyMy45NjczMzksMzcuNTQyMjA5MyAyMjQuMDMyNDAzLDM3LjM5NDI5NzEgQzIyNC4zNTc3MjIsMzYuNDQ0ODYwOSAyMjQuODkxMjQ1LDM1LjU2ODM4MTMgMjI1LjYzMzk3NCwzNC43NjY4NTcyIEMyMjUuNzM4MDc3LDM0LjY0MzkzMDIgMjI1Ljg2MjE5OCwzNC42MTI5NDg2IDIyNi4wMDUzMzksMzQuNjczOTEyNCBMMjI4LjAzNjMzMiwzNS4zNDA1MTY2IEMyMjguNTE2ODA0LDM0Ljk1Nzc0MzggMjI5LjA3NzM1NCwzNC42NDk5MjY2IDIyOS43MTU5ODEsMzQuNDE1MDY2MSBMMjMwLjEyNTM4MiwzMi40MTYyNTI4IEMyMzAuMTUxNDA4LDMyLjI2ODM0MDcgMjMwLjI0MjQ5NywzMi4xODIzOTE3IDIzMC4zOTg2NTEsMzIuMTU3NDA2NSBDMjMxLjQ2NTY5OCwzMS45NDc1MzEyIDIzMi41MzM3NDYsMzEuOTQ3NTMxMiAyMzMuNjAwNzkzLDMyLjE1NzQwNjUgQzIzMy43NTY5NDcsMzIuMTgxMzkyMyAyMzMuODQ4MDM2LDMyLjI2ODM0MDcgMjMzLjg3NDA2MSwzMi40MTYyNTI4IEwyMzQuMjgzNDYzLDM0LjQxNTA2NjEgQzIzNC44ODMwNTIsMzQuNjM3OTMzNyAyMzUuNDQyNjAxLDM0Ljk0NTc1MSAyMzUuOTYzMTEyLDM1LjM0MDUxNjYgTDIzNy45OTQxMDUsMzQuNjczOTEyNCBDMjM4LjEzNzI0NiwzNC42MTE5NDkyIDIzOC4yNjEzNjcsMzQuNjQzOTMwMiAyMzguMzY1NDcsMzQuNzY2ODU3MiBDMjM5LjEwNzE5NywzNS41NjkzODA3IDIzOS42NDA3MjEsMzYuNDQ0ODYwOSAyMzkuOTY3MDQxLDM3LjM5NDI5NzEgQzI0MC4wMzExMDQsMzcuNTQyMjA5MyAyMzkuOTk5MDczLDM3LjY2MDEzOTMgMjM5Ljg2ODk0NSwzNy43NDYwODgzIEwyMzguMjQ5MzU2LDM5LjA3ODI5NzMgTDIzOC4yNDkzNTYsMzkuMDc4Mjk3MyBaIE0yMzIsMzYuNSBDMjMwLjA2NzEyNSwzNi41IDIyOC41LDM4LjA2NzEyNSAyMjguNSw0MCBDMjI4LjUsNDEuOTMyODc1IDIzMC4wNjcxMjUsNDMuNSAyMzIsNDMuNSBDMjMzLjkzMjg3NSw0My41IDIzNS41LDQxLjkzMjg3NSAyMzUuNSw0MCBDMjM1LjUsMzguMDY3MTI1IDIzMy45MzI4NzUsMzYuNSAyMzIsMzYuNSBMMjMyLDM2LjUgWiIvPgogIDwvZz4KPC9zdmc+Cg=="
 
 /***/ },
-/* 268 */
+/* 254 */
 /***/ function(module, exports) {
 
 	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICA8cGF0aCBmaWxsPSIjOTU5OTlEIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0yMjQsMTMxIEMyMjQsMTMwLjQ0NzcxNSAyMjQuNDQ0NjMxLDEzMCAyMjUuMDAwODcyLDEzMCBMMjM4Ljk5OTEyOCwxMzAgQzIzOS41NTE4OTQsMTMwIDI0MCwxMzAuNDQzODY1IDI0MCwxMzEgQzI0MCwxMzEuNTUyMjg1IDIzOS41NTUzNjksMTMyIDIzOC45OTkxMjgsMTMyIEwyMjUuMDAwODcyLDEzMiBDMjI0LjQ0ODEwNiwxMzIgMjI0LDEzMS41NTYxMzUgMjI0LDEzMSBaIE0yMjQsMTQxIEMyMjQsMTQwLjQ0NzcxNSAyMjQuNDQ0NjMxLDE0MCAyMjUuMDAwODcyLDE0MCBMMjM4Ljk5OTEyOCwxNDAgQzIzOS41NTE4OTQsMTQwIDI0MCwxNDAuNDQzODY1IDI0MCwxNDEgQzI0MCwxNDEuNTUyMjg1IDIzOS41NTUzNjksMTQyIDIzOC45OTkxMjgsMTQyIEwyMjUuMDAwODcyLDE0MiBDMjI0LjQ0ODEwNiwxNDIgMjI0LDE0MS41NTYxMzUgMjI0LDE0MSBaIE0yMjQsMTM2IEMyMjQsMTM1LjQ0NzcxNSAyMjQuNDQ0NjMxLDEzNSAyMjUuMDAwODcyLDEzNSBMMjM4Ljk5OTEyOCwxMzUgQzIzOS41NTE4OTQsMTM1IDI0MCwxMzUuNDQzODY1IDI0MCwxMzYgQzI0MCwxMzYuNTUyMjg1IDIzOS41NTUzNjksMTM3IDIzOC45OTkxMjgsMTM3IEwyMjUuMDAwODcyLDEzNyBDMjI0LjQ0ODEwNiwxMzcgMjI0LDEzNi41NTYxMzUgMjI0LDEzNiBaIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMjI0IC0xMjgpIi8+Cjwvc3ZnPgo="
 
 /***/ },
-/* 269 */
+/* 255 */
 /***/ function(module, exports) {
 
 	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDMyIDMyIj4KICA8ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgogICAgPHBhdGggZmlsbD0iIzVENjE2NSIgZD0iTTE4LjkwNjY0MzEsMTcuMTQ2MjcyNyBDMTcuOTc2MzkwMSwxNy44ODc3NjA1IDE2Ljg2NTE1ODYsMTguMyAxNS43NzI3ODU4LDE4LjMgQzE0LjY1Mzc3ODUsMTguMyAxMy41MTQ0Mzc2LDE3Ljg2Njc0NjUgMTIuNTcwNjM5MiwxNy4wOTAwMDA5IEMxMi42NDQwOTEzLDE2Ljg4ODkwOTkgMTIuNjkyODE4OSwxNi42NzQwNzgzIDEyLjcxMzcxNDYsMTYuNDUyMjM0NyBDMTIuNzM5NjEwMiwxNi4xNzczMDkyIDEyLjUzNzczMTUsMTUuOTMzNDQ1NiAxMi4yNjI4MDYsMTUuOTA3NTUgQzExLjk4Nzg4MDUsMTUuODgxNjU0NSAxMS43NDQwMTY4LDE2LjA4MzUzMzIgMTEuNzE4MTIxMywxNi4zNTg0NTg3IEMxMS42Nzk0NDc5LDE2Ljc2OTA0MzMgMTEuNDg4NzQ5LDE3LjEyMTgzNjUgMTEuMjMyMDM4LDE3LjI5NjMwMjkgQzExLjAwMzY0ODMsMTcuNDUxNTIxNCAxMC45NDQzMzE0LDE3Ljc2MjQ5NzIgMTEuMDk5NTQ5OSwxNy45OTA4ODY4IEMxMS4yNTQ3Njg0LDE4LjIxOTI3NjUgMTEuNTY1NzQ0MywxOC4yNzg1OTM0IDExLjc5NDEzMzksMTguMTIzMzc0OSBDMTEuODc2MjA3MiwxOC4wNjc1OTYxIDExLjk1Mzc4NzEsMTguMDA0ODQ2MiAxMi4wMjY0ODkzLDE3LjkzNTk1NzYgQzEzLjEyNzAxOTMsMTguODA5OTg1MyAxNC40NTE5MzIxLDE5LjMgMTUuNzcyNzg1OCwxOS4zIEMxNy4wNzQ3NDc3LDE5LjMgMTguMzgwMjMyLDE4LjgyNDQ5NTggMTkuNDcxMzExMywxNy45NzQ0NTc5IEMxOS41MzE3MjIyLDE4LjAyODM4MDcgMTkuNTk1Mjg5MywxOC4wNzgxNjczIDE5LjY2MTgwOCwxOC4xMjMzNzQ5IEMxOS44OTAxOTc3LDE4LjI3ODU5MzQgMjAuMjAxMTczNSwxOC4yMTkyNzY1IDIwLjM1NjM5MiwxNy45OTA4ODY4IEMyMC41MTE2MTA1LDE3Ljc2MjQ5NzIgMjAuNDUyMjkzNiwxNy40NTE1MjE0IDIwLjIyMzkwNCwxNy4yOTYzMDI5IEMxOS45NjcxOTI5LDE3LjEyMTgzNjUgMTkuNzc2NDk0MSwxNi43NjkwNDMzIDE5LjczNzgyMDYsMTYuMzU4NDU4NyBDMTkuNzExOTI1MSwxNi4wODM1MzMyIDE5LjQ2ODA2MTUsMTUuODgxNjU0NSAxOS4xOTMxMzU5LDE1LjkwNzU1IEMxOC45MTgyMTA0LDE1LjkzMzQ0NTYgMTguNzE2MzMxOCwxNi4xNzczMDkyIDE4Ljc0MjIyNzMsMTYuNDUyMjM0NyBDMTguNzY1MDg0OSwxNi42OTQ5MDcgMTguODIxMjQ2LDE2LjkyOTE4ODggMTguOTA2NjQzMSwxNy4xNDYyNzI3IFogTTguNDczMjQzMDQsMjYuNTA1MjYzMiBDMy44MDAwMjgwMSwyNi41MDUyNjMyIDAsMjIuNjgwMDM1NyAwLDE3Ljk3NzgwNDggQzAsMTUuNzM1NDMgMC44NTc4MjMwMzQsMTMuNjE3MjM4NSAyLjQxNjYyODMyLDEyLjAxNDQzOTIgQzMuNzgyMTAzMzUsMTAuNjExNzQ4NSA1LjU1MDg4MzIzLDkuNzM4NjA1NzUgNy40NjQzNDA3Myw5LjUxMTQ3Mjc5IEM3LjY5MDMxOTQ4LDcuNTg1NjY4NjIgOC41NTcxMDQ4NSw1LjgwNTI4MDk5IDkuOTUyMDI3NTMsNC40MzE1NDQ5NSBDMTEuNTQ0NzYxNiwyLjg2MjIwNDM1IDEzLjY0ODk4ODcsMiAxNS44Nzc0MDgxLDIgQzE4LjEwNTE4NzMsMiAyMC4yMTAwNTQ2LDIuODYyMjA0MzUgMjEuODAyNzg4Nyw0LjQzMDkwMTUxIEMyMy4xOTE5NDk5LDUuNzk4ODQ2NjIgMjQuMDU2MTc0Niw3LjU2OTU4MjcyIDI0LjI4NzkxNDksOS40ODUwOTE5NiBDMjguNjA0NTU3Miw5Ljg3NDM3MDc0IDMyLDEzLjUzNDg3ODcgMzIsMTcuOTc4NDQ4MiBDMzIsMjIuNjgwMDM1NyAyOC4xOTc0MTEzLDI2LjUwNTI2MzIgMjMuNTI2MTE2OCwyNi41MDUyNjMyIEw4LjQ3MzI0MzA0LDI2LjUwNTI2MzIgWiIvPgogIDwvZz4KPC9zdmc+Cg=="
 
 /***/ },
-/* 270 */
+/* 256 */
 /***/ function(module, exports) {
 
 	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAzMiAzMicgd2lkdGg9JzEyJyBoZWlnaHQ9JzEyJyBmaWxsPScjMjk3RUYyJz4KICA8cGF0aCBvcGFjaXR5PScuMjUnIGQ9J00xNiAwYTE2IDE2IDAgMCAwIDAgMzIgMTYgMTYgMCAwIDAgMC0zMm0wIDRhMTIgMTIgMCAwIDEgMCAyNCAxMiAxMiAwIDAgMSAwLTI0Jy8+CiAgPHBhdGggZD0nTTE2IDBhMTYgMTYgMCAwIDEgMTYgMTZoLTRhMTIgMTIgMCAwIDAtMTItMTJ6Jy8+Cjwvc3ZnPgo="
 
 /***/ },
-/* 271 */
+/* 257 */
 /***/ function(module, exports) {
 
 	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgdmlld0JveD0iMCAwIDMyIDMyIj4KICA8ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgogICAgPHBhdGggZmlsbD0iI0ZGRkZGRiIgZD0iTTE4LjkwNjY0MzEsMTcuMTQ2MjcyNyBDMTcuOTc2MzkwMSwxNy44ODc3NjA1IDE2Ljg2NTE1ODYsMTguMyAxNS43NzI3ODU4LDE4LjMgQzE0LjY1Mzc3ODUsMTguMyAxMy41MTQ0Mzc2LDE3Ljg2Njc0NjUgMTIuNTcwNjM5MiwxNy4wOTAwMDA5IEMxMi42NDQwOTEzLDE2Ljg4ODkwOTkgMTIuNjkyODE4OSwxNi42NzQwNzgzIDEyLjcxMzcxNDYsMTYuNDUyMjM0NyBDMTIuNzM5NjEwMiwxNi4xNzczMDkyIDEyLjUzNzczMTUsMTUuOTMzNDQ1NiAxMi4yNjI4MDYsMTUuOTA3NTUgQzExLjk4Nzg4MDUsMTUuODgxNjU0NSAxMS43NDQwMTY4LDE2LjA4MzUzMzIgMTEuNzE4MTIxMywxNi4zNTg0NTg3IEMxMS42Nzk0NDc5LDE2Ljc2OTA0MzMgMTEuNDg4NzQ5LDE3LjEyMTgzNjUgMTEuMjMyMDM4LDE3LjI5NjMwMjkgQzExLjAwMzY0ODMsMTcuNDUxNTIxNCAxMC45NDQzMzE0LDE3Ljc2MjQ5NzIgMTEuMDk5NTQ5OSwxNy45OTA4ODY4IEMxMS4yNTQ3Njg0LDE4LjIxOTI3NjUgMTEuNTY1NzQ0MywxOC4yNzg1OTM0IDExLjc5NDEzMzksMTguMTIzMzc0OSBDMTEuODc2MjA3MiwxOC4wNjc1OTYxIDExLjk1Mzc4NzEsMTguMDA0ODQ2MiAxMi4wMjY0ODkzLDE3LjkzNTk1NzYgQzEzLjEyNzAxOTMsMTguODA5OTg1MyAxNC40NTE5MzIxLDE5LjMgMTUuNzcyNzg1OCwxOS4zIEMxNy4wNzQ3NDc3LDE5LjMgMTguMzgwMjMyLDE4LjgyNDQ5NTggMTkuNDcxMzExMywxNy45NzQ0NTc5IEMxOS41MzE3MjIyLDE4LjAyODM4MDcgMTkuNTk1Mjg5MywxOC4wNzgxNjczIDE5LjY2MTgwOCwxOC4xMjMzNzQ5IEMxOS44OTAxOTc3LDE4LjI3ODU5MzQgMjAuMjAxMTczNSwxOC4yMTkyNzY1IDIwLjM1NjM5MiwxNy45OTA4ODY4IEMyMC41MTE2MTA1LDE3Ljc2MjQ5NzIgMjAuNDUyMjkzNiwxNy40NTE1MjE0IDIwLjIyMzkwNCwxNy4yOTYzMDI5IEMxOS45NjcxOTI5LDE3LjEyMTgzNjUgMTkuNzc2NDk0MSwxNi43NjkwNDMzIDE5LjczNzgyMDYsMTYuMzU4NDU4NyBDMTkuNzExOTI1MSwxNi4wODM1MzMyIDE5LjQ2ODA2MTUsMTUuODgxNjU0NSAxOS4xOTMxMzU5LDE1LjkwNzU1IEMxOC45MTgyMTA0LDE1LjkzMzQ0NTYgMTguNzE2MzMxOCwxNi4xNzczMDkyIDE4Ljc0MjIyNzMsMTYuNDUyMjM0NyBDMTguNzY1MDg0OSwxNi42OTQ5MDcgMTguODIxMjQ2LDE2LjkyOTE4ODggMTguOTA2NjQzMSwxNy4xNDYyNzI3IFogTTguNDczMjQzMDQsMjYuNTA1MjYzMiBDMy44MDAwMjgwMSwyNi41MDUyNjMyIDAsMjIuNjgwMDM1NyAwLDE3Ljk3NzgwNDggQzAsMTUuNzM1NDMgMC44NTc4MjMwMzQsMTMuNjE3MjM4NSAyLjQxNjYyODMyLDEyLjAxNDQzOTIgQzMuNzgyMTAzMzUsMTAuNjExNzQ4NSA1LjU1MDg4MzIzLDkuNzM4NjA1NzUgNy40NjQzNDA3Myw5LjUxMTQ3Mjc5IEM3LjY5MDMxOTQ4LDcuNTg1NjY4NjIgOC41NTcxMDQ4NSw1LjgwNTI4MDk5IDkuOTUyMDI3NTMsNC40MzE1NDQ5NSBDMTEuNTQ0NzYxNiwyLjg2MjIwNDM1IDEzLjY0ODk4ODcsMiAxNS44Nzc0MDgxLDIgQzE4LjEwNTE4NzMsMiAyMC4yMTAwNTQ2LDIuODYyMjA0MzUgMjEuODAyNzg4Nyw0LjQzMDkwMTUxIEMyMy4xOTE5NDk5LDUuNzk4ODQ2NjIgMjQuMDU2MTc0Niw3LjU2OTU4MjcyIDI0LjI4NzkxNDksOS40ODUwOTE5NiBDMjguNjA0NTU3Miw5Ljg3NDM3MDc0IDMyLDEzLjUzNDg3ODcgMzIsMTcuOTc4NDQ4MiBDMzIsMjIuNjgwMDM1NyAyOC4xOTc0MTEzLDI2LjUwNTI2MzIgMjMuNTI2MTE2OCwyNi41MDUyNjMyIEw4LjQ3MzI0MzA0LDI2LjUwNTI2MzIgWiIvPgogIDwvZz4KPC9zdmc+Cg=="
 
 /***/ },
-/* 272 */
+/* 258 */
 /***/ function(module, exports) {
 
 	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICA8ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0zMjAgLTMyKSI+CiAgICA8cGF0aCBmaWxsPSIjOTU5OTlEIiBkPSJNMzMwLjQ3MjIxMyw0MiBMMzMxLjUsNDIgTDMzNC43OTQwODgsNDUuMjk0MDg3OSBDMzM1LjE4NjEyNyw0NS42ODYxMjY3IDMzNS4xODM4NzksNDYuMzE2MTIxNSAzMzQuNzkzOTIzLDQ2LjcwNjA3NyBMMzM0LjcwNjA3Nyw0Ni43OTM5MjMgQzMzNC4zMTgxMTEsNDcuMTgxODg4NiAzMzMuNjgzOTUyLDQ3LjE4Mzk1MjQgMzMzLjI5NDA4OCw0Ni43OTQwODc5IEwzMzAsNDMuNSBMMzMwLDQyLjQ3MjIxMyBDMzI4LjkzODQ4Nyw0My40MjIyOTI5IDMyNy41MzY3MDksNDQgMzI2LDQ0IEMzMjIuNjg2MjkyLDQ0IDMyMCw0MS4zMTM3MDg1IDMyMCwzOCBDMzIwLDM0LjY4NjI5MTUgMzIyLjY4NjI5MiwzMiAzMjYsMzIgQzMyOS4zMTM3MDgsMzIgMzMyLDM0LjY4NjI5MTUgMzMyLDM4IEMzMzIsMzkuNTM2NzA4OSAzMzEuNDIyMjkzLDQwLjkzODQ4NyAzMzAuNDcyMjEzLDQyIFogTTMyNiw0MiBDMzI4LjIwOTEzOSw0MiAzMzAsNDAuMjA5MTM5IDMzMCwzOCBDMzMwLDM1Ljc5MDg2MSAzMjguMjA5MTM5LDM0IDMyNiwzNCBDMzIzLjc5MDg2MSwzNCAzMjIsMzUuNzkwODYxIDMyMiwzOCBDMzIyLDQwLjIwOTEzOSAzMjMuNzkwODYxLDQyIDMyNiw0MiBaIi8+CiAgICA8cGF0aCBmaWxsPSIjOTU5OTlEIiBkPSJNMzMwLjQ3MjIxMyw0MiBMMzMxLjUsNDIgTDMzNC43OTQwODgsNDUuMjk0MDg3OSBDMzM1LjE4NjEyNyw0NS42ODYxMjY3IDMzNS4xODM4NzksNDYuMzE2MTIxNSAzMzQuNzkzOTIzLDQ2LjcwNjA3NyBMMzM0LjcwNjA3Nyw0Ni43OTM5MjMgQzMzNC4zMTgxMTEsNDcuMTgxODg4NiAzMzMuNjgzOTUyLDQ3LjE4Mzk1MjQgMzMzLjI5NDA4OCw0Ni43OTQwODc5IEwzMzAsNDMuNSBMMzMwLDQyLjQ3MjIxMyBDMzI4LjkzODQ4Nyw0My40MjIyOTI5IDMyNy41MzY3MDksNDQgMzI2LDQ0IEMzMjIuNjg2MjkyLDQ0IDMyMCw0MS4zMTM3MDg1IDMyMCwzOCBDMzIwLDM0LjY4NjI5MTUgMzIyLjY4NjI5MiwzMiAzMjYsMzIgQzMyOS4zMTM3MDgsMzIgMzMyLDM0LjY4NjI5MTUgMzMyLDM4IEMzMzIsMzkuNTM2NzA4OSAzMzEuNDIyMjkzLDQwLjkzODQ4NyAzMzAuNDcyMjEzLDQyIFogTTMyNiw0MiBDMzI4LjIwOTEzOSw0MiAzMzAsNDAuMjA5MTM5IDMzMCwzOCBDMzMwLDM1Ljc5MDg2MSAzMjguMjA5MTM5LDM0IDMyNiwzNCBDMzIzLjc5MDg2MSwzNCAzMjIsMzUuNzkwODYxIDMyMiwzOCBDMzIyLDQwLjIwOTEzOSAzMjMuNzkwODYxLDQyIDMyNiw0MiBaIi8+CiAgPC9nPgo8L3N2Zz4K"
 
 /***/ },
-/* 273 */
+/* 259 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -15017,84 +12808,84 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 274 */
+/* 260 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var map = {
-		"./ar": 275,
-		"./ar.json": 275,
-		"./ca": 276,
-		"./ca.json": 276,
-		"./ca_ES": 277,
-		"./ca_ES.json": 277,
-		"./cs": 278,
-		"./cs.json": 278,
-		"./cs_CZ": 279,
-		"./cs_CZ.json": 279,
-		"./da": 280,
-		"./da.json": 280,
-		"./de": 281,
-		"./de.json": 281,
-		"./de_DE": 282,
-		"./de_DE.json": 282,
-		"./el": 283,
-		"./el.json": 283,
-		"./en": 284,
-		"./en.json": 284,
-		"./eo": 285,
-		"./eo.json": 285,
-		"./es": 286,
-		"./es.json": 286,
-		"./es_CO": 287,
-		"./es_CO.json": 287,
-		"./es_ES": 288,
-		"./es_ES.json": 288,
-		"./fr": 289,
-		"./fr.json": 289,
-		"./it": 290,
-		"./it.json": 290,
-		"./ja": 291,
-		"./ja.json": 291,
-		"./ko": 292,
-		"./ko.json": 292,
-		"./nl": 293,
-		"./nl.json": 293,
-		"./nl_NL": 294,
-		"./nl_NL.json": 294,
-		"./pl": 295,
-		"./pl.json": 295,
-		"./pt": 296,
-		"./pt.json": 296,
-		"./pt_BR": 297,
-		"./pt_BR.json": 297,
-		"./ro": 298,
-		"./ro.json": 298,
-		"./ro_RO": 299,
-		"./ro_RO.json": 299,
-		"./ru": 300,
-		"./ru.json": 300,
-		"./ru_RU": 301,
-		"./ru_RU.json": 301,
-		"./sk": 302,
-		"./sk.json": 302,
-		"./sk_SK": 303,
-		"./sk_SK.json": 303,
-		"./sq": 304,
-		"./sq.json": 304,
-		"./sq_AL": 305,
-		"./sq_AL.json": 305,
-		"./sv": 306,
-		"./sv.json": 306,
-		"./tr": 307,
-		"./tr.json": 307,
-		"./uk_UA": 308,
-		"./uk_UA.json": 308,
-		"./zh": 309,
-		"./zh.json": 309,
-		"./zh_CN": 310,
-		"./zh_CN.json": 310,
-		"./zh_TW": 311,
-		"./zh_TW.json": 311
+		"./ar": 261,
+		"./ar.json": 261,
+		"./ca": 262,
+		"./ca.json": 262,
+		"./ca_ES": 263,
+		"./ca_ES.json": 263,
+		"./cs": 264,
+		"./cs.json": 264,
+		"./cs_CZ": 265,
+		"./cs_CZ.json": 265,
+		"./da": 266,
+		"./da.json": 266,
+		"./de": 267,
+		"./de.json": 267,
+		"./de_DE": 268,
+		"./de_DE.json": 268,
+		"./el": 269,
+		"./el.json": 269,
+		"./en": 270,
+		"./en.json": 270,
+		"./eo": 271,
+		"./eo.json": 271,
+		"./es": 272,
+		"./es.json": 272,
+		"./es_CO": 273,
+		"./es_CO.json": 273,
+		"./es_ES": 274,
+		"./es_ES.json": 274,
+		"./fr": 275,
+		"./fr.json": 275,
+		"./it": 276,
+		"./it.json": 276,
+		"./ja": 277,
+		"./ja.json": 277,
+		"./ko": 278,
+		"./ko.json": 278,
+		"./nl": 279,
+		"./nl.json": 279,
+		"./nl_NL": 280,
+		"./nl_NL.json": 280,
+		"./pl": 281,
+		"./pl.json": 281,
+		"./pt": 282,
+		"./pt.json": 282,
+		"./pt_BR": 283,
+		"./pt_BR.json": 283,
+		"./ro": 284,
+		"./ro.json": 284,
+		"./ro_RO": 285,
+		"./ro_RO.json": 285,
+		"./ru": 286,
+		"./ru.json": 286,
+		"./ru_RU": 287,
+		"./ru_RU.json": 287,
+		"./sk": 288,
+		"./sk.json": 288,
+		"./sk_SK": 289,
+		"./sk_SK.json": 289,
+		"./sq": 290,
+		"./sq.json": 290,
+		"./sq_AL": 291,
+		"./sq_AL.json": 291,
+		"./sv": 292,
+		"./sv.json": 292,
+		"./tr": 293,
+		"./tr.json": 293,
+		"./uk_UA": 294,
+		"./uk_UA.json": 294,
+		"./zh": 295,
+		"./zh.json": 295,
+		"./zh_CN": 296,
+		"./zh_CN.json": 296,
+		"./zh_TW": 297,
+		"./zh_TW.json": 297
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -15107,11 +12898,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 	webpackContext.resolve = webpackContextResolve;
 	module.exports = webpackContext;
-	webpackContext.id = 274;
+	webpackContext.id = 260;
 
 
 /***/ },
-/* 275 */
+/* 261 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -15143,6 +12934,510 @@ return /******/ (function(modules) { // webpackBootstrap
 		},
 		"searchbar": {
 			"placeholder": "Search anything"
+		}
+	};
+
+/***/ },
+/* 262 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"drawer": "Show menu drawer",
+		"profile": "Profile",
+		"connectedDevices": "Connected devices",
+		"storage": "Storage",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
+		"help": "Help",
+		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"soon": "soon",
+		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"no_apps": "No applications found on the Cozy.",
+		"menu": {
+			"apps": "Apps",
+			"settings": "Settings"
+		},
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"ptnb": "expPTNB",
+			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?"
+		},
+		"searchbar": {
+			"placeholder": "Search anything"
+		}
+	};
+
+/***/ },
+/* 263 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"drawer": "Show menu drawer",
+		"profile": "Profile",
+		"connectedDevices": "Connected devices",
+		"storage": "Storage",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
+		"help": "Help",
+		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"soon": "soon",
+		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"no_apps": "No applications found on the Cozy.",
+		"menu": {
+			"apps": "Apps",
+			"settings": "Settings"
+		},
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"ptnb": "expPTNB",
+			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?"
+		},
+		"searchbar": {
+			"placeholder": "Search anything"
+		}
+	};
+
+/***/ },
+/* 264 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"drawer": "Show menu drawer",
+		"profile": "Profile",
+		"connectedDevices": "Connected devices",
+		"storage": "Storage",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
+		"help": "Help",
+		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"soon": "soon",
+		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"no_apps": "No applications found on the Cozy.",
+		"menu": {
+			"apps": "Apps",
+			"settings": "Settings"
+		},
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"ptnb": "expPTNB",
+			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?"
+		},
+		"searchbar": {
+			"placeholder": "Search anything"
+		}
+	};
+
+/***/ },
+/* 265 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"drawer": "Show menu drawer",
+		"profile": "Profile",
+		"connectedDevices": "Connected devices",
+		"storage": "Storage",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
+		"help": "Help",
+		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"soon": "soon",
+		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"no_apps": "No applications found on the Cozy.",
+		"menu": {
+			"apps": "Apps",
+			"settings": "Settings"
+		},
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"ptnb": "expPTNB",
+			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?"
+		},
+		"searchbar": {
+			"placeholder": "Search anything"
+		}
+	};
+
+/***/ },
+/* 266 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"drawer": "Show menu drawer",
+		"profile": "Profile",
+		"connectedDevices": "Connected devices",
+		"storage": "Storage",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
+		"help": "Help",
+		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"soon": "soon",
+		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"no_apps": "No applications found on the Cozy.",
+		"menu": {
+			"apps": "Apps",
+			"settings": "Settings"
+		},
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"ptnb": "expPTNB",
+			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?"
+		},
+		"searchbar": {
+			"placeholder": "Search anything"
+		}
+	};
+
+/***/ },
+/* 267 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"drawer": "Menü anzeigen",
+		"profile": "Profile",
+		"connectedDevices": "Verbundene Geräte",
+		"storage": "Speicher",
+		"storage_phrase": "%{diskUsage} GB von %{diskQuota} GB benutzt",
+		"help": "Hilfe",
+		"logout": "Ausloggen",
+		"beta_status": "Wir sind noch in der Betaphase",
+		"beta": "Betaphase",
+		"soon": "Später",
+		"error_UnavailableStack": "Der Stapel ist nicht erreichbar (Verbindung Zeitüberschreitung).",
+		"error_UnauthorizedStack": "Einige Berechtigungen fehlen, die Anwendung kann nicht auf die angeforderte Ressource auf dem Stapel zugreifen.",
+		"no_apps": "Keine Anwendungen für Cozy gefunden.",
+		"menu": {
+			"apps": "Anwendungen",
+			"settings": "Einstellungen"
+		},
+		"Categories": {
+			"cozy": "Cozy Anwendungen",
+			"partners": "Partner Anwendungen",
+			"ptnb": "expPTNB",
+			"others": "Andere Anwendungen"
+		},
+		"claudy": {
+			"title": "Wie willst du dein Cozy steuern?"
+		},
+		"searchbar": {
+			"placeholder": "Search anything"
+		}
+	};
+
+/***/ },
+/* 268 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"drawer": "Show menu drawer",
+		"profile": "Profile",
+		"connectedDevices": "Connected devices",
+		"storage": "Storage",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
+		"help": "Help",
+		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"soon": "soon",
+		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"no_apps": "No applications found on the Cozy.",
+		"menu": {
+			"apps": "Apps",
+			"settings": "Settings"
+		},
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"ptnb": "expPTNB",
+			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?"
+		},
+		"searchbar": {
+			"placeholder": "Search anything"
+		}
+	};
+
+/***/ },
+/* 269 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"drawer": "Show menu drawer",
+		"profile": "Profile",
+		"connectedDevices": "Connected devices",
+		"storage": "Storage",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
+		"help": "Help",
+		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"soon": "soon",
+		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"no_apps": "No applications found on the Cozy.",
+		"menu": {
+			"apps": "Apps",
+			"settings": "Settings"
+		},
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"ptnb": "expPTNB",
+			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?"
+		},
+		"searchbar": {
+			"placeholder": "Search anything"
+		}
+	};
+
+/***/ },
+/* 270 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"drawer": "Show menu drawer",
+		"profile": "Profile",
+		"connectedDevices": "Connected devices",
+		"storage": "Storage",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
+		"help": "Help",
+		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"soon": "soon",
+		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"no_apps": "No applications found on the Cozy.",
+		"menu": {
+			"apps": "Apps",
+			"settings": "Settings"
+		},
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"ptnb": "expPTNB",
+			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?"
+		},
+		"searchbar": {
+			"placeholder": "Search anything"
+		}
+	};
+
+/***/ },
+/* 271 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"drawer": "Show menu drawer",
+		"profile": "Profile",
+		"connectedDevices": "Connected devices",
+		"storage": "Storage",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
+		"help": "Help",
+		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"soon": "soon",
+		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"no_apps": "No applications found on the Cozy.",
+		"menu": {
+			"apps": "Apps",
+			"settings": "Settings"
+		},
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"ptnb": "expPTNB",
+			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?"
+		},
+		"searchbar": {
+			"placeholder": "Search anything"
+		}
+	};
+
+/***/ },
+/* 272 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"drawer": "Mostrar el menu drawer",
+		"profile": "Perfil",
+		"connectedDevices": "Periféricos conectados",
+		"storage": "Almacenamiento",
+		"storage_phrase": "%{diskUsage} GO de %{diskQuota} GO usados",
+		"help": "Ayuda",
+		"logout": "Finalizar sesión",
+		"beta_status": "Estamos aún en versión beta",
+		"beta": "beta",
+		"soon": "pronto",
+		"error_UnavailableStack": "La pila es inaccesible ( se agotó el tiempo de la conexión ).",
+		"error_UnauthorizedStack": "Faltan algunos permisos, la aplicación no puede acceder al recurso solicitado en la pila.",
+		"no_apps": "No se han encontrado aplicaciones en su Cozy.",
+		"menu": {
+			"apps": "Aplicaciones",
+			"settings": "Opciones"
+		},
+		"Categories": {
+			"cozy": "Aplicaciones Cozy",
+			"partners": "Aplicaciones de asociados",
+			"ptnb": "expPTNB",
+			"others": "Otras aplicaciones"
+		},
+		"claudy": {
+			"title": "¿Cómo pilotear su Cozy?"
+		},
+		"searchbar": {
+			"placeholder": "Search anything"
+		}
+	};
+
+/***/ },
+/* 273 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"drawer": "Show menu drawer",
+		"profile": "Profile",
+		"connectedDevices": "Connected devices",
+		"storage": "Storage",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
+		"help": "Help",
+		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"soon": "soon",
+		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"no_apps": "No applications found on the Cozy.",
+		"menu": {
+			"apps": "Apps",
+			"settings": "Settings"
+		},
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"ptnb": "expPTNB",
+			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?"
+		},
+		"searchbar": {
+			"placeholder": "Search anything"
+		}
+	};
+
+/***/ },
+/* 274 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"drawer": "Show menu drawer",
+		"profile": "Profile",
+		"connectedDevices": "Connected devices",
+		"storage": "Storage",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
+		"help": "Help",
+		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"soon": "soon",
+		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"no_apps": "No applications found on the Cozy.",
+		"menu": {
+			"apps": "Apps",
+			"settings": "Settings"
+		},
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"ptnb": "expPTNB",
+			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?"
+		},
+		"searchbar": {
+			"placeholder": "Search anything"
+		}
+	};
+
+/***/ },
+/* 275 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"drawer": "Afficher le menu latéral",
+		"profile": "Profil",
+		"connectedDevices": "Appareils connectés",
+		"storage": "Espace disque",
+		"storage_phrase": "%{diskUsage} Go sur %{diskQuota} Go",
+		"help": "Aide",
+		"logout": "Déconnexion",
+		"beta_status": "Nous sommes toujours en beta.",
+		"beta": "beta",
+		"soon": "à venir",
+		"error_UnavailableStack": "Connexion à la stack impossible (connection timed-out)",
+		"error_UnauthorizedStack": "Des permissions sont manquante, l'application ne peut accéder aux ressources demandées.",
+		"no_apps": "Pas d'applications Cozy trouvées.",
+		"menu": {
+			"apps": "Applications",
+			"settings": "Paramètres"
+		},
+		"Categories": {
+			"cozy": "Apps Cozy",
+			"partners": "Expérimentation MesInfos",
+			"ptnb": "Expérimentation Carnet du logement",
+			"others": "Autres apps"
+		},
+		"claudy": {
+			"title": "Comment utiliser votre Cozy ?"
+		},
+		"searchbar": {
+			"placeholder": "Rechercher"
 		}
 	};
 
@@ -15187,34 +13482,34 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	module.exports = {
-		"drawer": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
-		"help": "Help",
-		"logout": "Sign out",
-		"beta_status": "We are still in beta",
-		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
-		"no_apps": "No applications found on the Cozy.",
+		"drawer": "メニュードロワーを表示",
+		"profile": "プロフィール",
+		"connectedDevices": "接続されたデバイス",
+		"storage": "ストレージ",
+		"storage_phrase": "%{diskUsage} GB / %{diskQuota} GB 使用",
+		"help": "ヘルプ",
+		"logout": "サインアウト",
+		"beta_status": "まだベータ版です",
+		"beta": "ベータ",
+		"soon": "間もなく",
+		"error_UnavailableStack": "スタックに到達できません (接続タイムアウト)。",
+		"error_UnauthorizedStack": "一部のアクセス許可が不足しているため、アプリケーションはスタック上の要求されたリソースにアクセスできません。",
+		"no_apps": "Cozy にアプリケーションはありません。",
 		"menu": {
-			"apps": "Apps",
-			"settings": "Settings"
+			"apps": "アプリ",
+			"settings": "設定"
 		},
 		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
+			"cozy": "Cozy アプリ",
+			"partners": "パートナーアプリ",
 			"ptnb": "expPTNB",
-			"others": "Other apps"
+			"others": "他のアプリ"
 		},
 		"claudy": {
-			"title": "How to drive your Cozy?"
+			"title": "Cozy をドライブする方法は?"
 		},
 		"searchbar": {
-			"placeholder": "Search anything"
+			"placeholder": "検索します"
 		}
 	};
 
@@ -15260,17 +13555,17 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	module.exports = {
 		"drawer": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
-		"help": "Help",
-		"logout": "Sign out",
-		"beta_status": "We are still in beta",
+		"profile": "Profiel",
+		"connectedDevices": "Verbonden apparaten",
+		"storage": "Opslag",
+		"storage_phrase": "%{diskUsage} GB van %{diskQuota} GB gebruikt",
+		"help": "Hulp",
+		"logout": "Log uit",
+		"beta_status": "We zijn nog in Beta",
 		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"soon": "binnenkort",
+		"error_UnavailableStack": "De stapel is onbereikbaar (verbinding verlopen)",
+		"error_UnauthorizedStack": "Sommige toestemmingen missen, de toepassing kan niet alles bereiken.",
 		"no_apps": "No applications found on the Cozy.",
 		"menu": {
 			"apps": "Apps",
@@ -15278,9 +13573,9 @@ return /******/ (function(modules) { // webpackBootstrap
 		},
 		"Categories": {
 			"cozy": "Cozy apps",
-			"partners": "Partners apps",
+			"partners": "Partner apps",
 			"ptnb": "expPTNB",
-			"others": "Other apps"
+			"others": "Andere apps"
 		},
 		"claudy": {
 			"title": "How to drive your Cozy?"
@@ -15331,31 +13626,31 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	module.exports = {
-		"drawer": "Menü anzeigen",
+		"drawer": "Show menu drawer",
 		"profile": "Profile",
-		"connectedDevices": "Verbundene Geräte",
-		"storage": "Speicher",
-		"storage_phrase": "%{diskUsage} GB von %{diskQuota} GB benutzt",
-		"help": "Hilfe",
-		"logout": "Ausloggen",
-		"beta_status": "Wir sind noch in der Betaphase",
-		"beta": "Betaphase",
-		"soon": "Später",
-		"error_UnavailableStack": "Der Stapel ist nicht erreichbar (Verbindung Zeitüberschreitung).",
-		"error_UnauthorizedStack": "Einige Berechtigungen fehlen, die Anwendung kann nicht auf die angeforderte Ressource auf dem Stapel zugreifen.",
-		"no_apps": "Keine Anwendungen für Cozy gefunden.",
+		"connectedDevices": "Connected devices",
+		"storage": "Storage",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
+		"help": "Help",
+		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"soon": "soon",
+		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"no_apps": "No applications found on the Cozy.",
 		"menu": {
-			"apps": "Anwendungen",
-			"settings": "Einstellungen"
+			"apps": "Apps",
+			"settings": "Settings"
 		},
 		"Categories": {
-			"cozy": "Cozy Anwendungen",
-			"partners": "Partner Anwendungen",
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
 			"ptnb": "expPTNB",
-			"others": "Andere Anwendungen"
+			"others": "Other apps"
 		},
 		"claudy": {
-			"title": "Wie willst du dein Cozy steuern?"
+			"title": "How to drive your Cozy?"
 		},
 		"searchbar": {
 			"placeholder": "Search anything"
@@ -15511,31 +13806,31 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	module.exports = {
-		"drawer": "Mostrar el menu drawer",
-		"profile": "Perfil",
-		"connectedDevices": "Periféricos conectados",
-		"storage": "Almacenamiento",
-		"storage_phrase": "%{diskUsage} GO de %{diskQuota} GO usados",
-		"help": "Ayuda",
-		"logout": "Finalizar sesión",
-		"beta_status": "Estamos aún en versión beta",
-		"beta": "beta",
-		"soon": "pronto",
-		"error_UnavailableStack": "La pila es inaccesible ( se agotó el tiempo de la conexión ).",
-		"error_UnauthorizedStack": "Faltan algunos permisos, la aplicación no puede acceder al recurso solicitado en la pila.",
-		"no_apps": "No se han encontrado aplicaciones en su Cozy.",
+		"drawer": "Show menu drawer",
+		"profile": "Профиль",
+		"connectedDevices": "Присоединённые устройства",
+		"storage": "Хранилище",
+		"storage_phrase": "%{diskUsage} ГБ из %{diskQuota} ГБ использовано",
+		"help": "Помощь",
+		"logout": "Выход",
+		"beta_status": "We are still in beta",
+		"beta": "бета",
+		"soon": "скоро",
+		"error_UnavailableStack": "Это стек не доступен (превышено время ожидания)",
+		"error_UnauthorizedStack": "Некоторые разрешения отсутствуют, получить доступ к запрашиваемому ресурсу в стеке не возможно.",
+		"no_apps": "No applications found on the Cozy.",
 		"menu": {
-			"apps": "Aplicaciones",
-			"settings": "Opciones"
+			"apps": "Приложения",
+			"settings": "Настройки"
 		},
 		"Categories": {
-			"cozy": "Aplicaciones Cozy",
-			"partners": "Aplicaciones de asociados",
+			"cozy": "Cozy приложения",
+			"partners": "Приложения партнеров",
 			"ptnb": "expPTNB",
-			"others": "Otras aplicaciones"
+			"others": "Другие приложения"
 		},
 		"claudy": {
-			"title": "¿Cómo pilotear su Cozy?"
+			"title": "How to drive your Cozy?"
 		},
 		"searchbar": {
 			"placeholder": "Search anything"
@@ -15548,17 +13843,17 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	module.exports = {
 		"drawer": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
-		"help": "Help",
-		"logout": "Sign out",
+		"profile": "Профиль",
+		"connectedDevices": "Присоединённые устройства",
+		"storage": "Хранилище",
+		"storage_phrase": "%{diskUsage} ГБ из %{diskQuota} ГБ использовано",
+		"help": "Помощь",
+		"logout": "Выход",
 		"beta_status": "We are still in beta",
 		"beta": "beta",
 		"soon": "soon",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"error_UnavailableStack": "Это стек не доступен (превышено время ожидания)",
+		"error_UnauthorizedStack": "Некоторые разрешения отсутствуют, получить доступ к запрашиваемому ресурсу в стеке не возможно.",
 		"no_apps": "No applications found on the Cozy.",
 		"menu": {
 			"apps": "Apps",
@@ -15619,34 +13914,34 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	module.exports = {
-		"drawer": "Afficher le menu latéral",
-		"profile": "Profil",
-		"connectedDevices": "Appareils connectés",
-		"storage": "Espace disque",
-		"storage_phrase": "%{diskUsage} Go sur %{diskQuota} Go",
-		"help": "Aide",
-		"logout": "Déconnexion",
-		"beta_status": "Nous sommes toujours en beta.",
+		"drawer": "Show menu drawer",
+		"profile": "Profile",
+		"connectedDevices": "Connected devices",
+		"storage": "Storage",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
+		"help": "Help",
+		"logout": "Sign out",
+		"beta_status": "We are still in beta",
 		"beta": "beta",
-		"soon": "à venir",
-		"error_UnavailableStack": "Connexion à la stack impossible (connection timed-out)",
-		"error_UnauthorizedStack": "Des permissions sont manquante, l'application ne peut accéder aux ressources demandées.",
-		"no_apps": "Pas d'applications Cozy trouvées.",
+		"soon": "soon",
+		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"no_apps": "No applications found on the Cozy.",
 		"menu": {
-			"apps": "Applications",
-			"settings": "Paramètres"
+			"apps": "Apps",
+			"settings": "Settings"
 		},
 		"Categories": {
-			"cozy": "Apps Cozy",
-			"partners": "Expérimentation MesInfos",
-			"ptnb": "Expérimentation Carnet du logement",
-			"others": "Autres apps"
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"ptnb": "expPTNB",
+			"others": "Other apps"
 		},
 		"claudy": {
-			"title": "Comment utiliser votre Cozy ?"
+			"title": "How to drive your Cozy?"
 		},
 		"searchbar": {
-			"placeholder": "Rechercher"
+			"placeholder": "Search anything"
 		}
 	};
 
@@ -15691,34 +13986,34 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	module.exports = {
-		"drawer": "メニュードロワーを表示",
-		"profile": "プロフィール",
-		"connectedDevices": "接続されたデバイス",
-		"storage": "ストレージ",
-		"storage_phrase": "%{diskUsage} GB / %{diskQuota} GB 使用",
-		"help": "ヘルプ",
-		"logout": "サインアウト",
-		"beta_status": "まだベータ版です",
-		"beta": "ベータ",
-		"soon": "間もなく",
-		"error_UnavailableStack": "スタックに到達できません (接続タイムアウト)。",
-		"error_UnauthorizedStack": "一部のアクセス許可が不足しているため、アプリケーションはスタック上の要求されたリソースにアクセスできません。",
-		"no_apps": "Cozy にアプリケーションはありません。",
+		"drawer": "Show menu drawer",
+		"profile": "Profile",
+		"connectedDevices": "Connected devices",
+		"storage": "Storage",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
+		"help": "Help",
+		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"soon": "soon",
+		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"no_apps": "No applications found on the Cozy.",
 		"menu": {
-			"apps": "アプリ",
-			"settings": "設定"
+			"apps": "Apps",
+			"settings": "Settings"
 		},
 		"Categories": {
-			"cozy": "Cozy アプリ",
-			"partners": "パートナーアプリ",
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
 			"ptnb": "expPTNB",
-			"others": "他のアプリ"
+			"others": "Other apps"
 		},
 		"claudy": {
-			"title": "Cozy をドライブする方法は?"
+			"title": "How to drive your Cozy?"
 		},
 		"searchbar": {
-			"placeholder": "検索します"
+			"placeholder": "Search anything"
 		}
 	};
 
@@ -15764,17 +14059,17 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	module.exports = {
 		"drawer": "Show menu drawer",
-		"profile": "Profiel",
-		"connectedDevices": "Verbonden apparaten",
-		"storage": "Opslag",
-		"storage_phrase": "%{diskUsage} GB van %{diskQuota} GB gebruikt",
-		"help": "Hulp",
-		"logout": "Log uit",
-		"beta_status": "We zijn nog in Beta",
+		"profile": "Profile",
+		"connectedDevices": "Connected devices",
+		"storage": "Storage",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
+		"help": "Help",
+		"logout": "Sign out",
+		"beta_status": "We are still in beta",
 		"beta": "beta",
-		"soon": "binnenkort",
-		"error_UnavailableStack": "De stapel is onbereikbaar (verbinding verlopen)",
-		"error_UnauthorizedStack": "Sommige toestemmingen missen, de toepassing kan niet alles bereiken.",
+		"soon": "soon",
+		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
 		"no_apps": "No applications found on the Cozy.",
 		"menu": {
 			"apps": "Apps",
@@ -15782,9 +14077,9 @@ return /******/ (function(modules) { // webpackBootstrap
 		},
 		"Categories": {
 			"cozy": "Cozy apps",
-			"partners": "Partner apps",
+			"partners": "Partners apps",
 			"ptnb": "expPTNB",
-			"others": "Andere apps"
+			"others": "Other apps"
 		},
 		"claudy": {
 			"title": "How to drive your Cozy?"
@@ -15874,510 +14169,6 @@ return /******/ (function(modules) { // webpackBootstrap
 		"drawer": "Show menu drawer",
 		"profile": "Profile",
 		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
-		"help": "Help",
-		"logout": "Sign out",
-		"beta_status": "We are still in beta",
-		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
-		"no_apps": "No applications found on the Cozy.",
-		"menu": {
-			"apps": "Apps",
-			"settings": "Settings"
-		},
-		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
-			"ptnb": "expPTNB",
-			"others": "Other apps"
-		},
-		"claudy": {
-			"title": "How to drive your Cozy?"
-		},
-		"searchbar": {
-			"placeholder": "Search anything"
-		}
-	};
-
-/***/ },
-/* 297 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"drawer": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
-		"help": "Help",
-		"logout": "Sign out",
-		"beta_status": "We are still in beta",
-		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
-		"no_apps": "No applications found on the Cozy.",
-		"menu": {
-			"apps": "Apps",
-			"settings": "Settings"
-		},
-		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
-			"ptnb": "expPTNB",
-			"others": "Other apps"
-		},
-		"claudy": {
-			"title": "How to drive your Cozy?"
-		},
-		"searchbar": {
-			"placeholder": "Search anything"
-		}
-	};
-
-/***/ },
-/* 298 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"drawer": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
-		"help": "Help",
-		"logout": "Sign out",
-		"beta_status": "We are still in beta",
-		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
-		"no_apps": "No applications found on the Cozy.",
-		"menu": {
-			"apps": "Apps",
-			"settings": "Settings"
-		},
-		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
-			"ptnb": "expPTNB",
-			"others": "Other apps"
-		},
-		"claudy": {
-			"title": "How to drive your Cozy?"
-		},
-		"searchbar": {
-			"placeholder": "Search anything"
-		}
-	};
-
-/***/ },
-/* 299 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"drawer": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
-		"help": "Help",
-		"logout": "Sign out",
-		"beta_status": "We are still in beta",
-		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
-		"no_apps": "No applications found on the Cozy.",
-		"menu": {
-			"apps": "Apps",
-			"settings": "Settings"
-		},
-		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
-			"ptnb": "expPTNB",
-			"others": "Other apps"
-		},
-		"claudy": {
-			"title": "How to drive your Cozy?"
-		},
-		"searchbar": {
-			"placeholder": "Search anything"
-		}
-	};
-
-/***/ },
-/* 300 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"drawer": "Show menu drawer",
-		"profile": "Профиль",
-		"connectedDevices": "Присоединённые устройства",
-		"storage": "Хранилище",
-		"storage_phrase": "%{diskUsage} ГБ из %{diskQuota} ГБ использовано",
-		"help": "Помощь",
-		"logout": "Выход",
-		"beta_status": "We are still in beta",
-		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "Это стек не доступен (превышено время ожидания)",
-		"error_UnauthorizedStack": "Некоторые разрешения отсутствуют, получить доступ к запрашиваемому ресурсу в стеке не возможно.",
-		"no_apps": "No applications found on the Cozy.",
-		"menu": {
-			"apps": "Apps",
-			"settings": "Settings"
-		},
-		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
-			"ptnb": "expPTNB",
-			"others": "Other apps"
-		},
-		"claudy": {
-			"title": "How to drive your Cozy?"
-		},
-		"searchbar": {
-			"placeholder": "Search anything"
-		}
-	};
-
-/***/ },
-/* 301 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"drawer": "Show menu drawer",
-		"profile": "Профиль",
-		"connectedDevices": "Присоединённые устройства",
-		"storage": "Хранилище",
-		"storage_phrase": "%{diskUsage} ГБ из %{diskQuota} ГБ использовано",
-		"help": "Помощь",
-		"logout": "Выход",
-		"beta_status": "We are still in beta",
-		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "Это стек не доступен (превышено время ожидания)",
-		"error_UnauthorizedStack": "Некоторые разрешения отсутствуют, получить доступ к запрашиваемому ресурсу в стеке не возможно.",
-		"no_apps": "No applications found on the Cozy.",
-		"menu": {
-			"apps": "Apps",
-			"settings": "Settings"
-		},
-		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
-			"ptnb": "expPTNB",
-			"others": "Other apps"
-		},
-		"claudy": {
-			"title": "How to drive your Cozy?"
-		},
-		"searchbar": {
-			"placeholder": "Search anything"
-		}
-	};
-
-/***/ },
-/* 302 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"drawer": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
-		"help": "Help",
-		"logout": "Sign out",
-		"beta_status": "We are still in beta",
-		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
-		"no_apps": "No applications found on the Cozy.",
-		"menu": {
-			"apps": "Apps",
-			"settings": "Settings"
-		},
-		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
-			"ptnb": "expPTNB",
-			"others": "Other apps"
-		},
-		"claudy": {
-			"title": "How to drive your Cozy?"
-		},
-		"searchbar": {
-			"placeholder": "Search anything"
-		}
-	};
-
-/***/ },
-/* 303 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"drawer": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
-		"help": "Help",
-		"logout": "Sign out",
-		"beta_status": "We are still in beta",
-		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
-		"no_apps": "No applications found on the Cozy.",
-		"menu": {
-			"apps": "Apps",
-			"settings": "Settings"
-		},
-		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
-			"ptnb": "expPTNB",
-			"others": "Other apps"
-		},
-		"claudy": {
-			"title": "How to drive your Cozy?"
-		},
-		"searchbar": {
-			"placeholder": "Search anything"
-		}
-	};
-
-/***/ },
-/* 304 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"drawer": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
-		"help": "Help",
-		"logout": "Sign out",
-		"beta_status": "We are still in beta",
-		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
-		"no_apps": "No applications found on the Cozy.",
-		"menu": {
-			"apps": "Apps",
-			"settings": "Settings"
-		},
-		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
-			"ptnb": "expPTNB",
-			"others": "Other apps"
-		},
-		"claudy": {
-			"title": "How to drive your Cozy?"
-		},
-		"searchbar": {
-			"placeholder": "Search anything"
-		}
-	};
-
-/***/ },
-/* 305 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"drawer": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
-		"help": "Help",
-		"logout": "Sign out",
-		"beta_status": "We are still in beta",
-		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
-		"no_apps": "No applications found on the Cozy.",
-		"menu": {
-			"apps": "Apps",
-			"settings": "Settings"
-		},
-		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
-			"ptnb": "expPTNB",
-			"others": "Other apps"
-		},
-		"claudy": {
-			"title": "How to drive your Cozy?"
-		},
-		"searchbar": {
-			"placeholder": "Search anything"
-		}
-	};
-
-/***/ },
-/* 306 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"drawer": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
-		"help": "Help",
-		"logout": "Sign out",
-		"beta_status": "We are still in beta",
-		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
-		"no_apps": "No applications found on the Cozy.",
-		"menu": {
-			"apps": "Apps",
-			"settings": "Settings"
-		},
-		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
-			"ptnb": "expPTNB",
-			"others": "Other apps"
-		},
-		"claudy": {
-			"title": "How to drive your Cozy?"
-		},
-		"searchbar": {
-			"placeholder": "Search anything"
-		}
-	};
-
-/***/ },
-/* 307 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"drawer": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
-		"help": "Help",
-		"logout": "Sign out",
-		"beta_status": "We are still in beta",
-		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
-		"no_apps": "No applications found on the Cozy.",
-		"menu": {
-			"apps": "Apps",
-			"settings": "Settings"
-		},
-		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
-			"ptnb": "expPTNB",
-			"others": "Other apps"
-		},
-		"claudy": {
-			"title": "How to drive your Cozy?"
-		},
-		"searchbar": {
-			"placeholder": "Search anything"
-		}
-	};
-
-/***/ },
-/* 308 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"drawer": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
-		"help": "Help",
-		"logout": "Sign out",
-		"beta_status": "We are still in beta",
-		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
-		"no_apps": "No applications found on the Cozy.",
-		"menu": {
-			"apps": "Apps",
-			"settings": "Settings"
-		},
-		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
-			"ptnb": "expPTNB",
-			"others": "Other apps"
-		},
-		"claudy": {
-			"title": "How to drive your Cozy?"
-		},
-		"searchbar": {
-			"placeholder": "Search anything"
-		}
-	};
-
-/***/ },
-/* 309 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"drawer": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
-		"help": "Help",
-		"logout": "Sign out",
-		"beta_status": "We are still in beta",
-		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
-		"no_apps": "No applications found on the Cozy.",
-		"menu": {
-			"apps": "Apps",
-			"settings": "Settings"
-		},
-		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
-			"ptnb": "expPTNB",
-			"others": "Other apps"
-		},
-		"claudy": {
-			"title": "How to drive your Cozy?"
-		},
-		"searchbar": {
-			"placeholder": "Search anything"
-		}
-	};
-
-/***/ },
-/* 310 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"drawer": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
 		"storage": "储存",
 		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
 		"help": "帮助",
@@ -16407,7 +14198,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 311 */
+/* 297 */
 /***/ function(module, exports) {
 
 	module.exports = {
