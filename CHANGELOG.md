@@ -18,6 +18,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Removed
 - none yet
 
+## [v4.2.4] - 2017-09-26
+### Fixed
+- Re-instaured spacer between the app title and navigation icons
+
 ## [v4.2.3] - 2017-09-26
 ### Fixed
 - Fucked up the previous release
@@ -142,7 +146,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 - Support link href
 
-[Unreleased]: https://github.com/cozy/cozy-bar/compare/v4.2.3...HEAD
+[Unreleased]: https://github.com/cozy/cozy-bar/compare/v4.2.4...HEAD
+[v4.2.4]: https://github.com/cozy/cozy-bar/compare/v4.2.3...v4.2.4
 [v4.2.3]: https://github.com/cozy/cozy-bar/compare/v4.2.2...v4.2.3
 [v4.2.2]: https://github.com/cozy/cozy-bar/compare/v4.2.1...v4.2.2
 [v4.2.1]: https://github.com/cozy/cozy-bar/compare/v4.2.0...v4.2.1

@@ -373,7 +373,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  injectBarInDOM({ lang: lang, appName: appName, appEditor: appEditor, iconPath: iconPath, replaceTitleOnMobile: replaceTitleOnMobile, isPublic: isPublic });
 	};
 	
-	module.exports = { init: init, version: ("4.2.2") };
+	module.exports = { init: init, version: ("4.2.4") };
 
 /***/ },
 /* 1 */
@@ -10724,6 +10724,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            t('beta')
 	          )
 	        ),
+	        _react2.default.createElement('hr', { 'class': 'coz-sep-flex' }),
 	        ("mobile") !== 'mobile' && !isPublic && _react2.default.createElement(
 	          'div',
 	          { 'class': 'coz-bar-flex-container' },
