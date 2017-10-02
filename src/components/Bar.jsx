@@ -76,18 +76,18 @@ class Bar extends Component {
     const { usageTracker, claudyOpened,
       enableClaudy, drawerVisible, fireClaudy } = this.state
     return (
-      <div class='coz-bar-container'>
-        <h1 lang={lang} class={`coz-bar-title ${replaceTitleOnMobile ? 'coz-bar-hide-sm' : ''}`}>
-          <img class='coz-bar-hide-sm' src={iconPath} width='32' />
-          {appEditor && <span class='coz-bar-hide-sm'>{appEditor} </span>}
+      <div className='coz-bar-container'>
+        <h1 lang={lang} className={`coz-bar-title ${replaceTitleOnMobile ? 'coz-bar-hide-sm' : ''}`}>
+          <img className='coz-bar-hide-sm' src={iconPath} width='32' />
+          {appEditor && <span className='coz-bar-hide-sm'>{appEditor} </span>}
           <strong>{appName}</strong>
-          <sup class='coz-bar-hide-sm coz-bar-beta-status'>{t('beta')}</sup>
+          <sup className='coz-bar-hide-sm coz-bar-beta-status'>{t('beta')}</sup>
         </h1>
-        <hr class='coz-sep-flex' />
+        <hr className='coz-sep-flex' />
         {__TARGET__ !== 'mobile' && !isPublic &&
-          <div class='coz-bar-flex-container'>
-            <button class='coz-bar-burger' onClick={this.toggleDrawer} data-icon='icon-hamburger'>
-              <span class='coz-bar-hidden'>{t('drawer')}</span>
+          <div className='coz-bar-flex-container'>
+            <button className='coz-bar-burger' onClick={this.toggleDrawer} data-icon='icon-hamburger'>
+              <span className='coz-bar-hidden'>{t('drawer')}</span>
             </button>
             <Drawer visible={drawerVisible} onClose={this.toggleDrawer} onClaudy={(enableClaudy && (() => this.toggleClaudy(true))) || false} isClaudyLoading={fireClaudy} drawerListener={() => onDrawer(this.state.drawerVisible)} />
             <Nav />
