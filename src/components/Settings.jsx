@@ -4,7 +4,7 @@ import { translate } from '../lib/I18n'
 
 import StorageData from './StorageData'
 
-const Settings = ({ t, onLogOut, settingsData, onClaudy, isDrawer = false, isClaudyLoading }) => (
+const Settings = ({ t, onLogOut, settingsData, onClaudy, isDrawer = false, isClaudyLoading, toggleSupport }) => (
   <div>
     {isDrawer && <hr />}
     {settingsData.settingsAppURL &&
@@ -50,16 +50,14 @@ const Settings = ({ t, onLogOut, settingsData, onClaudy, isDrawer = false, isCla
         <hr />
       </ul>
     }
-    {settingsData.helpLink &&
-      <ul className='coz-nav-group'>
-        <li className='coz-nav-item'>
-          <a role='menuitem' href={settingsData.helpLink} target='_blank' data-icon='icon-help' title={t('help')}>
-            <p className='coz-label'>{t('help')}</p>
-          </a>
-        </li>
-        <hr />
-      </ul>
-    }
+    <ul className='coz-nav-group'>
+      <li className='coz-nav-item'>
+        <a role='menuitem' onClick={toggleSupport} data-icon='icon-help' title={t('help')}>
+          <p className='coz-label'>{t('help')}</p>
+        </a>
+      </li>
+      <hr />
+    </ul>
     <ul className='coz-nav-group'>
       <li className='coz-nav-item'>
         <button role='menuitem' data-icon='icon-logout' onClick={onLogOut} title={t('logout')}>

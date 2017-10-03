@@ -33,14 +33,14 @@ class Nav extends Component {
         this.state.settings.busy ||
         this.state.settings.opened
         ) {
-        // if it's not a cozy-bar nav popup, close the opened popup
-        if (!this.rootRef.contains(event.target)) {
-          this.setState({ // reset all
-            apps: {busy: false, opened: false},
-            settings: {busy: false, opened: false}
-          })
-        }
-        event.stopPropagation()
+      // if it's not a cozy-bar nav popup, close the opened popup
+      if (!this.rootRef.contains(event.target)) {
+        this.setState({ // reset all
+          apps: {busy: false, opened: false},
+          settings: {busy: false, opened: false}
+        })
+      }
+      event.stopPropagation()
     }
   }
 
@@ -75,7 +75,7 @@ class Nav extends Component {
   }
 
   render () {
-    const { t } = this.props
+    const { t, toggleSupport } = this.props
     const { apps, settings } = this.state
     const { appsList, settingsData } = this.store
     const categories = !appsList.error
@@ -116,6 +116,7 @@ class Nav extends Component {
               {settingsData &&
                 <Settings
                   onLogOut={() => this.store.logout()}
+                  toggleSupport={toggleSupport}
                   settingsData={settingsData}
                 />
               }
