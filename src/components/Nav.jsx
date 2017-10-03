@@ -5,6 +5,7 @@ import { getCategorizedItems } from '../lib/helpers'
 
 import AppsList from './AppsList'
 import Settings from './Settings'
+import SupportModal from './SupportModal'
 
 const BUSY_DELAY = 450
 
@@ -20,8 +21,10 @@ class Nav extends Component {
       settings: {
         busy: false,
         opened: false
-      }
+      },
+      displaySupport: false
     }
+    this.toggleSupport = this.toggleSupport.bind(this)
     // handle click outside to close popups
     this.onClickOutside = this.onClickOutside.bind(this)
     document.body.addEventListener('click', this.onClickOutside)
@@ -33,14 +36,14 @@ class Nav extends Component {
         this.state.settings.busy ||
         this.state.settings.opened
         ) {
-        // if it's not a cozy-bar nav popup, close the opened popup
-        if (!this.rootRef.contains(event.target)) {
-          this.setState({ // reset all
-            apps: {busy: false, opened: false},
-            settings: {busy: false, opened: false}
-          })
-        }
-        event.stopPropagation()
+      // if it's not a cozy-bar nav popup, close the opened popup
+      if (!this.rootRef.contains(event.target)) {
+        this.setState({ // reset all
+          apps: {busy: false, opened: false},
+          settings: {busy: false, opened: false}
+        })
+      }
+      event.stopPropagation()
     }
   }
 
@@ -74,15 +77,25 @@ class Nav extends Component {
     }
   }
 
+  toggleSupport () {
+    const { displaySupport } = this.state
+    this.setState({displaySupport: !displaySupport})
+  }
+
   render () {
     const { t } = this.props
-    const { apps, settings } = this.state
+    const { apps, settings, displaySupport } = this.state
     const { appsList, settingsData } = this.store
     const categories = !appsList.error
       ? getCategorizedItems(appsList, t)
       : appsList
     return (
       <nav className='coz-nav' ref={(ref) => { this.rootRef = ref }}>
+        {displaySupport &&
+          <SupportModal
+            onClose={this.toggleSupport}
+          />
+        }
         <ul>
           <li className='coz-nav-section'>
             <a
@@ -116,6 +129,7 @@ class Nav extends Component {
               {settingsData &&
                 <Settings
                   onLogOut={() => this.store.logout()}
+                  toggleSupport={this.toggleSupport}
                   settingsData={settingsData}
                 />
               }

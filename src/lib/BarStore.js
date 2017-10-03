@@ -25,6 +25,10 @@ export default class BarStore {
     return createIntent(null, 'CLAUDY', 'io.cozy.settings', data)
   }
 
+  getSupportIntent (data) {
+    return createIntent(null, 'SUPPORT', 'io.cozy.settings', data)
+  }
+
   async fetchApps () {
     let apps
     try {
