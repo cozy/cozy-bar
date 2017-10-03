@@ -8,6 +8,7 @@ import { shouldEnableTracking, getTracker, configureTracker } from 'cozy-ui/reac
 import Drawer from './Drawer'
 import Nav from './Nav'
 import Claudy from './Claudy'
+import SupportModal from './SupportModal'
 
 class Bar extends Component {
   constructor (props, context) {
@@ -18,8 +19,10 @@ class Bar extends Component {
       fireClaudy: false, // true to fire claudy (used by the drawer)
       claudyOpened: false,
       drawerVisible: false,
-      usageTracker: null
+      usageTracker: null,
+      displaySupport: false
     }
+    this.toggleSupport = this.toggleSupport.bind(this)
     this.toggleDrawer = this.toggleDrawer.bind(this)
   }
 
@@ -69,12 +72,17 @@ class Bar extends Component {
     this.setState({ claudyOpened: !claudyOpened })
   }
 
+  toggleSupport () {
+    const { displaySupport } = this.state
+    this.setState({displaySupport: !displaySupport})
+  }
+
   render () {
     const { t, lang, appName,
       appEditor, iconPath, replaceTitleOnMobile,
       onDrawer, isPublic } = this.props
     const { usageTracker, claudyOpened,
-      enableClaudy, drawerVisible, fireClaudy } = this.state
+      enableClaudy, drawerVisible, fireClaudy, displaySupport } = this.state
     return (
       <div className='coz-bar-container'>
         <h1 lang={lang} className={`coz-bar-title ${replaceTitleOnMobile ? 'coz-bar-hide-sm' : ''}`}>
@@ -89,8 +97,8 @@ class Bar extends Component {
             <button className='coz-bar-burger' onClick={this.toggleDrawer} data-icon='icon-hamburger'>
               <span className='coz-bar-hidden'>{t('drawer')}</span>
             </button>
-            <Drawer visible={drawerVisible} onClose={this.toggleDrawer} onClaudy={(enableClaudy && (() => this.toggleClaudy(true))) || false} isClaudyLoading={fireClaudy} drawerListener={() => onDrawer(this.state.drawerVisible)} />
-            <Nav />
+            <Drawer visible={drawerVisible} onClose={this.toggleDrawer} onClaudy={(enableClaudy && (() => this.toggleClaudy(true))) || false} isClaudyLoading={fireClaudy} drawerListener={() => onDrawer(this.state.drawerVisible)} toggleSupport={this.toggleSupport} />
+            <Nav toggleSupport={this.toggleSupport} />
             {enableClaudy &&
               <Claudy
                 usageTracker={usageTracker}
@@ -100,6 +108,11 @@ class Bar extends Component {
               />
             }
           </div>
+        }
+        {displaySupport &&
+          <SupportModal
+            onClose={this.toggleSupport}
+          />
         }
       </div>
     )
