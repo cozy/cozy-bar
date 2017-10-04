@@ -257,7 +257,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	if (true) {
 	  // Enables React dev tools for Preact
 	  // Cannot use import as we are in a condition
-	  __webpack_require__(244);
+	  __webpack_require__(255);
 	
 	  // Export React to window for the devtools
 	  window.React = _react2.default;
@@ -276,7 +276,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return;
 	  }
 	
-	  __webpack_require__(245);
+	  __webpack_require__(256);
 	
 	  var barNode = createBarElement();
 	  var appNode = document.querySelector(APP_SELECTOR);
@@ -302,7 +302,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      {
 	        lang: data.lang,
 	        dictRequire: function dictRequire(lang) {
-	          return __webpack_require__(260)("./" + lang);
+	          return __webpack_require__(269)("./" + lang);
 	        }
 	      },
 	      _react2.default.createElement(_Bar2.default, data)
@@ -373,7 +373,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  injectBarInDOM({ lang: lang, appName: appName, appEditor: appEditor, iconPath: iconPath, replaceTitleOnMobile: replaceTitleOnMobile, isPublic: isPublic });
 	};
 	
-	module.exports = { init: init, version: ("4.2.4") };
+	module.exports = { init: init, version: ("4.2.5") };
 
 /***/ },
 /* 1 */
@@ -9954,6 +9954,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	      return (0, _intents.create)(null, 'CLAUDY', 'io.cozy.settings', data);
 	    }
 	  }, {
+	    key: 'getSupportIntent',
+	    value: function getSupportIntent(data) {
+	      return (0, _intents.create)(null, 'SUPPORT', 'io.cozy.settings', data);
+	    }
+	  }, {
 	    key: 'fetchApps',
 	    value: function () {
 	      var _ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee2() {
@@ -10572,6 +10577,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _Claudy2 = _interopRequireDefault(_Claudy);
 	
+	var _SupportModal = __webpack_require__(244);
+	
+	var _SupportModal2 = _interopRequireDefault(_SupportModal);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
@@ -10597,8 +10606,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	      fireClaudy: false, // true to fire claudy (used by the drawer)
 	      claudyOpened: false,
 	      drawerVisible: false,
-	      usageTracker: null
+	      usageTracker: null,
+	      displaySupport: false
 	    };
+	    _this.toggleSupport = _this.toggleSupport.bind(_this);
 	    _this.toggleDrawer = _this.toggleDrawer.bind(_this);
 	    return _this;
 	  }
@@ -10680,6 +10691,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	      this.setState({ claudyOpened: !claudyOpened });
 	    }
 	  }, {
+	    key: 'toggleSupport',
+	    value: function toggleSupport() {
+	      var displaySupport = this.state.displaySupport;
+	
+	      this.setState({ displaySupport: !displaySupport });
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var _this2 = this;
@@ -10698,18 +10716,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	          claudyOpened = _state2.claudyOpened,
 	          enableClaudy = _state2.enableClaudy,
 	          drawerVisible = _state2.drawerVisible,
-	          fireClaudy = _state2.fireClaudy;
+	          fireClaudy = _state2.fireClaudy,
+	          displaySupport = _state2.displaySupport;
 	
 	      return _react2.default.createElement(
 	        'div',
-	        { 'class': 'coz-bar-container' },
+	        { className: 'coz-bar-container' },
 	        _react2.default.createElement(
 	          'h1',
-	          { lang: lang, 'class': 'coz-bar-title ' + (replaceTitleOnMobile ? 'coz-bar-hide-sm' : '') },
-	          _react2.default.createElement('img', { 'class': 'coz-bar-hide-sm', src: iconPath, width: '32' }),
+	          { lang: lang, className: 'coz-bar-title ' + (replaceTitleOnMobile ? 'coz-bar-hide-sm' : '') },
+	          _react2.default.createElement('img', { className: 'coz-bar-hide-sm', src: iconPath, width: '32' }),
 	          appEditor && _react2.default.createElement(
 	            'span',
-	            { 'class': 'coz-bar-hide-sm' },
+	            { className: 'coz-bar-hide-sm' },
 	            appEditor,
 	            ' '
 	          ),
@@ -10720,20 +10739,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	          ),
 	          _react2.default.createElement(
 	            'sup',
-	            { 'class': 'coz-bar-hide-sm coz-bar-beta-status' },
+	            { className: 'coz-bar-hide-sm coz-bar-beta-status' },
 	            t('beta')
 	          )
 	        ),
-	        _react2.default.createElement('hr', { 'class': 'coz-sep-flex' }),
+	        _react2.default.createElement('hr', { className: 'coz-sep-flex' }),
 	        ("mobile") !== 'mobile' && !isPublic && _react2.default.createElement(
 	          'div',
-	          { 'class': 'coz-bar-flex-container' },
+	          { className: 'coz-bar-flex-container' },
 	          _react2.default.createElement(
 	            'button',
-	            { 'class': 'coz-bar-burger', onClick: this.toggleDrawer, 'data-icon': 'icon-hamburger' },
+	            { className: 'coz-bar-burger', onClick: this.toggleDrawer, 'data-icon': 'icon-hamburger' },
 	            _react2.default.createElement(
 	              'span',
-	              { 'class': 'coz-bar-hidden' },
+	              { className: 'coz-bar-hidden' },
 	              t('drawer')
 	            )
 	          ),
@@ -10741,8 +10760,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	              return _this2.toggleClaudy(true);
 	            } || false, isClaudyLoading: fireClaudy, drawerListener: function drawerListener() {
 	              return onDrawer(_this2.state.drawerVisible);
-	            } }),
-	          _react2.default.createElement(_Nav2.default, null),
+	            }, toggleSupport: this.toggleSupport }),
+	          _react2.default.createElement(_Nav2.default, { toggleSupport: this.toggleSupport }),
 	          enableClaudy && _react2.default.createElement(_Claudy2.default, {
 	            usageTracker: usageTracker,
 	            fireClaudy: fireClaudy,
@@ -10751,7 +10770,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	            },
 	            opened: claudyOpened
 	          })
-	        )
+	        ),
+	        displaySupport && _react2.default.createElement(_SupportModal2.default, {
+	          onClose: this.toggleSupport
+	        })
 	      );
 	    }
 	  }]);
@@ -11271,7 +11293,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	          t = _props.t,
 	          onClaudy = _props.onClaudy,
 	          visible = _props.visible,
-	          isClaudyLoading = _props.isClaudyLoading;
+	          isClaudyLoading = _props.isClaudyLoading,
+	          toggleSupport = _props.toggleSupport;
 	      var _store = this.store,
 	          appsList = _store.appsList,
 	          settingsData = _store.settingsData;
@@ -11307,6 +11330,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	              settingsData: settingsData,
 	              isClaudyLoading: isClaudyLoading,
 	              onClaudy: onClaudy,
+	              toggleSupport: toggleSupport,
 	              isDrawer: true
 	            })
 	          )
@@ -11442,7 +11466,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	      onClaudy = _ref.onClaudy,
 	      _ref$isDrawer = _ref.isDrawer,
 	      isDrawer = _ref$isDrawer === undefined ? false : _ref$isDrawer,
-	      isClaudyLoading = _ref.isClaudyLoading;
+	      isClaudyLoading = _ref.isClaudyLoading,
+	      toggleSupport = _ref.toggleSupport;
 	  return _react2.default.createElement(
 	    'div',
 	    null,
@@ -11514,7 +11539,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      ),
 	      _react2.default.createElement('hr', null)
 	    ),
-	    settingsData.helpLink && _react2.default.createElement(
+	    _react2.default.createElement(
 	      'ul',
 	      { className: 'coz-nav-group' },
 	      _react2.default.createElement(
@@ -11522,7 +11547,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        { className: 'coz-nav-item' },
 	        _react2.default.createElement(
 	          'a',
-	          { role: 'menuitem', href: settingsData.helpLink, target: '_blank', 'data-icon': 'icon-help', title: t('help') },
+	          { role: 'menuitem', onClick: toggleSupport, 'data-icon': 'icon-help', title: t('help') },
 	          _react2.default.createElement(
 	            'p',
 	            { className: 'coz-label' },
@@ -11802,7 +11827,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    value: function render() {
 	      var _this3 = this;
 	
-	      var t = this.props.t;
+	      var _props = this.props,
+	          t = _props.t,
+	          toggleSupport = _props.toggleSupport;
 	      var _state = this.state,
 	          apps = _state.apps,
 	          settings = _state.settings;
@@ -11869,6 +11896,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                onLogOut: function onLogOut() {
 	                  return _this3.store.logout();
 	                },
+	                toggleSupport: toggleSupport,
 	                settingsData: settingsData
 	              })
 	            )
@@ -11974,7 +12002,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        { className: 'coz-claudy ' + (opened ? 'coz-claudy--opened' : '') },
 	        _react2.default.createElement('button', { className: 'coz-claudy-icon coz-bar-hide-sm', 'data-claudy-opened': isActive, 'data-claudy-loading': isLoading, onClick: this.toggle }),
 	        _react2.default.createElement('div', {
-	          'class': 'coz-claudy-intent-wrapper',
+	          className: 'coz-claudy-intent-wrapper',
 	          ref: function ref(wrapper) {
 	            _this3.intentWrapperRef = wrapper;
 	          }
@@ -11990,6 +12018,898 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 244 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(189);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _Modal = __webpack_require__(245);
+	
+	var _Modal2 = _interopRequireDefault(_Modal);
+	
+	var _Spinner = __webpack_require__(251);
+	
+	var _Spinner2 = _interopRequireDefault(_Spinner);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var SupportModal = function (_Component) {
+	  _inherits(SupportModal, _Component);
+	
+	  function SupportModal(props, context) {
+	    _classCallCheck(this, SupportModal);
+	
+	    var _this = _possibleConstructorReturn(this, (SupportModal.__proto__ || Object.getPrototypeOf(SupportModal)).call(this, props));
+	
+	    _this.store = context.store;
+	    _this.state = {
+	      isLoading: false
+	    };
+	
+	    _this.toggle = _this.toggle.bind(_this);
+	    return _this;
+	  }
+	
+	  _createClass(SupportModal, [{
+	    key: 'toggle',
+	    value: function toggle() {
+	      var _this2 = this;
+	
+	      this.setState({ isLoading: true });
+	      this.store.getSupportIntent().start(this.intentWrapperRef, function () {
+	        _this2.setState({ isLoading: false });
+	      }).then(function () {
+	        _this2.props.onClose();
+	      });
+	    }
+	  }, {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      this.toggle();
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _this3 = this;
+	
+	      var isLoading = this.state.isLoading;
+	
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          _Modal2.default,
+	          { secondaryAction: this.props.onClose },
+	          _react2.default.createElement(
+	            _Modal.ModalContent,
+	            null,
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'coz-support-modal-content' },
+	              isLoading && _react2.default.createElement(_Spinner2.default, {
+	                size: 'xxlarge',
+	                middle: 'true'
+	              }),
+	              _react2.default.createElement('div', {
+	                className: 'coz-support-intent-wrapper' + (isLoading ? ' coz-hidden' : ''),
+	                ref: function ref(wrapper) {
+	                  _this3.intentWrapperRef = wrapper;
+	                }
+	              })
+	            )
+	          )
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return SupportModal;
+	}(_react.Component);
+	
+	exports.default = SupportModal;
+
+/***/ },
+/* 245 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.ModalSection = exports.ModalContent = undefined;
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(189);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _classnames = __webpack_require__(246);
+	
+	var _classnames2 = _interopRequireDefault(_classnames);
+	
+	var _styles = __webpack_require__(247);
+	
+	var _styles2 = _interopRequireDefault(_styles);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var ModalContent = function ModalContent(_ref) {
+	  var children = _ref.children,
+	      className = _ref.className;
+	  return _react2.default.createElement(
+	    'div',
+	    { className: (0, _classnames2.default)(_styles2.default['coz-modal-content'], className) },
+	    children
+	  );
+	};
+	
+	var ModalSection = function ModalSection(_ref2) {
+	  var children = _ref2.children,
+	      className = _ref2.className;
+	  return _react2.default.createElement(
+	    'div',
+	    { className: (0, _classnames2.default)(_styles2.default['coz-modal-content'], _styles2.default['coz-modal-section'], className) },
+	    children
+	  );
+	};
+	
+	var ModalTitle = function ModalTitle(_ref3) {
+	  var title = _ref3.title;
+	  return _react2.default.createElement(
+	    'h2',
+	    { className: (0, _classnames2.default)(_styles2.default['coz-modal-content'], _styles2.default['coz-modal-title']) },
+	    title
+	  );
+	};
+	
+	var ModalCross = function ModalCross(_ref4) {
+	  var withCross = _ref4.withCross,
+	      secondaryAction = _ref4.secondaryAction,
+	      secondaryText = _ref4.secondaryText;
+	  return withCross && _react2.default.createElement(
+	    'button',
+	    {
+	      className: (0, _classnames2.default)('coz-btn', 'coz-btn--close', _styles2.default['coz-btn-modal-close']),
+	      onClick: secondaryAction
+	    },
+	    _react2.default.createElement(
+	      'span',
+	      { className: 'coz-hidden' },
+	      secondaryText
+	    )
+	  );
+	};
+	
+	var ModalDescription = function ModalDescription(_ref5) {
+	  var description = _ref5.description;
+	  return description && _react2.default.createElement(
+	    'div',
+	    { className: (0, _classnames2.default)(_styles2.default['coz-modal-content'], _styles2.default['coz-description']) },
+	    description
+	  );
+	};
+	
+	var ModalButtons = function ModalButtons(_ref6) {
+	  var secondaryText = _ref6.secondaryText,
+	      secondaryAction = _ref6.secondaryAction,
+	      secondaryType = _ref6.secondaryType,
+	      primaryText = _ref6.primaryText,
+	      primaryAction = _ref6.primaryAction,
+	      primaryType = _ref6.primaryType;
+	
+	  var displayPrimary = primaryText && primaryAction;
+	  var displaySecondary = secondaryText && secondaryAction;
+	  return (displaySecondary || displayPrimary) && _react2.default.createElement(
+	    'div',
+	    { className: (0, _classnames2.default)(_styles2.default['coz-modal-content'], _styles2.default['coz-modal-buttons']) },
+	    displaySecondary && _react2.default.createElement(
+	      'button',
+	      { className: (0, _classnames2.default)('coz-btn', 'coz-btn--' + secondaryType), onClick: secondaryAction },
+	      secondaryText
+	    ),
+	    displayPrimary && _react2.default.createElement(
+	      'button',
+	      { className: (0, _classnames2.default)('coz-btn', 'coz-btn--' + primaryType), onClick: primaryAction },
+	      primaryText
+	    )
+	  );
+	};
+	
+	var ESC_KEYCODE = 27;
+	
+	var Modal = function (_Component) {
+	  _inherits(Modal, _Component);
+	
+	  function Modal(props) {
+	    _classCallCheck(this, Modal);
+	
+	    var _this = _possibleConstructorReturn(this, (Modal.__proto__ || Object.getPrototypeOf(Modal)).call(this, props));
+	
+	    _this.handleKeydown = _this.handleKeydown.bind(_this);
+	    _this.handleOutsideClick = _this.handleOutsideClick.bind(_this);
+	    return _this;
+	  }
+	
+	  _createClass(Modal, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      if (this.props.withCross) {
+	        document.addEventListener('keydown', this.handleKeydown);
+	      }
+	    }
+	  }, {
+	    key: 'componentWillUnmount',
+	    value: function componentWillUnmount() {
+	      if (this.props.withCross) {
+	        document.removeEventListener('keydown', this.handleKeydown);
+	      }
+	    }
+	  }, {
+	    key: 'handleKeydown',
+	    value: function handleKeydown(e) {
+	      if (e.keyCode === ESC_KEYCODE) {
+	        this.props.secondaryAction();
+	      }
+	    }
+	  }, {
+	    key: 'handleOutsideClick',
+	    value: function handleOutsideClick(e) {
+	      if (e.target === e.currentTarget) this.props.secondaryAction();
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _props = this.props,
+	          children = _props.children,
+	          title = _props.title,
+	          withCross = _props.withCross;
+	
+	      return _react2.default.createElement(
+	        'div',
+	        { className: _styles2.default['coz-modal-container'] },
+	        _react2.default.createElement(
+	          'div',
+	          { className: _styles2.default['coz-overlay'] },
+	          _react2.default.createElement(
+	            'div',
+	            {
+	              className: _styles2.default['coz-modal-wrapper'],
+	              onClick: withCross && this.handleOutsideClick },
+	            _react2.default.createElement(
+	              'div',
+	              { className: _styles2.default['coz-modal'] },
+	              _react2.default.createElement(ModalCross, this.props),
+	              title && _react2.default.createElement(ModalTitle, this.props),
+	              _react2.default.createElement(ModalDescription, this.props),
+	              children,
+	              _react2.default.createElement(ModalButtons, this.props)
+	            )
+	          )
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return Modal;
+	}(_react.Component);
+	
+	Modal.propTypes = {
+	  title: _react2.default.PropTypes.string,
+	  description: _react2.default.PropTypes.node,
+	  secondaryType: _react2.default.PropTypes.string,
+	  secondaryText: _react2.default.PropTypes.string,
+	  secondaryAction: _react2.default.PropTypes.func,
+	  primaryType: _react2.default.PropTypes.string,
+	  primaryText: _react2.default.PropTypes.string,
+	  primaryAction: _react2.default.PropTypes.func,
+	  withCross: _react2.default.PropTypes.bool
+	};
+	
+	Modal.defaultProps = {
+	  primaryType: 'secondary',
+	  secondaryType: 'regular',
+	  withCross: true
+	};
+	
+	exports.ModalContent = ModalContent;
+	exports.ModalSection = ModalSection;
+	exports.default = Modal;
+
+/***/ },
+/* 246 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
+	  Copyright (c) 2016 Jed Watson.
+	  Licensed under the MIT License (MIT), see
+	  http://jedwatson.github.io/classnames
+	*/
+	/* global define */
+	
+	(function () {
+		'use strict';
+	
+		var hasOwn = {}.hasOwnProperty;
+	
+		function classNames () {
+			var classes = [];
+	
+			for (var i = 0; i < arguments.length; i++) {
+				var arg = arguments[i];
+				if (!arg) continue;
+	
+				var argType = typeof arg;
+	
+				if (argType === 'string' || argType === 'number') {
+					classes.push(arg);
+				} else if (Array.isArray(arg)) {
+					classes.push(classNames.apply(null, arg));
+				} else if (argType === 'object') {
+					for (var key in arg) {
+						if (hasOwn.call(arg, key) && arg[key]) {
+							classes.push(key);
+						}
+					}
+				}
+			}
+	
+			return classes.join(' ');
+		}
+	
+		if (typeof module !== 'undefined' && module.exports) {
+			module.exports = classNames;
+		} else if (true) {
+			// register as 'classnames', consistent with npm package name
+			!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
+				return classNames;
+			}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+		} else {
+			window.classNames = classNames;
+		}
+	}());
+
+
+/***/ },
+/* 247 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+	
+	// load the styles
+	var content = __webpack_require__(248);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(250)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../css-loader/index.js?importLoaders=1!./../../../postcss-loader/index.js!./../../../stylus-loader/index.js?paths=node_modules/cozy-ui/stylus!./styles.styl", function() {
+				var newContent = require("!!./../../../css-loader/index.js?importLoaders=1!./../../../postcss-loader/index.js!./../../../stylus-loader/index.js?paths=node_modules/cozy-ui/stylus!./styles.styl");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 248 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(249)();
+	// imports
+	
+	
+	// module
+	exports.push([module.id, "@keyframes spin {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(359deg);\n  }\n}\n.coz-modal-container .coz-overlay {\n  z-index: 70;\n  position: fixed;\n  top: 0;\n  left: 0;\n  height: 100%;\n  width: 100%;\n  background: rgba(50,54,63,0.5);\n  visibility: visible;\n  transition: opacity 0.3s, visibility 0s ease-out;\n}\n.coz-modal-container .coz-overlay.coz-overlay--hidden {\n  opacity: 0;\n  visibility: hidden;\n  transition: opacity 0.3s 0s, visibility 0s ease-in 0.3s;\n}\n.coz-modal-container .coz-modal-wrapper {\n  position: fixed;\n  top: 0;\n  left: 0;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-direction: row;\n      flex-direction: row;\n  box-sizing: border-box;\n  width: 100vw;\n  height: 100vh;\n  overflow-y: scroll;\n  padding: 1em;\n}\n.coz-modal-container .coz-modal {\n  position: relative;\n  margin: 5vh auto auto;\n  border-radius: 0.5em;\n  max-width: 90%;\n  min-width: 30em;\n  height: auto;\n  background-color: #fff;\n  color: #32363f;\n  overflow: hidden;\n}\n.coz-modal-container .coz-modal .coz-modal-content:first-child,\n.coz-modal-container .coz-modal .coz-btn-modal-close + .coz-modal-content {\n  padding-top: 1.5em;\n}\n.coz-modal-container .coz-modal .coz-modal-content:last-child {\n  padding-bottom: 1.5em;\n}\n.coz-modal-container .coz-modal .coz-modal-content {\n  padding: 0 1.5em;\n}\n.coz-modal-container .coz-modal .coz-modal-section {\n  border-top: 1px solid #c0c0c0;\n}\n.coz-modal-container .coz-modal .coz-modal-content.coz-modal-title {\n  margin: 0 0 1em;\n  padding: 1em 3em 0 1em;\n  font-weight: bold;\n}\n.coz-modal-container .coz-modal .coz-btn-modal-close {\n  position: absolute;\n  top: 1.3em;\n  right: 1em;\n  margin: 0;\n  padding: 0;\n  background-size: 2em;\n  background-color: transparent;\n  cursor: pointer;\n}\n.coz-modal-container .coz-modal .coz-modal-buttons {\n  margin-top: 2em;\n  text-align: right;\n}\n.coz-modal-container .coz-modal .coz-modal-buttons button {\n  margin-right: 0em;\n  margin-left: 0.625em;\n  font-size: 0.9em;\n}\n.coz-modal-container .coz-modal.coz-modal--hidden {\n  top: -25%;\n  opacity: 0;\n  transition-timing-function: ease-in;\n}\n@media (max-width: 32em) {\n  .coz-modal-container .coz-modal {\n    max-width: 30em;\n    min-width: auto;\n    width: 100%;\n  }\n}\n", ""]);
+	
+	// exports
+
+
+/***/ },
+/* 249 */
+/***/ function(module, exports) {
+
+	/*
+		MIT License http://www.opensource.org/licenses/mit-license.php
+		Author Tobias Koppers @sokra
+	*/
+	// css base code, injected by the css-loader
+	module.exports = function() {
+		var list = [];
+	
+		// return the list of modules as css string
+		list.toString = function toString() {
+			var result = [];
+			for(var i = 0; i < this.length; i++) {
+				var item = this[i];
+				if(item[2]) {
+					result.push("@media " + item[2] + "{" + item[1] + "}");
+				} else {
+					result.push(item[1]);
+				}
+			}
+			return result.join("");
+		};
+	
+		// import a list of modules into the list
+		list.i = function(modules, mediaQuery) {
+			if(typeof modules === "string")
+				modules = [[null, modules, ""]];
+			var alreadyImportedModules = {};
+			for(var i = 0; i < this.length; i++) {
+				var id = this[i][0];
+				if(typeof id === "number")
+					alreadyImportedModules[id] = true;
+			}
+			for(i = 0; i < modules.length; i++) {
+				var item = modules[i];
+				// skip already imported module
+				// this implementation is not 100% perfect for weird media query combinations
+				//  when a module is imported multiple times with different media queries.
+				//  I hope this will never occur (Hey this way we have smaller bundles)
+				if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
+					if(mediaQuery && !item[2]) {
+						item[2] = mediaQuery;
+					} else if(mediaQuery) {
+						item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
+					}
+					list.push(item);
+				}
+			}
+		};
+		return list;
+	};
+
+
+/***/ },
+/* 250 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/*
+		MIT License http://www.opensource.org/licenses/mit-license.php
+		Author Tobias Koppers @sokra
+	*/
+	var stylesInDom = {},
+		memoize = function(fn) {
+			var memo;
+			return function () {
+				if (typeof memo === "undefined") memo = fn.apply(this, arguments);
+				return memo;
+			};
+		},
+		isOldIE = memoize(function() {
+			return /msie [6-9]\b/.test(window.navigator.userAgent.toLowerCase());
+		}),
+		getHeadElement = memoize(function () {
+			return document.head || document.getElementsByTagName("head")[0];
+		}),
+		singletonElement = null,
+		singletonCounter = 0,
+		styleElementsInsertedAtTop = [];
+	
+	module.exports = function(list, options) {
+		if(false) {
+			if(typeof document !== "object") throw new Error("The style-loader cannot be used in a non-browser environment");
+		}
+	
+		options = options || {};
+		// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
+		// tags it will allow on a page
+		if (typeof options.singleton === "undefined") options.singleton = isOldIE();
+	
+		// By default, add <style> tags to the bottom of <head>.
+		if (typeof options.insertAt === "undefined") options.insertAt = "bottom";
+	
+		var styles = listToStyles(list);
+		addStylesToDom(styles, options);
+	
+		return function update(newList) {
+			var mayRemove = [];
+			for(var i = 0; i < styles.length; i++) {
+				var item = styles[i];
+				var domStyle = stylesInDom[item.id];
+				domStyle.refs--;
+				mayRemove.push(domStyle);
+			}
+			if(newList) {
+				var newStyles = listToStyles(newList);
+				addStylesToDom(newStyles, options);
+			}
+			for(var i = 0; i < mayRemove.length; i++) {
+				var domStyle = mayRemove[i];
+				if(domStyle.refs === 0) {
+					for(var j = 0; j < domStyle.parts.length; j++)
+						domStyle.parts[j]();
+					delete stylesInDom[domStyle.id];
+				}
+			}
+		};
+	}
+	
+	function addStylesToDom(styles, options) {
+		for(var i = 0; i < styles.length; i++) {
+			var item = styles[i];
+			var domStyle = stylesInDom[item.id];
+			if(domStyle) {
+				domStyle.refs++;
+				for(var j = 0; j < domStyle.parts.length; j++) {
+					domStyle.parts[j](item.parts[j]);
+				}
+				for(; j < item.parts.length; j++) {
+					domStyle.parts.push(addStyle(item.parts[j], options));
+				}
+			} else {
+				var parts = [];
+				for(var j = 0; j < item.parts.length; j++) {
+					parts.push(addStyle(item.parts[j], options));
+				}
+				stylesInDom[item.id] = {id: item.id, refs: 1, parts: parts};
+			}
+		}
+	}
+	
+	function listToStyles(list) {
+		var styles = [];
+		var newStyles = {};
+		for(var i = 0; i < list.length; i++) {
+			var item = list[i];
+			var id = item[0];
+			var css = item[1];
+			var media = item[2];
+			var sourceMap = item[3];
+			var part = {css: css, media: media, sourceMap: sourceMap};
+			if(!newStyles[id])
+				styles.push(newStyles[id] = {id: id, parts: [part]});
+			else
+				newStyles[id].parts.push(part);
+		}
+		return styles;
+	}
+	
+	function insertStyleElement(options, styleElement) {
+		var head = getHeadElement();
+		var lastStyleElementInsertedAtTop = styleElementsInsertedAtTop[styleElementsInsertedAtTop.length - 1];
+		if (options.insertAt === "top") {
+			if(!lastStyleElementInsertedAtTop) {
+				head.insertBefore(styleElement, head.firstChild);
+			} else if(lastStyleElementInsertedAtTop.nextSibling) {
+				head.insertBefore(styleElement, lastStyleElementInsertedAtTop.nextSibling);
+			} else {
+				head.appendChild(styleElement);
+			}
+			styleElementsInsertedAtTop.push(styleElement);
+		} else if (options.insertAt === "bottom") {
+			head.appendChild(styleElement);
+		} else {
+			throw new Error("Invalid value for parameter 'insertAt'. Must be 'top' or 'bottom'.");
+		}
+	}
+	
+	function removeStyleElement(styleElement) {
+		styleElement.parentNode.removeChild(styleElement);
+		var idx = styleElementsInsertedAtTop.indexOf(styleElement);
+		if(idx >= 0) {
+			styleElementsInsertedAtTop.splice(idx, 1);
+		}
+	}
+	
+	function createStyleElement(options) {
+		var styleElement = document.createElement("style");
+		styleElement.type = "text/css";
+		insertStyleElement(options, styleElement);
+		return styleElement;
+	}
+	
+	function createLinkElement(options) {
+		var linkElement = document.createElement("link");
+		linkElement.rel = "stylesheet";
+		insertStyleElement(options, linkElement);
+		return linkElement;
+	}
+	
+	function addStyle(obj, options) {
+		var styleElement, update, remove;
+	
+		if (options.singleton) {
+			var styleIndex = singletonCounter++;
+			styleElement = singletonElement || (singletonElement = createStyleElement(options));
+			update = applyToSingletonTag.bind(null, styleElement, styleIndex, false);
+			remove = applyToSingletonTag.bind(null, styleElement, styleIndex, true);
+		} else if(obj.sourceMap &&
+			typeof URL === "function" &&
+			typeof URL.createObjectURL === "function" &&
+			typeof URL.revokeObjectURL === "function" &&
+			typeof Blob === "function" &&
+			typeof btoa === "function") {
+			styleElement = createLinkElement(options);
+			update = updateLink.bind(null, styleElement);
+			remove = function() {
+				removeStyleElement(styleElement);
+				if(styleElement.href)
+					URL.revokeObjectURL(styleElement.href);
+			};
+		} else {
+			styleElement = createStyleElement(options);
+			update = applyToTag.bind(null, styleElement);
+			remove = function() {
+				removeStyleElement(styleElement);
+			};
+		}
+	
+		update(obj);
+	
+		return function updateStyle(newObj) {
+			if(newObj) {
+				if(newObj.css === obj.css && newObj.media === obj.media && newObj.sourceMap === obj.sourceMap)
+					return;
+				update(obj = newObj);
+			} else {
+				remove();
+			}
+		};
+	}
+	
+	var replaceText = (function () {
+		var textStore = [];
+	
+		return function (index, replacement) {
+			textStore[index] = replacement;
+			return textStore.filter(Boolean).join('\n');
+		};
+	})();
+	
+	function applyToSingletonTag(styleElement, index, remove, obj) {
+		var css = remove ? "" : obj.css;
+	
+		if (styleElement.styleSheet) {
+			styleElement.styleSheet.cssText = replaceText(index, css);
+		} else {
+			var cssNode = document.createTextNode(css);
+			var childNodes = styleElement.childNodes;
+			if (childNodes[index]) styleElement.removeChild(childNodes[index]);
+			if (childNodes.length) {
+				styleElement.insertBefore(cssNode, childNodes[index]);
+			} else {
+				styleElement.appendChild(cssNode);
+			}
+		}
+	}
+	
+	function applyToTag(styleElement, obj) {
+		var css = obj.css;
+		var media = obj.media;
+	
+		if(media) {
+			styleElement.setAttribute("media", media)
+		}
+	
+		if(styleElement.styleSheet) {
+			styleElement.styleSheet.cssText = css;
+		} else {
+			while(styleElement.firstChild) {
+				styleElement.removeChild(styleElement.firstChild);
+			}
+			styleElement.appendChild(document.createTextNode(css));
+		}
+	}
+	
+	function updateLink(linkElement, obj) {
+		var css = obj.css;
+		var sourceMap = obj.sourceMap;
+	
+		if(sourceMap) {
+			// http://stackoverflow.com/a/26603875
+			css += "\n/*# sourceMappingURL=data:application/json;base64," + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + " */";
+		}
+	
+		var blob = new Blob([css], { type: "text/css" });
+	
+		var oldSrc = linkElement.href;
+	
+		linkElement.href = URL.createObjectURL(blob);
+	
+		if(oldSrc)
+			URL.revokeObjectURL(oldSrc);
+	}
+
+
+/***/ },
+/* 251 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.Spinner = undefined;
+	
+	var _react = __webpack_require__(189);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _i18n = __webpack_require__(252);
+	
+	var _classnames = __webpack_require__(246);
+	
+	var _classnames2 = _interopRequireDefault(_classnames);
+	
+	var _styles = __webpack_require__(253);
+	
+	var _styles2 = _interopRequireDefault(_styles);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+	
+	var Spinner = exports.Spinner = function Spinner(_ref) {
+	  var _classNames;
+	
+	  var t = _ref.t,
+	      loadingType = _ref.loadingType,
+	      middle = _ref.middle,
+	      noMargin = _ref.noMargin,
+	      color = _ref.color,
+	      size = _ref.size;
+	
+	  return _react2.default.createElement(
+	    'div',
+	    {
+	      className: (0, _classnames2.default)(_styles2.default['coz-spinner'], (_classNames = {}, _defineProperty(_classNames, _styles2.default['coz-spinner--middle'], middle), _defineProperty(_classNames, _styles2.default['coz-spinner--no-margin'], noMargin), _defineProperty(_classNames, _styles2.default['coz-spinner--' + color], color), _defineProperty(_classNames, _styles2.default['coz-spinner--' + size], size), _classNames))
+	    },
+	    loadingType && _react2.default.createElement(
+	      'p',
+	      null,
+	      t('loading.' + loadingType)
+	    )
+	  );
+	};
+	
+	exports.default = (0, _i18n.translate)()(Spinner);
+
+/***/ },
+/* 252 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * preact plugin that provides an I18n helper using a Higher Order Component.
+	 */
+	
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.translate = exports.I18nProvider = undefined;
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(189);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	// Provider root component
+	var I18nProvider = exports.I18nProvider = function (_Component) {
+	  _inherits(I18nProvider, _Component);
+	
+	  function I18nProvider() {
+	    _classCallCheck(this, I18nProvider);
+	
+	    return _possibleConstructorReturn(this, (I18nProvider.__proto__ || Object.getPrototypeOf(I18nProvider)).apply(this, arguments));
+	  }
+	
+	  _createClass(I18nProvider, [{
+	    key: 'getChildContext',
+	    value: function getChildContext() {
+	      return {
+	        t: this.props.i18n.t.bind(this.props.i18n),
+	        f: this.props.i18nDate.bind(this.props.i18nDate)
+	      };
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return this.props.children && this.props.children[0] || null;
+	    }
+	  }]);
+	
+	  return I18nProvider;
+	}(_react.Component);
+	
+	I18nProvider.childContextTypes = {
+	  t: _react2.default.PropTypes.func,
+	  f: _react2.default.PropTypes.func
+	};
+	
+	// higher order decorator for components that need `t` and/or `f`
+	var translate = exports.translate = function translate() {
+	  return function (WrappedComponent) {
+	    var _translate = function _translate(props, context) {
+	      return _react2.default.createElement(WrappedComponent, _extends({}, props, { t: context.t, f: context.f }));
+	    };
+	    return _translate;
+	  };
+	};
+
+/***/ },
+/* 253 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+	
+	// load the styles
+	var content = __webpack_require__(254);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(250)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../css-loader/index.js?importLoaders=1!./../../../postcss-loader/index.js!./../../../stylus-loader/index.js?paths=node_modules/cozy-ui/stylus!./styles.styl", function() {
+				var newContent = require("!!./../../../css-loader/index.js?importLoaders=1!./../../../postcss-loader/index.js!./../../../stylus-loader/index.js?paths=node_modules/cozy-ui/stylus!./styles.styl");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 254 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(249)();
+	// imports
+	
+	
+	// module
+	exports.push([module.id, "@keyframes spin {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(359deg);\n  }\n}\n.coz-spinner:before,\n.coz-spinner--blue:before,\n.coz-spinner--grey:before,\n.coz-spinner--white:before,\n.coz-spinner--red:before {\n  content: '';\n  display: inline-block;\n  vertical-align: middle;\n  margin-left: 0.5em;\n  background-position: center;\n  background-repeat: no-repeat;\n  background-size: cover;\n}\n.coz-spinner--tiny:before {\n  width: 0.5rem;\n  height: 0.5rem;\n}\n.coz-spinner--small:before {\n  width: 0.75rem;\n  height: 0.75rem;\n}\n.coz-spinner:before,\n.coz-spinner--medium:before {\n  width: 1rem;\n  height: 1rem;\n}\n.coz-spinner--large:before {\n  width: 1.5rem;\n  height: 1.5rem;\n}\n.coz-spinner--xlarge:before {\n  width: 2.25rem;\n  height: 2.25rem;\n}\n.coz-spinner--xxlarge:before {\n  width: 5rem;\n  height: 5rem;\n}\n.coz-spinner:before,\n.coz-spinner--blue:before,\n.coz-spinner--grey:before,\n.coz-spinner--white:before,\n.coz-spinner--red:before {\n  animation: spin 1s linear infinite;\n}\n.coz-spinner--grey:before {\n  background-image: url(\"data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAzMiAzMicgd2lkdGg9JzEyJyBoZWlnaHQ9JzEyJyBmaWxsPSdyZ2IoMTQ2LDE2MCwxNzgpJz48cGF0aCBvcGFjaXR5PScuMjUnIGQ9J00xNiAwYTE2IDE2IDAgMCAwIDAgMzIgMTYgMTYgMCAwIDAgMC0zMm0wIDRhMTIgMTIgMCAwIDEgMCAyNCAxMiAxMiAwIDAgMSAwLTI0Jy8+PHBhdGggZD0nTTE2IDBhMTYgMTYgMCAwIDEgMTYgMTZoLTRhMTIgMTIgMCAwIDAtMTItMTJ6Jy8+PC9zdmc+Cg==\");\n}\n.coz-spinner--white:before {\n  background-image: url(\"data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAzMiAzMicgd2lkdGg9JzEyJyBoZWlnaHQ9JzEyJyBmaWxsPSd3aGl0ZSc+PHBhdGggb3BhY2l0eT0nLjI1JyBkPSdNMTYgMGExNiAxNiAwIDAgMCAwIDMyIDE2IDE2IDAgMCAwIDAtMzJtMCA0YTEyIDEyIDAgMCAxIDAgMjQgMTIgMTIgMCAwIDEgMC0yNCcvPjxwYXRoIGQ9J00xNiAwYTE2IDE2IDAgMCAxIDE2IDE2aC00YTEyIDEyIDAgMCAwLTEyLTEyeicvPjwvc3ZnPgo=\");\n}\n.coz-spinner:before,\n.coz-spinner--blue:before {\n  background-image: url(\"data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAzMiAzMicgd2lkdGg9JzEyJyBoZWlnaHQ9JzEyJyBmaWxsPScjMjk3ZWYyJz4KICA8cGF0aCBvcGFjaXR5PScuMjUnIGQ9J00xNiAwYTE2IDE2IDAgMCAwIDAgMzIgMTYgMTYgMCAwIDAgMC0zMm0wIDRhMTIgMTIgMCAwIDEgMCAyNCAxMiAxMiAwIDAgMSAwLTI0Jy8+CiAgPHBhdGggZD0nTTE2IDBhMTYgMTYgMCAwIDEgMTYgMTZoLTRhMTIgMTIgMCAwIDAtMTItMTJ6Jy8+Cjwvc3ZnPgo=\");\n}\n.coz-spinner--red:before {\n  background-image: url(\"data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAzMiAzMicgd2lkdGg9JzEyJyBoZWlnaHQ9JzEyJyBmaWxsPScjRjUyRDJEJz4KICA8cGF0aCBvcGFjaXR5PScuMjUnIGQ9J00xNiAwYTE2IDE2IDAgMCAwIDAgMzIgMTYgMTYgMCAwIDAgMC0zMm0wIDRhMTIgMTIgMCAwIDEgMCAyNCAxMiAxMiAwIDAgMSAwLTI0Jy8+CiAgPHBhdGggZD0nTTE2IDBhMTYgMTYgMCAwIDEgMTYgMTZoLTRhMTIgMTIgMCAwIDAtMTItMTJ6Jy8+Cjwvc3ZnPgo=\");\n}\n.coz-spinner {\n  display: inline-block;\n  margin: 0 0.5rem;\n}\n.coz-spinner:before {\n  content: '';\n}\n.coz-spinner p {\n  margin-top: em(15px);\n  color: #95999d;\n  line-height: 1.5;\n}\n.coz-spinner--middle {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translateX(-50%) translateY(-50%);\n  text-align: center;\n}\n.coz-spinner--middle:before {\n  display: block;\n  margin: 0 auto;\n}\n.coz-spinner--nomargin {\n  margin: 0;\n}\n", ""]);
+	
+	// exports
+
+
+/***/ },
+/* 255 */
 /***/ function(module, exports, __webpack_require__) {
 
 	(function (global, factory) {
@@ -12395,16 +13315,16 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 245 */
+/* 256 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(246);
+	var content = __webpack_require__(257);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(259)(content, {});
+	var update = __webpack_require__(250)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -12421,472 +13341,164 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 246 */
+/* 257 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(247)();
+	exports = module.exports = __webpack_require__(249)();
 	// imports
 	
 	
 	// module
-	exports.push([module.id, "[role=banner] .coz-sep-flex {\n  margin: 0;\n  border: none;\n  flex: 1 0;\n}\n\n\n[role=banner] [data-icon] {\n  background-repeat: no-repeat;\n  background-position: 0 50%;\n  padding-left: calc(16px + .5em)\n}\n\n\n[role=banner] [data-icon='icon-profile'] {\n  background-image: url(" + __webpack_require__(248) + ")\n}\n\n\n[role=banner] [data-icon='icon-connectedDevices'] {\n  background-image: url(" + __webpack_require__(249) + ")\n}\n\n\n[role=banner] [data-icon='icon-help'] {\n  background-image: url(" + __webpack_require__(250) + ")\n}\n\n\n[role=banner] [data-icon='icon-logout'] {\n  background-image: url(" + __webpack_require__(251) + ")\n}\n\n\n[role=banner] [data-icon='icon-storage'] {\n  background-image: url(" + __webpack_require__(252) + ")\n}\n\n\n[role=banner] [data-icon='icon-cog'] {\n  background-image: url(" + __webpack_require__(253) + ")\n}\n\n\n[role=banner] [data-icon='icon-hamburger'] {\n  background-image: url(" + __webpack_require__(254) + ")\n}\n\n\n[role=banner] [data-icon='icon-cube'] {\n  background-image: url(" + __webpack_require__(238) + ")\n}\n\n\n[role=banner] [data-icon='icon-claudy'] {\n  background-image: url(" + __webpack_require__(255) + ")\n}\n\n\n/* Spinner */\n\n\n@keyframes spin {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(359deg);\n  }\n}\n\n\n[role=banner] [aria-busy=true] {\n  position: relative;\n}\n\n\n[role=banner] [aria-busy=true]::after {\n  content: \"\";\n  position: absolute;\n  right: 0;\n  top: 0;\n  display: block;\n  width: 1em;\n  height: 1em;\n  background-position: center;\n  background-repeat: no-repeat;\n  background-size: cover;\n  background-image: url(" + __webpack_require__(256) + ");\n  animation: 1s linear infinite spin;\n}\n\n\n/* Progress bar */\n\n\n[role=banner] progress[value] {\n  /* Reset the default appearance */\n  appearance: none;\n  background-color: #f5f6f7;\n  border: solid 1px #d6d8da;\n  border-radius: 2px;\n  color: #297ef2;\n}\n\n\n[role=banner] progress[value]::-webkit-progress-bar {\n  background: #f5f6f7;\n  border-radius: 2px;\n}\n\n\n[role=banner] progress[value]::-webkit-progress-value {\n  background: #297ef2;\n  border-radius: 1px;\n}\n\n\n[role=banner] progress[value]::-moz-progress-bar {\n  background: #297ef2;\n  border-radius: 1px;\n}\n\n\n/* Errors */\n\n\n[role=banner] .coz-nav--error {\n  margin: 0 0 .1em 0;\n  font-weight: normal;\n  font-size: .875em;\n  color: #f52d2d;\n}\n\n\n/* Claudy loading */\n\n\n[role=banner] .coz-claudy [data-claudy-loading=true]::before {\n  position: absolute;\n  content: '';\n  width: 100%;\n  height: 100%;\n  bottom: 0;\n  right: 0;\n  background: none;\n  border-radius: 100%;\n  border: .2em solid #0b61d6;\n  border-right: .2em solid white;\n  box-sizing: border-box;\n  animation: 1s linear infinite spin;\n}\n\n\n[role=banner] {\n  position: relative;\n  z-index: 20;\n  min-height: 3em;\n  flex-shrink: 0;\n  display: flex;\n  align-items: stretch;\n  padding: 0 1.25em 0 1em;\n  box-shadow: inset 0 -1px 0 0 #d6d8da;\n  font-family: Lato, sans-serif;\n  font-size: 1rem;\n}\n\n\n[role=banner] .coz-bar-container {\n  display: flex;\n  width: 100%;\n}\n\n\n[role=banner] .coz-bar-flex-container {\n  display: flex;\n}\n\n\n@media (max-width: 48em) {\n  [role=banner] {\n    padding: 0 1em 0 0;\n  }\n\n  [role=banner] .coz-bar-flex-container {\n    width: 100%;\n  }\n\n  [role=banner][data-drawer-visible=true] {\n    /* Force the BAR to be above selection bar in mobile mode,\n     * only when drawer is opened\n     */\n    z-index: 31;\n  }\n}\n\n\n[role=banner] .coz-bar-title {\n  display: flex;\n  margin: 0;\n  align-items: center;\n  font-size: 1.5em;\n  font-weight: normal;\n  color: #32363f;\n}\n\n\n@media (max-width: 48em) {\n  [role=banner] .coz-bar-title {\n    font-size: 1.25em\n  }\n}\n\n\n[role=banner] .coz-bar-title img {\n  margin-right: .45em;\n}\n\n\n[role=banner] .coz-bar-title span {\n  margin-right: .25em;\n}\n\n\n[role=banner] .coz-bar-title strong {\n  font-weight: bold;\n}\n\n\n[role=banner] .coz-bar-title .coz-bar-beta-status {\n  color: #95999d;\n  text-transform: uppercase;\n  font-size: .55em;\n  font-style: italic;\n  font-weight: 700;\n}\n\n\n@media (max-width: 30em) {\n  [role=banner] .coz-bar-hide-sm {\n    display: none;\n  }\n\n  [role=banner] .coz-bar-title strong {\n    padding: 0;\n    text-transform: capitalize;\n  }\n}\n\n\n[role=banner] .coz-bar-burger {\n  width: 2.5em;\n  margin-right: 0.25em;\n  padding: 0;\n  border: none;\n  background-color: transparent;\n  background-position: center;\n}\n\n\n@media (min-width: 48.0625em) {\n  [role=banner] .coz-bar-burger,\n  [role=banner] .coz-drawer-wrapper {\n    display: none;\n  }\n}\n\n\n@media (max-width: 48em) {\n  [role=banner] .coz-bar-hide-sm {\n    display: none;\n  }\n}\n\n\n[role=banner] .coz-nav ul {\n  margin: 0;\n  padding: 0;\n  list-style-type: none;\n}\n\n\n[role=banner] .coz-nav > ul {\n  display: flex;\n}\n\n\n@media (max-width: 48em) {\n  [role=banner] .coz-nav {\n    display: none;\n  }\n}\n\n\n[role=banner] .coz-nav-section {\n  position: relative;\n}\n\n\n[role=banner] .coz-nav-section [aria-controls] {\n  display: flex;\n  align-items: baseline;\n  padding: 1.285em 1.5em;\n  font-size: .875em;\n  text-transform: uppercase;\n  color: #5d6165;\n  cursor: pointer;\n}\n\n\n[role=banner] .coz-nav-section [aria-controls]:hover {\n  background-color: #f5f6f7;\n  box-shadow: inset 0 -1px 0 0 #d6d8da;\n  color: #32363f;\n}\n\n\n[role=banner] .coz-nav-section [aria-controls]:focus {\n  background-color: #f5f6f7;\n  box-shadow: inset 0 -1px 0 0 #d6d8da;\n  color: #32363f;\n}\n\n\n[role=banner] [aria-controls][aria-busy]::after {\n  position: relative;\n  top: .12em;\n  margin: 0 .355em;\n  font-size: .875em;\n}\n\n\n[role=banner] [aria-controls][aria-busy=true] {\n  padding-right: 0;\n}\n\n\n[role=banner] .coz-nav-section [aria-controls][data-icon] {\n  padding-left: calc(1.25em + 16px + .5em);\n  background-position: 1.25em calc(50% - 1px);\n}\n\n\n[role=banner] .coz-nav-icon {\n  margin-right: .5em;\n}\n\n\n[role=banner] .coz-nav-pop[aria-hidden=true] {\n  display: flex;\n  visibility: visible;\n  transform: scale(0);\n  opacity: 0;\n  transition: .2s transform ease-in, .1s opacity ease-in;\n}\n\n\n[role=banner] .coz-nav-pop {\n  position: absolute;\n  top: calc(100% - .5em);\n  right: 0;\n  box-sizing: border-box;\n  min-width: 100%;\n  background-color: #fff;\n  border-radius: 8px;\n  border: solid 1px rgba(50, 54, 63, 0.12);\n  box-shadow: 0 1px 3px 0 rgba(50, 54, 63, 0.19), 0 6px 18px 0 rgba(50, 54, 63, 0.19);\n  opacity: 1;\n  transform: scale(1);\n  transform-origin: 80% 0%;\n  transition: .2s transform cubic-bezier(0.2, 0.75, 0.3, 1.15);\n}\n\n\n[role=banner] .coz-nav-pop ul {\n  padding: 0;\n}\n\n\n[role=banner] .coz-nav-pop ul:last-of-type {\n  border-radius: 0 0 8px 8px;\n}\n\n\n[role=banner] .coz-nav-pop ul:first-of-type {\n  border-radius: 8px 8px 0 0;\n}\n\n\n[role=banner] .coz-nav-pop hr {\n  margin: 0;\n  border: none;\n  border-bottom: solid 1px #d6d8da;\n}\n\n\n[role=banner] .coz-nav-pop ul:last-of-type + hr {\n  display: none;\n}\n\n\n[role=banner] .coz-nav-pop--apps .coz-nav-group:not(.coz-nav--error) {\n  display: flex;\n  padding: .25em;\n}\n\n\n[role=banner] .coz-nav-pop--apps .coz-nav-group--wrapping.coz-nav-group:not(.coz-nav--error) {\n  flex-wrap: wrap;\n  width: 36em;\n}\n\n\n@media (min-width: 48em) and (max-width: 51em) {\n    [role=banner] .coz-nav-pop.coz-nav-pop--apps {\n        right: -3em;\n    }\n}\n\n\n[role=banner] .coz-nav-pop--apps .coz-nav-group:not(.coz-nav--error) .coz-nav-item {\n    width: 8em;\n    padding: 0 .5em;\n}\n\n\n[role=banner] .coz-nav-group:not(.coz-nav--error).coz-nav-group--inactive {\n  background-color: #f5f6f7\n}\n\n\n[role=banner] .coz-nav-group.coz-nav--error {\n  padding: 0.75em;\n  min-width: 20em;\n}\n\n\n[role=banner] .coz-nav-pop--apps .coz-nav-group a {\n  display: flex;\n  flex-direction: column;\n  padding: .5em;\n}\n\n\n[role=banner] .coz-nav-pop--apps .coz-nav-group a img {\n  margin-bottom: .75em;\n}\n\n\n[role=banner] .coz-nav-pop--apps .coz-nav-group a .coz-label {\n  width: 100%;\n  overflow: hidden;\n  white-space: nowrap;\n  text-align: center;\n  text-overflow: ellipsis;\n  font-size: 15px;\n}\n\n\n[role=banner] .coz-nav-pop--apps .coz-nav-category {\n  font-size: 1em;\n  padding: 0 2em;\n  margin: 1em 0 .5em 0;\n}\n\n\n[role=banner] .blurry {\n  opacity: .5;\n  filter: blur(5px);\n}\n\n\n[role=banner] .coz-nav-item [role=menuitem] {\n  position: relative;\n  z-index: 0;\n  display: block;\n  box-sizing: border-box;\n  width: 100%;\n  padding: .8em 1.5em .8em calc(1.5em + 16px + .5em);\n  border: none;\n  align-items: center;\n  background-position: 1.5em 50%;\n  background-color: transparent;\n  text-align: left;\n  white-space: nowrap;\n  color: #32363f;\n  text-decoration: none;\n  outline: none;\n}\n\n\n/* Force pointer on clickable elements*/\n\n\n[role=banner] .coz-nav-item a[role=menuitem],\n[role=banner] .coz-nav-item button[role=menuitem] {\n  cursor: pointer;\n}\n\n\n/* Hover effect */\n\n\n[role=banner] .coz-nav-item a[role=menuitem]:not(.coz-bar-coming-soon-app):hover:before {\n  content: '';\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  z-index: -1;\n  background-color: #f5f6f7;\n  background-image: inherit;\n  background-position: inherit;\n  background-repeat: inherit;\n}\n\n\n[role=banner] .coz-nav-item a[role=menuitem]:not(.coz-bar-coming-soon-app):focus:before {\n  content: '';\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  z-index: -1;\n  background-color: #f5f6f7;\n  background-image: inherit;\n  background-position: inherit;\n  background-repeat: inherit;\n}\n\n\n[role=banner] .coz-nav-item button[role=menuitem]:hover:before {\n  content: '';\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  z-index: -1;\n  background-color: #f5f6f7;\n  background-image: inherit;\n  background-position: inherit;\n  background-repeat: inherit;\n}\n\n\n[role=banner] .coz-nav-item button[role=menuitem]:focus:before {\n  content: '';\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  z-index: -1;\n  background-color: #f5f6f7;\n  background-image: inherit;\n  background-position: inherit;\n  background-repeat: inherit;\n}\n\n\n[role=banner] [role=menuitem][aria-busy=true]::after {\n  right: 1.5em;\n  top: .5em;\n}\n\n\n[role=banner] .coz-drawer-wrapper [role=menuitem][aria-busy=true]::after {\n  top: .8em;\n}\n\n\n/* Remove default margin for p elements */\n\n\n[role=banner] .coz-nav-item a[role=menuitem] p.coz-label {\n  margin: 0;\n}\n\n\n[role=banner] .coz-nav-item div[role=menuitem]:not([data-icon]) {\n  margin: 0;\n  padding-left: 1.5em;\n}\n\n\n[role=banner] .coz-nav-item [role=menuitem] .coz-bar-text-item {\n  margin: 0;\n}\n\n\n[role=banner] .coz-nav-item [role=menuitem] .coz-bar-text-item--inactive {\n  font-style: italic;\n}\n\n\n/* Coming soon styles */\n\n\n[role=banner] .coz-nav-item a[role=menuitem].coz-bar-coming-soon-app {\n    cursor: default;\n}\n\n\n[role=banner] .coz-nav-item [role=menuitem].coz-bar-coming-soon-app img,\n[role=banner] .coz-nav-item [role=menuitem].coz-bar-coming-soon-app .coz-label\n{\n  opacity: .4;\n}\n\n\n[role=banner] .coz-nav-item [role=menuitem].coz-bar-coming-soon-app .coz-bar-coming-soon-badge {\n  position: absolute;\n  display: block;\n  right: 2.5em;\n  bottom: 4.5em;\n  background: #297ef2;\n  border-radius: 2px;\n  padding: .25em;\n  font-size: .6em;\n  color: white;\n  text-transform: uppercase;\n}\n\n\n[role=banner] [role=menuitem][data-icon=icon-storage] {\n  background-position: 1.5em calc(.8em + 1px);\n}\n\n\n[role=banner] .coz-nav-storage {\n  display: flex;\n  flex-direction: column;\n  align-items: left;\n  padding-top: .5em;\n  color: #95999d;\n}\n\n\n[role=banner] .coz-nav-storage-text {\n  margin: 0 0 .1em 0;\n  font-weight: normal;\n  font-size: .875em;\n}\n\n\n[role=banner] .cozy-nav-storage-bar {\n    height: .5em;\n    margin: .2em 0 .1em 0;\n}\n\n\n[role=banner] .coz-drawer-wrapper {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100vw;\n  height: 100vh;\n  display: flex;\n  visibility: visible; /* overwrite default [aria-hidden=true] style */\n}\n\n\n[role=banner] .coz-drawer-wrapper[aria-hidden=true] {\n  pointer-events: none;\n}\n\n\n[role=banner] .coz-drawer-wrapper[aria-hidden=false] {\n  pointer-events: auto;\n}\n\n\n[role=banner] .coz-drawer-wrapper::before {\n  content: '';\n  display: block;\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background-color: #32363f;\n  opacity: 0;\n  transition: opacity .2s ease-out .1s;\n}\n\n\n[role=banner] .coz-drawer-wrapper[aria-hidden=false]::before {\n  opacity: .5;\n  transition: opacity .2s ease-out;\n}\n\n\n[role=banner] .coz-drawer-wrapper aside {\n  position: absolute;\n  bottom: 0;\n  left: 0;\n  width: 90%;\n  max-width: 30em;\n  height: 100%;\n  display: flex;\n  flex-direction: column;\n  background-color: #fff;\n  transform: scaleX(0);\n  transform-origin: 0% 0%;\n  transition: transform .2s ease-out;\n}\n\n\n[role=banner] .coz-drawer-wrapper[aria-hidden=false] aside {\n  transform: scaleX(1);\n  transition: transform .3s cubic-bezier(0.2, 0.75, 0.3, 1.15);\n}\n\n\n[role=banner] .coz-drawer-wrapper ul {\n  margin: 0;\n  padding: 0;\n  list-style-type: none;\n}\n\n\n[role=banner] .coz-drawer-wrapper nav hr {\n  margin: 0;\n  border: none;\n  border-bottom: solid 1px #d6d8da;\n}\n\n\n[role=banner] .coz-drawer-wrapper .coz-nav-icon {\n  margin-right: .5em;\n}\n\n\n[role=banner] .coz-drawer--apps {\n    flex: 0 1 auto;\n    overflow-y: scroll;\n}\n\n\n[role=banner] .coz-drawer--apps ul {\n  padding: 0 0 1em 0;\n  display: flex;\n}\n\n\n[role=banner] .coz-drawer--apps ul li {\n  flex: 0 0 calc(100% /3);\n  max-width: calc(100% / 3);\n}\n\n\n[role=banner] .coz-drawer--apps ul:last-of-type + hr {\n  display: none;\n}\n\n\n[role=banner] .coz-drawer--apps ul.coz-nav-group--wrapping {\n  flex-wrap: wrap;\n}\n\n\n[role=banner] .coz-drawer--apps [role=menuitem] {\n  display: flex;\n  flex-direction: column;\n  padding: .5em 1em;\n  border-radius: 2px;\n}\n\n\n[role=banner] .coz-drawer--apps [role=menuitem]:hover {\n  background-color: rgba(25, 123, 255, 0.1);\n}\n\n\n[role=banner] .coz-drawer--apps li img {\n  margin-bottom: .5em;\n}\n\n\n[role=banner] .coz-drawer--apps li p.coz-label {\n  overflow: hidden;\n  white-space: nowrap;\n  text-overflow: ellipsis;\n  min-width: 0;\n  width: 100%;\n  text-align: center;\n  font-size: 14px;\n}\n\n\n[role=banner] .coz-drawer--apps .coz-nav-category {\n  font-size: 1em;\n  padding: 0 2em;\n  margin: 2em 0 .5em 0;\n}\n\n\n[role=banner] .coz-claudy {\n  position: fixed;\n  bottom: 5em;\n  right: 2em;\n}\n\n\n@media (min-width: 64em) {\n  [role=banner] .coz-claudy {\n    bottom: 2em;\n  }\n}\n\n\n[role=banner] .coz-claudy-icon {\n  width: 3.5em;\n  height: 3.5em;\n  border-radius: 100%;\n  border: none;\n  background-color: #297ef2;\n  background-image: url(" + __webpack_require__(257) + ");\n  background-repeat: no-repeat;\n  background-size: 2.5em;\n  background-position: .5em;\n  box-shadow: 0 1px 3px 0 rgba(50, 54, 63, 0.19), 0 6px 18px 0 rgba(50, 54, 63, 0.39);\n  animation: none;\n  cursor: pointer;\n  opacity: .5;\n  transition: all .2s ease-out;\n  outline: 0;\n}\n\n\n[role=banner] .coz-claudy-icon:hover,\n[role=banner] .coz-claudy-icon:focus,\n[role=banner] .coz-claudy-icon:active,\n[role=banner] .coz-claudy [data-claudy-opened=true] {\n  animation: none;\n  transform: scale(1.1);\n  opacity: 1;\n  transition: all .2s ease-out;\n}\n\n\n[role=banner] .coz-claudy .coz-claudy-intent-wrapper {\n  position: fixed;\n  bottom: 9.5em;\n  right: 2em;\n  width: 25em;\n  border-radius: .3em;\n  background: white;\n  transform-origin: 100% 100% 0;\n  transform: scale(0) translateY(6em);\n  filter: drop-shadow(0 4px 6px rgba(50, 54, 63, 0.5));\n  opacity: 0;\n  transition: .2s transform ease-in, .1s opacity ease-in;\n}\n\n\n[role=banner] .coz-claudy--opened .coz-claudy-intent-wrapper {\n  transform: scale(1) translateY(0);\n  opacity: 1;\n  transition: .2s transform cubic-bezier(0.2, 0.75, 0.3, 1.15), .1s opacity ease-in;\n}\n\n\n[role=banner] .coz-claudy-intent-wrapper::after {\n  position: fixed;\n  content: '';\n  right: 3em;\n  width: 0;\n  height: 0;\n  /* Make it a bit taller to avoid browser spacing issue\n  between it and the tooltip */\n  border-bottom: .8em solid transparent;\n  border-right: 1.5em solid white;\n  bottom: -.6em;\n}\n\n\n[role=banner] .coz-claudy .coz-claudy-intent-wrapper .coz-intent{\n  width: 100%;\n  height: 100%;\n  border: none;\n  border-radius: .3em;\n}\n\n\n@media (min-width: 64em) {\n  [role=banner] .coz-claudy .coz-claudy-intent-wrapper {\n    bottom: 6.5em;\n  }\n}\n\n\n@media (max-width: 48em) {\n  [role=banner] .coz-claudy .coz-claudy-intent-wrapper {\n    width: calc(100% - 2em);\n    height: calc(100% - 2em)!important; /* overwritte intent setSize here */\n    right: 1em;\n    top: 1em;\n    transform-origin: 50% 50% 0;\n  }\n\n  [role=banner] .coz-claudy-intent-wrapper::after {\n    display: none;\n  }\n}\n\n\n[role=banner] .coz-searchbar{\n  height: 100%;\n  display: flex;\n  justify-content: flex-start;\n  align-items: center;\n  flex-grow: 1;\n  padding: .3em .8em .3em 2.5em;\n  box-sizing: border-box;\n}\n\n\n[role=banner] .coz-searchbar-autosuggest-container{\n  position: relative;\n  width: 100%;\n}\n\n\n[role=banner] .coz-searchbar-autosuggest-container:before{\n  content: '';\n  display: inline-block;\n  width: 1.6em;\n  height: 100%;\n  position: absolute;\n  left: 0;\n  top: 0;\n  background: url(" + __webpack_require__(258) + ") .6em center no-repeat;\n}\n\n\n[role=banner] .coz-searchbar-autosuggest-input{\n  box-sizing: border-box;\n  width: 100%;\n  padding: .5em;\n  padding-left: 2em;\n  border-width: 1px;\n  border-style: solid;\n  border-color: #d6d8da;\n  border-radius: 4px;\n}\n\n\n[role=banner] .coz-searchbar-autosuggest-input-focused{\n  outline: none;\n  border-color: #297ef2;\n}\n\n\n[role=banner] .coz-searchbar-autosuggest-suggestions-container {\n\tposition: absolute;\n\ttop: 100%;\n\tmargin-top: 3px;\n\twidth: 100%;\n\tmax-height: em(170px);\n\toverflow: auto;\n\tborder-width: 1px;\n  border-style: solid;\n  border-color: #d6d8da;\n\tborder-radius: 4px;\n\tbackground: white;\n  box-shadow: 0 1px 3px 0 rgba(50, 54, 63, 0.19), 0 6px 18px 0 rgba(50, 54, 63, 0.19);\n\tdisplay: none;\n}\n\n\n[role=banner] .coz-searchbar-autosuggest-suggestions-container--open {\n\tdisplay: block;\n}\n\n\n[role=banner] .coz-searchbar-autosuggest-suggestions-list {\n\tmargin: 0;\n\tpadding: 0;\n\tlist-style: none;\n}\n\n\n[role=banner] .coz-searchbar-autosuggest-suggestion {\n\tpadding: .8em .5em;\n  border-width: 0;\n  border-bottom-width: 1px;\n  border-style:  solid;\n  border-color: #d6d8da;\n}\n\n\n[role=banner] .coz-searchbar-autosuggest-suggestion:last-child {\n  border-bottom-width: 0;\n}\n\n\n[role=banner] .coz-searchbar-autosuggest-suggestion-content {\n  display: flex;\n  flex-direction: row;\n  justify-content: flex-start;\n  align-items: center;\n}\n\n\n[role=banner] .coz-searchbar-autosuggest-suggestion-title {\n  flex-grow: 1;\n  max-width: 80%;\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n\n\n[role=banner] .coz-searchbar-autosuggest-suggestion-subtitle {\n  color: #95999d;\n}\n\n\n[role=banner] .coz-searchbar-autosuggest-suggestion-highlighted {\n\tbackground: #f5f6f7;\n}\n\n\n[role=banner] .coz-searchbar-autosuggest-section-title {\n  padding: .5em;\n  font-size: .8em;\n}\n\n\n@media (max-width: 48em) {\n  [role=banner] .coz-searchbar{\n    display: none;\n  }\n}\n\n\n[role=banner].coz-target--mobile {\n  padding-left: 1em;\n}\n\n\n.coz-bar-hidden {\n  position: absolute !important;\n  border: 0 !important;\n  width: 1px !important;\n  height: 1px !important;\n  overflow: hidden !important;\n  padding: 0 !important;\n  white-space: nowrap !important;\n  clip: rect(1px, 1px, 1px, 1px) !important;\n  clip-path: inset(50%) !important;\n}\n\n\n@-moz-keyframes spin {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(359deg);\n  }\n}\n\n\n@-webkit-keyframes spin {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(359deg);\n  }\n}\n\n\n@-o-keyframes spin {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(359deg);\n  }\n}\n\n\n@keyframes spin {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(359deg);\n  }\n}\n\n\n.coz-btn-regular[aria-busy=true]::after {\n  content: '';\n  display: inline-block;\n  vertical-align: middle;\n  margin-left: 0.5em;\n  background-position: center;\n  background-repeat: no-repeat;\n  background-size: cover;\n}\n\n\n.coz-btn-regular[aria-busy=true]::after,\n.coz-btn-close[aria-busy=true]::after {\n  width: 1rem;\n  height: 1rem;\n}\n\n\n.coz-btn-regular[aria-busy=true]::after {\n  animation: spin 1s linear infinite;\n}\n\n\n.coz-btn-regular[aria-busy=true]::after {\n  background-image: url(\"data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAzMiAzMicgd2lkdGg9JzEyJyBoZWlnaHQ9JzEyJyBmaWxsPSd3aGl0ZSc+PHBhdGggb3BhY2l0eT0nLjI1JyBkPSdNMTYgMGExNiAxNiAwIDAgMCAwIDMyIDE2IDE2IDAgMCAwIDAtMzJtMCA0YTEyIDEyIDAgMCAxIDAgMjQgMTIgMTIgMCAwIDEgMC0yNCcvPjxwYXRoIGQ9J00xNiAwYTE2IDE2IDAgMCAxIDE2IDE2aC00YTEyIDEyIDAgMCAwLTEyLTEyeicvPjwvc3ZnPgo=\");\n}\n\n\n.coz-btn-regular,\n.coz-btn-close {\n  box-sizing: border-box;\n  display: inline-block;\n  margin: 0 0.25em;\n  border: 1px solid #fff;\n  border-radius: 2px;\n  min-height: em(40px, 14px);\n  padding: em(13px, 14px) em(15px, 14px) em(11px, 14px);\n  background: transparent;\n  vertical-align: top;\n  text-align: center;\n  font-size: 14px /* [1] */;\n  line-height: 1;\n  text-transform: uppercase;\n  text-decoration: none;\n  cursor: pointer;\n}\n\n\n.coz-btn-regular[disabled],\n.coz-btn-close[disabled],\n.coz-btn-regular[aria-disabled=true],\n.coz-btn-close[aria-disabled=true] {\n  opacity: 0.5;\n  cursor: not-allowed;\n}\n\n\n.coz-btn-regular[aria-busy=true]::after,\n.coz-btn-close[aria-busy=true]::after {\n  position: relative;\n  top: em(-1px);\n}\n\n\n.coz-btn-regular {\n  border-color: #297ef2;\n  background-color: #297ef2;\n  color: #fff;\n}\n\n\n.coz-btn-regular:active,\n.coz-btn-regular:not([disabled]):not([aria-disabled=true]):hover,\n.coz-btn-regular:focus {\n  border-color: #0b61d6;\n  background-color: #0b61d6;\n}\n\n\n.coz-btn-close {\n  border: 0;\n  width: em(46px);\n  background-image: url(\"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICA8cGF0aCBmaWxsPSIjOTU5OTlEIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xMDYuNTg1Nzg2LDQ0IEw5Ni4yOTI4OTMyLDMzLjcwNzEwNjggQzk1LjkwMjM2ODksMzMuMzE2NTgyNSA5NS45MDIzNjg5LDMyLjY4MzQxNzUgOTYuMjkyODkzMiwzMi4yOTI4OTMyIEM5Ni42ODM0MTc1LDMxLjkwMjM2ODkgOTcuMzE2NTgyNSwzMS45MDIzNjg5IDk3LjcwNzEwNjgsMzIuMjkyODkzMiBMMTA4LDQyLjU4NTc4NjQgTDExOC4yOTI4OTMsMzIuMjkyODkzMiBDMTE4LjY4MzQxOCwzMS45MDIzNjg5IDExOS4zMTY1ODIsMzEuOTAyMzY4OSAxMTkuNzA3MTA3LDMyLjI5Mjg5MzIgQzEyMC4wOTc2MzEsMzIuNjgzNDE3NSAxMjAuMDk3NjMxLDMzLjMxNjU4MjUgMTE5LjcwNzEwNywzMy43MDcxMDY4IEwxMDkuNDE0MjE0LDQ0IEwxMTkuNzA3MTA3LDU0LjI5Mjg5MzIgQzEyMC4wOTc2MzEsNTQuNjgzNDE3NSAxMjAuMDk3NjMxLDU1LjMxNjU4MjUgMTE5LjcwNzEwNyw1NS43MDcxMDY4IEMxMTkuMzE2NTgyLDU2LjA5NzYzMTEgMTE4LjY4MzQxOCw1Ni4wOTc2MzExIDExOC4yOTI4OTMsNTUuNzA3MTA2OCBMMTA4LDQ1LjQxNDIxMzYgTDk3LjcwNzEwNjgsNTUuNzA3MTA2OCBDOTcuMzE2NTgyNSw1Ni4wOTc2MzExIDk2LjY4MzQxNzUsNTYuMDk3NjMxMSA5Ni4yOTI4OTMyLDU1LjcwNzEwNjggQzk1LjkwMjM2ODksNTUuMzE2NTgyNSA5NS45MDIzNjg5LDU0LjY4MzQxNzUgOTYuMjkyODkzMiw1NC4yOTI4OTMyIEwxMDYuNTg1Nzg2LDQ0IFoiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC05NiAtMzIpIi8+Cjwvc3ZnPgo=\");\n  background-position: center center;\n  background-repeat: no-repeat;\n}\n\n\n.coz-btn-regular {\n  min-height: 40px;\n  padding: 13px 15px 11px;\n}\n\n\n.coz-btn-close {\n  width: 32px;\n  padding: 0;\n  margin: 0;\n}\n", ""]);
+	exports.push([module.id, "[role=banner] .coz-sep-flex {\n  margin: 0;\n  border: none;\n  flex: 1 0;\n}\n\n\n[role=banner] [data-icon] {\n  background-repeat: no-repeat;\n  background-position: 0 50%;\n  padding-left: calc(16px + .5em)\n}\n\n\n[role=banner] [data-icon='icon-profile'] {\n  background-image: url(" + __webpack_require__(258) + ")\n}\n\n\n[role=banner] [data-icon='icon-connectedDevices'] {\n  background-image: url(" + __webpack_require__(259) + ")\n}\n\n\n[role=banner] [data-icon='icon-help'] {\n  background-image: url(" + __webpack_require__(260) + ")\n}\n\n\n[role=banner] [data-icon='icon-logout'] {\n  background-image: url(" + __webpack_require__(261) + ")\n}\n\n\n[role=banner] [data-icon='icon-storage'] {\n  background-image: url(" + __webpack_require__(262) + ")\n}\n\n\n[role=banner] [data-icon='icon-cog'] {\n  background-image: url(" + __webpack_require__(263) + ")\n}\n\n\n[role=banner] [data-icon='icon-hamburger'] {\n  background-image: url(" + __webpack_require__(264) + ")\n}\n\n\n[role=banner] [data-icon='icon-cube'] {\n  background-image: url(" + __webpack_require__(238) + ")\n}\n\n\n[role=banner] [data-icon='icon-claudy'] {\n  background-image: url(" + __webpack_require__(265) + ")\n}\n\n\n/* Spinner */\n\n\n@keyframes spin {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(359deg);\n  }\n}\n\n\n[role=banner] [aria-busy=true] {\n  position: relative;\n}\n\n\n[role=banner] [aria-busy=true]::after {\n  content: \"\";\n  position: absolute;\n  right: 0;\n  top: 0;\n  display: block;\n  width: 1em;\n  height: 1em;\n  background-position: center;\n  background-repeat: no-repeat;\n  background-size: cover;\n  background-image: url(" + __webpack_require__(266) + ");\n  animation: 1s linear infinite spin;\n}\n\n\n/* Progress bar */\n\n\n[role=banner] progress[value] {\n  /* Reset the default appearance */\n  appearance: none;\n  background-color: #f5f6f7;\n  border: solid 1px #d6d8da;\n  border-radius: 2px;\n  color: #297ef2;\n}\n\n\n[role=banner] progress[value]::-webkit-progress-bar {\n  background: #f5f6f7;\n  border-radius: 2px;\n}\n\n\n[role=banner] progress[value]::-webkit-progress-value {\n  background: #297ef2;\n  border-radius: 1px;\n}\n\n\n[role=banner] progress[value]::-moz-progress-bar {\n  background: #297ef2;\n  border-radius: 1px;\n}\n\n\n/* Errors */\n\n\n[role=banner] .coz-nav--error {\n  margin: 0 0 .1em 0;\n  font-weight: normal;\n  font-size: .875em;\n  color: #f52d2d;\n}\n\n\n/* Claudy loading */\n\n\n[role=banner] .coz-claudy [data-claudy-loading=true]::before {\n  position: absolute;\n  content: '';\n  width: 100%;\n  height: 100%;\n  bottom: 0;\n  right: 0;\n  background: none;\n  border-radius: 100%;\n  border: .2em solid #0b61d6;\n  border-right: .2em solid white;\n  box-sizing: border-box;\n  animation: 1s linear infinite spin;\n}\n\n\n[role=banner] {\n  position: relative;\n  z-index: 20;\n  min-height: 3em;\n  flex-shrink: 0;\n  display: flex;\n  align-items: stretch;\n  padding: 0 1.25em 0 1em;\n  box-shadow: inset 0 -1px 0 0 #d6d8da;\n  font-family: Lato, sans-serif;\n  font-size: 1rem;\n}\n\n\n[role=banner] .coz-bar-container {\n  display: flex;\n  width: 100%;\n}\n\n\n[role=banner] .coz-bar-flex-container {\n  display: flex;\n}\n\n\n@media (max-width: 48em) {\n  [role=banner] {\n    padding: 0 1em 0 0;\n  }\n\n  [role=banner] .coz-bar-flex-container {\n    width: 100%;\n  }\n\n  [role=banner][data-drawer-visible=true] {\n    /* Force the BAR to be above selection bar in mobile mode,\n     * only when drawer is opened\n     */\n    z-index: 31;\n  }\n}\n\n\n[role=banner] .coz-bar-title {\n  display: flex;\n  margin: 0;\n  align-items: center;\n  font-size: 1.5em;\n  font-weight: normal;\n  color: #32363f;\n}\n\n\n@media (max-width: 48em) {\n  [role=banner] .coz-bar-title {\n    font-size: 1.25em\n  }\n}\n\n\n[role=banner] .coz-bar-title img {\n  margin-right: .45em;\n}\n\n\n[role=banner] .coz-bar-title span {\n  margin-right: .25em;\n}\n\n\n[role=banner] .coz-bar-title strong {\n  font-weight: bold;\n}\n\n\n[role=banner] .coz-bar-title .coz-bar-beta-status {\n  color: #95999d;\n  text-transform: uppercase;\n  font-size: .55em;\n  font-style: italic;\n  font-weight: 700;\n}\n\n\n@media (max-width: 30em) {\n  [role=banner] .coz-bar-hide-sm {\n    display: none;\n  }\n\n  [role=banner] .coz-bar-title strong {\n    padding: 0;\n    text-transform: capitalize;\n  }\n}\n\n\n[role=banner] .coz-bar-burger {\n  width: 2.5em;\n  margin-right: 0.25em;\n  padding: 0;\n  border: none;\n  background-color: transparent;\n  background-position: center;\n}\n\n\n@media (min-width: 48.0625em) {\n  [role=banner] .coz-bar-burger,\n  [role=banner] .coz-drawer-wrapper {\n    display: none;\n  }\n}\n\n\n@media (max-width: 48em) {\n  [role=banner] .coz-bar-hide-sm {\n    display: none;\n  }\n}\n\n\n[role=banner] .coz-nav ul {\n  margin: 0;\n  padding: 0;\n  list-style-type: none;\n}\n\n\n[role=banner] .coz-nav > ul {\n  display: flex;\n}\n\n\n@media (max-width: 48em) {\n  [role=banner] .coz-nav {\n    display: none;\n  }\n}\n\n\n[role=banner] .coz-nav-section {\n  position: relative;\n}\n\n\n[role=banner] .coz-nav-section [aria-controls] {\n  display: flex;\n  align-items: baseline;\n  padding: 1.285em 1.5em;\n  font-size: .875em;\n  text-transform: uppercase;\n  color: #5d6165;\n  cursor: pointer;\n}\n\n\n[role=banner] .coz-nav-section [aria-controls]:hover {\n  background-color: #f5f6f7;\n  box-shadow: inset 0 -1px 0 0 #d6d8da;\n  color: #32363f;\n}\n\n\n[role=banner] .coz-nav-section [aria-controls]:focus {\n  background-color: #f5f6f7;\n  box-shadow: inset 0 -1px 0 0 #d6d8da;\n  color: #32363f;\n}\n\n\n[role=banner] [aria-controls][aria-busy]::after {\n  position: relative;\n  top: .12em;\n  margin: 0 .355em;\n  font-size: .875em;\n}\n\n\n[role=banner] [aria-controls][aria-busy=true] {\n  padding-right: 0;\n}\n\n\n[role=banner] .coz-nav-section [aria-controls][data-icon] {\n  padding-left: calc(1.25em + 16px + .5em);\n  background-position: 1.25em calc(50% - 1px);\n}\n\n\n[role=banner] .coz-nav-icon {\n  margin-right: .5em;\n}\n\n\n[role=banner] .coz-nav-pop[aria-hidden=true] {\n  display: flex;\n  visibility: visible;\n  transform: scale(0);\n  opacity: 0;\n  transition: .2s transform ease-in, .1s opacity ease-in;\n}\n\n\n[role=banner] .coz-nav-pop {\n  position: absolute;\n  top: calc(100% - .5em);\n  right: 0;\n  box-sizing: border-box;\n  min-width: 100%;\n  background-color: #fff;\n  border-radius: 8px;\n  border: solid 1px rgba(50, 54, 63, 0.12);\n  box-shadow: 0 1px 3px 0 rgba(50, 54, 63, 0.19), 0 6px 18px 0 rgba(50, 54, 63, 0.19);\n  opacity: 1;\n  transform: scale(1);\n  transform-origin: 80% 0%;\n  transition: .2s transform cubic-bezier(0.2, 0.75, 0.3, 1.15);\n}\n\n\n[role=banner] .coz-nav-pop ul {\n  padding: 0;\n}\n\n\n[role=banner] .coz-nav-pop ul:last-of-type {\n  border-radius: 0 0 8px 8px;\n}\n\n\n[role=banner] .coz-nav-pop ul:first-of-type {\n  border-radius: 8px 8px 0 0;\n}\n\n\n[role=banner] .coz-nav-pop hr {\n  margin: 0;\n  border: none;\n  border-bottom: solid 1px #d6d8da;\n}\n\n\n[role=banner] .coz-nav-pop ul:last-of-type + hr {\n  display: none;\n}\n\n\n[role=banner] .coz-nav-pop--apps .coz-nav-group:not(.coz-nav--error) {\n  display: flex;\n  padding: .25em;\n}\n\n\n[role=banner] .coz-nav-pop--apps .coz-nav-group--wrapping.coz-nav-group:not(.coz-nav--error) {\n  flex-wrap: wrap;\n  width: 36em;\n}\n\n\n@media (min-width: 48em) and (max-width: 51em) {\n    [role=banner] .coz-nav-pop.coz-nav-pop--apps {\n        right: -3em;\n    }\n}\n\n\n[role=banner] .coz-nav-pop--apps .coz-nav-group:not(.coz-nav--error) .coz-nav-item {\n    width: 8em;\n    padding: 0 .5em;\n}\n\n\n[role=banner] .coz-nav-group:not(.coz-nav--error).coz-nav-group--inactive {\n  background-color: #f5f6f7\n}\n\n\n[role=banner] .coz-nav-group.coz-nav--error {\n  padding: 0.75em;\n  min-width: 20em;\n}\n\n\n[role=banner] .coz-nav-pop--apps .coz-nav-group a {\n  display: flex;\n  flex-direction: column;\n  padding: .5em;\n}\n\n\n[role=banner] .coz-nav-pop--apps .coz-nav-group a img {\n  margin-bottom: .75em;\n}\n\n\n[role=banner] .coz-nav-pop--apps .coz-nav-group a .coz-label {\n  width: 100%;\n  overflow: hidden;\n  white-space: nowrap;\n  text-align: center;\n  text-overflow: ellipsis;\n  font-size: 15px;\n}\n\n\n[role=banner] .coz-nav-pop--apps .coz-nav-category {\n  font-size: 1em;\n  padding: 0 2em;\n  margin: 1em 0 .5em 0;\n}\n\n\n[role=banner] .blurry {\n  opacity: .5;\n  filter: blur(5px);\n}\n\n\n[role=banner] .coz-nav-item [role=menuitem] {\n  position: relative;\n  z-index: 0;\n  display: block;\n  box-sizing: border-box;\n  width: 100%;\n  padding: .8em 1.5em .8em calc(1.5em + 16px + .5em);\n  border: none;\n  align-items: center;\n  background-position: 1.5em 50%;\n  background-color: transparent;\n  text-align: left;\n  white-space: nowrap;\n  color: #32363f;\n  text-decoration: none;\n  outline: none;\n}\n\n\n/* Force pointer on clickable elements*/\n\n\n[role=banner] .coz-nav-item a[role=menuitem],\n[role=banner] .coz-nav-item button[role=menuitem] {\n  cursor: pointer;\n}\n\n\n/* Hover effect */\n\n\n[role=banner] .coz-nav-item a[role=menuitem]:not(.coz-bar-coming-soon-app):hover:before {\n  content: '';\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  z-index: -1;\n  background-color: #f5f6f7;\n  background-image: inherit;\n  background-position: inherit;\n  background-repeat: inherit;\n}\n\n\n[role=banner] .coz-nav-item a[role=menuitem]:not(.coz-bar-coming-soon-app):focus:before {\n  content: '';\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  z-index: -1;\n  background-color: #f5f6f7;\n  background-image: inherit;\n  background-position: inherit;\n  background-repeat: inherit;\n}\n\n\n[role=banner] .coz-nav-item button[role=menuitem]:hover:before {\n  content: '';\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  z-index: -1;\n  background-color: #f5f6f7;\n  background-image: inherit;\n  background-position: inherit;\n  background-repeat: inherit;\n}\n\n\n[role=banner] .coz-nav-item button[role=menuitem]:focus:before {\n  content: '';\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  z-index: -1;\n  background-color: #f5f6f7;\n  background-image: inherit;\n  background-position: inherit;\n  background-repeat: inherit;\n}\n\n\n[role=banner] [role=menuitem][aria-busy=true]::after {\n  right: 1.5em;\n  top: .5em;\n}\n\n\n[role=banner] .coz-drawer-wrapper [role=menuitem][aria-busy=true]::after {\n  top: .8em;\n}\n\n\n/* Remove default margin for p elements */\n\n\n[role=banner] .coz-nav-item a[role=menuitem] p.coz-label {\n  margin: 0;\n}\n\n\n[role=banner] .coz-nav-item div[role=menuitem]:not([data-icon]) {\n  margin: 0;\n  padding-left: 1.5em;\n}\n\n\n[role=banner] .coz-nav-item [role=menuitem] .coz-bar-text-item {\n  margin: 0;\n}\n\n\n[role=banner] .coz-nav-item [role=menuitem] .coz-bar-text-item--inactive {\n  font-style: italic;\n}\n\n\n/* Coming soon styles */\n\n\n[role=banner] .coz-nav-item a[role=menuitem].coz-bar-coming-soon-app {\n    cursor: default;\n}\n\n\n[role=banner] .coz-nav-item [role=menuitem].coz-bar-coming-soon-app img,\n[role=banner] .coz-nav-item [role=menuitem].coz-bar-coming-soon-app .coz-label\n{\n  opacity: .4;\n}\n\n\n[role=banner] .coz-nav-item [role=menuitem].coz-bar-coming-soon-app .coz-bar-coming-soon-badge {\n  position: absolute;\n  display: block;\n  right: 2.5em;\n  bottom: 4.5em;\n  background: #297ef2;\n  border-radius: 2px;\n  padding: .25em;\n  font-size: .6em;\n  color: white;\n  text-transform: uppercase;\n}\n\n\n[role=banner] [role=menuitem][data-icon=icon-storage] {\n  background-position: 1.5em calc(.8em + 1px);\n}\n\n\n[role=banner] .coz-nav-storage {\n  display: flex;\n  flex-direction: column;\n  align-items: left;\n  padding-top: .5em;\n  color: #95999d;\n}\n\n\n[role=banner] .coz-nav-storage-text {\n  margin: 0 0 .1em 0;\n  font-weight: normal;\n  font-size: .875em;\n}\n\n\n[role=banner] .cozy-nav-storage-bar {\n    height: .5em;\n    margin: .2em 0 .1em 0;\n}\n\n\n[role=banner] .coz-drawer-wrapper {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100vw;\n  height: 100vh;\n  display: flex;\n  visibility: visible; /* overwrite default [aria-hidden=true] style */\n}\n\n\n[role=banner] .coz-drawer-wrapper[aria-hidden=true] {\n  pointer-events: none;\n}\n\n\n[role=banner] .coz-drawer-wrapper[aria-hidden=false] {\n  pointer-events: auto;\n}\n\n\n[role=banner] .coz-drawer-wrapper::before {\n  content: '';\n  display: block;\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background-color: #32363f;\n  opacity: 0;\n  transition: opacity .2s ease-out .1s;\n}\n\n\n[role=banner] .coz-drawer-wrapper[aria-hidden=false]::before {\n  opacity: .5;\n  transition: opacity .2s ease-out;\n}\n\n\n[role=banner] .coz-drawer-wrapper aside {\n  position: absolute;\n  bottom: 0;\n  left: 0;\n  width: 90%;\n  max-width: 30em;\n  height: 100%;\n  display: flex;\n  flex-direction: column;\n  background-color: #fff;\n  transform: scaleX(0);\n  transform-origin: 0% 0%;\n  transition: transform .2s ease-out;\n}\n\n\n[role=banner] .coz-drawer-wrapper[aria-hidden=false] aside {\n  transform: scaleX(1);\n  transition: transform .3s cubic-bezier(0.2, 0.75, 0.3, 1.15);\n}\n\n\n[role=banner] .coz-drawer-wrapper ul {\n  margin: 0;\n  padding: 0;\n  list-style-type: none;\n}\n\n\n[role=banner] .coz-drawer-wrapper nav hr {\n  margin: 0;\n  border: none;\n  border-bottom: solid 1px #d6d8da;\n}\n\n\n[role=banner] .coz-drawer-wrapper .coz-nav-icon {\n  margin-right: .5em;\n}\n\n\n[role=banner] .coz-drawer--apps {\n    flex: 0 1 auto;\n    overflow-y: scroll;\n}\n\n\n[role=banner] .coz-drawer--apps ul {\n  padding: 0 0 1em 0;\n  display: flex;\n}\n\n\n[role=banner] .coz-drawer--apps ul li {\n  flex: 0 0 calc(100% /3);\n  max-width: calc(100% / 3);\n}\n\n\n[role=banner] .coz-drawer--apps ul:last-of-type + hr {\n  display: none;\n}\n\n\n[role=banner] .coz-drawer--apps ul.coz-nav-group--wrapping {\n  flex-wrap: wrap;\n}\n\n\n[role=banner] .coz-drawer--apps [role=menuitem] {\n  display: flex;\n  flex-direction: column;\n  padding: .5em 1em;\n  border-radius: 2px;\n}\n\n\n[role=banner] .coz-drawer--apps [role=menuitem]:hover {\n  background-color: rgba(25, 123, 255, 0.1);\n}\n\n\n[role=banner] .coz-drawer--apps li img {\n  margin-bottom: .5em;\n}\n\n\n[role=banner] .coz-drawer--apps li p.coz-label {\n  overflow: hidden;\n  white-space: nowrap;\n  text-overflow: ellipsis;\n  min-width: 0;\n  width: 100%;\n  text-align: center;\n  font-size: 14px;\n}\n\n\n[role=banner] .coz-drawer--apps .coz-nav-category {\n  font-size: 1em;\n  padding: 0 2em;\n  margin: 2em 0 .5em 0;\n}\n\n\n[role=banner] .coz-claudy {\n  position: fixed;\n  bottom: 5em;\n  right: 2em;\n}\n\n\n@media (min-width: 64em) {\n  [role=banner] .coz-claudy {\n    bottom: 2em;\n  }\n}\n\n\n[role=banner] .coz-claudy-icon {\n  width: 3.5em;\n  height: 3.5em;\n  border-radius: 100%;\n  border: none;\n  background-color: #297ef2;\n  background-image: url(" + __webpack_require__(267) + ");\n  background-repeat: no-repeat;\n  background-size: 2.5em;\n  background-position: .5em;\n  box-shadow: 0 1px 3px 0 rgba(50, 54, 63, 0.19), 0 6px 18px 0 rgba(50, 54, 63, 0.39);\n  animation: none;\n  cursor: pointer;\n  opacity: .5;\n  transition: all .2s ease-out;\n  outline: 0;\n}\n\n\n[role=banner] .coz-claudy-icon:hover,\n[role=banner] .coz-claudy-icon:focus,\n[role=banner] .coz-claudy-icon:active,\n[role=banner] .coz-claudy [data-claudy-opened=true] {\n  animation: none;\n  transform: scale(1.1);\n  opacity: 1;\n  transition: all .2s ease-out;\n}\n\n\n[role=banner] .coz-claudy .coz-claudy-intent-wrapper {\n  position: fixed;\n  bottom: 9.5em;\n  right: 2em;\n  width: 25em;\n  border-radius: .3em;\n  background: white;\n  transform-origin: 100% 100% 0;\n  transform: scale(0) translateY(6em);\n  filter: drop-shadow(0 4px 6px rgba(50, 54, 63, 0.5));\n  opacity: 0;\n  transition: .2s transform ease-in, .1s opacity ease-in;\n}\n\n\n[role=banner] .coz-claudy--opened .coz-claudy-intent-wrapper {\n  transform: scale(1) translateY(0);\n  opacity: 1;\n  transition: .2s transform cubic-bezier(0.2, 0.75, 0.3, 1.15), .1s opacity ease-in;\n}\n\n\n[role=banner] .coz-claudy-intent-wrapper::after {\n  position: fixed;\n  content: '';\n  right: 3em;\n  width: 0;\n  height: 0;\n  /* Make it a bit taller to avoid browser spacing issue\n  between it and the tooltip */\n  border-bottom: .8em solid transparent;\n  border-right: 1.5em solid white;\n  bottom: -.6em;\n}\n\n\n[role=banner] .coz-claudy .coz-claudy-intent-wrapper .coz-intent{\n  width: 100%;\n  height: 100%;\n  border: none;\n  border-radius: .3em;\n}\n\n\n@media (min-width: 64em) {\n  [role=banner] .coz-claudy .coz-claudy-intent-wrapper {\n    bottom: 6.5em;\n  }\n}\n\n\n@media (max-width: 48em) {\n  [role=banner] .coz-claudy .coz-claudy-intent-wrapper {\n    width: calc(100% - 2em);\n    height: calc(100% - 2em)!important; /* overwritte intent setSize here */\n    right: 1em;\n    top: 1em;\n    transform-origin: 50% 50% 0;\n  }\n\n  [role=banner] .coz-claudy-intent-wrapper::after {\n    display: none;\n  }\n}\n\n\n[role=banner] .coz-searchbar{\n  height: 100%;\n  display: flex;\n  justify-content: flex-start;\n  align-items: center;\n  flex-grow: 1;\n  padding: .3em .8em .3em 2.5em;\n  box-sizing: border-box;\n}\n\n\n[role=banner] .coz-searchbar-autosuggest-container{\n  position: relative;\n  width: 100%;\n}\n\n\n[role=banner] .coz-searchbar-autosuggest-container:before{\n  content: '';\n  display: inline-block;\n  width: 1.6em;\n  height: 100%;\n  position: absolute;\n  left: 0;\n  top: 0;\n  background: url(" + __webpack_require__(268) + ") .6em center no-repeat;\n}\n\n\n[role=banner] .coz-searchbar-autosuggest-input{\n  box-sizing: border-box;\n  width: 100%;\n  padding: .5em;\n  padding-left: 2em;\n  border-width: 1px;\n  border-style: solid;\n  border-color: #d6d8da;\n  border-radius: 4px;\n}\n\n\n[role=banner] .coz-searchbar-autosuggest-input-focused{\n  outline: none;\n  border-color: #297ef2;\n}\n\n\n[role=banner] .coz-searchbar-autosuggest-suggestions-container {\n\tposition: absolute;\n\ttop: 100%;\n\tmargin-top: 3px;\n\twidth: 100%;\n\tmax-height: em(170px);\n\toverflow: auto;\n\tborder-width: 1px;\n  border-style: solid;\n  border-color: #d6d8da;\n\tborder-radius: 4px;\n\tbackground: white;\n  box-shadow: 0 1px 3px 0 rgba(50, 54, 63, 0.19), 0 6px 18px 0 rgba(50, 54, 63, 0.19);\n\tdisplay: none;\n}\n\n\n[role=banner] .coz-searchbar-autosuggest-suggestions-container--open {\n\tdisplay: block;\n}\n\n\n[role=banner] .coz-searchbar-autosuggest-suggestions-list {\n\tmargin: 0;\n\tpadding: 0;\n\tlist-style: none;\n}\n\n\n[role=banner] .coz-searchbar-autosuggest-suggestion {\n\tpadding: .8em .5em;\n  border-width: 0;\n  border-bottom-width: 1px;\n  border-style:  solid;\n  border-color: #d6d8da;\n}\n\n\n[role=banner] .coz-searchbar-autosuggest-suggestion:last-child {\n  border-bottom-width: 0;\n}\n\n\n[role=banner] .coz-searchbar-autosuggest-suggestion-content {\n  display: flex;\n  flex-direction: row;\n  justify-content: flex-start;\n  align-items: center;\n}\n\n\n[role=banner] .coz-searchbar-autosuggest-suggestion-title {\n  flex-grow: 1;\n  max-width: 80%;\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n\n\n[role=banner] .coz-searchbar-autosuggest-suggestion-subtitle {\n  color: #95999d;\n}\n\n\n[role=banner] .coz-searchbar-autosuggest-suggestion-highlighted {\n\tbackground: #f5f6f7;\n}\n\n\n[role=banner] .coz-searchbar-autosuggest-section-title {\n  padding: .5em;\n  font-size: .8em;\n}\n\n\n@media (max-width: 48em) {\n  [role=banner] .coz-searchbar{\n    display: none;\n  }\n}\n\n\n[role=banner].coz-target--mobile {\n  padding-left: 1em;\n}\n\n\n[role=banner] .coz-support-modal-content {\n  min-height: 8em;\n}\n\n\n[role=banner] .coz-support-intent-wrapper .coz-intent {\n  width: 35em;\n  height: 24em;\n  border: none;\n}\n\n\n@media (max-width: 48em) {\n  [role=banner] .coz-support-intent-wrapper .coz-intent {\n    width: 100%;\n    height: 27em;\n  }\n}\n\n\n.coz-bar-hidden {\n  position: absolute !important;\n  border: 0 !important;\n  width: 1px !important;\n  height: 1px !important;\n  overflow: hidden !important;\n  padding: 0 !important;\n  white-space: nowrap !important;\n  clip: rect(1px, 1px, 1px, 1px) !important;\n  clip-path: inset(50%) !important;\n}\n\n\n@-moz-keyframes spin {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(359deg);\n  }\n}\n\n\n@-webkit-keyframes spin {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(359deg);\n  }\n}\n\n\n@-o-keyframes spin {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(359deg);\n  }\n}\n\n\n@keyframes spin {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(359deg);\n  }\n}\n\n\n.coz-btn-regular[aria-busy=true]::after {\n  content: '';\n  display: inline-block;\n  vertical-align: middle;\n  margin-left: 0.5em;\n  background-position: center;\n  background-repeat: no-repeat;\n  background-size: cover;\n}\n\n\n.coz-btn-regular[aria-busy=true]::after,\n.coz-btn-close[aria-busy=true]::after {\n  width: 1rem;\n  height: 1rem;\n}\n\n\n.coz-btn-regular[aria-busy=true]::after {\n  animation: spin 1s linear infinite;\n}\n\n\n.coz-btn-regular[aria-busy=true]::after {\n  background-image: url(\"data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAzMiAzMicgd2lkdGg9JzEyJyBoZWlnaHQ9JzEyJyBmaWxsPSd3aGl0ZSc+PHBhdGggb3BhY2l0eT0nLjI1JyBkPSdNMTYgMGExNiAxNiAwIDAgMCAwIDMyIDE2IDE2IDAgMCAwIDAtMzJtMCA0YTEyIDEyIDAgMCAxIDAgMjQgMTIgMTIgMCAwIDEgMC0yNCcvPjxwYXRoIGQ9J00xNiAwYTE2IDE2IDAgMCAxIDE2IDE2aC00YTEyIDEyIDAgMCAwLTEyLTEyeicvPjwvc3ZnPgo=\");\n}\n\n\n.coz-btn-regular,\n.coz-btn-close {\n  box-sizing: border-box;\n  display: inline-block;\n  margin: 0 0.25em;\n  border: 1px solid #fff;\n  border-radius: 2px;\n  min-height: em(40px, 14px);\n  padding: em(13px, 14px) em(15px, 14px) em(11px, 14px);\n  background: transparent;\n  vertical-align: top;\n  text-align: center;\n  font-size: 14px /* [1] */;\n  line-height: 1;\n  text-transform: uppercase;\n  text-decoration: none;\n  cursor: pointer;\n}\n\n\n.coz-btn-regular[disabled],\n.coz-btn-close[disabled],\n.coz-btn-regular[aria-disabled=true],\n.coz-btn-close[aria-disabled=true] {\n  opacity: 0.5;\n  cursor: not-allowed;\n}\n\n\n.coz-btn-regular[aria-busy=true]::after,\n.coz-btn-close[aria-busy=true]::after {\n  position: relative;\n  top: em(-1px);\n}\n\n\n.coz-btn-regular {\n  border-color: #297ef2;\n  background-color: #297ef2;\n  color: #fff;\n}\n\n\n.coz-btn-regular:active,\n.coz-btn-regular:not([disabled]):not([aria-disabled=true]):hover,\n.coz-btn-regular:focus {\n  border-color: #0b61d6;\n  background-color: #0b61d6;\n}\n\n\n.coz-btn-close {\n  border: 0;\n  width: em(46px);\n  background-image: url(\"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICA8cGF0aCBmaWxsPSIjOTU5OTlEIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xMDYuNTg1Nzg2LDQ0IEw5Ni4yOTI4OTMyLDMzLjcwNzEwNjggQzk1LjkwMjM2ODksMzMuMzE2NTgyNSA5NS45MDIzNjg5LDMyLjY4MzQxNzUgOTYuMjkyODkzMiwzMi4yOTI4OTMyIEM5Ni42ODM0MTc1LDMxLjkwMjM2ODkgOTcuMzE2NTgyNSwzMS45MDIzNjg5IDk3LjcwNzEwNjgsMzIuMjkyODkzMiBMMTA4LDQyLjU4NTc4NjQgTDExOC4yOTI4OTMsMzIuMjkyODkzMiBDMTE4LjY4MzQxOCwzMS45MDIzNjg5IDExOS4zMTY1ODIsMzEuOTAyMzY4OSAxMTkuNzA3MTA3LDMyLjI5Mjg5MzIgQzEyMC4wOTc2MzEsMzIuNjgzNDE3NSAxMjAuMDk3NjMxLDMzLjMxNjU4MjUgMTE5LjcwNzEwNywzMy43MDcxMDY4IEwxMDkuNDE0MjE0LDQ0IEwxMTkuNzA3MTA3LDU0LjI5Mjg5MzIgQzEyMC4wOTc2MzEsNTQuNjgzNDE3NSAxMjAuMDk3NjMxLDU1LjMxNjU4MjUgMTE5LjcwNzEwNyw1NS43MDcxMDY4IEMxMTkuMzE2NTgyLDU2LjA5NzYzMTEgMTE4LjY4MzQxOCw1Ni4wOTc2MzExIDExOC4yOTI4OTMsNTUuNzA3MTA2OCBMMTA4LDQ1LjQxNDIxMzYgTDk3LjcwNzEwNjgsNTUuNzA3MTA2OCBDOTcuMzE2NTgyNSw1Ni4wOTc2MzExIDk2LjY4MzQxNzUsNTYuMDk3NjMxMSA5Ni4yOTI4OTMyLDU1LjcwNzEwNjggQzk1LjkwMjM2ODksNTUuMzE2NTgyNSA5NS45MDIzNjg5LDU0LjY4MzQxNzUgOTYuMjkyODkzMiw1NC4yOTI4OTMyIEwxMDYuNTg1Nzg2LDQ0IFoiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC05NiAtMzIpIi8+Cjwvc3ZnPgo=\");\n  background-position: center center;\n  background-repeat: no-repeat;\n}\n\n\n.coz-btn-regular {\n  min-height: 40px;\n  padding: 13px 15px 11px;\n}\n\n\n.coz-btn-close {\n  width: 32px;\n  padding: 0;\n  margin: 0;\n}\n", ""]);
 	
 	// exports
 
 
 /***/ },
-/* 247 */
-/***/ function(module, exports) {
-
-	/*
-		MIT License http://www.opensource.org/licenses/mit-license.php
-		Author Tobias Koppers @sokra
-	*/
-	// css base code, injected by the css-loader
-	module.exports = function() {
-		var list = [];
-	
-		// return the list of modules as css string
-		list.toString = function toString() {
-			var result = [];
-			for(var i = 0; i < this.length; i++) {
-				var item = this[i];
-				if(item[2]) {
-					result.push("@media " + item[2] + "{" + item[1] + "}");
-				} else {
-					result.push(item[1]);
-				}
-			}
-			return result.join("");
-		};
-	
-		// import a list of modules into the list
-		list.i = function(modules, mediaQuery) {
-			if(typeof modules === "string")
-				modules = [[null, modules, ""]];
-			var alreadyImportedModules = {};
-			for(var i = 0; i < this.length; i++) {
-				var id = this[i][0];
-				if(typeof id === "number")
-					alreadyImportedModules[id] = true;
-			}
-			for(i = 0; i < modules.length; i++) {
-				var item = modules[i];
-				// skip already imported module
-				// this implementation is not 100% perfect for weird media query combinations
-				//  when a module is imported multiple times with different media queries.
-				//  I hope this will never occur (Hey this way we have smaller bundles)
-				if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
-					if(mediaQuery && !item[2]) {
-						item[2] = mediaQuery;
-					} else if(mediaQuery) {
-						item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
-					}
-					list.push(item);
-				}
-			}
-		};
-		return list;
-	};
-
-
-/***/ },
-/* 248 */
+/* 258 */
 /***/ function(module, exports) {
 
 	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICA8cGF0aCBmaWxsPSIjNUQ2MTY1IiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xMzYsNzMgQzEzOC4yMDkxMzksNzMgMTQwLDcwLjk4NTI4MTQgMTQwLDY4LjUgQzE0MCw2Ni4wMTQ3MTg2IDEzOC4yMDkxMzksNjQgMTM2LDY0IEMxMzMuNzkwODYxLDY0IDEzMiw2Ni4wMTQ3MTg2IDEzMiw2OC41IEMxMzIsNzAuOTg1MjgxNCAxMzMuNzkwODYxLDczIDEzNiw3MyBaIE0xMjgsNzggQzEyOCw3NyAxMzAsNzQgMTMyLDc0IEMxMzQsNzQgMTMzLDc1IDEzNiw3NSBDMTM5LDc1IDEzOCw3NCAxNDAsNzQgQzE0Miw3NCAxNDQsNzcgMTQ0LDc4IEMxNDQsNzkgMTQ0LDgwIDE0Myw4MCBMMTI5LDgwIEMxMjgsODAgMTI4LDc5IDEyOCw3OCBaIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMTI4IC02NCkiLz4KPC9zdmc+Cg=="
 
 /***/ },
-/* 249 */
+/* 259 */
 /***/ function(module, exports) {
 
 	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICA8cGF0aCBmaWxsPSIjNUQ2MTY1IiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xNjIsNjUuMDAwODcxNyBDMTYyLDY0LjQ0ODEwNTUgMTYyLjQ1NTc2MSw2NCAxNjMuMDAyNDczLDY0IEwxNzIuOTk3NTI3LDY0IEMxNzMuNTUxMTc3LDY0IDE3NCw2NC40NDQ2MzA5IDE3NCw2NS4wMDA4NzE3IEwxNzQsNzguOTk5MTI4MyBDMTc0LDc5LjU1MTg5NDUgMTczLjU0NDIzOSw4MCAxNzIuOTk3NTI3LDgwIEwxNjMuMDAyNDczLDgwIEMxNjIuNDQ4ODIzLDgwIDE2Miw3OS41NTUzNjkxIDE2Miw3OC45OTkxMjgzIEwxNjIsNjUuMDAwODcxNyBaIE0xNjQsNjYgTDE3Miw2NiBMMTcyLDc2IEwxNjQsNzYgTDE2NCw2NiBaIE0xNjgsNzkgQzE2OC41NTIyODUsNzkgMTY5LDc4LjU1MjI4NDcgMTY5LDc4IEMxNjksNzcuNDQ3NzE1MyAxNjguNTUyMjg1LDc3IDE2OCw3NyBDMTY3LjQ0NzcxNSw3NyAxNjcsNzcuNDQ3NzE1MyAxNjcsNzggQzE2Nyw3OC41NTIyODQ3IDE2Ny40NDc3MTUsNzkgMTY4LDc5IFoiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0xNjAgLTY0KSIvPgo8L3N2Zz4K"
 
 /***/ },
-/* 250 */
+/* 260 */
 /***/ function(module, exports) {
 
 	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICA8cGF0aCBmaWxsPSIjNUQ2MTY1IiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0yOTYsODAgQzMwMC40MTgyNzgsODAgMzA0LDc2LjQxODI3OCAzMDQsNzIgQzMwNCw2Ny41ODE3MjIgMzAwLjQxODI3OCw2NCAyOTYsNjQgQzI5MS41ODE3MjIsNjQgMjg4LDY3LjU4MTcyMiAyODgsNzIgQzI4OCw3Ni40MTgyNzggMjkxLjU4MTcyMiw4MCAyOTYsODAgWiBNMjk3LDcyLjgwMjExMyBDMjk4LjEyMTgwOSw3Mi4zNTQ1NTY4IDI5OSw3MS4yMDg5OTQ2IDI5OSw3MCBDMjk5LDY4LjQ0NzcxNTMgMjk3LjU1MjI4NSw2NyAyOTYsNjcgQzI5NC40NDc3MTUsNjcgMjkzLDY4LjQ0NzcxNTMgMjkzLDcwIEwyOTUsNzAgQzI5NSw2OS41NTIyODQ3IDI5NS41NTIyODUsNjkgMjk2LDY5IEMyOTYuNDQ3NzE1LDY5IDI5Nyw2OS41NTIyODQ3IDI5Nyw3MCBDMjk3LDcwLjQ0NzcxNTMgMjk2LjQ0NzcxNSw3MSAyOTYsNzEgQzI5NS40NDc3MTUsNzEgMjk1LDcxLjQ0NzcxNTMgMjk1LDcyIEwyOTUsNzQgTDI5Nyw3NCBMMjk3LDcyLjgwMjExMyBaIE0yOTUsNzUgTDI5Nyw3NSBMMjk3LDc3IEwyOTUsNzcgTDI5NSw3NSBaIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMjg4IC02NCkiLz4KPC9zdmc+Cg=="
 
 /***/ },
-/* 251 */
+/* 261 */
 /***/ function(module, exports) {
 
 	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICA8cGF0aCBmaWxsPSIjNUQ2MTY1IiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0zMjcsOTkuNDE0MjEzNiBMMzI1LjcwNzEwNywxMDAuNzA3MTA3IEMzMjUuMzE2NTgyLDEwMS4wOTc2MzEgMzI0LjY4MzQxOCwxMDEuMDk3NjMxIDMyNC4yOTI4OTMsMTAwLjcwNzEwNyBDMzIzLjkwMjM2OSwxMDAuMzE2NTgyIDMyMy45MDIzNjksOTkuNjgzNDE3NSAzMjQuMjkyODkzLDk5LjI5Mjg5MzIgTDMyNy4yOTI4OTMsOTYuMjkyODkzMiBDMzI3LjY4MzQxOCw5NS45MDIzNjg5IDMyOC4zMTY1ODIsOTUuOTAyMzY4OSAzMjguNzA3MTA3LDk2LjI5Mjg5MzIgTDMzMS43MDcxMDcsOTkuMjkyODkzMiBDMzMyLjA5NzYzMSw5OS42ODM0MTc1IDMzMi4wOTc2MzEsMTAwLjMxNjU4MiAzMzEuNzA3MTA3LDEwMC43MDcxMDcgQzMzMS4zMTY1ODIsMTAxLjA5NzYzMSAzMzAuNjgzNDE4LDEwMS4wOTc2MzEgMzMwLjI5Mjg5MywxMDAuNzA3MTA3IEwzMjksOTkuNDE0MjEzNiBMMzI5LDEwNyBDMzI5LDEwNy41NTIyODUgMzI4LjU1MjI4NSwxMDggMzI4LDEwOCBDMzI3LjQ0NzcxNSwxMDggMzI3LDEwNy41NTIyODUgMzI3LDEwNyBMMzI3LDk5LjQxNDIxMzYgWiBNMzIxLDExMiBMMzM1LDExMiBDMzM1LjU1MjI4NSwxMTIgMzM2LDExMS41NTIyODUgMzM2LDExMSBDMzM2LDExMC40NDc3MTUgMzM1LjU1MjI4NSwxMTAgMzM1LDExMCBMMzIxLDExMCBDMzIwLjQ0NzcxNSwxMTAgMzIwLDExMC40NDc3MTUgMzIwLDExMSBDMzIwLDExMS41NTIyODUgMzIwLjQ0NzcxNSwxMTIgMzIxLDExMiBaIiB0cmFuc2Zvcm09InJvdGF0ZSg5MCAyMTYgLTEwNCkiLz4KPC9zdmc+Cg=="
 
 /***/ },
-/* 252 */
+/* 262 */
 /***/ function(module, exports) {
 
 	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICA8cGF0aCBmaWxsPSIjNUQ2MTY1IiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0yMjUsNjggTDIzOSw2OCBMMjM5LDc4LjAwNDQyMjUgQzIzOSw3OC41NTQyNjQ4IDIzOC41NTAwNTEsNzkgMjM3Ljk5MzE1NSw3OSBMMjI2LjAwNjg0NSw3OSBDMjI1LjQ1MDc4LDc5IDIyNSw3OC41NTUxNjMgMjI1LDc4LjAwNDQyMjUgTDIyNSw2OCBaIE0yMjQsNjYgQzIyNCw2NS40NDc3MTUzIDIyNC40NDQ2MzEsNjUgMjI1LjAwMDg3Miw2NSBMMjM4Ljk5OTEyOCw2NSBDMjM5LjU1MTg5NCw2NSAyNDAsNjUuNDQzODY0OCAyNDAsNjYgTDI0MCw2NyBMMjI0LDY3IEwyMjQsNjYgWiBNMjI5LDcwIEwyMzUsNzAgTDIzNSw3MiBMMjI5LDcyIEwyMjksNzAgWiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTIyNCAtNjQpIi8+Cjwvc3ZnPgo="
 
 /***/ },
-/* 253 */
+/* 263 */
 /***/ function(module, exports) {
 
 	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICA8ZyBmaWxsPSIjOTU5OTlEIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0yMjQgLTMyKSI+CiAgICA8cGF0aCBkPSJNMjM4LjI0OTM1NiwzOS4wNzgyOTczIEMyMzguMzAxNDA3LDM5LjMzNzE0MzYgMjM4LjMyNzQzMiwzOS42NDU5NjAyIDIzOC4zMjc0MzIsNDAuMDAzNzQ3OCBDMjM4LjMyNzQzMiw0MC4zNjE1MzUzIDIzOC4zMDE0MDcsNDAuNjY5MzUyNiAyMzguMjQ5MzU2LDQwLjkyOTE5ODMgTDIzOS44Njk5NDYsNDIuMjYyNDA2NyBDMjQwLjAwMDA3NCw0Mi4zNDgzNTU3IDI0MC4wMzIxMDUsNDIuNDY1Mjg2MiAyMzkuOTY4MDQyLDQyLjYxNDE5NzggQzIzOS42NDI3MjMsNDMuNTY0NjMzNSAyMzkuMTA5MTk5LDQ0LjQ0MDExMzcgMjM4LjM2NjQ3LDQ1LjI0MTYzNzggQzIzOC4yNjIzNjgsNDUuMzY1NTY0MiAyMzguMTM3MjQ2LDQ1LjM5NjU0NTggMjM3Ljk5NTEwNiw0NS4zMzU1ODIgTDIzNS45NjQxMTMsNDQuNjY3OTc4NCBDMjM1LjQ0MzYwMiw0NS4wNjM3NDM0IDIzNC44ODQwNTMsNDUuMzcyNTYgMjM0LjI4NDQ2NCw0NS41OTQ0MjgzIEwyMzMuODc1MDYyLDQ3LjU5MzI0MTUgQzIzMy44NDkwMzcsNDcuNzQwMTU0MyAyMzMuNzU3OTQ4LDQ3LjgyNzEwMjcgMjMzLjYwMTc5NCw0Ny44NTIwODc4IEMyMzMuMDQxMjQ0LDQ3Ljk1MjAyODUgMjMyLjUwNzcyMSw0OCAyMzIuMDAwMjIyLDQ4IEMyMzEuNDkyNzI0LDQ4IDIzMC45NTgyLDQ3Ljk1MTAyOTEgMjMwLjM5ODY1MSw0Ny44NTIwODc4IEMyMzAuMjQyNDk3LDQ3LjgyODEwMjEgMjMwLjE1MTQwOCw0Ny43NDExNTM3IDIzMC4xMjUzODIsNDcuNTkzMjQxNSBMMjI5LjcxNTk4MSw0NS41OTQ0MjgzIEMyMjkuMDc3MzU0LDQ1LjM2MDU2NzIgMjI4LjUxNzgwNSw0NS4wNTA3NTExIDIyOC4wMzYzMzIsNDQuNjY3OTc4NCBMMjI2LjAwNTMzOSw0NS4zMzU1ODIgQzIyNS44NjExOTcsNDUuMzk3NTQ1MiAyMjUuNzM4MDc3LDQ1LjM2NTU2NDIgMjI1LjYzMzk3NCw0NS4yNDE2Mzc4IEMyMjQuODkyMjQ2LDQ0LjQ0MDExMzcgMjI0LjM1ODcyMyw0My41NjQ2MzM1IDIyNC4wMzI0MDMsNDIuNjE0MTk3OCBDMjIzLjk2NzMzOSw0Mi40NjYyODU2IDIyNC4wMDAzNzEsNDIuMzQ4MzU1NyAyMjQuMTMwNDk5LDQyLjI2MjQwNjcgTDIyNS43NTEwODksNDAuOTI5MTk4MyBDMjI1LjY5OTAzOCw0MC42NjkzNTI2IDIyNS42NzMwMTMsNDAuMzYyNTM0NyAyMjUuNjczMDEzLDQwLjAwMzc0NzggQzIyNS42NzMwMTMsMzkuNjQ1OTYwMiAyMjUuNjk5MDM4LDM5LjMzNzE0MzYgMjI1Ljc1MTA4OSwzOS4wNzgyOTczIEwyMjQuMTMwNDk5LDM3Ljc0NjA4ODMgQzIyNC4wMDAzNzEsMzcuNjYwMTM5MyAyMjMuOTY3MzM5LDM3LjU0MjIwOTMgMjI0LjAzMjQwMywzNy4zOTQyOTcxIEMyMjQuMzU3NzIyLDM2LjQ0NDg2MDkgMjI0Ljg5MTI0NSwzNS41NjgzODEzIDIyNS42MzM5NzQsMzQuNzY2ODU3MiBDMjI1LjczODA3NywzNC42NDM5MzAyIDIyNS44NjIxOTgsMzQuNjEyOTQ4NiAyMjYuMDA1MzM5LDM0LjY3MzkxMjQgTDIyOC4wMzYzMzIsMzUuMzQwNTE2NiBDMjI4LjUxNjgwNCwzNC45NTc3NDM4IDIyOS4wNzczNTQsMzQuNjQ5OTI2NiAyMjkuNzE1OTgxLDM0LjQxNTA2NjEgTDIzMC4xMjUzODIsMzIuNDE2MjUyOCBDMjMwLjE1MTQwOCwzMi4yNjgzNDA3IDIzMC4yNDI0OTcsMzIuMTgyMzkxNyAyMzAuMzk4NjUxLDMyLjE1NzQwNjUgQzIzMS40NjU2OTgsMzEuOTQ3NTMxMiAyMzIuNTMzNzQ2LDMxLjk0NzUzMTIgMjMzLjYwMDc5MywzMi4xNTc0MDY1IEMyMzMuNzU2OTQ3LDMyLjE4MTM5MjMgMjMzLjg0ODAzNiwzMi4yNjgzNDA3IDIzMy44NzQwNjEsMzIuNDE2MjUyOCBMMjM0LjI4MzQ2MywzNC40MTUwNjYxIEMyMzQuODgzMDUyLDM0LjYzNzkzMzcgMjM1LjQ0MjYwMSwzNC45NDU3NTEgMjM1Ljk2MzExMiwzNS4zNDA1MTY2IEwyMzcuOTk0MTA1LDM0LjY3MzkxMjQgQzIzOC4xMzcyNDYsMzQuNjExOTQ5MiAyMzguMjYxMzY3LDM0LjY0MzkzMDIgMjM4LjM2NTQ3LDM0Ljc2Njg1NzIgQzIzOS4xMDcxOTcsMzUuNTY5MzgwNyAyMzkuNjQwNzIxLDM2LjQ0NDg2MDkgMjM5Ljk2NzA0MSwzNy4zOTQyOTcxIEMyNDAuMDMxMTA0LDM3LjU0MjIwOTMgMjM5Ljk5OTA3MywzNy42NjAxMzkzIDIzOS44Njg5NDUsMzcuNzQ2MDg4MyBMMjM4LjI0OTM1NiwzOS4wNzgyOTczIEwyMzguMjQ5MzU2LDM5LjA3ODI5NzMgWiBNMjMyLDM2LjUgQzIzMC4wNjcxMjUsMzYuNSAyMjguNSwzOC4wNjcxMjUgMjI4LjUsNDAgQzIyOC41LDQxLjkzMjg3NSAyMzAuMDY3MTI1LDQzLjUgMjMyLDQzLjUgQzIzMy45MzI4NzUsNDMuNSAyMzUuNSw0MS45MzI4NzUgMjM1LjUsNDAgQzIzNS41LDM4LjA2NzEyNSAyMzMuOTMyODc1LDM2LjUgMjMyLDM2LjUgTDIzMiwzNi41IFoiLz4KICAgIDxwYXRoIGQ9Ik0yMzguMjQ5MzU2LDM5LjA3ODI5NzMgQzIzOC4zMDE0MDcsMzkuMzM3MTQzNiAyMzguMzI3NDMyLDM5LjY0NTk2MDIgMjM4LjMyNzQzMiw0MC4wMDM3NDc4IEMyMzguMzI3NDMyLDQwLjM2MTUzNTMgMjM4LjMwMTQwNyw0MC42NjkzNTI2IDIzOC4yNDkzNTYsNDAuOTI5MTk4MyBMMjM5Ljg2OTk0Niw0Mi4yNjI0MDY3IEMyNDAuMDAwMDc0LDQyLjM0ODM1NTcgMjQwLjAzMjEwNSw0Mi40NjUyODYyIDIzOS45NjgwNDIsNDIuNjE0MTk3OCBDMjM5LjY0MjcyMyw0My41NjQ2MzM1IDIzOS4xMDkxOTksNDQuNDQwMTEzNyAyMzguMzY2NDcsNDUuMjQxNjM3OCBDMjM4LjI2MjM2OCw0NS4zNjU1NjQyIDIzOC4xMzcyNDYsNDUuMzk2NTQ1OCAyMzcuOTk1MTA2LDQ1LjMzNTU4MiBMMjM1Ljk2NDExMyw0NC42Njc5Nzg0IEMyMzUuNDQzNjAyLDQ1LjA2Mzc0MzQgMjM0Ljg4NDA1Myw0NS4zNzI1NiAyMzQuMjg0NDY0LDQ1LjU5NDQyODMgTDIzMy44NzUwNjIsNDcuNTkzMjQxNSBDMjMzLjg0OTAzNyw0Ny43NDAxNTQzIDIzMy43NTc5NDgsNDcuODI3MTAyNyAyMzMuNjAxNzk0LDQ3Ljg1MjA4NzggQzIzMy4wNDEyNDQsNDcuOTUyMDI4NSAyMzIuNTA3NzIxLDQ4IDIzMi4wMDAyMjIsNDggQzIzMS40OTI3MjQsNDggMjMwLjk1ODIsNDcuOTUxMDI5MSAyMzAuMzk4NjUxLDQ3Ljg1MjA4NzggQzIzMC4yNDI0OTcsNDcuODI4MTAyMSAyMzAuMTUxNDA4LDQ3Ljc0MTE1MzcgMjMwLjEyNTM4Miw0Ny41OTMyNDE1IEwyMjkuNzE1OTgxLDQ1LjU5NDQyODMgQzIyOS4wNzczNTQsNDUuMzYwNTY3MiAyMjguNTE3ODA1LDQ1LjA1MDc1MTEgMjI4LjAzNjMzMiw0NC42Njc5Nzg0IEwyMjYuMDA1MzM5LDQ1LjMzNTU4MiBDMjI1Ljg2MTE5Nyw0NS4zOTc1NDUyIDIyNS43MzgwNzcsNDUuMzY1NTY0MiAyMjUuNjMzOTc0LDQ1LjI0MTYzNzggQzIyNC44OTIyNDYsNDQuNDQwMTEzNyAyMjQuMzU4NzIzLDQzLjU2NDYzMzUgMjI0LjAzMjQwMyw0Mi42MTQxOTc4IEMyMjMuOTY3MzM5LDQyLjQ2NjI4NTYgMjI0LjAwMDM3MSw0Mi4zNDgzNTU3IDIyNC4xMzA0OTksNDIuMjYyNDA2NyBMMjI1Ljc1MTA4OSw0MC45MjkxOTgzIEMyMjUuNjk5MDM4LDQwLjY2OTM1MjYgMjI1LjY3MzAxMyw0MC4zNjI1MzQ3IDIyNS42NzMwMTMsNDAuMDAzNzQ3OCBDMjI1LjY3MzAxMywzOS42NDU5NjAyIDIyNS42OTkwMzgsMzkuMzM3MTQzNiAyMjUuNzUxMDg5LDM5LjA3ODI5NzMgTDIyNC4xMzA0OTksMzcuNzQ2MDg4MyBDMjI0LjAwMDM3MSwzNy42NjAxMzkzIDIyMy45NjczMzksMzcuNTQyMjA5MyAyMjQuMDMyNDAzLDM3LjM5NDI5NzEgQzIyNC4zNTc3MjIsMzYuNDQ0ODYwOSAyMjQuODkxMjQ1LDM1LjU2ODM4MTMgMjI1LjYzMzk3NCwzNC43NjY4NTcyIEMyMjUuNzM4MDc3LDM0LjY0MzkzMDIgMjI1Ljg2MjE5OCwzNC42MTI5NDg2IDIyNi4wMDUzMzksMzQuNjczOTEyNCBMMjI4LjAzNjMzMiwzNS4zNDA1MTY2IEMyMjguNTE2ODA0LDM0Ljk1Nzc0MzggMjI5LjA3NzM1NCwzNC42NDk5MjY2IDIyOS43MTU5ODEsMzQuNDE1MDY2MSBMMjMwLjEyNTM4MiwzMi40MTYyNTI4IEMyMzAuMTUxNDA4LDMyLjI2ODM0MDcgMjMwLjI0MjQ5NywzMi4xODIzOTE3IDIzMC4zOTg2NTEsMzIuMTU3NDA2NSBDMjMxLjQ2NTY5OCwzMS45NDc1MzEyIDIzMi41MzM3NDYsMzEuOTQ3NTMxMiAyMzMuNjAwNzkzLDMyLjE1NzQwNjUgQzIzMy43NTY5NDcsMzIuMTgxMzkyMyAyMzMuODQ4MDM2LDMyLjI2ODM0MDcgMjMzLjg3NDA2MSwzMi40MTYyNTI4IEwyMzQuMjgzNDYzLDM0LjQxNTA2NjEgQzIzNC44ODMwNTIsMzQuNjM3OTMzNyAyMzUuNDQyNjAxLDM0Ljk0NTc1MSAyMzUuOTYzMTEyLDM1LjM0MDUxNjYgTDIzNy45OTQxMDUsMzQuNjczOTEyNCBDMjM4LjEzNzI0NiwzNC42MTE5NDkyIDIzOC4yNjEzNjcsMzQuNjQzOTMwMiAyMzguMzY1NDcsMzQuNzY2ODU3MiBDMjM5LjEwNzE5NywzNS41NjkzODA3IDIzOS42NDA3MjEsMzYuNDQ0ODYwOSAyMzkuOTY3MDQxLDM3LjM5NDI5NzEgQzI0MC4wMzExMDQsMzcuNTQyMjA5MyAyMzkuOTk5MDczLDM3LjY2MDEzOTMgMjM5Ljg2ODk0NSwzNy43NDYwODgzIEwyMzguMjQ5MzU2LDM5LjA3ODI5NzMgTDIzOC4yNDkzNTYsMzkuMDc4Mjk3MyBaIE0yMzIsMzYuNSBDMjMwLjA2NzEyNSwzNi41IDIyOC41LDM4LjA2NzEyNSAyMjguNSw0MCBDMjI4LjUsNDEuOTMyODc1IDIzMC4wNjcxMjUsNDMuNSAyMzIsNDMuNSBDMjMzLjkzMjg3NSw0My41IDIzNS41LDQxLjkzMjg3NSAyMzUuNSw0MCBDMjM1LjUsMzguMDY3MTI1IDIzMy45MzI4NzUsMzYuNSAyMzIsMzYuNSBMMjMyLDM2LjUgWiIvPgogIDwvZz4KPC9zdmc+Cg=="
 
 /***/ },
-/* 254 */
+/* 264 */
 /***/ function(module, exports) {
 
 	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICA8cGF0aCBmaWxsPSIjOTU5OTlEIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0yMjQsMTMxIEMyMjQsMTMwLjQ0NzcxNSAyMjQuNDQ0NjMxLDEzMCAyMjUuMDAwODcyLDEzMCBMMjM4Ljk5OTEyOCwxMzAgQzIzOS41NTE4OTQsMTMwIDI0MCwxMzAuNDQzODY1IDI0MCwxMzEgQzI0MCwxMzEuNTUyMjg1IDIzOS41NTUzNjksMTMyIDIzOC45OTkxMjgsMTMyIEwyMjUuMDAwODcyLDEzMiBDMjI0LjQ0ODEwNiwxMzIgMjI0LDEzMS41NTYxMzUgMjI0LDEzMSBaIE0yMjQsMTQxIEMyMjQsMTQwLjQ0NzcxNSAyMjQuNDQ0NjMxLDE0MCAyMjUuMDAwODcyLDE0MCBMMjM4Ljk5OTEyOCwxNDAgQzIzOS41NTE4OTQsMTQwIDI0MCwxNDAuNDQzODY1IDI0MCwxNDEgQzI0MCwxNDEuNTUyMjg1IDIzOS41NTUzNjksMTQyIDIzOC45OTkxMjgsMTQyIEwyMjUuMDAwODcyLDE0MiBDMjI0LjQ0ODEwNiwxNDIgMjI0LDE0MS41NTYxMzUgMjI0LDE0MSBaIE0yMjQsMTM2IEMyMjQsMTM1LjQ0NzcxNSAyMjQuNDQ0NjMxLDEzNSAyMjUuMDAwODcyLDEzNSBMMjM4Ljk5OTEyOCwxMzUgQzIzOS41NTE4OTQsMTM1IDI0MCwxMzUuNDQzODY1IDI0MCwxMzYgQzI0MCwxMzYuNTUyMjg1IDIzOS41NTUzNjksMTM3IDIzOC45OTkxMjgsMTM3IEwyMjUuMDAwODcyLDEzNyBDMjI0LjQ0ODEwNiwxMzcgMjI0LDEzNi41NTYxMzUgMjI0LDEzNiBaIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMjI0IC0xMjgpIi8+Cjwvc3ZnPgo="
 
 /***/ },
-/* 255 */
+/* 265 */
 /***/ function(module, exports) {
 
 	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDMyIDMyIj4KICA8ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgogICAgPHBhdGggZmlsbD0iIzVENjE2NSIgZD0iTTE4LjkwNjY0MzEsMTcuMTQ2MjcyNyBDMTcuOTc2MzkwMSwxNy44ODc3NjA1IDE2Ljg2NTE1ODYsMTguMyAxNS43NzI3ODU4LDE4LjMgQzE0LjY1Mzc3ODUsMTguMyAxMy41MTQ0Mzc2LDE3Ljg2Njc0NjUgMTIuNTcwNjM5MiwxNy4wOTAwMDA5IEMxMi42NDQwOTEzLDE2Ljg4ODkwOTkgMTIuNjkyODE4OSwxNi42NzQwNzgzIDEyLjcxMzcxNDYsMTYuNDUyMjM0NyBDMTIuNzM5NjEwMiwxNi4xNzczMDkyIDEyLjUzNzczMTUsMTUuOTMzNDQ1NiAxMi4yNjI4MDYsMTUuOTA3NTUgQzExLjk4Nzg4MDUsMTUuODgxNjU0NSAxMS43NDQwMTY4LDE2LjA4MzUzMzIgMTEuNzE4MTIxMywxNi4zNTg0NTg3IEMxMS42Nzk0NDc5LDE2Ljc2OTA0MzMgMTEuNDg4NzQ5LDE3LjEyMTgzNjUgMTEuMjMyMDM4LDE3LjI5NjMwMjkgQzExLjAwMzY0ODMsMTcuNDUxNTIxNCAxMC45NDQzMzE0LDE3Ljc2MjQ5NzIgMTEuMDk5NTQ5OSwxNy45OTA4ODY4IEMxMS4yNTQ3Njg0LDE4LjIxOTI3NjUgMTEuNTY1NzQ0MywxOC4yNzg1OTM0IDExLjc5NDEzMzksMTguMTIzMzc0OSBDMTEuODc2MjA3MiwxOC4wNjc1OTYxIDExLjk1Mzc4NzEsMTguMDA0ODQ2MiAxMi4wMjY0ODkzLDE3LjkzNTk1NzYgQzEzLjEyNzAxOTMsMTguODA5OTg1MyAxNC40NTE5MzIxLDE5LjMgMTUuNzcyNzg1OCwxOS4zIEMxNy4wNzQ3NDc3LDE5LjMgMTguMzgwMjMyLDE4LjgyNDQ5NTggMTkuNDcxMzExMywxNy45NzQ0NTc5IEMxOS41MzE3MjIyLDE4LjAyODM4MDcgMTkuNTk1Mjg5MywxOC4wNzgxNjczIDE5LjY2MTgwOCwxOC4xMjMzNzQ5IEMxOS44OTAxOTc3LDE4LjI3ODU5MzQgMjAuMjAxMTczNSwxOC4yMTkyNzY1IDIwLjM1NjM5MiwxNy45OTA4ODY4IEMyMC41MTE2MTA1LDE3Ljc2MjQ5NzIgMjAuNDUyMjkzNiwxNy40NTE1MjE0IDIwLjIyMzkwNCwxNy4yOTYzMDI5IEMxOS45NjcxOTI5LDE3LjEyMTgzNjUgMTkuNzc2NDk0MSwxNi43NjkwNDMzIDE5LjczNzgyMDYsMTYuMzU4NDU4NyBDMTkuNzExOTI1MSwxNi4wODM1MzMyIDE5LjQ2ODA2MTUsMTUuODgxNjU0NSAxOS4xOTMxMzU5LDE1LjkwNzU1IEMxOC45MTgyMTA0LDE1LjkzMzQ0NTYgMTguNzE2MzMxOCwxNi4xNzczMDkyIDE4Ljc0MjIyNzMsMTYuNDUyMjM0NyBDMTguNzY1MDg0OSwxNi42OTQ5MDcgMTguODIxMjQ2LDE2LjkyOTE4ODggMTguOTA2NjQzMSwxNy4xNDYyNzI3IFogTTguNDczMjQzMDQsMjYuNTA1MjYzMiBDMy44MDAwMjgwMSwyNi41MDUyNjMyIDAsMjIuNjgwMDM1NyAwLDE3Ljk3NzgwNDggQzAsMTUuNzM1NDMgMC44NTc4MjMwMzQsMTMuNjE3MjM4NSAyLjQxNjYyODMyLDEyLjAxNDQzOTIgQzMuNzgyMTAzMzUsMTAuNjExNzQ4NSA1LjU1MDg4MzIzLDkuNzM4NjA1NzUgNy40NjQzNDA3Myw5LjUxMTQ3Mjc5IEM3LjY5MDMxOTQ4LDcuNTg1NjY4NjIgOC41NTcxMDQ4NSw1LjgwNTI4MDk5IDkuOTUyMDI3NTMsNC40MzE1NDQ5NSBDMTEuNTQ0NzYxNiwyLjg2MjIwNDM1IDEzLjY0ODk4ODcsMiAxNS44Nzc0MDgxLDIgQzE4LjEwNTE4NzMsMiAyMC4yMTAwNTQ2LDIuODYyMjA0MzUgMjEuODAyNzg4Nyw0LjQzMDkwMTUxIEMyMy4xOTE5NDk5LDUuNzk4ODQ2NjIgMjQuMDU2MTc0Niw3LjU2OTU4MjcyIDI0LjI4NzkxNDksOS40ODUwOTE5NiBDMjguNjA0NTU3Miw5Ljg3NDM3MDc0IDMyLDEzLjUzNDg3ODcgMzIsMTcuOTc4NDQ4MiBDMzIsMjIuNjgwMDM1NyAyOC4xOTc0MTEzLDI2LjUwNTI2MzIgMjMuNTI2MTE2OCwyNi41MDUyNjMyIEw4LjQ3MzI0MzA0LDI2LjUwNTI2MzIgWiIvPgogIDwvZz4KPC9zdmc+Cg=="
 
 /***/ },
-/* 256 */
+/* 266 */
 /***/ function(module, exports) {
 
 	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAzMiAzMicgd2lkdGg9JzEyJyBoZWlnaHQ9JzEyJyBmaWxsPScjMjk3RUYyJz4KICA8cGF0aCBvcGFjaXR5PScuMjUnIGQ9J00xNiAwYTE2IDE2IDAgMCAwIDAgMzIgMTYgMTYgMCAwIDAgMC0zMm0wIDRhMTIgMTIgMCAwIDEgMCAyNCAxMiAxMiAwIDAgMSAwLTI0Jy8+CiAgPHBhdGggZD0nTTE2IDBhMTYgMTYgMCAwIDEgMTYgMTZoLTRhMTIgMTIgMCAwIDAtMTItMTJ6Jy8+Cjwvc3ZnPgo="
 
 /***/ },
-/* 257 */
+/* 267 */
 /***/ function(module, exports) {
 
 	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgdmlld0JveD0iMCAwIDMyIDMyIj4KICA8ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgogICAgPHBhdGggZmlsbD0iI0ZGRkZGRiIgZD0iTTE4LjkwNjY0MzEsMTcuMTQ2MjcyNyBDMTcuOTc2MzkwMSwxNy44ODc3NjA1IDE2Ljg2NTE1ODYsMTguMyAxNS43NzI3ODU4LDE4LjMgQzE0LjY1Mzc3ODUsMTguMyAxMy41MTQ0Mzc2LDE3Ljg2Njc0NjUgMTIuNTcwNjM5MiwxNy4wOTAwMDA5IEMxMi42NDQwOTEzLDE2Ljg4ODkwOTkgMTIuNjkyODE4OSwxNi42NzQwNzgzIDEyLjcxMzcxNDYsMTYuNDUyMjM0NyBDMTIuNzM5NjEwMiwxNi4xNzczMDkyIDEyLjUzNzczMTUsMTUuOTMzNDQ1NiAxMi4yNjI4MDYsMTUuOTA3NTUgQzExLjk4Nzg4MDUsMTUuODgxNjU0NSAxMS43NDQwMTY4LDE2LjA4MzUzMzIgMTEuNzE4MTIxMywxNi4zNTg0NTg3IEMxMS42Nzk0NDc5LDE2Ljc2OTA0MzMgMTEuNDg4NzQ5LDE3LjEyMTgzNjUgMTEuMjMyMDM4LDE3LjI5NjMwMjkgQzExLjAwMzY0ODMsMTcuNDUxNTIxNCAxMC45NDQzMzE0LDE3Ljc2MjQ5NzIgMTEuMDk5NTQ5OSwxNy45OTA4ODY4IEMxMS4yNTQ3Njg0LDE4LjIxOTI3NjUgMTEuNTY1NzQ0MywxOC4yNzg1OTM0IDExLjc5NDEzMzksMTguMTIzMzc0OSBDMTEuODc2MjA3MiwxOC4wNjc1OTYxIDExLjk1Mzc4NzEsMTguMDA0ODQ2MiAxMi4wMjY0ODkzLDE3LjkzNTk1NzYgQzEzLjEyNzAxOTMsMTguODA5OTg1MyAxNC40NTE5MzIxLDE5LjMgMTUuNzcyNzg1OCwxOS4zIEMxNy4wNzQ3NDc3LDE5LjMgMTguMzgwMjMyLDE4LjgyNDQ5NTggMTkuNDcxMzExMywxNy45NzQ0NTc5IEMxOS41MzE3MjIyLDE4LjAyODM4MDcgMTkuNTk1Mjg5MywxOC4wNzgxNjczIDE5LjY2MTgwOCwxOC4xMjMzNzQ5IEMxOS44OTAxOTc3LDE4LjI3ODU5MzQgMjAuMjAxMTczNSwxOC4yMTkyNzY1IDIwLjM1NjM5MiwxNy45OTA4ODY4IEMyMC41MTE2MTA1LDE3Ljc2MjQ5NzIgMjAuNDUyMjkzNiwxNy40NTE1MjE0IDIwLjIyMzkwNCwxNy4yOTYzMDI5IEMxOS45NjcxOTI5LDE3LjEyMTgzNjUgMTkuNzc2NDk0MSwxNi43NjkwNDMzIDE5LjczNzgyMDYsMTYuMzU4NDU4NyBDMTkuNzExOTI1MSwxNi4wODM1MzMyIDE5LjQ2ODA2MTUsMTUuODgxNjU0NSAxOS4xOTMxMzU5LDE1LjkwNzU1IEMxOC45MTgyMTA0LDE1LjkzMzQ0NTYgMTguNzE2MzMxOCwxNi4xNzczMDkyIDE4Ljc0MjIyNzMsMTYuNDUyMjM0NyBDMTguNzY1MDg0OSwxNi42OTQ5MDcgMTguODIxMjQ2LDE2LjkyOTE4ODggMTguOTA2NjQzMSwxNy4xNDYyNzI3IFogTTguNDczMjQzMDQsMjYuNTA1MjYzMiBDMy44MDAwMjgwMSwyNi41MDUyNjMyIDAsMjIuNjgwMDM1NyAwLDE3Ljk3NzgwNDggQzAsMTUuNzM1NDMgMC44NTc4MjMwMzQsMTMuNjE3MjM4NSAyLjQxNjYyODMyLDEyLjAxNDQzOTIgQzMuNzgyMTAzMzUsMTAuNjExNzQ4NSA1LjU1MDg4MzIzLDkuNzM4NjA1NzUgNy40NjQzNDA3Myw5LjUxMTQ3Mjc5IEM3LjY5MDMxOTQ4LDcuNTg1NjY4NjIgOC41NTcxMDQ4NSw1LjgwNTI4MDk5IDkuOTUyMDI3NTMsNC40MzE1NDQ5NSBDMTEuNTQ0NzYxNiwyLjg2MjIwNDM1IDEzLjY0ODk4ODcsMiAxNS44Nzc0MDgxLDIgQzE4LjEwNTE4NzMsMiAyMC4yMTAwNTQ2LDIuODYyMjA0MzUgMjEuODAyNzg4Nyw0LjQzMDkwMTUxIEMyMy4xOTE5NDk5LDUuNzk4ODQ2NjIgMjQuMDU2MTc0Niw3LjU2OTU4MjcyIDI0LjI4NzkxNDksOS40ODUwOTE5NiBDMjguNjA0NTU3Miw5Ljg3NDM3MDc0IDMyLDEzLjUzNDg3ODcgMzIsMTcuOTc4NDQ4MiBDMzIsMjIuNjgwMDM1NyAyOC4xOTc0MTEzLDI2LjUwNTI2MzIgMjMuNTI2MTE2OCwyNi41MDUyNjMyIEw4LjQ3MzI0MzA0LDI2LjUwNTI2MzIgWiIvPgogIDwvZz4KPC9zdmc+Cg=="
 
 /***/ },
-/* 258 */
+/* 268 */
 /***/ function(module, exports) {
 
 	module.exports = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICA8ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0zMjAgLTMyKSI+CiAgICA8cGF0aCBmaWxsPSIjOTU5OTlEIiBkPSJNMzMwLjQ3MjIxMyw0MiBMMzMxLjUsNDIgTDMzNC43OTQwODgsNDUuMjk0MDg3OSBDMzM1LjE4NjEyNyw0NS42ODYxMjY3IDMzNS4xODM4NzksNDYuMzE2MTIxNSAzMzQuNzkzOTIzLDQ2LjcwNjA3NyBMMzM0LjcwNjA3Nyw0Ni43OTM5MjMgQzMzNC4zMTgxMTEsNDcuMTgxODg4NiAzMzMuNjgzOTUyLDQ3LjE4Mzk1MjQgMzMzLjI5NDA4OCw0Ni43OTQwODc5IEwzMzAsNDMuNSBMMzMwLDQyLjQ3MjIxMyBDMzI4LjkzODQ4Nyw0My40MjIyOTI5IDMyNy41MzY3MDksNDQgMzI2LDQ0IEMzMjIuNjg2MjkyLDQ0IDMyMCw0MS4zMTM3MDg1IDMyMCwzOCBDMzIwLDM0LjY4NjI5MTUgMzIyLjY4NjI5MiwzMiAzMjYsMzIgQzMyOS4zMTM3MDgsMzIgMzMyLDM0LjY4NjI5MTUgMzMyLDM4IEMzMzIsMzkuNTM2NzA4OSAzMzEuNDIyMjkzLDQwLjkzODQ4NyAzMzAuNDcyMjEzLDQyIFogTTMyNiw0MiBDMzI4LjIwOTEzOSw0MiAzMzAsNDAuMjA5MTM5IDMzMCwzOCBDMzMwLDM1Ljc5MDg2MSAzMjguMjA5MTM5LDM0IDMyNiwzNCBDMzIzLjc5MDg2MSwzNCAzMjIsMzUuNzkwODYxIDMyMiwzOCBDMzIyLDQwLjIwOTEzOSAzMjMuNzkwODYxLDQyIDMyNiw0MiBaIi8+CiAgICA8cGF0aCBmaWxsPSIjOTU5OTlEIiBkPSJNMzMwLjQ3MjIxMyw0MiBMMzMxLjUsNDIgTDMzNC43OTQwODgsNDUuMjk0MDg3OSBDMzM1LjE4NjEyNyw0NS42ODYxMjY3IDMzNS4xODM4NzksNDYuMzE2MTIxNSAzMzQuNzkzOTIzLDQ2LjcwNjA3NyBMMzM0LjcwNjA3Nyw0Ni43OTM5MjMgQzMzNC4zMTgxMTEsNDcuMTgxODg4NiAzMzMuNjgzOTUyLDQ3LjE4Mzk1MjQgMzMzLjI5NDA4OCw0Ni43OTQwODc5IEwzMzAsNDMuNSBMMzMwLDQyLjQ3MjIxMyBDMzI4LjkzODQ4Nyw0My40MjIyOTI5IDMyNy41MzY3MDksNDQgMzI2LDQ0IEMzMjIuNjg2MjkyLDQ0IDMyMCw0MS4zMTM3MDg1IDMyMCwzOCBDMzIwLDM0LjY4NjI5MTUgMzIyLjY4NjI5MiwzMiAzMjYsMzIgQzMyOS4zMTM3MDgsMzIgMzMyLDM0LjY4NjI5MTUgMzMyLDM4IEMzMzIsMzkuNTM2NzA4OSAzMzEuNDIyMjkzLDQwLjkzODQ4NyAzMzAuNDcyMjEzLDQyIFogTTMyNiw0MiBDMzI4LjIwOTEzOSw0MiAzMzAsNDAuMjA5MTM5IDMzMCwzOCBDMzMwLDM1Ljc5MDg2MSAzMjguMjA5MTM5LDM0IDMyNiwzNCBDMzIzLjc5MDg2MSwzNCAzMjIsMzUuNzkwODYxIDMyMiwzOCBDMzIyLDQwLjIwOTEzOSAzMjMuNzkwODYxLDQyIDMyNiw0MiBaIi8+CiAgPC9nPgo8L3N2Zz4K"
 
 /***/ },
-/* 259 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/*
-		MIT License http://www.opensource.org/licenses/mit-license.php
-		Author Tobias Koppers @sokra
-	*/
-	var stylesInDom = {},
-		memoize = function(fn) {
-			var memo;
-			return function () {
-				if (typeof memo === "undefined") memo = fn.apply(this, arguments);
-				return memo;
-			};
-		},
-		isOldIE = memoize(function() {
-			return /msie [6-9]\b/.test(window.navigator.userAgent.toLowerCase());
-		}),
-		getHeadElement = memoize(function () {
-			return document.head || document.getElementsByTagName("head")[0];
-		}),
-		singletonElement = null,
-		singletonCounter = 0,
-		styleElementsInsertedAtTop = [];
-	
-	module.exports = function(list, options) {
-		if(false) {
-			if(typeof document !== "object") throw new Error("The style-loader cannot be used in a non-browser environment");
-		}
-	
-		options = options || {};
-		// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
-		// tags it will allow on a page
-		if (typeof options.singleton === "undefined") options.singleton = isOldIE();
-	
-		// By default, add <style> tags to the bottom of <head>.
-		if (typeof options.insertAt === "undefined") options.insertAt = "bottom";
-	
-		var styles = listToStyles(list);
-		addStylesToDom(styles, options);
-	
-		return function update(newList) {
-			var mayRemove = [];
-			for(var i = 0; i < styles.length; i++) {
-				var item = styles[i];
-				var domStyle = stylesInDom[item.id];
-				domStyle.refs--;
-				mayRemove.push(domStyle);
-			}
-			if(newList) {
-				var newStyles = listToStyles(newList);
-				addStylesToDom(newStyles, options);
-			}
-			for(var i = 0; i < mayRemove.length; i++) {
-				var domStyle = mayRemove[i];
-				if(domStyle.refs === 0) {
-					for(var j = 0; j < domStyle.parts.length; j++)
-						domStyle.parts[j]();
-					delete stylesInDom[domStyle.id];
-				}
-			}
-		};
-	}
-	
-	function addStylesToDom(styles, options) {
-		for(var i = 0; i < styles.length; i++) {
-			var item = styles[i];
-			var domStyle = stylesInDom[item.id];
-			if(domStyle) {
-				domStyle.refs++;
-				for(var j = 0; j < domStyle.parts.length; j++) {
-					domStyle.parts[j](item.parts[j]);
-				}
-				for(; j < item.parts.length; j++) {
-					domStyle.parts.push(addStyle(item.parts[j], options));
-				}
-			} else {
-				var parts = [];
-				for(var j = 0; j < item.parts.length; j++) {
-					parts.push(addStyle(item.parts[j], options));
-				}
-				stylesInDom[item.id] = {id: item.id, refs: 1, parts: parts};
-			}
-		}
-	}
-	
-	function listToStyles(list) {
-		var styles = [];
-		var newStyles = {};
-		for(var i = 0; i < list.length; i++) {
-			var item = list[i];
-			var id = item[0];
-			var css = item[1];
-			var media = item[2];
-			var sourceMap = item[3];
-			var part = {css: css, media: media, sourceMap: sourceMap};
-			if(!newStyles[id])
-				styles.push(newStyles[id] = {id: id, parts: [part]});
-			else
-				newStyles[id].parts.push(part);
-		}
-		return styles;
-	}
-	
-	function insertStyleElement(options, styleElement) {
-		var head = getHeadElement();
-		var lastStyleElementInsertedAtTop = styleElementsInsertedAtTop[styleElementsInsertedAtTop.length - 1];
-		if (options.insertAt === "top") {
-			if(!lastStyleElementInsertedAtTop) {
-				head.insertBefore(styleElement, head.firstChild);
-			} else if(lastStyleElementInsertedAtTop.nextSibling) {
-				head.insertBefore(styleElement, lastStyleElementInsertedAtTop.nextSibling);
-			} else {
-				head.appendChild(styleElement);
-			}
-			styleElementsInsertedAtTop.push(styleElement);
-		} else if (options.insertAt === "bottom") {
-			head.appendChild(styleElement);
-		} else {
-			throw new Error("Invalid value for parameter 'insertAt'. Must be 'top' or 'bottom'.");
-		}
-	}
-	
-	function removeStyleElement(styleElement) {
-		styleElement.parentNode.removeChild(styleElement);
-		var idx = styleElementsInsertedAtTop.indexOf(styleElement);
-		if(idx >= 0) {
-			styleElementsInsertedAtTop.splice(idx, 1);
-		}
-	}
-	
-	function createStyleElement(options) {
-		var styleElement = document.createElement("style");
-		styleElement.type = "text/css";
-		insertStyleElement(options, styleElement);
-		return styleElement;
-	}
-	
-	function createLinkElement(options) {
-		var linkElement = document.createElement("link");
-		linkElement.rel = "stylesheet";
-		insertStyleElement(options, linkElement);
-		return linkElement;
-	}
-	
-	function addStyle(obj, options) {
-		var styleElement, update, remove;
-	
-		if (options.singleton) {
-			var styleIndex = singletonCounter++;
-			styleElement = singletonElement || (singletonElement = createStyleElement(options));
-			update = applyToSingletonTag.bind(null, styleElement, styleIndex, false);
-			remove = applyToSingletonTag.bind(null, styleElement, styleIndex, true);
-		} else if(obj.sourceMap &&
-			typeof URL === "function" &&
-			typeof URL.createObjectURL === "function" &&
-			typeof URL.revokeObjectURL === "function" &&
-			typeof Blob === "function" &&
-			typeof btoa === "function") {
-			styleElement = createLinkElement(options);
-			update = updateLink.bind(null, styleElement);
-			remove = function() {
-				removeStyleElement(styleElement);
-				if(styleElement.href)
-					URL.revokeObjectURL(styleElement.href);
-			};
-		} else {
-			styleElement = createStyleElement(options);
-			update = applyToTag.bind(null, styleElement);
-			remove = function() {
-				removeStyleElement(styleElement);
-			};
-		}
-	
-		update(obj);
-	
-		return function updateStyle(newObj) {
-			if(newObj) {
-				if(newObj.css === obj.css && newObj.media === obj.media && newObj.sourceMap === obj.sourceMap)
-					return;
-				update(obj = newObj);
-			} else {
-				remove();
-			}
-		};
-	}
-	
-	var replaceText = (function () {
-		var textStore = [];
-	
-		return function (index, replacement) {
-			textStore[index] = replacement;
-			return textStore.filter(Boolean).join('\n');
-		};
-	})();
-	
-	function applyToSingletonTag(styleElement, index, remove, obj) {
-		var css = remove ? "" : obj.css;
-	
-		if (styleElement.styleSheet) {
-			styleElement.styleSheet.cssText = replaceText(index, css);
-		} else {
-			var cssNode = document.createTextNode(css);
-			var childNodes = styleElement.childNodes;
-			if (childNodes[index]) styleElement.removeChild(childNodes[index]);
-			if (childNodes.length) {
-				styleElement.insertBefore(cssNode, childNodes[index]);
-			} else {
-				styleElement.appendChild(cssNode);
-			}
-		}
-	}
-	
-	function applyToTag(styleElement, obj) {
-		var css = obj.css;
-		var media = obj.media;
-	
-		if(media) {
-			styleElement.setAttribute("media", media)
-		}
-	
-		if(styleElement.styleSheet) {
-			styleElement.styleSheet.cssText = css;
-		} else {
-			while(styleElement.firstChild) {
-				styleElement.removeChild(styleElement.firstChild);
-			}
-			styleElement.appendChild(document.createTextNode(css));
-		}
-	}
-	
-	function updateLink(linkElement, obj) {
-		var css = obj.css;
-		var sourceMap = obj.sourceMap;
-	
-		if(sourceMap) {
-			// http://stackoverflow.com/a/26603875
-			css += "\n/*# sourceMappingURL=data:application/json;base64," + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + " */";
-		}
-	
-		var blob = new Blob([css], { type: "text/css" });
-	
-		var oldSrc = linkElement.href;
-	
-		linkElement.href = URL.createObjectURL(blob);
-	
-		if(oldSrc)
-			URL.revokeObjectURL(oldSrc);
-	}
-
-
-/***/ },
-/* 260 */
+/* 269 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var map = {
-		"./ar": 261,
-		"./ar.json": 261,
-		"./ca": 262,
-		"./ca.json": 262,
-		"./ca_ES": 263,
-		"./ca_ES.json": 263,
-		"./cs": 264,
-		"./cs.json": 264,
-		"./cs_CZ": 265,
-		"./cs_CZ.json": 265,
-		"./da": 266,
-		"./da.json": 266,
-		"./de": 267,
-		"./de.json": 267,
-		"./de_DE": 268,
-		"./de_DE.json": 268,
-		"./el": 269,
-		"./el.json": 269,
-		"./en": 270,
-		"./en.json": 270,
-		"./eo": 271,
-		"./eo.json": 271,
-		"./es": 272,
-		"./es.json": 272,
-		"./es_CO": 273,
-		"./es_CO.json": 273,
-		"./es_ES": 274,
-		"./es_ES.json": 274,
-		"./fr": 275,
-		"./fr.json": 275,
-		"./it": 276,
-		"./it.json": 276,
-		"./ja": 277,
-		"./ja.json": 277,
-		"./ko": 278,
-		"./ko.json": 278,
-		"./nl": 279,
-		"./nl.json": 279,
-		"./nl_NL": 280,
-		"./nl_NL.json": 280,
-		"./pl": 281,
-		"./pl.json": 281,
-		"./pt": 282,
-		"./pt.json": 282,
-		"./pt_BR": 283,
-		"./pt_BR.json": 283,
-		"./ro": 284,
-		"./ro.json": 284,
-		"./ro_RO": 285,
-		"./ro_RO.json": 285,
-		"./ru": 286,
-		"./ru.json": 286,
-		"./ru_RU": 287,
-		"./ru_RU.json": 287,
-		"./sk": 288,
-		"./sk.json": 288,
-		"./sk_SK": 289,
-		"./sk_SK.json": 289,
-		"./sq": 290,
-		"./sq.json": 290,
-		"./sq_AL": 291,
-		"./sq_AL.json": 291,
-		"./sv": 292,
-		"./sv.json": 292,
-		"./tr": 293,
-		"./tr.json": 293,
-		"./uk_UA": 294,
-		"./uk_UA.json": 294,
-		"./zh": 295,
-		"./zh.json": 295,
-		"./zh_CN": 296,
-		"./zh_CN.json": 296,
-		"./zh_TW": 297,
-		"./zh_TW.json": 297
+		"./ar": 270,
+		"./ar.json": 270,
+		"./ca": 271,
+		"./ca.json": 271,
+		"./ca_ES": 272,
+		"./ca_ES.json": 272,
+		"./cs": 273,
+		"./cs.json": 273,
+		"./cs_CZ": 274,
+		"./cs_CZ.json": 274,
+		"./da": 275,
+		"./da.json": 275,
+		"./de": 276,
+		"./de.json": 276,
+		"./de_DE": 277,
+		"./de_DE.json": 277,
+		"./el": 278,
+		"./el.json": 278,
+		"./en": 279,
+		"./en.json": 279,
+		"./eo": 280,
+		"./eo.json": 280,
+		"./es": 281,
+		"./es.json": 281,
+		"./es_CO": 282,
+		"./es_CO.json": 282,
+		"./es_ES": 283,
+		"./es_ES.json": 283,
+		"./fr": 284,
+		"./fr.json": 284,
+		"./it": 285,
+		"./it.json": 285,
+		"./ja": 286,
+		"./ja.json": 286,
+		"./ko": 287,
+		"./ko.json": 287,
+		"./nl": 288,
+		"./nl.json": 288,
+		"./nl_NL": 289,
+		"./nl_NL.json": 289,
+		"./pl": 290,
+		"./pl.json": 290,
+		"./pt": 291,
+		"./pt.json": 291,
+		"./pt_BR": 292,
+		"./pt_BR.json": 292,
+		"./ro": 293,
+		"./ro.json": 293,
+		"./ro_RO": 294,
+		"./ro_RO.json": 294,
+		"./ru": 295,
+		"./ru.json": 295,
+		"./ru_RU": 296,
+		"./ru_RU.json": 296,
+		"./sk": 297,
+		"./sk.json": 297,
+		"./sk_SK": 298,
+		"./sk_SK.json": 298,
+		"./sq": 299,
+		"./sq.json": 299,
+		"./sq_AL": 300,
+		"./sq_AL.json": 300,
+		"./sv": 301,
+		"./sv.json": 301,
+		"./tr": 302,
+		"./tr.json": 302,
+		"./uk_UA": 303,
+		"./uk_UA.json": 303,
+		"./zh": 304,
+		"./zh.json": 304,
+		"./zh_CN": 305,
+		"./zh_CN.json": 305,
+		"./zh_TW": 306,
+		"./zh_TW.json": 306
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -12899,332 +13511,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 	webpackContext.resolve = webpackContextResolve;
 	module.exports = webpackContext;
-	webpackContext.id = 260;
+	webpackContext.id = 269;
 
-
-/***/ },
-/* 261 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"drawer": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
-		"help": "Help",
-		"logout": "Sign out",
-		"beta_status": "We are still in beta",
-		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
-		"no_apps": "No applications found on the Cozy.",
-		"menu": {
-			"apps": "Apps",
-			"settings": "Settings"
-		},
-		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
-			"ptnb": "expPTNB",
-			"others": "Other apps"
-		},
-		"claudy": {
-			"title": "How to drive your Cozy?"
-		},
-		"searchbar": {
-			"placeholder": "Search anything"
-		}
-	};
-
-/***/ },
-/* 262 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"drawer": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
-		"help": "Help",
-		"logout": "Sign out",
-		"beta_status": "We are still in beta",
-		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
-		"no_apps": "No applications found on the Cozy.",
-		"menu": {
-			"apps": "Apps",
-			"settings": "Settings"
-		},
-		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
-			"ptnb": "expPTNB",
-			"others": "Other apps"
-		},
-		"claudy": {
-			"title": "How to drive your Cozy?"
-		},
-		"searchbar": {
-			"placeholder": "Search anything"
-		}
-	};
-
-/***/ },
-/* 263 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"drawer": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
-		"help": "Help",
-		"logout": "Sign out",
-		"beta_status": "We are still in beta",
-		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
-		"no_apps": "No applications found on the Cozy.",
-		"menu": {
-			"apps": "Apps",
-			"settings": "Settings"
-		},
-		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
-			"ptnb": "expPTNB",
-			"others": "Other apps"
-		},
-		"claudy": {
-			"title": "How to drive your Cozy?"
-		},
-		"searchbar": {
-			"placeholder": "Search anything"
-		}
-	};
-
-/***/ },
-/* 264 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"drawer": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
-		"help": "Help",
-		"logout": "Sign out",
-		"beta_status": "We are still in beta",
-		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
-		"no_apps": "No applications found on the Cozy.",
-		"menu": {
-			"apps": "Apps",
-			"settings": "Settings"
-		},
-		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
-			"ptnb": "expPTNB",
-			"others": "Other apps"
-		},
-		"claudy": {
-			"title": "How to drive your Cozy?"
-		},
-		"searchbar": {
-			"placeholder": "Search anything"
-		}
-	};
-
-/***/ },
-/* 265 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"drawer": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
-		"help": "Help",
-		"logout": "Sign out",
-		"beta_status": "We are still in beta",
-		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
-		"no_apps": "No applications found on the Cozy.",
-		"menu": {
-			"apps": "Apps",
-			"settings": "Settings"
-		},
-		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
-			"ptnb": "expPTNB",
-			"others": "Other apps"
-		},
-		"claudy": {
-			"title": "How to drive your Cozy?"
-		},
-		"searchbar": {
-			"placeholder": "Search anything"
-		}
-	};
-
-/***/ },
-/* 266 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"drawer": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
-		"help": "Help",
-		"logout": "Sign out",
-		"beta_status": "We are still in beta",
-		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
-		"no_apps": "No applications found on the Cozy.",
-		"menu": {
-			"apps": "Apps",
-			"settings": "Settings"
-		},
-		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
-			"ptnb": "expPTNB",
-			"others": "Other apps"
-		},
-		"claudy": {
-			"title": "How to drive your Cozy?"
-		},
-		"searchbar": {
-			"placeholder": "Search anything"
-		}
-	};
-
-/***/ },
-/* 267 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"drawer": "Menü anzeigen",
-		"profile": "Profile",
-		"connectedDevices": "Verbundene Geräte",
-		"storage": "Speicher",
-		"storage_phrase": "%{diskUsage} GB von %{diskQuota} GB benutzt",
-		"help": "Hilfe",
-		"logout": "Ausloggen",
-		"beta_status": "Wir sind noch in der Betaphase",
-		"beta": "Betaphase",
-		"soon": "Später",
-		"error_UnavailableStack": "Der Stapel ist nicht erreichbar (Verbindung Zeitüberschreitung).",
-		"error_UnauthorizedStack": "Einige Berechtigungen fehlen, die Anwendung kann nicht auf die angeforderte Ressource auf dem Stapel zugreifen.",
-		"no_apps": "Keine Anwendungen für Cozy gefunden.",
-		"menu": {
-			"apps": "Anwendungen",
-			"settings": "Einstellungen"
-		},
-		"Categories": {
-			"cozy": "Cozy Anwendungen",
-			"partners": "Partner Anwendungen",
-			"ptnb": "expPTNB",
-			"others": "Andere Anwendungen"
-		},
-		"claudy": {
-			"title": "Wie willst du dein Cozy steuern?"
-		},
-		"searchbar": {
-			"placeholder": "Search anything"
-		}
-	};
-
-/***/ },
-/* 268 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"drawer": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
-		"help": "Help",
-		"logout": "Sign out",
-		"beta_status": "We are still in beta",
-		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
-		"no_apps": "No applications found on the Cozy.",
-		"menu": {
-			"apps": "Apps",
-			"settings": "Settings"
-		},
-		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
-			"ptnb": "expPTNB",
-			"others": "Other apps"
-		},
-		"claudy": {
-			"title": "How to drive your Cozy?"
-		},
-		"searchbar": {
-			"placeholder": "Search anything"
-		}
-	};
-
-/***/ },
-/* 269 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"drawer": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
-		"help": "Help",
-		"logout": "Sign out",
-		"beta_status": "We are still in beta",
-		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
-		"no_apps": "No applications found on the Cozy.",
-		"menu": {
-			"apps": "Apps",
-			"settings": "Settings"
-		},
-		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
-			"ptnb": "expPTNB",
-			"others": "Other apps"
-		},
-		"claudy": {
-			"title": "How to drive your Cozy?"
-		},
-		"searchbar": {
-			"placeholder": "Search anything"
-		}
-	};
 
 /***/ },
 /* 270 */
@@ -13303,31 +13591,31 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	module.exports = {
-		"drawer": "Mostrar el menu drawer",
-		"profile": "Perfil",
-		"connectedDevices": "Periféricos conectados",
-		"storage": "Almacenamiento",
-		"storage_phrase": "%{diskUsage} GO de %{diskQuota} GO usados",
-		"help": "Ayuda",
-		"logout": "Finalizar sesión",
-		"beta_status": "Estamos aún en versión beta",
+		"drawer": "Show menu drawer",
+		"profile": "Profile",
+		"connectedDevices": "Connected devices",
+		"storage": "Storage",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
+		"help": "Help",
+		"logout": "Sign out",
+		"beta_status": "We are still in beta",
 		"beta": "beta",
-		"soon": "pronto",
-		"error_UnavailableStack": "La pila es inaccesible ( se agotó el tiempo de la conexión ).",
-		"error_UnauthorizedStack": "Faltan algunos permisos, la aplicación no puede acceder al recurso solicitado en la pila.",
-		"no_apps": "No se han encontrado aplicaciones en su Cozy.",
+		"soon": "soon",
+		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"no_apps": "No applications found on the Cozy.",
 		"menu": {
-			"apps": "Aplicaciones",
-			"settings": "Opciones"
+			"apps": "Apps",
+			"settings": "Settings"
 		},
 		"Categories": {
-			"cozy": "Aplicaciones Cozy",
-			"partners": "Aplicaciones de asociados",
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
 			"ptnb": "expPTNB",
-			"others": "Otras aplicaciones"
+			"others": "Other apps"
 		},
 		"claudy": {
-			"title": "¿Cómo pilotear su Cozy?"
+			"title": "How to drive your Cozy?"
 		},
 		"searchbar": {
 			"placeholder": "Search anything"
@@ -13411,42 +13699,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	module.exports = {
-		"drawer": "Afficher le menu latéral",
-		"profile": "Profil",
-		"connectedDevices": "Appareils connectés",
-		"storage": "Espace disque",
-		"storage_phrase": "%{diskUsage} Go sur %{diskQuota} Go",
-		"help": "Aide",
-		"logout": "Déconnexion",
-		"beta_status": "Nous sommes toujours en beta.",
-		"beta": "beta",
-		"soon": "à venir",
-		"error_UnavailableStack": "Connexion à la stack impossible (connection timed-out)",
-		"error_UnauthorizedStack": "Des permissions sont manquante, l'application ne peut accéder aux ressources demandées.",
-		"no_apps": "Pas d'applications Cozy trouvées.",
-		"menu": {
-			"apps": "Applications",
-			"settings": "Paramètres"
-		},
-		"Categories": {
-			"cozy": "Apps Cozy",
-			"partners": "Expérimentation MesInfos",
-			"ptnb": "Expérimentation Carnet du logement",
-			"others": "Autres apps"
-		},
-		"claudy": {
-			"title": "Comment utiliser votre Cozy ?"
-		},
-		"searchbar": {
-			"placeholder": "Rechercher"
-		}
-	};
-
-/***/ },
-/* 276 */
-/***/ function(module, exports) {
-
-	module.exports = {
 		"drawer": "Show menu drawer",
 		"profile": "Profile",
 		"connectedDevices": "Connected devices",
@@ -13479,38 +13731,74 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
+/* 276 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"drawer": "Menü anzeigen",
+		"profile": "Profile",
+		"connectedDevices": "Verbundene Geräte",
+		"storage": "Speicher",
+		"storage_phrase": "%{diskUsage} GB von %{diskQuota} GB benutzt",
+		"help": "Hilfe",
+		"logout": "Ausloggen",
+		"beta_status": "Wir sind noch in der Betaphase",
+		"beta": "Betaphase",
+		"soon": "Später",
+		"error_UnavailableStack": "Der Stapel ist nicht erreichbar (Verbindung Zeitüberschreitung).",
+		"error_UnauthorizedStack": "Einige Berechtigungen fehlen, die Anwendung kann nicht auf die angeforderte Ressource auf dem Stapel zugreifen.",
+		"no_apps": "Keine Anwendungen für Cozy gefunden.",
+		"menu": {
+			"apps": "Anwendungen",
+			"settings": "Einstellungen"
+		},
+		"Categories": {
+			"cozy": "Cozy Anwendungen",
+			"partners": "Partner Anwendungen",
+			"ptnb": "expPTNB",
+			"others": "Andere Anwendungen"
+		},
+		"claudy": {
+			"title": "Wie willst du dein Cozy steuern?"
+		},
+		"searchbar": {
+			"placeholder": "Search anything"
+		}
+	};
+
+/***/ },
 /* 277 */
 /***/ function(module, exports) {
 
 	module.exports = {
-		"drawer": "メニュードロワーを表示",
-		"profile": "プロフィール",
-		"connectedDevices": "接続されたデバイス",
-		"storage": "ストレージ",
-		"storage_phrase": "%{diskUsage} GB / %{diskQuota} GB 使用",
-		"help": "ヘルプ",
-		"logout": "サインアウト",
-		"beta_status": "まだベータ版です",
-		"beta": "ベータ",
-		"soon": "間もなく",
-		"error_UnavailableStack": "スタックに到達できません (接続タイムアウト)。",
-		"error_UnauthorizedStack": "一部のアクセス許可が不足しているため、アプリケーションはスタック上の要求されたリソースにアクセスできません。",
-		"no_apps": "Cozy にアプリケーションはありません。",
+		"drawer": "Show menu drawer",
+		"profile": "Profile",
+		"connectedDevices": "Connected devices",
+		"storage": "Storage",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
+		"help": "Help",
+		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"soon": "soon",
+		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"no_apps": "No applications found on the Cozy.",
 		"menu": {
-			"apps": "アプリ",
-			"settings": "設定"
+			"apps": "Apps",
+			"settings": "Settings"
 		},
 		"Categories": {
-			"cozy": "Cozy アプリ",
-			"partners": "パートナーアプリ",
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
 			"ptnb": "expPTNB",
-			"others": "他のアプリ"
+			"others": "Other apps"
 		},
 		"claudy": {
-			"title": "Cozy をドライブする方法は?"
+			"title": "How to drive your Cozy?"
 		},
 		"searchbar": {
-			"placeholder": "検索します"
+			"placeholder": "Search anything"
 		}
 	};
 
@@ -13556,17 +13844,17 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	module.exports = {
 		"drawer": "Show menu drawer",
-		"profile": "Profiel",
-		"connectedDevices": "Verbonden apparaten",
-		"storage": "Opslag",
-		"storage_phrase": "%{diskUsage} GB van %{diskQuota} GB gebruikt",
-		"help": "Hulp",
-		"logout": "Log uit",
-		"beta_status": "We zijn nog in Beta",
+		"profile": "Profile",
+		"connectedDevices": "Connected devices",
+		"storage": "Storage",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
+		"help": "Help",
+		"logout": "Sign out",
+		"beta_status": "We are still in beta",
 		"beta": "beta",
-		"soon": "binnenkort",
-		"error_UnavailableStack": "De stapel is onbereikbaar (verbinding verlopen)",
-		"error_UnauthorizedStack": "Sommige toestemmingen missen, de toepassing kan niet alles bereiken.",
+		"soon": "soon",
+		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
 		"no_apps": "No applications found on the Cozy.",
 		"menu": {
 			"apps": "Apps",
@@ -13574,9 +13862,9 @@ return /******/ (function(modules) { // webpackBootstrap
 		},
 		"Categories": {
 			"cozy": "Cozy apps",
-			"partners": "Partner apps",
+			"partners": "Partners apps",
 			"ptnb": "expPTNB",
-			"others": "Andere apps"
+			"others": "Other apps"
 		},
 		"claudy": {
 			"title": "How to drive your Cozy?"
@@ -13627,34 +13915,34 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	module.exports = {
-		"drawer": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
-		"help": "Help",
-		"logout": "Sign out",
-		"beta_status": "We are still in beta",
+		"drawer": "Mostrar el menu drawer",
+		"profile": "Perfil",
+		"connectedDevices": "Periféricos conectados",
+		"storage": "Almacenamiento",
+		"storage_phrase": "%{diskUsage} GO de %{diskQuota} GO usados",
+		"help": "Ayuda",
+		"logout": "Finalizar sesión",
+		"beta_status": "Estamos aún en versión beta",
 		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
-		"no_apps": "No applications found on the Cozy.",
+		"soon": "pronto",
+		"error_UnavailableStack": "La pila es inaccesible ( se agotó el tiempo de la conexión ).",
+		"error_UnauthorizedStack": "Faltan algunos permisos, la aplicación no puede acceder al recurso solicitado en la pila.",
+		"no_apps": "No se han encontrado aplicaciones en su Cozy.",
 		"menu": {
-			"apps": "Apps",
-			"settings": "Settings"
+			"apps": "Aplicaciones",
+			"settings": "Opciones"
 		},
 		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
+			"cozy": "Aplicaciones Cozy",
+			"partners": "Aplicaciones de asociados",
 			"ptnb": "expPTNB",
-			"others": "Other apps"
+			"others": "Otras aplicaciones"
 		},
 		"claudy": {
-			"title": "How to drive your Cozy?"
+			"title": "¿Cómo pilotear su Cozy?"
 		},
 		"searchbar": {
-			"placeholder": "Search anything"
+			"placeholder": "Buscar algo"
 		}
 	};
 
@@ -13735,34 +14023,34 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	module.exports = {
-		"drawer": "Show menu drawer",
-		"profile": "Profile",
-		"connectedDevices": "Connected devices",
-		"storage": "Storage",
-		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
-		"help": "Help",
-		"logout": "Sign out",
-		"beta_status": "We are still in beta",
+		"drawer": "Afficher le menu latéral",
+		"profile": "Profil",
+		"connectedDevices": "Appareils connectés",
+		"storage": "Espace disque",
+		"storage_phrase": "%{diskUsage} Go sur %{diskQuota} Go",
+		"help": "Aide",
+		"logout": "Déconnexion",
+		"beta_status": "Nous sommes toujours en beta.",
 		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
-		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
-		"no_apps": "No applications found on the Cozy.",
+		"soon": "à venir",
+		"error_UnavailableStack": "Connexion à la stack impossible (connection timed-out)",
+		"error_UnauthorizedStack": "Des permissions sont manquante, l'application ne peut accéder aux ressources demandées.",
+		"no_apps": "Pas d'applications Cozy trouvées.",
 		"menu": {
-			"apps": "Apps",
-			"settings": "Settings"
+			"apps": "Applications",
+			"settings": "Paramètres"
 		},
 		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
-			"ptnb": "expPTNB",
-			"others": "Other apps"
+			"cozy": "Apps Cozy",
+			"partners": "Expérimentation MesInfos",
+			"ptnb": "Expérimentation Carnet du logement",
+			"others": "Autres apps"
 		},
 		"claudy": {
-			"title": "How to drive your Cozy?"
+			"title": "Comment utiliser votre Cozy ?"
 		},
 		"searchbar": {
-			"placeholder": "Search anything"
+			"placeholder": "Rechercher"
 		}
 	};
 
@@ -13807,75 +14095,39 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	module.exports = {
-		"drawer": "Show menu drawer",
-		"profile": "Профиль",
-		"connectedDevices": "Присоединённые устройства",
-		"storage": "Хранилище",
-		"storage_phrase": "%{diskUsage} ГБ из %{diskQuota} ГБ использовано",
-		"help": "Помощь",
-		"logout": "Выход",
-		"beta_status": "We are still in beta",
-		"beta": "бета",
-		"soon": "скоро",
-		"error_UnavailableStack": "Это стек не доступен (превышено время ожидания)",
-		"error_UnauthorizedStack": "Некоторые разрешения отсутствуют, получить доступ к запрашиваемому ресурсу в стеке не возможно.",
-		"no_apps": "No applications found on the Cozy.",
+		"drawer": "メニュードロワーを表示",
+		"profile": "プロフィール",
+		"connectedDevices": "接続されたデバイス",
+		"storage": "ストレージ",
+		"storage_phrase": "%{diskUsage} GB / %{diskQuota} GB 使用",
+		"help": "ヘルプ",
+		"logout": "サインアウト",
+		"beta_status": "まだベータ版です",
+		"beta": "ベータ",
+		"soon": "間もなく",
+		"error_UnavailableStack": "スタックに到達できません (接続タイムアウト)。",
+		"error_UnauthorizedStack": "一部のアクセス許可が不足しているため、アプリケーションはスタック上の要求されたリソースにアクセスできません。",
+		"no_apps": "Cozy にアプリケーションはありません。",
 		"menu": {
-			"apps": "Приложения",
-			"settings": "Настройки"
+			"apps": "アプリ",
+			"settings": "設定"
 		},
 		"Categories": {
-			"cozy": "Cozy приложения",
-			"partners": "Приложения партнеров",
+			"cozy": "Cozy アプリ",
+			"partners": "パートナーアプリ",
 			"ptnb": "expPTNB",
-			"others": "Другие приложения"
+			"others": "他のアプリ"
 		},
 		"claudy": {
-			"title": "How to drive your Cozy?"
+			"title": "Cozy をドライブする方法は?"
 		},
 		"searchbar": {
-			"placeholder": "Search anything"
+			"placeholder": "検索します"
 		}
 	};
 
 /***/ },
 /* 287 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"drawer": "Show menu drawer",
-		"profile": "Профиль",
-		"connectedDevices": "Присоединённые устройства",
-		"storage": "Хранилище",
-		"storage_phrase": "%{diskUsage} ГБ из %{diskQuota} ГБ использовано",
-		"help": "Помощь",
-		"logout": "Выход",
-		"beta_status": "We are still in beta",
-		"beta": "beta",
-		"soon": "soon",
-		"error_UnavailableStack": "Это стек не доступен (превышено время ожидания)",
-		"error_UnauthorizedStack": "Некоторые разрешения отсутствуют, получить доступ к запрашиваемому ресурсу в стеке не возможно.",
-		"no_apps": "No applications found on the Cozy.",
-		"menu": {
-			"apps": "Apps",
-			"settings": "Settings"
-		},
-		"Categories": {
-			"cozy": "Cozy apps",
-			"partners": "Partners apps",
-			"ptnb": "expPTNB",
-			"others": "Other apps"
-		},
-		"claudy": {
-			"title": "How to drive your Cozy?"
-		},
-		"searchbar": {
-			"placeholder": "Search anything"
-		}
-	};
-
-/***/ },
-/* 288 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -13901,6 +14153,42 @@ return /******/ (function(modules) { // webpackBootstrap
 			"partners": "Partners apps",
 			"ptnb": "expPTNB",
 			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?"
+		},
+		"searchbar": {
+			"placeholder": "Search anything"
+		}
+	};
+
+/***/ },
+/* 288 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"drawer": "Show menu drawer",
+		"profile": "Profiel",
+		"connectedDevices": "Verbonden apparaten",
+		"storage": "Opslag",
+		"storage_phrase": "%{diskUsage} GB van %{diskQuota} GB gebruikt",
+		"help": "Hulp",
+		"logout": "Log uit",
+		"beta_status": "We zijn nog in Beta",
+		"beta": "beta",
+		"soon": "binnenkort",
+		"error_UnavailableStack": "De stapel is onbereikbaar (verbinding verlopen)",
+		"error_UnauthorizedStack": "Sommige toestemmingen missen, de toepassing kan niet alles bereiken.",
+		"no_apps": "No applications found on the Cozy.",
+		"menu": {
+			"apps": "Apps",
+			"settings": "Settings"
+		},
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partner apps",
+			"ptnb": "expPTNB",
+			"others": "Andere apps"
 		},
 		"claudy": {
 			"title": "How to drive your Cozy?"
@@ -14132,6 +14420,78 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	module.exports = {
 		"drawer": "Show menu drawer",
+		"profile": "Профиль",
+		"connectedDevices": "Присоединённые устройства",
+		"storage": "Хранилище",
+		"storage_phrase": "%{diskUsage} ГБ из %{diskQuota} ГБ использовано",
+		"help": "Помощь",
+		"logout": "Выход",
+		"beta_status": "We are still in beta",
+		"beta": "бета",
+		"soon": "скоро",
+		"error_UnavailableStack": "Это стек не доступен (превышено время ожидания)",
+		"error_UnauthorizedStack": "Некоторые разрешения отсутствуют, получить доступ к запрашиваемому ресурсу в стеке не возможно.",
+		"no_apps": "No applications found on the Cozy.",
+		"menu": {
+			"apps": "Приложения",
+			"settings": "Настройки"
+		},
+		"Categories": {
+			"cozy": "Cozy приложения",
+			"partners": "Приложения партнеров",
+			"ptnb": "expPTNB",
+			"others": "Другие приложения"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?"
+		},
+		"searchbar": {
+			"placeholder": "Search anything"
+		}
+	};
+
+/***/ },
+/* 296 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"drawer": "Show menu drawer",
+		"profile": "Профиль",
+		"connectedDevices": "Присоединённые устройства",
+		"storage": "Хранилище",
+		"storage_phrase": "%{diskUsage} ГБ из %{diskQuota} ГБ использовано",
+		"help": "Помощь",
+		"logout": "Выход",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"soon": "soon",
+		"error_UnavailableStack": "Это стек не доступен (превышено время ожидания)",
+		"error_UnauthorizedStack": "Некоторые разрешения отсутствуют, получить доступ к запрашиваемому ресурсу в стеке не возможно.",
+		"no_apps": "No applications found on the Cozy.",
+		"menu": {
+			"apps": "Apps",
+			"settings": "Settings"
+		},
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"ptnb": "expPTNB",
+			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?"
+		},
+		"searchbar": {
+			"placeholder": "Search anything"
+		}
+	};
+
+/***/ },
+/* 297 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"drawer": "Show menu drawer",
 		"profile": "Profile",
 		"connectedDevices": "Connected devices",
 		"storage": "Storage",
@@ -14163,7 +14523,259 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 296 */
+/* 298 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"drawer": "Show menu drawer",
+		"profile": "Profile",
+		"connectedDevices": "Connected devices",
+		"storage": "Storage",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
+		"help": "Help",
+		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"soon": "soon",
+		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"no_apps": "No applications found on the Cozy.",
+		"menu": {
+			"apps": "Apps",
+			"settings": "Settings"
+		},
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"ptnb": "expPTNB",
+			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?"
+		},
+		"searchbar": {
+			"placeholder": "Search anything"
+		}
+	};
+
+/***/ },
+/* 299 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"drawer": "Show menu drawer",
+		"profile": "Profile",
+		"connectedDevices": "Connected devices",
+		"storage": "Storage",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
+		"help": "Help",
+		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"soon": "soon",
+		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"no_apps": "No applications found on the Cozy.",
+		"menu": {
+			"apps": "Apps",
+			"settings": "Settings"
+		},
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"ptnb": "expPTNB",
+			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?"
+		},
+		"searchbar": {
+			"placeholder": "Search anything"
+		}
+	};
+
+/***/ },
+/* 300 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"drawer": "Show menu drawer",
+		"profile": "Profile",
+		"connectedDevices": "Connected devices",
+		"storage": "Storage",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
+		"help": "Help",
+		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"soon": "soon",
+		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"no_apps": "No applications found on the Cozy.",
+		"menu": {
+			"apps": "Apps",
+			"settings": "Settings"
+		},
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"ptnb": "expPTNB",
+			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?"
+		},
+		"searchbar": {
+			"placeholder": "Search anything"
+		}
+	};
+
+/***/ },
+/* 301 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"drawer": "Show menu drawer",
+		"profile": "Profile",
+		"connectedDevices": "Connected devices",
+		"storage": "Storage",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
+		"help": "Help",
+		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"soon": "soon",
+		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"no_apps": "No applications found on the Cozy.",
+		"menu": {
+			"apps": "Apps",
+			"settings": "Settings"
+		},
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"ptnb": "expPTNB",
+			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?"
+		},
+		"searchbar": {
+			"placeholder": "Search anything"
+		}
+	};
+
+/***/ },
+/* 302 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"drawer": "Show menu drawer",
+		"profile": "Profile",
+		"connectedDevices": "Connected devices",
+		"storage": "Storage",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
+		"help": "Help",
+		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"soon": "soon",
+		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"no_apps": "No applications found on the Cozy.",
+		"menu": {
+			"apps": "Apps",
+			"settings": "Settings"
+		},
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"ptnb": "expPTNB",
+			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?"
+		},
+		"searchbar": {
+			"placeholder": "Search anything"
+		}
+	};
+
+/***/ },
+/* 303 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"drawer": "Show menu drawer",
+		"profile": "Profile",
+		"connectedDevices": "Connected devices",
+		"storage": "Storage",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
+		"help": "Help",
+		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"soon": "soon",
+		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"no_apps": "No applications found on the Cozy.",
+		"menu": {
+			"apps": "Apps",
+			"settings": "Settings"
+		},
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"ptnb": "expPTNB",
+			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?"
+		},
+		"searchbar": {
+			"placeholder": "Search anything"
+		}
+	};
+
+/***/ },
+/* 304 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"drawer": "Show menu drawer",
+		"profile": "Profile",
+		"connectedDevices": "Connected devices",
+		"storage": "Storage",
+		"storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
+		"help": "Help",
+		"logout": "Sign out",
+		"beta_status": "We are still in beta",
+		"beta": "beta",
+		"soon": "soon",
+		"error_UnavailableStack": "The stack is unreachable (connection timed-out).",
+		"error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
+		"no_apps": "No applications found on the Cozy.",
+		"menu": {
+			"apps": "Apps",
+			"settings": "Settings"
+		},
+		"Categories": {
+			"cozy": "Cozy apps",
+			"partners": "Partners apps",
+			"ptnb": "expPTNB",
+			"others": "Other apps"
+		},
+		"claudy": {
+			"title": "How to drive your Cozy?"
+		},
+		"searchbar": {
+			"placeholder": "Search anything"
+		}
+	};
+
+/***/ },
+/* 305 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -14199,7 +14811,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 297 */
+/* 306 */
 /***/ function(module, exports) {
 
 	module.exports = {
