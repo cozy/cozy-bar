@@ -11,11 +11,12 @@
 @import 'mobile_app.css'
 @import 'supportModal.css'
 
-@import 'ui-base/palette'
-@import 'ui-base/mixins'
-@import 'ui-base/z-index'
+@import 'settings/palette'
+@import 'settings/z-index'
+@import 'tools/mixins'
+@import 'utilities/display'
 
-@import 'ui-components/button.styl'
+@import 'components/button.styl'
 
 :root {
   --z-index-bar: $bar-index;
@@ -35,7 +36,7 @@
 }
 
 .coz-bar-hidden
-  @extend $hidden
+  @extend .u-hidden
 
 .coz-btn-regular
   @extend $button
