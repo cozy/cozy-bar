@@ -19,9 +19,6 @@ class SupportModal extends Component {
     .start(this.intentWrapperRef, () => {
       this.setState({isLoading: false})
     })
-    .then(() => {
-      this.props.onClose()
-    })
   }
 
   componentDidMount () {

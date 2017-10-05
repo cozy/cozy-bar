@@ -18,6 +18,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Removed
 - none yet
 
+## [v4.2.6] - XXXX-XX-XX
+### Changed
+- Update intents library
+- Remove useless then() for support intent
 
 ## [v4.2.5] - 2017-10-04
 ### Added
