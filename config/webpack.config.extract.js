@@ -8,24 +8,51 @@ module.exports = {
     extensions: ['.styl']
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.styl$/,
         exclude: /cozy-ui\/react/,
-        loader: ExtractTextPlugin.extract([
-          'css-loader?importLoaders=1',
-          'postcss-loader',
-          'stylus-loader?paths=node_modules/cozy-ui/stylus/'
-        ])
+        loader: ExtractTextPlugin.extract({
+          use: [
+            {
+              loader: 'css-loader',
+              options: { importLoaders: 1, sourceMap: true }
+            },
+            {
+              loader: 'postcss-loader',
+              options: { sourceMap: true }
+            },
+            {
+              loader: 'stylus-loader',
+              options: { paths: 'node_modules/cozy-ui/stylus/' }
+            }
+          ]
+        })
       },
       {
         test: /\.styl$/,
         include: /cozy-ui\/react/,
-        loader: ExtractTextPlugin.extract([
-          'css-loader?importLoaders=1&modules&localIdentName=[local]--[hash:base64:5]',
-          'postcss-loader',
-          'stylus-loader?paths=node_modules/cozy-ui/stylus/'
-        ])
+        loader: ExtractTextPlugin.extract({
+          use: [
+            {
+              loader: 'css-loader',
+              options: {
+                importLoaders: 1,
+                sourceMap: true,
+                modules: true,
+                localIdentName: '[local]--[hash: base64:5]'
+              }
+            },
+            {
+              loader: 'postcss-loader',
+              options: { sourceMap: true }
+            },
+            {
+              loader: 'stylus-loader',
+              options: { paths: 'node_modules/cozy-ui/stylus/' }
+            }
+          ]
+        })
       }
     ]
   },

@@ -12,11 +12,11 @@ module.exports = {
     umdNamedDefine: true
   },
   resolve: {
-    extensions: ['', '.js', '.json', '.yaml']
+    extensions: ['.js', '.json', '.yaml']
   },
   devtool: '#source-map',
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js$/,
         exclude: /node_modules/,

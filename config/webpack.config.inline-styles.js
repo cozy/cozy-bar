@@ -5,13 +5,25 @@ module.exports = {
     extensions: ['.styl']
   },
   module: {
-    loaders: [{
+    rules: [{
       test: /\.styl$/,
-      loaders: [
-        'style-loader',
-        'css-loader?importLoaders=1',
-        'postcss-loader',
-        'stylus-loader?paths=node_modules/cozy-ui/stylus/'
+      use: [
+        {
+          loader: 'style-loader',
+          options: { sourceMap: true }
+        },
+        {
+          loader: 'css-loader',
+          options: { importLoaders: 1, sourceMap: true }
+        },
+        {
+          loader: 'postcss-loader',
+          options: { sourceMap: true }
+        },
+        {
+          loader: 'stylus-loader',
+          options: { paths: 'node_modules/cozy-ui/stylus/' }
+        }
       ]
     }]
   }

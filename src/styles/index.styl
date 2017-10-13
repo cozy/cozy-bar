@@ -11,11 +11,12 @@
 @import 'mobile_app.css'
 @import 'supportModal.css'
 
-@import 'ui-base/palette'
-@import 'ui-base/mixins'
-@import 'ui-base/z-index'
+@import 'settings/palette'
+@import 'settings/z-index'
+@import 'tools/mixins'
+@import 'utilities/display'
 
-@import 'ui-components/button.styl'
+@import 'components/button.styl'
 
 :root {
   --z-index-bar: $bar-index;
@@ -35,19 +36,4 @@
 }
 
 .coz-bar-hidden
-  @extend $hidden
-
-.coz-btn-regular
-  @extend $button
-  @extend $button--regular
-  // built-in stylus em() from cozy-ui is not correcty supported here
-  min-height: 40px;
-  padding: 13px 15px 11px;
-
-.coz-btn-close
-  @extend $button
-  @extend $button--close
-  // built-in stylus em() from cozy-ui is not correcty supported here
-  width: 32px;
-  padding: 0;
-  margin: 0;
+  @extend .u-hidden
