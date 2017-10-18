@@ -108,6 +108,7 @@ const init = ({
   cozyURL = getDefaultStackURL(),
   token = getDefaultToken(),
   replaceTitleOnMobile = false,
+  displayOnMobile = false,
   isPublic = false
 } = {}) => {
   // Force public mode in `/public` URLs
@@ -116,7 +117,7 @@ const init = ({
   }
 
   stack.init({cozyURL, token})
-  injectBarInDOM({lang, appName, appEditor, iconPath, replaceTitleOnMobile, isPublic})
+  injectBarInDOM({lang, appName, appEditor, iconPath, replaceTitleOnMobile, displayOnMobile, isPublic})
 }
 
 module.exports = { init, version: __VERSION__ }
