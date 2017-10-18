@@ -1,3 +1,4 @@
+/* global __TARGET__ */
 /* eslint-env browser */
 
 import 'babel-polyfill'
@@ -130,7 +131,7 @@ const cache = {}
 
 module.exports = {
   init ({cozyURL, token}) {
-    COZY_URL = `//${cozyURL}`
+    COZY_URL = `${__TARGET__ === 'mobile' ? '' : '//'}${cozyURL}`
     COZY_TOKEN = token
   },
   get: {
