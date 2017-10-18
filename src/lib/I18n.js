@@ -57,8 +57,15 @@ export class I18n extends Component {
   }
 
   componentWillReceiveProps (newProps) {
-    if (newProps.locale !== this.props.locale) {
-      this.init(newProps)
+    if (this.props.lang !== newProps.lang) {
+      const { lang, dictRequire } = newProps
+      try {
+        const dict = dictRequire(lang)
+        this.translation.extend(dict)
+        this.translation.locale(lang)
+      } catch (e) {
+        console.warn(`The dict phrases for "${lang}" can't be loaded`)
+      }
     }
   }
 

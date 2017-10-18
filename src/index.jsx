@@ -52,10 +52,10 @@ const injectBarInDOM = (data) => {
     barNode.dataset.drawerVisible = visible
   }
 
-  render((
+  return (lang) => render((
     <Provider store={store}>
       <I18n
-        lang={data.lang}
+        lang={lang || data.lang}
         dictRequire={(lang) => require(`./locales/${lang}`)}
       >
         <Bar {...data} />
@@ -100,6 +100,7 @@ const getDefaultIcon = () => {
   }
 }
 
+let renderBar
 const init = ({
   lang = getDefaultLang(),
   appName,
@@ -117,7 +118,13 @@ const init = ({
   }
 
   stack.init({cozyURL, token})
-  injectBarInDOM({lang, appName, appEditor, iconPath, replaceTitleOnMobile, displayOnMobile, isPublic})
+  renderBar = injectBarInDOM({lang, appName, appEditor, iconPath, replaceTitleOnMobile, displayOnMobile, isPublic})
+  renderBar()
 }
 
-module.exports = { init, version: __VERSION__ }
+// tricky way to update bar with new locale
+const setLocale = (lang) => {
+  renderBar(lang)
+}
+
+module.exports = { init, version: __VERSION__, setLocale }
