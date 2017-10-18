@@ -79,7 +79,7 @@ class Bar extends Component {
 
   render () {
     const { t, lang, appName,
-      appEditor, iconPath, replaceTitleOnMobile,
+      appEditor, iconPath, replaceTitleOnMobile, displayOnMobile,
       onDrawer, isPublic } = this.props
     const { usageTracker, claudyOpened,
       enableClaudy, drawerVisible, fireClaudy, displaySupport } = this.state
@@ -92,7 +92,7 @@ class Bar extends Component {
           <sup className='coz-bar-hide-sm coz-bar-beta-status'>{t('beta')}</sup>
         </h1>
         <hr className='coz-sep-flex' />
-        {__TARGET__ !== 'mobile' && !isPublic &&
+        {(__TARGET__ !== 'mobile' || displayOnMobile) && !isPublic &&
           <div className='coz-bar-flex-container'>
             <button className='coz-bar-burger' onClick={this.toggleDrawer} data-icon='icon-hamburger'>
               <span className='coz-bar-hidden'>{t('drawer')}</span>
