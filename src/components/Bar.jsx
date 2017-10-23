@@ -94,7 +94,7 @@ class Bar extends Component {
         <hr className='coz-sep-flex' />
         {(__TARGET__ !== 'mobile' || displayOnMobile) && !isPublic &&
           <div className='coz-bar-flex-container'>
-            <button className='coz-bar-burger' onClick={this.toggleDrawer} data-icon='icon-hamburger'>
+            <button className='coz-bar-burger' onClick={this.toggleDrawer} data-icon='icon-apps'>
               <span className='coz-bar-hidden'>{t('drawer')}</span>
             </button>
             <Drawer visible={drawerVisible} onClose={this.toggleDrawer} onClaudy={(enableClaudy && (() => this.toggleClaudy(true))) || false} isClaudyLoading={fireClaudy} drawerListener={() => onDrawer(this.state.drawerVisible)} toggleSupport={this.toggleSupport} />
