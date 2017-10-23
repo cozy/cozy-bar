@@ -88,7 +88,7 @@ class Nav extends Component {
             <a
               onClick={() => this.toggleMenu('apps')}
               aria-controls='coz-nav-pop--apps' aria-busy={apps.busy}
-              data-icon='icon-cube'
+              data-icon='icon-apps'
             >
               {t('menu.apps')}
             </a>
