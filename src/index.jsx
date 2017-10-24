@@ -8,7 +8,12 @@ import { render } from 'react-dom'
 
 import { I18n } from './lib/I18n'
 import stack from './lib/stack'
-import BarStore, { Provider } from './lib/BarStore'
+
+// For now we have two stores, the goal is to transfer everythin
+// to the redux store
+import BarStore, { Provider as BarProvider } from './lib/BarStore'
+import { Provider as ReduxProvider } from 'react-redux'
+import createStore from 'lib/store'
 
 import Bar from './components/Bar'
 
@@ -24,7 +29,8 @@ if (__DEVELOPMENT__) {
 }
 
 // store
-const store = new BarStore()
+const barStore = new BarStore()
+const reduxStore = createStore()
 
 const createBarElement = () => {
   const barNode = document.createElement('div')
@@ -54,14 +60,16 @@ const injectBarInDOM = (data) => {
   }
 
   return (lang) => render((
-    <Provider store={store}>
-      <I18n
-        lang={lang || data.lang}
-        dictRequire={(lang) => require(`./locales/${lang}`)}
-      >
-        <Bar {...data} />
-      </I18n>
-    </Provider>
+    <BarProvider store={barStore}>
+      <ReduxProvider store={reduxStore}>
+        <I18n
+          lang={lang || data.lang}
+          dictRequire={(lang) => require(`./locales/${lang}`)}
+        >
+          <Bar {...data} />
+        </I18n>
+      </ReduxProvider>
+    </BarProvider>
   ), barNode)
 }
 

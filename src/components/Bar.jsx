@@ -2,6 +2,8 @@
 /* global __PIWIK_TRACKER_URL__  __PIWIK_SITEID__ __PIWIK_DIMENSION_ID_APP__ */
 
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+
 import { translate } from '../lib/I18n'
 import { shouldEnableTracking, getTracker, configureTracker } from 'cozy-ui/react/helpers/tracker'
 
@@ -10,6 +12,7 @@ import Nav from 'components/Nav'
 import SearchBar from 'components/SearchBar'
 import Claudy from 'components/Claudy'
 import SupportModal from 'components/SupportModal'
+import { getContent } from 'lib/reducers'
 
 class Bar extends Component {
   constructor (props, context) {
@@ -117,19 +120,26 @@ class Bar extends Component {
   render () {
     const { t } = this.props
     const { fireClaudy, displaySupport, enableSearchBar } = this.state
+    const { barLeft, barRight, barCenter } = this.props
     return (
       <div className='coz-bar-container'>
-        { this.renderLeft() }
-        { this.renderCenter() }
+        { barLeft || this.renderLeft() }
+        { barCenter || this.renderCenter() }
         { enableSearchBar
           ? <SearchBar />
           : <hr className='coz-sep-flex' key='separator'/>
         }
-        { this.renderRight() }
+        { barRight || this.renderRight() }
         {displaySupport && <SupportModal onClose={this.toggleSupport} />}
       </div>
     )
   }
 }
 
-export default translate()(Bar)
+const mapStateToProps = state => ({
+  barLeft: getContent(state, 'left'),
+  barRight: getContent(state, 'right'),
+  barCenter: getContent(state, 'center')
+})
+
+export default connect(mapStateToProps)(translate()(Bar))
