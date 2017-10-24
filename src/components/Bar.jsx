@@ -14,7 +14,7 @@ import SupportModal from 'components/SupportModal'
 class Bar extends Component {
   constructor (props, context) {
     super(props)
-    this.store = context.store
+    this.store = context.barStore
     this.state = {
       enableClaudy: null, // no claudy by default
       fireClaudy: false, // true to fire claudy (used by the drawer)

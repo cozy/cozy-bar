@@ -9,7 +9,7 @@ import { getCategorizedItems } from '../lib/helpers'
 class Drawer extends Component {
   constructor (props, context) {
     super(props)
-    this.store = context.store
+    this.store = context.barStore
 
     this.onDrawerClick = this.onDrawerClick.bind(this)
   }

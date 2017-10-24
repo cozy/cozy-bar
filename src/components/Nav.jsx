@@ -11,7 +11,7 @@ const BUSY_DELAY = 450
 class Nav extends Component {
   constructor (props, context) {
     super(props)
-    this.store = context.store
+    this.store = context.barStore
     this.state = {
       apps: {
         busy: false,
