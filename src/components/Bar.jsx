@@ -77,43 +77,51 @@ class Bar extends Component {
     this.setState({displaySupport: !displaySupport})
   }
 
-  render () {
-    const { t, lang, appName,
-      appEditor, iconPath, replaceTitleOnMobile, displayOnMobile,
-      onDrawer, isPublic } = this.props
+  renderCenter () {
+    const { appName, appEditor, iconPath, t, replaceTitleOnMobile, lang } = this.props
+    return <h1 lang={lang} className={`coz-bar-title ${replaceTitleOnMobile ? 'coz-bar-hide-sm' : ''}`}>
+      <img className='coz-bar-hide-sm' src={iconPath} width='32' />
+      {appEditor && <span className='coz-bar-hide-sm'>{appEditor}</span>}
+      <strong>{appName}</strong>
+      <sup className='coz-bar-hide-sm coz-bar-beta-status'>{t('beta')}</sup>
+    </h1>
+  }
+
+  renderLeft () {
+    const { t } = this.props
+    return <button className='coz-bar-burger' onClick={this.toggleDrawer} data-icon='icon-apps'>
+      <span className='coz-bar-hidden'>{t('drawer')}</span>
+    </button>
+  }
+
+  renderRight() {
     const { usageTracker, claudyOpened,
-      enableClaudy, drawerVisible, fireClaudy, displaySupport } = this.state
+      enableClaudy, fireClaudy, onDrawer, displayOnMobile, isPublic } = this.props
+    const { drawerVisible } = this.store
+    return (__TARGET__ !== 'mobile' || displayOnMobile) && !isPublic ? <div className='coz-bar-flex-container' key='nav'>
+      <Drawer visible={drawerVisible} onClose={this.toggleDrawer} onClaudy={(enableClaudy && (() => this.toggleClaudy(true))) || false} isClaudyLoading={fireClaudy} drawerListener={() => onDrawer(this.state.drawerVisible)} toggleSupport={this.toggleSupport} />
+      <Nav toggleSupport={this.toggleSupport} />
+      {enableClaudy &&
+        <Claudy
+          usageTracker={usageTracker}
+          fireClaudy={fireClaudy}
+          onToggle={() => this.toggleClaudy(false)}
+          opened={claudyOpened}
+        />
+      }
+    </div> : null
+  }
+
+  render () {
+    const { t } = this.props
+    const { fireClaudy, displaySupport } = this.state
     return (
       <div className='coz-bar-container'>
-        <h1 lang={lang} className={`coz-bar-title ${replaceTitleOnMobile ? 'coz-bar-hide-sm' : ''}`}>
-          <img className='coz-bar-hide-sm' src={iconPath} width='32' />
-          {appEditor && <span className='coz-bar-hide-sm'>{appEditor} </span>}
-          <strong>{appName}</strong>
-          <sup className='coz-bar-hide-sm coz-bar-beta-status'>{t('beta')}</sup>
-        </h1>
-        <hr className='coz-sep-flex' />
-        {(__TARGET__ !== 'mobile' || displayOnMobile) && !isPublic &&
-          <div className='coz-bar-flex-container'>
-            <button className='coz-bar-burger' onClick={this.toggleDrawer} data-icon='icon-apps'>
-              <span className='coz-bar-hidden'>{t('drawer')}</span>
-            </button>
-            <Drawer visible={drawerVisible} onClose={this.toggleDrawer} onClaudy={(enableClaudy && (() => this.toggleClaudy(true))) || false} isClaudyLoading={fireClaudy} drawerListener={() => onDrawer(this.state.drawerVisible)} toggleSupport={this.toggleSupport} />
-            <Nav toggleSupport={this.toggleSupport} />
-            {enableClaudy &&
-              <Claudy
-                usageTracker={usageTracker}
-                fireClaudy={fireClaudy}
-                onToggle={() => this.toggleClaudy(false)}
-                opened={claudyOpened}
-              />
-            }
-          </div>
-        }
-        {displaySupport &&
-          <SupportModal
-            onClose={this.toggleSupport}
-          />
-        }
+        { this.renderLeft() }
+        { this.renderCenter() }
+        <hr className='coz-sep-flex' key='separator'/>
+        { this.renderRight() }
+        {displaySupport && <SupportModal onClose={this.toggleSupport} />}
       </div>
     )
   }
