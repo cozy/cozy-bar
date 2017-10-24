@@ -5,10 +5,10 @@ import React, { Component } from 'react'
 import { translate } from '../lib/I18n'
 import { shouldEnableTracking, getTracker, configureTracker } from 'cozy-ui/react/helpers/tracker'
 
-import Drawer from './Drawer'
-import Nav from './Nav'
-import Claudy from './Claudy'
-import SupportModal from './SupportModal'
+import Drawer from 'components/Drawer'
+import Nav from 'components/Nav'
+import Claudy from 'components/Claudy'
+import SupportModal from 'components/SupportModal'
 
 class Bar extends Component {
   constructor (props, context) {
