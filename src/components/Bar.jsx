@@ -9,6 +9,8 @@ import Drawer from 'components/Drawer'
 import Nav from 'components/Nav'
 import Claudy from 'components/Claudy'
 import SupportModal from 'components/SupportModal'
+import { flowRight as compose } from 'lodash'
+import { connectToEventEmitter } from 'lib/EventEmitter'
 
 class Bar extends Component {
   constructor (props, context) {
@@ -127,4 +129,7 @@ class Bar extends Component {
   }
 }
 
-export default translate()(Bar)
+export default compose(
+  connectToEventEmitter(component => component.context.store),
+  translate())
+(Bar)
