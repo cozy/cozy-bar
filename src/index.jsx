@@ -16,6 +16,7 @@ import { Provider as ReduxProvider } from 'react-redux'
 import createStore from 'lib/store'
 
 import Bar from './components/Bar'
+import api from 'lib/api'
 
 const APP_SELECTOR = '[role=application]'
 
@@ -136,4 +137,4 @@ const setLocale = (lang) => {
   renderBar(lang)
 }
 
-module.exports = { init, version: __VERSION__, setLocale }
+module.exports = { init, version: __VERSION__, setLocale, ...api(reduxStore) }

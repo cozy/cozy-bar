@@ -13,7 +13,7 @@ const defaultState = {
 }
 
 export const reducer = (state = defaultState, action) => {
-  if (action.type === SET_CONTENT) {
+  if (action.type === SET_CONTENT && state[action.location] !== action.content) {
     return { ...state, [action.location]: action.content }
   } else {
     return state
