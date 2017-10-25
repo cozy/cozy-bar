@@ -5,9 +5,24 @@ const upperFirstLetter = val => {
 }
 
 /**
+ * Wraps argument into a React element if it is a string. Is used
+ * for setBar{Left,Right,Center} to be able to pass HTML
+ *
+ * @param  {[type]} v [description]
+ * @return {[type]}   [description]
+ */
+const wrapInElement = v => {
+  if (typeof v === 'string') {
+    return <span dangerouslySetInnerHTML={{__html: v}} />
+  } else {
+    return v
+  }
+}
+
+/**
  * Creates a React component that enables to access store
  * properties in a declarative way.
- * 
+ *
  * @param  {BarStore} store
  * @param  {string} attr
  * @return {Component}
@@ -36,15 +51,15 @@ const storeComponent = (store, attr) => class extends Component {
  *
  * - getters/setters for public attributes
  * - React components that act as getters/setters
- * 
+ *
  * @param  {BarStore} store - Store on which the API will play
  * @return {object} - Methods of the public API
  */
 export default store => {
-  const publicAttributes = ['barLeft', 'barCenter', 'barRight']
+  const contentAttributes = ['barLeft', 'barCenter', 'barRight']
   const methods = {}
-  publicAttributes.forEach(attrName => {
-    methods['set' + upperFirstLetter(attrName)] = value => store.set(attrName, value)
+  contentAttributes.forEach(attrName => {
+    methods['set' + upperFirstLetter(attrName)] = value => store.set(attrName, wrapInElement(value))
     methods[upperFirstLetter(attrName)] = storeComponent(store, attrName)
   })
   return methods
