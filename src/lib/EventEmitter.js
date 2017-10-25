@@ -38,6 +38,10 @@ export class EventEmitter {
     })
   }
 
+  get (attr) {
+    return this[attr]
+  }
+
   set (attr, value) {
     this[attr] = value
     this.emit()

@@ -117,12 +117,13 @@ class Bar extends Component {
   render () {
     const { t } = this.props
     const { fireClaudy, displaySupport } = this.state
+    const { barLeft, barRight, barCenter } = this.store
     return (
       <div className='coz-bar-container'>
-        { this.renderLeft() }
-        { this.renderCenter() }
+        { barLeft || this.renderLeft() }
+        { barCenter || this.renderCenter() }
         <hr className='coz-sep-flex' key='separator'/>
-        { this.renderRight() }
+        { barRight || this.renderRight() }
         {displaySupport && <SupportModal onClose={this.toggleSupport} />}
       </div>
     )
