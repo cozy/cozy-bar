@@ -23,6 +23,9 @@ if (__DEVELOPMENT__) {
   window.React = React
 }
 
+// store
+const store = new BarStore()
+
 const createBarElement = () => {
   const barNode = document.createElement('div')
   barNode.setAttribute('id', 'coz-bar')
@@ -44,8 +47,6 @@ const injectBarInDOM = (data) => {
   }
 
   document.body.insertBefore(barNode, appNode)
-  // store
-  const store = new BarStore()
 
   // method to put cozy-bar z-index on the top when Drawer visible and vice versa
   data.onDrawer = (visible) => {

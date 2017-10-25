@@ -4,6 +4,8 @@ const path = require('path')
 const webpack = require('webpack')
 const pkg = require('../package.json')
 
+const SRC_DIR = path.resolve(__dirname, '../src')
+
 module.exports = {
   entry: path.resolve(__dirname, '../src/index'),
   output: {
@@ -12,7 +14,8 @@ module.exports = {
     umdNamedDefine: true
   },
   resolve: {
-    extensions: ['.js', '.json', '.yaml']
+    extensions: ['.js', '.json', '.yaml'],
+    modules: ['node_modules', SRC_DIR]
   },
   devtool: '#source-map',
   module: {
