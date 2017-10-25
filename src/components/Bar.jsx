@@ -9,6 +9,8 @@ import Drawer from 'components/Drawer'
 import Nav from 'components/Nav'
 import Claudy from 'components/Claudy'
 import SupportModal from 'components/SupportModal'
+import { flowRight as compose } from 'lodash'
+import { connectToEventEmitter } from 'lib/react-event-emitter'
 
 class Bar extends Component {
   constructor (props, context) {
@@ -115,16 +117,20 @@ class Bar extends Component {
   render () {
     const { t } = this.props
     const { fireClaudy, displaySupport } = this.state
+    const { barLeft, barRight, barCenter } = this.store
     return (
       <div className='coz-bar-container'>
-        { this.renderLeft() }
-        { this.renderCenter() }
+        { barLeft || this.renderLeft() }
+        { barCenter || this.renderCenter() }
         <hr className='coz-sep-flex' key='separator'/>
-        { this.renderRight() }
+        { barRight || this.renderRight() }
         {displaySupport && <SupportModal onClose={this.toggleSupport} />}
       </div>
     )
   }
 }
 
-export default translate()(Bar)
+export default compose(
+  connectToEventEmitter(component => component.context.store),
+  translate())
+(Bar)
