@@ -16,7 +16,7 @@
     "build:mobile": "webpack --config ./config/webpack.target.mobile.js",
     "build:mobile:min": "NODE_ENV=production webpack --config ./config/webpack.target.mobile.js",
     "clean": "rm -rf ./dist",
-    "lint": "standard 'src/**/*.js'",
+    "lint": "standard 'src/**/*.js' --parser babel-eslint",
     "prebuild": "npm-run-all lint clean tx",
     "prewatch": "npm-run-all clean",
     "tx": "tx pull --all || true",
@@ -63,6 +63,7 @@
     "yaml-loader": "^0.5.0"
   },
   "dependencies": {
+    "babel-eslint": "^8.0.1",
     "cozy-client-js": "^0.3.19",
     "node-polyglot": "^2.2.2",
     "piwik-react-router": "^0.10.0",
