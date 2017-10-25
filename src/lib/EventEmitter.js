@@ -1,27 +1,7 @@
-import { Component } from 'react'
-
-export const connectToEventEmitter = getEventEmitter => Wrapped => class extends Component {
-  componentDidMount () {
-    this.ee = getEventEmitter(this)
-    this.ee.on(this.update)
-  }
-
-  componentWillUnmount () {
-    this.ee.off(this.update)
-  }
-
-  update = () => {
-    this.forceUpdate()
-  }
-
-  render () {
-    return <Wrapped {...this.props} />
-  }
-}
-
-export class EventEmitter {
+export default class EventEmitter {
   constructor () {
     this.subscribers = []
+    return this
   }
 
   on (cb) {

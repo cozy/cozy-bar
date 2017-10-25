@@ -6,7 +6,7 @@ import stack from '../lib/stack'
 import { create as createIntent } from '../lib/intents'
 
 import CLAUDY_ACTIONS from '../config/claudyActions'
-import { EventEmitter } from 'lib/EventEmitter'
+import EventEmitter from 'lib/EventEmitter'
 
 const EXCLUDES = ['settings', 'onboarding']
 const CATEGORIES = ['cozy', 'partners', 'ptnb']

@@ -10,7 +10,7 @@ import Nav from 'components/Nav'
 import Claudy from 'components/Claudy'
 import SupportModal from 'components/SupportModal'
 import { flowRight as compose } from 'lodash'
-import { connectToEventEmitter } from 'lib/EventEmitter'
+import { connectToEventEmitter } from 'lib/react-event-emitter'
 
 class Bar extends Component {
   constructor (props, context) {
