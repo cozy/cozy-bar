@@ -18,10 +18,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Removed
 - none yet
 
-## [v4.2.6] - XXXX-XX-XX
+## [v4.2.6] - 2017-10-25
+### Add
+- Add ability to display on mobile
+- Expose a new method `setLocale` to change the bar locale without reloading the app page
+
 ### Changed
 - Update intents library
 - Remove useless then() for support intent
+- Remove some unused styles
+- Update dependencies
+- Change `Apps` button icon
+
 
 ## [v4.2.5] - 2017-10-04
 ### Added
@@ -156,7 +164,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 - Support link href
 
-[Unreleased]: https://github.com/cozy/cozy-bar/compare/v4.2.5...HEAD
+[Unreleased]: https://github.com/cozy/cozy-bar/compare/v4.2.6...HEAD
+[v4.2.6]: https://github.com/cozy/cozy-bar/compare/v4.2.5...v4.2.6
 [v4.2.5]: https://github.com/cozy/cozy-bar/compare/v4.2.4...v4.2.5
 [v4.2.4]: https://github.com/cozy/cozy-bar/compare/v4.2.3...v4.2.4
 [v4.2.3]: https://github.com/cozy/cozy-bar/compare/v4.2.2...v4.2.3
