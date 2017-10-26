@@ -5,10 +5,26 @@ import { getContent } from './reducers'
 const upperFirstLetter = val => {
   return val[0].toUpperCase() + val.slice(1)
 }
+
+/**
+ * Wraps argument into a React element if it is a string. Is used
+ * for setBar{Left,Right,Center} to be able to pass HTML
+ *
+ * @param  {[type]} v [description]
+ * @return {[type]}   [description]
+ */
+const wrapInElement = v => {
+  if (typeof v === 'string') {
+    return <span dangerouslySetInnerHTML={{__html: v}} />
+  } else {
+    return v
+  }
+}
+
 /**
  * Creates a React component that enables to access store
  * properties in a declarative way.
- * 
+ *
  * @param  {BarStore} store
  */
 const barContentComponent = (store, location) => class extends Component {
@@ -53,7 +69,7 @@ export default store => {
 
     /// expose JS API
     methods[`setBar${upperLoc}`] = value => (
-      store.dispatch(setContent(location, value))
+      store.dispatch(setContent(location, wrapInElement(value)))
     )
 
     // expose React API
