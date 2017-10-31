@@ -10,6 +10,7 @@ script:
 deploy:
   provider: npm
   email: npm@cozycloud.cc
+  skip_cleanup: true
   api_key:
     secure: ClGFyibVA3QxWlQPmIZhnOGOCY4r9YzPuVE8CcwvG8I11upDSuwJ5YRNF/i8bG3AbtKgcX4vHeu6fTZ936MNxoA+HcVVTlM2XMAaZoFnVBG0tUKuHe1qg7n+cVQlDvuEvln4t2yDGwq1fvlsljmT/YyvvQ28ffB++OSb9xHky/u6stmY8xquPbJ9vusF/jap8YzeIAz537z7sqHPz782Fg+hdbcLv0Dy8IQx+8KE/e1kPLutsznPDeVANpKU87k0HXHNzJzeH/8mbuap19Io4dvqhNPIyQ2zDsFpQhPwUrrevfizyClZuvaxwwNAxg1fK3InV3Y3Z8JsxM8HZdKs5v+qvHC8cHuhSJ/Cb2jr3Sod2sc/+fxnQ5ox3tdpOD1UeLCktI8E0V86nqDwSU/yW7b09QMfot0a5WQUru0hHgSY/uwgx/BKkBTMsu0VhUzQMUDrmQX+FpYyojTOw17dqw5GozYEpHZ5t0znQ0GUoA/qO2e3o9EV+zcpfe6DBYDxQx1b4U7GPYwUK8QWOuKv4mVtyUlzBdDinVxZ4l1ST34/+OBCGHsZglL/5l6Kq0NCIONU/vr8ZHx5wqKYwI5qRKp2+BnfHbsHnQ2WHEdSFaOL/0g0n0Z9V0KHNfIWKzNHYRlHrMLcZ/bGf+Eh+g4gH2Eue8ELF5Xq3rkgPsTXhLk=
   on:
