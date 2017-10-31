@@ -18,6 +18,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Removed
 - none yet
 
+## [v4.3.0] - 2017-10-31
+### Added
+- API to set content of the Bar (setBar{Right,Left,Center} and <Bar{Left,Right, Center} />)
+
+### Removed
+- none yet
+
 ## [v4.2.6] - 2017-10-25
 ### Add
 - Add ability to display on mobile
