@@ -15,3 +15,5 @@ deploy:
   on:
     tags: true
     repo: cozy/cozy-bar
+before_deploy:
+  - touch .npmignore # do not honor .gitignore since it ignores `dist/`
