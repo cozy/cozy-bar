@@ -26,3 +26,6 @@ desktop.ini
 
 # Default
 !.gitkeep
+
+# Build
+dist
