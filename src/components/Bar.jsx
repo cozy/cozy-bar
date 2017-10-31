@@ -7,6 +7,7 @@ import { shouldEnableTracking, getTracker, configureTracker } from 'cozy-ui/reac
 
 import Drawer from 'components/Drawer'
 import Nav from 'components/Nav'
+import SearchBar from 'components/SearchBar'
 import Claudy from 'components/Claudy'
 import SupportModal from 'components/SupportModal'
 
@@ -20,7 +21,8 @@ class Bar extends Component {
       claudyOpened: false,
       drawerVisible: false,
       usageTracker: null,
-      displaySupport: false
+      displaySupport: false,
+      enableSearchBar: window.location.search.toLowerCase().indexOf('howdoyouturnthison') >= 0
     }
     this.toggleSupport = this.toggleSupport.bind(this)
     this.toggleDrawer = this.toggleDrawer.bind(this)
@@ -114,12 +116,15 @@ class Bar extends Component {
 
   render () {
     const { t } = this.props
-    const { fireClaudy, displaySupport } = this.state
+    const { fireClaudy, displaySupport, enableSearchBar } = this.state
     return (
       <div className='coz-bar-container'>
         { this.renderLeft() }
         { this.renderCenter() }
-        <hr className='coz-sep-flex' key='separator'/>
+        { enableSearchBar
+          ? <SearchBar />
+          : <hr className='coz-sep-flex' key='separator'/>
+        }
         { this.renderRight() }
         {displaySupport && <SupportModal onClose={this.toggleSupport} />}
       </div>
