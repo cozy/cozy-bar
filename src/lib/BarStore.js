@@ -178,7 +178,7 @@ export default class BarStore {
 
 export class Provider extends Component {
   getChildContext () {
-    return { store: this.store }
+    return { barStore: this.store }
   }
 
   constructor (props, context) {

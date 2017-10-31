@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 class Claudy extends Component {
   constructor (props, context) {
     super(props)
-    this.store = context.store
+    this.store = context.barStore
     this.state = {
       isLoading: false,
       isActive: false

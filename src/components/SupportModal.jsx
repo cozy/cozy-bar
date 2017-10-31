@@ -5,7 +5,7 @@ import Spinner from 'cozy-ui/react/Spinner'
 class SupportModal extends Component {
   constructor (props, context) {
     super(props)
-    this.store = context.store
+    this.store = context.barStore
     this.state = {
       isLoading: false
     }

@@ -1,0 +1,6 @@
+{
+    "roots": ["./src/"],
+    "moduleNameMapper": {
+        "^react$": "preact-compat"
+    }
+}
