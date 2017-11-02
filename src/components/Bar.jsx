@@ -102,7 +102,7 @@ class Bar extends Component {
   renderRight() {
     const { usageTracker, claudyOpened,
       enableClaudy, fireClaudy, onDrawer, displayOnMobile, isPublic } = this.props
-    const { drawerVisible } = this.store
+    const { drawerVisible } = this.state
     return (__TARGET__ !== 'mobile' || displayOnMobile) && !isPublic ? <div className='coz-bar-flex-container' key='nav'>
       <Drawer visible={drawerVisible} onClose={this.toggleDrawer} onClaudy={(enableClaudy && (() => this.toggleClaudy(true))) || false} isClaudyLoading={fireClaudy} drawerListener={() => onDrawer(this.state.drawerVisible)} toggleSupport={this.toggleSupport} />
       <Nav toggleSupport={this.toggleSupport} />
