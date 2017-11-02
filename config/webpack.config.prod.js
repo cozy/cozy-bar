@@ -12,6 +12,7 @@ module.exports = {
       }
     }),
     new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify('production'), // to compile on production mode (redux)
       __DEVELOPMENT__: false,
       __PIWIK_SITEID__: 8,
       __PIWIK_SITEID_MOBILE__: 12,
