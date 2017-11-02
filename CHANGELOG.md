@@ -18,9 +18,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Removed
 - none yet
 
-## [v4.3.0] - 2017-10-31
+## [v4.3.4] - 2017-11-2
+
+### Fixed
+
+- Drawer can be opened on mobile
+- Languages are working again
+
+## [v4.3.3] - 2017-10-31
 ### Added
 - API to set content of the Bar (setBar{Right,Left,Center} and <Bar{Left,Right, Center} />)
+
+v4.3.0, v4.3.2, v4.3.3 are only there because of build problems on Travis.
 
 ### Removed
 - none yet
