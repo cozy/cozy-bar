@@ -18,6 +18,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Removed
 - none yet
 
+## [v4.3.5] - 2017-11-3
+
+### Fixed
+
+- Uncaught error on Safari mobile caused blank screens
+
 ## [v4.3.4] - 2017-11-2
 
 ### Fixed
