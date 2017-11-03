@@ -63,7 +63,6 @@ const barContentComponent = (store, location) => class extends Component {
  * @return {object} - Methods of the public API
  */
 export default store => {
-
   // setBar{Left,Right,Center} and <Bar{Left,Right,Center} />
   const locations = ['left', 'center', 'right']
   const methods = {}
