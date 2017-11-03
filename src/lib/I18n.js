@@ -6,6 +6,8 @@
 
 import React, { Component } from 'react'
 import Polyglot from 'node-polyglot'
+import { getLocale } from './reducers'
+import { connect } from 'react-redux'
 
 export const DEFAULT_LANG = 'en'
 
@@ -37,8 +39,14 @@ const initTranslation = (lang, dictRequire, context, defaultLang = DEFAULT_LANG)
   return _polyglot
 }
 
+const enhance = Wrapped => (
+  connect(state => ({
+    lang: getLocale(state)
+  }))(Wrapped)
+)
+
 // Provider root component
-export class I18n extends Component {
+export const I18n = enhance(class extends Component {
   constructor (props) {
     super(props)
     this.init(this.props)
@@ -52,7 +60,8 @@ export class I18n extends Component {
 
   getChildContext () {
     return {
-      t: this.translation.t.bind(this.translation)
+      t: this.translation.t.bind(this.translation),
+      lang: this.props.lang
     }
   }
 
@@ -72,7 +81,7 @@ export class I18n extends Component {
   render () {
     return (this.props.children && this.props.children[0]) || null
   }
-}
+})
 
 I18n.propTypes = {
   lang: React.PropTypes.string.isRequired,      // current language.
@@ -82,14 +91,15 @@ I18n.propTypes = {
 }
 
 I18n.childContextTypes = {
-  t: React.PropTypes.func
+  t: React.PropTypes.func,
+  lang: React.PropTypes.string
 }
 
 // higher order decorator for components that need `t`
 export const translate = () => {
   return (WrappedComponent) => {
     const _translate = (props, context) => (
-      <WrappedComponent {...props} t={context.t} />
+      <WrappedComponent {...props} t={context.t} lang={context.lang} />
     )
     return _translate
   }

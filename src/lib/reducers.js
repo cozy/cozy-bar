@@ -1,13 +1,17 @@
 import { combineReducers } from 'redux'
 import * as content from './content'
+import * as locale from './locale'
 
 export default combineReducers({
-  content: content.reducer
+  content: content.reducer,
+  locale: locale.reducer
 })
 
-export const getContent = (state, location) => {
-  if (!location) {
-    throw new Error('Location must provided')
+const proxy = function (attr, method) {
+  return (state, ...args) => {
+    return method(state[attr], ...args)
   }
-  return content.getContent(state.content, location)
 }
+
+export const getContent = proxy('content', content.getContent)
+export const getLocale = proxy('locale', locale.getLocale)

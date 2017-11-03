@@ -150,4 +150,4 @@ const mapStateToProps = state => ({
   barCenter: getContent(state, 'center')
 })
 
-export default connect(mapStateToProps)(translate()(Bar))
+export default translate()(connect(mapStateToProps)((Bar)))
