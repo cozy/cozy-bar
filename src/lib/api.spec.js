@@ -10,7 +10,8 @@ const {
   setBarCenter,
   BarLeft,
   BarRight,
-  BarCenter
+  BarCenter,
+  setLocale
 } = api(store)
 
 /** Fake mount till I figure how to make enzyme work with preact */
@@ -46,5 +47,13 @@ describe('api spec', function () {
     expect(getContent('right')).toEqual('Right')
     mount(<BarCenter>Center</BarCenter>)
     expect(getContent('center')).toEqual('Center')
+  })
+
+  it('should set locale', function () {
+    expect(store.getState().locale).toBe('en')
+    setLocale('fr')
+    expect(store.getState().locale).toBe('fr')
+    setLocale('de')
+    expect(store.getState().locale).toBe('de')
   })
 })

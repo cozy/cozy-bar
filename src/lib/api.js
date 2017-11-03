@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { setContent } from './content'
+import { setLocale } from './locale'
 import { getContent } from './reducers'
 
 const upperFirstLetter = val => {
@@ -75,5 +76,8 @@ export default store => {
     // expose React API
     methods[`Bar${upperLoc}`] = barContentComponent(store, location)
   })
+
+  methods.setLocale = lang => store.dispatch(setLocale(lang))
+
   return methods
 }

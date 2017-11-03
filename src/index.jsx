@@ -63,7 +63,6 @@ const injectBarInDOM = (data) => {
     <BarProvider store={barStore}>
       <ReduxProvider store={reduxStore}>
         <I18n
-          lang={lang || data.lang}
           dictRequire={(lang) => require(`./locales/${lang}`)}
         >
           <Bar {...data} />
@@ -89,10 +88,6 @@ const getDefaultToken = () => {
     return ''
   }
   return appNode.dataset.cozyToken
-}
-
-const getDefaultLang = () => {
-  return document.documentElement.getAttribute('lang') || 'en'
 }
 
 const getEditor = () => {
@@ -131,9 +126,4 @@ const init = ({
   renderBar()
 }
 
-// tricky way to update bar with new locale
-const setLocale = (lang) => {
-  renderBar(lang)
-}
-
-module.exports = { init, version: __VERSION__, setLocale, ...api(reduxStore) }
+module.exports = { init, version: __VERSION__, ...api(reduxStore) }
