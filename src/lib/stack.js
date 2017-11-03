@@ -1,8 +1,6 @@
 /* global __TARGET__ */
 /* eslint-env browser */
 
-import 'babel-polyfill'
-
 import {
   ForbiddenException,
   ServerErrorException,

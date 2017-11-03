@@ -63,6 +63,7 @@
     "yaml-loader": "^0.5.0"
   },
   "dependencies": {
+    "babel-preset-cozy-app": "^0.2.0",
     "cozy-client-js": "^0.3.19",
     "node-polyglot": "^2.2.2",
     "piwik-react-router": "^0.10.0",
