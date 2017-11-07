@@ -16,9 +16,9 @@ class SupportModal extends Component {
   toggle () {
     this.setState({isLoading: true})
     this.store.getSupportIntent()
-    .start(this.intentWrapperRef, () => {
-      this.setState({isLoading: false})
-    })
+      .start(this.intentWrapperRef, () => {
+        this.setState({isLoading: false})
+      })
   }
 
   componentDidMount () {
@@ -41,7 +41,7 @@ class SupportModal extends Component {
               <div
                 className={`coz-support-intent-wrapper${isLoading ? ' coz-hidden' : ''}`}
                 ref={(wrapper) => { this.intentWrapperRef = wrapper }}
-                />
+              />
             </div>
           </ModalContent>
         </Modal>

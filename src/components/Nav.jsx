@@ -32,7 +32,7 @@ class Nav extends Component {
         this.state.apps.opened ||
         this.state.settings.busy ||
         this.state.settings.opened
-        ) {
+    ) {
       // if it's not a cozy-bar nav popup, close the opened popup
       if (!this.rootRef.contains(event.target)) {
         this.setState({ // reset all
@@ -74,6 +74,7 @@ class Nav extends Component {
     }
   }
 
+  // data-tutorial attribute allows to be targeted in an application tutorial
   render () {
     const { t, toggleSupport } = this.props
     const { apps, settings } = this.state
@@ -89,6 +90,7 @@ class Nav extends Component {
               onClick={() => this.toggleMenu('apps')}
               aria-controls='coz-nav-pop--apps' aria-busy={apps.busy}
               data-icon='icon-apps'
+              data-tutorial='apps'
             >
               {t('menu.apps')}
             </a>

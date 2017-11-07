@@ -35,27 +35,27 @@ const errorStatuses = {
 
 function getApps () {
   return fetch(`${COZY_URL}/apps/`, fetchOptions())
-  .then(res => {
-    if (res.status === 401) {
-      throw new UnauthorizedStackException()
-    }
-    return res.json()
-  })
-  .then(json => json.data)
-  .catch(e => {
-    throw new UnavailableStackException()
-  })
+    .then(res => {
+      if (res.status === 401) {
+        throw new UnauthorizedStackException()
+      }
+      return res.json()
+    })
+    .then(json => json.data)
+    .catch(e => {
+      throw new UnavailableStackException()
+    })
 }
 
 function fetchJSON (url, options) {
   return fetch(url, options)
-  .then(res => {
-    if (typeof errorStatuses[res.status] === 'function') {
-      throw new errorStatuses[res.status]()
-    }
+    .then(res => {
+      if (typeof errorStatuses[res.status] === 'function') {
+        throw new errorStatuses[res.status]()
+      }
 
-    return res.json()
-  })
+      return res.json()
+    })
 }
 
 // fetch function with the same interface than in cozy-client-js
@@ -73,26 +73,26 @@ function cozyFetchJSON (cozy, method, path, body, options = {}) {
     }
   }
   return fetchJSON(`${COZY_URL}${path}`, requestOptions)
-  .then(json => {
-    const responseData = Object.assign({}, json.data)
-    if (responseData.id) responseData._id = responseData.id
-    return Promise.resolve(responseData)
-  })
+    .then(json => {
+      const responseData = Object.assign({}, json.data)
+      if (responseData.id) responseData._id = responseData.id
+      return Promise.resolve(responseData)
+    })
 }
 
 function getStorageData () {
   return fetchJSON(`${COZY_URL}/settings/disk-usage`, fetchOptions())
-  .then(json => {
-    return {
-      usage: parseInt(json.data.attributes.used, 10),
-      // TODO Better handling when no quota provided
-      quota: parseInt(json.data.attributes.quota, 10) || 100000000000,
-      isLimited: json.data.attributes.is_limited
-    }
-  })
-  .catch(e => {
-    throw new UnavailableStackException()
-  })
+    .then(json => {
+      return {
+        usage: parseInt(json.data.attributes.used, 10),
+        // TODO Better handling when no quota provided
+        quota: parseInt(json.data.attributes.quota, 10) || 100000000000,
+        isLimited: json.data.attributes.is_limited
+      }
+    })
+    .catch(e => {
+      throw new UnavailableStackException()
+    })
 }
 
 function getContext (cache) {
@@ -143,10 +143,10 @@ module.exports = {
     },
     settingsAppURL () {
       return getApp('settings')
-      .then(settings => {
-        if (!settings) { throw new UnavailableSettingsException() }
-        return settings.links.related
-      })
+        .then(settings => {
+          if (!settings) { throw new UnavailableSettingsException() }
+          return settings.links.related
+        })
     }
   },
   logout () {
@@ -155,16 +155,16 @@ module.exports = {
     })
 
     return fetch(`${COZY_URL}/auth/login`, options)
-    .then(res => {
-      if (res.status === 401) {
-        throw new UnauthorizedStackException()
-      } else if (res.status === 204) {
-        window.location.reload()
-      }
-    })
-    .catch(e => {
-      throw new UnavailableStackException()
-    })
+      .then(res => {
+        if (res.status === 401) {
+          throw new UnauthorizedStackException()
+        } else if (res.status === 204) {
+          window.location.reload()
+        }
+      })
+      .catch(e => {
+        throw new UnavailableStackException()
+      })
   },
   cozyFetchJSON // used in intents library
 }

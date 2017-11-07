@@ -20,22 +20,22 @@ class Claudy extends Component {
     if (!this.props.opened && !this.intentWrapperRef.childNodes.length) {
       this.setState({isLoading: true})
       this.store.getClaudyIntent({ exposeIntentFrameRemoval: true })
-      .start(this.intentWrapperRef, () => {
-        this.setState({isLoading: false, isActive: true})
-        this.props.onToggle() // toggle claudy when the intent is loaded
-      })
-      .then(({ removeIntentFrame }) => { // exposeFrameRemoval intent event
+        .start(this.intentWrapperRef, () => {
+          this.setState({isLoading: false, isActive: true})
+          this.props.onToggle() // toggle claudy when the intent is loaded
+        })
+        .then(({ removeIntentFrame }) => { // exposeFrameRemoval intent event
         // remove the intent frame at the end of the menu closing transition
-        const closedListener = (e) => {
-          if (e.propertyName === 'transform') {
-            removeIntentFrame()
-            this.setState({ isActive: false })
-            e.target.removeEventListener('transitionend', closedListener)
+          const closedListener = (e) => {
+            if (e.propertyName === 'transform') {
+              removeIntentFrame()
+              this.setState({ isActive: false })
+              e.target.removeEventListener('transitionend', closedListener)
+            }
           }
-        }
-        this.intentWrapperRef.addEventListener('transitionend', closedListener, false)
-        this.props.onToggle()
-      })
+          this.intentWrapperRef.addEventListener('transitionend', closedListener, false)
+          this.props.onToggle()
+        })
     } else {
       this.setState({ isActive: !this.state.isActive })
       this.props.onToggle()
