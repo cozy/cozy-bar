@@ -74,6 +74,7 @@ class Nav extends Component {
     }
   }
 
+  // data-tutorial attribute allows to be targeted in an application tutorial
   render () {
     const { t, toggleSupport } = this.props
     const { apps, settings } = this.state
@@ -89,6 +90,7 @@ class Nav extends Component {
               onClick={() => this.toggleMenu('apps')}
               aria-controls='coz-nav-pop--apps' aria-busy={apps.busy}
               data-icon='icon-apps'
+              data-tutorial='apps'
             >
               {t('menu.apps')}
             </a>

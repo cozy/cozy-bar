@@ -94,15 +94,15 @@ class Bar extends Component {
 
   renderLeft () {
     const { t } = this.props
-    return <button className='coz-bar-burger' onClick={this.toggleDrawer} data-icon='icon-apps'>
+    // data-tutorial attribute allows to be targeted in an application tutorial
+    return <button className='coz-bar-burger' onClick={this.toggleDrawer} data-icon='icon-apps' data-tutorial='apps-mobile'>
       <span className='coz-bar-hidden'>{t('drawer')}</span>
     </button>
   }
 
-  renderRight() {
+  renderRight () {
     const { usageTracker, claudyOpened,
-      enableClaudy, fireClaudy, onDrawer, displayOnMobile, isPublic } = this.props
-    const { drawerVisible } = this.state
+      enableClaudy, fireClaudy, displayOnMobile, isPublic } = this.props
     return (__TARGET__ !== 'mobile' || displayOnMobile) && !isPublic ? <div className='coz-bar-flex-container' key='nav'>
       <Nav toggleSupport={this.toggleSupport} />
       {enableClaudy &&
@@ -117,7 +117,6 @@ class Bar extends Component {
   }
 
   render () {
-    const { t } = this.props
     const { fireClaudy, displaySupport, enableSearchBar } = this.state
     const { barLeft, barRight, barCenter } = this.props
     const { enableClaudy, onDrawer, displayOnMobile, isPublic } = this.props
@@ -128,12 +127,12 @@ class Bar extends Component {
         { barCenter || this.renderCenter() }
         { enableSearchBar
           ? <SearchBar />
-          : <hr className='coz-sep-flex' key='separator'/>
+          : <hr className='coz-sep-flex' key='separator' />
         }
         { barRight || this.renderRight() }
         { displaySupport && <SupportModal onClose={this.toggleSupport} /> }
-        { (__TARGET__ !== 'mobile' || displayOnMobile) && !isPublic ?
-          <Drawer visible={drawerVisible}
+        { (__TARGET__ !== 'mobile' || displayOnMobile) && !isPublic
+          ? <Drawer visible={drawerVisible}
             onClose={this.toggleDrawer}
             onClaudy={(enableClaudy && (() => this.toggleClaudy(true))) || false}
             isClaudyLoading={fireClaudy}
