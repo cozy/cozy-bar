@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { translate } from '../lib/I18n'
-import Autosuggest from 'react-autosuggest';
+import Autosuggest from 'react-autosuggest'
 import { fetchRawIntent } from '../lib/intents'
 
 const INTENT_VERB = 'OPEN'
@@ -8,7 +8,7 @@ const INTENT_DOCTYPE = 'io.cozy.suggestions'
 const SUGGESTIONS_PER_SOURCE = 10
 
 class SearchBar extends Component {
-  state = {
+  static state = {
     query: '',
     suggestions: [],
     sourceURLs: []
@@ -18,27 +18,27 @@ class SearchBar extends Component {
     // The searchbar has one or more sources that provide suggestions. These sources are iframes into other apps, provied by thee intent system.
     // Since we need to call the sources whenever the query changes, we are taking manual control over the intent process.
     fetchRawIntent(INTENT_VERB, INTENT_DOCTYPE)
-    .then(intent => {
-      const { services } = intent.attributes
-      if (!services) return null
+      .then(intent => {
+        const { services } = intent.attributes
+        if (!services) return null
 
-      this.sources = services.map(service => {
-        const url = service.href
-        this.setState(state => ({...state, sourceURLs: [...state.sourceURLs, url]}))
-        const serviceOrigin = url.split('/', 3).join('/')
+        this.sources = services.map(service => {
+          const url = service.href
+          this.setState(state => ({...state, sourceURLs: [...state.sourceURLs, url]}))
+          const serviceOrigin = url.split('/', 3).join('/')
 
-        return {
-          slug: service.slug,     // can be used to show where a suggestion comes from
-          origin: serviceOrigin,
-          id: intent._id,
-          ready: false,
-          window: null,           // will hold a reference to the window we're sending messages to
-          resolve: null           // a reference to a function to call when the source sends suggestions
-        }
+          return {
+            slug: service.slug, // can be used to show where a suggestion comes from
+            origin: serviceOrigin,
+            id: intent._id,
+            ready: false,
+            window: null, // will hold a reference to the window we're sending messages to
+            resolve: null // a reference to a function to call when the source sends suggestions
+          }
+        })
+
+        window.addEventListener('message', this.onMessageFromSource(this.sources))
       })
-
-      window.addEventListener('message', this.onMessageFromSource(this.sources))
-    })
   }
 
   onMessageFromSource = (sources) => (event) => {
@@ -52,15 +52,13 @@ class SearchBar extends Component {
       source.window = event.source
 
       source.window.postMessage({}, event.origin)
-    }
-    else if (event.data.type === `intent-${source.id}:data` && source.resolve) {
+    } else if (event.data.type === `intent-${source.id}:data` && source.resolve) {
       source.resolve({
         id: source.id,
         suggestions: event.data.suggestions
       })
       source.resolve = null
-    }
-    else {
+    } else {
       console.log('unhandled message:', event)
     }
   }
@@ -106,8 +104,7 @@ class SearchBar extends Component {
     if (/^open:/.test(onSelect)) {
       const url = onSelect.substr(5)
       window.location.href = url
-    }
-    else {
+    } else {
       console.log('suggestion onSelect (' + onSelect + ') could not be executed')
     }
 
@@ -150,7 +147,7 @@ class SearchBar extends Component {
       suggestionsList: 'coz-searchbar-autosuggest-suggestions-list',
       suggestion: 'coz-searchbar-autosuggest-suggestion',
       suggestionHighlighted: 'coz-searchbar-autosuggest-suggestion-highlighted',
-      sectionTitle: 'coz-searchbar-autosuggest-section-title',
+      sectionTitle: 'coz-searchbar-autosuggest-section-title'
     }
 
     return (
@@ -161,7 +158,7 @@ class SearchBar extends Component {
         <Autosuggest
           theme={theme}
           suggestions={suggestions}
-          multiSection={true}
+          multiSection
           onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
           onSuggestionsClearRequested={this.clearSuggestions}
           onSuggestionSelected={this.onSuggestionSelected}

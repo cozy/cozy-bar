@@ -84,10 +84,10 @@ export const I18n = enhance(class extends Component {
 })
 
 I18n.propTypes = {
-  lang: React.PropTypes.string.isRequired,      // current language.
+  lang: React.PropTypes.string.isRequired, // current language.
   dictRequire: React.PropTypes.func.isRequired, // A callback to load locales.
-  context: React.PropTypes.string,              // current context.
-  defaultLang: React.PropTypes.string           // default language. By default is 'en'
+  context: React.PropTypes.string, // current context.
+  defaultLang: React.PropTypes.string // default language. By default is 'en'
 }
 
 I18n.childContextTypes = {

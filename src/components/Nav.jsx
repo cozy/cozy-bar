@@ -32,7 +32,7 @@ class Nav extends Component {
         this.state.apps.opened ||
         this.state.settings.busy ||
         this.state.settings.opened
-        ) {
+    ) {
       // if it's not a cozy-bar nav popup, close the opened popup
       if (!this.rootRef.contains(event.target)) {
         this.setState({ // reset all
