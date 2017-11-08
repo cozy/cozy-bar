@@ -18,17 +18,23 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Removed
 - none yet
 
+
+## [v4.3.6] - 2017-11-08
+### Changed
+- styl: Remove unnecessary space on mobile application :art: [[bbea1bd]](https://github.com/cozy/cozy-bar/commit/bbea1bd44b768883784dd81f2bfeb0f1e241f841)
+- lint: fix lint issues + add config file using eslint-config-cozy-app :rotating_light: [[587ae08]](https://github.com/cozy/cozy-bar/commit/587ae08a9773830e2559054c577cc7cf518e55ee)
+- fix: use data-tutorial attribute for buttons targeted by app tutorials :art: [[564d7b8]](https://github.com/cozy/cozy-bar/commit/564d7b8b97f2625a1b3a1a9eaa16086cd06c7901)
+- chore: use eslint for linting (cozy-app standard config) :rotating_light: [[d688455]](https://github.com/cozy/cozy-bar/commit/d688455d219e0f2bffa63f7232a23576203c69bb)
+- styl: reduce item size in apps lists :lipstick: [[af83f45]](https://github.com/cozy/cozy-bar/commit/af83f45f3040f7426b606d710b1d03354a17b202)
+
+
 ## [v4.3.5] - 2017-11-3
-
 ### Fixed
-
 - Uncaught error on Safari mobile caused blank screens
 
 
 ## [v4.3.4] - 2017-11-2
-
 ### Fixed
-
 - Drawer can be opened on mobile
 - Languages are working again
 
@@ -194,7 +200,8 @@ v4.3.0, v4.3.2, v4.3.3 are only there because of build problems on Travis.
 ### Changed
 - Support link href
 
-[Unreleased]: https://github.com/cozy/cozy-bar/compare/v4.3.5...HEAD
+[Unreleased]: https://github.com/cozy/cozy-bar/compare/v4.3.6...HEAD
+[v4.3.6]: https://github.com/cozy/cozy-bar/compare/v4.3.5...v4.3.6
 [v4.3.5]: https://github.com/cozy/cozy-bar/compare/v4.3.4...v4.3.5
 [v4.3.4]: https://github.com/cozy/cozy-bar/compare/v4.3.3...v4.3.4
 [v4.3.3]: https://github.com/cozy/cozy-bar/compare/v4.2.6...v4.3.3
