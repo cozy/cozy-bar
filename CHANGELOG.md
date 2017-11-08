@@ -24,12 +24,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 - Uncaught error on Safari mobile caused blank screens
 
+
 ## [v4.3.4] - 2017-11-2
 
 ### Fixed
 
 - Drawer can be opened on mobile
 - Languages are working again
+
 
 ## [v4.3.3] - 2017-10-31
 ### Added
@@ -39,6 +41,7 @@ v4.3.0, v4.3.2, v4.3.3 are only there because of build problems on Travis.
 
 ### Removed
 - none yet
+
 
 ## [v4.2.6] - 2017-10-25
 ### Add
@@ -62,17 +65,21 @@ v4.3.0, v4.3.2, v4.3.3 are only there because of build problems on Travis.
 ### Fixed
 - Re-instaured spacer between the app title and navigation icons
 
+
 ## [v4.2.3] - 2017-09-26
 ### Fixed
 - Fucked up the previous release
+
 
 ## [v4.2.2] - 2017-09-26
 ### Fixed
 - Temporarily disable the searchbar
 
+
 ## [v4.2.1] - 2017-09-21
 ### Fixed
 - Prevent the search bar from taking up too much space
+
 
 ## [v4.2.0] - 2017-09-19
 ### Changed
@@ -86,6 +93,7 @@ v4.3.0, v4.3.2, v4.3.3 are only there because of build problems on Travis.
 ### Changed
 - Update intent lib according to new cozy-client-js update to handle `resizeClient()` css transition
 - Better handling Claudy active status (desktop version)
+
 
 ## [v4.1.3] - 2017-07-26
 ### Fixed
@@ -186,7 +194,10 @@ v4.3.0, v4.3.2, v4.3.3 are only there because of build problems on Travis.
 ### Changed
 - Support link href
 
-[Unreleased]: https://github.com/cozy/cozy-bar/compare/v4.2.6...HEAD
+[Unreleased]: https://github.com/cozy/cozy-bar/compare/v4.3.5...HEAD
+[v4.3.5]: https://github.com/cozy/cozy-bar/compare/v4.3.4...v4.3.5
+[v4.3.4]: https://github.com/cozy/cozy-bar/compare/v4.3.3...v4.3.4
+[v4.3.3]: https://github.com/cozy/cozy-bar/compare/v4.2.6...v4.3.3
 [v4.2.6]: https://github.com/cozy/cozy-bar/compare/v4.2.5...v4.2.6
 [v4.2.5]: https://github.com/cozy/cozy-bar/compare/v4.2.4...v4.2.5
 [v4.2.4]: https://github.com/cozy/cozy-bar/compare/v4.2.3...v4.2.4
