@@ -19,6 +19,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - none yet
 
 
+## [v4.3.7] - 2017-11-08
+### Fixed
+- Remove a typo causing a bug in the search bar component :ambulance: [[390ff7b]](https://github.com/cozy/cozy-bar/commit/390ff7bb34f5d0aa082bcf10acf65a1205ba69ce)
+
+
 ## [v4.3.6] - 2017-11-08
 ### Changed
 - styl: Remove unnecessary space on mobile application :art: [[bbea1bd]](https://github.com/cozy/cozy-bar/commit/bbea1bd44b768883784dd81f2bfeb0f1e241f841)
@@ -200,7 +205,8 @@ v4.3.0, v4.3.2, v4.3.3 are only there because of build problems on Travis.
 ### Changed
 - Support link href
 
-[Unreleased]: https://github.com/cozy/cozy-bar/compare/v4.3.6...HEAD
+[Unreleased]: https://github.com/cozy/cozy-bar/compare/v4.3.7...HEAD
+[v4.3.7]: https://github.com/cozy/cozy-bar/compare/v4.3.6...v4.3.7
 [v4.3.6]: https://github.com/cozy/cozy-bar/compare/v4.3.5...v4.3.6
 [v4.3.5]: https://github.com/cozy/cozy-bar/compare/v4.3.4...v4.3.5
 [v4.3.4]: https://github.com/cozy/cozy-bar/compare/v4.3.3...v4.3.4
