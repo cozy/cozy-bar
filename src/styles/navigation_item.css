@@ -22,22 +22,12 @@
   cursor: pointer;
 }
 
-/* Hover effect */
-[role=banner] .coz-nav-item a[role=menuitem]:not(.coz-bar-coming-soon-app):hover:before,
-[role=banner] .coz-nav-item a[role=menuitem]:not(.coz-bar-coming-soon-app):focus:before,
-[role=banner] .coz-nav-item button[role=menuitem]:hover:before,
-[role=banner] .coz-nav-item button[role=menuitem]:focus:before {
-  content: '';
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: -1;
-  background-color: var(--pale-grey);
-  background-image: inherit;
-  background-position: inherit;
-  background-repeat: inherit;
+[role=banner] .coz-nav-item a[role=menuitem]:not(.coz-bar-coming-soon-app):hover,
+[role=banner] .coz-nav-item a[role=menuitem]:not(.coz-bar-coming-soon-app):focus,
+[role=banner] .coz-nav-item button[role=menuitem]:hover,
+[role=banner] .coz-nav-item button[role=menuitem]:focus {
+  background-color: rgba(41, 126, 241, 0.1);
+  border-radius: 3px;
 }
 
 [role=banner] [role=menuitem][aria-busy=true]::after {
