@@ -8,7 +8,7 @@ const INTENT_DOCTYPE = 'io.cozy.suggestions'
 const SUGGESTIONS_PER_SOURCE = 10
 
 class SearchBar extends Component {
-  static state = {
+  state = {
     query: '',
     suggestions: [],
     sourceURLs: []
