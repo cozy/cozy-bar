@@ -121,7 +121,7 @@ export default class BarStore {
             return Object.assign({}, CLAUDY_ACTIONS[slug], { slug })
           }
         }).filter(action => action)
-        return claudyActions.length
+        return !!claudyActions.length
       })
       .catch(error => {
         console.warn && console.warn(`Cozy-bar cannot fetch Claudy: ${error.message}`)
