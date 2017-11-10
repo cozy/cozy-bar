@@ -84,7 +84,7 @@ export const I18n = enhance(class extends Component {
 })
 
 I18n.propTypes = {
-  lang: React.PropTypes.string.isRequired, // current language.
+  lang: React.PropTypes.string, // current language, from redux store
   dictRequire: React.PropTypes.func.isRequired, // A callback to load locales.
   context: React.PropTypes.string, // current context.
   defaultLang: React.PropTypes.string // default language. By default is 'en'

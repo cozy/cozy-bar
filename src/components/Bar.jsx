@@ -101,8 +101,8 @@ class Bar extends Component {
   }
 
   renderRight () {
-    const { usageTracker, claudyOpened,
-      enableClaudy, fireClaudy, displayOnMobile, isPublic } = this.props
+    const { displayOnMobile, isPublic } = this.props
+    const { enableClaudy, fireClaudy, claudyOpened, usageTracker } = this.state
     return (__TARGET__ !== 'mobile' || displayOnMobile) && !isPublic ? <div className='coz-bar-flex-container' key='nav'>
       <Nav toggleSupport={this.toggleSupport} />
       {enableClaudy &&
@@ -117,10 +117,8 @@ class Bar extends Component {
   }
 
   render () {
-    const { fireClaudy, displaySupport, enableSearchBar } = this.state
-    const { barLeft, barRight, barCenter } = this.props
-    const { enableClaudy, onDrawer, displayOnMobile, isPublic } = this.props
-    const { drawerVisible } = this.state
+    const { fireClaudy, displaySupport, enableSearchBar, drawerVisible, enableClaudy } = this.state
+    const { barLeft, barRight, barCenter, onDrawer, displayOnMobile, isPublic } = this.props
     return (
       <div className='coz-bar-container'>
         { barLeft || this.renderLeft() }
