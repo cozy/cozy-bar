@@ -19,6 +19,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - none yet
 
 
+## [v4.4.0] - 2017-11-13
+### Fixed
+- remove isRequired property for I18n props
+- fix problems with Claudy
+
+### Added
+- Highlight matching texts in search results
+
 ## [v4.3.7] - 2017-11-08
 ### Fixed
 - Remove a typo causing a bug in the search bar component :ambulance: [[390ff7b]](https://github.com/cozy/cozy-bar/commit/390ff7bb34f5d0aa082bcf10acf65a1205ba69ce)
@@ -205,7 +213,8 @@ v4.3.0, v4.3.2, v4.3.3 are only there because of build problems on Travis.
 ### Changed
 - Support link href
 
-[Unreleased]: https://github.com/cozy/cozy-bar/compare/v4.3.7...HEAD
+[Unreleased]: https://github.com/cozy/cozy-bar/compare/v4.4.0...HEAD
+[v4.4.0]: https://github.com/cozy/cozy-bar/compare/v4.3.7...v4.4.0
 [v4.3.7]: https://github.com/cozy/cozy-bar/compare/v4.3.6...v4.3.7
 [v4.3.6]: https://github.com/cozy/cozy-bar/compare/v4.3.5...v4.3.6
 [v4.3.5]: https://github.com/cozy/cozy-bar/compare/v4.3.4...v4.3.5
