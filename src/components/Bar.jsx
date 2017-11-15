@@ -103,7 +103,7 @@ class Bar extends Component {
   renderRight () {
     const { displayOnMobile, isPublic } = this.props
     const { enableClaudy, fireClaudy, claudyOpened, usageTracker } = this.state
-    return (__TARGET__ !== 'mobile' || displayOnMobile) && !isPublic ? <div className='coz-bar-flex-container' key='nav'>
+    return (__TARGET__ !== 'mobile' || displayOnMobile) && !isPublic ? <div>
       <Nav toggleSupport={this.toggleSupport} />
       {enableClaudy &&
         <Claudy
@@ -127,15 +127,17 @@ class Bar extends Component {
           ? <SearchBar />
           : <hr className='coz-sep-flex' key='separator' />
         }
-        { barRight || this.renderRight() }
+        <div className='coz-bar-flex-container' key='nav'>
+          { (__TARGET__ !== 'mobile' || displayOnMobile) && !isPublic
+            ? <Drawer visible={drawerVisible}
+              onClose={this.toggleDrawer}
+              onClaudy={(enableClaudy && (() => this.toggleClaudy(true))) || false}
+              isClaudyLoading={fireClaudy}
+              drawerListener={() => onDrawer(this.state.drawerVisible)}
+              toggleSupport={this.toggleSupport} /> : null }
+          { barRight || this.renderRight() }
+        </div>
         { displaySupport && <SupportModal onClose={this.toggleSupport} /> }
-        { (__TARGET__ !== 'mobile' || displayOnMobile) && !isPublic
-          ? <Drawer visible={drawerVisible}
-            onClose={this.toggleDrawer}
-            onClaudy={(enableClaudy && (() => this.toggleClaudy(true))) || false}
-            isClaudyLoading={fireClaudy}
-            drawerListener={() => onDrawer(this.state.drawerVisible)}
-            toggleSupport={this.toggleSupport} /> : null }
       </div>
     )
   }
