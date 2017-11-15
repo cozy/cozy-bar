@@ -6,6 +6,7 @@
   flex-grow: 1;
   padding: .3em .8em .3em 2.5em;
   box-sizing: border-box;
+  position: relative;
 }
 
 [role=banner] .coz-searchbar-autosuggest-container{
@@ -21,6 +22,12 @@
   left: 0;
   top: 0;
   background: url('../assets/icons/16/icon-magnifier-16.svg') .6em center no-repeat;
+}
+[role=banner] .coz-searchbar-autosuggest-container.--searching:before{
+  padding-left: .5em;
+  background: url('../assets/icons/spinner.svg') center no-repeat;
+  background-size: 1em;
+  animation: spin 1s linear infinite;
 }
 
 [role=banner] .coz-searchbar-autosuggest-input{
@@ -40,23 +47,40 @@
 }
 
 [role=banner] .coz-searchbar-autosuggest-suggestions-container {
-	position: absolute;
-	top: 100%;
-	margin-top: 3px;
-	width: 100%;
-	max-height: em(170px);
-	overflow: auto;
-	border-width: 1px;
+  position: absolute;
+  top: 100%;
+  margin-top: 3px;
+  width: 100%;
+  max-height: em(170px);
+  overflow: auto;
+  border-width: 1px;
   border-style: solid;
   border-color: var(--silver);
-	border-radius: 4px;
-	background: white;
+  border-radius: 4px;
+  background: white;
   box-shadow: 0 1px 3px 0 rgba(50, 54, 63, 0.19), 0 6px 18px 0 rgba(50, 54, 63, 0.19);
-	display: none;
+  display: none;
 }
 
 [role=banner] .coz-searchbar-autosuggest-suggestions-container--open {
 	display: block;
+}
+
+[role=banner] .coz-searchbar-autosuggest-status-container {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin: .3em .8em .3em 2.5em;
+  padding: .8em .5em;
+  max-height: em(170px);
+  overflow: auto;
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--silver);
+  border-radius: 4px;
+  background: white;
+  box-shadow: 0 1px 3px 0 rgba(50, 54, 63, 0.19), 0 6px 18px 0 rgba(50, 54, 63, 0.19);
 }
 
 [role=banner] .coz-searchbar-autosuggest-suggestions-list {

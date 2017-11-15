@@ -63,6 +63,8 @@ const highlightQueryTerms = (searchResult, query) => {
 class SearchBar extends Component {
   state = {
     query: '',
+    searching: false,
+    focused: false,
     suggestions: [],
     sourceURLs: []
   }
@@ -124,6 +126,12 @@ class SearchBar extends Component {
     })
   }
 
+  changeFocusState = (focused) => {
+    this.setState({
+      focused
+    })
+  }
+
   clearSuggestions = () => {
     this.setState({
       suggestions: []
@@ -131,25 +139,36 @@ class SearchBar extends Component {
   }
 
   onSuggestionsFetchRequested = ({ value }) => {
-    this.clearSuggestions()
+    const availableSources = this.sources.filter(source => source.ready)
 
-    this.sources.filter(source => source.ready).forEach(async (source) => {
-      const {id, suggestions} = await new Promise(resolve => {
-        source.resolve = resolve
-        source.window.postMessage({ query: value }, source.origin)
+    if (availableSources.length > 0) {
+      this.clearSuggestions()
+      this.setState({ searching: true })
+
+      availableSources.forEach(async (source) => {
+        const {id, suggestions} = await new Promise(resolve => {
+          source.resolve = resolve
+          source.window.postMessage({ query: value }, source.origin)
+        })
+
+        this.setState(state => ({
+          ...state,
+          searching: false,
+          suggestions: [
+            ...state.suggestions,
+            {
+              title: this.sources.find(source => source.id === id).slug,
+              suggestions
+            }
+          ]
+        }))
       })
+    }
+  }
 
-      this.setState(state => ({
-        ...state,
-        suggestions: [
-          ...state.suggestions,
-          {
-            title: this.sources.find(source => source.id === id).slug,
-            suggestions
-          }
-        ]
-      }))
-    })
+  onSuggestionsClearRequested = () => {
+    this.clearSuggestions()
+    this.setState({ searching: false })
   }
 
   onSuggestionSelected = (event, { suggestion }) => {
@@ -177,24 +196,29 @@ class SearchBar extends Component {
       <div className='coz-searchbar-autosuggest-suggestion-title'>
         {highlightQueryTerms(suggestion.title, this.state.query)}
       </div>
-      <div className='coz-searchbar-autosuggest-suggestion-subtitle'>
-        {highlightQueryTerms(suggestion.subtitle, this.state.query)}
-      </div>
+      {
+        suggestion.subtitle &&
+        <div className='coz-searchbar-autosuggest-suggestion-subtitle'>
+          {highlightQueryTerms(suggestion.subtitle, this.state.query)}
+        </div>
+      }
     </div>
   )
 
   render () {
-    const { query, suggestions, sourceURLs } = this.state
+    const { query, searching, focused, suggestions, sourceURLs } = this.state
     const { t } = this.props
 
     const inputProps = {
       placeholder: t('searchbar.placeholder'),
       value: query,
-      onChange: this.onChange
+      onChange: this.onChange,
+      onFocus: () => this.changeFocusState(true),
+      onBlur: () => this.changeFocusState(false)
     }
 
     const theme = {
-      container: 'coz-searchbar-autosuggest-container',
+      container: 'coz-searchbar-autosuggest-container' + (searching ? ' --searching' : ''),
       input: 'coz-searchbar-autosuggest-input',
       inputFocused: 'coz-searchbar-autosuggest-input-focused',
       suggestionsContainer: 'coz-searchbar-autosuggest-suggestions-container',
@@ -215,7 +239,7 @@ class SearchBar extends Component {
           suggestions={suggestions}
           multiSection
           onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-          onSuggestionsClearRequested={this.clearSuggestions}
+          onSuggestionsClearRequested={this.onSuggestionsClearRequested}
           onSuggestionSelected={this.onSuggestionSelected}
           getSuggestionValue={this.getSuggestionValue}
           getSectionSuggestions={this.getSectionSuggestions}
@@ -224,6 +248,11 @@ class SearchBar extends Component {
           inputProps={inputProps}
           focusInputOnSuggestionClick={false}
         />
+        { query !== '' && !searching && focused && suggestions.length === 0 &&
+          <div className={'coz-searchbar-autosuggest-status-container'}>
+            {t('searchbar.empty', { query })}
+          </div>
+        }
       </div>
     )
   }
