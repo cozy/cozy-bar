@@ -30,6 +30,7 @@
   },
   
   "searchbar": {
-    "placeholder": "Search anything"
+    "placeholder": "Search anything",
+    "empty": "No result has been found for the query “%{query}”"
   }
 }
