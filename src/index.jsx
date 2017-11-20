@@ -59,7 +59,7 @@ const injectBarInDOM = (data) => {
     barNode.dataset.drawerVisible = visible
   }
 
-  return () => render((
+  render((
     <BarProvider store={barStore}>
       <ReduxProvider store={reduxStore}>
         <I18n
@@ -104,7 +104,6 @@ const getDefaultIcon = () => {
   }
 }
 
-let renderBar
 const init = ({
   appName,
   appEditor = getEditor(),
@@ -121,8 +120,7 @@ const init = ({
   }
 
   stack.init({cozyURL, token})
-  renderBar = injectBarInDOM({appName, appEditor, iconPath, replaceTitleOnMobile, displayOnMobile, isPublic})
-  renderBar()
+  injectBarInDOM({appName, appEditor, iconPath, replaceTitleOnMobile, displayOnMobile, isPublic})
 }
 
 module.exports = { init, version: __VERSION__, ...api(reduxStore) }
