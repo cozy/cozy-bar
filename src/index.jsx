@@ -111,12 +111,17 @@ const init = ({
   cozyURL = getDefaultStackURL(),
   token = getDefaultToken(),
   replaceTitleOnMobile = false,
-  displayOnMobile = false,
+  displayOnMobile,
   isPublic = false
 } = {}) => {
   // Force public mode in `/public` URLs
   if (/^\/public/.test(window.location.pathname)) {
     isPublic = true
+  }
+
+  if (displayOnMobile === undefined) {
+    displayOnMobile = false
+    if (__TARGET__ === 'mobile') console.warn('Deprecated: cozy-bar option `displayOnMobile` automatically set to `false`, but `true` will be the new default value in the next version. Please explicitly set the option to `false`.')
   }
 
   stack.init({cozyURL, token})
