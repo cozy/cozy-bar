@@ -6,8 +6,6 @@
   "storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
   "help": "Help",
   "logout": "Sign out",
-  "beta_status": "We are still in beta",
-  "beta": "beta",
   "soon": "soon",
   "error_UnavailableStack": "The stack is unreachable (connection timed-out).",
   "error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
@@ -28,7 +26,7 @@
   "claudy": {
     "title": "How to drive your Cozy?"
   },
-  
+
   "searchbar": {
     "placeholder": "Search anything",
     "empty": "No result has been found for the query “%{query}”"
