@@ -208,6 +208,8 @@ class SearchBar extends Component {
   render () {
     const { query, searching, focused, suggestions, sourceURLs } = this.state
     const { t } = this.props
+    
+    const hasSuggestions = suggestions.reduce((totalSuggestions, suggestionSection) => (totalSuggestions + suggestionSection.suggestions.length), 0) > 0
 
     const inputProps = {
       placeholder: t('searchbar.placeholder'),
@@ -248,7 +250,7 @@ class SearchBar extends Component {
           inputProps={inputProps}
           focusInputOnSuggestionClick={false}
         />
-        { query !== '' && !searching && focused && suggestions.length === 0 &&
+        { query !== '' && !searching && focused && !hasSuggestions &&
           <div className={'coz-searchbar-autosuggest-status-container'}>
             {t('searchbar.empty', { query })}
           </div>
