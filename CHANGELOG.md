@@ -19,6 +19,20 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - none yet
 
 
+## [v4.5.0] - 2017-11-21
+
+### Fixed
+- Claudy drawer positin on mobile
+- Hide app drawer button on mobile if the option is enabled
+
+### Added
+- Better UI for the search bar
+
+### Changed
+- Removed beta tag \o/
+- Added a warning : the `displayOnMobile` default value will be changed to `true` in an upcoming version.
+
+
 ## [v4.4.0] - 2017-11-13
 ### Fixed
 - remove isRequired property for I18n props
@@ -213,7 +227,8 @@ v4.3.0, v4.3.2, v4.3.3 are only there because of build problems on Travis.
 ### Changed
 - Support link href
 
-[Unreleased]: https://github.com/cozy/cozy-bar/compare/v4.4.0...HEAD
+[Unreleased]: https://github.com/cozy/cozy-bar/compare/v4.5.0...HEAD
+[v4.5.0]: https://github.com/cozy/cozy-bar/compare/v4.4.0...v4.5.0
 [v4.4.0]: https://github.com/cozy/cozy-bar/compare/v4.3.7...v4.4.0
 [v4.3.7]: https://github.com/cozy/cozy-bar/compare/v4.3.6...v4.3.7
 [v4.3.6]: https://github.com/cozy/cozy-bar/compare/v4.3.5...v4.3.6
