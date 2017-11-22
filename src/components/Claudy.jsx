@@ -13,7 +13,7 @@ class Claudy extends Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    if (nextProps.fireClaudy) this.toggle()
+    if (nextProps.claudyFired) this.toggle()
   }
 
   toggle () {

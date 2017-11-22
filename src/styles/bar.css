@@ -16,17 +16,9 @@
   width: 100%;
 }
 
-[role=banner] .coz-bar-flex-container {
-  display: flex;
-}
-
 @media (max-width: 48em) {
   [role=banner] {
     padding: 0 1em 0 0;
-  }
-
-  [role=banner] .coz-bar-flex-container {
-    width: 100%;
   }
 
   [role=banner][data-drawer-visible=true] {
@@ -75,13 +67,17 @@
   }
 }
 
-[role=banner] .coz-bar-burger {
-  width: 2.5em;
-  margin-right: 0.25em;
+[role=banner] .coz-bar-btn {
   padding: 0;
   border: none;
   background-color: transparent;
   background-position: center;
+  flex: 0 0 2.5rem;
+  cursor: pointer;
+}
+
+[role=banner] .coz-bar-burger {
+  margin-right: 0.25em;
 }
 
 @media (min-width: 48.0625em) {
