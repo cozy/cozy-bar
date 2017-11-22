@@ -94,7 +94,7 @@ class Bar extends Component {
   renderLeft () {
     const { t, displayOnMobile, isPublic } = this.props
     // data-tutorial attribute allows to be targeted in an application tutorial
-    return (__TARGET__ !== 'mobile' || displayOnMobile) && !isPublic ? <button className='coz-bar-burger' onClick={this.toggleDrawer} data-icon='icon-apps' data-tutorial='apps-mobile'>
+    return (__TARGET__ !== 'mobile' || displayOnMobile) && !isPublic ? <button className='coz-bar-btn coz-bar-burger' onClick={this.toggleDrawer} data-icon='icon-apps' data-tutorial='apps-mobile'>
       <span className='coz-bar-hidden'>{t('drawer')}</span>
     </button> : null
   }
