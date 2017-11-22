@@ -193,6 +193,7 @@ class SearchBar extends Component {
 
   renderSuggestion = (suggestion) => (
     <div className='coz-searchbar-autosuggest-suggestion-content'>
+      {suggestion.icon && <img className='coz-searchbar-autosuggest-suggestion-icon' src={suggestion.icon} alt='icon' />}
       <div className='coz-searchbar-autosuggest-suggestion-title'>
         {highlightQueryTerms(suggestion.title, this.state.query)}
       </div>
