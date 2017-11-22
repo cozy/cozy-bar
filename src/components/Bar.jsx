@@ -125,16 +125,14 @@ class Bar extends Component {
           ? <SearchBar />
           : <hr className='coz-sep-flex' key='separator' />
         }
-        <div className='coz-bar-flex-container' key='nav'>
-          { (__TARGET__ !== 'mobile' || displayOnMobile) && !isPublic
-            ? <Drawer visible={drawerVisible}
-              onClose={this.toggleDrawer}
-              onClaudy={(claudyEnabled && (() => this.toggleClaudy(true))) || false}
-              isClaudyLoading={claudyFired}
-              drawerListener={() => onDrawer(this.state.drawerVisible)}
-              toggleSupport={this.toggleSupport} /> : null }
-          { barRight || this.renderRight() }
-        </div>
+        { barRight || this.renderRight() }
+        { (__TARGET__ !== 'mobile' || displayOnMobile) && !isPublic
+          ? <Drawer visible={drawerVisible}
+            onClose={this.toggleDrawer}
+            onClaudy={(claudyEnabled && (() => this.toggleClaudy(true))) || false}
+            isClaudyLoading={claudyFired}
+            drawerListener={() => onDrawer(this.state.drawerVisible)}
+            toggleSupport={this.toggleSupport} /> : null }
         { claudyEnabled &&
           <Claudy
             usageTracker={usageTracker}
