@@ -4,7 +4,6 @@
   flex: 1 0;
 }
 
-
 [role=banner] [data-icon] {
   background-repeat: no-repeat;
   background-position: 0 50%;
@@ -41,4 +40,9 @@
 
 [role=banner] [data-icon='icon-claudy'] {
   background-image: url(../assets/icons/16/icon-claudy.svg)
+}
+
+[role=banner] .u-flex-grow {
+  display: flex;
+  flex-grow: 1;
 }

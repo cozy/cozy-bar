@@ -121,10 +121,9 @@ class Bar extends Component {
       <div className='coz-bar-container'>
         { barLeft || this.renderLeft() }
         { barCenter || this.renderCenter() }
-        { searchBarEnabled
-          ? <SearchBar />
-          : <hr className='coz-sep-flex' key='separator' />
-        }
+        <div className='u-flex-grow'>
+          { searchBarEnabled ? <SearchBar /> : null }
+        </div>
         { barRight || this.renderRight() }
         { (__TARGET__ !== 'mobile' || displayOnMobile) && !isPublic
           ? <Drawer visible={drawerVisible}
