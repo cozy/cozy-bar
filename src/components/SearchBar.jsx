@@ -65,7 +65,7 @@ class SearchBar extends Component {
     query: '',
     searching: false,
     focused: false,
-    suggestions: [],
+    suggestionsBySource: [],
     sourceURLs: []
   }
 
@@ -134,7 +134,7 @@ class SearchBar extends Component {
 
   clearSuggestions = () => {
     this.setState({
-      suggestions: []
+      suggestionsBySource: []
     })
   }
 
@@ -154,8 +154,8 @@ class SearchBar extends Component {
         this.setState(state => ({
           ...state,
           searching: false,
-          suggestions: [
-            ...state.suggestions,
+          suggestionsBySource: [
+            ...state.suggestionsBySource,
             {
               title: this.sources.find(source => source.id === id).slug,
               suggestions
@@ -206,8 +206,10 @@ class SearchBar extends Component {
   )
 
   render () {
-    const { query, searching, focused, suggestions, sourceURLs } = this.state
+    const { query, searching, focused, suggestionsBySource, sourceURLs } = this.state
     const { t } = this.props
+
+    const hasSuggestions = suggestionsBySource.reduce((totalSuggestions, suggestionSection) => (totalSuggestions + suggestionSection.suggestions.length), 0) > 0
 
     const inputProps = {
       placeholder: t('searchbar.placeholder'),
@@ -236,7 +238,7 @@ class SearchBar extends Component {
         ))}
         <Autosuggest
           theme={theme}
-          suggestions={suggestions}
+          suggestions={suggestionsBySource}
           multiSection
           onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
           onSuggestionsClearRequested={this.onSuggestionsClearRequested}
@@ -248,7 +250,7 @@ class SearchBar extends Component {
           inputProps={inputProps}
           focusInputOnSuggestionClick={false}
         />
-        { query !== '' && !searching && focused && suggestions.length === 0 &&
+        { query !== '' && !searching && focused && !hasSuggestions &&
           <div className={'coz-searchbar-autosuggest-status-container'}>
             {t('searchbar.empty', { query })}
           </div>
