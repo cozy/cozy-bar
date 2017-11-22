@@ -101,22 +101,21 @@ class Bar extends Component {
 
   renderRight () {
     const { displayOnMobile, isPublic } = this.props
-    const { claudyEnabled, claudyFired, claudyOpened, usageTracker } = this.state
-    return (__TARGET__ !== 'mobile' || displayOnMobile) && !isPublic ? <div>
-      <Nav toggleSupport={this.toggleSupport} />
-      {claudyEnabled &&
-        <Claudy
-          usageTracker={usageTracker}
-          claudyFired={claudyFired}
-          onToggle={() => this.toggleClaudy(false)}
-          opened={claudyOpened}
-        />
-      }
-    </div> : null
+    return (__TARGET__ !== 'mobile' || displayOnMobile) && !isPublic
+      ? <Nav toggleSupport={this.toggleSupport} />
+      : null
   }
 
   render () {
-    const { claudyFired, supportDisplayed, searchBarEnabled, drawerVisible, claudyEnabled } = this.state
+    const {
+      claudyEnabled,
+      claudyFired,
+      claudyOpened,
+      drawerVisible,
+      searchBarEnabled,
+      supportDisplayed,
+      usageTracker
+    } = this.state
     const { barLeft, barRight, barCenter, onDrawer, displayOnMobile, isPublic } = this.props
     return (
       <div className='coz-bar-container'>
@@ -136,6 +135,13 @@ class Bar extends Component {
               toggleSupport={this.toggleSupport} /> : null }
           { barRight || this.renderRight() }
         </div>
+        { claudyEnabled &&
+          <Claudy
+            usageTracker={usageTracker}
+            claudyFired={claudyFired}
+            onToggle={() => this.toggleClaudy(false)}
+            opened={claudyOpened}
+          /> }
         { supportDisplayed && <SupportModal onClose={this.toggleSupport} /> }
       </div>
     )
