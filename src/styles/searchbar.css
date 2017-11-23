@@ -95,6 +95,7 @@
   border-bottom-width: 1px;
   border-style:  solid;
   border-color: var(--silver);
+  cursor: pointer;
 }
 [role=banner] .coz-searchbar-autosuggest-suggestion:last-child {
   border-bottom-width: 0;
@@ -105,6 +106,12 @@
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
+}
+
+[role=banner] .coz-searchbar-autosuggest-suggestion-icon {
+  max-height: 2rem;
+  min-height: 2rem;
+  margin-right: 1rem;
 }
 
 [role=banner] .coz-searchbar-autosuggest-suggestion-title {
