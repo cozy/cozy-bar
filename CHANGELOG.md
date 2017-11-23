@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - Add an icon in search results :framed_picture:
 
+### Changed
+- Get back `Beta` status
+
 ## [v4.5.1] - 2017-11-22
 
 ### Fixed
