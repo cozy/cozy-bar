@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [v4.5.2] - 2017-11-23
+
+### Added
+- Add an icon in search results :framed_picture:
+
 ## [v4.5.1] - 2017-11-22
 
 ### Fixed
@@ -217,7 +222,8 @@ v4.3.0, v4.3.2, v4.3.3 are only there because of build problems on Travis.
 ### Changed
 - Support link href
 
-[Unreleased]: https://github.com/cozy/cozy-bar/compare/v4.5.0...HEAD
+[Unreleased]: https://github.com/cozy/cozy-bar/compare/v4.5.2...HEAD
+[v4.5.2]: https://github.com/cozy/cozy-bar/compare/v4.5.1...v4.5.2
 [v4.5.0]: https://github.com/cozy/cozy-bar/compare/v4.4.0...v4.5.0
 [v4.4.0]: https://github.com/cozy/cozy-bar/compare/v4.3.7...v4.4.0
 [v4.3.7]: https://github.com/cozy/cozy-bar/compare/v4.3.6...v4.3.7
@@ -239,7 +245,7 @@ v4.3.0, v4.3.2, v4.3.3 are only there because of build problems on Travis.
 [v4.1.0]: https://github.com/cozy/cozy-bar/compare/v4.0.2...v4.1.0
 [v4.0.2]: https://github.com/cozy/cozy-bar/compare/v4.0.1...v4.0.2
 [v4.0.1]: https://github.com/cozy/cozy-bar/compare/v4.0.0...v4.0.1
-[v4.0.0]: https://github.com/cozy/cozy-bar/compare/v3.2.1...4.0.0
+[v4.0.0]: https://github.com/cozy/cozy-bar/compare/v3.2.1...v4.0.0
 [v3.2.1]: https://github.com/cozy/cozy-bar/compare/v3.2.0...v3.2.1
 [v3.2.0]: https://github.com/cozy/cozy-bar/compare/v3.1.1...v3.2.0
 [v3.1.1]: https://github.com/cozy/cozy-bar/compare/v3.1.0...v3.1.1
