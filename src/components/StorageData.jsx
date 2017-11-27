@@ -3,10 +3,10 @@ import { translate } from '../lib/I18n'
 
 const StorageData = ({ t, data }) => {
   const diskQuota = Number.isInteger(data.quota)
-    ? (data.quota / (1024 * 1024 * 1024)).toFixed(2)
+    ? (data.quota / (1000 * 1000 * 1000)).toFixed(2)
     : data.quota
   const diskUsage = Number.isInteger(data.usage)
-    ? (data.usage / (1024 * 1024 * 1024)).toFixed(2)
+    ? (data.usage / (1000 * 1000 * 1000)).toFixed(2)
     : data.usage
   return (
     <div className='coz-nav-storage'>
