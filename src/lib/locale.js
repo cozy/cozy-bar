@@ -3,7 +3,7 @@ export const setLocale = lang => ({
   type: SET_LOCALE, lang
 })
 
-const getDefaultLang = () => {
+export const getDefaultLang = () => {
   return document.documentElement.getAttribute('lang') || 'en'
 }
 

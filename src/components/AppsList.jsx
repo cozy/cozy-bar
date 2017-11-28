@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { translate } from '../lib/I18n'
+import { translate } from 'cozy-ui/react/I18n'
 
 const AppsList = ({ t, categories, wrappingLimit }) => (
   <div>

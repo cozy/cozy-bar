@@ -5,8 +5,9 @@
 import React from 'react'
 import { render } from 'react-dom'
 
-import { I18n } from './lib/I18n'
+import I18n from 'cozy-ui/react/I18n'
 import stack from './lib/stack'
+import { getLocale, getDefaultLang, setLocale } from './lib/locale'
 
 // For now we have two stores, the goal is to transfer everythin
 // to the redux store
@@ -63,6 +64,7 @@ const injectBarInDOM = (data) => {
     <BarProvider store={barStore}>
       <ReduxProvider store={reduxStore}>
         <I18n
+          lang={getLocale(reduxStore.getState())}
           dictRequire={(lang) => require(`./locales/${lang}`)}
         >
           <Bar {...data} />
@@ -107,6 +109,7 @@ const getDefaultIcon = () => {
 const init = ({
   appName,
   appEditor = getEditor(),
+  lang = getDefaultLang(),
   iconPath = getDefaultIcon(),
   cozyURL = getDefaultStackURL(),
   token = getDefaultToken(),
@@ -125,6 +128,7 @@ const init = ({
   }
 
   stack.init({cozyURL, token})
+  reduxStore.dispatch(setLocale(lang))
   injectBarInDOM({appName, appEditor, iconPath, replaceTitleOnMobile, displayOnMobile, isPublic})
 }
 

@@ -4,7 +4,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import { translate } from '../lib/I18n'
+import { translate } from 'cozy-ui/react/I18n'
 import { shouldEnableTracking, getTracker, configureTracker } from 'cozy-ui/react/helpers/tracker'
 
 import Drawer from 'components/Drawer'
@@ -152,4 +152,4 @@ const mapStateToProps = state => ({
   barCenter: getContent(state, 'center')
 })
 
-export default translate()(connect(mapStateToProps)((Bar)))
+export default translate()(connect(mapStateToProps)(Bar))

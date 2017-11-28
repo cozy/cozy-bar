@@ -1,4 +1,3 @@
 {
-  "presets": ["cozy-app"],
-  "plugins": ["transform-class-properties"]
+  "presets": ["cozy-app"]
 }

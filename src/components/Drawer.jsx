@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { translate } from '../lib/I18n'
+import { translate } from 'cozy-ui/react/I18n'
 
 import AppsList from './AppsList'
 import Settings from './Settings'
