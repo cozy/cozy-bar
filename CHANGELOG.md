@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [Unreleased]
+
+## [v4.5.3] - 2017-11-29
+
+### Changed
+- Storage computing in bytes ✏️
+- Use I18n from cozy-ui
+
 ## [v4.5.2] - 2017-11-23
 
 ### Added
@@ -225,7 +233,8 @@ v4.3.0, v4.3.2, v4.3.3 are only there because of build problems on Travis.
 ### Changed
 - Support link href
 
-[Unreleased]: https://github.com/cozy/cozy-bar/compare/v4.5.2...HEAD
+[Unreleased]: https://github.com/cozy/cozy-bar/compare/v4.5.3...HEAD
+[v4.5.3]: https://github.com/cozy/cozy-bar/compare/v4.5.2...v4.5.3
 [v4.5.2]: https://github.com/cozy/cozy-bar/compare/v4.5.1...v4.5.2
 [v4.5.0]: https://github.com/cozy/cozy-bar/compare/v4.4.0...v4.5.0
 [v4.4.0]: https://github.com/cozy/cozy-bar/compare/v4.3.7...v4.4.0
