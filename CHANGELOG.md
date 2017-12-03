@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [v4.5.4] - 2017-12-03
+
+### Fixed
+- Prevent `getLocale` returning the full store state
+
 ## [v4.5.3] - 2017-11-29
 
 ### Changed
@@ -233,7 +238,8 @@ v4.3.0, v4.3.2, v4.3.3 are only there because of build problems on Travis.
 ### Changed
 - Support link href
 
-[Unreleased]: https://github.com/cozy/cozy-bar/compare/v4.5.3...HEAD
+[Unreleased]: https://github.com/cozy/cozy-bar/compare/v4.5.4...HEAD
+[v4.5.4]: https://github.com/cozy/cozy-bar/compare/v4.5.3...v4.5.4
 [v4.5.3]: https://github.com/cozy/cozy-bar/compare/v4.5.2...v4.5.3
 [v4.5.2]: https://github.com/cozy/cozy-bar/compare/v4.5.1...v4.5.2
 [v4.5.0]: https://github.com/cozy/cozy-bar/compare/v4.4.0...v4.5.0
