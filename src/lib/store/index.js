@@ -1,7 +1,10 @@
-import { createStore } from 'redux'
-import reducers from '../reducers'
+/* global __TARGET__ */
+let createReduxStore
 
-export default () => {
-  const store = createStore(reducers)
-  return store
+if (__TARGET__ === 'mobile') {
+  createReduxStore = require('./mobile').default
+} else {
+  createReduxStore = require('./browser').default
 }
+
+export default createReduxStore
