@@ -59,6 +59,59 @@ Claudy actions list
 Claudy actions are declared in `src/config/claudy.yaml` with a slug as property name and some options (icon name and link options for example). The slugs list that will be used for Claudy is defined in your Cozy's [configuration file](https://github.com/cozy/cozy-stack/blob/master/docs/config.md#main-configuration-file). See the `cozy.example.yaml` file [provided by the stack](https://github.com/cozy/cozy-stack/blob/master/cozy.example.yaml#L101).
 If no `claudy_actions` property is defined in the configuration, Claudy won't be displayed.
 
+Customizing the content of the bar
+---
+From within your app, you can decide to take over certain areas of the cozy-bar. This might especially be useful on mobile where the area it occupies is prime real estate — we generally don't recommend to use this option on larger screen resolutions.
+
+The bar is divided in 3 areas that you can control individually : left, center and right:
+
+![cozy-bar-triplet](https://user-images.githubusercontent.com/2261445/33609298-de4d379e-d9c7-11e7-839d-f5ab6155c902.png)
+
+To do this, you need to call one of the 3 exposed functions like this:
+
+```jsx
+const setBarLeft = cozy.bar.setBarLeft
+setBarLeft('<div>Hello!</div>')
+// there's also cozy.bar.setBarCenter and cozy.bar.setBarRight
+```
+
+If you're using React, you can use the component form instead:
+
+```jsx
+const { BarLeft, BarCenter, BarRight } = cozy.bar
+
+// then, somewhere in a render function
+<BarLeft>
+  <div>Hello!</div>
+</BarLeft>
+```
+
+If you're using Redux and include a connected component in the bar, it might not work as expected since inside `<BarLeft>` and friends, the redux store is different.
+
+```jsx
+const MyConnectedComponent = connect(mapStateToProps, mapDispatchToProps, MyComponent)
+
+// … in a render function
+<BarLeft>
+  <MyConnectedComponent /> // … you won't get the expected props from redux
+</BarLeft>
+```
+
+Instead, you can do something like this:
+
+```jsx
+const MyWrappedComponent = (props) => (
+<BarLeft>
+  <MyComponent {...props} />
+</BarLeft>
+)
+
+const MyConnectedComponent = connect(mapStateToProps, mapDispatchToProps, MyWrappedComponent)
+
+// …in a render function
+<MyConnectedComponent />
+```
+
 Contribute
 ----------
 
