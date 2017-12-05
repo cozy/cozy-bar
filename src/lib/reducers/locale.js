@@ -1,4 +1,6 @@
 export const SET_LOCALE = 'SET_LOCALE'
+
+// action creator
 export const setLocale = lang => ({
   type: SET_LOCALE, lang
 })
@@ -15,4 +17,5 @@ export const reducer = (state = getDefaultLang(), action) => {
   }
 }
 
+// selector
 export const getLocale = state => state

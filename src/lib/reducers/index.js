@@ -15,3 +15,9 @@ const proxy = function (attr, method) {
 
 export const getContent = proxy('content', content.getContent)
 export const getLocale = proxy('locale', locale.getLocale)
+
+const setContent = content.setContent
+const setLocale = locale.setLocale
+const getDefaultLang = locale.getDefaultLang
+
+export { setContent, setLocale, getDefaultLang }
