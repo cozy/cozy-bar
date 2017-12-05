@@ -109,7 +109,7 @@ const getDefaultIcon = () => {
 const init = ({
   appName,
   appEditor = getEditor(),
-  lang = getDefaultLang(),
+  lang,
   iconPath = getDefaultIcon(),
   cozyURL = getDefaultStackURL(),
   token = getDefaultToken(),
@@ -128,7 +128,9 @@ const init = ({
   }
 
   stack.init({cozyURL, token})
-  reduxStore.dispatch(setLocale(lang))
+  if (lang) {
+    reduxStore.dispatch(setLocale(lang))
+  }
   injectBarInDOM({appName, appEditor, iconPath, replaceTitleOnMobile, displayOnMobile, isPublic})
 }
 
