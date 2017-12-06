@@ -79,7 +79,7 @@ class Nav extends Component {
     const { t, toggleSupport } = this.props
     const { apps, settings } = this.state
     const { appsList, settingsData } = this.store
-    const categories = !appsList.error
+    const categories = !appsList.error && appsList.length > 0
       ? getCategorizedItems(appsList, t)
       : appsList
     return (

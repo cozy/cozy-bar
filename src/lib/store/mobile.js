@@ -6,7 +6,7 @@ import localForage from 'localforage'
 const config = {
   key: 'cozy-bar',
   storage: localForage,
-  blacklist: ['content']
+  whitelist: ['locale']
 }
 
 const reducer = persistCombineReducers(config, { ...reducers })
