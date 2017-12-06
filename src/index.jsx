@@ -134,4 +134,8 @@ const init = ({
   injectBarInDOM({appName, appEditor, iconPath, replaceTitleOnMobile, displayOnMobile, isPublic})
 }
 
-module.exports = { init, version: __VERSION__, ...api(reduxStore) }
+const updateAccessToken = accessToken => {
+  stack.updateAccessToken(accessToken)
+}
+
+module.exports = { init, version: __VERSION__, ...api(reduxStore), updateAccessToken }
