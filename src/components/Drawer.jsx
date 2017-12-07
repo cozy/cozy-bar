@@ -39,7 +39,9 @@ class Drawer extends Component {
   render () {
     const { t, onClaudy, visible, isClaudyLoading, toggleSupport } = this.props
     const { appsList, settingsData } = this.store
-    const categories = getCategorizedItems(appsList, t)
+    const categories = !appsList.error && appsList.length > 0
+      ? getCategorizedItems(appsList, t)
+      : appsList
     return (
       <div className='coz-drawer-wrapper'
         onClick={this.onDrawerClick}
@@ -48,7 +50,15 @@ class Drawer extends Component {
       >
         <aside ref={(node) => { this.asideRef = node }}>
           <nav className='coz-drawer--apps'>
-            <AppsList categories={categories} wrappingLimit={3} />
+            {categories.error &&
+              <p className='coz-nav--error coz-nav-group'>
+                {t(`error_${categories.error.name}`)}
+              </p>
+            }
+            {categories.length
+              ? <AppsList categories={categories} wrappingLimit={3} />
+              : <p className='coz-nav--error coz-nav-group'>{t('no_apps')}</p>
+            }
           </nav>
           <hr className='coz-sep-flex' />
           <nav>

@@ -7,14 +7,13 @@ import { render } from 'react-dom'
 
 import I18n from 'cozy-ui/react/I18n'
 import stack from './lib/stack'
-import { getDefaultLang, setLocale } from './lib/locale'
-import { getLocale } from './lib/reducers'
+import { getLocale, setLocale } from './lib/reducers'
 
 // For now we have two stores, the goal is to transfer everythin
 // to the redux store
 import BarStore, { Provider as BarProvider } from './lib/BarStore'
 import { Provider as ReduxProvider } from 'react-redux'
-import createStore from 'lib/store'
+import createReduxStore from 'lib/store'
 
 import Bar from './components/Bar'
 import api from 'lib/api'
@@ -32,7 +31,7 @@ if (__DEVELOPMENT__) {
 
 // store
 const barStore = new BarStore()
-const reduxStore = createStore()
+const reduxStore = createReduxStore()
 
 const createBarElement = () => {
   const barNode = document.createElement('div')
@@ -110,7 +109,7 @@ const getDefaultIcon = () => {
 const init = ({
   appName,
   appEditor = getEditor(),
-  lang = getDefaultLang(),
+  lang,
   iconPath = getDefaultIcon(),
   cozyURL = getDefaultStackURL(),
   token = getDefaultToken(),
@@ -129,8 +128,14 @@ const init = ({
   }
 
   stack.init({cozyURL, token})
-  reduxStore.dispatch(setLocale(lang))
+  if (lang) {
+    reduxStore.dispatch(setLocale(lang))
+  }
   injectBarInDOM({appName, appEditor, iconPath, replaceTitleOnMobile, displayOnMobile, isPublic})
 }
 
-module.exports = { init, version: __VERSION__, ...api(reduxStore) }
+const updateAccessToken = accessToken => {
+  stack.updateAccessToken(accessToken)
+}
+
+module.exports = { init, version: __VERSION__, ...api(reduxStore), updateAccessToken }

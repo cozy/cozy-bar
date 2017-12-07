@@ -132,6 +132,9 @@ module.exports = {
     COZY_URL = `${__TARGET__ === 'mobile' ? '' : '//'}${cozyURL}`
     COZY_TOKEN = token
   },
+  updateAccessToken (token) {
+    COZY_TOKEN = token
+  },
   get: {
     app: getApp,
     apps: getApps,

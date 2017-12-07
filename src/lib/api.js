@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
-import { setContent } from './content'
-import { setLocale } from './locale'
-import { getContent } from './reducers'
+import { getContent, setContent, setLocale } from './reducers'
 
 const upperFirstLetter = val => {
   return val[0].toUpperCase() + val.slice(1)
