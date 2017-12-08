@@ -1,6 +1,8 @@
 /* global fetch */
 
 import { Component } from 'react'
+import PropTypes from 'prop-types'
+
 import stack from '../lib/stack'
 import { create as createIntent } from '../lib/intents'
 
@@ -191,7 +193,10 @@ export class Provider extends Component {
     this.store = props.store
   }
 
-  render ({children}) {
+  render () {
+    const { children } = this.props
     return (children && children[0]) || null
   }
 }
+
+Provider.childContextTypes = { barStore: PropTypes.object.isRequired }
