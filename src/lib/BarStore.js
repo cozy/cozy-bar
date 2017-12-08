@@ -1,4 +1,3 @@
-
 /* global fetch */
 
 import { Component } from 'react'
@@ -64,6 +63,7 @@ export default class BarStore {
   }
 
   fetchComingSoonApps () {
+    if (this.contextNoExist) return Promise.resolve(null)
     return stack.get.context()
       .then(context => {
         const comingSoonApps = (context.data && context.data.attributes &&
@@ -89,6 +89,7 @@ export default class BarStore {
         })
       })
       .catch(error => {
+        if (error.status && error.status === 404) this.contextNoExist = true
         console.warn && console.warn(`Cozy-bar cannot fetch comming soon apps: ${error.message}`)
         return []
       })
@@ -109,6 +110,7 @@ export default class BarStore {
   }
 
   shouldEnableClaudy () {
+    if (this.contextNoExist) return Promise.resolve(null)
     if (this.claudyActions) return Promise.resolve(this.claudyActions)
     return stack.get.context()
       .then(context => {
@@ -124,12 +126,14 @@ export default class BarStore {
         return !!claudyActions.length
       })
       .catch(error => {
+        if (error.status && error.status === 404) this.contextNoExist = true
         console.warn && console.warn(`Cozy-bar cannot fetch Claudy: ${error.message}`)
         return false
       })
   }
 
   getHelpLink () {
+    if (this.contextNoExist) return Promise.resolve(null)
     if (this.helpLink) return Promise.resolve(this.helpLink)
     return stack.get.context()
       .then(context => {
@@ -137,6 +141,7 @@ export default class BarStore {
         return this.helpLink
       })
       .catch(e => {
+        if (error.status && error.status === 404) this.contextNoExist = true
         console.warn && console.warn('Cannot get Cozy help link')
         return null
       })
