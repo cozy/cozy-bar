@@ -22,11 +22,17 @@ class Nav extends Component {
       }
     }
     // handle click outside to close popups
-    this.onClickOutside = this.onClickOutside.bind(this)
+  }
+
+  componentDidMount () {
     document.body.addEventListener('click', this.onClickOutside)
   }
 
-  onClickOutside (event) {
+  componentWillUnmount () {
+    document.body.removeEventListener('click', this.onClickOutside)
+  }
+
+  onClickOutside = event => {
     if (this.state.apps.busy ||
         this.state.apps.opened ||
         this.state.settings.busy ||

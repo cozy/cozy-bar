@@ -10,11 +10,9 @@ class Drawer extends Component {
   constructor (props, context) {
     super(props)
     this.store = context.barStore
-
-    this.onDrawerClick = this.onDrawerClick.bind(this)
   }
 
-  onDrawerClick (event) {
+  onDrawerClick = event => {
     if (event.target === this.wrapperRef) {
       this.props.onClose()
     }

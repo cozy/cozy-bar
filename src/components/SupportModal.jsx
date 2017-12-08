@@ -9,11 +9,9 @@ class SupportModal extends Component {
     this.state = {
       isLoading: false
     }
-
-    this.toggle = this.toggle.bind(this)
   }
 
-  toggle () {
+  toggle = () => {
     this.setState({isLoading: true})
     this.store.getSupportIntent()
       .start(this.intentWrapperRef, () => {

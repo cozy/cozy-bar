@@ -8,15 +8,13 @@ class Claudy extends Component {
       isLoading: false,
       isActive: false
     }
-
-    this.toggle = this.toggle.bind(this)
   }
 
   componentWillReceiveProps (nextProps) {
     if (nextProps.claudyFired) this.toggle()
   }
 
-  toggle () {
+  toggle = () => {
     if (!this.props.opened && !this.intentWrapperRef.childNodes.length) {
       this.setState({isLoading: true})
       this.store.getClaudyIntent({ exposeIntentFrameRemoval: true })

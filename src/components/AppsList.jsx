@@ -44,7 +44,6 @@ class AppsList extends Component {
 
   render () {
     const { t, wrappingLimit } = this.props
-
     const categories = this.getCategorizedApps()
 
     /*

@@ -27,8 +27,6 @@ class Bar extends Component {
       supportDisplayed: false,
       searchBarEnabled: window.location.search.toLowerCase().indexOf('howdoyouturnthison') >= 0
     }
-    this.toggleSupport = this.toggleSupport.bind(this)
-    this.toggleDrawer = this.toggleDrawer.bind(this)
   }
 
   async componentWillMount () {
@@ -49,7 +47,7 @@ class Bar extends Component {
     }
   }
 
-  toggleDrawer () {
+  toggleDrawer = () => {
     // don't allow to toggle the drawer if claudy opened or is opening
     if (this.state.claudyOpened || this.state.claudyFired) return
     const drawerVisible = !this.state.drawerVisible
@@ -58,7 +56,7 @@ class Bar extends Component {
     this.setState({ drawerVisible })
   }
 
-  toggleClaudy (isFromDrawer = false) {
+  toggleClaudy = (isFromDrawer = false) => {
     if (!this.state.claudyEnabled) return
     const { usageTracker, claudyOpened } = this.state
     if (isFromDrawer && !claudyOpened) { // if opened from drawer
@@ -77,22 +75,24 @@ class Bar extends Component {
     this.setState({ claudyOpened: !claudyOpened })
   }
 
-  toggleSupport () {
+  toggleSupport = () => {
     const { supportDisplayed } = this.state
     this.setState({supportDisplayed: !supportDisplayed})
   }
 
-  renderCenter () {
+  renderCenter = () => {
     const { appName, appEditor, iconPath, t, replaceTitleOnMobile, lang } = this.props
-    return <h1 lang={lang} className={`coz-bar-title ${replaceTitleOnMobile ? 'coz-bar-hide-sm' : ''}`}>
-      <img className='coz-bar-hide-sm' src={iconPath} width='32' />
-      {appEditor && <span className='coz-bar-hide-sm'>{appEditor}</span>}
-      <strong>{appName}</strong>
-      <sup className='coz-bar-hide-sm coz-bar-beta-status'>{t('beta')}</sup>
-    </h1>
+    return (
+      <h1 lang={lang} className={`coz-bar-title ${replaceTitleOnMobile ? 'coz-bar-hide-sm' : ''}`}>
+        <img className='coz-bar-hide-sm' src={iconPath} width='32' />
+        {appEditor && <span className='coz-bar-hide-sm'>{appEditor}</span>}
+        <strong>{appName}</strong>
+        <sup className='coz-bar-hide-sm coz-bar-beta-status'>{t('beta')}</sup>
+      </h1>
+    )
   }
 
-  renderLeft () {
+  renderLeft = () => {
     const { t, displayOnMobile, isPublic } = this.props
     // data-tutorial attribute allows to be targeted in an application tutorial
     return (__TARGET__ !== 'mobile' || displayOnMobile) && !isPublic ? <button className='coz-bar-btn coz-bar-burger' onClick={this.toggleDrawer} data-icon='icon-apps' data-tutorial='apps-mobile'>
@@ -100,7 +100,7 @@ class Bar extends Component {
     </button> : null
   }
 
-  renderRight () {
+  renderRight = () => {
     const { displayOnMobile, isPublic } = this.props
     return (__TARGET__ !== 'mobile' || displayOnMobile) && !isPublic
       ? <Nav toggleSupport={this.toggleSupport} />
