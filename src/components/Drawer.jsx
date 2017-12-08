@@ -1,10 +1,7 @@
 import React, { Component } from 'react'
-import { translate } from 'cozy-ui/react/I18n'
 
 import AppsList from './AppsList'
 import Settings from './Settings'
-
-import { getCategorizedItems } from '../lib/helpers'
 
 class Drawer extends Component {
   constructor (props, context) {
@@ -33,7 +30,7 @@ class Drawer extends Component {
   }
 
   render () {
-    const { t, onClaudy, visible, isClaudyLoading, toggleSupport } = this.props
+    const { onClaudy, visible, isClaudyLoading, toggleSupport } = this.props
     const { settingsData } = this.store
     return (
       <div className='coz-drawer-wrapper'
@@ -64,4 +61,4 @@ class Drawer extends Component {
   }
 }
 
-export default translate()(Drawer)
+export default Drawer

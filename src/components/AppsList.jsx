@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 
 import { translate } from 'cozy-ui/react/I18n'
 import { getApps, fetchApps } from '../lib/reducers'
-import { getCategorizedItems } from '../lib/helpers'
 
 // TODO Add errors
 class AppsList extends Component {

@@ -7,7 +7,7 @@ import { render } from 'react-dom'
 
 import I18n from 'cozy-ui/react/I18n'
 import stack from './lib/stack'
-import { getLocale, setLocale, fetchApps } from './lib/reducers'
+import { getLocale, setLocale } from './lib/reducers'
 
 // For now we have two stores, the goal is to transfer everythin
 // to the redux store

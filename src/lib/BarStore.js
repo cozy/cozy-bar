@@ -140,7 +140,7 @@ export default class BarStore {
         this.helpLink = (context.data && context.data.attributes && context.data.attributes['help_link']) || null
         return this.helpLink
       })
-      .catch(e => {
+      .catch(error => {
         if (error.status && error.status === 404) this.contextNoExist = true
         console.warn && console.warn('Cannot get Cozy help link')
         return null
