@@ -33,7 +33,12 @@ const barContentComponent = (store, location) => class extends Component {
   }
 
   setContent (content) {
-    store.dispatch(setContent(location, content ? React.Children.only(content) : content))
+    try {
+      content = React.Children.only(content)
+    } catch (e) {}
+    store.dispatch(
+      setContent(location, content)
+    )
   }
 
   componentWillUnmount () {

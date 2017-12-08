@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`api spec should set content of the store via declarative api 1`] = `
+<div>
+  Left
+</div>
+`;
+
+exports[`api spec should set content of the store via declarative api 2`] = `"Right"`;
+
+exports[`api spec should set content of the store via declarative api 3`] = `
+<span>
+  Center
+</span>
+`;
+
+exports[`api spec should set content of the store via imperative api 1`] = `
+<span
+  dangerouslySetInnerHTML={
+    Object {
+      "__html": "content left",
+    }
+  }
+/>
+`;
+
+exports[`api spec should set content of the store via imperative api 2`] = `
+<span
+  dangerouslySetInnerHTML={
+    Object {
+      "__html": "<p>content right</p>",
+    }
+  }
+/>
+`;
+
+exports[`api spec should set content of the store via imperative api 3`] = `
+<span
+  dangerouslySetInnerHTML={
+    Object {
+      "__html": "content center",
+    }
+  }
+/>
+`;

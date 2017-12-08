@@ -23,11 +23,12 @@
     "watch": "NODE_ENV=development webpack --config ./config/webpack.target.browser.js --watch --display-chunks",
     "watch:mobile": "NODE_ENV=development webpack --config ./config/webpack.target.mobile.js --watch --display-chunks",
     "shasum": "shasum -a 256 dist/cozy-bar.min.js && shasum -a 256 dist/cozy-bar.min.css",
-    "test": "jest --config jest.config.json"
+    "test": "jest --verbose --coverage"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.4",
     "babel-core": "^6.26.0",
+    "babel-jest": "^21.2.0",
     "babel-loader": "^7.1.2",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
@@ -42,10 +43,13 @@
     "css-mqpacker": "^6.0.1",
     "csswring": "^6.0.1",
     "deep-equal": "^1.0.1",
+    "enzyme": "^3.2.0",
+    "enzyme-adapter-react-16": "^1.1.0",
     "eslint": "^4.10.0",
     "eslint-config-cozy-app": "^0.2.0",
     "extract-text-webpack-plugin": "^3.0.1",
     "file-loader": "^1.1.5",
+    "identity-obj-proxy": "^3.0.0",
     "jest": "^21.2.1",
     "json-loader": "^0.5.7",
     "npm-run-all": "^4.1.1",
@@ -54,6 +58,8 @@
     "postcss-discard-duplicates": "^2.1.0",
     "postcss-import": "^11.0.0",
     "postcss-loader": "^2.0.6",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
     "style-loader": "^0.19.0",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.1",
@@ -75,5 +81,33 @@
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",
     "redux-persist": "^5.4.0"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "jsx",
+      "json",
+      "styl"
+    ],
+    "setupFiles": [
+      "<rootDir>/test/jestLib/setup.js"
+    ],
+    "moduleDirectories": [
+      "node_modules",
+      "src"
+    ],
+    "moduleNameMapper": {
+      "^config/(.*)": "<rootDir>/src/config/$1",
+      "\\.(png|gif|jpe?g|svg)$": "<rootDir>/test/__mocks__/fileMock.js",
+      "styles": "identity-obj-proxy"
+    },
+    "transformIgnorePatterns": [
+      "node_modules/(?!cozy-ui)"
+    ],
+    "globals": {
+      "__ALLOW_HTTP__": false,
+      "__TARGET__": "browser",
+      "__SENTRY_TOKEN__": "token"
+    }
   }
 }
