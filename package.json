@@ -23,7 +23,9 @@
     "watch": "NODE_ENV=development webpack --config ./config/webpack.target.browser.js --watch --display-chunks",
     "watch:mobile": "NODE_ENV=development webpack --config ./config/webpack.target.mobile.js --watch --display-chunks",
     "shasum": "shasum -a 256 dist/cozy-bar.min.js && shasum -a 256 dist/cozy-bar.min.css",
-    "test": "jest --verbose --coverage"
+    "test": "npm-run-all test:jest test:size",
+    "test:jest": "jest --verbose --coverage",
+    "test:size": "bundlesize"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.4",
@@ -38,6 +40,7 @@
     "babel-preset-env": "^1.6.0",
     "babel-preset-react": "^6.24.1",
     "babel-runtime": "^6.26.0",
+    "bundlesize": "^0.15.3",
     "cozy-ui": "^5.0.2",
     "css-loader": "^0.28.7",
     "css-mqpacker": "^6.0.1",
@@ -82,6 +85,12 @@
     "redux": "^3.7.2",
     "redux-persist": "^5.4.0"
   },
+  "bundlesize": [
+    {
+      "path": "./dist/cozy-bar.min.js",
+      "maxSize": "250 KB"
+    }
+  ],
   "jest": {
     "moduleFileExtensions": [
       "js",

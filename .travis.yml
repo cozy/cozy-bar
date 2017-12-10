@@ -1,12 +1,17 @@
 language: node_js
 node_js:
 - '6'
+env:
+  global:
+  - secure: ESL2AFj2ER9Smf+BsInpq7/Q0Z3LWbvwzgbCd4S4XxVCU8XM17aKYf+3ypRe0djxsezqX48RKF5DBTZWNNrb0/ey8/saNlBw7FDafi6kkxtTl8j2wvOwkLmqnVFSzj3P5f8jfmFPPbjy1Myzw8q8nkeg68iS+vCc86P8PeOjlFqifNcb7dnM+EBH8FmYk78pUkBo62dn16RlqpdcSh1f1Ywa/kXkgl+hmjnkcLz6W8FYG2H9fveixK/uMFtXeQ4SXMobNh5KGwFNi9jbyOcwVHUMp3h1W8qPXM9J4It5MUvmFRprjDl7xX58TzpGzCdzqezVOG7CgZd8DCOTgroakRtqWBOctf+oWVqplP8N4+pggYyRcbQdv7CXdOm/3K+relR/MKB6QeQ2Iey2FI/v73CcvAi60bJM8plsV/GogTT39jGLzbjGL5WZPr+gIMshKtiEXD5mt9kq/hdJS1heSg/F9Eh2Rtluo+3rgSNfbm2XdMDmHXeZT1Z5vCoY+ekKhfqrIYt//DrH1+QAPl5WL3nJSDz/b9S4GM1G/3ZptxGYt99hzm9NSTfCGHIlhUcJs2qDENWM14HRVhjKoh8MPo5NeVpT2nLAsNGYA9iW4lZMxDRBcV1hsdA9JHj8MCKINldp9Mr0qHRYR7NrSuThU5iZW1C4IwbLYNzF+A/tqd4=
+  - secure: UwPqmiFe70zFNWn+OFi3B4joRu0zV0vsIC636TMe2aReR+0snsl6WoXBy6Ul41MmZSB0dP1gR/j89xcmxt+7UIjITAGxdOplBJ2mellACTTtaRW+9gvnQw/aku+C5+qolaPlLov3/jLAEVNO1rj20mpmTOPGopX7kApgi2y6F9ve26bHC9xqQIaJ0XiAy7WiD9MlDyhX76qFeJeD8tb0fbGWz86SnXhEz+z7QzSAkN/CPSeFdPuAn8+8NspuATJkq/Rj6tebAWXaWsBd8SEKyGY6ma9xjf60JRdrSa75E8hxINq+BEPgqi0DNOnnjWmket//hp3kM9rR+neiybIyiwbf2k0tIlPeAZUHV0phcSY/UXcEU0t6Qk5Qvfu3/gHR0xieQzL9CaZvvFbURFStKvO/ynJK5zZOJ1aYsPXzkkXn9FgvynF4H7vJkB8Xa5MdoSqHNfMN+5HrY2c8g9tt3rRAp0jvXY/X7av5tyLy5okQbztCGNc7edq0u0LYGxHnqgzMqtSYNLboI5crpXGQmS06pnYp3eLeni6DB1MY0SAXQ0Oj046j4XZjSC9gT7rn9nQeYdY2p1U2KkR5Mrd1CgfaBW45r889zdF65GdmvrdT/zyZxW9SAMinB29TiRWVPvUbhmKMtIzRNnad4eG/3bZ5RjGlk9S9DX8zK3HUzi4=
 cache:
   yarn: true
   directories:
   - node_modules
 script:
 - yarn build
+- yarn test
 addons:
   apt:
     sources:
@@ -29,6 +34,3 @@ before_install:
 - travis_retry pip3.5 install --user transifex-client
 - install -m0644 .transifexrc.tpl ~/.transifexrc
 - echo "password = $TX_PASSWORD" >> ~/.transifexrc
-env:
-  global:
-    secure: ESL2AFj2ER9Smf+BsInpq7/Q0Z3LWbvwzgbCd4S4XxVCU8XM17aKYf+3ypRe0djxsezqX48RKF5DBTZWNNrb0/ey8/saNlBw7FDafi6kkxtTl8j2wvOwkLmqnVFSzj3P5f8jfmFPPbjy1Myzw8q8nkeg68iS+vCc86P8PeOjlFqifNcb7dnM+EBH8FmYk78pUkBo62dn16RlqpdcSh1f1Ywa/kXkgl+hmjnkcLz6W8FYG2H9fveixK/uMFtXeQ4SXMobNh5KGwFNi9jbyOcwVHUMp3h1W8qPXM9J4It5MUvmFRprjDl7xX58TzpGzCdzqezVOG7CgZd8DCOTgroakRtqWBOctf+oWVqplP8N4+pggYyRcbQdv7CXdOm/3K+relR/MKB6QeQ2Iey2FI/v73CcvAi60bJM8plsV/GogTT39jGLzbjGL5WZPr+gIMshKtiEXD5mt9kq/hdJS1heSg/F9Eh2Rtluo+3rgSNfbm2XdMDmHXeZT1Z5vCoY+ekKhfqrIYt//DrH1+QAPl5WL3nJSDz/b9S4GM1G/3ZptxGYt99hzm9NSTfCGHIlhUcJs2qDENWM14HRVhjKoh8MPo5NeVpT2nLAsNGYA9iW4lZMxDRBcV1hsdA9JHj8MCKINldp9Mr0qHRYR7NrSuThU5iZW1C4IwbLYNzF+A/tqd4=
