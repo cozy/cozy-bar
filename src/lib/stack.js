@@ -113,6 +113,9 @@ function getApp (slug) {
 
 async function getIcon (url) {
   const res = await fetch(`${COZY_URL}${url}`, fetchOptions())
+  if (res.status === 404) {
+    return undefined
+  }
   // res.text if SVG, otherwise res.blob  (mainly for safari support)
   const resClone = res.clone() // res must be cloned to be used twice
   const blob = await res.blob()

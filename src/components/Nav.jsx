@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 
 import { translate } from 'cozy-ui/react/I18n'
-import { getCategorizedItems } from '../lib/helpers'
 
 import AppsList from './AppsList'
 import Settings from './Settings'
@@ -11,7 +10,7 @@ const BUSY_DELAY = 450
 class Nav extends Component {
   constructor (props, context) {
     super(props)
-    this.store = context.barStore
+    this.barStore = context.barStore
     this.state = {
       apps: {
         busy: false,
@@ -23,11 +22,17 @@ class Nav extends Component {
       }
     }
     // handle click outside to close popups
-    this.onClickOutside = this.onClickOutside.bind(this)
+  }
+
+  componentDidMount () {
     document.body.addEventListener('click', this.onClickOutside)
   }
 
-  onClickOutside (event) {
+  componentWillUnmount () {
+    document.body.removeEventListener('click', this.onClickOutside)
+  }
+
+  onClickOutside = event => {
     if (this.state.apps.busy ||
         this.state.apps.opened ||
         this.state.settings.busy ||
@@ -58,14 +63,13 @@ class Nav extends Component {
     // fetch data
     switch (slug) {
       case 'apps':
-        await this.store.fetchAppsList()
         clearTimeout(busySpinner)
         this.setState({
           apps: {busy: false, opened: true}
         })
         break
       case 'settings':
-        await this.store.fetchSettingsData()
+        await this.barStore.fetchSettingsData()
         clearTimeout(busySpinner)
         this.setState({
           settings: {busy: false, opened: true}
@@ -78,10 +82,7 @@ class Nav extends Component {
   render () {
     const { t, toggleSupport } = this.props
     const { apps, settings } = this.state
-    const { appsList, settingsData } = this.store
-    const categories = !appsList.error && appsList.length > 0
-      ? getCategorizedItems(appsList, t)
-      : appsList
+    const { settingsData } = this.barStore
     return (
       <nav className='coz-nav' ref={(ref) => { this.rootRef = ref }}>
         <ul>
@@ -95,15 +96,7 @@ class Nav extends Component {
               {t('menu.apps')}
             </a>
             <div className='coz-nav-pop coz-nav-pop--apps' id='coz-nav-pop--apps' aria-hidden={!apps.opened}>
-              {categories.error &&
-                <p className='coz-nav--error coz-nav-group'>
-                  {t(`error_${categories.error.name}`)}
-                </p>
-              }
-              {categories.length
-                ? <AppsList categories={categories} wrappingLimit={4} />
-                : <p className='coz-nav--error coz-nav-group'>{t('no_apps')}</p>
-              }
+              <AppsList wrappingLimit={4} />
             </div>
           </li>
           <li className='coz-nav-section'>
@@ -117,7 +110,7 @@ class Nav extends Component {
             <div className='coz-nav-pop coz-nav-pop--settings' id='coz-nav-pop--settings' aria-hidden={!settings.opened}>
               {settingsData &&
                 <Settings
-                  onLogOut={() => this.store.logout()}
+                  onLogOut={() => this.barStore.logout()}
                   toggleSupport={toggleSupport}
                   settingsData={settingsData}
                 />

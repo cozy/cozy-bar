@@ -1,27 +1,21 @@
 import React, { Component } from 'react'
-import { translate } from 'cozy-ui/react/I18n'
 
 import AppsList from './AppsList'
 import Settings from './Settings'
-
-import { getCategorizedItems } from '../lib/helpers'
 
 class Drawer extends Component {
   constructor (props, context) {
     super(props)
     this.store = context.barStore
-
-    this.onDrawerClick = this.onDrawerClick.bind(this)
   }
 
-  onDrawerClick (event) {
+  onDrawerClick = event => {
     if (event.target === this.wrapperRef) {
       this.props.onClose()
     }
   }
 
   async componentWillMount () {
-    await this.store.fetchAppsList()
     await this.store.fetchSettingsData()
   }
 
@@ -31,17 +25,13 @@ class Drawer extends Component {
 
   async componentWillReceiveProps (nextProps) {
     if (nextProps.visible) {
-      await this.store.fetchAppsList()
       await this.store.fetchSettingsData()
     }
   }
 
   render () {
-    const { t, onClaudy, visible, isClaudyLoading, toggleSupport } = this.props
-    const { appsList, settingsData } = this.store
-    const categories = !appsList.error && appsList.length > 0
-      ? getCategorizedItems(appsList, t)
-      : appsList
+    const { onClaudy, visible, isClaudyLoading, toggleSupport } = this.props
+    const { settingsData } = this.store
     return (
       <div className='coz-drawer-wrapper'
         onClick={this.onDrawerClick}
@@ -50,15 +40,7 @@ class Drawer extends Component {
       >
         <aside ref={(node) => { this.asideRef = node }}>
           <nav className='coz-drawer--apps'>
-            {categories.error &&
-              <p className='coz-nav--error coz-nav-group'>
-                {t(`error_${categories.error.name}`)}
-              </p>
-            }
-            {categories.length
-              ? <AppsList categories={categories} wrappingLimit={3} />
-              : <p className='coz-nav--error coz-nav-group'>{t('no_apps')}</p>
-            }
+            <AppsList wrappingLimit={3} />
           </nav>
           <hr className='coz-sep-flex' />
           <nav>
@@ -79,4 +61,4 @@ class Drawer extends Component {
   }
 }
 
-export default translate()(Drawer)
+export default Drawer
