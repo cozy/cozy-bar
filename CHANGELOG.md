@@ -6,16 +6,33 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+
+## [v4.5.5] - 2017-12-12
+### Added
+- Documentation of cozy bar customization API [c0d08bf](https://github.com/cozy/cozy-bar/commit/c0d08bf7796dfe79b328fbac8ab51760bbe5d775)
+- Persiste state on mobile with localForage [1d03fb2](https://github.com/cozy/cozy-bar/commit/1d03fb2f42228429e689567c88f9ebba8756515c)
+- Add function to update accessToken [7e523a7](https://github.com/cozy/cozy-bar/commit/7e523a714e956f76b9dfb48ac76965bc233c2758)
+- Save apps on redux store [6037eb7](https://github.com/cozy/cozy-bar/commit/6037eb74d645433e78986b5ecf9aa38b719a49e7)
+- chore: Add bundlesize script to monitor build size 🔧 [a9b95f1](https://github.com/cozy/cozy-bar/commit/a9b95f101446171cbce310413e38c725cf9d9ead)
+- feat: Remove own app on mobile AppsList [1692363](https://github.com/cozy/cozy-bar/commit/16923634c5e0affe46e3267f8f75724d6e893225)
+
+### Fixed
+- Upgrade cozy-ui 🚀 [969a41c](https://github.com/cozy/cozy-bar/commit/969a41c7add89df22138b0a4539159bbc924a10b), [ecee45c](https://github.com/cozy/cozy-bar/commit/ecee45c9166f7368579555b5a939f1a3f5b73790)
+- Display default icon when app don't have one [a63e08c](https://github.com/cozy/cozy-bar/commit/a63e08c278fb6a41ae229e4d7f5fc63b1c2aba3c)
+- If context is not present on stack don't ask again [20e7e43](https://github.com/cozy/cozy-bar/commit/20e7e43e5ed649b3bd7c14c3e82d7c157f250681)
+
+
 ## [v4.5.4] - 2017-12-03
 
 ### Fixed
 - Prevent `getLocale` returning the full store state
 
-## [v4.5.3] - 2017-11-29
 
+## [v4.5.3] - 2017-11-29
 ### Changed
 - Storage computing in bytes ✏️
 - Use I18n from cozy-ui
+
 
 ## [v4.5.2] - 2017-11-23
 
@@ -25,10 +42,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 - Get back `Beta` status
 
+
 ## [v4.5.1] - 2017-11-22
 
 ### Fixed
 - Bar elements position on mobile :ambulance:
+
 
 ## [v4.5.0] - 2017-11-21
 
@@ -51,6 +70,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 - Highlight matching texts in search results
+
 
 ## [v4.3.7] - 2017-11-08
 ### Fixed
@@ -238,7 +258,9 @@ v4.3.0, v4.3.2, v4.3.3 are only there because of build problems on Travis.
 ### Changed
 - Support link href
 
-[Unreleased]: https://github.com/cozy/cozy-bar/compare/v4.5.4...HEAD
+
+[Unreleased]: https://github.com/cozy/cozy-bar/compare/v4.5.5...HEAD
+[v4.5.4]: https://github.com/cozy/cozy-bar/compare/v4.5.4...v4.5.5
 [v4.5.4]: https://github.com/cozy/cozy-bar/compare/v4.5.3...v4.5.4
 [v4.5.3]: https://github.com/cozy/cozy-bar/compare/v4.5.2...v4.5.3
 [v4.5.2]: https://github.com/cozy/cozy-bar/compare/v4.5.1...v4.5.2
