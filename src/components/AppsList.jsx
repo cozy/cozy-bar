@@ -1,8 +1,9 @@
+/* global __TARGET__ */
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import { translate } from 'cozy-ui/react/I18n'
-import { getApps, fetchApps } from '../lib/reducers'
+import { getApps, getAppsFiltered, fetchApps } from '../lib/reducers'
 
 // TODO Add errors
 class AppsList extends Component {
@@ -106,7 +107,9 @@ class AppsList extends Component {
 }
 
 const mapStateToProps = state => ({
-  apps: getApps(state)
+  apps: __TARGET__ === 'mobile'
+    ? getAppsFiltered(state)
+    : getApps(state)
 })
 
 const mapDispatchToProps = dispatch => ({

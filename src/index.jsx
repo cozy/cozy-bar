@@ -7,7 +7,7 @@ import { render } from 'react-dom'
 
 import I18n from 'cozy-ui/react/I18n'
 import stack from './lib/stack'
-import { getLocale, setLocale } from './lib/reducers'
+import { getLocale, setLocale, setInfos } from './lib/reducers'
 
 // For now we have two stores, the goal is to transfer everythin
 // to the redux store
@@ -127,6 +127,7 @@ const init = ({
     if (__TARGET__ === 'mobile') console.warn('Deprecated: cozy-bar option `displayOnMobile` automatically set to `false`, but `true` will be the new default value in the next version. Please explicitly set the option to `false`.')
   }
 
+  reduxStore.dispatch(setInfos(appName, appEditor))
   stack.init({cozyURL, token})
   if (lang) {
     reduxStore.dispatch(setLocale(lang))
