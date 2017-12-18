@@ -1536,9 +1536,9 @@ cozy-client-js@^0.3.19:
   version "0.3.19"
   resolved "https://registry.yarnpkg.com/cozy-client-js/-/cozy-client-js-0.3.19.tgz#c20361a8bc6b23eb4d092360040e8765ef5e59a3"
 
-cozy-ui@^5.0.2:
-  version "5.0.2"
-  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-5.0.2.tgz#89c3712fb2645535e5a06e9ae7296cea572d4a9c"
+cozy-ui@^6.0.3:
+  version "6.0.3"
+  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-6.0.3.tgz#4feb77c9977fbb72e51426abb4d09db6ceb01cd7"
   dependencies:
     babel-preset-cozy-app "^0.3.1"
     classnames "^2.2.5"
@@ -4890,9 +4890,9 @@ preact-transition-group@^1.1.0:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/preact-transition-group/-/preact-transition-group-1.1.1.tgz#f0a49327ea515ece34ea2be864c4a7d29e5d6e10"
 
-preact@^8.2.5:
-  version "8.2.5"
-  resolved "https://registry.yarnpkg.com/preact/-/preact-8.2.5.tgz#cbfa3962a8012768159f6d01d46f9c1eb3213c0a"
+preact@^8.2.7:
+  version "8.2.7"
+  resolved "https://registry.yarnpkg.com/preact/-/preact-8.2.7.tgz#316249fb678cd5e93e7cee63cea7bfb62dbd6814"
 
 prelude-ls@~1.1.2:
   version "1.1.2"

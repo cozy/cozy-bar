@@ -27,7 +27,7 @@ class SupportModal extends Component {
     const { isLoading } = this.state
     return (
       <div>
-        <Modal secondaryAction={this.props.onClose}>
+        <Modal secondaryAction={this.props.onClose} className='coz-support-modal'>
           <ModalContent>
             <div className='coz-support-modal-content'>
               {isLoading &&
