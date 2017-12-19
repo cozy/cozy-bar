@@ -2,6 +2,10 @@
   min-height: 8em;
 }
 
+[role=banner] .coz-support-modal {
+  max-width: none;
+}
+
 [role=banner] .coz-support-intent-wrapper .coz-intent {
   width: 35em;
   height: 24em;
