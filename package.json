@@ -53,7 +53,7 @@
     "extract-text-webpack-plugin": "^3.0.1",
     "file-loader": "^1.1.5",
     "identity-obj-proxy": "^3.0.0",
-    "jest": "^21.2.1",
+    "jest": "^21.3.0-beta.2",
     "json-loader": "^0.5.7",
     "npm-run-all": "^4.1.1",
     "postcss": "^6.0.13",
@@ -70,6 +70,7 @@
     "url-loader": "^0.6.2",
     "webpack": "^3.6.0",
     "webpack-merge": "^4.1.0",
+    "yaml-jest": "^1.0.5",
     "yaml-loader": "^0.5.0"
   },
   "dependencies": {
@@ -97,7 +98,8 @@
       "js",
       "jsx",
       "json",
-      "styl"
+      "styl",
+      "yaml"
     ],
     "setupFiles": [
       "<rootDir>/test/jestLib/setup.js"
@@ -106,6 +108,10 @@
       "node_modules",
       "src"
     ],
+    "transform": {
+      "\\.yaml$": "yaml-jest",
+      "\\.(js|jsx)$": "babel-jest"
+    },
     "moduleNameMapper": {
       "^config/(.*)": "<rootDir>/src/config/$1",
       "\\.(png|gif|jpe?g|svg)$": "<rootDir>/test/__mocks__/fileMock.js",
@@ -117,7 +123,9 @@
     "globals": {
       "__ALLOW_HTTP__": false,
       "__TARGET__": "browser",
-      "__SENTRY_TOKEN__": "token"
+      "__SENTRY_TOKEN__": "token",
+      "__DEVELOPMENT__": false,
+      "__VERSION__": "4.5.0"
     }
   }
 }

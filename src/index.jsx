@@ -12,7 +12,7 @@ import { getLocale, setLocale, setInfos } from './lib/reducers'
 // For now we have two stores, the goal is to transfer everythin
 // to the redux store
 import BarStore, { Provider as BarProvider } from './lib/BarStore'
-import { Provider as ReduxProvider } from 'react-redux'
+import { connect, Provider as ReduxProvider } from 'react-redux'
 import createReduxStore from 'lib/store'
 
 import Bar from './components/Bar'
@@ -60,18 +60,27 @@ const injectBarInDOM = (data) => {
     barNode.dataset.drawerVisible = visible
   }
 
-  render((
+  // we connect the I18n component to the store to listen
+  // locale change from the api setLocale()
+  const EnhancedI18n = connect(state => ({
+    lang: getLocale(state)
+  }))(I18n)
+
+  const barComponent = (
     <BarProvider store={barStore}>
       <ReduxProvider store={reduxStore}>
-        <I18n
-          lang={getLocale(reduxStore.getState())}
+        <EnhancedI18n
           dictRequire={(lang) => require(`./locales/${lang}`)}
         >
           <Bar {...data} />
-        </I18n>
+        </EnhancedI18n>
       </ReduxProvider>
     </BarProvider>
-  ), barNode)
+  )
+
+  render(barComponent, barNode)
+  // for testing only
+  return barComponent
 }
 
 const getDefaultStackURL = () => {
@@ -132,7 +141,7 @@ const init = ({
   if (lang) {
     reduxStore.dispatch(setLocale(lang))
   }
-  injectBarInDOM({appName, appEditor, iconPath, replaceTitleOnMobile, displayOnMobile, isPublic})
+  return injectBarInDOM({appName, appEditor, iconPath, replaceTitleOnMobile, displayOnMobile, isPublic})
 }
 
 const updateAccessToken = accessToken => {

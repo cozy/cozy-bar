@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`The bar library should render correctly the cozy-bar 1`] = `
+<Provider
+  store={
+    BarStore {
+      "appsList": Array [],
+      "claudyActions": null,
+      "helpLink": "",
+      "installedApps": Array [],
+      "settingsAppURL": "",
+      "settingsData": null,
+    }
+  }
+>
+  <Provider
+    store={
+      Object {
+        "dispatch": [Function],
+        "getState": [Function],
+        "replaceReducer": [Function],
+        "subscribe": [Function],
+        Symbol(Symbol.observable): [Function],
+      }
+    }
+  >
+    <Connect(I18n)
+      dictRequire={[Function]}
+    >
+      <Unknown
+        appEditor="cozy"
+        appName="test-app"
+        displayOnMobile={true}
+        iconPath=""
+        isPublic={false}
+        onDrawer={[Function]}
+        replaceTitleOnMobile={false}
+      />
+    </Connect(I18n)>
+  </Provider>
+</Provider>
+`;
