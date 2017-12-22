@@ -80,7 +80,7 @@ class Nav extends Component {
 
   // data-tutorial attribute allows to be targeted in an application tutorial
   render () {
-    const { t, toggleSupport } = this.props
+    const { t, toggleSupport, renewToken } = this.props
     const { apps, settings } = this.state
     const { settingsData } = this.barStore
     return (
@@ -96,7 +96,7 @@ class Nav extends Component {
               {t('menu.apps')}
             </a>
             <div className='coz-nav-pop coz-nav-pop--apps' id='coz-nav-pop--apps' aria-hidden={!apps.opened}>
-              <AppsList wrappingLimit={4} />
+              <AppsList wrappingLimit={4} renewToken={renewToken} />
             </div>
           </li>
           <li className='coz-nav-section'>

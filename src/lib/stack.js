@@ -34,17 +34,8 @@ const errorStatuses = {
 }
 
 function getApps () {
-  return fetch(`${COZY_URL}/apps/`, fetchOptions())
-    .then(res => {
-      if (res.status === 401) {
-        throw new UnauthorizedStackException()
-      }
-      return res.json()
-    })
+  return fetchJSON(`${COZY_URL}/apps/`, fetchOptions())
     .then(json => json.data)
-    .catch(e => {
-      throw new UnavailableStackException()
-    })
 }
 
 function fetchJSON (url, options) {

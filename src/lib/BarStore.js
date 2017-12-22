@@ -8,16 +8,11 @@ import { create as createIntent } from '../lib/intents'
 
 import CLAUDY_ACTIONS from '../config/claudyActions'
 
-const EXCLUDES = ['settings', 'onboarding']
-const CATEGORIES = ['cozy', 'partners', 'ptnb']
-
 export default class BarStore {
   constructor () {
     this.claudyActions = null
-    this.appsList = [] // all apps, coming soons included
     this.settingsData = null
     // cache
-    this.installedApps = [] // to cache already fetched apps icons
     this.helpLink = ''
     this.settingsAppURL = ''
   }
@@ -28,87 +23,6 @@ export default class BarStore {
 
   getSupportIntent (data) {
     return createIntent(null, 'SUPPORT', 'io.cozy.settings', data)
-  }
-
-  async fetchApps () {
-    let apps
-    try {
-      apps = await Promise.all((await stack.get.apps())
-        .filter(app => !EXCLUDES.includes(app.attributes.slug))
-        .map(async app => {
-          const oldApp = this.installedApps.find(item => item.slug === app.attributes.slug)
-          let icon
-
-          if (oldApp && oldApp.icon.cached) {
-            icon = oldApp.icon
-          } else {
-            icon = {
-              src: await stack.get.icon(app.links.icon),
-              cached: true
-            }
-          }
-
-          return {
-            editor: app.attributes.editor,
-            name: app.attributes.name,
-            slug: app.attributes.slug,
-            href: app.links.related,
-            category: CATEGORIES.includes(app.attributes.category) ? app.attributes.category : 'others',
-            icon
-          }
-        }))
-      this.installedApps = apps
-    } catch (e) {
-      return {error: e}
-    }
-    return apps
-  }
-
-  fetchComingSoonApps () {
-    if (this.contextNoExist) return Promise.resolve(null)
-    return stack.get.context()
-      .then(context => {
-        const comingSoonApps = (context.data && context.data.attributes &&
-      context.data.attributes['coming_soon'] &&
-      Object.values(context.data.attributes['coming_soon'])) || []
-
-        return comingSoonApps.map(app => {
-          let icon
-
-          try {
-            icon = app.slug && {
-              cached: true,
-              src: require(`../assets/icons/comingsoon/icon-${app.slug}.svg`)
-            }
-          } catch (error) {
-            console.warn && console.warn(`Cannot retrieve icon for app ${app.name}:`, error.message)
-          }
-
-          return Object.assign({}, app, {
-            comingSoon: true,
-            icon: icon
-          })
-        })
-      })
-      .catch(error => {
-        if (error.status && error.status === 404) this.contextNoExist = true
-        console.warn && console.warn(`Cozy-bar cannot fetch comming soon apps: ${error.message}`)
-        return []
-      })
-  }
-
-  async fetchAppsList () {
-    const apps = await this.fetchApps()
-    if (apps.error) {
-      this.appsList = apps
-      return this.appsList
-    }
-    let comingSoonApps = await this.fetchComingSoonApps()
-    comingSoonApps = comingSoonApps
-      // drop coming soon apps already installed
-      .filter(comingSoonApp => !apps.find(app => app.slug === comingSoonApp.slug))
-    this.appsList = apps.concat(comingSoonApps)
-    return this.appsList
   }
 
   shouldEnableClaudy () {

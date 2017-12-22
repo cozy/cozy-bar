@@ -4,10 +4,8 @@ exports[`The bar library should render correctly the cozy-bar 1`] = `
 <Provider
   store={
     BarStore {
-      "appsList": Array [],
       "claudyActions": null,
       "helpLink": "",
-      "installedApps": Array [],
       "settingsAppURL": "",
       "settingsData": null,
     }
@@ -34,6 +32,7 @@ exports[`The bar library should render correctly the cozy-bar 1`] = `
         iconPath=""
         isPublic={false}
         onDrawer={[Function]}
+        renewToken={null}
         replaceTitleOnMobile={false}
       />
     </Connect(I18n)>

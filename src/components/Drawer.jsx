@@ -30,7 +30,7 @@ class Drawer extends Component {
   }
 
   render () {
-    const { onClaudy, visible, isClaudyLoading, toggleSupport } = this.props
+    const { onClaudy, visible, isClaudyLoading, toggleSupport, renewToken } = this.props
     const { settingsData } = this.store
     return (
       <div className='coz-drawer-wrapper'
@@ -40,10 +40,10 @@ class Drawer extends Component {
       >
         <aside ref={(node) => { this.asideRef = node }}>
           <nav className='coz-drawer--apps'>
-            <AppsList wrappingLimit={3} />
+            <AppsList wrappingLimit={3} renewToken={renewToken} />
           </nav>
           <hr className='coz-sep-flex' />
-          <nav>
+          <nav className='coz-drawer--settings'>
             {settingsData &&
               <Settings
                 onLogOut={() => this.store.logout()}
