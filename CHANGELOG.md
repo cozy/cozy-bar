@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [v4.6.0] - 2017-12-22
+### Added
+- Ask permissions for apps if the list of apps can't be fetched [ac7b506](https://github.com/cozy/cozy-bar/commit/ac7b506c86657369808b1f1bf1d8c30e958e2855)
+
+### Fixed
+- Fixed support modal [02b774](https://github.com/cozy/cozy-bar/commit/02b774ff26dac85f0c4d7ccb07b0f55c06e63beb)
 
 ## [v4.5.5] - 2017-12-12
 ### Added
