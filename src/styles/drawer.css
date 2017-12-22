@@ -71,8 +71,8 @@
 }
 
 [role=banner] .coz-drawer--apps {
-    flex: 0 1 auto;
-    overflow-y: scroll;
+  flex: 0 1 100%;
+  overflow-y: scroll;
 }
 
 [role=banner] .coz-drawer--apps ul {
@@ -121,6 +121,6 @@
 
 [role=banner] .coz-drawer--apps .coz-nav-category {
   font-size: 1em;
-  padding: 0 2em;
-  margin: 2em 0 .5em 0;
+  padding: 2em 2em .5em;
+  margin: 0;
 }

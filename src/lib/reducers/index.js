@@ -19,6 +19,8 @@ export const getContent = proxy('content', content.getContent)
 export const getLocale = proxy('locale', locale.getLocale)
 export const getApps = proxy('apps', apps.getApps)
 export const getAppsFiltered = proxy('apps', apps.getAppsFiltered)
+export const isAppListForbidden = proxy('apps', apps.isAppListForbidden)
+export const getCurrentApp = proxy('apps', apps.getCurrentApp)
 
 export const reducers = {
   content: content.reducer,

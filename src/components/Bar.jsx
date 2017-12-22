@@ -101,9 +101,9 @@ class Bar extends Component {
   }
 
   renderRight = () => {
-    const { displayOnMobile, isPublic } = this.props
+    const { displayOnMobile, isPublic, renewToken } = this.props
     return (__TARGET__ !== 'mobile' || displayOnMobile) && !isPublic
-      ? <Nav toggleSupport={this.toggleSupport} />
+      ? <Nav toggleSupport={this.toggleSupport} renewToken={renewToken} />
       : null
   }
 
@@ -117,7 +117,7 @@ class Bar extends Component {
       supportDisplayed,
       usageTracker
     } = this.state
-    const { barLeft, barRight, barCenter, onDrawer, displayOnMobile, isPublic } = this.props
+    const { barLeft, barRight, barCenter, onDrawer, displayOnMobile, isPublic, renewToken } = this.props
     return (
       <div className='coz-bar-container'>
         { barLeft || this.renderLeft() }
@@ -132,6 +132,7 @@ class Bar extends Component {
             onClaudy={(claudyEnabled && (() => this.toggleClaudy(true))) || false}
             isClaudyLoading={claudyFired}
             drawerListener={() => onDrawer(this.state.drawerVisible)}
+            renewToken={renewToken}
             toggleSupport={this.toggleSupport} /> : null }
         { claudyEnabled &&
           <Claudy

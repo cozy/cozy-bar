@@ -124,7 +124,8 @@ const init = ({
   token = getDefaultToken(),
   replaceTitleOnMobile = false,
   displayOnMobile,
-  isPublic = false
+  isPublic = false,
+  renewToken = null
 } = {}) => {
   // Force public mode in `/public` URLs
   if (/^\/public/.test(window.location.pathname)) {
@@ -141,7 +142,7 @@ const init = ({
   if (lang) {
     reduxStore.dispatch(setLocale(lang))
   }
-  return injectBarInDOM({appName, appEditor, iconPath, replaceTitleOnMobile, displayOnMobile, isPublic})
+  return injectBarInDOM({appName, appEditor, iconPath, replaceTitleOnMobile, displayOnMobile, isPublic, renewToken})
 }
 
 const updateAccessToken = accessToken => {

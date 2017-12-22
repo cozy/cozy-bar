@@ -135,8 +135,8 @@
 
 [role=banner] .coz-nav-pop--apps .coz-nav-category {
   font-size: 1em;
-  padding: 0 2em;
-  margin: 1em 0 .5em 0;
+  padding: 2em 2em .5em;
+  margin: 0;
 }
 
 [role=banner] .blurry {

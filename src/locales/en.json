@@ -32,5 +32,11 @@
   "searchbar": {
     "placeholder": "Search anything",
     "empty": "No result has been found for the query “%{query}”"
+  },
+
+  "permsModal": {
+    "title": "Access your whole Cozy from your application",
+    "description": "Authorize %{app} to display your Cozy applications on this device",
+    "button": "Authorize access"
   }
 }
