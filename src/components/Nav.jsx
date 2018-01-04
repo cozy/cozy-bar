@@ -80,7 +80,7 @@ class Nav extends Component {
 
   // data-tutorial attribute allows to be targeted in an application tutorial
   render () {
-    const { t, toggleSupport, renewToken } = this.props
+    const { t, toggleSupport, renewToken, onLogOut } = this.props
     const { apps, settings } = this.state
     const { settingsData } = this.barStore
     return (
@@ -110,7 +110,13 @@ class Nav extends Component {
             <div className='coz-nav-pop coz-nav-pop--settings' id='coz-nav-pop--settings' aria-hidden={!settings.opened}>
               {settingsData &&
                 <Settings
-                  onLogOut={() => this.barStore.logout()}
+                  onLogOut={() => {
+                    if (onLogOut && typeof onLogOut === 'function') {
+                      onLogOut()
+                    } else {
+                      this.barStore.logOut()
+                    }
+                  }}
                   toggleSupport={toggleSupport}
                   settingsData={settingsData}
                 />
