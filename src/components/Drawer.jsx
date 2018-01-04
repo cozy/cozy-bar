@@ -30,7 +30,7 @@ class Drawer extends Component {
   }
 
   render () {
-    const { onClaudy, visible, isClaudyLoading, toggleSupport, renewToken } = this.props
+    const { onClaudy, visible, isClaudyLoading, toggleSupport, renewToken, onLogOut } = this.props
     const { settingsData } = this.store
     return (
       <div className='coz-drawer-wrapper'
@@ -46,7 +46,13 @@ class Drawer extends Component {
           <nav className='coz-drawer--settings'>
             {settingsData &&
               <Settings
-                onLogOut={() => this.store.logout()}
+                onLogOut={() => {
+                  if (onLogOut && typeof onLogOut === 'function') {
+                    onLogOut()
+                  } else {
+                    this.store.logout()
+                  }
+                }}
                 settingsData={settingsData}
                 isClaudyLoading={isClaudyLoading}
                 onClaudy={onClaudy}

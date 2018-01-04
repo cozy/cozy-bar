@@ -32,6 +32,7 @@ exports[`The bar library should render correctly the cozy-bar 1`] = `
         iconPath=""
         isPublic={false}
         onDrawer={[Function]}
+        onLogOut={undefined}
         renewToken={null}
         replaceTitleOnMobile={false}
       />
