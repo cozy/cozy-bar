@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [v4.7.0] - 2018-01-04
+### Added
+- `onLogOut` option on initialization. If you pass it, it is used instead of original log out mechanism [b836202](https://github.com/cozy/cozy-bar/commit/b8362026453b922dbf46c4436555fe427a26f2a5)
+
 ## [v4.6.0] - 2017-12-22
 ### Added
 - Ask permissions for apps if the list of apps can't be fetched [ac7b506](https://github.com/cozy/cozy-bar/commit/ac7b506c86657369808b1f1bf1d8c30e958e2855)
@@ -265,7 +269,9 @@ v4.3.0, v4.3.2, v4.3.3 are only there because of build problems on Travis.
 - Support link href
 
 
-[Unreleased]: https://github.com/cozy/cozy-bar/compare/v4.5.5...HEAD
+[Unreleased]: https://github.com/cozy/cozy-bar/compare/v4.7.0...HEAD
+[v4.7.0]: https://github.com/cozy/cozy-bar/compare/v4.6.0...v4.7.0
+[v4.6.0]: https://github.com/cozy/cozy-bar/compare/v4.5.5...v4.6.0
 [v4.5.4]: https://github.com/cozy/cozy-bar/compare/v4.5.4...v4.5.5
 [v4.5.4]: https://github.com/cozy/cozy-bar/compare/v4.5.3...v4.5.4
 [v4.5.3]: https://github.com/cozy/cozy-bar/compare/v4.5.2...v4.5.3
