@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Removed
+- `beta` after app name
+
+
 ## [v4.7.0] - 2018-01-04
 ### Added
 - `onLogOut` option on initialization. If you pass it, it is used instead of original log out mechanism [b836202](https://github.com/cozy/cozy-bar/commit/b8362026453b922dbf46c4436555fe427a26f2a5)

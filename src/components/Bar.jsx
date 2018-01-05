@@ -80,14 +80,13 @@ class Bar extends Component {
     this.setState({supportDisplayed: !supportDisplayed})
   }
 
-  renderCenter = () => {
-    const { appName, appEditor, iconPath, t, replaceTitleOnMobile, lang } = this.props
+  renderCenter () {
+    const { appName, appEditor, iconPath, replaceTitleOnMobile, lang } = this.props
     return (
       <h1 lang={lang} className={`coz-bar-title ${replaceTitleOnMobile ? 'coz-bar-hide-sm' : ''}`}>
         <img className='coz-bar-hide-sm' src={iconPath} width='32' />
         {appEditor && <span className='coz-bar-hide-sm'>{appEditor}</span>}
         <strong>{appName}</strong>
-        <sup className='coz-bar-hide-sm coz-bar-beta-status'>{t('beta')}</sup>
       </h1>
     )
   }

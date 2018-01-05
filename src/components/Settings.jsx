@@ -65,14 +65,6 @@ const Settings = ({ t, onLogOut, settingsData, onClaudy, isDrawer = false, isCla
         </button>
       </li>
     </ul>
-    <hr />
-    <ul className='coz-nav-group coz-nav-group--inactive'>
-      <li className='coz-nav-item'>
-        <div role='menuitem'>
-          <p className='coz-bar-text-item coz-bar-text-item--inactive'>{t('beta_status')}</p>
-        </div>
-      </li>
-    </ul>
   </div>
 )
 
