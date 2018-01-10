@@ -114,7 +114,7 @@ class Nav extends Component {
                     if (onLogOut && typeof onLogOut === 'function') {
                       onLogOut()
                     } else {
-                      this.barStore.logOut()
+                      this.barStore.logout()
                     }
                   }}
                   toggleSupport={toggleSupport}
