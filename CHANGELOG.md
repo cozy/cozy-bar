@@ -6,9 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+
+## [v4.8.0] - 2018-01-10
+
 ### Removed
 - `beta` after app name
-
 
 ## [v4.7.0] - 2018-01-04
 ### Added
@@ -273,7 +275,8 @@ v4.3.0, v4.3.2, v4.3.3 are only there because of build problems on Travis.
 - Support link href
 
 
-[Unreleased]: https://github.com/cozy/cozy-bar/compare/v4.7.0...HEAD
+[Unreleased]: https://github.com/cozy/cozy-bar/compare/v4.8.0...HEAD
+[v4.8.0]: https://github.com/cozy/cozy-bar/compare/v4.7.0...v4.8.0
 [v4.7.0]: https://github.com/cozy/cozy-bar/compare/v4.6.0...v4.7.0
 [v4.6.0]: https://github.com/cozy/cozy-bar/compare/v4.5.5...v4.6.0
 [v4.5.4]: https://github.com/cozy/cozy-bar/compare/v4.5.4...v4.5.5
