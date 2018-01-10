@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 
 
+## [v4.8.1] - 2018-01-10
+
+### Fixed
+- Force Transifex version to avoid regression
+
 ## [v4.8.0] - 2018-01-10
 
 ### Removed
@@ -275,7 +280,8 @@ v4.3.0, v4.3.2, v4.3.3 are only there because of build problems on Travis.
 - Support link href
 
 
-[Unreleased]: https://github.com/cozy/cozy-bar/compare/v4.8.0...HEAD
+[Unreleased]: https://github.com/cozy/cozy-bar/compare/v4.8.1...HEAD
+[v4.8.1]: https://github.com/cozy/cozy-bar/compare/v4.8.0...v4.8.1
 [v4.8.0]: https://github.com/cozy/cozy-bar/compare/v4.7.0...v4.8.0
 [v4.7.0]: https://github.com/cozy/cozy-bar/compare/v4.6.0...v4.7.0
 [v4.6.0]: https://github.com/cozy/cozy-bar/compare/v4.5.5...v4.6.0
