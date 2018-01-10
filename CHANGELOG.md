@@ -6,6 +6,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Fixed
+
+### Changed
+
+### Added
+
+### Removed
+
+
+## [v4.8.2] - 2018-01-10
+
+### Fixed
+- Typo in logout function name
 
 ## [v4.8.1] - 2018-01-10
 
