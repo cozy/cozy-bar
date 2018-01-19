@@ -87,14 +87,14 @@ class Nav extends Component {
       <nav className='coz-nav' ref={(ref) => { this.rootRef = ref }}>
         <ul>
           <li className='coz-nav-section'>
-            <a
+            <button
               onClick={() => this.toggleMenu('apps')}
               aria-controls='coz-nav-pop--apps' aria-busy={apps.busy}
               data-icon='icon-apps'
               data-tutorial='apps'
             >
               {t('menu.apps')}
-            </a>
+            </button>
             <div className='coz-nav-pop coz-nav-pop--apps' id='coz-nav-pop--apps' aria-hidden={!apps.opened}>
               <AppsList
                 wrappingLimit={4}
@@ -104,13 +104,13 @@ class Nav extends Component {
             </div>
           </li>
           <li className='coz-nav-section'>
-            <a
+            <button
               onClick={() => this.toggleMenu('settings')}
               aria-controls='coz-nav-pop--settings' aria-busy={settings.busy}
               data-icon='icon-cog'
             >
               {t('menu.settings')}
-            </a>
+            </button>
             <div className='coz-nav-pop coz-nav-pop--settings' id='coz-nav-pop--settings' aria-hidden={!settings.opened}>
               {settingsData &&
                 <Settings

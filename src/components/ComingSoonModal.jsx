@@ -5,7 +5,7 @@ import { translate } from 'cozy-ui/react/I18n'
 class ComingSoonModal extends Component {
   render () {
     const { appSlug, t } = this.props
-    const appIcon = require(`../assets/icons/comingSoon/icon-${appSlug}.svg`)
+    const appIcon = require(`../assets/icons/comingsoon/icon-${appSlug}.svg`)
     return (
       <div>
         <Modal
