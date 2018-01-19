@@ -95,6 +95,9 @@ function getContext (cache) {
           cache['context'] = context
           return context
         })
+        .catch(error => {
+          if (error.status && error.status === 404) cache['context'] = {}
+        })
   }
 }
 

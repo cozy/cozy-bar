@@ -42,10 +42,16 @@ const Settings = ({ t, onLogOut, settingsData, onClaudy, isDrawer = false, isCla
     {!isDrawer && settingsData.storageData &&
       <ul className='coz-nav-group'>
         <li className='coz-nav-item'>
-          <div role='menuitem' data-icon='icon-storage'>
+          <a
+            role='menuitem'
+            data-icon='icon-storage'
+            target='_self'
+            title={t('storage')}
+            href={`${settingsData.settingsAppURL}#/storage`}
+          >
             {t('storage')}
             <StorageData data={settingsData.storageData} />
-          </div>
+          </a>
         </li>
         <hr />
       </ul>
