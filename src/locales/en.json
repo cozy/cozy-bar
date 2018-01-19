@@ -36,5 +36,11 @@
     "title": "Access your whole Cozy from your application",
     "description": "Authorize %{app} to display your Cozy applications on this device",
     "button": "Authorize access"
+  },
+  "comingSoon": {
+    "store": {
+      "title": "The Store application will be available soon in your Cozy.",
+      "description": "Thanks to Cozy Store you will be able to install the applications that you want in your Cozy."
+    }
   }
 }

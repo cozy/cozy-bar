@@ -81,3 +81,11 @@
   color: white;
   text-transform: uppercase;
 }
+
+/* Coming soon exception for the ones with description modal */
+[role=banner] .coz-nav-item [role=menuitem].coz-bar-coming-soon-app.--toggable:hover,
+[role=banner] .coz-nav-item [role=menuitem].coz-bar-coming-soon-app.--toggable:focus {
+  background-color: rgba(41, 126, 241, 0.1);
+  border-radius: 3px;
+  cursor: pointer;
+}

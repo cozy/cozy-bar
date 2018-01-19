@@ -7,6 +7,8 @@ import Button from 'cozy-ui/react/Button'
 import { getApps, getAppsFiltered, getCurrentApp, fetchApps, isAppListForbidden } from '../lib/reducers'
 import stack from '../lib/stack'
 
+const COMING_SOON_WITH_DESCRIPTION = ['store']
+
 // TODO Add errors
 class AppsList extends Component {
   componentDidMount () {
@@ -53,7 +55,7 @@ class AppsList extends Component {
   }
 
   render () {
-    const { t, wrappingLimit } = this.props
+    const { t, wrappingLimit, toggleComingSoon } = this.props
     const categories = this.getCategorizedApps()
 
     /*
@@ -89,6 +91,11 @@ class AppsList extends Component {
                   href={app.href}
                   dataIcon={dataIcon}
                   comingSoon={app.comingSoon}
+                  toggle={
+                    COMING_SOON_WITH_DESCRIPTION.includes(app.slug)
+                      ? () => toggleComingSoon(app.slug)
+                      : false
+                  }
                   iconSrc={iconSrc}
                   blurry={blurry} />
               })}
@@ -116,19 +123,24 @@ const mapDispatchToProps = dispatch => ({
 
 export default connect(mapStateToProps, mapDispatchToProps)(translate()(AppsList))
 
-const AppIcon = translate()(({ t, label, dataIcon, iconSrc, href, comingSoon = false, blurry = false }) => (
-  <li className='coz-nav-item'>
-    <a role='menuitem' href={href} data-icon={dataIcon} className={comingSoon && 'coz-bar-coming-soon-app'} title={label}>
-      {iconSrc &&
-        <img src={iconSrc} alt='' width='64' height='64' className={blurry && 'blurry'} />
-      }
-      {comingSoon &&
-        <span className='coz-bar-coming-soon-badge'>{t('soon')}</span>
-      }
-      <p className='coz-label'>{label}</p>
-    </a>
-  </li>
-))
+const AppIcon = translate()(({ t, label, dataIcon, iconSrc, href, comingSoon = false, blurry = false, toggle }) => {
+  if (href) toggle = null // href always have priority
+  let appClass = comingSoon ? 'coz-bar-coming-soon-app' : ''
+  if (toggle) appClass += ' --toggable'
+  return (
+    <li className='coz-nav-item'>
+      <a role='menuitem' href={href} data-icon={dataIcon} className={appClass} title={label} onClick={toggle}>
+        {iconSrc &&
+          <img src={iconSrc} alt='' width='64' height='64' className={blurry && 'blurry'} />
+        }
+        {comingSoon &&
+          <span className='coz-bar-coming-soon-badge'>{t('soon')}</span>
+        }
+        <p className='coz-label'>{label}</p>
+      </a>
+    </li>
+  )
+})
 
 const AppIconGroup = translate()(({ t, category, children, wrapping = false, blurry = false }) => (
   <div className={blurry && 'blurry'}>

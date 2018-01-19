@@ -30,7 +30,7 @@ class Drawer extends Component {
   }
 
   render () {
-    const { onClaudy, visible, isClaudyLoading, toggleSupport, renewToken, onLogOut } = this.props
+    const { onClaudy, visible, isClaudyLoading, toggleSupport, renewToken, onLogOut, toggleComingSoon } = this.props
     const { settingsData } = this.store
     return (
       <div className='coz-drawer-wrapper'
@@ -40,7 +40,11 @@ class Drawer extends Component {
       >
         <aside ref={(node) => { this.asideRef = node }}>
           <nav className='coz-drawer--apps'>
-            <AppsList wrappingLimit={3} renewToken={renewToken} />
+            <AppsList
+              wrappingLimit={3}
+              renewToken={renewToken}
+              toggleComingSoon={toggleComingSoon}
+            />
           </nav>
           <hr className='coz-sep-flex' />
           <nav className='coz-drawer--settings'>

@@ -12,6 +12,7 @@ import Nav from 'components/Nav'
 import SearchBar from 'components/SearchBar'
 import Claudy from 'components/Claudy'
 import SupportModal from 'components/SupportModal'
+import ComingSoonModal from 'components/ComingSoonModal'
 import { getContent } from 'lib/reducers'
 
 class Bar extends Component {
@@ -25,6 +26,7 @@ class Bar extends Component {
       drawerVisible: false,
       usageTracker: null,
       supportDisplayed: false,
+      comingSoonToDisplay: null,
       searchBarEnabled: window.location.search.toLowerCase().indexOf('howdoyouturnthison') >= 0
     }
   }
@@ -80,6 +82,12 @@ class Bar extends Component {
     this.setState({supportDisplayed: !supportDisplayed})
   }
 
+  toggleComingSoon = (slug) => {
+    this.setState((state, props) => ({
+      comingSoonToDisplay: state.comingSoonToDisplay ? null : slug
+    }))
+  }
+
   renderCenter () {
     const { appName, appEditor, iconPath, replaceTitleOnMobile, lang } = this.props
     return (
@@ -102,7 +110,12 @@ class Bar extends Component {
   renderRight = () => {
     const { displayOnMobile, isPublic, renewToken } = this.props
     return (__TARGET__ !== 'mobile' || displayOnMobile) && !isPublic
-      ? <Nav toggleSupport={this.toggleSupport} renewToken={renewToken} onLogOut={this.props.onLogOut} />
+      ? <Nav
+        toggleSupport={this.toggleSupport}
+        toggleComingSoon={this.toggleComingSoon}
+        renewToken={renewToken}
+        onLogOut={this.props.onLogOut}
+      />
       : null
   }
 
@@ -114,6 +127,7 @@ class Bar extends Component {
       drawerVisible,
       searchBarEnabled,
       supportDisplayed,
+      comingSoonToDisplay,
       usageTracker
     } = this.state
     const { barLeft, barRight, barCenter, onDrawer, displayOnMobile, isPublic, renewToken, onLogOut } = this.props
@@ -133,6 +147,7 @@ class Bar extends Component {
             drawerListener={() => onDrawer(this.state.drawerVisible)}
             renewToken={renewToken}
             toggleSupport={this.toggleSupport}
+            toggleComingSoon={this.toggleComingSoon}
             onLogOut={onLogOut} /> : null }
         { claudyEnabled &&
           <Claudy
@@ -141,7 +156,13 @@ class Bar extends Component {
             onToggle={() => this.toggleClaudy(false)}
             opened={claudyOpened}
           /> }
-        { supportDisplayed && <SupportModal onClose={this.toggleSupport} /> }
+        { supportDisplayed &&
+          <SupportModal onClose={this.toggleSupport} /> }
+        { comingSoonToDisplay &&
+          <ComingSoonModal
+            onClose={this.toggleComingSoon}
+            appSlug={comingSoonToDisplay}
+          /> }
       </div>
     )
   }
