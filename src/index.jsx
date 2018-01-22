@@ -103,7 +103,7 @@ const getDefaultToken = () => {
 
 const getEditor = () => {
   const appNode = document.querySelector(APP_SELECTOR)
-  return appNode.dataset.cozyEditor || undefined
+  return appNode.dataset.cozyAppEditor || appNode.dataset.cozyEditor || undefined
 }
 
 const getDefaultIcon = () => {
