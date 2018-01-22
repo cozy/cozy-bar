@@ -15,6 +15,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Removed
 
 
+## [v4.8.5] - 2018-01-22
+
+### Fixed
+- Filter correctly coming soon apps if apps already installed
+
+
 ## [v4.8.4] - 2018-01-22
 
 ### Fixed
@@ -310,7 +316,8 @@ v4.3.0, v4.3.2, v4.3.3 are only there because of build problems on Travis.
 - Support link href
 
 
-[Unreleased]: https://github.com/cozy/cozy-bar/compare/v4.8.4...HEAD
+[Unreleased]: https://github.com/cozy/cozy-bar/compare/v4.8.5...HEAD
+[v4.8.5]: https://github.com/cozy/cozy-bar/compare/v4.8.4...v4.8.5
 [v4.8.4]: https://github.com/cozy/cozy-bar/compare/v4.8.3...v4.8.4
 [v4.8.3]: https://github.com/cozy/cozy-bar/compare/v4.8.2...v4.8.3
 [v4.8.1]: https://github.com/cozy/cozy-bar/compare/v4.8.1...v4.8.2
