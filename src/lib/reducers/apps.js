@@ -49,7 +49,14 @@ export const fetchApps = () => async dispatch => {
     }))
     let appsList = appsWithIcons
     if (comingSoonApps && comingSoonApps.length) {
-      appsList = appsWithIcons.concat(comingSoonApps)
+      comingSoonApps.map(csApp => {
+        if (!apps.find(
+          app => app.attributes.slug === csApp.slug
+        )) {
+          // add coming soon apps only if not already installed
+          appsList.push(csApp)
+        }
+      })
     }
     dispatch(receiveAppList(appsList))
   } catch (e) {
