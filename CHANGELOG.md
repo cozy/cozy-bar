@@ -15,6 +15,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Removed
 
 
+## [v4.8.3] - 2018-01-22
+
+### Added
+- Add storage link to storage settings view
+- Add coming soon modal description for cozy-store
+
+### Fixed
+- Get back coming soon apps in apps list menu
+- Improve global keyboard accessibility
+
+
 ## [v4.8.2] - 2018-01-10
 
 ### Fixed
@@ -293,7 +304,9 @@ v4.3.0, v4.3.2, v4.3.3 are only there because of build problems on Travis.
 - Support link href
 
 
-[Unreleased]: https://github.com/cozy/cozy-bar/compare/v4.8.1...HEAD
+[Unreleased]: https://github.com/cozy/cozy-bar/compare/v4.8.3...HEAD
+[v4.8.3]: https://github.com/cozy/cozy-bar/compare/v4.8.2...v4.8.3
+[v4.8.1]: https://github.com/cozy/cozy-bar/compare/v4.8.1...v4.8.2
 [v4.8.1]: https://github.com/cozy/cozy-bar/compare/v4.8.0...v4.8.1
 [v4.8.0]: https://github.com/cozy/cozy-bar/compare/v4.7.0...v4.8.0
 [v4.7.0]: https://github.com/cozy/cozy-bar/compare/v4.6.0...v4.7.0
