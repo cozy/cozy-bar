@@ -3,9 +3,14 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import { translate } from 'cozy-ui/react/I18n'
-import Button from 'cozy-ui/react/Button'
 import { getApps, getAppsFiltered, getCurrentApp, fetchApps, isAppListForbidden } from '../lib/reducers'
 import stack from '../lib/stack'
+
+import AppIconGroup from './AppIconGroup'
+import AppIcon from './AppIcon'
+import FakeAppsList from './FakeAppsList'
+
+const COMING_SOON_WITH_DESCRIPTION = ['store']
 
 // TODO Add errors
 class AppsList extends Component {
@@ -53,7 +58,7 @@ class AppsList extends Component {
   }
 
   render () {
-    const { t, wrappingLimit } = this.props
+    const { t, wrappingLimit, toggleComingSoon } = this.props
     const categories = this.getCategorizedApps()
 
     /*
@@ -89,6 +94,11 @@ class AppsList extends Component {
                   href={app.href}
                   dataIcon={dataIcon}
                   comingSoon={app.comingSoon}
+                  toggle={
+                    COMING_SOON_WITH_DESCRIPTION.includes(app.slug)
+                      ? () => toggleComingSoon(app.slug)
+                      : false
+                  }
                   iconSrc={iconSrc}
                   blurry={blurry} />
               })}
@@ -115,54 +125,3 @@ const mapDispatchToProps = dispatch => ({
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(translate()(AppsList))
-
-const AppIcon = translate()(({ t, label, dataIcon, iconSrc, href, comingSoon = false, blurry = false }) => (
-  <li className='coz-nav-item'>
-    <a role='menuitem' href={href} data-icon={dataIcon} className={comingSoon && 'coz-bar-coming-soon-app'} title={label}>
-      {iconSrc &&
-        <img src={iconSrc} alt='' width='64' height='64' className={blurry && 'blurry'} />
-      }
-      {comingSoon &&
-        <span className='coz-bar-coming-soon-badge'>{t('soon')}</span>
-      }
-      <p className='coz-label'>{label}</p>
-    </a>
-  </li>
-))
-
-const AppIconGroup = translate()(({ t, category, children, wrapping = false, blurry = false }) => (
-  <div className={blurry && 'blurry'}>
-    <h2 className='coz-nav-category'>{t(category)}</h2>
-    <ul className={`
-      ${wrapping ? 'coz-nav-group coz-nav-group--wrapping' : 'coz-nav-group'}
-    `}>
-      {children}
-    </ul>
-    <hr />
-  </div>
-))
-
-const FakeAppsList = translate()(({ t, currentApp, onAuthorizeClick }) => (
-  <div className='coz-app-list-forbidden'>
-    <AppIconGroup category='Categories.cozy' blurry>
-      <AppIcon label='Cozy Drive' iconSrc={require('../assets/icons/apps/icon-drive.svg')} />
-      <AppIcon label='Cozy Photos' iconSrc={require('../assets/icons/apps/icon-photos.svg')} />
-      <AppIcon label='Cozy Collect' iconSrc={require('../assets/icons/apps/icon-collect.svg')} />
-      <AppIcon label='Cozy Store' comingSoon iconSrc={require('../assets/icons/apps/icon-store.svg')} />
-    </AppIconGroup>
-    <PermsModal currentApp={currentApp} onAuthorizeClick={onAuthorizeClick} />
-  </div>
-))
-
-const PermsModal = translate()(({ t, currentApp, onAuthorizeClick }) => (
-  <div className='coz-perms-modal-wrapper'>
-    <div className='coz-perms-modal'>
-      <header>
-        <a href='https://cozy.io' target='_blank' title='Cozy Website' class='shield' />
-      </header>
-      <h3>{t('permsModal.title')}</h3>
-      <p>{t('permsModal.description', { app: currentApp })}</p>
-      <Button theme='regular' onClick={onAuthorizeClick}>{t('permsModal.button')}</Button>
-    </div>
-  </div>
-))

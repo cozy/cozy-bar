@@ -58,9 +58,9 @@ const Settings = ({ t, onLogOut, settingsData, onClaudy, isDrawer = false, isCla
     }
     <ul className='coz-nav-group'>
       <li className='coz-nav-item'>
-        <a role='menuitem' onClick={toggleSupport} data-icon='icon-help' title={t('help')}>
-          <p className='coz-label'>{t('help')}</p>
-        </a>
+        <button role='menuitem' onClick={toggleSupport} data-icon='icon-help' title={t('help')}>
+          {t('help')}
+        </button>
       </li>
       <hr />
     </ul>
