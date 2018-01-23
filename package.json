@@ -8,6 +8,14 @@
     "m4dz (https://m4dz.net)",
     "CPatchane"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cozy/cozy-bar.git"
+  },
+  "homepage": "https://github.com/cozy/cozy-bar",
+  "bugs": {
+    "url": "https://github.com/cozy/cozy-bar/issues"
+  },
   "license": "MIT",
   "scripts": {
     "build": "npm-run-all --parallel 'build:*' 'build:*:*'",
