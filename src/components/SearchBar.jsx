@@ -63,6 +63,7 @@ const highlightQueryTerms = (searchResult, query) => {
 class SearchBar extends Component {
   state = {
     query: '',
+    isInitialSearch: true,
     searching: false,
     focused: false,
     suggestionsBySource: [],
@@ -142,33 +143,39 @@ class SearchBar extends Component {
     const availableSources = this.sources.filter(source => source.ready)
 
     if (availableSources.length > 0) {
-      this.clearSuggestions()
-      this.setState({ searching: true })
+      this.setState(state => ({ ...state, searching: true }))
 
       availableSources.forEach(async (source) => {
         const {id, suggestions} = await new Promise(resolve => {
           source.resolve = resolve
           source.window.postMessage({ query: value }, source.origin)
         })
-
-        this.setState(state => ({
-          ...state,
-          searching: false,
-          suggestionsBySource: [
-            ...state.suggestionsBySource,
-            {
-              title: this.sources.find(source => source.id === id).slug,
-              suggestions
-            }
-          ]
-        }))
+        const title = this.sources.find(source => source.id === id).slug
+        if (this.state.searching) {
+          this.setState(state => ({
+            ...state,
+            searching: false,
+            isInitialSearch: false,
+            suggestionsBySource: [
+              {title, suggestions}
+            ]
+          }))
+        } else {
+          this.setState(state => ({
+            ...state,
+            suggestionsBySource: [
+              ...state.suggestionsBySource,
+              {title, suggestions}
+            ]
+          }))
+        }
       })
     }
   }
 
   onSuggestionsClearRequested = () => {
     this.clearSuggestions()
-    this.setState({ searching: false })
+    this.setState({ isInitialSearch: true, searching: false })
   }
 
   onSuggestionSelected = (event, { suggestion }) => {
@@ -207,7 +214,7 @@ class SearchBar extends Component {
   )
 
   render () {
-    const { query, searching, focused, suggestionsBySource, sourceURLs } = this.state
+    const { query, isInitialSearch, searching, focused, suggestionsBySource, sourceURLs } = this.state
     const { t } = this.props
 
     const hasSuggestions = suggestionsBySource.reduce((totalSuggestions, suggestionSection) => (totalSuggestions + suggestionSection.suggestions.length), 0) > 0
@@ -231,7 +238,6 @@ class SearchBar extends Component {
       suggestionHighlighted: 'coz-searchbar-autosuggest-suggestion-highlighted',
       sectionTitle: 'coz-searchbar-autosuggest-section-title'
     }
-
     return (
       <div className='coz-searchbar'>
         {sourceURLs.map(url => (
@@ -251,7 +257,7 @@ class SearchBar extends Component {
           inputProps={inputProps}
           focusInputOnSuggestionClick={false}
         />
-        { query !== '' && !searching && focused && !hasSuggestions &&
+        { query !== '' && !isInitialSearch && focused && !hasSuggestions &&
           <div className={'coz-searchbar-autosuggest-status-container'}>
             {t('searchbar.empty', { query })}
           </div>
