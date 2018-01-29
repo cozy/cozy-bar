@@ -71,7 +71,7 @@
   top: 100%;
   left: 0;
   right: 0;
-  margin: .3em .8em .3em 2.5em;
+  margin: -0.3em .8em .3em 2.5em;
   padding: .8em .5em;
   max-height: em(170px);
   overflow: auto;
