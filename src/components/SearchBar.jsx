@@ -199,17 +199,19 @@ class SearchBar extends Component {
   renderSectionTitle = (section) => null // we only have one section at the moment, but if we decide to sort suggestions by section/source, we can use this callback
 
   renderSuggestion = (suggestion) => (
-    <div className='coz-searchbar-autosuggest-suggestion-content'>
+    <div className='coz-searchbar-autosuggest-suggestion-item'>
       {suggestion.icon && <img className='coz-searchbar-autosuggest-suggestion-icon' src={suggestion.icon} alt='icon' />}
-      <div className='coz-searchbar-autosuggest-suggestion-title'>
-        {highlightQueryTerms(suggestion.title, this.state.query)}
-      </div>
-      {
-        suggestion.subtitle &&
-        <div className='coz-searchbar-autosuggest-suggestion-subtitle'>
-          {highlightQueryTerms(suggestion.subtitle, this.state.query)}
+      <div className='coz-searchbar-autosuggest-suggestion-content'>
+        <div className='coz-searchbar-autosuggest-suggestion-title'>
+          {highlightQueryTerms(suggestion.title, this.state.query)}
         </div>
-      }
+        {
+          suggestion.subtitle &&
+          <div className='coz-searchbar-autosuggest-suggestion-subtitle'>
+            {highlightQueryTerms(suggestion.subtitle, this.state.query)}
+          </div>
+        }
+      </div>
     </div>
   )
 
