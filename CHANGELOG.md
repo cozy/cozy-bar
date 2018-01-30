@@ -14,6 +14,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Removed
 
+## [v4.8.6] - 2018-01-30
+
+### Changed
+- Small UI & behavior changes to the search bar
+
 
 ## [v4.8.5] - 2018-01-22
 
