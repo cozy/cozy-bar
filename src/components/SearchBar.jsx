@@ -62,8 +62,8 @@ const highlightQueryTerms = (searchResult, query) => {
 
 class SearchBar extends Component {
   state = {
-    query: '',
-    isInitialSearch: true,
+    input: '',
+    query: null,
     searching: false,
     focused: false,
     suggestionsBySource: [],
@@ -123,7 +123,7 @@ class SearchBar extends Component {
 
   onChange = (event, { newValue }) => {
     this.setState({
-      query: newValue
+      input: newValue
     })
   }
 
@@ -143,6 +143,8 @@ class SearchBar extends Component {
     const availableSources = this.sources.filter(source => source.ready)
 
     if (availableSources.length > 0) {
+      // We defer the emptying of `suggestionsBySource` so that we still display
+      // the previous suggestion list
       this.setState(state => ({ ...state, searching: true }))
 
       availableSources.forEach(async (source) => {
@@ -151,11 +153,13 @@ class SearchBar extends Component {
           source.window.postMessage({ query: value }, source.origin)
         })
         const title = this.sources.find(source => source.id === id).slug
-        if (this.state.searching) {
+        // This is the first result we get for this new search term,
+        // we can now update `query` and replace the previous `suggestionsBySource`
+        if (this.state.query !== value) {
           this.setState(state => ({
             ...state,
             searching: false,
-            isInitialSearch: false,
+            query: value,
             suggestionsBySource: [
               {title, suggestions}
             ]
@@ -175,7 +179,7 @@ class SearchBar extends Component {
 
   onSuggestionsClearRequested = () => {
     this.clearSuggestions()
-    this.setState({ isInitialSearch: true, searching: false })
+    this.setState({ query: null, searching: false })
   }
 
   onSuggestionSelected = (event, { suggestion }) => {
@@ -189,12 +193,13 @@ class SearchBar extends Component {
       console.log('suggestion onSelect (' + onSelect + ') could not be executed')
     }
 
-    this.setState({ query: '' })
+    this.setState({ input: '', query: null })
   }
 
   getSectionSuggestions = (section) => section.suggestions.slice(0, SUGGESTIONS_PER_SOURCE)
 
-  getSuggestionValue = (suggestion) => suggestion.term || suggestion.title
+  // We want the user to find folders in which he can then navigate into, so we return the path here
+  getSuggestionValue = (suggestion) => suggestion.subtitle
 
   renderSectionTitle = (section) => null // we only have one section at the moment, but if we decide to sort suggestions by section/source, we can use this callback
 
@@ -216,14 +221,15 @@ class SearchBar extends Component {
   )
 
   render () {
-    const { query, isInitialSearch, searching, focused, suggestionsBySource, sourceURLs } = this.state
+    const { input, query, searching, focused, suggestionsBySource, sourceURLs } = this.state
     const { t } = this.props
 
+    const isInitialSearch = input !== '' && query === null && searching
     const hasSuggestions = suggestionsBySource.reduce((totalSuggestions, suggestionSection) => (totalSuggestions + suggestionSection.suggestions.length), 0) > 0
 
     const inputProps = {
       placeholder: t('searchbar.placeholder'),
-      value: query,
+      value: input,
       onChange: this.onChange,
       onFocus: () => this.changeFocusState(true),
       onBlur: () => this.changeFocusState(false)
@@ -240,6 +246,7 @@ class SearchBar extends Component {
       suggestionHighlighted: 'coz-searchbar-autosuggest-suggestion-highlighted',
       sectionTitle: 'coz-searchbar-autosuggest-section-title'
     }
+
     return (
       <div className='coz-searchbar'>
         {sourceURLs.map(url => (
@@ -259,9 +266,9 @@ class SearchBar extends Component {
           inputProps={inputProps}
           focusInputOnSuggestionClick={false}
         />
-        { query !== '' && !isInitialSearch && focused && !hasSuggestions &&
+        {input !== '' && !isInitialSearch && focused && !hasSuggestions &&
           <div className={'coz-searchbar-autosuggest-status-container'}>
-            {t('searchbar.empty', { query })}
+            {t('searchbar.empty', { query: input })}
           </div>
         }
       </div>
