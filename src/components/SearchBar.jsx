@@ -62,7 +62,8 @@ const highlightQueryTerms = (searchResult, query) => {
 
 class SearchBar extends Component {
   state = {
-    query: '',
+    input: '',
+    query: null,
     searching: false,
     focused: false,
     suggestionsBySource: [],
@@ -122,7 +123,7 @@ class SearchBar extends Component {
 
   onChange = (event, { newValue }) => {
     this.setState({
-      query: newValue
+      input: newValue
     })
   }
 
@@ -142,33 +143,43 @@ class SearchBar extends Component {
     const availableSources = this.sources.filter(source => source.ready)
 
     if (availableSources.length > 0) {
-      this.clearSuggestions()
-      this.setState({ searching: true })
+      // We defer the emptying of `suggestionsBySource` so that we still display
+      // the previous suggestion list
+      this.setState(state => ({ ...state, searching: true }))
 
       availableSources.forEach(async (source) => {
         const {id, suggestions} = await new Promise(resolve => {
           source.resolve = resolve
           source.window.postMessage({ query: value }, source.origin)
         })
-
-        this.setState(state => ({
-          ...state,
-          searching: false,
-          suggestionsBySource: [
-            ...state.suggestionsBySource,
-            {
-              title: this.sources.find(source => source.id === id).slug,
-              suggestions
-            }
-          ]
-        }))
+        const title = this.sources.find(source => source.id === id).slug
+        // This is the first result we get for this new search term,
+        // we can now update `query` and replace the previous `suggestionsBySource`
+        if (this.state.query !== value) {
+          this.setState(state => ({
+            ...state,
+            searching: false,
+            query: value,
+            suggestionsBySource: [
+              {title, suggestions}
+            ]
+          }))
+        } else {
+          this.setState(state => ({
+            ...state,
+            suggestionsBySource: [
+              ...state.suggestionsBySource,
+              {title, suggestions}
+            ]
+          }))
+        }
       })
     }
   }
 
   onSuggestionsClearRequested = () => {
     this.clearSuggestions()
-    this.setState({ searching: false })
+    this.setState({ query: null, searching: false })
   }
 
   onSuggestionSelected = (event, { suggestion }) => {
@@ -182,39 +193,43 @@ class SearchBar extends Component {
       console.log('suggestion onSelect (' + onSelect + ') could not be executed')
     }
 
-    this.setState({ query: '' })
+    this.setState({ input: '', query: null })
   }
 
   getSectionSuggestions = (section) => section.suggestions.slice(0, SUGGESTIONS_PER_SOURCE)
 
-  getSuggestionValue = (suggestion) => suggestion.term || suggestion.title
+  // We want the user to find folders in which he can then navigate into, so we return the path here
+  getSuggestionValue = (suggestion) => suggestion.subtitle
 
   renderSectionTitle = (section) => null // we only have one section at the moment, but if we decide to sort suggestions by section/source, we can use this callback
 
   renderSuggestion = (suggestion) => (
-    <div className='coz-searchbar-autosuggest-suggestion-content'>
+    <div className='coz-searchbar-autosuggest-suggestion-item'>
       {suggestion.icon && <img className='coz-searchbar-autosuggest-suggestion-icon' src={suggestion.icon} alt='icon' />}
-      <div className='coz-searchbar-autosuggest-suggestion-title'>
-        {highlightQueryTerms(suggestion.title, this.state.query)}
-      </div>
-      {
-        suggestion.subtitle &&
-        <div className='coz-searchbar-autosuggest-suggestion-subtitle'>
-          {highlightQueryTerms(suggestion.subtitle, this.state.query)}
+      <div className='coz-searchbar-autosuggest-suggestion-content'>
+        <div className='coz-searchbar-autosuggest-suggestion-title'>
+          {highlightQueryTerms(suggestion.title, this.state.query)}
         </div>
-      }
+        {
+          suggestion.subtitle &&
+          <div className='coz-searchbar-autosuggest-suggestion-subtitle'>
+            {highlightQueryTerms(suggestion.subtitle, this.state.query)}
+          </div>
+        }
+      </div>
     </div>
   )
 
   render () {
-    const { query, searching, focused, suggestionsBySource, sourceURLs } = this.state
+    const { input, query, searching, focused, suggestionsBySource, sourceURLs } = this.state
     const { t } = this.props
 
+    const isInitialSearch = input !== '' && query === null && searching
     const hasSuggestions = suggestionsBySource.reduce((totalSuggestions, suggestionSection) => (totalSuggestions + suggestionSection.suggestions.length), 0) > 0
 
     const inputProps = {
       placeholder: t('searchbar.placeholder'),
-      value: query,
+      value: input,
       onChange: this.onChange,
       onFocus: () => this.changeFocusState(true),
       onBlur: () => this.changeFocusState(false)
@@ -251,9 +266,9 @@ class SearchBar extends Component {
           inputProps={inputProps}
           focusInputOnSuggestionClick={false}
         />
-        { query !== '' && !searching && focused && !hasSuggestions &&
+        {input !== '' && !isInitialSearch && focused && !hasSuggestions &&
           <div className={'coz-searchbar-autosuggest-status-container'}>
-            {t('searchbar.empty', { query })}
+            {t('searchbar.empty', { query: input })}
           </div>
         }
       </div>
