@@ -89,6 +89,11 @@
 	list-style: none;
 }
 
+[role=banner] .coz-searchbar-autosuggest-suggestions-list b {
+  font-weight: bolder;
+  color: var(--science-blue)
+}
+
 [role=banner] .coz-searchbar-autosuggest-suggestion {
 	padding: .8em .5em;
   border-width: 0;
@@ -128,7 +133,8 @@
 }
 
 [role=banner] .coz-searchbar-autosuggest-suggestion-highlighted {
-	background: var(--pale-grey);
+  background: var(--pale-grey);
+  box-shadow: inset 4px 0 0 0 var(--dodger-blue);
 }
 
 [role=banner] .coz-searchbar-autosuggest-section-title {
