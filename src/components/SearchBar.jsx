@@ -224,7 +224,7 @@ class SearchBar extends Component {
     const { input, query, searching, focused, suggestionsBySource, sourceURLs } = this.state
     const { t } = this.props
 
-    const isInitialSearch = input !== '' && query === null && searching
+    const isInitialSearch = input !== '' && query === null
     const hasSuggestions = suggestionsBySource.reduce((totalSuggestions, suggestionSection) => (totalSuggestions + suggestionSection.suggestions.length), 0) > 0
 
     const inputProps = {
