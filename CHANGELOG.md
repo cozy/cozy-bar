@@ -14,6 +14,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Removed
 
+## [v4.8.7] - 2018-01-31
+
+### Fixed
+- ESC should hide the suggestion list in the search bar
+
 ## [v4.8.6] - 2018-01-30
 
 ### Changed
