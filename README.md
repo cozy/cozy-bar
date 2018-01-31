@@ -154,7 +154,7 @@ cozy-bar.js is developed by Cozy Cloud and distributed under the [MIT].
 [freenode]: http://webchat.freenode.net/?randomnick=1&channels=%23cozycloud&uio=d4
 [forum]: https://forum.cozy.io/
 [github]: https://github.com/cozy/
-[twitter]: https://twitter.com/mycozycloud
+[twitter]: https://twitter.com/cozycloud
 [mocha]: https://mochajs.org/
 [should]: npmjs.com/package/should
 [checkbox]: https://help.github.com/articles/basic-writing-and-formatting-syntax/#task-lists
