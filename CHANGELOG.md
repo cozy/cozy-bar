@@ -14,6 +14,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Removed
 
+## [v4.8.8] - 2018-02-16
+
+### Fixed
+- Hide scrolling bars for the pop menus
+
 ## [v4.8.7] - 2018-01-31
 
 ### Fixed
@@ -326,7 +331,10 @@ v4.3.0, v4.3.2, v4.3.3 are only there because of build problems on Travis.
 - Support link href
 
 
-[Unreleased]: https://github.com/cozy/cozy-bar/compare/v4.8.5...HEAD
+[Unreleased]: https://github.com/cozy/cozy-bar/compare/v4.8.8...HEAD
+[v4.8.8]: https://github.com/cozy/cozy-bar/compare/v4.8.7...v4.8.8
+[v4.8.7]: https://github.com/cozy/cozy-bar/compare/v4.8.6...v4.8.7
+[v4.8.6]: https://github.com/cozy/cozy-bar/compare/v4.8.5...v4.8.6
 [v4.8.5]: https://github.com/cozy/cozy-bar/compare/v4.8.4...v4.8.5
 [v4.8.4]: https://github.com/cozy/cozy-bar/compare/v4.8.3...v4.8.4
 [v4.8.3]: https://github.com/cozy/cozy-bar/compare/v4.8.2...v4.8.3
