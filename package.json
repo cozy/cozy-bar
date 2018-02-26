@@ -83,6 +83,7 @@
   },
   "dependencies": {
     "babel-preset-cozy-app": "^0.3.1",
+    "core-js": "^2.5.3",
     "cozy-client-js": "^0.3.19",
     "localforage": "^1.5.5",
     "node-polyglot": "^2.2.2",
