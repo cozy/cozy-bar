@@ -14,6 +14,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Removed
 
+## [v4.8.9] - 2018-02-27
+
+### Fixed
+- Added `Object.assign` polyfill for IE 11
+- Allow scrolling in the pop menu on firefox
+
 ## [v4.8.8] - 2018-02-16
 
 ### Fixed
@@ -331,7 +337,8 @@ v4.3.0, v4.3.2, v4.3.3 are only there because of build problems on Travis.
 - Support link href
 
 
-[Unreleased]: https://github.com/cozy/cozy-bar/compare/v4.8.8...HEAD
+[Unreleased]: https://github.com/cozy/cozy-bar/compare/v4.8.9...HEAD
+[v4.8.9]: https://github.com/cozy/cozy-bar/compare/v4.8.8...v4.8.9
 [v4.8.8]: https://github.com/cozy/cozy-bar/compare/v4.8.7...v4.8.8
 [v4.8.7]: https://github.com/cozy/cozy-bar/compare/v4.8.6...v4.8.7
 [v4.8.6]: https://github.com/cozy/cozy-bar/compare/v4.8.5...v4.8.6
