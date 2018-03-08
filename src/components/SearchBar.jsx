@@ -91,7 +91,7 @@ class SearchBar extends Component {
             id: intent._id,
             ready: false,
             window: null, // will hold a reference to the window we're sending messages to
-            resolve: null // a reference to a function to call when the source sends suggestions
+            resolvers: {} // will hold references to a function to call when the source sends suggestions
           }
         })
 
@@ -110,12 +110,12 @@ class SearchBar extends Component {
       source.window = event.source
 
       source.window.postMessage({}, event.origin)
-    } else if (event.data.type === `intent-${source.id}:data` && source.resolve) {
-      source.resolve({
+    } else if (event.data.type === `intent-${source.id}:data` && source.resolvers[event.data.id]) {
+      source.resolvers[event.data.id]({
         id: source.id,
         suggestions: event.data.suggestions
       })
-      source.resolve = null
+      delete source.resolvers[event.data.id]
     } else {
       console.log('unhandled message:', event)
     }
@@ -149,8 +149,9 @@ class SearchBar extends Component {
 
       availableSources.forEach(async (source) => {
         const {id, suggestions} = await new Promise(resolve => {
-          source.resolve = resolve
-          source.window.postMessage({ query: value }, source.origin)
+          const resolverId = new Date().getTime().toString()
+          source.resolvers[resolverId] = resolve
+          source.window.postMessage({ query: value, id: resolverId }, source.origin)
         })
         const title = this.sources.find(source => source.id === id).slug
         // This is the first result we get for this new search term,
