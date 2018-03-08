@@ -48,7 +48,7 @@ window.cozy.bar.init({
 
 Help link
 ---
-Help link is defined in your Cozy's [configuration file](https://github.com/cozy/cozy-stack/blob/master/docs/config.md#main-configuration-file), in the `context` section. See the `cozy.example.yaml` file [provided by the stack](https://github.com/cozy/cozy-stack/blob/master/cozy.example.yaml#L80). 
+Help link is defined in your Cozy's [configuration file](https://github.com/cozy/cozy-stack/blob/master/docs/config.md#main-configuration-file), in the `context` section. See the `cozy.example.yaml` file [provided by the stack](https://github.com/cozy/cozy-stack/blob/master/cozy.example.yaml#L80).
 
 Coming Soon application
 ---
@@ -123,7 +123,7 @@ Community
 
 ### Maintainer
 
-The lead maintainer for cozy-bar.js is @m4dz, send him/her a :beers: to say hello!
+The lead maintainer for cozy-bar.js is [@CPatchane](https://github.com/CPatchane), send him/her a :beers: to say hello!
 
 
 ### Get in touch
