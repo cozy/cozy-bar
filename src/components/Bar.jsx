@@ -27,8 +27,7 @@ class Bar extends Component {
       drawerVisible: false,
       usageTracker: null,
       supportDisplayed: false,
-      comingSoonToDisplay: null,
-      searchBarEnabled: window.location.search.toLowerCase().indexOf('howdoyouturnthison') >= 0
+      comingSoonToDisplay: null
     }
   }
 
@@ -126,7 +125,6 @@ class Bar extends Component {
       claudyFired,
       claudyOpened,
       drawerVisible,
-      searchBarEnabled,
       supportDisplayed,
       comingSoonToDisplay,
       usageTracker
@@ -137,7 +135,7 @@ class Bar extends Component {
         { barLeft || this.renderLeft() }
         { barCenter || this.renderCenter() }
         <div className='u-flex-grow'>
-          { searchBarEnabled ? <SearchBar /> : null }
+          <SearchBar />
         </div>
         { barRight || this.renderRight() }
         { (__TARGET__ !== 'mobile' || displayOnMobile) && !isPublic
