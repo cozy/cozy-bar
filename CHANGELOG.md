@@ -14,6 +14,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Removed
 
+## [v4.9.1] - 2018-03-12
+
+### Changed
+
+- Enable the search bar by default *but only on Cozy Drive*
+- Changed the search bar's styling and slight behavior tweak (debounced requests)
+
 ## [v4.9.0] - 2018-03-08
 
 ### Changed
@@ -347,7 +354,8 @@ v4.3.0, v4.3.2, v4.3.3 are only there because of build problems on Travis.
 - Support link href
 
 
-[Unreleased]: https://github.com/cozy/cozy-bar/compare/v4.9.0...HEAD
+[Unreleased]: https://github.com/cozy/cozy-bar/compare/v4.9.1...HEAD
+[v4.9.1]: https://github.com/cozy/cozy-bar/compare/v4.9.0...v4.9.1
 [v4.9.0]: https://github.com/cozy/cozy-bar/compare/v4.8.9...v4.9.0
 [v4.8.9]: https://github.com/cozy/cozy-bar/compare/v4.8.8...v4.8.9
 [v4.8.8]: https://github.com/cozy/cozy-bar/compare/v4.8.7...v4.8.8
