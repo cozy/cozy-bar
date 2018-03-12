@@ -14,7 +14,7 @@ import SearchBar from 'components/SearchBar'
 import Claudy from 'components/Claudy'
 import SupportModal from 'components/SupportModal'
 import ComingSoonModal from 'components/ComingSoonModal'
-import { getContent } from 'lib/reducers'
+import { getContent, getCurrentApp } from 'lib/reducers'
 
 class Bar extends Component {
   constructor (props, context) {
@@ -27,7 +27,8 @@ class Bar extends Component {
       drawerVisible: false,
       usageTracker: null,
       supportDisplayed: false,
-      comingSoonToDisplay: null
+      comingSoonToDisplay: null,
+      searchBarEnabled: props.currentApp === 'Cozy Drive'
     }
   }
 
@@ -125,6 +126,7 @@ class Bar extends Component {
       claudyFired,
       claudyOpened,
       drawerVisible,
+      searchBarEnabled,
       supportDisplayed,
       comingSoonToDisplay,
       usageTracker
@@ -135,7 +137,7 @@ class Bar extends Component {
         { barLeft || this.renderLeft() }
         { barCenter || this.renderCenter() }
         <div className='u-flex-grow'>
-          <SearchBar />
+          { searchBarEnabled ? <SearchBar /> : null }
         </div>
         { barRight || this.renderRight() }
         { (__TARGET__ !== 'mobile' || displayOnMobile) && !isPublic
@@ -170,7 +172,8 @@ class Bar extends Component {
 const mapStateToProps = state => ({
   barLeft: getContent(state, 'left'),
   barRight: getContent(state, 'right'),
-  barCenter: getContent(state, 'center')
+  barCenter: getContent(state, 'center'),
+  currentApp: getCurrentApp(state)
 })
 
 export default translate()(connect(mapStateToProps)(Bar))
