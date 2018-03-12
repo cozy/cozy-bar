@@ -86,6 +86,7 @@
     "core-js": "^2.5.3",
     "cozy-client-js": "^0.3.19",
     "localforage": "^1.5.5",
+    "lodash.debounce": "4.0.8",
     "node-polyglot": "^2.2.2",
     "piwik-react-router": "^0.10.0",
     "preact": "^8.2.7",
