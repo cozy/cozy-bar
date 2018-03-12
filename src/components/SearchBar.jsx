@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { translate } from 'cozy-ui/react/I18n'
 import Autosuggest from 'react-autosuggest'
+import debounce from 'lodash.debounce'
 import { fetchRawIntent } from '../lib/intents'
 
 const INTENT_VERB = 'OPEN'
@@ -95,7 +96,8 @@ class SearchBar extends Component {
           }
         })
 
-        window.addEventListener('message', this.onMessageFromSource(this.sources))
+        const debounced = debounce(this.onMessageFromSource(this.sources), 250, { 'maxWait': 1000 })
+        window.addEventListener('message', debounced)
       })
   }
 
