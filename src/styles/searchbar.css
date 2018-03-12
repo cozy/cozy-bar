@@ -37,10 +37,14 @@
   padding-left: 2em;
   border-width: 1px;
   border-style: solid;
-  border-color: var(--silver);
+  border-color: transparent;
   border-radius: 4px;
+  transition: all .2s ease-out;
 }
-
+[role=banner] .coz-searchbar-autosuggest-input:hover{
+  border-color: var(--silver);
+}
+[role=banner] .coz-searchbar-autosuggest-input:focus,
 [role=banner] .coz-searchbar-autosuggest-input-focused{
   outline: none;
   border-color: var(--dodger-blue);
