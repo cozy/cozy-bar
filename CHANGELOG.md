@@ -14,6 +14,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Removed
 
+## [v4.9.2] - 2018-03-13
+
+### Fixed
+
+- Another tweak to search request debouncing
+
 ## [v4.9.1] - 2018-03-12
 
 ### Changed
@@ -354,7 +360,8 @@ v4.3.0, v4.3.2, v4.3.3 are only there because of build problems on Travis.
 - Support link href
 
 
-[Unreleased]: https://github.com/cozy/cozy-bar/compare/v4.9.1...HEAD
+[Unreleased]: https://github.com/cozy/cozy-bar/compare/v4.9.2...HEAD
+[v4.9.2]: https://github.com/cozy/cozy-bar/compare/v4.9.1...v4.9.2
 [v4.9.1]: https://github.com/cozy/cozy-bar/compare/v4.9.0...v4.9.1
 [v4.9.0]: https://github.com/cozy/cozy-bar/compare/v4.8.9...v4.9.0
 [v4.8.9]: https://github.com/cozy/cozy-bar/compare/v4.8.8...v4.8.9
