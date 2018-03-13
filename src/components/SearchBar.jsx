@@ -96,9 +96,10 @@ class SearchBar extends Component {
           }
         })
 
-        const debounced = debounce(this.onMessageFromSource(this.sources), 250, { 'maxWait': 1000 })
-        window.addEventListener('message', debounced)
+        window.addEventListener('message', this.onMessageFromSource(this.sources))
       })
+
+    this.debouncedOnSuggestionsFetchRequested = debounce(this.onSuggestionsFetchRequested, 250)
   }
 
   onMessageFromSource = (sources) => (event) => {
@@ -259,7 +260,7 @@ class SearchBar extends Component {
           theme={theme}
           suggestions={suggestionsBySource}
           multiSection
-          onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+          onSuggestionsFetchRequested={this.debouncedOnSuggestionsFetchRequested}
           onSuggestionsClearRequested={this.onSuggestionsClearRequested}
           onSuggestionSelected={this.onSuggestionSelected}
           getSuggestionValue={this.getSuggestionValue}
