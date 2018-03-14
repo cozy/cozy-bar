@@ -72,7 +72,7 @@ class SearchBar extends Component {
   }
 
   sources = []
-  
+
   componentWillMount () {
     this.debouncedOnSuggestionsFetchRequested = debounce(this.onSuggestionsFetchRequested, 250)
   }
