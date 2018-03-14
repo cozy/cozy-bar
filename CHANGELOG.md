@@ -18,7 +18,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Fixed
 
-- Fixed a bg whean clearing the search request and starting another one
+- Fixed a bug when clearing the search request and starting another one
 
 ## [v4.9.2] - 2018-03-13
 
