@@ -72,6 +72,10 @@ class SearchBar extends Component {
   }
 
   sources = []
+  
+  componentWillMount () {
+    this.debouncedOnSuggestionsFetchRequested = debounce(this.onSuggestionsFetchRequested, 250)
+  }
 
   componentDidMount () {
     // The searchbar has one or more sources that provide suggestions. These sources are iframes into other apps, provied by thee intent system.
@@ -98,8 +102,6 @@ class SearchBar extends Component {
 
         window.addEventListener('message', this.onMessageFromSource(this.sources))
       })
-
-    this.debouncedOnSuggestionsFetchRequested = debounce(this.onSuggestionsFetchRequested, 250)
   }
 
   onMessageFromSource = (sources) => (event) => {
