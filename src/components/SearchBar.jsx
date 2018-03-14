@@ -185,6 +185,7 @@ class SearchBar extends Component {
 
   onSuggestionsClearRequested = () => {
     this.clearSuggestions()
+    this.debouncedOnSuggestionsFetchRequested.cancel()
     this.setState({ query: null, searching: false })
   }
 
