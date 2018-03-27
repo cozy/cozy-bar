@@ -28,7 +28,7 @@ class Bar extends Component {
       usageTracker: null,
       supportDisplayed: false,
       comingSoonToDisplay: null,
-      searchBarEnabled: props.currentApp === 'Cozy Drive'
+      searchBarEnabled: props.currentApp === 'Cozy Drive' && !props.isPublic
     }
   }
 
