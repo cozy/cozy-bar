@@ -14,6 +14,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Removed
 
+## [v4.9.4] - 2018-03-27
+
+### Fixed
+
+- Hide the search bar on public pages
+
 ## [v4.9.3] - 2018-03-14
 
 ### Fixed
@@ -366,7 +372,8 @@ v4.3.0, v4.3.2, v4.3.3 are only there because of build problems on Travis.
 - Support link href
 
 
-[Unreleased]: https://github.com/cozy/cozy-bar/compare/v4.9.3...HEAD
+[Unreleased]: https://github.com/cozy/cozy-bar/compare/v4.9.4...HEAD
+[v4.9.4]: https://github.com/cozy/cozy-bar/compare/v4.9.3...v4.9.4
 [v4.9.3]: https://github.com/cozy/cozy-bar/compare/v4.9.2...v4.9.3
 [v4.9.2]: https://github.com/cozy/cozy-bar/compare/v4.9.1...v4.9.2
 [v4.9.1]: https://github.com/cozy/cozy-bar/compare/v4.9.0...v4.9.1
