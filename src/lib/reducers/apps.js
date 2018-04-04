@@ -10,10 +10,11 @@ const CATEGORIES = ['cozy', 'partners', 'ptnb']
 
 // selectors
 export const getApps = state => state.apps && state.apps.data
+// getAppsFiltered is used only by mobile app
 export const getAppsFiltered = state => {
   if (!state.apps || !state.apps.data) return []
   return state.apps.data.filter(app =>
-    app.name !== state.appName || app.editor !== state.editor
+    (app.name !== state.appName || app.editor !== state.editor) && !app.comingSoon
   )
 }
 export const isAppListForbidden = state => state.apps ? state.apps.forbidden : false
