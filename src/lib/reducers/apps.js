@@ -8,6 +8,7 @@ const RECEIVE_APP_LIST_FORBIDDEN = 'RECEIVE_APP_LIST_FORBIDDEN'
 const SET_INFOS = 'SET_INFOS'
 const EXCLUDES = ['settings', 'onboarding']
 const CATEGORIES = ['cozy', 'partners', 'ptnb']
+const DEFAULT_CATEGORY = 'others'
 
 // selectors
 export const getApps = state => {
@@ -28,6 +29,17 @@ const receiveAppList = apps => ({ type: RECEIVE_APP_LIST, apps })
 const receiveAppListForbidden = () => ({ type: RECEIVE_APP_LIST_FORBIDDEN })
 export const setInfos = (appName, editor) => ({ type: SET_INFOS, appName, editor })
 
+const _getCategory = (manifest) => {
+  if (!manifest.categories && manifest.category && CATEGORIES.includes(manifest.category)) {
+    return manifest.category
+  } else if (manifest.categories) {
+    // the first authorized categories will be used by the bar
+    return manifest.categories.find(cat => CATEGORIES.includes(cat)) || DEFAULT_CATEGORY
+  } else {
+    return DEFAULT_CATEGORY
+  }
+}
+
 // actions async
 export const fetchApps = () => async dispatch => {
   try {
@@ -41,9 +53,7 @@ export const fetchApps = () => async dispatch => {
       name: app.attributes.name,
       slug: app.attributes.slug,
       href: app.links.related,
-      category: CATEGORIES.includes(app.attributes.category)
-        ? app.attributes.category
-        : 'others',
+      category: _getCategory(app.attributes),
       icon: icons[idx]
         ? {
           src: icons[idx],
