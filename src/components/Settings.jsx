@@ -1,3 +1,4 @@
+/* global __TARGET__ */
 import React from 'react'
 
 import { translate } from 'cozy-ui/react/I18n'
@@ -29,7 +30,7 @@ const Settings = ({ t, onLogOut, settingsData, onClaudy, isDrawer = false, isCla
         <hr />
       </ul>
     }
-    {isDrawer && onClaudy &&
+    {isDrawer && onClaudy && __TARGET__ !== 'mobile' &&
       <ul className='coz-nav-group'>
         <li className='coz-nav-item'>
           <button role='menuitem' data-icon='icon-claudy' aria-busy={isClaudyLoading} onClick={onClaudy} title={t('claudy.title')}>
@@ -56,14 +57,16 @@ const Settings = ({ t, onLogOut, settingsData, onClaudy, isDrawer = false, isCla
         <hr />
       </ul>
     }
-    <ul className='coz-nav-group'>
-      <li className='coz-nav-item'>
-        <button role='menuitem' onClick={toggleSupport} data-icon='icon-help' title={t('help')}>
-          {t('help')}
-        </button>
-      </li>
-      <hr />
-    </ul>
+    {__TARGET__ !== 'mobile' &&
+      <ul className='coz-nav-group'>
+        <li className='coz-nav-item'>
+          <button role='menuitem' onClick={toggleSupport} data-icon='icon-help' title={t('help')}>
+            {t('help')}
+          </button>
+        </li>
+        <hr />
+      </ul>
+    }
     <ul className='coz-nav-group'>
       <li className='coz-nav-item'>
         <button role='menuitem' data-icon='icon-logout' onClick={onLogOut} title={t('logout')}>
