@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import { translate } from 'cozy-ui/react/I18n'
-import { getApps, getAppsFiltered, getCurrentApp, fetchApps, isAppListForbidden } from '../lib/reducers'
+import { getApps, getCurrentApp, fetchApps, isAppListForbidden } from '../lib/reducers'
 import stack from '../lib/stack'
 
 import AppIconGroup from './AppIconGroup'
@@ -112,9 +112,7 @@ class AppsList extends Component {
 
 const mapStateToProps = state => ({
   currentApp: getCurrentApp(state),
-  apps: __TARGET__ === 'mobile'
-    ? getAppsFiltered(state)
-    : getApps(state),
+  apps: getApps(state),
   isAppListForbidden: __TARGET__ === 'mobile'
     ? isAppListForbidden(state)
     : false
