@@ -1,3 +1,4 @@
+/* global __TARGET__ */
 import stack from '../stack'
 import { ForbiddenException } from '../exceptions'
 
@@ -9,11 +10,14 @@ const EXCLUDES = ['settings', 'onboarding']
 const CATEGORIES = ['cozy', 'partners', 'ptnb']
 
 // selectors
-export const getApps = state => state.apps && state.apps.data
-export const getAppsFiltered = state => {
+export const getApps = state => {
+  if (__TARGET__ !== 'mobile') {
+    return state.apps && state.apps.data
+  }
+
   if (!state.apps || !state.apps.data) return []
   return state.apps.data.filter(app =>
-    app.name !== state.appName || app.editor !== state.editor
+    (app.name !== state.appName || app.editor !== state.editor) && !app.comingSoon
   )
 }
 export const isAppListForbidden = state => state.apps ? state.apps.forbidden : false
