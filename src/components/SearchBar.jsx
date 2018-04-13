@@ -243,7 +243,7 @@ class SearchBar extends Component {
     }
 
     const theme = {
-      container: 'coz-searchbar-autosuggest-container' + (searching ? ' --searching' : ''),
+      container: 'coz-searchbar-autosuggest-container' + (searching ? ' --searching' : '') + (focused ? ' --focused' : ''),
       input: 'coz-searchbar-autosuggest-input',
       inputFocused: 'coz-searchbar-autosuggest-input-focused',
       suggestionsContainer: 'coz-searchbar-autosuggest-suggestions-container',
