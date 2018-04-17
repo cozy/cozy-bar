@@ -14,6 +14,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Removed
 
+## [v4.10.2] - 2018-04-17
+
+No changes, fixes the previous broken release.
+
 ## [v4.10.1] - 2018-04-17
 
 ### Fixed
