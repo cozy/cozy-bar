@@ -14,6 +14,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Removed
 
+## [v4.10.1] - 2018-04-17
+
+### Fixed
+
+- Fade search bar on blur
+
 ## [v4.10.0] - 2018-04-06
 
 ### Fixed
