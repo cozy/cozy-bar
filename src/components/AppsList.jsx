@@ -14,10 +14,6 @@ const COMING_SOON_WITH_DESCRIPTION = ['store']
 
 // TODO Add errors
 class AppsList extends Component {
-  componentDidMount () {
-    this.props.fetchApps()
-  }
-
   // Take an items array and return an array of category objects with the matching category slug and items
   getCategorizedApps = () => {
     const { t, apps } = this.props

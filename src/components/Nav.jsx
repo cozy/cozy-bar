@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
 import { translate } from 'cozy-ui/react/I18n'
+import { fetchApps } from '../lib/reducers'
 
 import AppsList from './AppsList'
 import Settings from './Settings'
@@ -21,7 +23,7 @@ class Nav extends Component {
         opened: false
       }
     }
-    // handle click outside to close popups
+    this.toggleMenu = this.toggleMenu.bind(this)
   }
 
   componentDidMount () {
@@ -63,6 +65,7 @@ class Nav extends Component {
     // fetch data
     switch (slug) {
       case 'apps':
+        await this.props.fetchApps()
         clearTimeout(busySpinner)
         this.setState({
           apps: {busy: false, opened: true}
@@ -133,4 +136,10 @@ class Nav extends Component {
   }
 }
 
-export default translate()(Nav)
+const mapStateToProps = state => ({})
+
+const mapDispatchToProps = dispatch => ({
+  fetchApps: () => dispatch(fetchApps())
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(translate()(Nav))
