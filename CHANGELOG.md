@@ -14,6 +14,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Removed
 
+## [v4.10.3] - 2018-05-07
+
+### Fixed
+
+- Add spinner on apps menu opening
+
 ## [v4.10.2] - 2018-04-17
 
 No changes, fixes the previous broken release.
@@ -393,7 +399,10 @@ v4.3.0, v4.3.2, v4.3.3 are only there because of build problems on Travis.
 - Support link href
 
 
-[Unreleased]: https://github.com/cozy/cozy-bar/compare/v4.10.0...HEAD
+[Unreleased]: https://github.com/cozy/cozy-bar/compare/v4.10.3...HEAD
+[v4.10.3]: https://github.com/cozy/cozy-bar/compare/v4.10.2...v4.10.3
+[v4.10.2]: https://github.com/cozy/cozy-bar/compare/v4.10.1...v4.10.2
+[v4.10.1]: https://github.com/cozy/cozy-bar/compare/v4.10.0...v4.10.1
 [v4.10.0]: https://github.com/cozy/cozy-bar/compare/v4.9.4...v4.10.0
 [v4.9.4]: https://github.com/cozy/cozy-bar/compare/v4.9.3...v4.9.4
 [v4.9.3]: https://github.com/cozy/cozy-bar/compare/v4.9.2...v4.9.3
