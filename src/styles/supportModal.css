@@ -1,20 +1,23 @@
-[role=banner] .coz-support-modal-content {
+.coz-support-modal .coz-support-modal-content {
   min-height: 8em;
 }
 
-[role=banner] .coz-support-modal {
-  max-width: none;
-}
-
-[role=banner] .coz-support-intent-wrapper .coz-intent {
-  width: 35em;
+.coz-support-modal .coz-support-intent-wrapper .coz-intent {
+  width: 100%;
   height: 24em;
   border: none;
 }
 
+.coz-support-modal .coz-support-modal-wrapper {
+  margin-top: 1.4rem;
+}
+
 @media (max-width: 48em) {
-  [role=banner] .coz-support-intent-wrapper .coz-intent {
-    width: 100%;
+  .coz-support-modal .coz-support-intent-wrapper .coz-intent {
     height: 27em;
+  }
+
+  .coz-support-modal .coz-support-modal-wrapper {
+    margin-top: .8rem;
   }
 }

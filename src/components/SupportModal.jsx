@@ -27,8 +27,8 @@ class SupportModal extends Component {
     const { isLoading } = this.state
     return (
       <div>
-        <Modal secondaryAction={this.props.onClose} className='coz-support-modal'>
-          <ModalContent>
+        <Modal secondaryAction={this.props.onClose} className='coz-support-modal' into='body'>
+          <ModalContent className='coz-support-modal-wrapper'>
             <div className='coz-support-modal-content'>
               {isLoading &&
                 <Spinner
