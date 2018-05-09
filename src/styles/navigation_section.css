@@ -5,7 +5,7 @@
 [role=banner] .coz-nav-section [aria-controls] {
   display: flex;
   align-items: baseline;
-  padding: 1.285em 1.5em;
+  padding: 1rem 1rem;
   font-size: .875em;
   text-transform: uppercase;
   color: var(--slate-grey);
@@ -13,6 +13,7 @@
   text-decoration: none;
   border: none;
   background-color: transparent;
+  line-height: 1rem;
 }
 [role=banner] .coz-nav-section [aria-controls]:hover,
 [role=banner] .coz-nav-section [aria-controls]:focus {
