@@ -8,6 +8,7 @@ import { connect } from 'react-redux'
 import { translate } from 'cozy-ui/react/I18n'
 import { shouldEnableTracking, getTracker, configureTracker } from 'cozy-ui/react/helpers/tracker'
 
+import Banner from 'components/Banner'
 import Drawer from 'components/Drawer'
 import Nav from 'components/Nav'
 import SearchBar from 'components/SearchBar'
@@ -131,39 +132,44 @@ class Bar extends Component {
       comingSoonToDisplay,
       usageTracker
     } = this.state
-    const { barLeft, barRight, barCenter, onDrawer, displayOnMobile, isPublic, renewToken, onLogOut } = this.props
+    const { barLeft, barRight, barCenter, onDrawer, displayOnMobile, isPublic, renewToken, onLogOut, userActionRequired } = this.props
     return (
-      <div className='coz-bar-container'>
-        { barLeft || this.renderLeft() }
-        { barCenter || this.renderCenter() }
-        <div className='u-flex-grow'>
-          { searchBarEnabled ? <SearchBar /> : null }
+      <div className='coz-bar-wrapper'>
+        <div className='coz-bar-container'>
+          { barLeft || this.renderLeft() }
+          { barCenter || this.renderCenter() }
+          <div className='u-flex-grow'>
+            { searchBarEnabled ? <SearchBar /> : null }
+          </div>
+          { barRight || this.renderRight() }
+          { (__TARGET__ !== 'mobile' || displayOnMobile) && !isPublic
+            ? <Drawer visible={drawerVisible}
+              onClose={this.toggleDrawer}
+              onClaudy={(claudyEnabled && (() => this.toggleClaudy(true))) || false}
+              isClaudyLoading={claudyFired}
+              drawerListener={() => onDrawer(this.state.drawerVisible)}
+              renewToken={renewToken}
+              toggleSupport={this.toggleSupport}
+              toggleComingSoon={this.toggleComingSoon}
+              onLogOut={onLogOut} /> : null }
+          { claudyEnabled &&
+            <Claudy
+              usageTracker={usageTracker}
+              claudyFired={claudyFired}
+              onToggle={() => this.toggleClaudy(false)}
+              opened={claudyOpened}
+            /> }
+          { supportDisplayed &&
+            <SupportModal onClose={this.toggleSupport} /> }
+          { comingSoonToDisplay &&
+            <ComingSoonModal
+              onClose={this.toggleComingSoon}
+              appSlug={comingSoonToDisplay}
+            /> }
         </div>
-        { barRight || this.renderRight() }
-        { (__TARGET__ !== 'mobile' || displayOnMobile) && !isPublic
-          ? <Drawer visible={drawerVisible}
-            onClose={this.toggleDrawer}
-            onClaudy={(claudyEnabled && (() => this.toggleClaudy(true))) || false}
-            isClaudyLoading={claudyFired}
-            drawerListener={() => onDrawer(this.state.drawerVisible)}
-            renewToken={renewToken}
-            toggleSupport={this.toggleSupport}
-            toggleComingSoon={this.toggleComingSoon}
-            onLogOut={onLogOut} /> : null }
-        { claudyEnabled &&
-          <Claudy
-            usageTracker={usageTracker}
-            claudyFired={claudyFired}
-            onToggle={() => this.toggleClaudy(false)}
-            opened={claudyOpened}
-          /> }
-        { supportDisplayed &&
-          <SupportModal onClose={this.toggleSupport} /> }
-        { comingSoonToDisplay &&
-          <ComingSoonModal
-            onClose={this.toggleComingSoon}
-            appSlug={comingSoonToDisplay}
-          /> }
+        {userActionRequired &&
+          <Banner {...userActionRequired} />
+        }
       </div>
     )
   }
