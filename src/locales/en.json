@@ -42,5 +42,11 @@
       "title": "The Store application will be available soon in your Cozy.",
       "description": "Thanks to Cozy Store you will be able to install the applications that you want in your Cozy."
     }
+  },
+  "banner": {
+    "tos-updated": {
+      "description": "To comply with the GDPR, Cozy Cloud has updated its Terms of Services that will take effect on May 25, 2018",
+      "CTA": "Read now"
+    }
   }
 }

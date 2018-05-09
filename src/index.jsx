@@ -60,6 +60,11 @@ const injectBarInDOM = (data) => {
     barNode.dataset.drawerVisible = visible
   }
 
+  // specific layout behaviour if banner displayed
+  if (data.userActionRequired) {
+    document.body.classList.add('has-banner')
+  }
+
   // we connect the I18n component to the store to listen
   // locale change from the api setLocale()
   const EnhancedI18n = connect(state => ({
@@ -115,6 +120,18 @@ const getDefaultIcon = () => {
   }
 }
 
+const getUserActionRequired = () => {
+  const meta = document.querySelector('meta[name=user-action-required]')
+  const data = meta && meta.dataset
+  if (data) {
+    const { title, code, detail, links } = data
+    if (code) { // we suppose that at least code will always exist
+      return { title, code, detail, links }
+    }
+  }
+  return undefined
+}
+
 const init = ({
   appName,
   appEditor = getEditor(),
@@ -144,7 +161,17 @@ const init = ({
     reduxStore.dispatch(setLocale(lang))
   }
 
-  return injectBarInDOM({appName, appEditor, iconPath, replaceTitleOnMobile, displayOnMobile, isPublic, renewToken, onLogOut})
+  return injectBarInDOM({
+    appName,
+    appEditor,
+    iconPath,
+    replaceTitleOnMobile,
+    displayOnMobile,
+    isPublic,
+    renewToken,
+    onLogOut,
+    userActionRequired: getUserActionRequired()
+  })
 }
 
 const updateAccessToken = accessToken => {
