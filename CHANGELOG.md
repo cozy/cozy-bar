@@ -14,6 +14,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Removed
 
+## [v4.10.4] - 2018-05-09
+
+### Added
+
+- Add a new banner display for CGU update
+
+### Fixed
+
+- bug about fetching apps in mobile drawer
+
 ## [v4.10.3] - 2018-05-07
 
 ### Fixed
@@ -399,7 +409,8 @@ v4.3.0, v4.3.2, v4.3.3 are only there because of build problems on Travis.
 - Support link href
 
 
-[Unreleased]: https://github.com/cozy/cozy-bar/compare/v4.10.3...HEAD
+[Unreleased]: https://github.com/cozy/cozy-bar/compare/v4.10.4...HEAD
+[v4.10.4]: https://github.com/cozy/cozy-bar/compare/v4.10.3...v4.10.4
 [v4.10.3]: https://github.com/cozy/cozy-bar/compare/v4.10.2...v4.10.3
 [v4.10.2]: https://github.com/cozy/cozy-bar/compare/v4.10.1...v4.10.2
 [v4.10.1]: https://github.com/cozy/cozy-bar/compare/v4.10.0...v4.10.1
