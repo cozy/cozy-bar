@@ -1,4 +1,7 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+
+import { fetchApps } from '../lib/reducers'
 
 import AppsList from './AppsList'
 import Settings from './Settings'
@@ -16,6 +19,7 @@ class Drawer extends Component {
   }
 
   async componentWillMount () {
+    await this.props.fetchAppsList()
     await this.store.fetchSettingsData()
   }
 
@@ -25,6 +29,7 @@ class Drawer extends Component {
 
   async componentWillReceiveProps (nextProps) {
     if (nextProps.visible) {
+      await this.props.fetchAppsList()
       await this.store.fetchSettingsData()
     }
   }
@@ -71,4 +76,10 @@ class Drawer extends Component {
   }
 }
 
-export default Drawer
+const mapStateToProps = state => ({})
+
+const mapDispatchToProps = dispatch => ({
+  fetchAppsList: () => dispatch(fetchApps())
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Drawer)
