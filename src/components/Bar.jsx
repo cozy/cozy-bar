@@ -91,11 +91,11 @@ class Bar extends Component {
   }
 
   renderCenter () {
-    const { appName, appEditor, iconPath, replaceTitleOnMobile, lang } = this.props
+    const { appName, appNamePrefix, iconPath, replaceTitleOnMobile, lang } = this.props
     return (
       <h1 lang={lang} className={`coz-bar-title ${replaceTitleOnMobile ? 'coz-bar-hide-sm' : ''}`}>
         <img className='coz-bar-hide-sm' src={iconPath} width='32' />
-        {appEditor && <span className='coz-bar-hide-sm'>{appEditor}</span>}
+        {appNamePrefix && <span className='coz-bar-hide-sm'>{appNamePrefix}</span>}
         <strong>{appName}</strong>
       </h1>
     )

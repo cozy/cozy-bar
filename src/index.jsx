@@ -106,11 +106,6 @@ const getDefaultToken = () => {
   return appNode.dataset.cozyToken
 }
 
-const getEditor = () => {
-  const appNode = document.querySelector(APP_SELECTOR)
-  return appNode.dataset.cozyAppEditor || appNode.dataset.cozyEditor || undefined
-}
-
 const getDefaultIcon = () => {
   const linkNode = document.querySelector('link[rel="icon"][sizes^="32"]')
   if (linkNode !== null) {
@@ -118,6 +113,11 @@ const getDefaultIcon = () => {
   } else {
     return 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'
   }
+}
+
+const getAppNamePrefix = () => {
+  const appNode = document.querySelector(APP_SELECTOR)
+  return appNode.dataset.cozyAppNamePrefix || undefined
 }
 
 const getUserActionRequired = () => {
@@ -134,7 +134,7 @@ const getUserActionRequired = () => {
 
 const init = ({
   appName,
-  appEditor = getEditor(),
+  appNamePrefix = getAppNamePrefix(),
   lang,
   iconPath = getDefaultIcon(),
   cozyURL = getDefaultStackURL(),
@@ -155,7 +155,7 @@ const init = ({
     if (__TARGET__ === 'mobile') console.warn('Deprecated: cozy-bar option `displayOnMobile` automatically set to `false`, but `true` will be the new default value in the next version. Please explicitly set the option to `false`.')
   }
 
-  reduxStore.dispatch(setInfos(appName, appEditor))
+  reduxStore.dispatch(setInfos(appName, appNamePrefix))
   stack.init({cozyURL, token})
   if (lang) {
     reduxStore.dispatch(setLocale(lang))
@@ -163,7 +163,7 @@ const init = ({
 
   return injectBarInDOM({
     appName,
-    appEditor,
+    appNamePrefix,
     iconPath,
     replaceTitleOnMobile,
     displayOnMobile,
