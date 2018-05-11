@@ -5,6 +5,7 @@ import { ForbiddenException } from '../exceptions'
 // constants
 const RECEIVE_APP_LIST = 'RECEIVE_APP_LIST'
 const RECEIVE_APP_LIST_FORBIDDEN = 'RECEIVE_APP_LIST_FORBIDDEN'
+const FETCH_APPS = 'FETCH_APPS'
 const SET_INFOS = 'SET_INFOS'
 const EXCLUDES = ['settings', 'onboarding']
 const CATEGORIES = ['cozy', 'partners', 'ptnb']
@@ -21,6 +22,7 @@ export const getApps = state => {
     (app.name !== state.appName || app.name_prefix !== state.appNamePrefix) && !app.comingSoon
   )
 }
+export const isAppListFetching = state => state.apps ? state.apps.isFetching : false
 export const isAppListForbidden = state => state.apps ? state.apps.forbidden : false
 export const getCurrentApp = state => `${state.appNamePrefix} ${state.appName}`
 
@@ -43,6 +45,7 @@ const _getCategory = (manifest) => {
 // actions async
 export const fetchApps = () => async dispatch => {
   try {
+    dispatch(({ type: FETCH_APPS }))
     const rawAppList = await stack.get.apps()
     const comingSoonApps = await fetchComingSoonApps()
     const apps = rawAppList.filter(app => !EXCLUDES.includes(app.attributes.slug))
@@ -113,16 +116,19 @@ const fetchComingSoonApps = () => {
 // reducers
 const defaultState = {
   apps: { data: null, forbidden: false },
+  isFetching: false,
   appName: null,
   appNamePrefix: null
 }
 
 const reducer = (state = defaultState, action) => {
   switch (action.type) {
+    case FETCH_APPS:
+      return { ...state, apps: { ...state.apps, isFetching: true } }
     case RECEIVE_APP_LIST:
-      return { ...state, apps: { ...state.apps, data: action.apps, forbidden: false } }
+      return { ...state, apps: { ...state.apps, data: action.apps, forbidden: false, isFetching: false } }
     case RECEIVE_APP_LIST_FORBIDDEN:
-      return { ...state, apps: { ...state.apps, forbidden: true } }
+      return { ...state, apps: { ...state.apps, forbidden: true, isFetching: false } }
     case SET_INFOS:
       return { ...state, appName: action.appName, appNamePrefix: action.appNamePrefix }
     default:

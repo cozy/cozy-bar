@@ -18,6 +18,7 @@ export { setContent, setLocale, fetchApps, setInfos }
 export const getContent = proxy('content', content.getContent)
 export const getLocale = proxy('locale', locale.getLocale)
 export const getApps = proxy('apps', apps.getApps)
+export const isAppListFetching = proxy('apps', apps.isAppListFetching)
 export const isAppListForbidden = proxy('apps', apps.isAppListForbidden)
 export const getCurrentApp = proxy('apps', apps.getCurrentApp)
 
