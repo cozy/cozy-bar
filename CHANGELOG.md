@@ -14,6 +14,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Removed
 
+## [v5.0.0] - 2018-05-11
+
+### Changed
+
+- __Breaking:__ now the bar uses the `name_prefix` from the manifest to display the prefix with the app name instead of using the `editor` property
+
+### Fixed
+
+- Use a spinner in the mobile drawer when fetching apps
+
 ## [v4.10.4] - 2018-05-09
 
 ### Added
