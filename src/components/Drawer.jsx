@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import Spinner from 'cozy-ui/react/Spinner'
 
-import { fetchApps } from '../lib/reducers'
+import { fetchApps, isAppListFetching } from '../lib/reducers'
 
 import AppsList from './AppsList'
 import Settings from './Settings'
@@ -28,14 +29,14 @@ class Drawer extends Component {
   }
 
   async componentWillReceiveProps (nextProps) {
-    if (nextProps.visible) {
+    if (!this.props.visible && nextProps.visible) {
       await this.props.fetchAppsList()
       await this.store.fetchSettingsData()
     }
   }
 
   render () {
-    const { onClaudy, visible, isClaudyLoading, toggleSupport, renewToken, onLogOut, toggleComingSoon } = this.props
+    const { onClaudy, visible, isClaudyLoading, toggleSupport, renewToken, onLogOut, toggleComingSoon, isAppListFetching } = this.props
     const { settingsData } = this.store
     return (
       <div className='coz-drawer-wrapper'
@@ -45,11 +46,18 @@ class Drawer extends Component {
       >
         <aside ref={(node) => { this.asideRef = node }}>
           <nav className='coz-drawer--apps'>
-            <AppsList
-              wrappingLimit={3}
-              renewToken={renewToken}
-              toggleComingSoon={toggleComingSoon}
-            />
+            {isAppListFetching
+              ? (
+                <Spinner size='xlarge' middle />
+              )
+              : (
+                <AppsList
+                  wrappingLimit={3}
+                  renewToken={renewToken}
+                  toggleComingSoon={toggleComingSoon}
+                />
+              )
+            }
           </nav>
           <hr className='coz-sep-flex' />
           <nav className='coz-drawer--settings'>
@@ -76,7 +84,9 @@ class Drawer extends Component {
   }
 }
 
-const mapStateToProps = state => ({})
+const mapStateToProps = state => ({
+  isAppListFetching: isAppListFetching(state)
+})
 
 const mapDispatchToProps = dispatch => ({
   fetchAppsList: () => dispatch(fetchApps())

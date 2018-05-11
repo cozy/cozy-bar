@@ -73,6 +73,7 @@
 [role=banner] .coz-drawer--apps {
   flex: 0 1 100%;
   overflow-y: scroll;
+  position: relative;
 }
 
 [role=banner] .coz-drawer--apps ul {
