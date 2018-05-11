@@ -18,16 +18,16 @@ export const getApps = state => {
 
   if (!state.apps || !state.apps.data) return []
   return state.apps.data.filter(app =>
-    (app.name !== state.appName || app.editor !== state.editor) && !app.comingSoon
+    (app.name !== state.appName || app.name_prefix !== state.appNamePrefix) && !app.comingSoon
   )
 }
 export const isAppListForbidden = state => state.apps ? state.apps.forbidden : false
-export const getCurrentApp = state => `${state.editor} ${state.appName}`
+export const getCurrentApp = state => `${state.appNamePrefix} ${state.appName}`
 
 // actions
 const receiveAppList = apps => ({ type: RECEIVE_APP_LIST, apps })
 const receiveAppListForbidden = () => ({ type: RECEIVE_APP_LIST_FORBIDDEN })
-export const setInfos = (appName, editor) => ({ type: SET_INFOS, appName, editor })
+export const setInfos = (appName, appNamePrefix) => ({ type: SET_INFOS, appName, appNamePrefix })
 
 const _getCategory = (manifest) => {
   if (!manifest.categories && manifest.category && CATEGORIES.includes(manifest.category)) {
@@ -49,7 +49,7 @@ export const fetchApps = () => async dispatch => {
     // TODO load only one time icons
     const icons = await Promise.all(apps.map(app => stack.get.icon(app.links.icon)))
     const appsWithIcons = apps.map((app, idx) => ({
-      editor: app.attributes.editor,
+      namePrefix: app.attributes.name_prefix,
       name: app.attributes.name,
       slug: app.attributes.slug,
       href: app.links.related,
@@ -114,7 +114,7 @@ const fetchComingSoonApps = () => {
 const defaultState = {
   apps: { data: null, forbidden: false },
   appName: null,
-  editor: null
+  appNamePrefix: null
 }
 
 const reducer = (state = defaultState, action) => {
@@ -124,7 +124,7 @@ const reducer = (state = defaultState, action) => {
     case RECEIVE_APP_LIST_FORBIDDEN:
       return { ...state, apps: { ...state.apps, forbidden: true } }
     case SET_INFOS:
-      return { ...state, appName: action.appName, editor: action.editor }
+      return { ...state, appName: action.appName, appNamePrefix: action.appNamePrefix }
     default:
       return state
   }

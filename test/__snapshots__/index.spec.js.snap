@@ -26,8 +26,8 @@ exports[`The bar library should render correctly the cozy-bar 1`] = `
       dictRequire={[Function]}
     >
       <Wrapper
-        appEditor="cozy"
         appName="test-app"
+        appNamePrefix="cozy"
         displayOnMobile={true}
         iconPath=""
         isPublic={false}

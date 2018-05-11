@@ -84,7 +84,7 @@ class AppsList extends Component {
                   ? app.icon.src
                   : require('../assets/icons/16/icon-cube-16.svg')
                 const blurry = !app.icon || !app.icon.cached
-                const label = (app.editor ? (app.editor + ' ') : '') + app.name
+                const label = (app.namePrefix ? (app.namePrefix + ' ') : '') + app.name
                 return <AppIcon
                   label={label}
                   href={app.href}

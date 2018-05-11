@@ -13,7 +13,7 @@ describe('The bar library', function () {
       '</div>'
     const options = {
       appName: 'test-app',
-      appEditor: 'cozy',
+      appNamePrefix: 'cozy',
       lang: 'en',
       iconPath: '',
       cozyURL: 'https://mock.cozy',
