@@ -14,6 +14,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Removed
 
+## [v5.0.1] - 2018-05-21
+
+#### :rocket: Enhancement
+* [#204](https://github.com/cozy/cozy-bar/pull/204) fix z-index of menu on ios. ([@ptbrowne](https://github.com/ptbrowne))
+
 ## [v5.0.0] - 2018-05-11
 
 ### Changed
