@@ -85,6 +85,7 @@
     "babel-preset-cozy-app": "^0.3.1",
     "core-js": "^2.5.3",
     "cozy-client-js": "^0.3.19",
+    "lerna-changelog": "^0.7.0",
     "localforage": "^1.5.5",
     "lodash.debounce": "4.0.8",
     "node-polyglot": "^2.2.2",
