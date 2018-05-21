@@ -28,13 +28,6 @@
   [role=banner] .coz-bar-container {
     padding: 0 1em 0 0;
   }
-
-  [role=banner][data-drawer-visible=true] {
-    /* Force the BAR to be above selection bar in mobile mode,
-     * only when drawer is opened
-     */
-    z-index: var(--z-index-over-selection);
-  }
 }
 
 [role=banner] .coz-bar-title {
