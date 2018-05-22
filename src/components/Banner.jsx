@@ -6,10 +6,19 @@ class Banner extends Component {
   constructor (props) {
     super(props)
     this.state = { unmounted: true }
+    this.animate = this.animate.bind(this)
+  }
+
+  animate () {
+    // To animate we have to use a setTimeout to
+    // force a CSS class update and trigger CSS animation
+    return setTimeout(() => {
+      this.setState(() => ({ unmounted: false }))
+    }, 100)
   }
 
   componentDidMount () {
-    this.setState(() => ({ unmounted: false }))
+    this.animate()
   }
 
   render () {
