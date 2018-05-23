@@ -14,6 +14,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Removed
 
+## [v5.0.2] (2018-05-23)
+
+#### :rocket: Enhancement
+* [#205](https://github.com/cozy/cozy-bar/pull/205) Improve CGU banner. ([@CPatchane](https://github.com/CPatchane))
+
+#### :bug: Bug Fix
+* [#206](https://github.com/cozy/cozy-bar/pull/206) Handle missing app icon in apps list. ([@CPatchane](https://github.com/CPatchane))
+
 ## [v5.0.1] - 2018-05-21
 
 #### :rocket: Enhancement
