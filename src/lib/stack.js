@@ -106,20 +106,20 @@ function getApp (slug) {
 }
 
 async function getIcon (url) {
-  const res = await fetch(`${COZY_URL}${url}`, fetchOptions())
-  if (res.status === 404) {
-    return undefined
-  }
-  // res.text if SVG, otherwise res.blob  (mainly for safari support)
-  const resClone = res.clone() // res must be cloned to be used twice
-  const blob = await res.blob()
-  const text = await resClone.text()
-
+  if (!url) return ''
+  let icon
   try {
-    return 'data:image/svg+xml;base64,' + btoa(text)
-  } catch (e) { // eslint-disable-line
-    return URL.createObjectURL(blob)
+    const resp = await fetch(`${COZY_URL}${url}`, fetchOptions())
+    if (!resp.ok) {
+      throw new Error(`Error while fetching icon: ${resp.statusText}: ${url}`)
+    }
+    icon = await resp.blob()
+  } catch (e) {
+    return ''
   }
+  // check if MIME type is an image
+  if (!icon.type.match(/^image\/.*$/)) return ''
+  return URL.createObjectURL(icon)
 }
 
 const cache = {}
