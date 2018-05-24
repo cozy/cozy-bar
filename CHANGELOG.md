@@ -1,18 +1,8 @@
-# Change Log
-All notable changes to this project will be documented in this file.
+## v5.0.3 (2018-05-24)
 
-The format is based on [Keep a Changelog](http://keepachangelog.com/)
-and this project adheres to [Semantic Versioning](http://semver.org/).
+#### :bug: Bug Fix
+* [#207](https://github.com/cozy/cozy-bar/pull/207) Temporary get back editor as name prefix. ([@CPatchane](https://github.com/CPatchane))
 
-## [Unreleased]
-
-### Fixed
-
-### Changed
-
-### Added
-
-### Removed
 
 ## [v5.0.2] (2018-05-23)
 
