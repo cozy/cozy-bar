@@ -1,3 +1,6 @@
+## v5.0.4 (2018-05-28)
+* Fix typo in GDPR message
+
 ## v5.0.3 (2018-05-24)
 
 #### :bug: Bug Fix
