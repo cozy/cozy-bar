@@ -111,7 +111,7 @@ class Drawer extends Component {
         return
       }
       // Dismiss the menu if the swipe pan was bigger than the treshold,
-      // or if it was a fast, downward gesture
+      // or if it was a fast, leftward gesture
       let shouldDismiss =
         -e.deltaX / maximumGestureDistance >= minimumCloseDistance ||
         (-e.deltaX > 0 && e.velocity >= minimumCloseVelocity)
