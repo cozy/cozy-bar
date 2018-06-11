@@ -46,11 +46,17 @@
   background-color: #fff;
   transform: scaleX(0);
   transform-origin: 0% 0%;
+}
+
+[role=banner] .coz-drawer-wrapper aside.with-transition {
   transition: transform .2s ease-out;
 }
 
 [role=banner] .coz-drawer-wrapper[aria-hidden=false] aside {
   transform: scaleX(1);
+}
+
+[role=banner] .coz-drawer-wrapper[aria-hidden=false] aside.with-transition {
   transition: transform .3s cubic-bezier(0.2, 0.75, 0.3, 1.15);
 }
 
@@ -72,7 +78,11 @@
 
 [role=banner] .coz-drawer--apps {
   flex: 0 1 100%;
+  /* IMPORTANT: on Chrome, the `overflow-y: scroll` property on .coz-drawer--apps prevented
+  swipe events to be dispatched correctly ; the `touch-action: pan-y` fixes the problem
+  see https://greensock.com/forums/topic/17546-draggable-text-elements-with-overflow/ */
   overflow-y: scroll;
+  touch-action: pan-y;
   position: relative;
 }
 
