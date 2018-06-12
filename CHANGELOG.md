@@ -1,3 +1,6 @@
+## v5.0.5 (2018-06-12)
+* Added RTL swipe support for closing the drawer on mobile
+
 ## v5.0.4 (2018-05-28)
 * Fix typo in GDPR message
 
