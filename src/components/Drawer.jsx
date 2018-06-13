@@ -84,7 +84,7 @@ class Drawer extends Component {
     // left of the page; but using the width is much easier to compute and accurate enough.
     const maximumGestureDistance = this.asideRef.getBoundingClientRect().width
     // between 0 and 1, how far down the gesture must be to be considered complete upon release
-    const minimumCloseDistance = 0.6
+    const minimumCloseDistance = 0.4
     // a gesture faster than this will dismiss the menu, regardless of distance traveled
     const minimumCloseVelocity = 0.6
 
@@ -130,7 +130,7 @@ class Drawer extends Component {
   applyTransformation (progress) {
     // constrain between 0 and 1.1 (go a bit further than 1 to be hidden completely)
     progress = Math.min(1.1, Math.max(0, progress))
-    this.asideRef.style.transform = 'scaleX(' + (1 - progress) + ')'
+    this.asideRef.style.transform = 'translateX(-' + (progress * 100) + '%)'
   }
 
   render () {
