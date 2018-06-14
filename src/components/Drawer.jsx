@@ -13,23 +13,24 @@ class Drawer extends Component {
     super(props)
     this.store = context.barStore
     this.state = {
-      isScrolling: false
+      isScrolling: false,
+      isClosing: false
     }
   }
 
   onDrawerClick = event => {
     if (event.target === this.wrapperRef) {
-      this.props.onClose()
+      this.close()
     }
   }
 
   onTransitionEnd = event => {
     if (this.props.visible) {
-      this.attachGestures()
+      if (!this.gesturesHandler) this.attachGestures()
       this.preventBackgroundScrolling()
     } else {
-      this.detachGestures()
       this.restoreBackgroundScrolling()
+      this.setState({ isClosing: false })
     }
     this.props.drawerListener()
   }
@@ -41,7 +42,6 @@ class Drawer extends Component {
 
   componentDidMount () {
     this.turnTransitionsOn()
-    this.asideRef.addEventListener('transitionend', this.onTransitionEnd)
   }
 
   async componentWillReceiveProps (nextProps) {
@@ -53,10 +53,12 @@ class Drawer extends Component {
 
   turnTransitionsOn () {
     this.asideRef.classList.add('with-transition')
+    this.asideRef.addEventListener('transitionend', this.onTransitionEnd)
   }
 
   turnTransitionsOff () {
     this.asideRef.classList.remove('with-transition')
+    this.asideRef.removeEventListener('transitionend', this.onTransitionEnd)
   }
 
   preventBackgroundScrolling () {
@@ -69,6 +71,7 @@ class Drawer extends Component {
 
   detachGestures () {
     this.gesturesHandler.destroy()
+    this.gesturesHandler = null
   }
 
   attachGestures () {
@@ -86,11 +89,12 @@ class Drawer extends Component {
     // between 0 and 1, how far down the gesture must be to be considered complete upon release
     const minimumCloseDistance = 0.4
     // a gesture faster than this will dismiss the menu, regardless of distance traveled
-    const minimumCloseVelocity = 0.6
+    const minimumCloseVelocity = 0.2
 
     let currentGestureProgress = null
 
     this.gesturesHandler.on('panstart', event => {
+      if (this.state.isClosing) return
       if (event.additionalEvent === 'panup' || event.additionalEvent === 'pandown') {
         this.setState({ isScrolling: true })
       } else {
@@ -100,31 +104,40 @@ class Drawer extends Component {
     })
 
     this.gesturesHandler.on('pan', e => {
-      if (this.state.isScrolling) return
+      if (this.state.isClosing || this.state.isScrolling) return
       currentGestureProgress = -e.deltaX / maximumGestureDistance
       this.applyTransformation(currentGestureProgress)
     })
 
     this.gesturesHandler.on('panend', e => {
+      if (this.state.isClosing) return
       if (this.state.isScrolling) {
-        this.setState({isScrolling: false})
+        this.setState({ isScrolling: false })
         return
       }
       // Dismiss the menu if the swipe pan was bigger than the treshold,
       // or if it was a fast, leftward gesture
-      let shouldDismiss =
-        -e.deltaX / maximumGestureDistance >= minimumCloseDistance ||
-        (-e.deltaX > 0 && e.velocity >= minimumCloseVelocity)
+      const haveTravelledFarEnough = -e.deltaX / maximumGestureDistance >= minimumCloseDistance
+      const haveTravelledFastEnough = e.velocity < 0 && Math.abs(e.velocity) >= minimumCloseVelocity
+
+      const shouldDismiss = haveTravelledFarEnough || haveTravelledFastEnough
 
       if (shouldDismiss) {
-        this.turnTransitionsOn()
-        this.props.onClose()
-        this.asideRef.style.transform = ''
+        this.close()
       } else {
         this.turnTransitionsOn()
         this.applyTransformation(0)
       }
     })
+  }
+
+  close () {
+    if (this.state.isClosing) return
+    this.detachGestures()
+    this.setState(state => ({ isClosing: true }))
+    this.turnTransitionsOn()
+    this.props.onClose()
+    this.asideRef.style.transform = ''
   }
 
   applyTransformation (progress) {
