@@ -1,3 +1,6 @@
+## v5.0.6 (2018-06-12)
+* Much better swipe UX
+
 ## v5.0.5 (2018-06-12)
 * Added RTL swipe support for closing the drawer on mobile
 
