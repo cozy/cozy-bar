@@ -18,6 +18,8 @@ import createReduxStore from 'lib/store'
 import Bar from './components/Bar'
 import api from 'lib/api'
 
+require('./styles')
+
 const APP_SELECTOR = '[role=application]'
 
 if (__DEVELOPMENT__) {
@@ -43,8 +45,6 @@ const createBarElement = () => {
 
 const injectBarInDOM = (data) => {
   if (document.getElementById('coz-bar') !== null) { return }
-
-  require('./styles')
 
   const barNode = createBarElement()
   const appNode = document.querySelector(APP_SELECTOR)
