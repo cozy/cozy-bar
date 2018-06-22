@@ -229,6 +229,7 @@ class SearchBar extends Component {
 
   render () {
     const { input, query, searching, focused, suggestionsBySource, sourceURLs } = this.state
+    if (sourceURLs.length === 0) return null
     const { t } = this.props
 
     const isInitialSearch = input !== '' && query === null
