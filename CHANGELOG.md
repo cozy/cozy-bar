@@ -1,3 +1,6 @@
+## v5.0.7 (2018-06-25)
+* Fixed FOUC issues
+
 ## v5.0.6 (2018-06-12)
 * Much better swipe UX
 
