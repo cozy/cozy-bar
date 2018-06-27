@@ -1,3 +1,6 @@
+## v5.0.8 (2018-06-27)
+* Fixed Drawer z-index so it goes over Nav
+ 
 ## v5.0.7 (2018-06-25)
 * Fixed FOUC issues
 
