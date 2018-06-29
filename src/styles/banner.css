@@ -1,5 +1,5 @@
 @media (max-width: 63.9375rem) {
-  .has-banner [role=application] .o-layout--2panes:before {
+  .has-banner [role=application] .o-layout-2panes:before {
     height: 6rem;
   }
 
@@ -15,7 +15,7 @@
 }
 
 @media (max-width: 30rem) {
-  .has-banner [role=application] .o-layout--2panes:before {
+  .has-banner [role=application] .o-layout-2panes:before {
     height: 7rem;
   }
 
@@ -26,7 +26,7 @@
 }
 
 @media (max-width: 18rem) {
-  .has-banner [role=application] .o-layout--2panes:before {
+  .has-banner [role=application] .o-layout-2panes:before {
     height: 8rem;
   }
 }
