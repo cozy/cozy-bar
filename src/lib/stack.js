@@ -17,7 +17,8 @@ function fetchOptions () {
   return {
     credentials: 'include',
     headers: {
-      Authorization: `Bearer ${COZY_TOKEN}`
+      Authorization: `Bearer ${COZY_TOKEN}`,
+      Accept: 'application/json'
     }
   }
 }
@@ -35,7 +36,10 @@ const errorStatuses = {
 
 function getApps () {
   return fetchJSON(`${COZY_URL}/apps/`, fetchOptions())
-    .then(json => json.data)
+    .then(json => {
+      if (json.error) throw new Error(json.error)
+      else return json.data
+    })
 }
 
 function fetchJSON (url, options) {
