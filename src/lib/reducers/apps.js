@@ -22,8 +22,10 @@ export const getApps = state => {
     (app.name !== state.appName || app.name_prefix !== state.appNamePrefix) && !app.comingSoon
   )
 }
-export const isAppListFetching = state => state.apps ? state.apps.isFetching : false
-export const isAppListForbidden = state => state.apps ? state.apps.forbidden : false
+export const isAppListFetching = state => {
+  return state ? state.isFetching : false
+}
+export const isAppListForbidden = state => state.forbidden
 export const getCurrentApp = state => `${state.appNamePrefix} ${state.appName}`
 
 // actions
@@ -115,8 +117,9 @@ const fetchComingSoonApps = () => {
 
 // reducers
 const defaultState = {
-  apps: { data: null, forbidden: false },
+  apps: { data: null },
   isFetching: false,
+  forbidden: false,
   appName: null,
   appNamePrefix: null
 }
@@ -124,11 +127,11 @@ const defaultState = {
 const reducer = (state = defaultState, action) => {
   switch (action.type) {
     case FETCH_APPS:
-      return { ...state, apps: { ...state.apps, isFetching: true } }
+      return { ...state, isFetching: true }
     case RECEIVE_APP_LIST:
-      return { ...state, apps: { ...state.apps, data: action.apps, forbidden: false, isFetching: false } }
+      return { ...state, isFetching: false, forbidden: false, apps: { ...state.apps, data: action.apps } }
     case RECEIVE_APP_LIST_FORBIDDEN:
-      return { ...state, apps: { ...state.apps, forbidden: true, isFetching: false } }
+      return { ...state, isFetching: false, forbidden: true }
     case SET_INFOS:
       return { ...state, appName: action.appName, appNamePrefix: action.appNamePrefix }
     default:
