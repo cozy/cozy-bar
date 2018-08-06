@@ -24,9 +24,6 @@ describe('store', () => {
   })
 
   it('should keep forbidden status', () => {
-    expect(true).toBeTruthy()
-    expect(isAppListForbidden(getState())).toBe(false)
-    store.dispatch({ type: 'FETCH_APPS' })
     expect(isAppListForbidden(getState())).toBe(false)
     store.dispatch({ type: 'RECEIVE_APP_LIST_FORBIDDEN' })
     expect(isAppListForbidden(getState())).toBe(true)
