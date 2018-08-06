@@ -1,9 +1,9 @@
 [role=banner] .coz-drawer-wrapper {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
-  height: 100vh;
+  height: 100%;
   display: flex;
   visibility: visible; /* overwrite default [aria-hidden=true] style */
 }
@@ -134,4 +134,14 @@
   font-size: 1em;
   padding: 2em 2em .5em;
   margin: 0;
+}
+
+[role=banner] .coz-drawer--settings {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* /!\ Trick to prevent application from scrolling in the background when the drawer is opened */
+[role=banner][data-drawer-visible=true] + [role=application] {
+  position: fixed;
+  width: 100%;
 }
