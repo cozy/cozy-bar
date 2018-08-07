@@ -11,19 +11,28 @@ const EXCLUDES = ['settings', 'onboarding']
 const CATEGORIES = ['cozy', 'partners', 'ptnb']
 const DEFAULT_CATEGORY = 'others'
 
+const isCurrentApp_ = state => app =>
+  app.name === state.appName && app.name_prefix === state.appNamePrefix
+
 // selectors
-export const getApps = state => {
-  if (__TARGET__ !== 'mobile') {
-    return state.apps && state.apps.data
+const onMobile = __TARGET__ !== 'mobile'
+export const getApps = (state, mobile = onMobile) => {
+  if (!state.apps) return []
+
+  if (!mobile) {
+    return state.apps
   }
 
-  if (!state.apps || !state.apps.data) return []
-  return state.apps.data.filter(app =>
-    (app.name !== state.appName || app.name_prefix !== state.appNamePrefix) && !app.comingSoon
-  )
+  const isCurrentApp = isCurrentApp_(state)
+  return state.apps.filter(app => !isCurrentApp(app) && !app.comingSoon)
 }
-export const isAppListFetching = state => state.apps ? state.apps.isFetching : false
-export const isAppListForbidden = state => state.apps ? state.apps.forbidden : false
+
+export const isAppListFetching = state => {
+  return state ? state.isFetching : false
+}
+
+export const isAppListForbidden = state => state.forbidden
+export const hasFetched = state => state.hasFetched
 export const getCurrentApp = state => `${state.appNamePrefix} ${state.appName}`
 
 // actions
@@ -115,20 +124,22 @@ const fetchComingSoonApps = () => {
 
 // reducers
 const defaultState = {
-  apps: { data: null, forbidden: false },
+  apps: [],
   isFetching: false,
+  forbidden: false,
   appName: null,
-  appNamePrefix: null
+  appNamePrefix: null,
+  hasFetched: false
 }
 
 const reducer = (state = defaultState, action) => {
   switch (action.type) {
     case FETCH_APPS:
-      return { ...state, apps: { ...state.apps, isFetching: true } }
+      return { ...state, isFetching: true }
     case RECEIVE_APP_LIST:
-      return { ...state, apps: { ...state.apps, data: action.apps, forbidden: false, isFetching: false } }
+      return { ...state, isFetching: false, forbidden: false, hasFetched: true, apps: action.apps }
     case RECEIVE_APP_LIST_FORBIDDEN:
-      return { ...state, apps: { ...state.apps, forbidden: true, isFetching: false } }
+      return { ...state, isFetching: false, forbidden: true }
     case SET_INFOS:
       return { ...state, appName: action.appName, appNamePrefix: action.appNamePrefix }
     default:

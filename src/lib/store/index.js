@@ -1,10 +1,25 @@
-/* global __TARGET__ */
-let createReduxStore
+import { createStore, applyMiddleware } from 'redux'
+import thunkMiddleware from 'redux-thunk'
+import { persistStore, persistCombineReducers } from 'redux-persist'
+import { reducers } from '../reducers'
+import storage from 'redux-persist/lib/storage'
 
-if (__TARGET__ === 'mobile') {
-  createReduxStore = require('./mobile').default
-} else {
-  createReduxStore = require('./browser').default
+const config = {
+  storage,
+  key: 'cozy-bar',
+  whitelist: ['locale', 'apps']
+}
+
+const reducer = persistCombineReducers(config, { ...reducers })
+
+const createReduxStore = () => {
+  let store = createStore(
+    reducer,
+    applyMiddleware(thunkMiddleware)
+  )
+  persistStore(store)
+
+  return store
 }
 
 export default createReduxStore
