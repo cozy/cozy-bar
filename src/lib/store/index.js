@@ -2,11 +2,11 @@ import { createStore, applyMiddleware } from 'redux'
 import thunkMiddleware from 'redux-thunk'
 import { persistStore, persistCombineReducers } from 'redux-persist'
 import { reducers } from '../reducers'
-import localForage from 'localforage'
+import storage from 'redux-persist/lib/storage'
 
 const config = {
+  storage,
   key: 'cozy-bar',
-  storage: localForage,
   whitelist: ['locale', 'apps']
 }
 
