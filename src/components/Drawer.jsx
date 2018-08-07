@@ -46,8 +46,8 @@ class Drawer extends Component {
 
   async componentWillReceiveProps (nextProps) {
     if (!this.props.visible && nextProps.visible) {
-      await this.props.fetchAppsList()
-      await this.store.fetchSettingsData()
+      this.props.fetchAppsList()
+      this.store.fetchSettingsData()
     }
   }
 
