@@ -32,6 +32,7 @@ export const isAppListFetching = state => {
 }
 
 export const isAppListForbidden = state => state.forbidden
+export const hasFetched = state => state.hasFetched
 export const getCurrentApp = state => `${state.appNamePrefix} ${state.appName}`
 
 // actions
@@ -127,7 +128,8 @@ const defaultState = {
   isFetching: false,
   forbidden: false,
   appName: null,
-  appNamePrefix: null
+  appNamePrefix: null,
+  hasFetched: false
 }
 
 const reducer = (state = defaultState, action) => {
@@ -135,7 +137,7 @@ const reducer = (state = defaultState, action) => {
     case FETCH_APPS:
       return { ...state, isFetching: true }
     case RECEIVE_APP_LIST:
-      return { ...state, isFetching: false, forbidden: false, apps: action.apps }
+      return { ...state, isFetching: false, forbidden: false, hasFetched: true, apps: action.apps }
     case RECEIVE_APP_LIST_FORBIDDEN:
       return { ...state, isFetching: false, forbidden: true }
     case SET_INFOS:

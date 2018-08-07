@@ -3,7 +3,8 @@ import {
   isAppListFetching,
   isAppListForbidden,
   getApps,
-  setInfos
+  setInfos,
+  hasFetched
 } from '../reducers'
 
 describe('store', () => {
@@ -36,6 +37,18 @@ describe('store', () => {
     expect(getApps(getState())).toEqual([])
     store.dispatch({ type: 'RECEIVE_APP_LIST', apps: apps })
     expect(getApps(getState())).toEqual(apps)
+  })
+
+  it('should remember it has fetched (ok case)', () => {
+    expect(hasFetched(getState())).toEqual(false)
+    store.dispatch({ type: 'RECEIVE_APP_LIST' })
+    expect(hasFetched(getState())).toEqual(true)
+  })
+
+  it('should remember it has fetched (bad case)', () => {
+    expect(hasFetched(getState())).toEqual(false)
+    store.dispatch({ type: 'RECEIVE_APP_LIST_FORBIDDEN' })
+    expect(hasFetched(getState())).toEqual(false)
   })
 
   it('should not return current app on mobile', () => {
