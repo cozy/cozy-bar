@@ -9,6 +9,7 @@ class ComingSoonModal extends Component {
     return (
       <div>
         <Modal
+          into='body'
           dismissAction={this.props.onClose}
           className='coz-coming-soon-modal'
         >

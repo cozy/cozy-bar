@@ -10,8 +10,6 @@ import AppIconGroup from './AppIconGroup'
 import AppIcon from './AppIcon'
 import FakeAppsList from './FakeAppsList'
 
-const COMING_SOON_WITH_DESCRIPTION = ['store']
-
 // TODO Add errors
 class AppsList extends Component {
   // Take an items array and return an array of category objects with the matching category slug and items
@@ -54,7 +52,7 @@ class AppsList extends Component {
   }
 
   render () {
-    const { t, wrappingLimit, toggleComingSoon } = this.props
+    const { t, wrappingLimit } = this.props
     const categories = this.getCategorizedApps()
 
     /*
@@ -79,24 +77,7 @@ class AppsList extends Component {
           return (
             <AppIconGroup category={`Categories.${category.slug}`} wrapping={wrapping}>
               {category.items && category.items.map(app => {
-                const dataIcon = app.icon ? `icon-${app.slug}` : ''
-                const iconSrc = app.icon && app.icon.cached
-                  ? app.icon.src
-                  : require('../assets/icons/16/icon-cube-16.svg')
-                const blurry = !app.icon || !app.icon.cached
-                const label = (app.namePrefix ? (app.namePrefix + ' ') : '') + app.name
-                return <AppIcon
-                  label={label}
-                  href={app.href}
-                  dataIcon={dataIcon}
-                  comingSoon={app.comingSoon}
-                  toggle={
-                    COMING_SOON_WITH_DESCRIPTION.includes(app.slug)
-                      ? () => toggleComingSoon(app.slug)
-                      : false
-                  }
-                  iconSrc={iconSrc}
-                  blurry={blurry} />
+                return <AppIcon app={app} />
               })}
             </AppIconGroup>
           )
