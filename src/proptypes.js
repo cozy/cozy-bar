@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 
 export const appShape = PropTypes.shape({
   icon: PropTypes.shape({
-    cached: PropTypes.object,
+    cached: PropTypes.bool,
     src: PropTypes.string
   }),
   slug: PropTypes.string.isRequired,
