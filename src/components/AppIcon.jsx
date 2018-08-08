@@ -37,7 +37,7 @@ class AppIcon extends React.Component {
     const label = (app.namePrefix ? (app.namePrefix + ' ') : '') + app.name
     const comingSoon = app.comingSoon || false
     const iconSrc = app.icon && app.icon.cached ? app.icon.src : defaultIcon
-    const canShowComingSoonDescription = HAS_COMING_SOON_DESCRIPTION[app.slug]
+    const canShowComingSoonDescription = HAS_COMING_SOON_DESCRIPTION.hasOwnProperty(app.slug)
 
     let appClass = comingSoon ? 'coz-bar-coming-soon-app' : ''
     let onClick = canShowComingSoonDescription ? this.openComingSoon : null
