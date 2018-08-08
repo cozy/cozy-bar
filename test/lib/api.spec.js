@@ -1,12 +1,9 @@
 import React from 'react'
-import Enzyme, { shallow } from 'enzyme'
-import Adapter from 'enzyme-adapter-react-16'
+import { shallow } from 'enzyme'
 
 import createStore from 'lib/store'
 import api from 'lib/api'
 import { getContent as _getContent } from 'lib/reducers'
-
-Enzyme.configure({ adapter: new Adapter() })
 
 const store = createStore()
 const {
