@@ -1,16 +1,55 @@
+/* global __TARGET__ */
+
 import React from 'react'
 import { translate } from 'cozy-ui/react/I18n'
 import defaultIcon from '../assets/icons/16/icon-cube-16.svg'
 import ComingSoonModal from 'components/ComingSoonModal'
 import { appShape } from '../proptypes'
+import { checkApp, startApp } from 'cozy-device-helper'
+import expiringMemoize from '../lib/expiringMemoize'
 
 const HAS_COMING_SOON_DESCRIPTION = {
   store: true
 }
 
+const NATIVE_APP_INFOS = {
+  drive: {
+    appId: 'io.cozy.drive.mobile',
+    uri: 'cozydrive://'
+  },
+  banks: {
+    appId: 'io.cozy.banks.mobile',
+    uri: 'cozybanks://'
+  }
+}
+
+const expirationDelay = 10 * 1000
+const memoizedCheckApp = expiringMemoize(checkApp, expirationDelay, x => x.appId)
+
 class AppIcon extends React.Component {
   state = {
-    showingComingSoon: false
+    showingComingSoon: false,
+    isAppAvailable: null
+  }
+
+  constructor () {
+    super()
+    this.openNativeApp = this.openNativeApp.bind(this)
+  }
+
+  componentDidMount () {
+    if (__TARGET__ === 'mobile') {
+      this.checkAppAvailability()
+    }
+  }
+
+  async checkAppAvailability () {
+    const { slug } = this.props.app
+    const appInfo = NATIVE_APP_INFOS[slug]
+    if (appInfo) {
+      const isAppAvailable = Boolean(await memoizedCheckApp(appInfo))
+      this.setState({ isAppAvailable })
+    }
   }
 
   toggleComingSoon = (showing) => {
@@ -19,11 +58,19 @@ class AppIcon extends React.Component {
     })
   }
 
-  openComingSoon = (ev) => {
-    this.toggleComingSoon(true)
+  openComingSoon = ev => {
     if (ev) {
       ev.preventDefault()
     }
+    this.toggleComingSoon(true)
+  }
+
+  openNativeApp (ev) {
+    if (ev) {
+      ev.preventDefault()
+    }
+    const appInfos = NATIVE_APP_INFOS[this.props.app.slug]
+    startApp(appInfos)
   }
 
   closeComingSoon = () => {
@@ -39,11 +86,15 @@ class AppIcon extends React.Component {
     const iconSrc = app.icon && app.icon.cached ? app.icon.src : defaultIcon
     const canShowComingSoonDescription = HAS_COMING_SOON_DESCRIPTION.hasOwnProperty(app.slug)
 
+    let href = app.href
     let appClass = comingSoon ? 'coz-bar-coming-soon-app' : ''
     let onClick = canShowComingSoonDescription ? this.openComingSoon : null
+    if (href) onClick = null // href have priority over coming soon
 
-    let href = app.href
-    if (href) onClick = null // href always have priority
+    if (!onClick && this.state.isAppAvailable) {
+      onClick = this.openNativeApp
+    }
+
     if (onClick) {
       appClass += ' --toggable'
       href = '#'
@@ -78,4 +129,5 @@ AppIcon.propTypes = {
   app: appShape.isRequired
 }
 
+export { AppIcon }
 export default translate()(AppIcon)
