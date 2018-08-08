@@ -10,10 +10,6 @@ import AppIconGroup from './AppIconGroup'
 import AppIcon from './AppIcon'
 import FakeAppsList from './FakeAppsList'
 
-const COMING_SOON_WITH_DESCRIPTION = {
-  store: true
-}
-
 // TODO Add errors
 class AppsList extends Component {
   // Take an items array and return an array of category objects with the matching category slug and items
@@ -56,7 +52,7 @@ class AppsList extends Component {
   }
 
   render () {
-    const { t, wrappingLimit, toggleComingSoon } = this.props
+    const { t, wrappingLimit } = this.props
     const categories = this.getCategorizedApps()
 
     /*
@@ -81,13 +77,7 @@ class AppsList extends Component {
           return (
             <AppIconGroup category={`Categories.${category.slug}`} wrapping={wrapping}>
               {category.items && category.items.map(app => {
-                const canShowComingSoonDescription = COMING_SOON_WITH_DESCRIPTION[app.slug]
-                return <AppIcon
-                  app={app}
-                  onClick={
-                    canShowComingSoonDescription ? () =>
-                      toggleComingSoon(app.slug) : null
-                  } />
+                return <AppIcon app={app} />
               })}
             </AppIconGroup>
           )

@@ -147,7 +147,7 @@ class Drawer extends Component {
   }
 
   render () {
-    const { onClaudy, visible, isClaudyLoading, toggleSupport, renewToken, onLogOut, toggleComingSoon, showSpinner } = this.props
+    const { onClaudy, visible, isClaudyLoading, toggleSupport, renewToken, onLogOut, showSpinner } = this.props
     const { settingsData } = this.store
     return (
       <div className='coz-drawer-wrapper'
@@ -165,7 +165,6 @@ class Drawer extends Component {
                 <AppsList
                   wrappingLimit={3}
                   renewToken={renewToken}
-                  toggleComingSoon={toggleComingSoon}
                 />
               )
             }
