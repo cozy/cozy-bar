@@ -4,7 +4,7 @@ exports[`app icon should render correctly 1`] = `
 ShallowWrapper {
   "length": 1,
   Symbol(enzyme.__root__): [Circular],
-  Symbol(enzyme.__unrendered__): <Wrapper
+  Symbol(enzyme.__unrendered__): <AppIcon
     app={
       Object {
         "name": "Drive",
@@ -22,37 +22,197 @@ ShallowWrapper {
   Symbol(enzyme.__node__): Object {
     "instance": null,
     "key": undefined,
-    "nodeType": "class",
+    "nodeType": "host",
     "props": Object {
-      "app": Object {
-        "name": "Drive",
-        "slug": "cozy-drive",
-      },
-      "f": undefined,
-      "lang": undefined,
-      "t": undefined,
+      "children": Array [
+        <a
+          className=""
+          data-icon=""
+          href={undefined}
+          onClick={null}
+          role="menuitem"
+          title="Drive"
+        >
+          <img
+            alt=""
+            className="blurry"
+            height="64"
+            src="test-file-stub"
+            width="64"
+          />
+          <p
+            className="coz-label"
+          >
+            Drive
+          </p>
+        </a>,
+        false,
+      ],
+      "className": "coz-nav-item",
     },
     "ref": null,
-    "rendered": null,
-    "type": [Function],
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": Array [
+            <img
+              alt=""
+              className="blurry"
+              height="64"
+              src="test-file-stub"
+              width="64"
+            />,
+            false,
+            <p
+              className="coz-label"
+            >
+              Drive
+            </p>,
+          ],
+          "className": "",
+          "data-icon": "",
+          "href": undefined,
+          "onClick": null,
+          "role": "menuitem",
+          "title": "Drive",
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "alt": "",
+              "className": "blurry",
+              "height": "64",
+              "src": "test-file-stub",
+              "width": "64",
+            },
+            "ref": null,
+            "rendered": null,
+            "type": "img",
+          },
+          false,
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": "Drive",
+              "className": "coz-label",
+            },
+            "ref": null,
+            "rendered": "Drive",
+            "type": "p",
+          },
+        ],
+        "type": "a",
+      },
+      false,
+    ],
+    "type": "li",
   },
   Symbol(enzyme.__nodes__): Array [
     Object {
       "instance": null,
       "key": undefined,
-      "nodeType": "class",
+      "nodeType": "host",
       "props": Object {
-        "app": Object {
-          "name": "Drive",
-          "slug": "cozy-drive",
-        },
-        "f": undefined,
-        "lang": undefined,
-        "t": undefined,
+        "children": Array [
+          <a
+            className=""
+            data-icon=""
+            href={undefined}
+            onClick={null}
+            role="menuitem"
+            title="Drive"
+          >
+            <img
+              alt=""
+              className="blurry"
+              height="64"
+              src="test-file-stub"
+              width="64"
+            />
+            <p
+              className="coz-label"
+            >
+              Drive
+            </p>
+          </a>,
+          false,
+        ],
+        "className": "coz-nav-item",
       },
       "ref": null,
-      "rendered": null,
-      "type": [Function],
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": Array [
+              <img
+                alt=""
+                className="blurry"
+                height="64"
+                src="test-file-stub"
+                width="64"
+              />,
+              false,
+              <p
+                className="coz-label"
+              >
+                Drive
+              </p>,
+            ],
+            "className": "",
+            "data-icon": "",
+            "href": undefined,
+            "onClick": null,
+            "role": "menuitem",
+            "title": "Drive",
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "alt": "",
+                "className": "blurry",
+                "height": "64",
+                "src": "test-file-stub",
+                "width": "64",
+              },
+              "ref": null,
+              "rendered": null,
+              "type": "img",
+            },
+            false,
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": "Drive",
+                "className": "coz-label",
+              },
+              "ref": null,
+              "rendered": "Drive",
+              "type": "p",
+            },
+          ],
+          "type": "a",
+        },
+        false,
+      ],
+      "type": "li",
     },
   ],
   Symbol(enzyme.__options__): Object {

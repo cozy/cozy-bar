@@ -78,4 +78,5 @@ AppIcon.propTypes = {
   app: appShape.isRequired
 }
 
+export { AppIcon }
 export default translate()(AppIcon)
