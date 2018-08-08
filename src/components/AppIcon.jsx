@@ -2,6 +2,7 @@ import React from 'react'
 import { translate } from 'cozy-ui/react/I18n'
 import defaultIcon from '../assets/icons/16/icon-cube-16.svg'
 import ComingSoonModal from 'components/ComingSoonModal'
+import { appShape } from '../proptypes'
 
 const HAS_COMING_SOON_DESCRIPTION = {
   store: true
@@ -71,6 +72,10 @@ class AppIcon extends React.Component {
       </li>
     )
   }
+}
+
+AppIcon.propTypes = {
+  app: appShape.isRequired
 }
 
 export default translate()(AppIcon)
