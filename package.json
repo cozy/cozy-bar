@@ -18,6 +18,7 @@
   },
   "license": "MIT",
   "scripts": {
+    "prepublishOnly": "yarn build",
     "build": "npm-run-all --parallel 'build:*' 'build:*:*'",
     "build:browser": "webpack --config ./config/webpack.target.browser.js",
     "build:browser:min": "NODE_ENV=production webpack --config ./config/webpack.target.browser.js",
