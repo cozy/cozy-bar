@@ -1,6 +1,6 @@
 {
   "name": "cozy-bar",
-  "version": "5.0.8",
+  "version": "0.0.0-development",
   "description": "cozy-bar.js library, a small lib provided by cozy-stack to inject the Cozy-bar component into each app",
   "main": "dist/cozy-bar.js",
   "author": "Cozy Cloud <contact@cozycloud.cc> (https://cozy.io/)",
@@ -34,7 +34,9 @@
     "shasum": "shasum -a 256 dist/cozy-bar.min.js && shasum -a 256 dist/cozy-bar.min.css",
     "test": "npm-run-all test:jest test:size",
     "test:jest": "jest --verbose --coverage",
-    "test:size": "bundlesize"
+    "test:size": "bundlesize",
+    "travis-deploy-once": "travis-deploy-once",
+    "semantic-release": "semantic-release"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.4",
@@ -80,7 +82,9 @@
     "webpack": "^3.6.0",
     "webpack-merge": "^4.1.0",
     "yaml-jest": "^1.0.5",
-    "yaml-loader": "^0.5.0"
+    "yaml-loader": "^0.5.0",
+    "travis-deploy-once": "^5.0.2",
+    "semantic-release": "^15.9.8"
   },
   "dependencies": {
     "babel-preset-cozy-app": "^0.3.1",
