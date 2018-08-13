@@ -36,6 +36,5 @@ deploy:
   skip_cleanup: true
   script: npm run travis-deploy-once "npm run semantic-release"
   on:
-    tags: false
     branch: master
     repo: cozy/cozy-bar
