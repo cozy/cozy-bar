@@ -8,12 +8,12 @@ mobile:
   link:
     type: external
 
-cozy-collect:
+gather:
   icon: icon-bills.svg
   link:
     type: apps
-    appSlug: collect
-    path: '#/discovery/?intro'
+    appSlug: home
+    path: '/intro'
 
 support:
   icon: icon-question-mark.svg
