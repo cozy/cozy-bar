@@ -86,14 +86,12 @@
   border-radius: 8px 8px 0 0;
 }
 
-[role=banner] .coz-nav-pop hr {
-  margin: 0;
-  border: none;
+[role=banner] .coz-nav-pop .coz-nav-group {
   border-bottom: solid 1px var(--silver);
 }
 
-[role=banner] .coz-nav-pop ul:last-of-type + hr {
-  display: none;
+[role=banner] .coz-nav-pop .coz-nav-group:last-child {
+  border: 0;
 }
 
 [role=banner] .coz-nav-pop--apps .coz-nav-group:not(.coz-nav--error) {

@@ -91,6 +91,7 @@ class Nav extends Component {
         <ul>
           <li className='coz-nav-section'>
             <button
+              type='button'
               onClick={() => this.toggleMenu('apps')}
               aria-controls='coz-nav-pop--apps' aria-busy={apps.busy}
               data-icon='icon-apps'
@@ -107,6 +108,7 @@ class Nav extends Component {
           </li>
           <li className='coz-nav-section'>
             <button
+              type='button'
               onClick={() => this.toggleMenu('settings')}
               aria-controls='coz-nav-pop--settings' aria-busy={settings.busy}
               data-icon='icon-cog'

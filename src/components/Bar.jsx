@@ -83,10 +83,10 @@ class Bar extends Component {
   }
 
   renderCenter () {
-    const { appName, appNamePrefix, iconPath, replaceTitleOnMobile, lang } = this.props
+    const { appName, appNamePrefix, iconPath, replaceTitleOnMobile } = this.props
     return (
-      <h1 lang={lang} className={`coz-bar-title ${replaceTitleOnMobile ? 'coz-bar-hide-sm' : ''}`}>
-        <img className='coz-bar-hide-sm' src={iconPath} width='32' />
+      <h1 className={`coz-bar-title ${replaceTitleOnMobile ? 'coz-bar-hide-sm' : ''}`}>
+        <img className='coz-bar-hide-sm' src={iconPath} width='32' alt='' />
         {appNamePrefix && <span className='coz-bar-hide-sm'>{appNamePrefix}</span>}
         <strong>{appName}</strong>
       </h1>
@@ -96,7 +96,7 @@ class Bar extends Component {
   renderLeft = () => {
     const { t, displayOnMobile, isPublic } = this.props
     // data-tutorial attribute allows to be targeted in an application tutorial
-    return (__TARGET__ !== 'mobile' || displayOnMobile) && !isPublic ? <button className='coz-bar-btn coz-bar-burger' onClick={this.toggleDrawer} data-icon='icon-apps' data-tutorial='apps-mobile'>
+    return (__TARGET__ !== 'mobile' || displayOnMobile) && !isPublic ? <button type='button' className='coz-bar-btn coz-bar-burger' onClick={this.toggleDrawer} data-icon='icon-apps' data-tutorial='apps-mobile'>
       <span className='coz-bar-hidden'>{t('drawer')}</span>
     </button> : null
   }
