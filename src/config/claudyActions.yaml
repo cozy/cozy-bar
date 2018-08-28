@@ -8,13 +8,6 @@ mobile:
   link:
     type: external
 
-cozy-collect:
-  icon: icon-bills.svg
-  link:
-    type: apps
-    appSlug: collect
-    path: '#/discovery/?intro'
-
 support:
   icon: icon-question-mark.svg
   link:
