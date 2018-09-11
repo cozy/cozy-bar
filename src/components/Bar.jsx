@@ -10,7 +10,7 @@ import { shouldEnableTracking, getTracker, configureTracker } from 'cozy-ui/reac
 
 import Banner from 'components/Banner'
 import Drawer from 'components/Drawer'
-import Nav from 'components/Nav'
+import Settings from 'components/Settings'
 import SearchBar from 'components/SearchBar'
 import Claudy from 'components/Claudy'
 import SupportModal from 'components/SupportModal'
@@ -104,7 +104,7 @@ class Bar extends Component {
   renderRight = () => {
     const { displayOnMobile, isPublic, renewToken } = this.props
     return (__TARGET__ !== 'mobile' || displayOnMobile) && !isPublic
-      ? <Nav
+      ? <Settings
         toggleSupport={this.toggleSupport}
         renewToken={renewToken}
         onLogOut={this.props.onLogOut}
