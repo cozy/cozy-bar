@@ -142,7 +142,6 @@ const init = ({
   replaceTitleOnMobile = false,
   displayOnMobile,
   isPublic = false,
-  renewToken = null,
   onLogOut
 } = {}) => {
   // Force public mode in `/public` URLs
@@ -168,7 +167,6 @@ const init = ({
     replaceTitleOnMobile,
     displayOnMobile,
     isPublic,
-    renewToken,
     onLogOut,
     userActionRequired: getUserActionRequired()
   })

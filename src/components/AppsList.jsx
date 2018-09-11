@@ -3,12 +3,10 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import { translate } from 'cozy-ui/react/I18n'
-import { getApps, getCurrentApp, fetchApps, isAppListForbidden } from '../lib/reducers'
-import stack from '../lib/stack'
+import { getApps, fetchApps, isAppListForbidden } from '../lib/reducers'
 
 import AppIconGroup from './AppIconGroup'
 import AppIcon from './AppIcon'
-import FakeAppsList from './FakeAppsList'
 
 // TODO Add errors
 class AppsList extends Component {
@@ -43,14 +41,6 @@ class AppsList extends Component {
       })
   }
 
-  onAppListAuthorize = () => {
-    this.props.renewToken()
-      .then(({ token }) => {
-        stack.updateAccessToken(token.accessToken)
-        this.props.fetchApps()
-      })
-  }
-
   render () {
     const { t, wrappingLimit } = this.props
     const categories = this.getCategorizedApps()
@@ -65,9 +55,7 @@ class AppsList extends Component {
     */
 
     if (!categories || categories.length === 0) {
-      return this.props.renewToken
-        ? <FakeAppsList currentApp={this.props.currentApp} onAuthorizeClick={this.onAppListAuthorize} />
-        : <p className='coz-nav--error coz-nav-group'>{t('no_apps')}</p>
+      return <p className='coz-nav--error coz-nav-group'>{t('no_apps')}</p>
     }
 
     return (
@@ -88,7 +76,6 @@ class AppsList extends Component {
 }
 
 const mapStateToProps = state => ({
-  currentApp: getCurrentApp(state),
   apps: getApps(state),
   isAppListForbidden: __TARGET__ === 'mobile'
     ? isAppListForbidden(state)
