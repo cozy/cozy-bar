@@ -1,11 +1,10 @@
-import createStore from '.'
+import createStore from 'lib/store'
 import {
   isAppListFetching,
-  isAppListForbidden,
   getApps,
   setInfos,
   hasFetched
-} from '../reducers'
+} from 'lib/reducers'
 
 describe('store', () => {
   let store
@@ -22,14 +21,6 @@ describe('store', () => {
     expect(isAppListFetching(getState())).toBe(true)
     store.dispatch({ type: 'RECEIVE_APP_LIST' })
     expect(isAppListFetching(getState())).toBe(false)
-  })
-
-  it('should keep forbidden status', () => {
-    expect(isAppListForbidden(getState())).toBe(false)
-    store.dispatch({ type: 'RECEIVE_APP_LIST_FORBIDDEN' })
-    expect(isAppListForbidden(getState())).toBe(true)
-    store.dispatch({ type: 'RECEIVE_APP_LIST' })
-    expect(isAppListForbidden(getState())).toBe(false)
   })
 
   it('should keep apps data', () => {

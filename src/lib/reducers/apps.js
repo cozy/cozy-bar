@@ -31,7 +31,6 @@ export const isAppListFetching = state => {
   return state ? state.isFetching : false
 }
 
-export const isAppListForbidden = state => state.forbidden
 export const hasFetched = state => state.hasFetched
 export const getCurrentApp = state => `${state.appNamePrefix} ${state.appName}`
 
@@ -86,7 +85,6 @@ export const fetchApps = () => async dispatch => {
 const defaultState = {
   apps: [],
   isFetching: false,
-  forbidden: false,
   appName: null,
   appNamePrefix: null,
   hasFetched: false
@@ -97,9 +95,9 @@ const reducer = (state = defaultState, action) => {
     case FETCH_APPS:
       return { ...state, isFetching: true }
     case RECEIVE_APP_LIST:
-      return { ...state, isFetching: false, forbidden: false, hasFetched: true, apps: action.apps }
+      return { ...state, isFetching: false, hasFetched: true, apps: action.apps }
     case RECEIVE_APP_LIST_FORBIDDEN:
-      return { ...state, isFetching: false, forbidden: true }
+      return { ...state, isFetching: false }
     case SET_INFOS:
       return { ...state, appName: action.appName, appNamePrefix: action.appNamePrefix }
     default:

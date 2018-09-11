@@ -20,7 +20,7 @@ const NATIVE_APP_INFOS = {
 const expirationDelay = 10 * 1000
 const memoizedCheckApp = expiringMemoize(checkApp, expirationDelay, x => x.appId)
 
-export class AppIcon extends React.Component {
+export class AppItem extends React.Component {
   state = {
     isAppAvailable: null
   }
@@ -84,8 +84,8 @@ export class AppIcon extends React.Component {
   }
 }
 
-AppIcon.propTypes = {
+AppItem.propTypes = {
   app: appShape.isRequired
 }
 
-export default AppIcon
+export default AppItem

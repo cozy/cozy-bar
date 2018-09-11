@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { translate } from 'cozy-ui/react/I18n'
 import { fetchApps } from '../lib/reducers'
 
-import AppsList from './AppsList'
+import AppsContent from './AppsContent'
 import Settings from './Settings'
 
 const BUSY_DELAY = 450
@@ -100,9 +100,7 @@ class Nav extends Component {
               {t('menu.apps')}
             </button>
             <div className='coz-nav-pop coz-nav-pop--apps' id='coz-nav-pop--apps' aria-hidden={!apps.opened}>
-              <AppsList
-                wrappingLimit={4}
-              />
+              <AppsContent />
             </div>
           </li>
           <li className='coz-nav-section'>

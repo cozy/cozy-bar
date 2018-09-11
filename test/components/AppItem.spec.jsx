@@ -1,5 +1,5 @@
 import React from 'react'
-import { AppIcon } from 'components/Apps/AppIcon'
+import { AppItem } from 'components/Apps/AppItem'
 import { shallow } from 'enzyme'
 
 describe('app icon', () => {
@@ -11,7 +11,7 @@ describe('app icon', () => {
         throw new Error(message)
       }
     })
-    openNativeSpy = jest.spyOn(AppIcon.prototype, 'openNativeApp')
+    openNativeSpy = jest.spyOn(AppItem.prototype, 'openNativeApp')
   })
 
   afterEach(() => {
@@ -24,7 +24,7 @@ describe('app icon', () => {
       slug: 'cozy-drive',
       name: 'Drive'
     }
-    const root = shallow(<AppIcon app={app} />)
+    const root = shallow(<AppItem app={app} />)
     expect(root).toMatchSnapshot()
   })
 
@@ -33,7 +33,7 @@ describe('app icon', () => {
       slug: 'cozy-drive',
       name: 'Drive'
     }
-    const root = shallow(<AppIcon app={app} />)
+    const root = shallow(<AppItem app={app} />)
     root.find('a').simulate('click')
     expect(openNativeSpy).not.toHaveBeenCalled()
     root.setState({ isAppAvailable: true })

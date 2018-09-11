@@ -5,7 +5,7 @@ import Spinner from 'cozy-ui/react/Spinner'
 
 import { fetchApps, isAppListFetching, hasFetched } from '../lib/reducers'
 
-import AppsList from './Apps/AppsList'
+import AppsContent from './Apps/AppsContent'
 import SettingsContent from './Settings/SettingsContent'
 
 class Drawer extends Component {
@@ -162,9 +162,7 @@ class Drawer extends Component {
                 <Spinner size='xlarge' middle />
               )
               : (
-                <AppsList
-                  wrappingLimit={3}
-                />
+                <AppsContent />
               )
             }
           </nav>

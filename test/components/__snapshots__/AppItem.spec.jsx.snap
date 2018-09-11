@@ -4,7 +4,7 @@ exports[`app icon should render correctly 1`] = `
 ShallowWrapper {
   "length": 1,
   Symbol(enzyme.__root__): [Circular],
-  Symbol(enzyme.__unrendered__): <AppIcon
+  Symbol(enzyme.__unrendered__): <AppItem
     app={
       Object {
         "name": "Drive",
