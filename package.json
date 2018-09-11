@@ -32,9 +32,8 @@
     "watch": "NODE_ENV=development webpack --config ./config/webpack.target.browser.js --watch --display-chunks",
     "watch:mobile": "NODE_ENV=development webpack --config ./config/webpack.target.mobile.js --watch --display-chunks",
     "shasum": "yarn build && shasum -a 256 dist/cozy-bar.min.js && shasum -a 256 dist/cozy-bar.min.css",
-    "test": "npm-run-all test:jest test:size",
-    "test:jest": "jest --verbose --coverage",
-    "test:size": "bundlesize",
+    "test": "jest --verbose --coverage",
+    "posttest": "bundlesize",
     "travis-deploy-once": "travis-deploy-once",
     "semantic-release": "semantic-release"
   },
