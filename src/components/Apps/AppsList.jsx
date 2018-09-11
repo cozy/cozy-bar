@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import { translate } from 'cozy-ui/react/I18n'
-import { getApps, fetchApps, isAppListForbidden } from '../lib/reducers'
+import { getApps, fetchApps, isAppListForbidden } from 'lib/reducers'
 
 import AppIconGroup from './AppIconGroup'
 import AppIcon from './AppIcon'

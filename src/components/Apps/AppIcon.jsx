@@ -1,10 +1,10 @@
 /* global __TARGET__ */
 
 import React from 'react'
-import defaultIcon from '../assets/icons/16/icon-cube-16.svg'
-import { appShape } from '../proptypes'
+import defaultIcon from 'assets/icons/16/icon-cube-16.svg'
+import { appShape } from 'proptypes/index'
 import { checkApp, startApp } from 'cozy-device-helper'
-import expiringMemoize from '../lib/expiringMemoize'
+import expiringMemoize from 'lib/expiringMemoize'
 
 const NATIVE_APP_INFOS = {
   drive: {

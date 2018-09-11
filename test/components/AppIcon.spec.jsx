@@ -1,5 +1,5 @@
 import React from 'react'
-import { AppIcon } from 'components/AppIcon'
+import { AppIcon } from 'components/Apps/AppIcon'
 import { shallow } from 'enzyme'
 
 describe('app icon', () => {
