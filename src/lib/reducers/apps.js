@@ -56,7 +56,6 @@ export const fetchApps = () => async dispatch => {
   try {
     dispatch(({ type: FETCH_APPS }))
     const rawAppList = await stack.get.apps()
-    const comingSoonApps = await fetchComingSoonApps()
     const apps = rawAppList.filter(app => !EXCLUDES.includes(app.attributes.slug))
     // TODO load only one time icons
     const icons = await Promise.all(apps.map(app => stack.get.icon(app.links.icon)))
@@ -73,18 +72,7 @@ export const fetchApps = () => async dispatch => {
         }
         : undefined
     }))
-    let appsList = appsWithIcons
-    if (comingSoonApps && comingSoonApps.length) {
-      comingSoonApps.map(csApp => {
-        if (!apps.find(
-          app => app.attributes.slug === csApp.slug
-        )) {
-          // add coming soon apps only if not already installed
-          appsList.push(csApp)
-        }
-      })
-    }
-    dispatch(receiveAppList(appsList))
+    dispatch(receiveAppList(appsWithIcons))
   } catch (e) {
     if (e.constructor === ForbiddenException) {
       dispatch(receiveAppListForbidden())
@@ -92,34 +80,6 @@ export const fetchApps = () => async dispatch => {
       console.warn(e.message ? e.message : e)
     }
   }
-}
-
-const fetchComingSoonApps = () => {
-  return stack.get.context()
-    .then(context => {
-      const comingSoonApps = (context.data && context.data.attributes &&
-      context.data.attributes['coming_soon'] &&
-      Object.values(context.data.attributes['coming_soon'])) || []
-      return comingSoonApps.map(app => {
-        let icon
-        try {
-          icon = app.slug && {
-            cached: true,
-            src: require(`../../assets/icons/comingsoon/icon-${app.slug}.svg`)
-          }
-        } catch (error) {
-          console.warn && console.warn(`Cannot retrieve icon for app ${app.name}:`, error.message)
-        }
-        return Object.assign({}, app, {
-          comingSoon: true,
-          icon: icon
-        })
-      })
-    })
-    .catch(error => {
-      console.warn && console.warn(`Cozy-bar cannot fetch comming soon apps: ${error.message}`)
-      return []
-    })
 }
 
 // reducers

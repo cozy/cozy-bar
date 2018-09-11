@@ -24,9 +24,95 @@ ShallowWrapper {
     "key": undefined,
     "nodeType": "host",
     "props": Object {
-      "children": Array [
-        <a
-          className=""
+      "children": <a
+        data-icon=""
+        href={undefined}
+        onClick={null}
+        role="menuitem"
+        title="Drive"
+      >
+        <img
+          alt=""
+          className="blurry"
+          height="64"
+          src="test-file-stub"
+          width="64"
+        />
+        <p
+          className="coz-label"
+        >
+          Drive
+        </p>
+      </a>,
+      "className": "coz-nav-item",
+    },
+    "ref": null,
+    "rendered": Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": Array [
+          <img
+            alt=""
+            className="blurry"
+            height="64"
+            src="test-file-stub"
+            width="64"
+          />,
+          <p
+            className="coz-label"
+          >
+            Drive
+          </p>,
+        ],
+        "data-icon": "",
+        "href": undefined,
+        "onClick": null,
+        "role": "menuitem",
+        "title": "Drive",
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "alt": "",
+            "className": "blurry",
+            "height": "64",
+            "src": "test-file-stub",
+            "width": "64",
+          },
+          "ref": null,
+          "rendered": null,
+          "type": "img",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": "Drive",
+            "className": "coz-label",
+          },
+          "ref": null,
+          "rendered": "Drive",
+          "type": "p",
+        },
+      ],
+      "type": "a",
+    },
+    "type": "li",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": <a
           data-icon=""
           href={undefined}
           onClick={null}
@@ -46,13 +132,10 @@ ShallowWrapper {
             Drive
           </p>
         </a>,
-        false,
-      ],
-      "className": "coz-nav-item",
-    },
-    "ref": null,
-    "rendered": Array [
-      Object {
+        "className": "coz-nav-item",
+      },
+      "ref": null,
+      "rendered": Object {
         "instance": null,
         "key": undefined,
         "nodeType": "host",
@@ -65,14 +148,12 @@ ShallowWrapper {
               src="test-file-stub"
               width="64"
             />,
-            false,
             <p
               className="coz-label"
             >
               Drive
             </p>,
           ],
-          "className": "",
           "data-icon": "",
           "href": undefined,
           "onClick": null,
@@ -96,7 +177,6 @@ ShallowWrapper {
             "rendered": null,
             "type": "img",
           },
-          false,
           Object {
             "instance": null,
             "key": undefined,
@@ -112,106 +192,6 @@ ShallowWrapper {
         ],
         "type": "a",
       },
-      false,
-    ],
-    "type": "li",
-  },
-  Symbol(enzyme.__nodes__): Array [
-    Object {
-      "instance": null,
-      "key": undefined,
-      "nodeType": "host",
-      "props": Object {
-        "children": Array [
-          <a
-            className=""
-            data-icon=""
-            href={undefined}
-            onClick={null}
-            role="menuitem"
-            title="Drive"
-          >
-            <img
-              alt=""
-              className="blurry"
-              height="64"
-              src="test-file-stub"
-              width="64"
-            />
-            <p
-              className="coz-label"
-            >
-              Drive
-            </p>
-          </a>,
-          false,
-        ],
-        "className": "coz-nav-item",
-      },
-      "ref": null,
-      "rendered": Array [
-        Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "host",
-          "props": Object {
-            "children": Array [
-              <img
-                alt=""
-                className="blurry"
-                height="64"
-                src="test-file-stub"
-                width="64"
-              />,
-              false,
-              <p
-                className="coz-label"
-              >
-                Drive
-              </p>,
-            ],
-            "className": "",
-            "data-icon": "",
-            "href": undefined,
-            "onClick": null,
-            "role": "menuitem",
-            "title": "Drive",
-          },
-          "ref": null,
-          "rendered": Array [
-            Object {
-              "instance": null,
-              "key": undefined,
-              "nodeType": "host",
-              "props": Object {
-                "alt": "",
-                "className": "blurry",
-                "height": "64",
-                "src": "test-file-stub",
-                "width": "64",
-              },
-              "ref": null,
-              "rendered": null,
-              "type": "img",
-            },
-            false,
-            Object {
-              "instance": null,
-              "key": undefined,
-              "nodeType": "host",
-              "props": Object {
-                "children": "Drive",
-                "className": "coz-label",
-              },
-              "ref": null,
-              "rendered": "Drive",
-              "type": "p",
-            },
-          ],
-          "type": "a",
-        },
-        false,
-      ],
       "type": "li",
     },
   ],
