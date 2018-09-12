@@ -11,20 +11,27 @@ const EXCLUDES = ['settings', 'onboarding']
 const CATEGORIES = ['cozy', 'partners', 'ptnb']
 const DEFAULT_CATEGORY = 'others'
 
-const isCurrentApp_ = state => app =>
-  app.name === state.appName && app.name_prefix === state.appNamePrefix
+const isCurrentApp = (state, app) =>
+  app.slug === state.appSlug
 
 // selectors
 const onMobile = __TARGET__ !== 'mobile'
 export const getApps = (state, mobile = onMobile) => {
   if (!state.apps) return []
 
+  const appsWithCurrentApp = state.apps.map(app => {
+    if (isCurrentApp(state, app)) {
+      return Object.assign({}, app, { isCurrentApp: true })
+    } else {
+      return app
+    }
+  })
+
   if (!mobile) {
-    return state.apps
+    return appsWithCurrentApp
   }
 
-  const isCurrentApp = isCurrentApp_(state)
-  return state.apps.filter(app => !isCurrentApp(app) && !app.comingSoon)
+  return appsWithCurrentApp.filter(app => !isCurrentApp(state, app))
 }
 
 export const isAppListFetching = state => {
@@ -49,6 +56,7 @@ const _getCategory = (manifest) => {
     return DEFAULT_CATEGORY
   }
 }
+export const setInfos = (appName, appNamePrefix, appSlug) => ({ type: SET_INFOS, appName, appNamePrefix, appSlug })
 
 // actions async
 export const fetchApps = () => async dispatch => {
@@ -87,6 +95,7 @@ const defaultState = {
   isFetching: false,
   appName: null,
   appNamePrefix: null,
+  appSlug: null,
   hasFetched: false
 }
 
@@ -99,7 +108,7 @@ const reducer = (state = defaultState, action) => {
     case RECEIVE_APP_LIST_FORBIDDEN:
       return { ...state, isFetching: false }
     case SET_INFOS:
-      return { ...state, appName: action.appName, appNamePrefix: action.appNamePrefix }
+      return { ...state, appName: action.appName, appNamePrefix: action.appNamePrefix, appSlug: action.appSlug }
     default:
       return state
   }

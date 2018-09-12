@@ -120,6 +120,11 @@ const getAppNamePrefix = () => {
   return appNode.dataset.cozyAppNamePrefix || appNode.dataset.cozyAppEditor || undefined
 }
 
+const getAppSlug = () => {
+  const appNode = document.querySelector(APP_SELECTOR)
+  return appNode.dataset.cozyAppSlug
+}
+
 const getUserActionRequired = () => {
   const meta = document.querySelector('meta[name=user-action-required]')
   const data = meta && meta.dataset
@@ -135,6 +140,7 @@ const getUserActionRequired = () => {
 const init = ({
   appName,
   appNamePrefix = getAppNamePrefix(),
+  appSlug = getAppSlug(),
   lang,
   iconPath = getDefaultIcon(),
   cozyURL = getDefaultStackURL(),
@@ -154,7 +160,7 @@ const init = ({
     if (__TARGET__ === 'mobile') console.warn('Deprecated: cozy-bar option `displayOnMobile` automatically set to `false`, but `true` will be the new default value in the next version. Please explicitly set the option to `false`.')
   }
 
-  reduxStore.dispatch(setInfos(appName, appNamePrefix))
+  reduxStore.dispatch(setInfos(appName, appNamePrefix, appSlug))
   stack.init({cozyURL, token})
   if (lang) {
     reduxStore.dispatch(setLocale(lang))
