@@ -11,6 +11,7 @@ import { shouldEnableTracking, getTracker, configureTracker } from 'cozy-ui/reac
 import Banner from 'components/Banner'
 import Drawer from 'components/Drawer'
 import Settings from 'components/Settings'
+import Apps from 'components/Apps'
 import SearchBar from 'components/SearchBar'
 import Claudy from 'components/Claudy'
 import SupportModal from 'components/SupportModal'
@@ -85,11 +86,12 @@ class Bar extends Component {
   renderCenter () {
     const { appName, appNamePrefix, iconPath, replaceTitleOnMobile } = this.props
     return (
-      <h1 className={`coz-bar-title ${replaceTitleOnMobile ? 'coz-bar-hide-sm' : ''}`}>
-        <img className='coz-bar-hide-sm' src={iconPath} width='32' alt='' />
-        {appNamePrefix && <span className='coz-bar-hide-sm'>{appNamePrefix}</span>}
-        <strong>{appName}</strong>
-      </h1>
+      <Apps
+        appName={appName}
+        appNamePrefix={appNamePrefix}
+        iconPath={iconPath}
+        replaceTitleOnMobile={replaceTitleOnMobile}
+      />
     )
   }
 

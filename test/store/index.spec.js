@@ -2,7 +2,6 @@ import createStore from 'lib/store'
 import {
   isAppListFetching,
   getApps,
-  setInfos,
   hasFetched
 } from 'lib/reducers'
 
@@ -19,7 +18,7 @@ describe('store', () => {
     expect(isAppListFetching(getState())).toBe(false)
     store.dispatch({ type: 'FETCH_APPS' })
     expect(isAppListFetching(getState())).toBe(true)
-    store.dispatch({ type: 'RECEIVE_APP_LIST' })
+    store.dispatch({ type: 'RECEIVE_APP_LIST', apps: [] })
     expect(isAppListFetching(getState())).toBe(false)
   })
 
@@ -32,25 +31,7 @@ describe('store', () => {
 
   it('should remember it has fetched (ok case)', () => {
     expect(hasFetched(getState())).toEqual(false)
-    store.dispatch({ type: 'RECEIVE_APP_LIST' })
+    store.dispatch({ type: 'RECEIVE_APP_LIST', apps: [] })
     expect(hasFetched(getState())).toEqual(true)
-  })
-
-  it('should remember it has fetched (bad case)', () => {
-    expect(hasFetched(getState())).toEqual(false)
-    store.dispatch({ type: 'RECEIVE_APP_LIST_FORBIDDEN' })
-    expect(hasFetched(getState())).toEqual(false)
-  })
-
-  it('should not return current app on mobile', () => {
-    const apps = [
-      { slug: 'drive', appName: 'Cozy Drive', comingSoon: true, name_prefix: 'cozydrive://' },
-      {slug: 'banks'}
-    ]
-    const onMobile = true
-    store.dispatch(setInfos('Cozy Drive', 'cozydrive://'))
-    expect(getApps(getState(), onMobile)).toEqual([])
-    store.dispatch({ type: 'RECEIVE_APP_LIST', apps: apps })
-    expect(getApps(getState(), onMobile)).toEqual([apps[1]])
   })
 })

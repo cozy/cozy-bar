@@ -1,27 +1,19 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import { translate } from 'cozy-ui/react/I18n'
-import { fetchApps } from '../lib/reducers'
+import { fetchApps } from 'lib/reducers'
 
 import AppsContent from './AppsContent'
-import Settings from './Settings'
+import AppNavButtons from './AppNavButtons'
 
 const BUSY_DELAY = 450
 
 class Nav extends Component {
   constructor (props, context) {
     super(props)
-    this.barStore = context.barStore
     this.state = {
-      apps: {
-        busy: false,
-        opened: false
-      },
-      settings: {
-        busy: false,
-        opened: false
-      }
+      busy: false,
+      opened: false
     }
     this.toggleMenu = this.toggleMenu.bind(this)
   }
@@ -35,100 +27,38 @@ class Nav extends Component {
   }
 
   onClickOutside = event => {
-    if (this.state.apps.busy ||
-        this.state.apps.opened ||
-        this.state.settings.busy ||
-        this.state.settings.opened
-    ) {
+    if (this.state.busy || this.state.opened) {
       // if it's not a cozy-bar nav popup, close the opened popup
       if (!this.rootRef.contains(event.target)) {
-        this.setState({ // reset all
-          apps: {busy: false, opened: false},
-          settings: {busy: false, opened: false}
-        })
+        this.setState({busy: false, opened: false})
       }
       event.stopPropagation()
     }
   }
 
-  async toggleMenu (slug) {
-    let stateUpdate = { // reset all
-      apps: {busy: false, opened: false},
-      settings: {busy: false, opened: false}
-    }
+  toggleMenu = async () => {
+    let stateUpdate = {busy: false, opened: false}
     // if popup already opened, stop here to close it
-    if (this.state[slug].opened) return this.setState(stateUpdate)
-    this.setState(stateUpdate)
+    if (this.state.opened) return this.setState(stateUpdate)
     // display the loading spinner after BUSY_DELAY secs
     const busySpinner =
-      setTimeout(() => this.setState({ [slug]: {busy: true} }), BUSY_DELAY)
+    setTimeout(() => this.setState({busy: true}), BUSY_DELAY)
     // fetch data
-    switch (slug) {
-      case 'apps':
-        await this.props.fetchApps()
-        clearTimeout(busySpinner)
-        this.setState({
-          apps: {busy: false, opened: true}
-        })
-        break
-      case 'settings':
-        await this.barStore.fetchSettingsData()
-        clearTimeout(busySpinner)
-        this.setState({
-          settings: {busy: false, opened: true}
-        })
-        break
-    }
+    await this.props.fetchApps()
+    clearTimeout(busySpinner)
+    this.setState({busy: false, opened: true})
   }
 
   // data-tutorial attribute allows to be targeted in an application tutorial
   render () {
-    const { t, toggleSupport, onLogOut } = this.props
-    const { apps, settings } = this.state
-    const { settingsData } = this.barStore
+    const { replaceTitleOnMobile, appName, appNamePrefix, iconPath } = this.props
+    const { busy, opened } = this.state
     return (
-      <nav className='coz-nav' ref={(ref) => { this.rootRef = ref }}>
-        <ul>
-          <li className='coz-nav-section'>
-            <button
-              type='button'
-              onClick={() => this.toggleMenu('apps')}
-              aria-controls='coz-nav-pop--apps' aria-busy={apps.busy}
-              data-icon='icon-apps'
-              data-tutorial='apps'
-            >
-              {t('menu.apps')}
-            </button>
-            <div className='coz-nav-pop coz-nav-pop--apps' id='coz-nav-pop--apps' aria-hidden={!apps.opened}>
-              <AppsContent />
-            </div>
-          </li>
-          <li className='coz-nav-section'>
-            <button
-              type='button'
-              onClick={() => this.toggleMenu('settings')}
-              aria-controls='coz-nav-pop--settings' aria-busy={settings.busy}
-              data-icon='icon-cog'
-            >
-              {t('menu.settings')}
-            </button>
-            <div className='coz-nav-pop coz-nav-pop--settings' id='coz-nav-pop--settings' aria-hidden={!settings.opened}>
-              {settingsData &&
-                <Settings
-                  onLogOut={() => {
-                    if (onLogOut && typeof onLogOut === 'function') {
-                      onLogOut()
-                    } else {
-                      this.barStore.logout()
-                    }
-                  }}
-                  toggleSupport={toggleSupport}
-                  settingsData={settingsData}
-                />
-              }
-            </div>
-          </li>
-        </ul>
+      <nav className={`coz-nav coz-nav-apps${replaceTitleOnMobile ? ' coz-bar-hide-sm' : ''}`} ref={(ref) => { this.rootRef = ref }}>
+        <AppNavButtons appName={appName} appNamePrefix={appNamePrefix} iconPath={iconPath} busy={busy} onClick={this.toggleMenu} opened={opened} />
+        <div className='coz-nav-pop coz-nav-pop--apps' id='coz-nav-pop--apps' aria-hidden={!opened}>
+          <AppsContent />
+        </div>
       </nav>
     )
   }
@@ -140,4 +70,4 @@ const mapDispatchToProps = dispatch => ({
   fetchApps: () => dispatch(fetchApps())
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(translate()(Nav))
+export default connect(mapStateToProps, mapDispatchToProps)(Nav)

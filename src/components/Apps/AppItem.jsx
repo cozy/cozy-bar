@@ -71,11 +71,16 @@ export class AppItem extends React.Component {
       href = '#'
     }
 
+    if (app.isCurrentApp) { // disabled for current app
+      onClick = null
+      href = null
+    }
+
     return (
-      <li className='coz-nav-item'>
+      <li className={`coz-nav-apps-item${app.isCurrentApp ? ' --current' : ''}`}>
         <a role='menuitem' href={href} data-icon={dataIcon} title={label} onClick={onClick}>
           {iconSrc &&
-            <img src={iconSrc} alt='' width='64' height='64' className={blurry && 'blurry'} />
+            <img src={iconSrc} alt='' width='32' height='32' className={blurry && 'blurry'} />
           }
           <p className='coz-label'>{label}</p>
         </a>

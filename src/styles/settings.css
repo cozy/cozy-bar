@@ -1,0 +1,42 @@
+[role=banner] .coz-nav .coz-nav-settings-btn {
+  display: flex;
+  align-items: baseline;
+  padding: 1rem 1rem;
+  font-size: .875em;
+  text-transform: uppercase;
+  color: var(--slate-grey);
+  cursor: pointer;
+  text-decoration: none;
+  border: none;
+  background-color: transparent;
+  line-height: 1rem;
+}
+
+[role=banner] .coz-nav .coz-nav-settings-btn:hover,
+[role=banner] .coz-nav .coz-nav-settings-btn:focus {
+  background-color: var(--pale-grey);
+  box-shadow: inset 0 -1px 0 0 var(--silver);
+  color: var(--charcoal-grey);
+}
+
+[role=banner] .coz-nav .coz-nav-pop--settings {
+  right: 0;
+}
+
+[role=banner] .coz-nav-settings-item [role=menuitem] {
+  position: relative;
+  z-index: 0;
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  padding: .8em 1.5em .8em calc(1.5em + 16px + .5em);
+  border: none;
+  align-items: center;
+  background-position: 1.5em 50%;
+  background-color: transparent;
+  text-align: left;
+  white-space: nowrap;
+  color: var(--charcoal-grey);
+  text-decoration: none;
+  outline: none;
+}

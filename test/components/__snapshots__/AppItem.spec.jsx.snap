@@ -34,9 +34,9 @@ ShallowWrapper {
         <img
           alt=""
           className="blurry"
-          height="64"
+          height="32"
           src="test-file-stub"
-          width="64"
+          width="32"
         />
         <p
           className="coz-label"
@@ -44,7 +44,7 @@ ShallowWrapper {
           Drive
         </p>
       </a>,
-      "className": "coz-nav-item",
+      "className": "coz-nav-apps-item",
     },
     "ref": null,
     "rendered": Object {
@@ -56,9 +56,9 @@ ShallowWrapper {
           <img
             alt=""
             className="blurry"
-            height="64"
+            height="32"
             src="test-file-stub"
-            width="64"
+            width="32"
           />,
           <p
             className="coz-label"
@@ -81,9 +81,9 @@ ShallowWrapper {
           "props": Object {
             "alt": "",
             "className": "blurry",
-            "height": "64",
+            "height": "32",
             "src": "test-file-stub",
-            "width": "64",
+            "width": "32",
           },
           "ref": null,
           "rendered": null,
@@ -122,9 +122,9 @@ ShallowWrapper {
           <img
             alt=""
             className="blurry"
-            height="64"
+            height="32"
             src="test-file-stub"
-            width="64"
+            width="32"
           />
           <p
             className="coz-label"
@@ -132,7 +132,7 @@ ShallowWrapper {
             Drive
           </p>
         </a>,
-        "className": "coz-nav-item",
+        "className": "coz-nav-apps-item",
       },
       "ref": null,
       "rendered": Object {
@@ -144,9 +144,9 @@ ShallowWrapper {
             <img
               alt=""
               className="blurry"
-              height="64"
+              height="32"
               src="test-file-stub"
-              width="64"
+              width="32"
             />,
             <p
               className="coz-label"
@@ -169,9 +169,9 @@ ShallowWrapper {
             "props": Object {
               "alt": "",
               "className": "blurry",
-              "height": "64",
+              "height": "32",
               "src": "test-file-stub",
-              "width": "64",
+              "width": "32",
             },
             "ref": null,
             "rendered": null,
