@@ -27,17 +27,15 @@ const Settings = ({ t, onLogOut, settingsData, onClaudy, isDrawer = false, isCla
             <p className='coz-label'>{t('connectedDevices')}</p>
           </a>
         </li>
-        <hr />
       </ul>
     }
     {isDrawer && onClaudy && __TARGET__ !== 'mobile' &&
       <ul className='coz-nav-group'>
         <li className='coz-nav-item'>
-          <button role='menuitem' data-icon='icon-claudy' aria-busy={isClaudyLoading} onClick={onClaudy} title={t('claudy.title')}>
+          <button type='button' role='menuitem' data-icon='icon-claudy' aria-busy={isClaudyLoading} onClick={onClaudy} title={t('claudy.title')}>
             {t('claudy.title')}
           </button>
         </li>
-        <hr />
       </ul>
     }
     {!isDrawer && settingsData.storageData &&
@@ -54,22 +52,20 @@ const Settings = ({ t, onLogOut, settingsData, onClaudy, isDrawer = false, isCla
             <StorageData data={settingsData.storageData} />
           </a>
         </li>
-        <hr />
       </ul>
     }
     {__TARGET__ !== 'mobile' &&
       <ul className='coz-nav-group'>
         <li className='coz-nav-item'>
-          <button role='menuitem' onClick={toggleSupport} data-icon='icon-help' title={t('help')}>
+          <button type='button' role='menuitem' onClick={toggleSupport} data-icon='icon-help' title={t('help')}>
             {t('help')}
           </button>
         </li>
-        <hr />
       </ul>
     }
     <ul className='coz-nav-group'>
       <li className='coz-nav-item'>
-        <button role='menuitem' data-icon='icon-logout' onClick={onLogOut} title={t('logout')}>
+        <button type='button' role='menuitem' data-icon='icon-logout' onClick={onLogOut} title={t('logout')}>
           {t('logout')}
         </button>
       </li>

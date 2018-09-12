@@ -45,7 +45,7 @@ class Claudy extends Component {
     const { isLoading, isActive } = this.state
     return (
       <div className={`coz-claudy ${opened ? 'coz-claudy--opened' : ''}`}>
-        <button className='coz-claudy-icon coz-bar-hide-sm' data-claudy-opened={isActive} data-claudy-loading={isLoading} onClick={this.toggle} />
+        <button type='button' className='coz-claudy-icon coz-bar-hide-sm' data-claudy-opened={isActive} data-claudy-loading={isLoading} onClick={this.toggle} />
         <div
           className='coz-claudy-intent-wrapper'
           ref={(wrapper) => { this.intentWrapperRef = wrapper }}

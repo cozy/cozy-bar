@@ -256,7 +256,7 @@ class SearchBar extends Component {
     }
 
     return (
-      <div className='coz-searchbar'>
+      <div className='coz-searchbar' role='search'>
         {sourceURLs.map(url => (
           <iframe src={url} style={{display: 'none'}} />
         ))}

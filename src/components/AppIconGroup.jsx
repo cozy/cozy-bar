@@ -9,7 +9,6 @@ export const AppIconGroup = ({ t, category, children, wrapping = false, blurry =
     `}>
       {children}
     </ul>
-    <hr />
   </div>
 )
 
