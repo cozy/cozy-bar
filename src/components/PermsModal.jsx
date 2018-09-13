@@ -13,9 +13,8 @@ export const PermsModal = ({ t, currentApp, onAuthorizeClick }) => (
       <Button
         theme='regular'
         onClick={onAuthorizeClick}
-      >
-        {t('permsModal.button')}
-      </Button>
+        label={t('permsModal.button')}
+      />
     </div>
   </div>
 )

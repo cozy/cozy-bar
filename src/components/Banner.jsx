@@ -31,9 +31,8 @@ class Banner extends Component {
           className='coz-bar-banner-button'
           size='tiny'
           href={links}
-        >
-          {t(`banner.${code}.CTA`)}
-        </ButtonLink>
+          label={t(`banner.${code}.CTA`)}
+        />
       </div>
     )
   }
