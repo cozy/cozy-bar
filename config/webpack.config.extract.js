@@ -1,6 +1,6 @@
 'use strict'
 
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const { filename } = require('./webpack.vars.js')
 
 module.exports = {
@@ -12,51 +12,54 @@ module.exports = {
       {
         test: /\.styl$/,
         exclude: /cozy-ui\/react/,
-        loader: ExtractTextPlugin.extract({
-          use: [
-            {
-              loader: 'css-loader',
-              options: { importLoaders: 1, sourceMap: true }
-            },
-            {
-              loader: 'postcss-loader',
-              options: { sourceMap: true }
-            },
-            {
-              loader: 'stylus-loader',
-              options: { paths: 'node_modules/cozy-ui/stylus/' }
-            }
-          ]
-        })
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: { importLoaders: 1, sourceMap: true }
+          },
+          {
+            loader: 'postcss-loader',
+            options: { sourceMap: true }
+          },
+          {
+            loader: 'stylus-loader',
+            options: { paths: 'node_modules/cozy-ui/stylus/' }
+          }
+        ]
       },
       {
         test: /\.styl$/,
         include: /cozy-ui\/react/,
-        loader: ExtractTextPlugin.extract({
-          use: [
-            {
-              loader: 'css-loader',
-              options: {
-                importLoaders: 1,
-                sourceMap: true,
-                modules: true,
-                localIdentName: '[local]--[hash: base64:5]'
-              }
-            },
-            {
-              loader: 'postcss-loader',
-              options: { sourceMap: true }
-            },
-            {
-              loader: 'stylus-loader',
-              options: { paths: 'node_modules/cozy-ui/stylus/' }
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: {
+              importLoaders: 1,
+              sourceMap: true,
+              modules: true,
+              localIdentName: '[local]--[hash: base64:5]'
             }
-          ]
-        })
+          },
+          {
+            loader: 'postcss-loader',
+            options: { sourceMap: true }
+          },
+          {
+            loader: 'stylus-loader',
+            options: { paths: 'node_modules/cozy-ui/stylus/' }
+          }
+        ]
       }
     ]
   },
   plugins: [
-    new ExtractTextPlugin(filename('css'))
+    new MiniCssExtractPlugin({
+      // Options similar to the same options in webpackOptions.output
+      // both options are optional
+      filename: filename('css'),
+      chunkFilename: filename('css', '[name].[id]')
+    })
   ]
 }
