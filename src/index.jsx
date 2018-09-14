@@ -117,7 +117,7 @@ const getDefaultIcon = () => {
 
 const getAppNamePrefix = () => {
   const appNode = document.querySelector(APP_SELECTOR)
-  return appNode.dataset.cozyAppNamePrefix || appNode.dataset.cozyAppEditor || undefined
+  return appNode.dataset.cozyAppNamePrefix || null
 }
 
 const getAppSlug = () => {
