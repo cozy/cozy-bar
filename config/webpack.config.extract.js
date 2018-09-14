@@ -2,6 +2,7 @@
 
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const { filename } = require('./webpack.vars.js')
+const webpack = require('webpack')
 
 module.exports = {
   resolve: {
@@ -23,8 +24,7 @@ module.exports = {
             options: { sourceMap: true }
           },
           {
-            loader: 'stylus-loader',
-            options: { paths: 'node_modules/cozy-ui/stylus/' }
+            loader: 'stylus-loader'
           }
         ]
       },
@@ -47,8 +47,7 @@ module.exports = {
             options: { sourceMap: true }
           },
           {
-            loader: 'stylus-loader',
-            options: { paths: 'node_modules/cozy-ui/stylus/' }
+            loader: 'stylus-loader'
           }
         ]
       }
@@ -60,6 +59,13 @@ module.exports = {
       // both options are optional
       filename: filename('css'),
       chunkFilename: filename('css', '[name].[id]')
+    }),
+    new webpack.LoaderOptionsPlugin({
+      options: {
+        stylus: {
+          use: [ require('cozy-ui/stylus')() ]
+        }
+      }
     })
   ]
 }
