@@ -15,7 +15,7 @@ module.exports = {
   },
   resolve: {
     extensions: ['.js', '.json', '.yaml'],
-    modules: ['node_modules', SRC_DIR]
+    modules: [path.join(__dirname, '../node_modules'), SRC_DIR]
   },
   devtool: '#source-map',
   module: {
