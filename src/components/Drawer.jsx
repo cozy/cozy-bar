@@ -3,10 +3,10 @@ import { connect } from 'react-redux'
 import Hammer from 'hammerjs'
 import Spinner from 'cozy-ui/react/Spinner'
 
-import { fetchApps, isAppListFetching, hasFetched } from '../lib/reducers'
+import { fetchApps, isAppListFetching, hasFetched } from 'lib/reducers'
 
-import AppsContent from './Apps/AppsContent'
-import SettingsContent from './Settings/SettingsContent'
+import AppsContent from 'components/Apps/AppsContent'
+import SettingsContent from 'components/Settings/SettingsContent'
 
 class Drawer extends Component {
   constructor (props, context) {
