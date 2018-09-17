@@ -1,5 +1,7 @@
 'use strict'
 
+const webpack = require('webpack')
+
 module.exports = {
   resolve: {
     extensions: ['.styl']
@@ -21,10 +23,18 @@ module.exports = {
           options: { sourceMap: true }
         },
         {
-          loader: 'stylus-loader',
-          options: { paths: 'node_modules/cozy-ui/stylus/' }
+          loader: 'stylus-loader'
         }
       ]
     }]
-  }
+  },
+  plugins: [
+    new webpack.LoaderOptionsPlugin({
+      options: {
+        stylus: {
+          use: [ require('cozy-ui/stylus')() ]
+        }
+      }
+    })
+  ]
 }
