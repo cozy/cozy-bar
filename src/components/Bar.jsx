@@ -10,7 +10,8 @@ import { shouldEnableTracking, getTracker, configureTracker } from 'cozy-ui/reac
 
 import Banner from 'components/Banner'
 import Drawer from 'components/Drawer'
-import Nav from 'components/Nav'
+import Settings from 'components/Settings'
+import Apps from 'components/Apps'
 import SearchBar from 'components/SearchBar'
 import Claudy from 'components/Claudy'
 import SupportModal from 'components/SupportModal'
@@ -85,11 +86,12 @@ class Bar extends Component {
   renderCenter () {
     const { appName, appNamePrefix, iconPath, replaceTitleOnMobile } = this.props
     return (
-      <h1 className={`coz-bar-title ${replaceTitleOnMobile ? 'coz-bar-hide-sm' : ''}`}>
-        <img className='coz-bar-hide-sm' src={iconPath} width='32' alt='' />
-        {appNamePrefix && <span className='coz-bar-hide-sm'>{appNamePrefix}</span>}
-        <strong>{appName}</strong>
-      </h1>
+      <Apps
+        appName={appName}
+        appNamePrefix={appNamePrefix}
+        iconPath={iconPath}
+        replaceTitleOnMobile={replaceTitleOnMobile}
+      />
     )
   }
 
@@ -102,11 +104,10 @@ class Bar extends Component {
   }
 
   renderRight = () => {
-    const { displayOnMobile, isPublic, renewToken } = this.props
+    const { displayOnMobile, isPublic } = this.props
     return (__TARGET__ !== 'mobile' || displayOnMobile) && !isPublic
-      ? <Nav
+      ? <Settings
         toggleSupport={this.toggleSupport}
-        renewToken={renewToken}
         onLogOut={this.props.onLogOut}
       />
       : null
@@ -122,7 +123,7 @@ class Bar extends Component {
       supportDisplayed,
       usageTracker
     } = this.state
-    const { barLeft, barRight, barCenter, onDrawer, displayOnMobile, isPublic, renewToken, onLogOut, userActionRequired } = this.props
+    const { barLeft, barRight, barCenter, onDrawer, displayOnMobile, isPublic, onLogOut, userActionRequired } = this.props
     return (
       <div className='coz-bar-wrapper'>
         <div className='coz-bar-container'>
@@ -138,7 +139,6 @@ class Bar extends Component {
               onClaudy={(claudyEnabled && (() => this.toggleClaudy(true))) || false}
               isClaudyLoading={claudyFired}
               drawerListener={() => onDrawer(this.state.drawerVisible)}
-              renewToken={renewToken}
               toggleSupport={this.toggleSupport}
               onLogOut={onLogOut} /> : null }
           { claudyEnabled &&

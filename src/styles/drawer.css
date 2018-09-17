@@ -85,49 +85,35 @@
   position: relative;
 }
 
-[role=banner] .coz-drawer--apps ul {
-  padding: 0 .5em .5em .5em;
+[role=banner] .coz-drawer--apps .coz-nav-pop-content .coz-nav-group {
+  padding-left: 1rem;
   display: flex;
+  flex-direction: column;
 }
 
 [role=banner] .coz-drawer--apps ul li {
-  flex: 0 0 calc(100% /4);
-  max-width: calc(100% / 4);
+  flex: 0 0 100%;
+  max-width: 100%;
 }
 
 [role=banner] .coz-drawer--apps ul:last-of-type + hr {
   display: none;
 }
 
-[role=banner] .coz-drawer--apps ul.coz-nav-group--wrapping {
-  flex-wrap: wrap;
-}
-
 [role=banner] .coz-drawer--apps [role=menuitem] {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   padding: .3em .3em;
   border-radius: 2px;
+  height: 3rem;
 }
 
-[role=banner] .coz-drawer--apps [role=menuitem].coz-bar-coming-soon-app .coz-bar-coming-soon-badge {
-  right: 1.5em;
-  bottom: 3.8em;
+[role=banner] .coz-drawer--apps .coz-nav-item img {
+  width: 2rem;
+  margin-right: .5rem;
+  max-height: 2rem;
 }
 
-[role=banner] .coz-drawer--apps li img {
-  width: 3em;
-}
-
-[role=banner] .coz-drawer--apps li p.coz-label {
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  min-width: 0;
-  width: 100%;
-  text-align: center;
-  font-size: 12px;
-}
 
 [role=banner] .coz-drawer--apps .coz-nav-category {
   font-size: 1em;

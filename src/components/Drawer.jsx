@@ -5,8 +5,8 @@ import Spinner from 'cozy-ui/react/Spinner'
 
 import { fetchApps, isAppListFetching, hasFetched } from '../lib/reducers'
 
-import AppsList from './AppsList'
-import Settings from './Settings'
+import AppsContent from './Apps/AppsContent'
+import SettingsContent from './Settings/SettingsContent'
 
 class Drawer extends Component {
   constructor (props, context) {
@@ -147,7 +147,7 @@ class Drawer extends Component {
   }
 
   render () {
-    const { onClaudy, visible, isClaudyLoading, toggleSupport, renewToken, onLogOut, showSpinner } = this.props
+    const { onClaudy, visible, isClaudyLoading, toggleSupport, onLogOut, showSpinner } = this.props
     const { settingsData } = this.store
     return (
       <div className='coz-drawer-wrapper'
@@ -162,17 +162,14 @@ class Drawer extends Component {
                 <Spinner size='xlarge' middle />
               )
               : (
-                <AppsList
-                  wrappingLimit={3}
-                  renewToken={renewToken}
-                />
+                <AppsContent />
               )
             }
           </nav>
           <hr className='coz-sep-flex' />
           <nav className='coz-drawer--settings'>
             {settingsData &&
-              <Settings
+              <SettingsContent
                 onLogOut={() => {
                   if (onLogOut && typeof onLogOut === 'function') {
                     onLogOut()
