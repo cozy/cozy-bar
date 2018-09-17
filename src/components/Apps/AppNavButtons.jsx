@@ -14,9 +14,11 @@ class AppNavButton extends Component {
 
     return (
       <div className={`coz-nav-apps-btns${isHomeApp ? ' --currentHome' : ''}`}>
-        <a href={homeApp.href} className='coz-nav-apps-btns-home'>
-          <img src={homeIcon} />
-        </a>
+        {homeApp &&
+          <a href={homeApp.href} className='coz-nav-apps-btns-home'>
+            <img src={homeIcon} />
+          </a>
+        }
         {!isHomeApp && <span className='coz-nav-apps-btns-sep' />}
         <button
           type='button'
