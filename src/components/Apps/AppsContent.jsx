@@ -6,7 +6,7 @@ import { ButtonLink } from 'cozy-ui/react/Button'
 import withBreakpoints from 'cozy-ui/react/helpers/withBreakpoints'
 import { getApps, fetchApps, getHomeApp } from 'lib/reducers'
 
-import AppItem from './AppItem'
+import AppItem from 'components/Apps/AppItem'
 import cozyIcon from 'assets/icons/16/icon-cozy-16.svg'
 
 class AppsContent extends Component {

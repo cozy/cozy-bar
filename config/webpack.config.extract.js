@@ -3,6 +3,7 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const { filename } = require('./webpack.vars.js')
 const webpack = require('webpack')
+const path = require('path')
 
 module.exports = {
   resolve: {
@@ -21,7 +22,12 @@ module.exports = {
           },
           {
             loader: 'postcss-loader',
-            options: { sourceMap: true }
+            options: {
+              config: {
+                path: path.join(__dirname, '../postcss.config.js')
+              },
+              sourceMap: true
+            }
           },
           {
             loader: 'stylus-loader'
@@ -44,7 +50,12 @@ module.exports = {
           },
           {
             loader: 'postcss-loader',
-            options: { sourceMap: true }
+            options: {
+              config: {
+                path: path.join(__dirname, '../postcss.config.js')
+              },
+              sourceMap: true
+            }
           },
           {
             loader: 'stylus-loader'

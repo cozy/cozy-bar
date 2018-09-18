@@ -3,8 +3,8 @@ import { connect } from 'react-redux'
 
 import { fetchApps } from 'lib/reducers'
 
-import AppsContent from './AppsContent'
-import AppNavButtons from './AppNavButtons'
+import AppsContent from 'components/Apps/AppsContent'
+import AppNavButtons from 'components/Apps/AppNavButtons'
 
 const BUSY_DELAY = 450
 

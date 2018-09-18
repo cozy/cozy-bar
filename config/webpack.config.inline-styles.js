@@ -20,7 +20,12 @@ module.exports = {
         },
         {
           loader: 'postcss-loader',
-          options: { sourceMap: true }
+          options: {
+            config: {
+              path: path.join(__dirname, '../postcss.config.js')
+            },
+            sourceMap: true
+          }
         },
         {
           loader: 'stylus-loader'
