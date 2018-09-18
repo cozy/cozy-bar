@@ -18,8 +18,8 @@
   background-color: var(--dodger-blue);
   background-image: url('../assets/icons/32/icon-claudy.svg');
   background-repeat: no-repeat;
-  background-size: 2.5em;
-  background-position: .5em;
+  background-size: 2em;
+  background-position: .75em;
   box-shadow: 0 1px 3px 0 rgba(50, 54, 63, 0.19), 0 6px 18px 0 rgba(50, 54, 63, 0.39);
   animation: none;
   cursor: pointer;
