@@ -13,6 +13,7 @@ class AppsContent extends Component {
   render () {
     const { t, apps, homeApp, breakpoints } = this.props
     const { isMobile } = breakpoints
+    const isHomeApp = homeApp && homeApp.isCurrentApp
 
     if (!apps || !homeApp || apps.length === 0) {
       return <p className='coz-nav--error coz-nav-group'>{t('no_apps')}</p>
@@ -23,7 +24,7 @@ class AppsContent extends Component {
         <ul className='coz-nav-group'>
           {apps.map(app => <AppItem app={app} />)}
         </ul>
-        {homeApp && (
+        {homeApp && !isHomeApp && (
           isMobile ? (
             <ButtonLink
               role='menuitem'
