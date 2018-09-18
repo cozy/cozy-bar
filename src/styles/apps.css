@@ -37,6 +37,8 @@
 }
 
 [role=banner] .coz-nav .coz-nav-apps-btns-home {
+  width: 2rem;
+  height: 2rem;
   margin-right: .75rem;
 }
 
@@ -96,12 +98,12 @@
 
 [role=banner] .coz-nav-apps-item:first-of-type [role=menuitem] {
   height: 3.5rem;
-  padding-top: 1rem;
+  margin-top: .5rem;
 }
 
 [role=banner] .coz-nav-apps-item:last-of-type [role=menuitem] {
   height: 3.5rem;
-  padding-bottom: 1rem;
+  margin-bottom: .5rem;
 }
 
 [role=banner] .coz-nav-apps-item [role=menuitem] img {
