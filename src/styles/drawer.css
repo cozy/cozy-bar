@@ -86,7 +86,6 @@
 }
 
 [role=banner] .coz-drawer--apps .coz-nav-pop-content .coz-nav-group {
-  padding-left: 1rem;
   display: flex;
   flex-direction: column;
 }
@@ -103,7 +102,7 @@
 [role=banner] .coz-drawer--apps [role=menuitem] {
   display: flex;
   flex-direction: row;
-  padding: .3em .3em;
+  padding: .3em .3em .3em 1.3em;
   border-radius: 2px;
   height: 3rem;
 }
