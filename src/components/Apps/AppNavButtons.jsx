@@ -4,21 +4,20 @@ import { connect } from 'react-redux'
 import { getHomeApp } from 'lib/reducers'
 
 import Icon from 'cozy-ui/react/Icon'
+import { translate } from 'cozy-ui/react/I18n'
 import homeIcon from 'assets/icons/icon-cozy-home.svg'
 
 class AppNavButton extends Component {
   render () {
-    const { homeApp, busy, onClick, appName, appNamePrefix, iconPath, opened } = this.props
+    const { homeApp, busy, onClick, appName, appNamePrefix, iconPath, opened, t } = this.props
 
     const isHomeApp = homeApp && homeApp.isCurrentApp
 
     return (
       <div className={`coz-nav-apps-btns${isHomeApp ? ' --currentHome' : ''}`}>
-        {homeApp &&
-          <a href={homeApp.href} className='coz-nav-apps-btns-home'>
-            <img src={homeIcon} />
-          </a>
-        }
+        <a href={homeApp && homeApp.href} className='coz-nav-apps-btns-home'>
+          <img src={homeIcon} />
+        </a>
         {!isHomeApp && <span className='coz-nav-apps-btns-sep' />}
         <button
           type='button'
@@ -29,7 +28,10 @@ class AppNavButton extends Component {
         >
           {!isHomeApp && <img className='coz-bar-hide-sm' src={iconPath} width='28' alt='' />}
           <span className='coz-nav-app-name'>
-            {appNamePrefix ? `${appNamePrefix} ${appName}` : appName}
+            {isHomeApp
+              ? t('menu.home_title')
+              : appNamePrefix ? `${appNamePrefix} ${appName}` : appName
+            }
           </span>
           {<Icon icon={opened ? 'top' : 'bottom'} color='#95999d' size='12' />}
         </button>
@@ -44,4 +46,4 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({})
 
-export default connect(mapStateToProps, mapDispatchToProps)(AppNavButton)
+export default connect(mapStateToProps, mapDispatchToProps)(translate()(AppNavButton))

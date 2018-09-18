@@ -15,7 +15,8 @@
     "apps": "Apps",
     "settings": "Settings",
     "home_mobile": "Back to home...",
-    "home": "Back to home"
+    "home": "Back to home",
+    "home_title": "Home"
   },
 
   "Categories": {

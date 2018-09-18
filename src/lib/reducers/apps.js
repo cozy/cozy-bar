@@ -72,10 +72,10 @@ export const fetchApps = () => async dispatch => {
 const setHomeApp = appsList => async dispatch => {
   return stack.get.context()
     .then(context => {
-      const homelink = context.data && context.data.attributes &&
+      const homeLink = context.data && context.data.attributes &&
       context.data.attributes.default_redirection
       const slugRegexp = /^([^/]+)\/.*/
-      const homeSlug = homelink && homelink.match(slugRegexp) && homelink.match(slugRegexp)[1]
+      const homeSlug = homeLink && homeLink.match(slugRegexp) && homeLink.match(slugRegexp)[1]
       if (!homeSlug) return appsList
       const homeApp = appsList.find(app => app.slug === homeSlug)
       return dispatch(receiveHomeApp(homeApp))
@@ -114,7 +114,12 @@ const reducer = (state = defaultState, action) => {
       })
       return { ...state, isFetching: false, hasFetched: true, apps: appsList }
     case RECEIVE_HOME_APP:
-      return { ...state, homeApp: action.homeApp }
+      const homeApp = action.homeApp
+      return isCurrentApp(state, homeApp)
+        ? {
+          ...state,
+          homeApp: {...homeApp, isCurrentApp: true}
+        } : { ...state, homeApp }
     case SET_INFOS:
       return { ...state, appName: action.appName, appNamePrefix: action.appNamePrefix, appSlug: action.appSlug }
     default:
