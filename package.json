@@ -111,7 +111,7 @@
   "bundlesize": [
     {
       "path": "./dist/cozy-bar.min.js",
-      "maxSize": "85 KB"
+      "maxSize": "90 KB"
     }
   ],
   "jest": {
