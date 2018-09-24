@@ -173,9 +173,9 @@ class Drawer extends Component {
                 onLogOut={() => {
                   if (onLogOut && typeof onLogOut === 'function') {
                     onLogOut()
-                  } else {
-                    this.store.logout()
                   }
+
+                  this.store.logout()
                 }}
                 settingsData={settingsData}
                 isClaudyLoading={isClaudyLoading}
