@@ -92,8 +92,16 @@ export default class BarStore {
     this.settingsData = { storageData, settingsAppURL, helpLink }
   }
 
-  logout () {
-    stack.logout()
+  async logout () {
+    this.settingsAppURL = ''
+    this.helpLink = ''
+    this.settingsData = null
+
+    try {
+      await stack.logout()
+    } catch (e) {
+      console.warn('Error while logging out in the cozy-bar', e)
+    }
   }
 }
 
