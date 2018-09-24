@@ -6,6 +6,7 @@ import withBreakpoints from 'cozy-ui/react/helpers/withBreakpoints'
 import { getApps, fetchApps, getHomeApp, isFetchingApps } from 'lib/reducers'
 
 import AppItem from 'components/Apps/AppItem'
+import AppItemPlaceholder from 'components/Apps/AppItemPlaceholder'
 import cozyIcon from 'assets/icons/16/icon-cozy-16.svg'
 import homeIcon from 'assets/icons/icon-cozy-home.svg'
 
@@ -18,7 +19,7 @@ class AppsContent extends Component {
   }
 
   render () {
-    const { t, apps, homeApp, breakpoints } = this.props
+    const { t, apps, breakpoints, homeApp, isFetchingApps } = this.props
     const { isMobile } = breakpoints
     const isHomeApp = homeApp && homeApp.isCurrentApp
     const homeAppWithIcon = Object.assign({}, homeApp, {
@@ -38,7 +39,11 @@ class AppsContent extends Component {
           {isMobile && homeApp && (
             <AppItem app={homeAppWithIcon} />
           )}
-          {apps.map(app => <AppItem app={app} />)}
+          {isFetchingApps
+            ? new Array(3)
+              .fill({})
+              .map((nothing, index) => <AppItemPlaceholder key={index} />)
+            : apps.map((app, index) => <AppItem app={app} key={index} />)}
         </ul>
         {homeApp && !isMobile && !isHomeApp && (
           <a role='menuitem' href={homeApp.href} className='coz-apps-home-btn'>
