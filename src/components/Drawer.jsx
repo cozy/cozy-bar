@@ -1,9 +1,5 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
 import Hammer from 'hammerjs'
-import Spinner from 'cozy-ui/react/Spinner'
-
-import { fetchApps, isAppListFetching, hasFetched } from 'lib/reducers'
 
 import AppsContent from 'components/Apps/AppsContent'
 import SettingsContent from 'components/Settings/SettingsContent'
@@ -36,7 +32,6 @@ class Drawer extends Component {
   }
 
   async componentWillMount () {
-    await this.props.fetchAppsList()
     await this.store.fetchSettingsData()
   }
 
@@ -46,7 +41,6 @@ class Drawer extends Component {
 
   async componentWillReceiveProps (nextProps) {
     if (!this.props.visible && nextProps.visible) {
-      this.props.fetchAppsList()
       this.store.fetchSettingsData()
     }
   }
@@ -147,7 +141,7 @@ class Drawer extends Component {
   }
 
   render () {
-    const { onClaudy, visible, isClaudyLoading, toggleSupport, onLogOut, showSpinner } = this.props
+    const { onClaudy, visible, isClaudyLoading, toggleSupport, onLogOut } = this.props
     const { settingsData } = this.store
     return (
       <div className='coz-drawer-wrapper'
@@ -157,14 +151,7 @@ class Drawer extends Component {
       >
         <aside ref={(node) => { this.asideRef = node }}>
           <nav className='coz-drawer--apps'>
-            {showSpinner
-              ? (
-                <Spinner size='xlarge' middle />
-              )
-              : (
-                <AppsContent />
-              )
-            }
+            <AppsContent />
           </nav>
           <hr className='coz-sep-flex' />
           <nav className='coz-drawer--settings'>
@@ -191,12 +178,4 @@ class Drawer extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  showSpinner: isAppListFetching(state) && !hasFetched(state)
-})
-
-const mapDispatchToProps = dispatch => ({
-  fetchAppsList: () => dispatch(fetchApps())
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(Drawer)
+export default Drawer

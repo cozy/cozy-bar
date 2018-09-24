@@ -10,6 +10,11 @@ import cozyIcon from 'assets/icons/16/icon-cozy-16.svg'
 import homeIcon from 'assets/icons/icon-cozy-home.svg'
 
 class AppsContent extends Component {
+  constructor (props, context) {
+    super(props, context)
+    this.props.fetchApps()
+  }
+
   render () {
     const { t, apps, homeApp, breakpoints } = this.props
     const { isMobile } = breakpoints

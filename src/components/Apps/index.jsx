@@ -1,12 +1,7 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
-
-import { fetchApps } from 'lib/reducers'
 
 import AppsContent from 'components/Apps/AppsContent'
 import AppNavButtons from 'components/Apps/AppNavButtons'
-
-const BUSY_DELAY = 450
 
 class Nav extends Component {
   constructor (props, context) {
@@ -36,17 +31,8 @@ class Nav extends Component {
     }
   }
 
-  toggleMenu = async () => {
-    let stateUpdate = {busy: false, opened: false}
-    // if popup already opened, stop here to close it
-    if (this.state.opened) return this.setState(stateUpdate)
-    // display the loading spinner after BUSY_DELAY secs
-    const busySpinner =
-    setTimeout(() => this.setState({busy: true}), BUSY_DELAY)
-    // fetch data
-    await this.props.fetchApps()
-    clearTimeout(busySpinner)
-    this.setState({busy: false, opened: true})
+  toggleMenu = () => {
+    this.setState({opened: !this.state.opened})
   }
 
   // data-tutorial attribute allows to be targeted in an application tutorial
@@ -64,10 +50,4 @@ class Nav extends Component {
   }
 }
 
-const mapStateToProps = state => ({})
-
-const mapDispatchToProps = dispatch => ({
-  fetchApps: () => dispatch(fetchApps())
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(Nav)
+export default Nav
