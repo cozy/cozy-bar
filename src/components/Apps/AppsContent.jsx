@@ -21,7 +21,7 @@ class AppsContent extends Component {
       }
     })
 
-    if (!apps || !homeApp || apps.length === 0) {
+    if (!apps || !apps.length) {
       return <p className='coz-nav--error coz-nav-group'>{t('no_apps')}</p>
     }
 
