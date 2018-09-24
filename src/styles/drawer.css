@@ -83,6 +83,7 @@
   overflow-y: scroll;
   touch-action: pan-y;
   position: relative;
+  overflow-x: hidden;
 }
 
 [role=banner] .coz-drawer--apps .coz-nav-pop-content .coz-nav-group {
