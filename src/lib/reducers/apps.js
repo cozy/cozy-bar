@@ -30,7 +30,7 @@ export const getHomeApp = state => {
   return state.homeApp
 }
 
-export const isAppListFetching = state => {
+export const isFetchingApps = state => {
   return state ? state.isFetching : false
 }
 
@@ -63,7 +63,7 @@ export const fetchApps = () => async dispatch => {
         : undefined
     }))
     await dispatch(setHomeApp(appsWithIcons))
-    dispatch(receiveAppList(appsWithIcons))
+    await dispatch(receiveAppList(appsWithIcons))
   } catch (e) {
     console.warn(e.message ? e.message : e)
   }

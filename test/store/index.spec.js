@@ -1,6 +1,6 @@
 import createStore from 'lib/store'
 import {
-  isAppListFetching,
+  isFetchingApps,
   getApps,
   hasFetched
 } from 'lib/reducers'
@@ -15,11 +15,11 @@ describe('store', () => {
   const getState = () => store.getState()
 
   it('should keep fetching status', () => {
-    expect(isAppListFetching(getState())).toBe(false)
+    expect(isFetchingApps(getState())).toBe(false)
     store.dispatch({ type: 'FETCH_APPS' })
-    expect(isAppListFetching(getState())).toBe(true)
+    expect(isFetchingApps(getState())).toBe(true)
     store.dispatch({ type: 'RECEIVE_APP_LIST', apps: [] })
-    expect(isAppListFetching(getState())).toBe(false)
+    expect(isFetchingApps(getState())).toBe(false)
   })
 
   it('should keep apps data', () => {

@@ -19,7 +19,7 @@ export const getContent = proxy('content', content.getContent)
 export const getLocale = proxy('locale', locale.getLocale)
 export const getApps = proxy('apps', apps.getApps)
 export const getHomeApp = proxy('apps', apps.getHomeApp)
-export const isAppListFetching = proxy('apps', apps.isAppListFetching)
+export const isFetchingApps = proxy('apps', apps.isFetchingApps)
 export const getCurrentApp = proxy('apps', apps.getCurrentApp)
 export const hasFetched = proxy('apps', apps.hasFetched)
 

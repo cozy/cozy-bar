@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 import { translate } from 'cozy-ui/react/I18n'
 import withBreakpoints from 'cozy-ui/react/helpers/withBreakpoints'
-import { getApps, fetchApps, getHomeApp } from 'lib/reducers'
+import { getApps, fetchApps, getHomeApp, isFetchingApps } from 'lib/reducers'
 
 import AppItem from 'components/Apps/AppItem'
 import cozyIcon from 'assets/icons/16/icon-cozy-16.svg'
@@ -12,7 +12,9 @@ import homeIcon from 'assets/icons/icon-cozy-home.svg'
 class AppsContent extends Component {
   constructor (props, context) {
     super(props, context)
-    this.props.fetchApps()
+    if (!this.props.isFetchingApps) {
+      this.props.fetchApps()
+    }
   }
 
   render () {
@@ -51,7 +53,8 @@ class AppsContent extends Component {
 
 const mapStateToProps = state => ({
   apps: getApps(state),
-  homeApp: getHomeApp(state)
+  homeApp: getHomeApp(state),
+  isFetchingApps: isFetchingApps(state)
 })
 
 const mapDispatchToProps = dispatch => ({
