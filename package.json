@@ -65,7 +65,7 @@
     "identity-obj-proxy": "3.0.0",
     "jest": "21.3.0-beta.15",
     "json-loader": "0.5.7",
-    "mini-css-extract-plugin": "0.4.2",
+    "mini-css-extract-plugin": "0.4.3",
     "npm-run-all": "4.1.2",
     "postcss": "7.0.2",
     "postcss-css-variables": "0.9.0",
