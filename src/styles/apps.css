@@ -21,8 +21,10 @@
 }
 
 [role=banner] .coz-nav .coz-nav-apps-btns-main:hover,
-[role=banner] .coz-nav .coz-nav-apps-btns-main:focus {
+[role=banner] .coz-nav .coz-nav-apps-btns-main:focus,
+[role=banner] .coz-nav .coz-nav-apps-btns-main:active {
   cursor: pointer;
+  color: black;
 }
 
 [role=banner] .coz-nav .coz-nav-app-name {
