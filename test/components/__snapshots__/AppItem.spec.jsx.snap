@@ -31,12 +31,15 @@ ShallowWrapper {
         role="menuitem"
         title="Drive"
       >
-        <img
-          alt=""
-          className="blurry"
-          height="32"
-          src="test-file-stub"
-          width="32"
+        <AppIcon
+          app={
+            Object {
+              "name": "Drive",
+              "slug": "cozy-drive",
+            }
+          }
+          className="coz-nav-apps-item-icon"
+          fetchIcon={[Function]}
         />
         <p
           className="coz-label"
@@ -53,12 +56,15 @@ ShallowWrapper {
       "nodeType": "host",
       "props": Object {
         "children": Array [
-          <img
-            alt=""
-            className="blurry"
-            height="32"
-            src="test-file-stub"
-            width="32"
+          <AppIcon
+            app={
+              Object {
+                "name": "Drive",
+                "slug": "cozy-drive",
+              }
+            }
+            className="coz-nav-apps-item-icon"
+            fetchIcon={[Function]}
           />,
           <p
             className="coz-label"
@@ -76,18 +82,19 @@ ShallowWrapper {
       "rendered": Array [
         Object {
           "instance": null,
-          "key": undefined,
-          "nodeType": "host",
+          "key": "cozy-drive",
+          "nodeType": "class",
           "props": Object {
-            "alt": "",
-            "className": "blurry",
-            "height": "32",
-            "src": "test-file-stub",
-            "width": "32",
+            "app": Object {
+              "name": "Drive",
+              "slug": "cozy-drive",
+            },
+            "className": "coz-nav-apps-item-icon",
+            "fetchIcon": [Function],
           },
           "ref": null,
           "rendered": null,
-          "type": "img",
+          "type": [Function],
         },
         Object {
           "instance": null,
@@ -119,12 +126,15 @@ ShallowWrapper {
           role="menuitem"
           title="Drive"
         >
-          <img
-            alt=""
-            className="blurry"
-            height="32"
-            src="test-file-stub"
-            width="32"
+          <AppIcon
+            app={
+              Object {
+                "name": "Drive",
+                "slug": "cozy-drive",
+              }
+            }
+            className="coz-nav-apps-item-icon"
+            fetchIcon={[Function]}
           />
           <p
             className="coz-label"
@@ -141,12 +151,15 @@ ShallowWrapper {
         "nodeType": "host",
         "props": Object {
           "children": Array [
-            <img
-              alt=""
-              className="blurry"
-              height="32"
-              src="test-file-stub"
-              width="32"
+            <AppIcon
+              app={
+                Object {
+                  "name": "Drive",
+                  "slug": "cozy-drive",
+                }
+              }
+              className="coz-nav-apps-item-icon"
+              fetchIcon={[Function]}
             />,
             <p
               className="coz-label"
@@ -164,18 +177,19 @@ ShallowWrapper {
         "rendered": Array [
           Object {
             "instance": null,
-            "key": undefined,
-            "nodeType": "host",
+            "key": "cozy-drive",
+            "nodeType": "class",
             "props": Object {
-              "alt": "",
-              "className": "blurry",
-              "height": "32",
-              "src": "test-file-stub",
-              "width": "32",
+              "app": Object {
+                "name": "Drive",
+                "slug": "cozy-drive",
+              },
+              "className": "coz-nav-apps-item-icon",
+              "fetchIcon": [Function],
             },
             "ref": null,
             "rendered": null,
-            "type": "img",
+            "type": [Function],
           },
           Object {
             "instance": null,

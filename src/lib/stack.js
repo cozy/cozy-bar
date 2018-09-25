@@ -112,15 +112,14 @@ function getApp (slug) {
 async function getIcon (url) {
   if (!url) return ''
   let icon
-  try {
-    const resp = await fetch(`${COZY_URL}${url}`, fetchOptions())
-    if (!resp.ok) {
-      throw new Error(`Error while fetching icon: ${resp.statusText}: ${url}`)
-    }
-    icon = await resp.blob()
-  } catch (e) {
-    return ''
+  const resp = await fetch(`${COZY_URL}${url}`, fetchOptions())
+
+  if (!resp.ok) {
+    throw new Error(`Error while fetching icon: ${resp.statusText}: ${url}`)
   }
+
+  icon = await resp.blob()
+
   // check if MIME type is an image
   if (!icon.type.match(/^image\/.*$/)) return ''
   return URL.createObjectURL(icon)

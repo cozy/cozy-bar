@@ -127,8 +127,10 @@
   margin-bottom: .5rem;
 }
 
-[role=banner] .coz-nav-apps-item [role=menuitem] img {
+[role=banner] .coz-nav-apps-item-icon {
   margin-right: .5rem;
+  height: 2rem;
+  width: 2rem;
 }
 
 [role=banner] .coz-nav-apps-item [role=menuitem] .coz-label {

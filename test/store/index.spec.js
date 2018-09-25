@@ -26,7 +26,7 @@ describe('store', () => {
     const apps = [{ slug: 'drive' }, {slug: 'banks'}]
     expect(getApps(getState())).toEqual([])
     store.dispatch({ type: 'RECEIVE_APP_LIST', apps: apps })
-    expect(getApps(getState())).toEqual(apps)
+    expect(getApps(getState())).toMatchSnapshot()
   })
 
   it('should remember it has fetched (ok case)', () => {

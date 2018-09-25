@@ -49,21 +49,8 @@ export const fetchApps = () => async dispatch => {
     const rawAppList = await stack.get.apps()
     const apps = rawAppList.filter(app => !EXCLUDES.includes(app.attributes.slug))
     // TODO load only one time icons
-    const icons = await Promise.all(apps.map(app => stack.get.icon(app.links.icon)))
-    const appsWithIcons = apps.map((app, idx) => ({
-      namePrefix: app.attributes.name_prefix,
-      name: app.attributes.name,
-      slug: app.attributes.slug,
-      href: app.links.related,
-      icon: icons[idx]
-        ? {
-          src: icons[idx],
-          cached: true
-        }
-        : undefined
-    }))
-    await dispatch(setHomeApp(appsWithIcons))
-    await dispatch(receiveAppList(appsWithIcons))
+    await dispatch(setHomeApp(apps))
+    await dispatch(receiveAppList(apps))
   } catch (e) {
     console.warn(e.message ? e.message : e)
   }
@@ -102,16 +89,12 @@ const reducer = (state = defaultState, action) => {
     case FETCH_APPS:
       return { ...state, isFetching: true }
     case RECEIVE_APP_LIST:
-      const appsList = action.apps.map(app => {
-        if (isCurrentApp(state, app)) {
-          return {
-            ...app,
-            isCurrentApp: true
-          }
-        } else {
-          return app
-        }
-      })
+      const appsList = action.apps
+        .map(mapApp)
+        .map(app => ({
+          ...app,
+          isCurrentApp: isCurrentApp(state, app)
+        }))
       return { ...state, isFetching: false, hasFetched: true, apps: appsList }
     case RECEIVE_HOME_APP:
       const homeApp = action.homeApp
@@ -128,3 +111,23 @@ const reducer = (state = defaultState, action) => {
 }
 
 export default reducer
+
+// helpers
+const camelCasify = object => !!object &&
+  Object.keys(object).reduce((acc, key) => {
+    const camelCaseKey = key
+      .split('_')
+      .map(
+        (segment, index) =>
+          index ? segment.charAt(0).toUpperCase() + segment.slice(1) : segment
+      )
+      .join('')
+    acc[camelCaseKey] = object[key]
+    return acc
+  }, {})
+
+const mapApp = (app, index) => ({
+  ...app,
+  ...camelCasify(app.attributes),
+  href: app.links && app.links.related
+})
