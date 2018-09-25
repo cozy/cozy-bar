@@ -109,7 +109,9 @@ function getApp (slug) {
   return getApps().then(apps => apps.find(item => item.attributes.slug === slug))
 }
 
-async function getIcon (url) {
+async function getIcon (url, useCache = true) {
+  if (useCache && cache.icons && cache.icons[url]) return cache.icons[url]
+
   if (!url) return ''
   let icon
   const resp = await fetch(`${COZY_URL}${url}`, fetchOptions())
@@ -122,7 +124,14 @@ async function getIcon (url) {
 
   // check if MIME type is an image
   if (!icon.type.match(/^image\/.*$/)) return ''
-  return URL.createObjectURL(icon)
+  const iconUrl = URL.createObjectURL(icon)
+
+  if (useCache) {
+    cache.icons = cache.icons || {}
+    cache.icons[url] = iconUrl
+  }
+
+  return iconUrl
 }
 
 const cache = {}
