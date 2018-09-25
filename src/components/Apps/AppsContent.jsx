@@ -16,6 +16,8 @@ class AppsContent extends Component {
     if (!this.props.isFetchingApps) {
       this.props.fetchApps()
     }
+
+    this.translateApp = translateApp(this.props.t)
   }
 
   render () {
@@ -43,7 +45,12 @@ class AppsContent extends Component {
             ? new Array(3)
               .fill({})
               .map((nothing, index) => <AppItemPlaceholder key={index} />)
-            : apps.map((app, index) => <AppItem app={app} key={index} />)}
+            : apps
+              .sort((appA, appB) => {
+                return this.translateApp(appA) > this.translateApp(appB)
+              }
+              )
+              .map((app, index) => <AppItem app={app} key={index} />)}
         </ul>
         {homeApp && !isMobile && !isHomeApp && (
           <a role='menuitem' href={homeApp.href} className='coz-apps-home-btn'>
@@ -54,6 +61,12 @@ class AppsContent extends Component {
       </div>
     )
   }
+}
+
+const translateApp = t => app => {
+  const namePrefix = t(`${app.slug}.namePrefix`, { _: app.namePrefix })
+  const name = t(`${app.slug}.name`, { _: app.name })
+  return namePrefix ? `${namePrefix} ${name}` : `${name}`
 }
 
 const mapStateToProps = state => ({
