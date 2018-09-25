@@ -21,8 +21,10 @@
 }
 
 [role=banner] .coz-nav .coz-nav-apps-btns-main:hover,
-[role=banner] .coz-nav .coz-nav-apps-btns-main:focus {
+[role=banner] .coz-nav .coz-nav-apps-btns-main:focus,
+[role=banner] .coz-nav .coz-nav-apps-btns-main:active {
   cursor: pointer;
+  color: black;
 }
 
 [role=banner] .coz-nav .coz-nav-app-name {
@@ -54,8 +56,12 @@
 [role=banner] .coz-nav .coz-nav-pop--apps {
   width: 20rem;
   max-height: 20rem;
-  left: 2.5rem;
-  transform-origin: 20% 0%;
+  left: 3.5rem;
+  transform-origin: 10% 0%;
+}
+
+[role=banner] .coz-nav .--currentHome + .coz-nav-pop--apps {
+  left: 0;
 }
 
 /* POP CONTENT */
@@ -85,15 +91,18 @@
   overflow-y: auto;
 }
 
+[role=banner] .coz-nav-apps-item {
+  display: flex;
+}
+
 /* current app item */
 [role=banner] .coz-nav-apps-item.--current a[role=menuitem] {
   font-weight: bold;
   cursor: default;
+  background-color: var(--pale-grey);
+  border-left: 4px solid var(--dodger-blue)
 }
-[role=banner] .coz-nav-apps-item.--current a[role=menuitem]:hover,
-[role=banner] .coz-nav-apps-item.--current a[role=menuitem]:focus {
-  background: none;
-}
+
 [role=banner] .coz-nav-apps-item [role=menuitem],
 [role=banner] [role=menuitem].coz-apps-home-btn {
   display: flex;
@@ -103,19 +112,18 @@
   align-items: center;
   width: 100%;
   height: 3rem;
-  padding: .5rem 1rem;
+  /* we remove the left border from the padding */
+  padding: .5rem 1rem .5rem calc(1rem - 4px);
   color: var(--charcoal-grey);
   text-decoration: none;
   outline: none;
 }
 
 [role=banner] .coz-nav-apps-item:first-of-type [role=menuitem] {
-  height: 3.5rem;
   margin-top: .5rem;
 }
 
 [role=banner] .coz-nav-apps-item:last-of-type [role=menuitem] {
-  height: 3.5rem;
   margin-bottom: .5rem;
 }
 
@@ -137,7 +145,15 @@
   margin-top: 0;
   color: #5d6165;
   font-weight: bold;
+  font-size: 14px;
   justify-content: center;
+  align-items: center;
+}
+
+[role=banner] [role=menuitem].coz-apps-home-btn:hover,
+[role=banner] [role=menuitem].coz-apps-home-btn:focus,
+[role=banner] [role=menuitem].coz-apps-home-btn:active {
+  border-color: transparent;
 }
 
 [role=banner] [role=menuitem].coz-apps-home-btn.--mobile > span {

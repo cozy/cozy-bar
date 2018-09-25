@@ -2,14 +2,21 @@
 [role=banner] a[role=menuitem],
 [role=banner] button[role=menuitem] {
   cursor: pointer;
+  border-left: 4px solid transparent;
 }
 
 [role=banner] a[role=menuitem]:hover,
 [role=banner] a[role=menuitem]:focus,
 [role=banner] button[role=menuitem]:hover,
 [role=banner] button[role=menuitem]:focus {
-  background-color: rgba(41, 126, 241, 0.1);
-  border-radius: 3px;
+  background-color: var(--pale-grey);
+}
+
+[role=banner] .coz-nav-pop--apps [role=menuitem]:hover,
+[role=banner] .coz-nav-pop--apps [role=menuitem]:focus,
+[role=banner] .coz-nav-pop--apps [role=menuitem]:hover,
+[role=banner] .coz-nav-pop--apps [role=menuitem]:focus {
+  border-left: 4px solid var(--dodger-blue)
 }
 
 [role=banner] [role=menuitem][aria-busy=true]::after {
