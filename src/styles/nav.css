@@ -38,7 +38,7 @@
 
 [role=banner] .coz-nav-pop {
   position: absolute;
-  top: calc(100% - .5em);
+  top: calc(100% - .25em);
   box-sizing: border-box;
   min-width: 100%;
   max-height: calc(100vh - 4rem);
