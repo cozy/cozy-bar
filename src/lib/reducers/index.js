@@ -9,11 +9,13 @@ const proxy = (attr, method) => {
   }
 }
 
+const deleteApp = apps.deleteApp
 const setContent = content.setContent
 const setLocale = locale.setLocale
 const fetchApps = apps.fetchApps
+const receiveApp = apps.receiveApp
 const setInfos = apps.setInfos
-export { setContent, setLocale, fetchApps, setInfos }
+export { deleteApp, setContent, setLocale, fetchApps, receiveApp, setInfos }
 
 export const getContent = proxy('content', content.getContent)
 export const getLocale = proxy('locale', locale.getLocale)

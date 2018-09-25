@@ -106,7 +106,13 @@ function getContext (cache) {
 }
 
 function getApp (slug) {
-  return getApps().then(apps => apps.find(item => item.attributes.slug === slug))
+  if (!slug) {
+    throw new Error('Missing slug')
+  }
+  return fetchJSON(`${COZY_URL}/apps/${slug}`, fetchOptions()).then(json => {
+    if (json.error) throw new Error(json.error)
+    else return json.data
+  })
 }
 
 async function getIcon (url, useCache = true) {

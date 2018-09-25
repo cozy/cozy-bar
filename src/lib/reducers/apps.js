@@ -1,7 +1,10 @@
 /* global __TARGET__ */
 import stack from '../stack'
+import unionWith from 'lodash.unionwith'
 
 // constants
+const DELETE_APP = 'DELETE_APP'
+const RECEIVE_APP = 'RECEIVE_APP'
 const RECEIVE_APP_LIST = 'RECEIVE_APP_LIST'
 const RECEIVE_HOME_APP = 'RECEIVE_HOME_APP'
 const FETCH_APPS = 'FETCH_APPS'
@@ -38,6 +41,8 @@ export const hasFetched = state => state.hasFetched
 export const getCurrentApp = state => `${state.appNamePrefix} ${state.appName}`
 
 // actions
+export const deleteApp = app => ({ type: DELETE_APP, app })
+export const receiveApp = app => ({ type: RECEIVE_APP, app })
 const receiveAppList = apps => ({ type: RECEIVE_APP_LIST, apps })
 const receiveHomeApp = homeApp => ({ type: RECEIVE_HOME_APP, homeApp })
 export const setInfos = (appName, appNamePrefix, appSlug) => ({ type: SET_INFOS, appName, appNamePrefix, appSlug })
@@ -45,7 +50,7 @@ export const setInfos = (appName, appNamePrefix, appSlug) => ({ type: SET_INFOS,
 // actions async
 export const fetchApps = () => async dispatch => {
   try {
-    dispatch(({ type: FETCH_APPS }))
+    await dispatch({ type: FETCH_APPS })
     const rawAppList = await stack.get.apps()
     const apps = rawAppList.filter(app => !EXCLUDES.includes(app.attributes.slug))
     // TODO load only one time icons
@@ -88,13 +93,20 @@ const reducer = (state = defaultState, action) => {
   switch (action.type) {
     case FETCH_APPS:
       return { ...state, isFetching: true }
+    case RECEIVE_APP:
+      return {
+        ...state,
+        apps: unionWith(
+          state.apps,
+          [mapApp(action.app)],
+          (appA, appB) => appA.slug === appB.slug
+        )
+      }
     case RECEIVE_APP_LIST:
-      const appsList = action.apps
-        .map(mapApp)
-        .map(app => ({
-          ...app,
-          isCurrentApp: isCurrentApp(state, app)
-        }))
+      const appsList = action.apps.map(mapApp).map(app => ({
+        ...app,
+        isCurrentApp: isCurrentApp(state, app)
+      }))
       return { ...state, isFetching: false, hasFetched: true, apps: appsList }
     case RECEIVE_HOME_APP:
       const homeApp = action.homeApp
@@ -103,6 +115,11 @@ const reducer = (state = defaultState, action) => {
           ...state,
           homeApp: {...homeApp, isCurrentApp: true}
         } : { ...state, homeApp }
+    case DELETE_APP:
+      return {
+        ...state,
+        apps: state.apps.filter(app => app.slug !== action.app.slug)
+      }
     case SET_INFOS:
       return { ...state, appName: action.appName, appNamePrefix: action.appNamePrefix, appSlug: action.appSlug }
     default:
