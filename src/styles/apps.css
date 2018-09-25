@@ -56,8 +56,12 @@
 [role=banner] .coz-nav .coz-nav-pop--apps {
   width: 20rem;
   max-height: 20rem;
-  left: 2.5rem;
-  transform-origin: 20% 0%;
+  left: 3.5rem;
+  transform-origin: 10% 0%;
+}
+
+[role=banner] .coz-nav .--currentHome + .coz-nav-pop--apps {
+  left: 0;
 }
 
 /* POP CONTENT */
@@ -85,6 +89,10 @@
   flex-grow: 1;
   flex-shrink: 1;
   overflow-y: auto;
+}
+
+[role=banner] .coz-nav-apps-item {
+  display: flex;
 }
 
 /* current app item */
