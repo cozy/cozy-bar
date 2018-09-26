@@ -6,7 +6,6 @@ import React from 'react'
 import { render } from 'react-dom'
 
 import I18n from 'cozy-ui/react/I18n'
-import realtime from 'cozy-realtime'
 import stack from './lib/stack'
 import {
   deleteApp,
@@ -198,34 +197,6 @@ const init = async ({
   })
   if (lang) {
     reduxStore.dispatch(setLocale(lang))
-  }
-
-  const realtimeConfig = {
-    // It's too weid to generate a fake URL here. We should just pass
-    // domain, token and a secure boolean to initialize realtime.
-    url: `${window.location.protocol}//${cozyURL}`,
-    token: token
-  }
-
-  try {
-    const realtimeApps = await realtime.subscribeAll(
-      realtimeConfig,
-      'io.cozy.apps'
-    )
-
-    realtimeApps.onCreate(async app => {
-      // Fetch direclty the app to get attributes `related` as well.
-      let fullApp
-      try {
-        fullApp = await stack.get.app(app.slug)
-      } catch (error) {
-        throw new Error(`Cannont fetch app ${app.slug}: ${error.message}`)
-      }
-      reduxStore.dispatch(receiveApp(fullApp))
-    })
-    realtimeApps.onDelete(app => reduxStore.dispatch(deleteApp(app)))
-  } catch (error) {
-    console.warn(`Cannot initialize realtime in Cozy-bar: ${error.message}`)
   }
 
   return injectBarInDOM({

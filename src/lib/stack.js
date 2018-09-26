@@ -1,6 +1,8 @@
 /* global __TARGET__ */
 /* eslint-env browser */
 
+import realtime from 'cozy-realtime'
+
 import {
   ForbiddenException,
   ServerErrorException,
@@ -140,12 +142,74 @@ async function getIcon (url, useCache = true) {
   return iconUrl
 }
 
+async function initializeRealtime ({
+  onCreateApp,
+  onDeleteApp,
+  ssl,
+  url,
+  token
+}) {
+  // Let's check the url. By default it's just the domain, but some apps are
+  // passing a full URL with protocol.
+  let parsedURL
+  try {
+    parsedURL = new URL(url)
+  } catch (error) {
+    console.warn(
+      `Cannot parse URL for realtime, using ${url} as domain (${error.message})`
+    )
+  }
+
+  const realtimeConfig = { token }
+  if (parsedURL) {
+    realtimeConfig.url = url
+  } else {
+    realtimeConfig.url = `${ssl ? 'https:' : 'http:'}${url}`
+  }
+
+  try {
+    const realtimeApps = await realtime.subscribeAll(
+      realtimeConfig,
+      'io.cozy.apps'
+    )
+
+    realtimeApps.onCreate(async app => {
+      // Fetch direclty the app to get attributes `related` as well.
+      let fullApp
+      try {
+        fullApp = await getApp(app.slug)
+      } catch (error) {
+        throw new Error(`Cannont fetch app ${app.slug}: ${error.message}`)
+      }
+
+      if (typeof onCreateApp === 'function') {
+        onCreateApp(fullApp)
+      }
+    })
+
+    realtimeApps.onDelete(app => {
+      if (typeof onDeleteApp === 'function') {
+        onDeleteApp(app)
+      }
+    })
+  } catch (error) {
+    console.warn(`Cannot initialize realtime in Cozy-bar: ${error.message}`)
+  }
+}
+
 const cache = {}
 
 module.exports = {
-  init ({cozyURL, token}) {
+  async init ({ cozyURL, token, onCreateApp, onDeleteApp, ssl }) {
     COZY_URL = `${__TARGET__ === 'mobile' ? '' : '//'}${cozyURL}`
     COZY_TOKEN = token
+    await initializeRealtime({
+      onCreateApp,
+      onDeleteApp,
+      token: COZY_TOKEN,
+      url: COZY_URL,
+      ssl
+    })
   },
   updateAccessToken (token) {
     COZY_TOKEN = token
