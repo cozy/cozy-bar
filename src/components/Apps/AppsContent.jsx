@@ -24,12 +24,6 @@ class AppsContent extends Component {
     const { t, apps, breakpoints, homeApp, isFetchingApps } = this.props
     const { isMobile } = breakpoints
     const isHomeApp = homeApp && homeApp.isCurrentApp
-    const homeAppWithIcon = Object.assign({}, homeApp, {
-      icon: {
-        cached: true,
-        src: homeIcon
-      }
-    })
 
     if (!apps || !apps.length) {
       return <p className='coz-nav--error coz-nav-group'>{t('no_apps')}</p>
@@ -39,7 +33,7 @@ class AppsContent extends Component {
       <div className='coz-nav-pop-content'>
         <ul className='coz-nav-group'>
           {isMobile && homeApp && (
-            <AppItem app={homeAppWithIcon} />
+            <AppItem app={homeApp} icon={homeIcon} />
           )}
           {isFetchingApps
             ? new Array(3)

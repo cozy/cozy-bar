@@ -9,7 +9,7 @@ import homeIcon from 'assets/icons/icon-cozy-home.svg'
 
 class AppNavButton extends Component {
   render () {
-    const { homeApp, busy, onClick, appName, appNamePrefix, iconPath, opened, t } = this.props
+    const { homeApp, busy, onClick, appName, appNamePrefix, iconPath, opened } = this.props
 
     const isHomeApp = homeApp && homeApp.isCurrentApp
 
@@ -28,12 +28,11 @@ class AppNavButton extends Component {
         >
           {!isHomeApp && <img className='coz-bar-hide-sm' src={iconPath} width='28' alt='' />}
           <span className='coz-nav-app-name'>
-            {isHomeApp
-              ? t('menu.home_title')
-              : appNamePrefix ? `${appNamePrefix} ${appName}` : appName
+            {appNamePrefix
+              ? `${appNamePrefix} ${appName}` : appName
             }
           </span>
-          {<Icon icon={opened ? 'top' : 'bottom'} color='#95999d' size='12' />}
+          <Icon icon={opened ? 'top' : 'bottom'} color='#95999d' size='12' />
         </button>
       </div>
     )

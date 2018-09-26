@@ -55,7 +55,7 @@ export class AppItem extends React.Component {
   }
 
   render () {
-    const { app } = this.props
+    const { app, icon } = this.props
     const dataIcon = app.icon ? `icon-${app.slug}` : ''
     const label = (app.namePrefix ? (app.namePrefix + ' ') : '') + app.name
 
@@ -78,12 +78,19 @@ export class AppItem extends React.Component {
     return (
       <li className={`coz-nav-apps-item${app.isCurrentApp ? ' --current' : ''}`}>
         <a role='menuitem' href={href} data-icon={dataIcon} title={label} onClick={onClick}>
-          <AppIcon
-            app={app}
-            className='coz-nav-apps-item-icon'
-            fetchIcon={stack.get.icon}
-            key={app.slug}
-          />
+          {icon
+            ? <img
+              src={icon}
+              className='coz-nav-apps-item-icon'
+              alt=''
+            />
+            : <AppIcon
+              app={app}
+              className='coz-nav-apps-item-icon'
+              fetchIcon={stack.get.icon}
+              key={app.slug}
+            />
+          }
           <p className='coz-label'>{label}</p>
         </a>
       </li>
