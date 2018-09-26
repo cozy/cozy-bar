@@ -26,7 +26,6 @@ ShallowWrapper {
     "props": Object {
       "children": <a
         data-icon=""
-        href={undefined}
         onClick={null}
         role="menuitem"
         title="Drive"
@@ -121,7 +120,6 @@ ShallowWrapper {
       "props": Object {
         "children": <a
           data-icon=""
-          href={undefined}
           onClick={null}
           role="menuitem"
           title="Drive"
