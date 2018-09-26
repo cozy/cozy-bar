@@ -174,7 +174,9 @@ const init = async ({
   }
 
   const realtimeConfig = {
-    url: cozyURL,
+    // It's too weid to generate a fake URL here. We should just pass
+    // domain, token and a secure boolean to initialize realtime.
+    url: `${window.location.protocol}//${cozyURL}`,
     token: token
   }
 
