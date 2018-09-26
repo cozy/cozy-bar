@@ -1,10 +1,11 @@
 /* global __TARGET__ */
 
 import React from 'react'
-import defaultIcon from 'assets/icons/16/icon-cube-16.svg'
 import { appShape } from 'proptypes/index'
 import { checkApp, startApp } from 'cozy-device-helper'
 import expiringMemoize from 'lib/expiringMemoize'
+import AppIcon from 'cozy-ui/react/AppIcon'
+import stack from 'lib/stack'
 
 const NATIVE_APP_INFOS = {
   drive: {
@@ -56,9 +57,7 @@ export class AppItem extends React.Component {
   render () {
     const { app } = this.props
     const dataIcon = app.icon ? `icon-${app.slug}` : ''
-    const blurry = !app.icon || !app.icon.cached || false
     const label = (app.namePrefix ? (app.namePrefix + ' ') : '') + app.name
-    const iconSrc = app.icon && app.icon.cached ? app.icon.src : defaultIcon
 
     let href = app.href
     let onClick = null
@@ -79,9 +78,12 @@ export class AppItem extends React.Component {
     return (
       <li className={`coz-nav-apps-item${app.isCurrentApp ? ' --current' : ''}`}>
         <a role='menuitem' href={href} data-icon={dataIcon} title={label} onClick={onClick}>
-          {iconSrc &&
-            <img src={iconSrc} alt='' width='32' height='32' className={blurry && 'blurry'} />
-          }
+          <AppIcon
+            app={app}
+            className='coz-nav-apps-item-icon'
+            fetchIcon={stack.get.icon}
+            key={app.slug}
+          />
           <p className='coz-label'>{label}</p>
         </a>
       </li>

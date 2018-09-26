@@ -106,24 +106,38 @@ function getContext (cache) {
 }
 
 function getApp (slug) {
-  return getApps().then(apps => apps.find(item => item.attributes.slug === slug))
+  if (!slug) {
+    throw new Error('Missing slug')
+  }
+  return fetchJSON(`${COZY_URL}/apps/${slug}`, fetchOptions()).then(json => {
+    if (json.error) throw new Error(json.error)
+    else return json.data
+  })
 }
 
-async function getIcon (url) {
+async function getIcon (url, useCache = true) {
+  if (useCache && cache.icons && cache.icons[url]) return cache.icons[url]
+
   if (!url) return ''
   let icon
-  try {
-    const resp = await fetch(`${COZY_URL}${url}`, fetchOptions())
-    if (!resp.ok) {
-      throw new Error(`Error while fetching icon: ${resp.statusText}: ${url}`)
-    }
-    icon = await resp.blob()
-  } catch (e) {
-    return ''
+  const resp = await fetch(`${COZY_URL}${url}`, fetchOptions())
+
+  if (!resp.ok) {
+    throw new Error(`Error while fetching icon: ${resp.statusText}: ${url}`)
   }
+
+  icon = await resp.blob()
+
   // check if MIME type is an image
   if (!icon.type.match(/^image\/.*$/)) return ''
-  return URL.createObjectURL(icon)
+  const iconUrl = URL.createObjectURL(icon)
+
+  if (useCache) {
+    cache.icons = cache.icons || {}
+    cache.icons[url] = iconUrl
+  }
+
+  return iconUrl
 }
 
 const cache = {}

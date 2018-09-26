@@ -3,15 +3,25 @@ import { connect } from 'react-redux'
 
 import { translate } from 'cozy-ui/react/I18n'
 import withBreakpoints from 'cozy-ui/react/helpers/withBreakpoints'
-import { getApps, fetchApps, getHomeApp } from 'lib/reducers'
+import { getApps, fetchApps, getHomeApp, isFetchingApps } from 'lib/reducers'
 
 import AppItem from 'components/Apps/AppItem'
+import AppItemPlaceholder from 'components/Apps/AppItemPlaceholder'
 import cozyIcon from 'assets/icons/16/icon-cozy-16.svg'
 import homeIcon from 'assets/icons/icon-cozy-home.svg'
 
 class AppsContent extends Component {
+  constructor (props, context) {
+    super(props, context)
+    if (!this.props.isFetchingApps) {
+      this.props.fetchApps()
+    }
+
+    this.translateApp = translateApp(this.props.t)
+  }
+
   render () {
-    const { t, apps, homeApp, breakpoints } = this.props
+    const { t, apps, breakpoints, homeApp, isFetchingApps } = this.props
     const { isMobile } = breakpoints
     const isHomeApp = homeApp && homeApp.isCurrentApp
     const homeAppWithIcon = Object.assign({}, homeApp, {
@@ -21,7 +31,7 @@ class AppsContent extends Component {
       }
     })
 
-    if (!apps || !homeApp || apps.length === 0) {
+    if (!apps || !apps.length) {
       return <p className='coz-nav--error coz-nav-group'>{t('no_apps')}</p>
     }
 
@@ -31,7 +41,16 @@ class AppsContent extends Component {
           {isMobile && homeApp && (
             <AppItem app={homeAppWithIcon} />
           )}
-          {apps.map(app => <AppItem app={app} />)}
+          {isFetchingApps
+            ? new Array(3)
+              .fill({})
+              .map((nothing, index) => <AppItemPlaceholder key={index} />)
+            : apps
+              .sort((appA, appB) => {
+                return this.translateApp(appA) > this.translateApp(appB)
+              }
+              )
+              .map((app, index) => <AppItem app={app} key={index} />)}
         </ul>
         {homeApp && !isMobile && !isHomeApp && (
           <a role='menuitem' href={homeApp.href} className='coz-apps-home-btn'>
@@ -44,9 +63,16 @@ class AppsContent extends Component {
   }
 }
 
+const translateApp = t => app => {
+  const namePrefix = t(`${app.slug}.namePrefix`, { _: app.namePrefix })
+  const name = t(`${app.slug}.name`, { _: app.name })
+  return namePrefix ? `${namePrefix} ${name}` : `${name}`
+}
+
 const mapStateToProps = state => ({
   apps: getApps(state),
-  homeApp: getHomeApp(state)
+  homeApp: getHomeApp(state),
+  isFetchingApps: isFetchingApps(state)
 })
 
 const mapDispatchToProps = dispatch => ({

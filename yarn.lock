@@ -2959,9 +2959,13 @@ cozy-device-helper@^1.4.4:
   dependencies:
     lodash "4.17.10"
 
-cozy-ui@11.0.0:
-  version "11.0.0"
-  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-11.0.0.tgz#73b3ac54ebb87424eae162da29796cd13f51d877"
+cozy-realtime@1.1.7:
+  version "1.1.7"
+  resolved "https://registry.yarnpkg.com/cozy-realtime/-/cozy-realtime-1.1.7.tgz#3e0d520fb4719957d159d1c53c919a1235691e40"
+
+cozy-ui@11.1.2:
+  version "11.1.2"
+  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-11.1.2.tgz#14ab98b122f86d0d9655e424112cef4b7488fb7a"
   dependencies:
     babel-preset-cozy-app "^0.3.1"
     classnames "^2.2.5"
@@ -6315,6 +6319,10 @@ lodash.toarray@^4.4.0:
 lodash.union@~4.6.0:
   version "4.6.0"
   resolved "https://registry.yarnpkg.com/lodash.union/-/lodash.union-4.6.0.tgz#48bb5088409f16f1821666641c44dd1aaae3cd88"
+
+lodash.unionwith@4.6.0:
+  version "4.6.0"
+  resolved "https://registry.yarnpkg.com/lodash.unionwith/-/lodash.unionwith-4.6.0.tgz#74d140b5ca8146e6c643c3724f5152538d9ac1f0"
 
 lodash.uniq@~4.5.0:
   version "4.5.0"

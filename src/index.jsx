@@ -6,8 +6,15 @@ import React from 'react'
 import { render } from 'react-dom'
 
 import I18n from 'cozy-ui/react/I18n'
+import realtime from 'cozy-realtime'
 import stack from './lib/stack'
-import { getLocale, setLocale, setInfos } from './lib/reducers'
+import {
+  deleteApp,
+  getLocale,
+  receiveApp,
+  setLocale,
+  setInfos
+} from './lib/reducers'
 
 // For now we have two stores, the goal is to transfer everythin
 // to the redux store
@@ -137,7 +144,7 @@ const getUserActionRequired = () => {
   return undefined
 }
 
-const init = ({
+const init = async ({
   appName,
   appNamePrefix = getAppNamePrefix(),
   appSlug = getAppSlug(),
@@ -164,6 +171,32 @@ const init = ({
   stack.init({cozyURL, token})
   if (lang) {
     reduxStore.dispatch(setLocale(lang))
+  }
+
+  const realtimeConfig = {
+    url: cozyURL,
+    token: token
+  }
+
+  try {
+    const realtimeApps = await realtime.subscribeAll(
+      realtimeConfig,
+      'io.cozy.apps'
+    )
+
+    realtimeApps.onCreate(async app => {
+      // Fetch direclty the app to get attributes `related` as well.
+      let fullApp
+      try {
+        fullApp = await stack.get.app(app.slug)
+      } catch (error) {
+        throw new Error(`Cannont fetch app ${app.slug}: ${error.message}`)
+      }
+      reduxStore.dispatch(receiveApp(fullApp))
+    })
+    realtimeApps.onDelete(app => reduxStore.dispatch(deleteApp(app)))
+  } catch (error) {
+    console.warn(`Cannot initialize realtime in Cozy-bar: ${error.message}`)
   }
 
   return injectBarInDOM({

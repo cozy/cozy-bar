@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`store should keep apps data 1`] = `
+Array [
+  Object {
+    "href": undefined,
+    "isCurrentApp": false,
+    "slug": "drive",
+  },
+  Object {
+    "href": undefined,
+    "isCurrentApp": false,
+    "slug": "banks",
+  },
+]
+`;
