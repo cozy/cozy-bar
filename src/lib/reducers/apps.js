@@ -52,7 +52,9 @@ export const fetchApps = () => async dispatch => {
   try {
     await dispatch({ type: FETCH_APPS })
     const rawAppList = await stack.get.apps()
-    const apps = rawAppList.filter(app => !EXCLUDES.includes(app.attributes.slug))
+    const apps = rawAppList
+      .filter(app => !EXCLUDES.includes(app.attributes.slug))
+      .map(mapApp)
     // TODO load only one time icons
     await dispatch(setHomeApp(apps))
     await dispatch(receiveAppList(apps))
@@ -103,7 +105,7 @@ const reducer = (state = defaultState, action) => {
         )
       }
     case RECEIVE_APP_LIST:
-      const appsList = action.apps.map(mapApp).map(app => ({
+      const appsList = action.apps.map(app => ({
         ...app,
         isCurrentApp: isCurrentApp(state, app)
       }))
