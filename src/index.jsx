@@ -144,6 +144,26 @@ const getUserActionRequired = () => {
   return undefined
 }
 
+const determineSSL = (ssl, cozyURL) => {
+  if (typeof ssl !== 'undefined') return ssl
+
+  let parsedURL
+  try {
+    parsedURL = new URL(cozyURL)
+    console.warn('Cozy-bar will soon need `ssl` and `domain` parameters to be properly configured, and will not rely on cozyURL.')
+    return parsedURL.protocol === 'https:'
+  } catch (error) {
+    console.warn(`cozyURL parameter passed to Cozy-bar is not a valid URL (${error.message}). Cozy-bar will rely on window.location to detect SSL.`)
+  }
+
+  if (window && window.location && window.location.protocol) {
+    return window.location.protocol === 'https:'
+  }
+
+  console.warn('Cozy-bar cannot detect SSL and will use default value (true)')
+  return true
+}
+
 const init = async ({
   appName,
   appNamePrefix = getAppNamePrefix(),
@@ -155,7 +175,8 @@ const init = async ({
   replaceTitleOnMobile = false,
   displayOnMobile,
   isPublic = false,
-  onLogOut
+  onLogOut,
+  ssl
 } = {}) => {
   // Force public mode in `/public` URLs
   if (/^\/public/.test(window.location.pathname)) {
@@ -168,7 +189,13 @@ const init = async ({
   }
 
   reduxStore.dispatch(setInfos(appName, appNamePrefix, appSlug))
-  stack.init({cozyURL, token})
+  stack.init({
+    cozyURL,
+    token,
+    onCreateApp: app => reduxStore.dispatch(receiveApp(app)),
+    onDeleteApp: app => reduxStore.dispatch(deleteApp(app)),
+    ssl: determineSSL(ssl, cozyURL)
+  })
   if (lang) {
     reduxStore.dispatch(setLocale(lang))
   }
