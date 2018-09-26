@@ -14,8 +14,8 @@
 
 [role=banner] .coz-nav-pop--apps [role=menuitem]:hover,
 [role=banner] .coz-nav-pop--apps [role=menuitem]:focus,
-[role=banner] .coz-nav-pop--apps [role=menuitem]:hover,
-[role=banner] .coz-nav-pop--apps [role=menuitem]:focus {
+[role=banner] .coz-drawer--apps [role=menuitem]:hover,
+[role=banner] .coz-drawer--apps [role=menuitem]:focus {
   border-left: 4px solid var(--dodger-blue)
 }
 
