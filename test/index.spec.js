@@ -5,7 +5,7 @@ import Adapter from 'enzyme-adapter-react-16'
 Enzyme.configure({ adapter: new Adapter() })
 
 describe('The bar library', function () {
-  test.skip('should render correctly the cozy-bar', () => {
+  xit('should render correctly the cozy-bar', () => {
     // Set up our document body
     document.body.innerHTML =
       '<div role="application">' +
