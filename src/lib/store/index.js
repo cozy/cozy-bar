@@ -7,7 +7,7 @@ import storage from 'redux-persist/lib/storage'
 const config = {
   storage,
   key: 'cozy-bar',
-  whitelist: ['locale', 'apps']
+  whitelist: ['locale']
 }
 
 const reducer = persistCombineReducers(config, { ...reducers })
