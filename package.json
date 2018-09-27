@@ -65,7 +65,7 @@
     "postcss": "7.0.2",
     "postcss-css-variables": "0.9.0",
     "postcss-discard-duplicates": "4.0.0",
-    "postcss-discard-empty": "4.0.0",
+    "postcss-discard-empty": "4.0.1",
     "postcss-import": "12.0.0",
     "postcss-loader": "3.0.0",
     "react": "16.2.0",
