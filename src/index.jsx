@@ -6,7 +6,6 @@ import React from 'react'
 import { render } from 'react-dom'
 
 import I18n from 'cozy-ui/react/I18n'
-import realtime from 'cozy-realtime'
 import stack from './lib/stack'
 import {
   deleteApp,
@@ -144,6 +143,26 @@ const getUserActionRequired = () => {
   return undefined
 }
 
+const determineSSL = (ssl, cozyURL) => {
+  if (typeof ssl !== 'undefined') return ssl
+
+  let parsedURL
+  try {
+    parsedURL = new URL(cozyURL)
+    console.warn('Cozy-bar will soon need `ssl` and `domain` parameters to be properly configured, and will not rely on cozyURL.')
+    return parsedURL.protocol === 'https:'
+  } catch (error) {
+    console.warn(`cozyURL parameter passed to Cozy-bar is not a valid URL (${error.message}). Cozy-bar will rely on window.location to detect SSL.`)
+  }
+
+  if (window && window.location && window.location.protocol) {
+    return window.location.protocol === 'https:'
+  }
+
+  console.warn('Cozy-bar cannot detect SSL and will use default value (true)')
+  return true
+}
+
 const init = async ({
   appName,
   appNamePrefix = getAppNamePrefix(),
@@ -155,7 +174,8 @@ const init = async ({
   replaceTitleOnMobile = false,
   displayOnMobile,
   isPublic = false,
-  onLogOut
+  onLogOut,
+  ssl
 } = {}) => {
   // Force public mode in `/public` URLs
   if (/^\/public/.test(window.location.pathname)) {
@@ -168,37 +188,15 @@ const init = async ({
   }
 
   reduxStore.dispatch(setInfos(appName, appNamePrefix, appSlug))
-  stack.init({cozyURL, token})
+  stack.init({
+    cozyURL,
+    token,
+    onCreateApp: app => reduxStore.dispatch(receiveApp(app)),
+    onDeleteApp: app => reduxStore.dispatch(deleteApp(app)),
+    ssl: determineSSL(ssl, cozyURL)
+  })
   if (lang) {
     reduxStore.dispatch(setLocale(lang))
-  }
-
-  const realtimeConfig = {
-    // It's too weid to generate a fake URL here. We should just pass
-    // domain, token and a secure boolean to initialize realtime.
-    url: `${window.location.protocol}//${cozyURL}`,
-    token: token
-  }
-
-  try {
-    const realtimeApps = await realtime.subscribeAll(
-      realtimeConfig,
-      'io.cozy.apps'
-    )
-
-    realtimeApps.onCreate(async app => {
-      // Fetch direclty the app to get attributes `related` as well.
-      let fullApp
-      try {
-        fullApp = await stack.get.app(app.slug)
-      } catch (error) {
-        throw new Error(`Cannont fetch app ${app.slug}: ${error.message}`)
-      }
-      reduxStore.dispatch(receiveApp(fullApp))
-    })
-    realtimeApps.onDelete(app => reduxStore.dispatch(deleteApp(app)))
-  } catch (error) {
-    console.warn(`Cannot initialize realtime in Cozy-bar: ${error.message}`)
   }
 
   return injectBarInDOM({
