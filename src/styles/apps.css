@@ -201,7 +201,7 @@
   display: block;
 }
 
-[role=banner] .coz-label.coz-loading-placeholder {
+[role=banner] .coz-nav-apps-item [role=menuitem] .coz-label.coz-loading-placeholder {
   height: 1em;
   width: 7rem;
 }

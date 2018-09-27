@@ -12,10 +12,10 @@
   background-color: var(--pale-grey);
 }
 
-[role=banner] .coz-nav-pop--apps [role=menuitem]:hover,
-[role=banner] .coz-nav-pop--apps [role=menuitem]:focus,
-[role=banner] .coz-drawer--apps [role=menuitem]:hover,
-[role=banner] .coz-drawer--apps [role=menuitem]:focus {
+[role=banner] .coz-nav-pop--apps [role=menuitem]:not([disabled]):hover,
+[role=banner] .coz-nav-pop--apps [role=menuitem]:not([disabled]):focus,
+[role=banner] .coz-drawer--apps [role=menuitem]:not([disabled]):hover,
+[role=banner] .coz-drawer--apps [role=menuitem]:not([disabled]):focus {
   border-left: 4px solid var(--dodger-blue)
 }
 
