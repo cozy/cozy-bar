@@ -75,7 +75,7 @@
     "stylus": "0.54.5",
     "stylus-loader": "3.0.2",
     "svg-sprite-loader": "3.9.2",
-    "travis-deploy-once": "5.0.7",
+    "travis-deploy-once": "5.0.9",
     "url-loader": "1.1.1",
     "webpack": "4.19.0",
     "webpack-bundle-analyzer": "3.0.2",
