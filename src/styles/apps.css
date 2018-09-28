@@ -151,12 +151,6 @@
   align-items: center;
 }
 
-[role=banner] [role=menuitem].coz-apps-home-btn:hover,
-[role=banner] [role=menuitem].coz-apps-home-btn:focus,
-[role=banner] [role=menuitem].coz-apps-home-btn:active {
-  border-color: transparent;
-}
-
 [role=banner] [role=menuitem].coz-apps-home-btn.--mobile > span {
   display: flex;
   justify-content: flex-start;
