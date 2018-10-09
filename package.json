@@ -70,7 +70,7 @@
     "postcss-loader": "3.0.0",
     "react": "16.2.0",
     "react-dom": "16.2.0",
-    "semantic-release": "15.9.14",
+    "semantic-release": "15.9.17",
     "style-loader": "0.19.1",
     "stylus": "0.54.5",
     "stylus-loader": "3.0.2",
