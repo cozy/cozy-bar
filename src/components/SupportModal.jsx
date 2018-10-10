@@ -3,7 +3,7 @@ import Modal, { ModalContent } from 'cozy-ui/react/Modal'
 import Spinner from 'cozy-ui/react/Spinner'
 
 class SupportModal extends Component {
-  constructor (props, context) {
+  constructor(props, context) {
     super(props)
     this.store = context.barStore
     this.state = {
@@ -12,33 +12,35 @@ class SupportModal extends Component {
   }
 
   toggle = () => {
-    this.setState({isLoading: true})
-    this.store.getSupportIntent()
-      .start(this.intentWrapperRef, () => {
-        this.setState({isLoading: false})
-      })
+    this.setState({ isLoading: true })
+    this.store.getSupportIntent().start(this.intentWrapperRef, () => {
+      this.setState({ isLoading: false })
+    })
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.toggle()
   }
 
-  render () {
+  render() {
     const { isLoading } = this.state
     return (
       <div>
-        <Modal secondaryAction={this.props.onClose} className='coz-support-modal' into='body'>
-          <ModalContent className='coz-support-modal-wrapper'>
-            <div className='coz-support-modal-content'>
-              {isLoading &&
-                <Spinner
-                  size='xxlarge'
-                  middle='true'
-                />
-              }
+        <Modal
+          secondaryAction={this.props.onClose}
+          className="coz-support-modal"
+          into="body"
+        >
+          <ModalContent className="coz-support-modal-wrapper">
+            <div className="coz-support-modal-content">
+              {isLoading && <Spinner size="xxlarge" middle="true" />}
               <div
-                className={`coz-support-intent-wrapper${isLoading ? ' coz-hidden' : ''}`}
-                ref={(wrapper) => { this.intentWrapperRef = wrapper }}
+                className={`coz-support-intent-wrapper${
+                  isLoading ? ' coz-hidden' : ''
+                }`}
+                ref={wrapper => {
+                  this.intentWrapperRef = wrapper
+                }}
               />
             </div>
           </ModalContent>

@@ -1,9 +1,5 @@
 import createStore from 'lib/store'
-import {
-  isFetchingApps,
-  getApps,
-  hasFetched
-} from 'lib/reducers'
+import { isFetchingApps, getApps, hasFetched } from 'lib/reducers'
 
 describe('store', () => {
   let store
@@ -23,7 +19,7 @@ describe('store', () => {
   })
 
   it('should keep apps data', () => {
-    const apps = [{ slug: 'drive' }, {slug: 'banks'}]
+    const apps = [{ slug: 'drive' }, { slug: 'banks' }]
     expect(getApps(getState())).toEqual([])
     store.dispatch({ type: 'RECEIVE_APP_LIST', apps: apps })
     expect(getApps(getState())).toMatchSnapshot()

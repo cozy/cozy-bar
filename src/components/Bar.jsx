@@ -6,7 +6,11 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import { translate } from 'cozy-ui/react/I18n'
-import { shouldEnableTracking, getTracker, configureTracker } from 'cozy-ui/react/helpers/tracker'
+import {
+  shouldEnableTracking,
+  getTracker,
+  configureTracker
+} from 'cozy-ui/react/helpers/tracker'
 
 import Banner from 'components/Banner'
 import Drawer from 'components/Drawer'
@@ -18,7 +22,7 @@ import SupportModal from 'components/SupportModal'
 import { getContent, getCurrentApp } from 'lib/reducers'
 
 class Bar extends Component {
-  constructor (props, context) {
+  constructor(props, context) {
     super(props)
     this.store = context.barStore
     this.state = {
@@ -32,15 +36,20 @@ class Bar extends Component {
     }
   }
 
-  async componentWillMount () {
+  async componentWillMount() {
     const claudyEnabled = await this.store.shouldEnableClaudy()
     this.setState({ claudyEnabled })
   }
 
-  componentDidMount () {
+  componentDidMount() {
     // if tracking enabled, init the piwik tracker
     if (shouldEnableTracking()) {
-      const trackerInstance = getTracker(__PIWIK_TRACKER_URL__, __PIWIK_SITEID__, false, false)
+      const trackerInstance = getTracker(
+        __PIWIK_TRACKER_URL__,
+        __PIWIK_SITEID__,
+        false,
+        false
+      )
       configureTracker({
         appDimensionId: __PIWIK_DIMENSION_ID_APP__,
         app: 'Cozy Bar',
@@ -62,11 +71,12 @@ class Bar extends Component {
   toggleClaudy = (isFromDrawer = false) => {
     if (!this.state.claudyEnabled) return
     const { usageTracker, claudyOpened } = this.state
-    if (isFromDrawer && !claudyOpened) { // if opened from drawer
+    if (isFromDrawer && !claudyOpened) {
+      // if opened from drawer
       // reset to toggle via the Claudy component
-      return this.setState({claudyFired: true})
+      return this.setState({ claudyFired: true })
     }
-    if (this.state.claudyFired) this.setState({claudyFired: false})
+    if (this.state.claudyFired) this.setState({ claudyFired: false })
     if (usageTracker) {
       usageTracker.push([
         'trackEvent',
@@ -80,11 +90,16 @@ class Bar extends Component {
 
   toggleSupport = () => {
     const { supportDisplayed } = this.state
-    this.setState({supportDisplayed: !supportDisplayed})
+    this.setState({ supportDisplayed: !supportDisplayed })
   }
 
-  renderCenter () {
-    const { appName, appNamePrefix, iconPath, replaceTitleOnMobile } = this.props
+  renderCenter() {
+    const {
+      appName,
+      appNamePrefix,
+      iconPath,
+      replaceTitleOnMobile
+    } = this.props
     return (
       <Apps
         appName={appName}
@@ -98,22 +113,30 @@ class Bar extends Component {
   renderLeft = () => {
     const { t, displayOnMobile, isPublic } = this.props
     // data-tutorial attribute allows to be targeted in an application tutorial
-    return (__TARGET__ !== 'mobile' || displayOnMobile) && !isPublic ? <button type='button' className='coz-bar-btn coz-bar-burger' onClick={this.toggleDrawer} data-icon='icon-apps' data-tutorial='apps-mobile'>
-      <span className='coz-bar-hidden'>{t('drawer')}</span>
-    </button> : null
+    return (__TARGET__ !== 'mobile' || displayOnMobile) && !isPublic ? (
+      <button
+        type="button"
+        className="coz-bar-btn coz-bar-burger"
+        onClick={this.toggleDrawer}
+        data-icon="icon-apps"
+        data-tutorial="apps-mobile"
+      >
+        <span className="coz-bar-hidden">{t('drawer')}</span>
+      </button>
+    ) : null
   }
 
   renderRight = () => {
     const { displayOnMobile, isPublic } = this.props
-    return (__TARGET__ !== 'mobile' || displayOnMobile) && !isPublic
-      ? <Settings
+    return (__TARGET__ !== 'mobile' || displayOnMobile) && !isPublic ? (
+      <Settings
         toggleSupport={this.toggleSupport}
         onLogOut={this.props.onLogOut}
       />
-      : null
+    ) : null
   }
 
-  render () {
+  render() {
     const {
       claudyEnabled,
       claudyFired,
@@ -123,38 +146,49 @@ class Bar extends Component {
       supportDisplayed,
       usageTracker
     } = this.state
-    const { barLeft, barRight, barCenter, onDrawer, displayOnMobile, isPublic, onLogOut, userActionRequired } = this.props
+    const {
+      barLeft,
+      barRight,
+      barCenter,
+      onDrawer,
+      displayOnMobile,
+      isPublic,
+      onLogOut,
+      userActionRequired
+    } = this.props
     return (
-      <div className='coz-bar-wrapper'>
-        <div className='coz-bar-container'>
-          { barLeft || this.renderLeft() }
-          { barCenter || this.renderCenter() }
-          <div className='u-flex-grow'>
-            { searchBarEnabled ? <SearchBar /> : null }
+      <div className="coz-bar-wrapper">
+        <div className="coz-bar-container">
+          {barLeft || this.renderLeft()}
+          {barCenter || this.renderCenter()}
+          <div className="u-flex-grow">
+            {searchBarEnabled ? <SearchBar /> : null}
           </div>
-          { barRight || this.renderRight() }
-          { (__TARGET__ !== 'mobile' || displayOnMobile) && !isPublic
-            ? <Drawer visible={drawerVisible}
+          {barRight || this.renderRight()}
+          {(__TARGET__ !== 'mobile' || displayOnMobile) && !isPublic ? (
+            <Drawer
+              visible={drawerVisible}
               onClose={this.toggleDrawer}
-              onClaudy={(claudyEnabled && (() => this.toggleClaudy(true))) || false}
+              onClaudy={
+                (claudyEnabled && (() => this.toggleClaudy(true))) || false
+              }
               isClaudyLoading={claudyFired}
               drawerListener={() => onDrawer(this.state.drawerVisible)}
               toggleSupport={this.toggleSupport}
-              onLogOut={onLogOut} /> : null }
-          { claudyEnabled &&
+              onLogOut={onLogOut}
+            />
+          ) : null}
+          {claudyEnabled && (
             <Claudy
               usageTracker={usageTracker}
               claudyFired={claudyFired}
               onToggle={() => this.toggleClaudy(false)}
               opened={claudyOpened}
-            /> }
-          { supportDisplayed &&
-            <SupportModal onClose={this.toggleSupport} /> }
-
+            />
+          )}
+          {supportDisplayed && <SupportModal onClose={this.toggleSupport} />}
         </div>
-        {userActionRequired &&
-          <Banner {...userActionRequired} />
-        }
+        {userActionRequired && <Banner {...userActionRequired} />}
       </div>
     )
   }

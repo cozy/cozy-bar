@@ -7,7 +7,7 @@ import SettingsContent from 'components/Settings/SettingsContent'
 const BUSY_DELAY = 450
 
 class Settings extends Component {
-  constructor (props, context) {
+  constructor(props, context) {
     super(props)
     this.barStore = context.barStore
     this.state = {
@@ -17,11 +17,11 @@ class Settings extends Component {
     this.toggleMenu = this.toggleMenu.bind(this)
   }
 
-  componentDidMount () {
+  componentDidMount() {
     document.body.addEventListener('click', this.onClickOutside)
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     document.body.removeEventListener('click', this.onClickOutside)
   }
 
@@ -29,42 +29,54 @@ class Settings extends Component {
     if (this.state.busy || this.state.opened) {
       // if it's not a cozy-bar nav popup, close the opened popup
       if (!this.rootRef.contains(event.target)) {
-        this.setState({busy: false, opened: false})
+        this.setState({ busy: false, opened: false })
       }
       event.stopPropagation()
     }
   }
 
   toggleMenu = async () => {
-    let stateUpdate = {busy: false, opened: false}
+    let stateUpdate = { busy: false, opened: false }
     // if popup already opened, stop here to close it
     if (this.state.opened) return this.setState(stateUpdate)
     // display the loading spinner after BUSY_DELAY secs
-    const busySpinner =
-      setTimeout(() => this.setState({busy: true}), BUSY_DELAY)
+    const busySpinner = setTimeout(
+      () => this.setState({ busy: true }),
+      BUSY_DELAY
+    )
     // fetch data
     await this.barStore.fetchSettingsData()
     clearTimeout(busySpinner)
-    this.setState({busy: false, opened: true})
+    this.setState({ busy: false, opened: true })
   }
 
-  render () {
+  render() {
     const { t, toggleSupport, onLogOut } = this.props
     const { busy, opened } = this.state
     const { settingsData } = this.barStore
     return (
-      <div className='coz-nav coz-nav-settings' ref={(ref) => { this.rootRef = ref }}>
+      <div
+        className="coz-nav coz-nav-settings"
+        ref={ref => {
+          this.rootRef = ref
+        }}
+      >
         <button
-          type='button'
+          type="button"
           onClick={this.toggleMenu}
-          className='coz-nav-settings-btn'
-          aria-controls='coz-nav-pop--settings' aria-busy={busy}
-          data-icon='icon-cog'
+          className="coz-nav-settings-btn"
+          aria-controls="coz-nav-pop--settings"
+          aria-busy={busy}
+          data-icon="icon-cog"
         >
           {t('menu.settings')}
         </button>
-        <div className='coz-nav-pop coz-nav-pop--settings' id='coz-nav-pop--settings' aria-hidden={!opened}>
-          {settingsData &&
+        <div
+          className="coz-nav-pop coz-nav-pop--settings"
+          id="coz-nav-pop--settings"
+          aria-hidden={!opened}
+        >
+          {settingsData && (
             <SettingsContent
               onLogOut={() => {
                 if (onLogOut && typeof onLogOut === 'function') {
@@ -76,7 +88,7 @@ class Settings extends Component {
               toggleSupport={toggleSupport}
               settingsData={settingsData}
             />
-          }
+          )}
         </div>
       </div>
     )

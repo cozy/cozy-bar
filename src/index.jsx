@@ -49,20 +49,24 @@ const createBarElement = () => {
   return barNode
 }
 
-const injectBarInDOM = (data) => {
-  if (document.getElementById('coz-bar') !== null) { return }
+const injectBarInDOM = data => {
+  if (document.getElementById('coz-bar') !== null) {
+    return
+  }
 
   const barNode = createBarElement()
   const appNode = document.querySelector(APP_SELECTOR)
   if (!appNode) {
-    console.warn(`Cozy-bar is looking for a "${APP_SELECTOR}" tag that contains your application and can't find it :'(… The BAR is now disabled`)
+    console.warn(
+      `Cozy-bar is looking for a "${APP_SELECTOR}" tag that contains your application and can't find it :'(… The BAR is now disabled`
+    )
     return null
   }
 
   document.body.insertBefore(barNode, appNode)
 
   // method to put cozy-bar z-index on the top when Drawer visible and vice versa
-  data.onDrawer = (visible) => {
+  data.onDrawer = visible => {
     barNode.dataset.drawerVisible = visible
   }
 
@@ -80,9 +84,7 @@ const injectBarInDOM = (data) => {
   const barComponent = (
     <BarProvider store={barStore}>
       <ReduxProvider store={reduxStore}>
-        <EnhancedI18n
-          dictRequire={(lang) => require(`./locales/${lang}`)}
-        >
+        <EnhancedI18n dictRequire={lang => require(`./locales/${lang}`)}>
           <Bar {...data} />
         </EnhancedI18n>
       </ReduxProvider>
@@ -97,7 +99,9 @@ const injectBarInDOM = (data) => {
 const getDefaultStackURL = () => {
   const appNode = document.querySelector(APP_SELECTOR)
   if (!appNode || !appNode.dataset.cozyDomain) {
-    console.warn(`Cozy-bar can't discover the cozy's URL, and will probably fail to initialize the connection with the stack.`)
+    console.warn(
+      `Cozy-bar can't discover the cozy's URL, and will probably fail to initialize the connection with the stack.`
+    )
     return ''
   }
   return appNode.dataset.cozyDomain
@@ -106,7 +110,9 @@ const getDefaultStackURL = () => {
 const getDefaultToken = () => {
   const appNode = document.querySelector(APP_SELECTOR)
   if (!appNode || !appNode.dataset.cozyToken) {
-    console.warn(`Cozy-bar can't discover the app's token, and will probably fail to initialize the connection with the stack.`)
+    console.warn(
+      `Cozy-bar can't discover the app's token, and will probably fail to initialize the connection with the stack.`
+    )
     return ''
   }
   return appNode.dataset.cozyToken
@@ -136,7 +142,8 @@ const getUserActionRequired = () => {
   const data = meta && meta.dataset
   if (data) {
     const { title, code, detail, links } = data
-    if (code) { // we suppose that at least code will always exist
+    if (code) {
+      // we suppose that at least code will always exist
       return { title, code, detail, links }
     }
   }
@@ -149,10 +156,16 @@ const determineSSL = (ssl, cozyURL) => {
   let parsedURL
   try {
     parsedURL = new URL(cozyURL)
-    console.warn('Cozy-bar will soon need `ssl` and `domain` parameters to be properly configured, and will not rely on cozyURL.')
+    console.warn(
+      'Cozy-bar will soon need `ssl` and `domain` parameters to be properly configured, and will not rely on cozyURL.'
+    )
     return parsedURL.protocol === 'https:'
   } catch (error) {
-    console.warn(`cozyURL parameter passed to Cozy-bar is not a valid URL (${error.message}). Cozy-bar will rely on window.location to detect SSL.`)
+    console.warn(
+      `cozyURL parameter passed to Cozy-bar is not a valid URL (${
+        error.message
+      }). Cozy-bar will rely on window.location to detect SSL.`
+    )
   }
 
   if (window && window.location && window.location.protocol) {
@@ -184,7 +197,10 @@ const init = async ({
 
   if (displayOnMobile === undefined) {
     displayOnMobile = false
-    if (__TARGET__ === 'mobile') console.warn('Deprecated: cozy-bar option `displayOnMobile` automatically set to `false`, but `true` will be the new default value in the next version. Please explicitly set the option to `false`.')
+    if (__TARGET__ === 'mobile')
+      console.warn(
+        'Deprecated: cozy-bar option `displayOnMobile` automatically set to `false`, but `true` will be the new default value in the next version. Please explicitly set the option to `false`.'
+      )
   }
 
   reduxStore.dispatch(setInfos(appName, appNamePrefix, appSlug))
@@ -215,4 +231,9 @@ const updateAccessToken = accessToken => {
   stack.updateAccessToken(accessToken)
 }
 
-module.exports = { init, version: __VERSION__, ...api(reduxStore), updateAccessToken }
+module.exports = {
+  init,
+  version: __VERSION__,
+  ...api(reduxStore),
+  updateAccessToken
+}

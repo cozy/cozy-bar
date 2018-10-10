@@ -5,7 +5,7 @@ import AppsContent from 'components/Apps/AppsContent'
 import SettingsContent from 'components/Settings/SettingsContent'
 
 class Drawer extends Component {
-  constructor (props, context) {
+  constructor(props, context) {
     super(props)
     this.store = context.barStore
     this.state = {
@@ -20,7 +20,7 @@ class Drawer extends Component {
     }
   }
 
-  onTransitionEnd = event => {
+  onTransitionEnd = () => {
     if (this.props.visible) {
       if (!this.gesturesHandler) this.attachGestures()
       this.preventBackgroundScrolling()
@@ -31,44 +31,44 @@ class Drawer extends Component {
     this.props.drawerListener()
   }
 
-  async componentWillMount () {
+  async componentWillMount() {
     await this.store.fetchSettingsData()
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.turnTransitionsOn()
   }
 
-  async componentWillReceiveProps (nextProps) {
+  async componentWillReceiveProps(nextProps) {
     if (!this.props.visible && nextProps.visible) {
       this.store.fetchSettingsData()
     }
   }
 
-  turnTransitionsOn () {
+  turnTransitionsOn() {
     this.asideRef.classList.add('with-transition')
     this.asideRef.addEventListener('transitionend', this.onTransitionEnd)
   }
 
-  turnTransitionsOff () {
+  turnTransitionsOff() {
     this.asideRef.classList.remove('with-transition')
     this.asideRef.removeEventListener('transitionend', this.onTransitionEnd)
   }
 
-  preventBackgroundScrolling () {
+  preventBackgroundScrolling() {
     document.body.style.overflow = 'hidden'
   }
 
-  restoreBackgroundScrolling () {
+  restoreBackgroundScrolling() {
     document.body.style.overflow = 'auto'
   }
 
-  detachGestures () {
+  detachGestures() {
     this.gesturesHandler.destroy()
     this.gesturesHandler = null
   }
 
-  attachGestures () {
+  attachGestures() {
     // IMPORTANT: on Chrome, the `overflow-y: scroll` property on .coz-drawer--apps prevented
     // swipe events to be dispatched correctly ; the `touch-action: pan-y` fixes the problem
     // see drawer.css
@@ -89,7 +89,10 @@ class Drawer extends Component {
 
     this.gesturesHandler.on('panstart', event => {
       if (this.state.isClosing) return
-      if (event.additionalEvent === 'panup' || event.additionalEvent === 'pandown') {
+      if (
+        event.additionalEvent === 'panup' ||
+        event.additionalEvent === 'pandown'
+      ) {
         this.setState({ isScrolling: true })
       } else {
         this.turnTransitionsOff()
@@ -111,8 +114,10 @@ class Drawer extends Component {
       }
       // Dismiss the menu if the swipe pan was bigger than the treshold,
       // or if it was a fast, leftward gesture
-      const haveTravelledFarEnough = -e.deltaX / maximumGestureDistance >= minimumCloseDistance
-      const haveTravelledFastEnough = e.velocity < 0 && Math.abs(e.velocity) >= minimumCloseVelocity
+      const haveTravelledFarEnough =
+        -e.deltaX / maximumGestureDistance >= minimumCloseDistance
+      const haveTravelledFastEnough =
+        e.velocity < 0 && Math.abs(e.velocity) >= minimumCloseVelocity
 
       const shouldDismiss = haveTravelledFarEnough || haveTravelledFastEnough
 
@@ -125,37 +130,50 @@ class Drawer extends Component {
     })
   }
 
-  close () {
+  close() {
     if (this.state.isClosing) return
     this.detachGestures()
-    this.setState(state => ({ isClosing: true }))
+    this.setState(() => ({ isClosing: true }))
     this.turnTransitionsOn()
     this.props.onClose()
     this.asideRef.style.transform = ''
   }
 
-  applyTransformation (progress) {
+  applyTransformation(progress) {
     // constrain between 0 and 1.1 (go a bit further than 1 to be hidden completely)
     progress = Math.min(1.1, Math.max(0, progress))
-    this.asideRef.style.transform = 'translateX(-' + (progress * 100) + '%)'
+    this.asideRef.style.transform = 'translateX(-' + progress * 100 + '%)'
   }
 
-  render () {
-    const { onClaudy, visible, isClaudyLoading, toggleSupport, onLogOut } = this.props
+  render() {
+    const {
+      onClaudy,
+      visible,
+      isClaudyLoading,
+      toggleSupport,
+      onLogOut
+    } = this.props
     const { settingsData } = this.store
     return (
-      <div className='coz-drawer-wrapper'
+      <div
+        className="coz-drawer-wrapper"
         onClick={this.onDrawerClick}
         aria-hidden={visible ? 'false' : 'true'}
-        ref={(node) => { this.wrapperRef = node }}
+        ref={node => {
+          this.wrapperRef = node
+        }}
       >
-        <aside ref={(node) => { this.asideRef = node }}>
-          <nav className='coz-drawer--apps'>
+        <aside
+          ref={node => {
+            this.asideRef = node
+          }}
+        >
+          <nav className="coz-drawer--apps">
             <AppsContent />
           </nav>
-          <hr className='coz-sep-flex' />
-          <nav className='coz-drawer--settings'>
-            {settingsData &&
+          <hr className="coz-sep-flex" />
+          <nav className="coz-drawer--settings">
+            {settingsData && (
               <SettingsContent
                 onLogOut={() => {
                   if (onLogOut && typeof onLogOut === 'function') {
@@ -170,7 +188,7 @@ class Drawer extends Component {
                 toggleSupport={toggleSupport}
                 isDrawer
               />
-            }
+            )}
           </nav>
         </aside>
       </div>

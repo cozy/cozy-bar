@@ -15,7 +15,7 @@ import {
 
 // the option credentials:include tells fetch to include the cookies in the
 // request even for cross-origin requests
-function fetchOptions () {
+function fetchOptions() {
   return {
     credentials: 'include',
     headers: {
@@ -36,27 +36,25 @@ const errorStatuses = {
   '500': ServerErrorException
 }
 
-function getApps () {
-  return fetchJSON(`${COZY_URL}/apps/`, fetchOptions())
-    .then(json => {
-      if (json.error) throw new Error(json.error)
-      else return json.data
-    })
+function getApps() {
+  return fetchJSON(`${COZY_URL}/apps/`, fetchOptions()).then(json => {
+    if (json.error) throw new Error(json.error)
+    else return json.data
+  })
 }
 
-function fetchJSON (url, options) {
-  return fetch(url, options)
-    .then(res => {
-      if (typeof errorStatuses[res.status] === 'function') {
-        throw new errorStatuses[res.status]()
-      }
+function fetchJSON(url, options) {
+  return fetch(url, options).then(res => {
+    if (typeof errorStatuses[res.status] === 'function') {
+      throw new errorStatuses[res.status]()
+    }
 
-      return res.json()
-    })
+    return res.json()
+  })
 }
 
 // fetch function with the same interface than in cozy-client-js
-function cozyFetchJSON (cozy, method, path, body, options = {}) {
+function cozyFetchJSON(cozy, method, path, body) {
   const requestOptions = Object.assign({}, fetchOptions(), {
     method
   })
@@ -69,15 +67,14 @@ function cozyFetchJSON (cozy, method, path, body, options = {}) {
       requestOptions.body = JSON.stringify(body)
     }
   }
-  return fetchJSON(`${COZY_URL}${path}`, requestOptions)
-    .then(json => {
-      const responseData = Object.assign({}, json.data)
-      if (responseData.id) responseData._id = responseData.id
-      return Promise.resolve(responseData)
-    })
+  return fetchJSON(`${COZY_URL}${path}`, requestOptions).then(json => {
+    const responseData = Object.assign({}, json.data)
+    if (responseData.id) responseData._id = responseData.id
+    return Promise.resolve(responseData)
+  })
 }
 
-function getStorageData () {
+function getStorageData() {
   return fetchJSON(`${COZY_URL}/settings/disk-usage`, fetchOptions())
     .then(json => {
       return {
@@ -87,27 +84,27 @@ function getStorageData () {
         isLimited: json.data.attributes.is_limited
       }
     })
-    .catch(e => {
+    .catch(() => {
       throw new UnavailableStackException()
     })
 }
 
-function getContext (cache) {
+function getContext(cache) {
   return () => {
     return cache['context']
       ? Promise.resolve(cache['context'])
       : fetchJSON(`${COZY_URL}/settings/context`, fetchOptions())
-        .then(context => {
-          cache['context'] = context
-          return context
-        })
-        .catch(error => {
-          if (error.status && error.status === 404) cache['context'] = {}
-        })
+          .then(context => {
+            cache['context'] = context
+            return context
+          })
+          .catch(error => {
+            if (error.status && error.status === 404) cache['context'] = {}
+          })
   }
 }
 
-function getApp (slug) {
+function getApp(slug) {
   if (!slug) {
     throw new Error('Missing slug')
   }
@@ -117,7 +114,7 @@ function getApp (slug) {
   })
 }
 
-async function getIcon (url, useCache = true) {
+async function getIcon(url, useCache = true) {
   if (useCache && cache.icons && cache.icons[url]) return cache.icons[url]
 
   if (!url) return ''
@@ -142,7 +139,7 @@ async function getIcon (url, useCache = true) {
   return iconUrl
 }
 
-async function initializeRealtime ({
+async function initializeRealtime({
   onCreateApp,
   onDeleteApp,
   ssl,
@@ -200,7 +197,7 @@ async function initializeRealtime ({
 const cache = {}
 
 module.exports = {
-  async init ({ cozyURL, token, onCreateApp, onDeleteApp, ssl }) {
+  async init({ cozyURL, token, onCreateApp, onDeleteApp, ssl }) {
     COZY_URL = `${__TARGET__ === 'mobile' ? '' : '//'}${cozyURL}`
     COZY_TOKEN = token
     await initializeRealtime({
@@ -211,7 +208,7 @@ module.exports = {
       ssl
     })
   },
-  updateAccessToken (token) {
+  updateAccessToken(token) {
     COZY_TOKEN = token
   },
   get: {
@@ -220,18 +217,19 @@ module.exports = {
     context: getContext(cache),
     storageData: getStorageData,
     icon: getIcon,
-    cozyURL () {
+    cozyURL() {
       return COZY_URL
     },
-    settingsAppURL () {
-      return getApp('settings')
-        .then(settings => {
-          if (!settings) { throw new UnavailableSettingsException() }
-          return settings.links.related
-        })
+    settingsAppURL() {
+      return getApp('settings').then(settings => {
+        if (!settings) {
+          throw new UnavailableSettingsException()
+        }
+        return settings.links.related
+      })
     }
   },
-  logout () {
+  logout() {
     const options = Object.assign({}, fetchOptions(), {
       method: 'DELETE'
     })
@@ -244,7 +242,7 @@ module.exports = {
           window.location.reload()
         }
       })
-      .catch(e => {
+      .catch(() => {
         throw new UnavailableStackException()
       })
   },

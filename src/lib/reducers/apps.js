@@ -11,16 +11,16 @@ const FETCH_APPS = 'FETCH_APPS'
 const SET_INFOS = 'SET_INFOS'
 const EXCLUDES = ['settings', 'onboarding']
 
-const isCurrentApp = (state, app) =>
-  app.slug === state.appSlug
+const isCurrentApp = (state, app) => app.slug === state.appSlug
 
 // selectors
 const onMobile = __TARGET__ === 'mobile'
 export const getApps = (state, mobile = onMobile) => {
   if (!state.apps) return []
 
-  const appsWithCurrentApp = state.apps
-    .filter(app => app.slug !== (state.homeApp && state.homeApp.slug))
+  const appsWithCurrentApp = state.apps.filter(
+    app => app.slug !== (state.homeApp && state.homeApp.slug)
+  )
 
   if (!mobile) {
     return appsWithCurrentApp
@@ -45,7 +45,12 @@ export const deleteApp = app => ({ type: DELETE_APP, app })
 export const receiveApp = app => ({ type: RECEIVE_APP, app })
 const receiveAppList = apps => ({ type: RECEIVE_APP_LIST, apps })
 const receiveHomeApp = homeApp => ({ type: RECEIVE_HOME_APP, homeApp })
-export const setInfos = (appName, appNamePrefix, appSlug) => ({ type: SET_INFOS, appName, appNamePrefix, appSlug })
+export const setInfos = (appName, appNamePrefix, appSlug) => ({
+  type: SET_INFOS,
+  appName,
+  appNamePrefix,
+  appSlug
+})
 
 // actions async
 export const fetchApps = () => async dispatch => {
@@ -64,18 +69,23 @@ export const fetchApps = () => async dispatch => {
 }
 
 const setHomeApp = appsList => async dispatch => {
-  return stack.get.context()
+  return stack.get
+    .context()
     .then(context => {
-      const homeLink = context.data && context.data.attributes &&
-      context.data.attributes.default_redirection
+      const homeLink =
+        context.data &&
+        context.data.attributes &&
+        context.data.attributes.default_redirection
       const slugRegexp = /^([^/]+)\/.*/
-      const homeSlug = homeLink && homeLink.match(slugRegexp) && homeLink.match(slugRegexp)[1]
+      const homeSlug =
+        homeLink && homeLink.match(slugRegexp) && homeLink.match(slugRegexp)[1]
       if (!homeSlug) return appsList
       const homeApp = appsList.find(app => app.slug === homeSlug)
       return dispatch(receiveHomeApp(homeApp))
     })
     .catch(error => {
-      console.warn && console.warn(`Cozy-bar cannot fetch home app data: ${error.message}`)
+      console.warn &&
+        console.warn(`Cozy-bar cannot fetch home app data: ${error.message}`)
       return appsList
     })
 }
@@ -104,26 +114,34 @@ const reducer = (state = defaultState, action) => {
           (appA, appB) => appA.slug === appB.slug
         )
       }
-    case RECEIVE_APP_LIST:
+    case RECEIVE_APP_LIST: {
       const appsList = action.apps.map(app => ({
         ...app,
         isCurrentApp: isCurrentApp(state, app)
       }))
       return { ...state, isFetching: false, hasFetched: true, apps: appsList }
-    case RECEIVE_HOME_APP:
+    }
+    case RECEIVE_HOME_APP: {
       const homeApp = action.homeApp
       return isCurrentApp(state, homeApp)
         ? {
-          ...state,
-          homeApp: {...homeApp, isCurrentApp: true}
-        } : { ...state, homeApp }
+            ...state,
+            homeApp: { ...homeApp, isCurrentApp: true }
+          }
+        : { ...state, homeApp }
+    }
     case DELETE_APP:
       return {
         ...state,
         apps: state.apps.filter(app => app.slug !== action.app.slug)
       }
     case SET_INFOS:
-      return { ...state, appName: action.appName, appNamePrefix: action.appNamePrefix, appSlug: action.appSlug }
+      return {
+        ...state,
+        appName: action.appName,
+        appNamePrefix: action.appNamePrefix,
+        appSlug: action.appSlug
+      }
     default:
       return state
   }
@@ -132,7 +150,8 @@ const reducer = (state = defaultState, action) => {
 export default reducer
 
 // helpers
-const camelCasify = object => !!object &&
+const camelCasify = object =>
+  !!object &&
   Object.keys(object).reduce((acc, key) => {
     const camelCaseKey = key
       .split('_')
@@ -145,7 +164,7 @@ const camelCasify = object => !!object &&
     return acc
   }, {})
 
-const mapApp = (app, index) => ({
+const mapApp = app => ({
   ...app,
   ...camelCasify(app.attributes),
   href: app.links && app.links.related

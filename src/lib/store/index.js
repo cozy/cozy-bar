@@ -13,10 +13,7 @@ const config = {
 const reducer = persistCombineReducers(config, { ...reducers })
 
 const createReduxStore = () => {
-  let store = createStore(
-    reducer,
-    applyMiddleware(thunkMiddleware)
-  )
+  let store = createStore(reducer, applyMiddleware(thunkMiddleware))
   persistStore(store)
 
   return store

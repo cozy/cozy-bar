@@ -14,7 +14,7 @@ const upperFirstLetter = val => {
  */
 const wrapInElement = v => {
   if (typeof v === 'string') {
-    return <span dangerouslySetInnerHTML={{__html: v}} />
+    return <span dangerouslySetInnerHTML={{ __html: v }} />
   } else {
     return v
   }
@@ -26,35 +26,35 @@ const wrapInElement = v => {
  *
  * @param  {BarStore} store
  */
-const barContentComponent = (store, location) => class extends Component {
-  componentDidMount () {
-    this.prev = getContent(store.getState(), location)
-    this.setContent(this.props.children)
-  }
-
-  setContent (content) {
-    try {
-      content = React.Children.only(content)
-    } catch (e) {}
-    store.dispatch(
-      setContent(location, content)
-    )
-  }
-
-  componentWillUnmount () {
-    this.setContent(this.prev)
-  }
-
-  componentDidUpdate (prevProps) {
-    if (this.props.children !== prevProps.children) {
+const barContentComponent = (store, location) =>
+  class BarContent extends Component {
+    componentDidMount() {
+      this.prev = getContent(store.getState(), location)
       this.setContent(this.props.children)
     }
-  }
 
-  render () {
-    return null
+    setContent(content) {
+      try {
+        content = React.Children.only(content)
+        // eslint-disable-next-line no-empty
+      } catch (e) {}
+      store.dispatch(setContent(location, content))
+    }
+
+    componentWillUnmount() {
+      this.setContent(this.prev)
+    }
+
+    componentDidUpdate(prevProps) {
+      if (this.props.children !== prevProps.children) {
+        this.setContent(this.props.children)
+      }
+    }
+
+    render() {
+      return null
+    }
   }
-}
 
 /**
  * Creates a public API
@@ -73,9 +73,8 @@ export default store => {
     const upperLoc = upperFirstLetter(location)
 
     /// expose JS API
-    methods[`setBar${upperLoc}`] = value => (
+    methods[`setBar${upperLoc}`] = value =>
       store.dispatch(setContent(location, wrapInElement(value)))
-    )
 
     // expose React API
     methods[`Bar${upperLoc}`] = barContentComponent(store, location)

@@ -19,25 +19,29 @@ const NATIVE_APP_INFOS = {
 }
 
 const expirationDelay = 10 * 1000
-const memoizedCheckApp = expiringMemoize(checkApp, expirationDelay, x => x.appId)
+const memoizedCheckApp = expiringMemoize(
+  checkApp,
+  expirationDelay,
+  x => x.appId
+)
 
 export class AppItem extends React.Component {
   state = {
     isAppAvailable: null
   }
 
-  constructor () {
+  constructor() {
     super()
     this.openNativeApp = this.openNativeApp.bind(this)
   }
 
-  componentDidMount () {
+  componentDidMount() {
     if (__TARGET__ === 'mobile') {
       this.checkAppAvailability()
     }
   }
 
-  async checkAppAvailability () {
+  async checkAppAvailability() {
     const { slug } = this.props.app
     const appInfo = NATIVE_APP_INFOS[slug]
     if (appInfo) {
@@ -46,7 +50,7 @@ export class AppItem extends React.Component {
     }
   }
 
-  openNativeApp (ev) {
+  openNativeApp(ev) {
     if (ev) {
       ev.preventDefault()
     }
@@ -54,10 +58,10 @@ export class AppItem extends React.Component {
     startApp(appInfos)
   }
 
-  render () {
+  render() {
     const { app, icon } = this.props
     const dataIcon = app.icon ? `icon-${app.slug}` : ''
-    const label = (app.namePrefix ? (app.namePrefix + ' ') : '') + app.name
+    const label = (app.namePrefix ? app.namePrefix + ' ' : '') + app.name
 
     let href = app.href
     let onClick = null
@@ -70,28 +74,34 @@ export class AppItem extends React.Component {
       href = '#'
     }
 
-    if (app.isCurrentApp) { // disabled for current app
+    if (app.isCurrentApp) {
+      // disabled for current app
       onClick = null
       href = null
     }
 
     return (
-      <li className={`coz-nav-apps-item${app.isCurrentApp ? ' --current' : ''}`}>
-        <a role='menuitem' href={href} data-icon={dataIcon} title={label} onClick={onClick}>
-          {icon
-            ? <img
-              src={icon}
-              className='coz-nav-apps-item-icon'
-              alt=''
-            />
-            : <AppIcon
+      <li
+        className={`coz-nav-apps-item${app.isCurrentApp ? ' --current' : ''}`}
+      >
+        <a
+          role="menuitem"
+          href={href}
+          data-icon={dataIcon}
+          title={label}
+          onClick={onClick}
+        >
+          {icon ? (
+            <img src={icon} className="coz-nav-apps-item-icon" alt="" />
+          ) : (
+            <AppIcon
               app={app}
-              className='coz-nav-apps-item-icon'
+              className="coz-nav-apps-item-icon"
               fetchIcon={stack.get.icon}
               key={app.slug}
             />
-          }
-          <p className='coz-label'>{label}</p>
+          )}
+          <p className="coz-label">{label}</p>
         </a>
       </li>
     )
