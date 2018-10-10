@@ -29,19 +29,19 @@ const extendI18nWithApp = lang => app => {
 }
 
 const useLang = (apps, lang) => {
-  console.debug(apps)
   apps && apps.forEach(extendI18nWithApp(lang))
 }
 
-export const appsI18nMiddleware = ({ getState }) => next => action => {
+export const appsI18nMiddleware = ({
+  dispatch,
+  getState
+}) => next => action => {
   const state = getState()
   switch (action.type) {
-    case 'SET_LOCALE': {
+    case 'SET_LOCALE':
       const apps = state.apps && state.apps.apps
-      console.debug('SET_LOCALE', apps)
       useLang(apps, action.lang)
       break
-    }
     case 'RECEIVE_APP_LIST':
       action.apps &&
         action.apps.length &&

@@ -218,6 +218,7 @@ const init = async ({
   return injectBarInDOM({
     appName,
     appNamePrefix,
+    appSlug,
     iconPath,
     replaceTitleOnMobile,
     displayOnMobile,

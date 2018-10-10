@@ -15,8 +15,10 @@ class AppNavButton extends Component {
       onClick,
       appName,
       appNamePrefix,
+      appSlug,
       iconPath,
-      opened
+      opened,
+      t
     } = this.props
 
     const isHomeApp = homeApp && homeApp.isCurrentApp
@@ -39,7 +41,9 @@ class AppNavButton extends Component {
             <img className="coz-bar-hide-sm" src={iconPath} width="28" alt="" />
           )}
           <span className="coz-nav-app-name">
-            {appNamePrefix ? `${appNamePrefix} ${appName}` : appName}
+            {t(`${appSlug}.name`, {
+              _: appNamePrefix ? `${appNamePrefix} ${appName}` : appName
+            })}
           </span>
           <Icon icon={opened ? 'top' : 'bottom'} color="#95999d" size="12" />
         </button>

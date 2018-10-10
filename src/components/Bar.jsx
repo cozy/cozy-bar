@@ -93,10 +93,11 @@ class Bar extends Component {
     this.setState({ supportDisplayed: !supportDisplayed })
   }
 
-  renderCenter() {
+  renderCenter () {
     const {
       appName,
       appNamePrefix,
+      appSlug,
       iconPath,
       replaceTitleOnMobile
     } = this.props
@@ -104,6 +105,7 @@ class Bar extends Component {
       <Apps
         appName={appName}
         appNamePrefix={appNamePrefix}
+        appSlug={appSlug}
         iconPath={iconPath}
         replaceTitleOnMobile={replaceTitleOnMobile}
       />

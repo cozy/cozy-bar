@@ -80,7 +80,9 @@ export default store => {
     methods[`Bar${upperLoc}`] = barContentComponent(store, location)
   })
 
-  methods.setLocale = lang => store.dispatch(setLocale(lang))
+  methods.setLocale = lang => {
+    store.dispatch(setLocale(lang))
+  }
 
   return methods
 }

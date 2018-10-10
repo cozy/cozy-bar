@@ -41,6 +41,7 @@ class Nav extends Component {
       replaceTitleOnMobile,
       appName,
       appNamePrefix,
+      appSlug,
       iconPath
     } = this.props
     const { busy, opened } = this.state
@@ -56,6 +57,7 @@ class Nav extends Component {
         <AppNavButtons
           appName={appName}
           appNamePrefix={appNamePrefix}
+          appSlug={appSlug}
           iconPath={iconPath}
           busy={busy}
           onClick={this.toggleMenu}
