@@ -114,13 +114,14 @@ const reducer = (state = defaultState, action) => {
           (appA, appB) => appA.slug === appB.slug
         )
       }
-    case RECEIVE_APP_LIST:
+    case RECEIVE_APP_LIST: {
       const appsList = action.apps.map(app => ({
         ...app,
         isCurrentApp: isCurrentApp(state, app)
       }))
       return { ...state, isFetching: false, hasFetched: true, apps: appsList }
-    case RECEIVE_HOME_APP:
+    }
+    case RECEIVE_HOME_APP: {
       const homeApp = action.homeApp
       return isCurrentApp(state, homeApp)
         ? {
@@ -128,6 +129,7 @@ const reducer = (state = defaultState, action) => {
             homeApp: { ...homeApp, isCurrentApp: true }
           }
         : { ...state, homeApp }
+    }
     case DELETE_APP:
       return {
         ...state,
@@ -162,7 +164,7 @@ const camelCasify = object =>
     return acc
   }, {})
 
-const mapApp = (app, index) => ({
+const mapApp = app => ({
   ...app,
   ...camelCasify(app.attributes),
   href: app.links && app.links.related

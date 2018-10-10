@@ -250,7 +250,7 @@ class SearchBar extends Component {
   // We want the user to find folders in which he can then navigate into, so we return the path here
   getSuggestionValue = suggestion => suggestion.subtitle
 
-  renderSectionTitle = section => null // we only have one section at the moment, but if we decide to sort suggestions by section/source, we can use this callback
+  renderSectionTitle = () => null // we only have one section at the moment, but if we decide to sort suggestions by section/source, we can use this callback
 
   renderSuggestion = suggestion => (
     <div className="coz-searchbar-autosuggest-suggestion-item">
@@ -321,7 +321,7 @@ class SearchBar extends Component {
     return (
       <div className="coz-searchbar" role="search">
         {sourceURLs.map(url => (
-          <iframe src={url} style={{ display: 'none' }} />
+          <iframe src={url} style={{ display: 'none' }} key={url} />
         ))}
         <Autosuggest
           theme={theme}

@@ -54,7 +54,7 @@ function fetchJSON(url, options) {
 }
 
 // fetch function with the same interface than in cozy-client-js
-function cozyFetchJSON(cozy, method, path, body, options = {}) {
+function cozyFetchJSON(cozy, method, path, body) {
   const requestOptions = Object.assign({}, fetchOptions(), {
     method
   })
@@ -84,7 +84,7 @@ function getStorageData() {
         isLimited: json.data.attributes.is_limited
       }
     })
-    .catch(e => {
+    .catch(() => {
       throw new UnavailableStackException()
     })
 }
@@ -242,7 +242,7 @@ module.exports = {
           window.location.reload()
         }
       })
-      .catch(e => {
+      .catch(() => {
         throw new UnavailableStackException()
       })
   },

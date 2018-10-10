@@ -77,7 +77,7 @@ export default class BarStore {
   }
 
   getStorageData() {
-    return stack.get.storageData().catch(e => {
+    return stack.get.storageData().catch(() => {
       console.warn && console.warn('Cannot get Cozy storage informations')
       return null
     })
@@ -92,7 +92,7 @@ export default class BarStore {
         this.settingsAppURL = settingsAppURL
         return this.settingsAppURL
       })
-      .catch(e => {
+      .catch(() => {
         console.warn &&
           console.warn(
             'Settings app is unavailable, settings links are disabled'

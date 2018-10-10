@@ -4,7 +4,7 @@ import AppsContent from 'components/Apps/AppsContent'
 import AppNavButtons from 'components/Apps/AppNavButtons'
 
 class Nav extends Component {
-  constructor(props, context) {
+  constructor(props) {
     super(props)
     this.state = {
       busy: false,

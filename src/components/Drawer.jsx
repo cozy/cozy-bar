@@ -20,7 +20,7 @@ class Drawer extends Component {
     }
   }
 
-  onTransitionEnd = event => {
+  onTransitionEnd = () => {
     if (this.props.visible) {
       if (!this.gesturesHandler) this.attachGestures()
       this.preventBackgroundScrolling()
@@ -133,7 +133,7 @@ class Drawer extends Component {
   close() {
     if (this.state.isClosing) return
     this.detachGestures()
-    this.setState(state => ({ isClosing: true }))
+    this.setState(() => ({ isClosing: true }))
     this.turnTransitionsOn()
     this.props.onClose()
     this.asideRef.style.transform = ''

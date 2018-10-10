@@ -52,7 +52,7 @@ const mapStateToProps = state => ({
   homeApp: getHomeApp(state)
 })
 
-const mapDispatchToProps = dispatch => ({})
+const mapDispatchToProps = () => ({})
 
 export default connect(
   mapStateToProps,

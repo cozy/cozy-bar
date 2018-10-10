@@ -27,7 +27,7 @@ const wrapInElement = v => {
  * @param  {BarStore} store
  */
 const barContentComponent = (store, location) =>
-  class extends Component {
+  class BarContent extends Component {
     componentDidMount() {
       this.prev = getContent(store.getState(), location)
       this.setContent(this.props.children)
@@ -36,6 +36,7 @@ const barContentComponent = (store, location) =>
     setContent(content) {
       try {
         content = React.Children.only(content)
+        // eslint-disable-next-line no-empty
       } catch (e) {}
       store.dispatch(setContent(location, content))
     }
