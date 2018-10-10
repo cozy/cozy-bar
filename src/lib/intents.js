@@ -1,7 +1,7 @@
 import { cozyFetchJSON } from './stack'
 
 // This is a function that does the bare minimum in order to bypass the normal intent flow. To be replaced in th next version of intents.
-export function fetchRawIntent (action, type, data = {}, permissions = []) {
+export function fetchRawIntent(action, type, data = {}, permissions = []) {
   return cozyFetchJSON(null, 'POST', '/intents', {
     data: {
       type: 'io.cozy.intents',
@@ -24,7 +24,7 @@ const intentClass = 'coz-intent'
 
 // helper to serialize/deserialize an error for/from postMessage
 const errorSerializer = (() => {
-  function mapErrorProperties (from, to) {
+  function mapErrorProperties(from, to) {
     const result = Object.assign(to, from)
     const nativeProperties = ['name', 'message']
     return nativeProperties.reduce((result, property) => {
@@ -35,15 +35,16 @@ const errorSerializer = (() => {
     }, result)
   }
   return {
-    serialize: (error) => mapErrorProperties(error, {}),
-    deserialize: (data) => mapErrorProperties(data, new Error(data.message))
+    serialize: error => mapErrorProperties(error, {}),
+    deserialize: data => mapErrorProperties(data, new Error(data.message))
   }
 })()
 
 // inject iframe for service in given element
-function injectService (url, element, intent, data, onReadyCallback) {
+function injectService(url, element, intent, data, onReadyCallback) {
   const document = element.ownerDocument
-  if (!document) throw new Error('Cannot retrieve document object from given element')
+  if (!document)
+    throw new Error('Cannot retrieve document object from given element')
 
   const window = document.defaultView
   if (!window) throw new Error('Cannot retrieve window object from document')
@@ -60,13 +61,16 @@ function injectService (url, element, intent, data, onReadyCallback) {
 
   return new Promise((resolve, reject) => {
     let handshaken = false
-    const messageHandler = (event) => {
+    const messageHandler = event => {
       if (event.origin !== serviceOrigin) return
 
       if (event.data.type === 'load') {
         // Safari 9.1 (At least) send a MessageEvent when the iframe loads,
         // making the handshake fails.
-        console.warn && console.warn('Cozy Client ignored MessageEvent having data.type `load`.')
+        console.warn &&
+          console.warn(
+            'Cozy Client ignored MessageEvent having data.type `load`.'
+          )
         return
       }
 
@@ -76,9 +80,11 @@ function injectService (url, element, intent, data, onReadyCallback) {
       }
 
       if (handshaken && event.data.type === `intent-${intent._id}:resize`) {
-        ['width', 'height', 'maxWidth', 'maxHeight'].forEach(prop => {
-          if (event.data.transition) element.style.transition = event.data.transition
-          if (event.data.dimensions[prop]) element.style[prop] = `${event.data.dimensions[prop]}px`
+        ;['width', 'height', 'maxWidth', 'maxHeight'].forEach(prop => {
+          if (event.data.transition)
+            element.style.transition = event.data.transition
+          if (event.data.dimensions[prop])
+            element.style[prop] = `${event.data.dimensions[prop]}px`
         })
 
         return true
@@ -90,8 +96,11 @@ function injectService (url, element, intent, data, onReadyCallback) {
         iframe.parentNode && iframe.parentNode.removeChild(iframe)
       }
 
-      if (handshaken && event.data.type === `intent-${intent._id}:exposeFrameRemoval`) {
-        return resolve({removeIntentFrame, doc: event.data.document})
+      if (
+        handshaken &&
+        event.data.type === `intent-${intent._id}:exposeFrameRemoval`
+      ) {
+        return resolve({ removeIntentFrame, doc: event.data.document })
       }
 
       removeIntentFrame()
@@ -109,7 +118,9 @@ function injectService (url, element, intent, data, onReadyCallback) {
       }
 
       if (!handshaken) {
-        return reject(new Error('Unexpected handshake message from intent service'))
+        return reject(
+          new Error('Unexpected handshake message from intent service')
+        )
       }
 
       // We may be in a state where the messageHandler is still attached to then
@@ -124,9 +135,11 @@ function injectService (url, element, intent, data, onReadyCallback) {
   })
 }
 
-export function create (cozy, action, type, data = {}, permissions = []) {
-  if (!action) throw new Error(`Misformed intent, "action" property must be provided`)
-  if (!type) throw new Error(`Misformed intent, "type" property must be provided`)
+export function create(cozy, action, type, data = {}, permissions = []) {
+  if (!action)
+    throw new Error(`Misformed intent, "action" property must be provided`)
+  if (!type)
+    throw new Error(`Misformed intent, "type" property must be provided`)
 
   const createPromise = cozyFetchJSON(cozy, 'POST', '/intents', {
     data: {

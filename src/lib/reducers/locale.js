@@ -2,7 +2,8 @@ export const SET_LOCALE = 'SET_LOCALE'
 
 // action creator
 export const setLocale = lang => ({
-  type: SET_LOCALE, lang
+  type: SET_LOCALE,
+  lang
 })
 
 const getDefaultLang = () => {

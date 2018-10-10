@@ -9,7 +9,7 @@ import { create as createIntent } from '../lib/intents'
 import CLAUDY_ACTIONS from '../config/claudyActions'
 
 export default class BarStore {
-  constructor () {
+  constructor() {
     this.claudyActions = null
     this.settingsData = null
     // cache
@@ -17,43 +17,56 @@ export default class BarStore {
     this.settingsAppURL = ''
   }
 
-  getClaudyIntent (data) {
+  getClaudyIntent(data) {
     return createIntent(null, 'CLAUDY', 'io.cozy.settings', data)
   }
 
-  getSupportIntent (data) {
+  getSupportIntent(data) {
     return createIntent(null, 'SUPPORT', 'io.cozy.settings', data)
   }
 
-  shouldEnableClaudy () {
+  shouldEnableClaudy() {
     if (this.contextNoExist) return Promise.resolve(null)
     if (this.claudyActions) return Promise.resolve(this.claudyActions)
-    return stack.get.context()
+    return stack.get
+      .context()
       .then(context => {
-        const contextActions = (context.data && context.data.attributes && context.data.attributes['claudy_actions']) || null
+        const contextActions =
+          (context.data &&
+            context.data.attributes &&
+            context.data.attributes['claudy_actions']) ||
+          null
         if (!contextActions) return false
         // get an arrays of action
-        const claudyActions = contextActions.map(slug => {
-          if (CLAUDY_ACTIONS.hasOwnProperty(slug)) {
-          // adding also the action slug
-            return Object.assign({}, CLAUDY_ACTIONS[slug], { slug })
-          }
-        }).filter(action => action)
+        const claudyActions = contextActions
+          .map(slug => {
+            if (CLAUDY_ACTIONS.hasOwnProperty(slug)) {
+              // adding also the action slug
+              return Object.assign({}, CLAUDY_ACTIONS[slug], { slug })
+            }
+          })
+          .filter(action => action)
         return !!claudyActions.length
       })
       .catch(error => {
         if (error.status && error.status === 404) this.contextNoExist = true
-        console.warn && console.warn(`Cozy-bar cannot fetch Claudy: ${error.message}`)
+        console.warn &&
+          console.warn(`Cozy-bar cannot fetch Claudy: ${error.message}`)
         return false
       })
   }
 
-  getHelpLink () {
+  getHelpLink() {
     if (this.contextNoExist) return Promise.resolve(null)
     if (this.helpLink) return Promise.resolve(this.helpLink)
-    return stack.get.context()
+    return stack.get
+      .context()
       .then(context => {
-        this.helpLink = (context.data && context.data.attributes && context.data.attributes['help_link']) || null
+        this.helpLink =
+          (context.data &&
+            context.data.attributes &&
+            context.data.attributes['help_link']) ||
+          null
         return this.helpLink
       })
       .catch(error => {
@@ -63,36 +76,39 @@ export default class BarStore {
       })
   }
 
-  getStorageData () {
-    return stack.get.storageData()
-      .catch(e => {
-        console.warn && console.warn('Cannot get Cozy storage informations')
-        return null
-      })
+  getStorageData() {
+    return stack.get.storageData().catch(e => {
+      console.warn && console.warn('Cannot get Cozy storage informations')
+      return null
+    })
   }
 
-  getSettingsAppURL () {
+  getSettingsAppURL() {
     // If the `settings` app is available, it will used to add the links 'Profile' and 'Connected Devices'
     if (this.settingsAppURL) return Promise.resolve(this.settingsAppURL)
-    return stack.get.settingsAppURL()
+    return stack.get
+      .settingsAppURL()
       .then(settingsAppURL => {
         this.settingsAppURL = settingsAppURL
         return this.settingsAppURL
       })
       .catch(e => {
-        console.warn && console.warn('Settings app is unavailable, settings links are disabled')
+        console.warn &&
+          console.warn(
+            'Settings app is unavailable, settings links are disabled'
+          )
         return null
       })
   }
 
-  async fetchSettingsData () {
+  async fetchSettingsData() {
     const storageData = await this.getStorageData()
     const settingsAppURL = await this.getSettingsAppURL()
     const helpLink = await this.getHelpLink()
     this.settingsData = { storageData, settingsAppURL, helpLink }
   }
 
-  async logout () {
+  async logout() {
     this.settingsAppURL = ''
     this.helpLink = ''
     this.settingsData = null
@@ -106,16 +122,16 @@ export default class BarStore {
 }
 
 export class Provider extends Component {
-  getChildContext () {
+  getChildContext() {
     return { barStore: this.store }
   }
 
-  constructor (props, context) {
+  constructor(props, context) {
     super(props, context)
     this.store = props.store
   }
 
-  render () {
+  render() {
     const { children } = this.props
     return (children && children[0]) || null
   }

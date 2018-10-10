@@ -8,7 +8,14 @@ const INTENT_VERB = 'OPEN'
 const INTENT_DOCTYPE = 'io.cozy.suggestions'
 const SUGGESTIONS_PER_SOURCE = 10
 
-const normalizeString = str => str.toString().toLowerCase().replace(/\//g, ' ').normalize('NFD').replace(/[\u0300-\u036f]/g, '').split(' ')
+const normalizeString = str =>
+  str
+    .toString()
+    .toLowerCase()
+    .replace(/\//g, ' ')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .split(' ')
 
 const highlightQueryTerms = (searchResult, query) => {
   const normalizedQueryTerms = normalizeString(query)
@@ -38,25 +45,48 @@ const highlightQueryTerms = (searchResult, query) => {
   // - for every interval,
   // - - add it to the stack if it doesn't overlap with the stack top
   // - - or extend the stack top if the start overlaps and the new interval's top is bigger
-  const mergedIntervals = matchedIntervals.sort((intervalA, intervalB) => intervalA.from > intervalB.from).reduce((computedIntervals, newInterval) => {
-    if (computedIntervals.length === 0 || computedIntervals[computedIntervals.length - 1].to < newInterval.from) {
-      computedIntervals.push(newInterval)
-    } else if (computedIntervals[computedIntervals.length - 1].to < newInterval.to) {
-      computedIntervals[computedIntervals.length - 1].to = newInterval.to
-    }
+  const mergedIntervals = matchedIntervals
+    .sort((intervalA, intervalB) => intervalA.from > intervalB.from)
+    .reduce((computedIntervals, newInterval) => {
+      if (
+        computedIntervals.length === 0 ||
+        computedIntervals[computedIntervals.length - 1].to < newInterval.from
+      ) {
+        computedIntervals.push(newInterval)
+      } else if (
+        computedIntervals[computedIntervals.length - 1].to < newInterval.to
+      ) {
+        computedIntervals[computedIntervals.length - 1].to = newInterval.to
+      }
 
-    return computedIntervals
-  }, [])
+      return computedIntervals
+    }, [])
 
   // create an array containing the entire search result, with special characters, and the intervals surrounded y `<b>` tags
-  const slicedOriginalResult = mergedIntervals.length > 0 ? [searchResult.slice(0, mergedIntervals[0].from)] : searchResult
+  const slicedOriginalResult =
+    mergedIntervals.length > 0
+      ? [searchResult.slice(0, mergedIntervals[0].from)]
+      : searchResult
 
   for (let i = 0, l = mergedIntervals.length; i < l; ++i) {
-    slicedOriginalResult.push((<b>{searchResult.slice(mergedIntervals[i].from, mergedIntervals[i].to)}</b>))
-    if (i + 1 < l) slicedOriginalResult.push(searchResult.slice(mergedIntervals[i].to, mergedIntervals[i + 1].from))
+    slicedOriginalResult.push(
+      <b>
+        {searchResult.slice(mergedIntervals[i].from, mergedIntervals[i].to)}
+      </b>
+    )
+    if (i + 1 < l)
+      slicedOriginalResult.push(
+        searchResult.slice(mergedIntervals[i].to, mergedIntervals[i + 1].from)
+      )
   }
 
-  if (mergedIntervals.length > 0) slicedOriginalResult.push(searchResult.slice(mergedIntervals[mergedIntervals.length - 1].to, searchResult.length))
+  if (mergedIntervals.length > 0)
+    slicedOriginalResult.push(
+      searchResult.slice(
+        mergedIntervals[mergedIntervals.length - 1].to,
+        searchResult.length
+      )
+    )
 
   return slicedOriginalResult
 }
@@ -73,38 +103,43 @@ class SearchBar extends Component {
 
   sources = []
 
-  componentWillMount () {
-    this.debouncedOnSuggestionsFetchRequested = debounce(this.onSuggestionsFetchRequested, 250)
+  componentWillMount() {
+    this.debouncedOnSuggestionsFetchRequested = debounce(
+      this.onSuggestionsFetchRequested,
+      250
+    )
   }
 
-  componentDidMount () {
+  componentDidMount() {
     // The searchbar has one or more sources that provide suggestions. These sources are iframes into other apps, provied by thee intent system.
     // Since we need to call the sources whenever the query changes, we are taking manual control over the intent process.
-    fetchRawIntent(INTENT_VERB, INTENT_DOCTYPE)
-      .then(intent => {
-        const { services } = intent.attributes
-        if (!services) return null
+    fetchRawIntent(INTENT_VERB, INTENT_DOCTYPE).then(intent => {
+      const { services } = intent.attributes
+      if (!services) return null
 
-        this.sources = services.map(service => {
-          const url = service.href
-          this.setState(state => ({...state, sourceURLs: [...state.sourceURLs, url]}))
-          const serviceOrigin = url.split('/', 3).join('/')
+      this.sources = services.map(service => {
+        const url = service.href
+        this.setState(state => ({
+          ...state,
+          sourceURLs: [...state.sourceURLs, url]
+        }))
+        const serviceOrigin = url.split('/', 3).join('/')
 
-          return {
-            slug: service.slug, // can be used to show where a suggestion comes from
-            origin: serviceOrigin,
-            id: intent._id,
-            ready: false,
-            window: null, // will hold a reference to the window we're sending messages to
-            resolvers: {} // will hold references to a function to call when the source sends suggestions
-          }
-        })
-
-        window.addEventListener('message', this.onMessageFromSource(this.sources))
+        return {
+          slug: service.slug, // can be used to show where a suggestion comes from
+          origin: serviceOrigin,
+          id: intent._id,
+          ready: false,
+          window: null, // will hold a reference to the window we're sending messages to
+          resolvers: {} // will hold references to a function to call when the source sends suggestions
+        }
       })
+
+      window.addEventListener('message', this.onMessageFromSource(this.sources))
+    })
   }
 
-  onMessageFromSource = (sources) => (event) => {
+  onMessageFromSource = sources => event => {
     // this re-implements a subset of injectService found in lib/intents, though only the part that are useful for suggestions
     const source = sources.find(source => source.origin === event.origin)
 
@@ -115,7 +150,10 @@ class SearchBar extends Component {
       source.window = event.source
 
       source.window.postMessage({}, event.origin)
-    } else if (event.data.type === `intent-${source.id}:data` && source.resolvers[event.data.id]) {
+    } else if (
+      event.data.type === `intent-${source.id}:data` &&
+      source.resolvers[event.data.id]
+    ) {
       source.resolvers[event.data.id]({
         id: source.id,
         suggestions: event.data.suggestions
@@ -132,7 +170,7 @@ class SearchBar extends Component {
     })
   }
 
-  changeFocusState = (focused) => {
+  changeFocusState = focused => {
     this.setState({
       focused
     })
@@ -152,11 +190,14 @@ class SearchBar extends Component {
       // the previous suggestion list
       this.setState(state => ({ ...state, searching: true }))
 
-      availableSources.forEach(async (source) => {
-        const {id, suggestions} = await new Promise(resolve => {
+      availableSources.forEach(async source => {
+        const { id, suggestions } = await new Promise(resolve => {
           const resolverId = new Date().getTime().toString()
           source.resolvers[resolverId] = resolve
-          source.window.postMessage({ query: value, id: resolverId }, source.origin)
+          source.window.postMessage(
+            { query: value, id: resolverId },
+            source.origin
+          )
         })
         const title = this.sources.find(source => source.id === id).slug
         // This is the first result we get for this new search term,
@@ -166,16 +207,14 @@ class SearchBar extends Component {
             ...state,
             searching: false,
             query: value,
-            suggestionsBySource: [
-              {title, suggestions}
-            ]
+            suggestionsBySource: [{ title, suggestions }]
           }))
         } else {
           this.setState(state => ({
             ...state,
             suggestionsBySource: [
               ...state.suggestionsBySource,
-              {title, suggestions}
+              { title, suggestions }
             ]
           }))
         }
@@ -197,43 +236,63 @@ class SearchBar extends Component {
       const url = onSelect.substr(5)
       window.location.href = url
     } else {
-      console.log('suggestion onSelect (' + onSelect + ') could not be executed')
+      console.log(
+        'suggestion onSelect (' + onSelect + ') could not be executed'
+      )
     }
 
     this.setState({ input: '', query: null })
   }
 
-  getSectionSuggestions = (section) => section.suggestions.slice(0, SUGGESTIONS_PER_SOURCE)
+  getSectionSuggestions = section =>
+    section.suggestions.slice(0, SUGGESTIONS_PER_SOURCE)
 
   // We want the user to find folders in which he can then navigate into, so we return the path here
-  getSuggestionValue = (suggestion) => suggestion.subtitle
+  getSuggestionValue = suggestion => suggestion.subtitle
 
-  renderSectionTitle = (section) => null // we only have one section at the moment, but if we decide to sort suggestions by section/source, we can use this callback
+  renderSectionTitle = section => null // we only have one section at the moment, but if we decide to sort suggestions by section/source, we can use this callback
 
-  renderSuggestion = (suggestion) => (
-    <div className='coz-searchbar-autosuggest-suggestion-item'>
-      {suggestion.icon && <img className='coz-searchbar-autosuggest-suggestion-icon' src={suggestion.icon} alt='icon' />}
-      <div className='coz-searchbar-autosuggest-suggestion-content'>
-        <div className='coz-searchbar-autosuggest-suggestion-title'>
+  renderSuggestion = suggestion => (
+    <div className="coz-searchbar-autosuggest-suggestion-item">
+      {suggestion.icon && (
+        <img
+          className="coz-searchbar-autosuggest-suggestion-icon"
+          src={suggestion.icon}
+          alt="icon"
+        />
+      )}
+      <div className="coz-searchbar-autosuggest-suggestion-content">
+        <div className="coz-searchbar-autosuggest-suggestion-title">
           {highlightQueryTerms(suggestion.title, this.state.query)}
         </div>
-        {
-          suggestion.subtitle &&
-          <div className='coz-searchbar-autosuggest-suggestion-subtitle'>
+        {suggestion.subtitle && (
+          <div className="coz-searchbar-autosuggest-suggestion-subtitle">
             {highlightQueryTerms(suggestion.subtitle, this.state.query)}
           </div>
-        }
+        )}
       </div>
     </div>
   )
 
-  render () {
-    const { input, query, searching, focused, suggestionsBySource, sourceURLs } = this.state
+  render() {
+    const {
+      input,
+      query,
+      searching,
+      focused,
+      suggestionsBySource,
+      sourceURLs
+    } = this.state
     if (sourceURLs.length === 0) return null
     const { t } = this.props
 
     const isInitialSearch = input !== '' && query === null
-    const hasSuggestions = suggestionsBySource.reduce((totalSuggestions, suggestionSection) => (totalSuggestions + suggestionSection.suggestions.length), 0) > 0
+    const hasSuggestions =
+      suggestionsBySource.reduce(
+        (totalSuggestions, suggestionSection) =>
+          totalSuggestions + suggestionSection.suggestions.length,
+        0
+      ) > 0
 
     const inputProps = {
       placeholder: t('searchbar.placeholder'),
@@ -244,11 +303,15 @@ class SearchBar extends Component {
     }
 
     const theme = {
-      container: 'coz-searchbar-autosuggest-container' + (searching ? ' --searching' : '') + (focused ? ' --focused' : ''),
+      container:
+        'coz-searchbar-autosuggest-container' +
+        (searching ? ' --searching' : '') +
+        (focused ? ' --focused' : ''),
       input: 'coz-searchbar-autosuggest-input',
       inputFocused: 'coz-searchbar-autosuggest-input-focused',
       suggestionsContainer: 'coz-searchbar-autosuggest-suggestions-container',
-      suggestionsContainerOpen: 'coz-searchbar-autosuggest-suggestions-container--open',
+      suggestionsContainerOpen:
+        'coz-searchbar-autosuggest-suggestions-container--open',
       suggestionsList: 'coz-searchbar-autosuggest-suggestions-list',
       suggestion: 'coz-searchbar-autosuggest-suggestion',
       suggestionHighlighted: 'coz-searchbar-autosuggest-suggestion-highlighted',
@@ -256,15 +319,17 @@ class SearchBar extends Component {
     }
 
     return (
-      <div className='coz-searchbar' role='search'>
+      <div className="coz-searchbar" role="search">
         {sourceURLs.map(url => (
-          <iframe src={url} style={{display: 'none'}} />
+          <iframe src={url} style={{ display: 'none' }} />
         ))}
         <Autosuggest
           theme={theme}
           suggestions={suggestionsBySource}
           multiSection
-          onSuggestionsFetchRequested={this.debouncedOnSuggestionsFetchRequested}
+          onSuggestionsFetchRequested={
+            this.debouncedOnSuggestionsFetchRequested
+          }
           onSuggestionsClearRequested={this.onSuggestionsClearRequested}
           onSuggestionSelected={this.onSuggestionSelected}
           getSuggestionValue={this.getSuggestionValue}
@@ -274,11 +339,14 @@ class SearchBar extends Component {
           inputProps={inputProps}
           focusInputOnSuggestionClick={false}
         />
-        {input !== '' && !isInitialSearch && focused && !hasSuggestions &&
-          <div className={'coz-searchbar-autosuggest-status-container'}>
-            {t('searchbar.empty', { query: input })}
-          </div>
-        }
+        {input !== '' &&
+          !isInitialSearch &&
+          focused &&
+          !hasSuggestions && (
+            <div className={'coz-searchbar-autosuggest-status-container'}>
+              {t('searchbar.empty', { query: input })}
+            </div>
+          )}
       </div>
     )
   }

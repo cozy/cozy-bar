@@ -3,13 +3,13 @@ import { ButtonLink } from 'cozy-ui/react/Button'
 import { translate } from 'cozy-ui/react/I18n'
 
 class Banner extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = { unmounted: true }
     this.animate = this.animate.bind(this)
   }
 
-  animate () {
+  animate() {
     // To animate we have to use a setTimeout to
     // force a CSS class update and trigger CSS animation
     return setTimeout(() => {
@@ -17,19 +17,19 @@ class Banner extends Component {
     }, 100)
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.animate()
   }
 
-  render () {
+  render() {
     const { t, code, links } = this.props
     const { unmounted } = this.state
     return (
       <div className={`coz-bar-banner${unmounted ? ' unmounted' : ''}`}>
         <p>{t(`banner.${code}.description`)}</p>
         <ButtonLink
-          className='coz-bar-banner-button'
-          size='tiny'
+          className="coz-bar-banner-button"
+          size="tiny"
           href={links}
           label={t(`banner.${code}.CTA`)}
         />

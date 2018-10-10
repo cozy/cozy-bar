@@ -11,7 +11,7 @@ import cozyIcon from 'assets/icons/16/icon-cozy-16.svg'
 import homeIcon from 'assets/icons/icon-cozy-home.svg'
 
 class AppsContent extends Component {
-  constructor (props, context) {
+  constructor(props, context) {
     super(props, context)
     if (!this.props.isFetchingApps) {
       this.props.fetchApps()
@@ -20,38 +20,41 @@ class AppsContent extends Component {
     this.translateApp = translateApp(this.props.t)
   }
 
-  render () {
+  render() {
     const { t, apps, breakpoints, homeApp, isFetchingApps } = this.props
     const { isMobile } = breakpoints
     const isHomeApp = homeApp && homeApp.isCurrentApp
 
     if (!apps || !apps.length) {
-      return <p className='coz-nav--error coz-nav-group'>{t('no_apps')}</p>
+      return <p className="coz-nav--error coz-nav-group">{t('no_apps')}</p>
     }
 
     return (
-      <div className='coz-nav-pop-content'>
-        <ul className='coz-nav-group'>
-          {isMobile && homeApp && (
-            <AppItem app={homeApp} icon={homeIcon} />
-          )}
+      <div className="coz-nav-pop-content">
+        <ul className="coz-nav-group">
+          {isMobile && homeApp && <AppItem app={homeApp} icon={homeIcon} />}
           {isFetchingApps
             ? new Array(3)
-              .fill({})
-              .map((nothing, index) => <AppItemPlaceholder key={index} />)
+                .fill({})
+                .map((nothing, index) => <AppItemPlaceholder key={index} />)
             : apps
-              .sort((appA, appB) => {
-                return this.translateApp(appA) > this.translateApp(appB)
-              }
-              )
-              .map((app, index) => <AppItem app={app} key={index} />)}
+                .sort((appA, appB) => {
+                  return this.translateApp(appA) > this.translateApp(appB)
+                })
+                .map((app, index) => <AppItem app={app} key={index} />)}
         </ul>
-        {homeApp && !isMobile && !isHomeApp && (
-          <a role='menuitem' href={homeApp.href} className='coz-apps-home-btn'>
-            <img src={cozyIcon} />
-            {t('menu.home')}
-          </a>
-        )}
+        {homeApp &&
+          !isMobile &&
+          !isHomeApp && (
+            <a
+              role="menuitem"
+              href={homeApp.href}
+              className="coz-apps-home-btn"
+            >
+              <img src={cozyIcon} />
+              {t('menu.home')}
+            </a>
+          )}
       </div>
     )
   }
@@ -73,4 +76,7 @@ const mapDispatchToProps = dispatch => ({
   fetchApps: () => dispatch(fetchApps())
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(translate()(withBreakpoints()(AppsContent)))
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(translate()(withBreakpoints()(AppsContent)))
