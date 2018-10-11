@@ -1,4 +1,5 @@
 import { extend as extendI18n } from 'cozy-ui/react/I18n'
+import { SET_LOCALE } from '../reducers/locale'
 
 const extendI18nWithApp = lang => app => {
   const { langs, locales } = app
@@ -35,7 +36,7 @@ const useLang = (apps, lang) => {
 export const appsI18nMiddleware = ({ getState }) => next => action => {
   const state = getState()
   switch (action.type) {
-    case 'SET_LOCALE': {
+    case SET_LOCALE: {
       const apps = state.apps && state.apps.apps
       useLang(apps, action.lang)
       break
