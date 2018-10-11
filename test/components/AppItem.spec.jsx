@@ -1,6 +1,7 @@
 import React from 'react'
 import { AppItem } from 'components/Apps/AppItem'
 import { shallow } from 'enzyme'
+import { tMock } from '../jestLib/I18n'
 
 describe('app icon', () => {
   let spyConsoleError, openNativeSpy
@@ -24,7 +25,7 @@ describe('app icon', () => {
       slug: 'cozy-drive',
       name: 'Drive'
     }
-    const root = shallow(<AppItem app={app} />)
+    const root = shallow(<AppItem t={tMock} app={app} />)
     expect(root).toMatchSnapshot()
   })
 
@@ -33,7 +34,7 @@ describe('app icon', () => {
       slug: 'cozy-drive',
       name: 'Drive'
     }
-    const root = shallow(<AppItem app={app} />)
+    const root = shallow(<AppItem t={tMock} app={app} />)
     root.find('a').simulate('click')
     expect(openNativeSpy).not.toHaveBeenCalled()
     root.setState({ isAppAvailable: true })

@@ -93,7 +93,7 @@ class Bar extends Component {
     this.setState({ supportDisplayed: !supportDisplayed })
   }
 
-  renderCenter () {
+  renderCenter() {
     const {
       appName,
       appNamePrefix,
