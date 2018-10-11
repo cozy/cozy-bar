@@ -5,6 +5,7 @@ import { appShape } from 'proptypes/index'
 import { checkApp, startApp } from 'cozy-device-helper'
 import expiringMemoize from 'lib/expiringMemoize'
 import AppIcon from 'cozy-ui/react/AppIcon'
+import { translate } from 'cozy-ui/react/I18n'
 import stack from 'lib/stack'
 
 const NATIVE_APP_INFOS = {
@@ -59,9 +60,11 @@ export class AppItem extends React.Component {
   }
 
   render() {
-    const { app, icon } = this.props
+    const { app, icon, t } = this.props
     const dataIcon = app.icon ? `icon-${app.slug}` : ''
-    const label = (app.namePrefix ? app.namePrefix + ' ' : '') + app.name
+    const label = t(`${app.slug}.name`, {
+      _: app.namePrefix ? `${app.namePrefix} ${app.name}` : app.name
+    })
 
     let href = app.href
     let onClick = null
@@ -112,4 +115,4 @@ AppItem.propTypes = {
   app: appShape.isRequired
 }
 
-export default AppItem
+export default translate()(AppItem)
