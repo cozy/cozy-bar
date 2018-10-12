@@ -25,7 +25,7 @@ class AppsContent extends Component {
     const { isMobile } = breakpoints
     const isHomeApp = homeApp && homeApp.isCurrentApp
 
-    if (!apps || !apps.length) {
+    if (!isFetchingApps && (!apps || !apps.length)) {
       return <p className="coz-nav--error coz-nav-group">{t('no_apps')}</p>
     }
 

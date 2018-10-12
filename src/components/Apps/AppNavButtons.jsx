@@ -6,6 +6,7 @@ import { getHomeApp } from 'lib/reducers'
 import Icon from 'cozy-ui/react/Icon'
 import { translate } from 'cozy-ui/react/I18n'
 import homeIcon from 'assets/icons/icon-cozy-home.svg'
+import { isFetchingApps } from 'lib/reducers'
 
 class AppNavButton extends Component {
   render() {
@@ -17,11 +18,21 @@ class AppNavButton extends Component {
       appNamePrefix,
       appSlug,
       iconPath,
+      isFetchingApps,
       opened,
       t
     } = this.props
 
     const isHomeApp = homeApp && homeApp.isCurrentApp
+
+    if (isFetchingApps) {
+      return (
+        <div className="coz-nav-apps-btns --loading">
+          <div className="coz-nav-apps-btns-home coz-loading-placeholder" />
+          <div className="coz-nav-apps-btns-main coz-loading-placeholder" />
+        </div>
+      )
+    }
 
     return (
       <div className={`coz-nav-apps-btns${isHomeApp ? ' --currentHome' : ''}`}>
@@ -53,7 +64,8 @@ class AppNavButton extends Component {
 }
 
 const mapStateToProps = state => ({
-  homeApp: getHomeApp(state)
+  homeApp: getHomeApp(state),
+  isFetchingApps: isFetchingApps(state)
 })
 
 const mapDispatchToProps = () => ({})

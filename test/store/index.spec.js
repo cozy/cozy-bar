@@ -11,7 +11,7 @@ describe('store', () => {
   const getState = () => store.getState()
 
   it('should keep fetching status', () => {
-    expect(isFetchingApps(getState())).toBe(false)
+    expect(isFetchingApps(getState())).toBe(true)
     store.dispatch({ type: 'FETCH_APPS' })
     expect(isFetchingApps(getState())).toBe(true)
     store.dispatch({ type: 'RECEIVE_APP_LIST', apps: [] })

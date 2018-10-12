@@ -94,7 +94,7 @@ const setHomeApp = appsList => async dispatch => {
 const defaultState = {
   apps: [],
   homeApp: null,
-  isFetching: false,
+  isFetching: true,
   appName: null,
   appNamePrefix: null,
   appSlug: null,
