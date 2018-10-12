@@ -10,21 +10,23 @@ const extendI18nWithApp = lang => app => {
   }
 
   const providesLang = hasLangs && langs.includes(lang)
-  const actualLang = providesLang ? lang : langs[0]
+  const currentLang = providesLang ? lang : langs[0]
 
   const localeKeys = locales && Object.keys(locales)
   const providesLocales =
-    localeKeys && localeKeys.length && localeKeys.includes(actualLang)
+    localeKeys && localeKeys.length && localeKeys.includes(currentLang)
 
   if (!providesLocales) {
     console.warn &&
       console.warn(
-        `App ${app.name} does not specify any locale for lang ${actualLang}`
+        `App ${app.name} does not specify any locale for lang ${currentLang}`
       )
     return app
   }
 
-  extendI18n({ [app.slug]: locales[actualLang] })
+  console.debug(locales[currentLang])
+
+  extendI18n({ [app.slug]: locales[currentLang] })
   return app
 }
 
