@@ -24,8 +24,6 @@ const extendI18nWithApp = lang => app => {
     return app
   }
 
-  console.debug(locales[currentLang])
-
   extendI18n({ [app.slug]: locales[currentLang] })
   return app
 }
