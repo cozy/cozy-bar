@@ -39,7 +39,7 @@
     "semantic-release": "semantic-release"
   },
   "devDependencies": {
-    "autoprefixer": "7.2.3",
+    "autoprefixer": "7.2.6",
     "babel-jest": "23.6.0",
     "babel-loader": "7.1.5",
     "babel-polyfill": "6.26.0",
