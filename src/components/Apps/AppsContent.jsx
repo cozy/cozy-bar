@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 import { translate } from 'cozy-ui/react/I18n'
 import withBreakpoints from 'cozy-ui/react/helpers/withBreakpoints'
-import { getApps, fetchApps, getHomeApp, isFetchingApps } from 'lib/reducers'
+import { getApps, getHomeApp, isFetchingApps } from 'lib/reducers'
 
 import AppItem from 'components/Apps/AppItem'
 import AppItemPlaceholder from 'components/Apps/AppItemPlaceholder'
@@ -13,10 +13,6 @@ import homeIcon from 'assets/icons/icon-cozy-home.svg'
 class AppsContent extends Component {
   constructor(props, context) {
     super(props, context)
-    if (!this.props.isFetchingApps) {
-      this.props.fetchApps()
-    }
-
     this.translateApp = translateApp(this.props.t)
   }
 
@@ -25,7 +21,7 @@ class AppsContent extends Component {
     const { isMobile } = breakpoints
     const isHomeApp = homeApp && homeApp.isCurrentApp
 
-    if (!apps || !apps.length) {
+    if (!isFetchingApps && (!apps || !apps.length)) {
       return <p className="coz-nav--error coz-nav-group">{t('no_apps')}</p>
     }
 
@@ -72,11 +68,6 @@ const mapStateToProps = state => ({
   isFetchingApps: isFetchingApps(state)
 })
 
-const mapDispatchToProps = dispatch => ({
-  fetchApps: () => dispatch(fetchApps())
-})
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(translate()(withBreakpoints()(AppsContent)))
+export default connect(mapStateToProps)(
+  translate()(withBreakpoints()(AppsContent))
+)

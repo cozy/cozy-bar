@@ -16,7 +16,7 @@
   height: 3rem;
   margin: 0 .75rem;
   padding: 0;
-  background: none;
+  background-color: transparent;
   border: none;
 }
 
@@ -198,4 +198,22 @@
 [role=banner] .coz-nav-apps-item [role=menuitem] .coz-label.coz-loading-placeholder {
   height: 1em;
   width: 7rem;
+}
+
+[role=banner] .coz-nav-apps-btns.--loading {
+  width: 12rem;
+}
+
+[role=banner] .coz-nav-apps-btns-home.coz-loading-placeholder {
+  height: 2rem;
+  width: 2rem;
+  border-radius: 2rem;
+  background-color: var(--silver);
+  flex-shrink: 0;
+}
+
+[role=banner] .coz-nav-apps-btns-main.coz-loading-placeholder {
+  height: 1.5rem;
+  margin: 0;
+  background-color: var(--silver);
 }

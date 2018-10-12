@@ -19,7 +19,7 @@ import Apps from 'components/Apps'
 import SearchBar from 'components/SearchBar'
 import Claudy from 'components/Claudy'
 import SupportModal from 'components/SupportModal'
-import { getContent, getCurrentApp } from 'lib/reducers'
+import { getContent, getCurrentApp, fetchApps } from 'lib/reducers'
 
 class Bar extends Component {
   constructor(props, context) {
@@ -34,6 +34,7 @@ class Bar extends Component {
       supportDisplayed: false,
       searchBarEnabled: props.currentApp === 'Cozy Drive' && !props.isPublic
     }
+    this.props.fetchApps()
   }
 
   async componentWillMount() {
@@ -203,4 +204,13 @@ const mapStateToProps = state => ({
   currentApp: getCurrentApp(state)
 })
 
-export default translate()(connect(mapStateToProps)(Bar))
+const mapDispatchToProps = dispatch => ({
+  fetchApps: () => dispatch(fetchApps())
+})
+
+export default translate()(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(Bar)
+)
