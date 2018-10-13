@@ -99,7 +99,7 @@
     "localforage": "1.5.5",
     "lodash.debounce": "4.0.8",
     "lodash.unionwith": "4.6.0",
-    "node-polyglot": "2.2.2",
+    "node-polyglot": "2.3.0",
     "piwik-react-router": "0.10.0",
     "preact": "8.2.7",
     "preact-compat": "3.17.0",
