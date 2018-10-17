@@ -103,7 +103,7 @@
     "piwik-react-router": "0.10.0",
     "preact": "8.2.7",
     "preact-compat": "3.17.0",
-    "react-autosuggest": "9.3.2",
+    "react-autosuggest": "9.4.2",
     "react-redux": "5.0.6",
     "redux": "3.7.2",
     "redux-persist": "5.4.0",
