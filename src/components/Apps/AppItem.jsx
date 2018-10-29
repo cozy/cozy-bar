@@ -100,7 +100,7 @@ export class AppItem extends React.Component {
             <AppIcon
               app={app}
               className="coz-nav-apps-item-icon"
-              fetchIcon={stack.get.icon}
+              fetchIcon={() => stack.get.icon(app, true)}
               key={app.slug}
             />
           )}
