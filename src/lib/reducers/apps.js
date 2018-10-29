@@ -50,7 +50,7 @@ export const fetchApps = () => async dispatch => {
     const comingSoonApps = await fetchComingSoonApps()
     const apps = rawAppList.filter(app => !EXCLUDES.includes(app.attributes.slug))
     // TODO load only one time icons
-    const icons = await Promise.all(apps.map(app => stack.get.icon(app.links.icon)))
+    const icons = await Promise.all(apps.map(app => stack.get.icon(app, true)))
     const appsWithIcons = apps.map((app, idx) => ({
       namePrefix: app.attributes.name_prefix,
       name: app.attributes.name,
@@ -62,7 +62,7 @@ export const fetchApps = () => async dispatch => {
           src: icons[idx],
           cached: true
         }
-        : undefined
+        : null
     }))
     let appsList = appsWithIcons
     if (comingSoonApps && comingSoonApps.length) {
