@@ -68,7 +68,7 @@
     "postcss-css-variables": "0.11.0",
     "postcss-discard-duplicates": "4.0.2",
     "postcss-discard-empty": "4.0.1",
-    "postcss-import": "12.0.0",
+    "postcss-import": "12.0.1",
     "postcss-loader": "3.0.0",
     "react": "16.5.2",
     "react-dom": "16.5.2",
