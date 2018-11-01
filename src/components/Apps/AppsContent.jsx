@@ -57,7 +57,9 @@ class AppsContent extends Component {
 }
 
 const translateApp = t => app => {
-  const namePrefix = t(`${app.slug}.namePrefix`, { _: app.namePrefix })
+  const namePrefix = app.namePrefix
+    ? t(`${app.slug}.namePrefix`, { _: app.namePrefix })
+    : null
   const name = t(`${app.slug}.name`, { _: app.name })
   return namePrefix ? `${namePrefix} ${name}` : `${name}`
 }
