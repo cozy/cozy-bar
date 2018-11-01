@@ -28,7 +28,6 @@ exports[`The bar library should render correctly the cozy-bar 1`] = `
       <Wrapper
         appName="test-app"
         appNamePrefix="cozy"
-        displayOnMobile={true}
         iconPath=""
         isPublic={false}
         onDrawer={[Function]}

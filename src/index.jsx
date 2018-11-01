@@ -185,7 +185,6 @@ const init = async ({
   cozyURL = getDefaultStackURL(),
   token = getDefaultToken(),
   replaceTitleOnMobile = false,
-  displayOnMobile,
   isPublic = false,
   onLogOut,
   ssl
@@ -193,14 +192,6 @@ const init = async ({
   // Force public mode in `/public` URLs
   if (/^\/public/.test(window.location.pathname)) {
     isPublic = true
-  }
-
-  if (displayOnMobile === undefined) {
-    displayOnMobile = false
-    if (__TARGET__ === 'mobile')
-      console.warn(
-        'Deprecated: cozy-bar option `displayOnMobile` automatically set to `false`, but `true` will be the new default value in the next version. Please explicitly set the option to `false`.'
-      )
   }
 
   reduxStore.dispatch(setInfos(appName, appNamePrefix, appSlug))
@@ -221,7 +212,6 @@ const init = async ({
     appSlug,
     iconPath,
     replaceTitleOnMobile,
-    displayOnMobile,
     isPublic,
     onLogOut,
     userActionRequired: getUserActionRequired()

@@ -1,4 +1,3 @@
-/* global __TARGET__ */
 /* global __PIWIK_TRACKER_URL__  __PIWIK_SITEID__ __PIWIK_DIMENSION_ID_APP__ */
 
 import 'core-js/modules/es6.object.assign'
@@ -114,9 +113,9 @@ class Bar extends Component {
   }
 
   renderLeft = () => {
-    const { t, displayOnMobile, isPublic } = this.props
+    const { t, isPublic } = this.props
     // data-tutorial attribute allows to be targeted in an application tutorial
-    return (__TARGET__ !== 'mobile' || displayOnMobile) && !isPublic ? (
+    return !isPublic ? (
       <button
         type="button"
         className="coz-bar-btn coz-bar-burger"
@@ -130,8 +129,8 @@ class Bar extends Component {
   }
 
   renderRight = () => {
-    const { displayOnMobile, isPublic } = this.props
-    return (__TARGET__ !== 'mobile' || displayOnMobile) && !isPublic ? (
+    const { isPublic } = this.props
+    return !isPublic ? (
       <Settings
         toggleSupport={this.toggleSupport}
         onLogOut={this.props.onLogOut}
@@ -154,7 +153,6 @@ class Bar extends Component {
       barRight,
       barCenter,
       onDrawer,
-      displayOnMobile,
       isPublic,
       onLogOut,
       userActionRequired
@@ -168,7 +166,7 @@ class Bar extends Component {
             {searchBarEnabled ? <SearchBar /> : null}
           </div>
           {barRight || this.renderRight()}
-          {(__TARGET__ !== 'mobile' || displayOnMobile) && !isPublic ? (
+          {!isPublic ? (
             <Drawer
               visible={drawerVisible}
               onClose={this.toggleDrawer}
