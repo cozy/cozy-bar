@@ -1,4 +1,3 @@
-/* global __TARGET__ */
 import stack from '../stack'
 import unionWith from 'lodash.unionwith'
 
@@ -14,19 +13,14 @@ const EXCLUDES = ['settings', 'onboarding']
 const isCurrentApp = (state, app) => app.slug === state.appSlug
 
 // selectors
-const onMobile = __TARGET__ === 'mobile'
-export const getApps = (state, mobile = onMobile) => {
+export const getApps = state => {
   if (!state.apps) return []
 
   const appsWithCurrentApp = state.apps.filter(
     app => app.slug !== (state.homeApp && state.homeApp.slug)
   )
 
-  if (!mobile) {
-    return appsWithCurrentApp
-  }
-
-  return appsWithCurrentApp.filter(app => !app.isCurrentApp)
+  return appsWithCurrentApp
 }
 
 export const getHomeApp = state => {
