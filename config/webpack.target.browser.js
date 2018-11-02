@@ -20,6 +20,9 @@ module.exports = merge(
       new webpack.DefinePlugin({
         __TARGET__: JSON.stringify('browser')
       })
-    ]
+    ],
+    externals: {
+      React: 'React'
+    }
   }
 )
