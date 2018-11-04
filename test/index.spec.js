@@ -15,8 +15,7 @@ describe('The bar library', function() {
       lang: 'en',
       iconPath: '',
       cozyURL: 'https://mock.cozy',
-      token: 'mock',
-      displayOnMobile: true
+      token: 'mock'
     }
     const Bar = init(options)
     const mounted = mount(Bar)
