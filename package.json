@@ -95,7 +95,7 @@
     "cozy-device-helper": "1.4.14",
     "cozy-realtime": "1.2.0",
     "hammerjs": "2.0.8",
-    "lerna-changelog": "0.8.1",
+    "lerna-changelog": "0.8.2",
     "localforage": "1.7.3",
     "lodash.debounce": "4.0.8",
     "lodash.unionwith": "4.6.0",
