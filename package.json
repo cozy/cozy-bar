@@ -48,7 +48,7 @@
     "babel-runtime": "6.26.0",
     "bundlesize": "0.17.0",
     "cozy-ui": "11.4.0",
-    "css-loader": "1.0.0",
+    "css-loader": "1.0.1",
     "css-mqpacker": "7.0.0",
     "csswring": "7.0.0",
     "deep-equal": "1.0.1",
