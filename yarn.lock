@@ -9637,9 +9637,9 @@ redeyed@~2.1.0:
   dependencies:
     esprima "~4.0.0"
 
-redux-persist@5.4.0:
-  version "5.4.0"
-  resolved "https://registry.yarnpkg.com/redux-persist/-/redux-persist-5.4.0.tgz#a1062313546a9d4ca6f9271464d18f736e8ca394"
+redux-persist@5.10.0:
+  version "5.10.0"
+  resolved "https://registry.yarnpkg.com/redux-persist/-/redux-persist-5.10.0.tgz#5d8d802c5571e55924efc1c3a9b23575283be62b"
 
 redux-thunk@2.2.0:
   version "2.2.0"
