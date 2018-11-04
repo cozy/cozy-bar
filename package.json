@@ -102,7 +102,7 @@
     "node-polyglot": "2.3.0",
     "piwik-react-router": "0.12.1",
     "preact": "8.3.1",
-    "preact-compat": "3.17.0",
+    "preact-compat": "3.18.4",
     "react-autosuggest": "9.4.2",
     "react-redux": "5.0.6",
     "redux": "3.7.2",
