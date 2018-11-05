@@ -1,10 +1,8 @@
 'use strict'
 
-const production = process.env.NODE_ENV === 'production'
-const addAnalyzer = process.env.ANALYZER === 'true'
-
-module.exports = {
-  production,
-  addAnalyzer,
-  filename: (ext, prefix) => `cozy-bar${prefix ? `.${prefix}` : ''}${production ? '.min' : ''}.${ext}`
-}
+module.exports = env => ({
+  production: env.production,
+  mobile: env.mobile,
+  addAnalyzer: env.analyzer,
+  filename: (ext, prefix) => `cozy-bar${prefix ? `.${prefix}` : ''}${env.production ? '.min' : ''}.${ext}`
+})
