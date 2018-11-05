@@ -3482,9 +3482,9 @@ cozy-realtime@1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/cozy-realtime/-/cozy-realtime-1.2.0.tgz#8f0e5a2c02df94674f0a96381a51bce71d327602"
 
-cozy-ui@11.4.0:
-  version "11.4.0"
-  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-11.4.0.tgz#0cde3d934e398f1b8862a7d42f982fd9cf1de6f4"
+cozy-ui@14.3.4:
+  version "14.3.4"
+  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-14.3.4.tgz#45b45d7b4d614bb28d02bafddd36f3caa7e4bc35"
   dependencies:
     babel-preset-cozy-app "^0.3.1"
     body-scroll-lock "^2.5.8"
@@ -3494,7 +3494,8 @@ cozy-ui@11.4.0:
     md5 "^2.2.0"
     mini-css-extract-plugin "^0.4.3"
     normalize.css "^7.0.0"
-    preact-portal "^1.1.2"
+    preact "^8.3.1"
+    preact-portal "^1.1.3"
     pretty "^2.0.0"
     react-select "^2.0.0-beta.6"
     stylus "^0.54.5"
@@ -9086,7 +9087,7 @@ preact-compat@3.18.4:
     prop-types "^15.6.2"
     standalone-react-addons-pure-render-mixin "^0.1.1"
 
-preact-portal@^1.1.2:
+preact-portal@^1.1.3:
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/preact-portal/-/preact-portal-1.1.3.tgz#22cdd3ecf6ad9aaa3f830607a9c6591de90aedb7"
 
@@ -9100,7 +9101,7 @@ preact-transition-group@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/preact-transition-group/-/preact-transition-group-1.1.1.tgz#f0a49327ea515ece34ea2be864c4a7d29e5d6e10"
 
-preact@8.3.1:
+preact@8.3.1, preact@^8.3.1:
   version "8.3.1"
   resolved "https://registry.yarnpkg.com/preact/-/preact-8.3.1.tgz#ed34f79d09edc5efd32a378a3416ef5dc531e3ac"
 
