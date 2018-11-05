@@ -20,7 +20,7 @@ module.exports = {
       commonjs2: 'react-dom',
       root: 'ReactDOM'
     },
-    'react': {
+    react: {
       amd: 'react',
       commonjs: 'react',
       commonjs2: 'react',
@@ -29,7 +29,7 @@ module.exports = {
   },
   resolve: {
     extensions: ['.js', '.json', '.yaml'],
-    modules: [path.join(__dirname, '../node_modules'), SRC_DIR]
+    modules: [SRC_DIR, path.join(__dirname, '../node_modules')]
   },
   devtool: '#source-map',
   module: {
