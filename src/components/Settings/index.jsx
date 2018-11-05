@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-
+import PropTypes from 'prop-types'
 import { translate } from 'cozy-ui/react/I18n'
 
 import SettingsContent from 'components/Settings/SettingsContent'
@@ -93,6 +93,10 @@ class Settings extends Component {
       </div>
     )
   }
+}
+
+Settings.contextTypes = {
+  barStore: PropTypes.object
 }
 
 export default translate()(Settings)
