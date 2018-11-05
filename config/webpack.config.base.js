@@ -13,6 +13,20 @@ module.exports = {
     libraryTarget: 'umd',
     umdNamedDefine: true
   },
+  externals: {
+    'react-dom': {
+      amd: 'react-dom',
+      commonjs: 'react-dom',
+      commonjs2: 'react-dom',
+      root: 'ReactDOM'
+    },
+    'react': {
+      amd: 'react',
+      commonjs: 'react',
+      commonjs2: 'react',
+      root: 'React'
+    }
+  },
   resolve: {
     extensions: ['.js', '.json', '.yaml'],
     modules: [path.join(__dirname, '../node_modules'), SRC_DIR]

@@ -133,7 +133,7 @@ export class Provider extends Component {
 
   render() {
     const { children } = this.props
-    return (children && children[0]) || null
+    return children
   }
 }
 

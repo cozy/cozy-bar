@@ -1,11 +1,10 @@
 'use strict'
 
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const { filename } = require('./webpack.vars.js')
 const webpack = require('webpack')
 const path = require('path')
 
-module.exports = {
+module.exports = ({ filename }) => ({
   resolve: {
     extensions: ['.styl']
   },
@@ -79,4 +78,4 @@ module.exports = {
       }
     })
   ]
-}
+})

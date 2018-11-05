@@ -2,11 +2,7 @@
 
 module.exports = {
   resolve: {
-    extensions: ['.jsx'],
-    alias: {
-      'react': 'preact-compat',
-      'react-dom': 'preact-compat'
-    }
+    extensions: ['.jsx']
   },
   module: {
     rules: [{

@@ -3,6 +3,7 @@
 import 'core-js/modules/es6.object.assign'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 
 import { translate } from 'cozy-ui/react/I18n'
 import {
@@ -193,6 +194,10 @@ class Bar extends Component {
       </div>
     )
   }
+}
+
+Bar.contextTypes = {
+  store: PropTypes.object
 }
 
 const mapStateToProps = state => ({

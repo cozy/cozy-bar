@@ -3,6 +3,7 @@ import Hammer from 'hammerjs'
 
 import AppsContent from 'components/Apps/AppsContent'
 import SettingsContent from 'components/Settings/SettingsContent'
+import PropTypes from 'prop-types'
 
 class Drawer extends Component {
   constructor(props, context) {
@@ -194,6 +195,10 @@ class Drawer extends Component {
       </div>
     )
   }
+}
+
+Drawer.contextTypes = {
+  barStore: PropTypes.object
 }
 
 export default Drawer
