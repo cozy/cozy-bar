@@ -1,4 +1,4 @@
-/* global __TARGET__, __VERSION__, __DEVELOPMENT__ */
+/* global __TARGET__, __VERSION__ */
 
 'use strict'
 
@@ -27,15 +27,6 @@ import api from 'lib/api'
 require('./styles')
 
 const APP_SELECTOR = '[role=application]'
-
-if (__DEVELOPMENT__) {
-  // Enables React dev tools for Preact
-  // Cannot use import as we are in a condition
-  require('preact/devtools')
-
-  // Export React to window for the devtools
-  window.React = React
-}
 
 // store
 const barStore = new BarStore()
