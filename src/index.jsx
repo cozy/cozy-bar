@@ -156,9 +156,6 @@ const determineSSL = (ssl, cozyURL) => {
   let parsedURL
   try {
     parsedURL = new URL(cozyURL)
-    console.warn(
-      'Cozy-bar will soon need `ssl` and `domain` parameters to be properly configured, and will not rely on cozyURL.'
-    )
     return parsedURL.protocol === 'https:'
   } catch (error) {
     console.warn(
