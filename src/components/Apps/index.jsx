@@ -40,7 +40,8 @@ class Apps extends Component {
       appName,
       appNamePrefix,
       appSlug,
-      iconPath
+      iconPath,
+      isPublic
     } = this.props
     const { opened } = this.state
     return (
@@ -59,6 +60,7 @@ class Apps extends Component {
           iconPath={iconPath}
           handleClick={this.toggleMenu}
           opened={opened}
+          isPublic={isPublic}
         />
         <div
           className="coz-nav-pop coz-nav-pop--apps"

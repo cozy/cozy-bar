@@ -37,8 +37,10 @@ class Bar extends Component {
       supportDisplayed: false,
       searchBarEnabled: props.currentApp === 'Cozy Drive' && !props.isPublic
     }
-    this.props.fetchContext()
-    this.props.fetchApps()
+    if (!props.isPublic) {
+      this.props.fetchContext()
+      this.props.fetchApps()
+    }
   }
 
   componentDidMount() {
@@ -99,7 +101,8 @@ class Bar extends Component {
       appNamePrefix,
       appSlug,
       iconPath,
-      replaceTitleOnMobile
+      replaceTitleOnMobile,
+      isPublic
     } = this.props
     return (
       <Apps
@@ -108,6 +111,7 @@ class Bar extends Component {
         appSlug={appSlug}
         iconPath={iconPath}
         replaceTitleOnMobile={replaceTitleOnMobile}
+        isPublic={isPublic}
       />
     )
   }
