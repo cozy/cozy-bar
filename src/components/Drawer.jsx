@@ -38,7 +38,6 @@ class Drawer extends Component {
   }
 
   async componentDidMount() {
-    await this.props.fetchSettingsData()
     this.turnTransitionsOn()
   }
 
@@ -210,7 +209,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  fetchSettingsData: () => dispatch(fetchSettingsData(false)),
+  fetchSettingsData: () => dispatch(fetchSettingsData()),
   logOut: () => dispatch(logOut())
 })
 

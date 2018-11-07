@@ -23,6 +23,7 @@ import {
   getCurrentApp,
   fetchApps,
   fetchContext,
+  fetchSettingsData,
   shouldEnableClaudy
 } from 'lib/reducers'
 
@@ -38,8 +39,9 @@ class Bar extends Component {
       searchBarEnabled: props.currentApp === 'Cozy Drive' && !props.isPublic
     }
     if (!props.isPublic) {
-      this.props.fetchContext()
-      this.props.fetchApps()
+      props.fetchContext()
+      props.fetchSettingsData(false)
+      props.fetchApps()
     }
   }
 
@@ -209,7 +211,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   fetchApps: () => dispatch(fetchApps()),
-  fetchContext: () => dispatch(fetchContext())
+  fetchContext: () => dispatch(fetchContext()),
+  fetchSettingsData: displayBusy => dispatch(fetchSettingsData(displayBusy))
 })
 
 export default translate()(

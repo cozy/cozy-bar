@@ -39,12 +39,12 @@ class Settings extends Component {
     }
   }
 
-  toggleMenu = async () => {
+  toggleMenu = () => {
     let stateUpdate = { opened: false }
     // if popup already opened, stop here to close it
     if (this.state.opened) return this.setState(stateUpdate)
     // fetch data
-    await this.props.fetchSettingsData()
+    this.props.fetchSettingsData()
     this.setState({ opened: true })
   }
 
@@ -60,6 +60,7 @@ class Settings extends Component {
       toggleSupport
     } = this.props
     const { opened } = this.state
+    const openMenu = opened && !isFetching
     return (
       <div
         className="coz-nav coz-nav-settings"
@@ -80,7 +81,7 @@ class Settings extends Component {
         <div
           className="coz-nav-pop coz-nav-pop--settings"
           id="coz-nav-pop--settings"
-          aria-hidden={!opened}
+          aria-hidden={!openMenu}
         >
           {!isFetching && (
             <SettingsContent
