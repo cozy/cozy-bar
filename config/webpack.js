@@ -21,7 +21,7 @@ module.exports = (env = {}) => {
     addAnalyzer ? require('./webpack.config.analyzer.js') : {},
     require('./webpack.config.jsx.js'),
     require(production ? './webpack.config.prod' : './webpack.config.dev'),
-    cssConfig({ filename }),
+    cssConfig({ filename, mobile }),
     {
       output: {
         filename: filename('js', mobile ? 'mobile' : ''),
