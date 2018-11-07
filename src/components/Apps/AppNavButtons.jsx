@@ -3,10 +3,12 @@ import { connect } from 'react-redux'
 
 import { getHomeApp } from 'lib/reducers'
 
-import Icon from 'cozy-ui/react/Icon'
 import { translate } from 'cozy-ui/react/I18n'
 import homeIcon from 'assets/icons/icon-cozy-home.svg'
 import { isFetchingApps } from 'lib/reducers'
+
+import IconTop from 'assets/icons/24/icon-top.svg'
+import IconBottom from 'assets/icons/24/icon-bottom.svg'
 
 class AppNavButton extends Component {
   render() {
@@ -54,7 +56,7 @@ class AppNavButton extends Component {
               _: appNamePrefix ? `${appNamePrefix} ${appName}` : appName
             })}
           </span>
-          <Icon icon={opened ? 'top' : 'bottom'} color="#95999d" size="12" />
+          <img src={opened ? IconTop : IconBottom} height="12" />
         </button>
       </div>
     )
