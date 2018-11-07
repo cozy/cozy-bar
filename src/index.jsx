@@ -22,6 +22,7 @@ import Bar from './components/Bar'
 import api from 'lib/api'
 
 require('./styles')
+require('./lib/importIcons')
 
 const APP_SELECTOR = '[role=application]'
 

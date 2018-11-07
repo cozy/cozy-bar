@@ -46,7 +46,13 @@ module.exports = {
       {
         test: /\.svg$/,
         include: /icons/,
+        exclude: /node_modules/,
         loader: 'url-loader'
+      },
+      {
+        test: /\.svg$/,
+        include: /cozy-ui/,
+        loader: 'svg-sprite-loader'
       }
     ]
   },
