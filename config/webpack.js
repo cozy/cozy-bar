@@ -14,14 +14,14 @@ const cssConfig = vars => {
 }
 
 module.exports = (env = {}) => {
-  const {filename, production, addAnalyzer}  = vars(env)
+  const { filename, production, addAnalyzer } = vars(env)
   const mobile = env.target === 'mobile'
   return merge(
     require('./webpack.config.base.js'),
     addAnalyzer ? require('./webpack.config.analyzer.js') : {},
     require('./webpack.config.jsx.js'),
     require(production ? './webpack.config.prod' : './webpack.config.dev'),
-    cssConfig({ filename }),
+    cssConfig({ filename, mobile }),
     {
       output: {
         filename: filename('js', mobile ? 'mobile' : ''),

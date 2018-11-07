@@ -5,10 +5,12 @@ module.exports = {
     extensions: ['.jsx']
   },
   module: {
-    rules: [{
-      test: /\.jsx$/,
-      exclude: /node_modules\/(?!(cozy-ui))/,
-      loader: 'babel-loader'
-    }]
+    rules: [
+      {
+        test: /\.jsx$/,
+        exclude: /node_modules\/(?!(cozy-ui))/,
+        loader: 'babel-loader'
+      }
+    ]
   }
 }

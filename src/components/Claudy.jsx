@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { create as createIntent } from 'lib/intents'
 
 class Claudy extends Component {
   constructor(props, context) {
@@ -17,8 +18,10 @@ class Claudy extends Component {
   toggle = () => {
     if (!this.props.opened && !this.intentWrapperRef.childNodes.length) {
       this.setState({ isLoading: true })
-      this.store
-        .getClaudyIntent({ exposeIntentFrameRemoval: true })
+      // init Claudy intent
+      createIntent(null, 'CLAUDY', 'io.cozy.settings', {
+        exposeIntentFrameRemoval: true
+      })
         .start(this.intentWrapperRef, () => {
           this.setState({ isLoading: false, isActive: true })
           this.props.onToggle() // toggle claudy when the intent is loaded

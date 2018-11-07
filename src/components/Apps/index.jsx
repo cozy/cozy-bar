@@ -3,14 +3,12 @@ import React, { Component } from 'react'
 import AppsContent from 'components/Apps/AppsContent'
 import AppNavButtons from 'components/Apps/AppNavButtons'
 
-class Nav extends Component {
+class Apps extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      busy: false,
       opened: false
     }
-    this.toggleMenu = this.toggleMenu.bind(this)
   }
 
   componentDidMount() {
@@ -22,12 +20,12 @@ class Nav extends Component {
   }
 
   onClickOutside = event => {
-    if (this.state.busy || this.state.opened) {
+    if (this.state.opened) {
       // if it's not a cozy-bar nav popup, close the opened popup
       if (!this.rootRef.contains(event.target)) {
-        this.setState({ busy: false, opened: false })
+        this.setState({ opened: false })
+        event.stopPropagation()
       }
-      event.stopPropagation()
     }
   }
 
@@ -42,9 +40,10 @@ class Nav extends Component {
       appName,
       appNamePrefix,
       appSlug,
-      iconPath
+      iconPath,
+      isPublic
     } = this.props
-    const { busy, opened } = this.state
+    const { opened } = this.state
     return (
       <nav
         className={`coz-nav coz-nav-apps${
@@ -59,9 +58,9 @@ class Nav extends Component {
           appNamePrefix={appNamePrefix}
           appSlug={appSlug}
           iconPath={iconPath}
-          busy={busy}
-          onClick={this.toggleMenu}
+          handleClick={this.toggleMenu}
           opened={opened}
+          isPublic={isPublic}
         />
         <div
           className="coz-nav-pop coz-nav-pop--apps"
@@ -75,4 +74,4 @@ class Nav extends Component {
   }
 }
 
-export default Nav
+export default Apps

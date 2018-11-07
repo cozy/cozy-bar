@@ -27,6 +27,12 @@
   color: black;
 }
 
+[role=banner] .coz-nav .coz-nav-apps-btns-main[disabled]:hover,
+[role=banner] .coz-nav .coz-nav-apps-btns-main[disabled]:focus,
+[role=banner] .coz-nav .coz-nav-apps-btns-main[disabled]:active {
+  cursor: default;
+}
+
 [role=banner] .coz-nav .coz-nav-app-name {
   margin: 0 .4rem;
   font-weight: bold;

@@ -7,6 +7,7 @@ const RECEIVE_APP = 'RECEIVE_APP'
 const RECEIVE_APP_LIST = 'RECEIVE_APP_LIST'
 const RECEIVE_HOME_APP = 'RECEIVE_HOME_APP'
 const FETCH_APPS = 'FETCH_APPS'
+const FETCH_APPS_FAILURE = 'FETCH_APPS_FAILURE'
 const SET_INFOS = 'SET_INFOS'
 const EXCLUDES = ['settings', 'onboarding']
 
@@ -49,15 +50,18 @@ export const setInfos = (appName, appNamePrefix, appSlug) => ({
 // actions async
 export const fetchApps = () => async dispatch => {
   try {
-    await dispatch({ type: FETCH_APPS })
+    dispatch({ type: FETCH_APPS })
     const rawAppList = await stack.get.apps()
     const apps = rawAppList
       .filter(app => !EXCLUDES.includes(app.attributes.slug))
       .map(mapApp)
+    if (!rawAppList.length)
+      throw new Error('No installed apps found by the bar')
     // TODO load only one time icons
     await dispatch(setHomeApp(apps))
     await dispatch(receiveAppList(apps))
   } catch (e) {
+    dispatch({ type: FETCH_APPS_FAILURE })
     console.warn(e.message ? e.message : e)
   }
 }
@@ -99,6 +103,8 @@ const reducer = (state = defaultState, action) => {
   switch (action.type) {
     case FETCH_APPS:
       return { ...state, isFetching: true }
+    case FETCH_APPS_FAILURE:
+      return { ...state, isFetching: false }
     case RECEIVE_APP:
       return {
         ...state,

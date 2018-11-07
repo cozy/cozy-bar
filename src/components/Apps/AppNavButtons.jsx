@@ -3,8 +3,8 @@ import { connect } from 'react-redux'
 
 import { getHomeApp } from 'lib/reducers'
 
-import Icon from 'cozy-ui/react/Icon'
 import { translate } from 'cozy-ui/react/I18n'
+import Icon from 'cozy-ui/react/Icon'
 import homeIcon from 'assets/icons/icon-cozy-home.svg'
 import { isFetchingApps } from 'lib/reducers'
 
@@ -12,20 +12,20 @@ class AppNavButton extends Component {
   render() {
     const {
       homeApp,
-      busy,
-      onClick,
+      handleClick,
       appName,
       appNamePrefix,
       appSlug,
       iconPath,
       isFetchingApps,
+      isPublic,
       opened,
       t
     } = this.props
 
     const isHomeApp = homeApp && homeApp.isCurrentApp
 
-    if (isFetchingApps) {
+    if (!isPublic && isFetchingApps) {
       return (
         <div className="coz-nav-apps-btns --loading">
           <div className="coz-nav-apps-btns-home coz-loading-placeholder" />
@@ -42,11 +42,11 @@ class AppNavButton extends Component {
         {!isHomeApp && <span className="coz-nav-apps-btns-sep" />}
         <button
           type="button"
-          onClick={onClick}
+          onClick={isPublic ? null : handleClick}
           className="coz-nav-apps-btns-main"
           aria-controls="coz-nav-pop--apps"
-          aria-busy={busy}
           data-tutorial="apps"
+          disabled={isPublic}
         >
           {!isHomeApp && (
             <img className="coz-bar-hide-sm" src={iconPath} width="28" alt="" />
@@ -56,7 +56,9 @@ class AppNavButton extends Component {
               _: appNamePrefix ? `${appNamePrefix} ${appName}` : appName
             })}
           </span>
-          <Icon icon={opened ? 'top' : 'bottom'} color="#95999d" size="12" />
+          {!isPublic && (
+            <Icon icon={opened ? 'top' : 'bottom'} color="#95999d" size="12" />
+          )}
         </button>
       </div>
     )
