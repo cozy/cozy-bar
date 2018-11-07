@@ -1,20 +1,24 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+
 import { translate } from 'cozy-ui/react/I18n'
 
 import SettingsContent from 'components/Settings/SettingsContent'
-
-const BUSY_DELAY = 450
+import {
+  fetchSettingsData,
+  getStorageData,
+  getSettingsAppURL,
+  isFetchingSettings,
+  isSettingsBusy,
+  logOut
+} from 'lib/reducers'
 
 class Settings extends Component {
-  constructor(props, context) {
+  constructor(props) {
     super(props)
-    this.barStore = context.barStore
     this.state = {
-      busy: false,
       opened: false
     }
-    this.toggleMenu = this.toggleMenu.bind(this)
   }
 
   componentDidMount() {
@@ -26,34 +30,36 @@ class Settings extends Component {
   }
 
   onClickOutside = event => {
-    if (this.state.busy || this.state.opened) {
+    if (this.props.isFetching || this.state.opened) {
       // if it's not a cozy-bar nav popup, close the opened popup
       if (!this.rootRef.contains(event.target)) {
-        this.setState({ busy: false, opened: false })
+        this.setState({ opened: false })
+        event.stopPropagation()
       }
-      event.stopPropagation()
     }
   }
 
   toggleMenu = async () => {
-    let stateUpdate = { busy: false, opened: false }
+    let stateUpdate = { opened: false }
     // if popup already opened, stop here to close it
     if (this.state.opened) return this.setState(stateUpdate)
-    // display the loading spinner after BUSY_DELAY secs
-    const busySpinner = setTimeout(
-      () => this.setState({ busy: true }),
-      BUSY_DELAY
-    )
     // fetch data
-    await this.barStore.fetchSettingsData()
-    clearTimeout(busySpinner)
-    this.setState({ busy: false, opened: true })
+    await this.props.fetchSettingsData()
+    this.setState({ opened: true })
   }
 
   render() {
-    const { t, toggleSupport, onLogOut } = this.props
-    const { busy, opened } = this.state
-    const { settingsData } = this.barStore
+    const {
+      isBusy,
+      isFetching,
+      logOut,
+      onLogOut,
+      settingsAppURL,
+      storageData,
+      t,
+      toggleSupport
+    } = this.props
+    const { opened } = this.state
     return (
       <div
         className="coz-nav coz-nav-settings"
@@ -66,7 +72,7 @@ class Settings extends Component {
           onClick={this.toggleMenu}
           className="coz-nav-settings-btn"
           aria-controls="coz-nav-pop--settings"
-          aria-busy={busy}
+          aria-busy={isBusy}
           data-icon="icon-cog"
         >
           {t('menu.settings')}
@@ -76,17 +82,18 @@ class Settings extends Component {
           id="coz-nav-pop--settings"
           aria-hidden={!opened}
         >
-          {settingsData && (
+          {!isFetching && (
             <SettingsContent
               onLogOut={() => {
                 if (onLogOut && typeof onLogOut === 'function') {
                   onLogOut()
                 } else {
-                  this.barStore.logout()
+                  logOut()
                 }
               }}
               toggleSupport={toggleSupport}
-              settingsData={settingsData}
+              storageData={storageData}
+              settingsAppURL={settingsAppURL}
             />
           )}
         </div>
@@ -95,8 +102,21 @@ class Settings extends Component {
   }
 }
 
-Settings.contextTypes = {
-  barStore: PropTypes.object
-}
+const mapStateToProps = state => ({
+  storageData: getStorageData(state),
+  settingsAppURL: getSettingsAppURL(state),
+  isBusy: isSettingsBusy(state),
+  isFetching: isFetchingSettings(state)
+})
 
-export default translate()(Settings)
+const mapDispatchToProps = dispatch => ({
+  fetchSettingsData: () => dispatch(fetchSettingsData()),
+  logOut: () => dispatch(logOut())
+})
+
+export default translate()(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(Settings)
+)

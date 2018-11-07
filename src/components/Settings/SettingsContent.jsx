@@ -8,7 +8,8 @@ import StorageData from 'components/Settings/StorageData'
 const Settings = ({
   t,
   onLogOut,
-  settingsData,
+  settingsAppURL,
+  storageData,
   onClaudy,
   isDrawer = false,
   isClaudyLoading,
@@ -16,12 +17,12 @@ const Settings = ({
 }) => (
   <div className="coz-nav-pop-content">
     {isDrawer && <hr />}
-    {settingsData.settingsAppURL && (
+    {settingsAppURL && (
       <ul className="coz-nav-group">
         <li className="coz-nav-settings-item">
           <a
             role="menuitem"
-            href={`${settingsData.settingsAppURL}#/profile`}
+            href={`${settingsAppURL}#/profile`}
             target="_self"
             data-icon="icon-profile"
             title={t('profile')}
@@ -32,7 +33,7 @@ const Settings = ({
         <li className="coz-nav-settings-item">
           <a
             role="menuitem"
-            href={`${settingsData.settingsAppURL}#/connectedDevices`}
+            href={`${settingsAppURL}#/connectedDevices`}
             target="_self"
             data-icon="icon-connectedDevices"
             title={t('connectedDevices')}
@@ -61,7 +62,7 @@ const Settings = ({
         </ul>
       )}
     {!isDrawer &&
-      settingsData.storageData && (
+      storageData && (
         <ul className="coz-nav-group">
           <li className="coz-nav-settings-item">
             <a
@@ -69,10 +70,10 @@ const Settings = ({
               data-icon="icon-storage"
               target="_self"
               title={t('storage')}
-              href={`${settingsData.settingsAppURL}#/storage`}
+              href={`${settingsAppURL}#/storage`}
             >
               {t('storage')}
-              <StorageData data={settingsData.storageData} />
+              <StorageData data={storageData} />
             </a>
           </li>
         </ul>

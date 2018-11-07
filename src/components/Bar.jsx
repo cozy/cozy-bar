@@ -3,7 +3,6 @@
 import 'core-js/modules/es6.object.assign'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import PropTypes from 'prop-types'
 
 import { translate } from 'cozy-ui/react/I18n'
 import {
@@ -19,14 +18,18 @@ import Apps from 'components/Apps'
 import SearchBar from 'components/SearchBar'
 import Claudy from 'components/Claudy'
 import SupportModal from 'components/SupportModal'
-import { getContent, getCurrentApp, fetchApps } from 'lib/reducers'
+import {
+  getContent,
+  getCurrentApp,
+  fetchApps,
+  fetchContext,
+  shouldEnableClaudy
+} from 'lib/reducers'
 
 class Bar extends Component {
-  constructor(props, context) {
+  constructor(props) {
     super(props)
-    this.store = context.barStore
     this.state = {
-      claudyEnabled: null, // no claudy by default
       claudyFired: false, // true to fire claudy (used by the drawer)
       claudyOpened: false,
       drawerVisible: false,
@@ -34,12 +37,8 @@ class Bar extends Component {
       supportDisplayed: false,
       searchBarEnabled: props.currentApp === 'Cozy Drive' && !props.isPublic
     }
+    this.props.fetchContext()
     this.props.fetchApps()
-  }
-
-  async componentWillMount() {
-    const claudyEnabled = await this.store.shouldEnableClaudy()
-    this.setState({ claudyEnabled })
   }
 
   componentDidMount() {
@@ -70,7 +69,7 @@ class Bar extends Component {
   }
 
   toggleClaudy = (isFromDrawer = false) => {
-    if (!this.state.claudyEnabled) return
+    if (!this.props.claudyEnabled) return
     const { usageTracker, claudyOpened } = this.state
     if (isFromDrawer && !claudyOpened) {
       // if opened from drawer
@@ -141,7 +140,6 @@ class Bar extends Component {
 
   render() {
     const {
-      claudyEnabled,
       claudyFired,
       claudyOpened,
       drawerVisible,
@@ -153,6 +151,7 @@ class Bar extends Component {
       barLeft,
       barRight,
       barCenter,
+      claudyEnabled,
       onDrawer,
       isPublic,
       onLogOut,
@@ -196,19 +195,17 @@ class Bar extends Component {
   }
 }
 
-Bar.contextTypes = {
-  store: PropTypes.object
-}
-
 const mapStateToProps = state => ({
   barLeft: getContent(state, 'left'),
   barRight: getContent(state, 'right'),
   barCenter: getContent(state, 'center'),
-  currentApp: getCurrentApp(state)
+  currentApp: getCurrentApp(state),
+  claudyEnabled: shouldEnableClaudy(state)
 })
 
 const mapDispatchToProps = dispatch => ({
-  fetchApps: () => dispatch(fetchApps())
+  fetchApps: () => dispatch(fetchApps()),
+  fetchContext: () => dispatch(fetchContext())
 })
 
 export default translate()(

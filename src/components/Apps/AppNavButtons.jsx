@@ -12,8 +12,7 @@ class AppNavButton extends Component {
   render() {
     const {
       homeApp,
-      busy,
-      onClick,
+      handleClick,
       appName,
       appNamePrefix,
       appSlug,
@@ -42,10 +41,9 @@ class AppNavButton extends Component {
         {!isHomeApp && <span className="coz-nav-apps-btns-sep" />}
         <button
           type="button"
-          onClick={onClick}
+          onClick={handleClick}
           className="coz-nav-apps-btns-main"
           aria-controls="coz-nav-pop--apps"
-          aria-busy={busy}
           data-tutorial="apps"
         >
           {!isHomeApp && (

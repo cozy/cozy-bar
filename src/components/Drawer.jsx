@@ -1,14 +1,19 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import Hammer from 'hammerjs'
 
 import AppsContent from 'components/Apps/AppsContent'
 import SettingsContent from 'components/Settings/SettingsContent'
-import PropTypes from 'prop-types'
+import {
+  fetchSettingsData,
+  getSettingsAppURL,
+  getStorageData,
+  logOut
+} from 'lib/reducers'
 
 class Drawer extends Component {
-  constructor(props, context) {
+  constructor(props) {
     super(props)
-    this.store = context.barStore
     this.state = {
       isScrolling: false,
       isClosing: false
@@ -32,17 +37,18 @@ class Drawer extends Component {
     this.props.drawerListener()
   }
 
-  async componentWillMount() {
-    await this.store.fetchSettingsData()
-  }
-
-  componentDidMount() {
+  async componentDidMount() {
+    await this.props.fetchSettingsData()
     this.turnTransitionsOn()
   }
 
-  async componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps = async nextProps => {
+    await this.UNSAFE_componentWillReceiveProps(nextProps)
+  }
+
+  UNSAFE_componentWillReceiveProps = async nextProps => {
     if (!this.props.visible && nextProps.visible) {
-      this.store.fetchSettingsData()
+      await this.props.fetchSettingsData()
     }
   }
 
@@ -152,9 +158,11 @@ class Drawer extends Component {
       visible,
       isClaudyLoading,
       toggleSupport,
-      onLogOut
+      onLogOut,
+      logOut,
+      settingsAppURL,
+      storageData
     } = this.props
-    const { settingsData } = this.store
     return (
       <div
         className="coz-drawer-wrapper"
@@ -174,22 +182,21 @@ class Drawer extends Component {
           </nav>
           <hr className="coz-sep-flex" />
           <nav className="coz-drawer--settings">
-            {settingsData && (
-              <SettingsContent
-                onLogOut={() => {
-                  if (onLogOut && typeof onLogOut === 'function') {
-                    onLogOut()
-                  }
+            <SettingsContent
+              onLogOut={() => {
+                if (onLogOut && typeof onLogOut === 'function') {
+                  onLogOut()
+                }
 
-                  this.store.logout()
-                }}
-                settingsData={settingsData}
-                isClaudyLoading={isClaudyLoading}
-                onClaudy={onClaudy}
-                toggleSupport={toggleSupport}
-                isDrawer
-              />
-            )}
+                logOut()
+              }}
+              storageData={storageData}
+              settingsAppURL={settingsAppURL}
+              isClaudyLoading={isClaudyLoading}
+              onClaudy={onClaudy}
+              toggleSupport={toggleSupport}
+              isDrawer
+            />
           </nav>
         </aside>
       </div>
@@ -197,8 +204,17 @@ class Drawer extends Component {
   }
 }
 
-Drawer.contextTypes = {
-  barStore: PropTypes.object
-}
+const mapStateToProps = state => ({
+  storageData: getStorageData(state),
+  settingsAppURL: getSettingsAppURL(state)
+})
 
-export default Drawer
+const mapDispatchToProps = dispatch => ({
+  fetchSettingsData: () => dispatch(fetchSettingsData(false)),
+  logOut: () => dispatch(logOut())
+})
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Drawer)

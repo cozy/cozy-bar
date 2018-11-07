@@ -15,9 +15,6 @@ import {
   setInfos
 } from './lib/reducers'
 
-// For now we have two stores, the goal is to transfer everythin
-// to the redux store
-import BarStore, { Provider as BarProvider } from './lib/BarStore'
 import { connect, Provider as ReduxProvider } from 'react-redux'
 import createReduxStore from 'lib/store'
 
@@ -29,7 +26,6 @@ require('./styles')
 const APP_SELECTOR = '[role=application]'
 
 // store
-const barStore = new BarStore()
 const reduxStore = createReduxStore()
 
 const createBarElement = () => {
@@ -73,13 +69,11 @@ const injectBarInDOM = data => {
   }))(I18n)
 
   const barComponent = (
-    <BarProvider store={barStore}>
-      <ReduxProvider store={reduxStore}>
-        <EnhancedI18n dictRequire={lang => require(`./locales/${lang}`)}>
-          <Bar {...data} />
-        </EnhancedI18n>
-      </ReduxProvider>
-    </BarProvider>
+    <ReduxProvider store={reduxStore}>
+      <EnhancedI18n dictRequire={lang => require(`./locales/${lang}`)}>
+        <Bar {...data} />
+      </EnhancedI18n>
+    </ReduxProvider>
   )
 
   render(barComponent, barNode)

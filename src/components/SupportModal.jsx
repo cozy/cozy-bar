@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Modal, { ModalContent } from 'cozy-ui/react/Modal'
 import Spinner from 'cozy-ui/react/Spinner'
+import { create as createIntent } from 'lib/intents'
 
 class SupportModal extends Component {
   constructor(props, context) {
@@ -13,9 +14,13 @@ class SupportModal extends Component {
 
   toggle = () => {
     this.setState({ isLoading: true })
-    this.store.getSupportIntent().start(this.intentWrapperRef, () => {
-      this.setState({ isLoading: false })
-    })
+    // init support intent
+    createIntent(null, 'SUPPORT', 'io.cozy.settings', null).start(
+      this.intentWrapperRef,
+      () => {
+        this.setState({ isLoading: false })
+      }
+    )
   }
 
   componentDidMount() {
@@ -33,7 +38,7 @@ class SupportModal extends Component {
         >
           <ModalContent className="coz-support-modal-wrapper">
             <div className="coz-support-modal-content">
-              {isLoading && <Spinner size="xxlarge" middle="true" />}
+              {isLoading && <Spinner size="xxlarge" middle />}
               <div
                 className={`coz-support-intent-wrapper${
                   isLoading ? ' coz-hidden' : ''
