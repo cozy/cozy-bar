@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+/* global React */
 import { connect } from 'react-redux'
 import Hammer from 'hammerjs'
 
@@ -11,7 +11,7 @@ import {
   logOut
 } from 'lib/reducers'
 
-class Drawer extends Component {
+class Drawer extends React.Component {
   constructor(props) {
     super(props)
     this.state = {

@@ -1,4 +1,4 @@
-import React from 'react'
+/* global React */
 import { translate } from 'cozy-ui/react/I18n'
 
 const StorageData = ({ t, data }) => {

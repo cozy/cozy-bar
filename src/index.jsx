@@ -1,9 +1,6 @@
-/* global __TARGET__, __VERSION__ */
+/* global __TARGET__, __VERSION__, React, ReactDOM */
 
 'use strict'
-
-import React from 'react'
-import { render } from 'react-dom'
 
 import I18n from 'cozy-ui/react/I18n'
 import stack from './lib/stack'
@@ -23,6 +20,8 @@ import api from 'lib/api'
 
 require('./styles')
 require('./lib/importIcons')
+
+const { render } = ReactDOM
 
 const APP_SELECTOR = '[role=application]'
 
