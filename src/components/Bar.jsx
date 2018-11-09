@@ -1,7 +1,6 @@
-/* global __PIWIK_TRACKER_URL__  __PIWIK_SITEID__ __PIWIK_DIMENSION_ID_APP__ */
+/* global __PIWIK_TRACKER_URL__  __PIWIK_SITEID__ __PIWIK_DIMENSION_ID_APP__, React */
 
 import 'core-js/modules/es6.object.assign'
-import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import { translate } from 'cozy-ui/react/I18n'
@@ -27,7 +26,7 @@ import {
   shouldEnableClaudy
 } from 'lib/reducers'
 
-class Bar extends Component {
+class Bar extends React.Component {
   constructor(props) {
     super(props)
     this.state = {

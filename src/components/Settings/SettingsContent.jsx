@@ -1,5 +1,4 @@
-/* global __TARGET__ */
-import React from 'react'
+/* global __TARGET__, React */
 
 import { translate } from 'cozy-ui/react/I18n'
 

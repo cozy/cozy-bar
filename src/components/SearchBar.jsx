@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+/* global React */
 import { translate } from 'cozy-ui/react/I18n'
 import Autosuggest from 'react-autosuggest'
 import debounce from 'lodash.debounce'
@@ -91,7 +91,7 @@ const highlightQueryTerms = (searchResult, query) => {
   return slicedOriginalResult
 }
 
-class SearchBar extends Component {
+class SearchBar extends React.Component {
   state = {
     input: '',
     query: null,

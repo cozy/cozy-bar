@@ -1,9 +1,9 @@
-import React, { Component } from 'react'
+/* global React */
 
 import AppsContent from 'components/Apps/AppsContent'
 import AppNavButtons from 'components/Apps/AppNavButtons'
 
-class Apps extends Component {
+class Apps extends React.Component {
   constructor(props) {
     super(props)
     this.state = {

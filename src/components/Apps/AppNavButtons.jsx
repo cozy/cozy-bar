@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+/* global React */
 import { connect } from 'react-redux'
 
 import { getHomeApp } from 'lib/reducers'
@@ -8,7 +8,7 @@ import Icon from 'cozy-ui/react/Icon'
 import homeIcon from 'assets/icons/icon-cozy-home.svg'
 import { isFetchingApps } from 'lib/reducers'
 
-class AppNavButton extends Component {
+class AppNavButton extends React.Component {
   render() {
     const {
       homeApp,
