@@ -127,8 +127,7 @@
       "yaml"
     ],
     "setupFiles": [
-      "<rootDir>/test/jestLib/setup.js",
-      "<rootDir>/src/prepareReact.js"
+      "<rootDir>/test/jestLib/setup.js"
     ],
     "moduleDirectories": [
       "node_modules",
