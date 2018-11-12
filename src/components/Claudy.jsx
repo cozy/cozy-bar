@@ -1,7 +1,7 @@
-/* global React */
+import React, { Component } from 'react'
 import { create as createIntent } from 'lib/intents'
 
-class Claudy extends React.Component {
+class Claudy extends Component {
   constructor(props, context) {
     super(props)
     this.store = context.barStore

@@ -1,4 +1,4 @@
-/* global React */
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import { translate } from 'cozy-ui/react/I18n'
@@ -13,7 +13,7 @@ import {
   logOut
 } from 'lib/reducers'
 
-class Settings extends React.Component {
+class Settings extends Component {
   constructor(props) {
     super(props)
     this.state = {

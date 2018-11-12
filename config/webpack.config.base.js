@@ -7,11 +7,7 @@ const pkg = require('../package.json')
 const SRC_DIR = path.resolve(__dirname, '../src')
 
 module.exports = {
-  entry: [
-    // Check for global React or load dependency
-    path.resolve(__dirname, '../src/prepareReact.js'),
-    path.resolve(__dirname, '../src/index')
-  ],
+  entry: path.resolve(__dirname, '../src/index'),
   output: {
     library: ['cozy', 'bar'],
     libraryTarget: 'umd',
@@ -19,7 +15,13 @@ module.exports = {
   },
   resolve: {
     extensions: ['.js', '.json', '.yaml'],
-    modules: [SRC_DIR, path.join(__dirname, '../node_modules')]
+    modules: [SRC_DIR, path.join(__dirname, '../node_modules')],
+    alias: {
+      react: path.resolve(__dirname, 'aliases/globalReact'),
+      'react-dom': path.resolve(__dirname, 'aliases/globalReactDOM'),
+      'react-bundled': 'react',
+      'react-dom-bundled': 'react-dom'
+    }
   },
   devtool: '#source-map',
   module: {

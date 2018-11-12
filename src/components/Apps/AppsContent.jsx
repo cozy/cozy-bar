@@ -1,4 +1,4 @@
-/* global React */
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import { translate } from 'cozy-ui/react/I18n'
@@ -10,7 +10,7 @@ import AppItemPlaceholder from 'components/Apps/AppItemPlaceholder'
 import cozyIcon from 'assets/icons/16/icon-cozy-16.svg'
 import homeIcon from 'assets/icons/icon-cozy-home.svg'
 
-class AppsContent extends React.Component {
+class AppsContent extends Component {
   constructor(props, context) {
     super(props, context)
     this.translateApp = translateApp(this.props.t)

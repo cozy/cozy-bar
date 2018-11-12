@@ -1,5 +1,4 @@
-/* global React */
-
+import React, { Component } from 'react'
 import { getContent, setContent, setLocale } from './reducers'
 
 const upperFirstLetter = val => {
@@ -28,7 +27,7 @@ const wrapInElement = v => {
  * @param  {BarStore} store
  */
 const barContentComponent = (store, location) =>
-  class BarContent extends React.Component {
+  class BarContent extends Component {
     componentDidMount() {
       this.prev = getContent(store.getState(), location)
       this.setContent(this.props.children)
