@@ -1,4 +1,4 @@
-/* global React */
+import React from 'react'
 
 export const AppItemPlaceholder = () => (
   <li className="coz-nav-apps-item">

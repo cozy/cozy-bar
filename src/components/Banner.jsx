@@ -1,8 +1,8 @@
-/* global React */
+import React, { Component } from 'react'
 import { ButtonLink } from 'cozy-ui/react/Button'
 import { translate } from 'cozy-ui/react/I18n'
 
-class Banner extends React.Component {
+class Banner extends Component {
   constructor(props) {
     super(props)
     this.state = { unmounted: true }

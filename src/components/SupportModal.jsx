@@ -1,9 +1,9 @@
-/* global React */
+import React, { Component } from 'react'
 import Modal, { ModalContent } from 'cozy-ui/react/Modal'
 import Spinner from 'cozy-ui/react/Spinner'
 import { create as createIntent } from 'lib/intents'
 
-class SupportModal extends React.Component {
+class SupportModal extends Component {
   constructor(props, context) {
     super(props)
     this.store = context.barStore

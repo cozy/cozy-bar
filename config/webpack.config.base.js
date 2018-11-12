@@ -7,10 +7,7 @@ const pkg = require('../package.json')
 const SRC_DIR = path.resolve(__dirname, '../src')
 
 module.exports = {
-  entry: [
-    // Check for global React or load dependency
-    path.resolve(__dirname, '../src/index')
-  ],
+  entry: path.resolve(__dirname, '../src/index'),
   output: {
     library: ['cozy', 'bar'],
     libraryTarget: 'umd',

@@ -1,5 +1,6 @@
-/* global __TARGET__, React */
+/* global __TARGET__ */
 
+import React from 'react'
 import { appShape } from 'proptypes/index'
 import { checkApp, startApp } from 'cozy-device-helper'
 import expiringMemoize from 'lib/expiringMemoize'
