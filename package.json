@@ -90,7 +90,7 @@
     "yaml-loader": "0.5.0"
   },
   "dependencies": {
-    "@babel/core": "7.1.2",
+    "@babel/core": "7.1.5",
     "babel-core": "7.0.0-bridge.0",
     "babel-preset-cozy-app": "1.2.1",
     "core-js": "2.5.7",
