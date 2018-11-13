@@ -18,9 +18,7 @@ module.exports = {
     modules: [SRC_DIR, path.join(__dirname, '../node_modules')],
     alias: {
       react: path.resolve(__dirname, 'aliases/globalReact'),
-      'react-dom': path.resolve(__dirname, 'aliases/globalReactDOM'),
-      'react-bundled': 'react',
-      'react-dom-bundled': 'react-dom'
+      'react-dom': path.resolve(__dirname, 'aliases/globalReactDOM')
     }
   },
   devtool: '#source-map',

@@ -1,1 +1,1 @@
-module.exports = window.React || require('react-bundled')
+module.exports = window.React || require('../../node_modules/react')
