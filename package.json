@@ -4,10 +4,7 @@
   "description": "cozy-bar.js library, a small lib provided by cozy-stack to inject the Cozy-bar component into each app",
   "main": "dist/cozy-bar.js",
   "author": "Cozy Cloud <contact@cozycloud.cc> (https://cozy.io/)",
-  "contributors": [
-    "m4dz (https://m4dz.net)",
-    "CPatchane"
-  ],
+  "contributors": ["m4dz (https://m4dz.net)", "CPatchane"],
   "repository": {
     "type": "git",
     "url": "https://github.com/cozy/cozy-bar.git"
@@ -64,6 +61,8 @@
     "jest": "23.6.0",
     "json-loader": "0.5.7",
     "mini-css-extract-plugin": "0.4.4",
+    "my-react": "npm:react@16.6.0",
+    "my-react-dom": "npm:react-dom@16.6.0",
     "npm-run-all": "4.1.3",
     "postcss": "7.0.5",
     "postcss-css-variables": "0.11.0",
@@ -71,8 +70,6 @@
     "postcss-discard-empty": "4.0.1",
     "postcss-import": "12.0.1",
     "postcss-loader": "3.0.0",
-    "react": "16.6.0",
-    "react-dom": "16.6.0",
     "redux-logger": "3.0.6",
     "semantic-release": "15.10.7",
     "style-loader": "0.23.1",
@@ -119,32 +116,21 @@
     }
   ],
   "jest": {
-    "moduleFileExtensions": [
-      "js",
-      "jsx",
-      "json",
-      "styl",
-      "yaml"
-    ],
-    "setupFiles": [
-      "<rootDir>/test/jestLib/setup.js"
-    ],
-    "moduleDirectories": [
-      "node_modules",
-      "src"
-    ],
+    "moduleFileExtensions": ["js", "jsx", "json", "styl", "yaml"],
+    "setupFiles": ["<rootDir>/test/jestLib/setup.js"],
+    "moduleDirectories": ["node_modules", "src"],
     "transform": {
       "\\.yaml$": "yaml-jest",
       "\\.(js|jsx)$": "babel-jest"
     },
     "moduleNameMapper": {
       "^config/(.*)": "<rootDir>/src/config/$1",
+      "^react$": "<rootDir>/config/aliases/globalReact",
+      "^(react-dom|react-dom/(.*))$": "<rootDir>/config/aliases/globalReactDOM",
       "\\.(png|gif|jpe?g|svg)$": "<rootDir>/test/__mocks__/fileMock.js",
       "styles": "identity-obj-proxy"
     },
-    "transformIgnorePatterns": [
-      "node_modules/(?!cozy-ui)"
-    ],
+    "transformIgnorePatterns": ["node_modules/(?!cozy-ui)"],
     "globals": {
       "__ALLOW_HTTP__": false,
       "__TARGET__": "browser",

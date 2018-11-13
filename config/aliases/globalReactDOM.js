@@ -1,1 +1,1 @@
-module.exports = window.ReactDOM || require('../../node_modules/react-dom')
+module.exports = window.ReactDOM || require('my-react-dom')

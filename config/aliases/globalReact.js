@@ -1,1 +1,1 @@
-module.exports = window.React || require('../../node_modules/react')
+module.exports = window.React || require('my-react')
