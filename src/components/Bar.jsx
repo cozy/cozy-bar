@@ -6,6 +6,8 @@ import { connect } from 'react-redux'
 
 import { translate } from 'cozy-ui/react/I18n'
 import Icon from 'cozy-ui/react/Icon'
+import withBreakpoints from 'cozy-ui/react/helpers/withBreakpoints'
+
 import {
   shouldEnableTracking,
   getTracker,
@@ -129,8 +131,12 @@ class Bar extends Component {
       appSlug,
       iconPath,
       replaceTitleOnMobile,
-      isPublic
+      isPublic,
+      breakpoints: { isMobile }
     } = this.props
+    if (isMobile) {
+      return null
+    }
     return (
       <Apps
         appName={appName}
@@ -257,9 +263,9 @@ const mapDispatchToProps = dispatch => ({
 
 export { Bar }
 
-export default translate()(
+export default withBreakpoints()(translate()(
   connect(
     mapStateToProps,
     mapDispatchToProps
   )(Bar)
-)
+))
