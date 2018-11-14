@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
-import { getContent, setContent, setLocale } from './reducers'
+import { getContent, setContent, setLocale } from '../reducers'
 
-const upperFirstLetter = val => {
-  return val[0].toUpperCase() + val.slice(1)
-}
+import { locations, getJsApiName, getReactApiName } from 'lib/api/helpers'
 
 /**
  * Wraps argument into a React element if it is a string. Is used
@@ -67,17 +65,14 @@ const barContentComponent = (store, location) =>
  */
 export default store => {
   // setBar{Left,Right,Center} and <Bar{Left,Right,Center} />
-  const locations = ['left', 'center', 'right']
   const methods = {}
   locations.forEach(location => {
-    const upperLoc = upperFirstLetter(location)
-
     /// expose JS API
-    methods[`setBar${upperLoc}`] = value =>
+    methods[getJsApiName(location)] = value =>
       store.dispatch(setContent(location, wrapInElement(value)))
 
     // expose React API
-    methods[`Bar${upperLoc}`] = barContentComponent(store, location)
+    methods[getReactApiName(location)] = barContentComponent(store, location)
   })
 
   methods.setLocale = lang => {
