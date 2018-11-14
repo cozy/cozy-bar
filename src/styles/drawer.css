@@ -86,11 +86,6 @@
   overflow-x: hidden;
 }
 
-[role=banner] .coz-drawer--apps .coz-nav-pop-content .coz-nav-group {
-  display: flex;
-  flex-direction: column;
-}
-
 [role=banner] .coz-drawer--apps ul li {
   flex: 0 0 100%;
   max-width: 100%;

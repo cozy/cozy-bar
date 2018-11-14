@@ -10,6 +10,8 @@ import AppItemPlaceholder from 'components/Apps/AppItemPlaceholder'
 import cozyIcon from 'assets/icons/16/icon-cozy-16.svg'
 import homeIcon from 'assets/icons/icon-cozy-home.svg'
 
+const sorter = fn => (itemA, itemB) => fn(itemA) > fn(itemB)
+
 class AppsContent extends Component {
   constructor(props, context) {
     super(props, context)
@@ -33,11 +35,9 @@ class AppsContent extends Component {
             ? new Array(3)
                 .fill({})
                 .map((nothing, index) => <AppItemPlaceholder key={index} />)
-            : apps
-                .sort((appA, appB) => {
-                  return this.translateApp(appA) > this.translateApp(appB)
-                })
-                .map((app, index) => <AppItem app={app} key={index} />)}
+            :  apps
+                .sort(sorter(this.translateApp))
+                .map((app, index) => <AppItem app={app} key={index} />) }
         </ul>
         {homeApp &&
           !isMobile &&
