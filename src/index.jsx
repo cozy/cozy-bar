@@ -2,10 +2,6 @@
 
 'use strict'
 
-import React from 'react'
-import { render } from 'react-dom'
-
-import I18n from 'cozy-ui/react/I18n'
 import stack from './lib/stack'
 import {
   deleteApp,
@@ -15,19 +11,16 @@ import {
   setInfos
 } from './lib/reducers'
 
-import { connect, Provider as ReduxProvider } from 'react-redux'
-import createReduxStore from 'lib/store'
-
-import Bar from './components/Bar'
-import api from 'lib/api'
+import {
+  locations as APILocations,
+  getJsApiName,
+  getReactApiName
+} from 'lib/api/helpers'
 
 require('./styles')
 require('./lib/importIcons')
 
 const APP_SELECTOR = '[role=application]'
-
-// store
-const reduxStore = createReduxStore()
 
 const createBarElement = () => {
   const barNode = document.createElement('div')
@@ -41,6 +34,12 @@ const injectBarInDOM = data => {
   if (document.getElementById('coz-bar') !== null) {
     return
   }
+  // import React related modules on init only
+  const React = require('react')
+  const { render } = require('react-dom')
+  const { connect, Provider } = require('react-redux')
+  const I18n = require('cozy-ui/react/I18n').default
+  const Bar = require('./components/Bar').default
 
   const barNode = createBarElement()
   const appNode = document.querySelector(APP_SELECTOR)
@@ -70,11 +69,11 @@ const injectBarInDOM = data => {
   }))(I18n)
 
   const barComponent = (
-    <ReduxProvider store={reduxStore}>
+    <Provider store={data.reduxStore}>
       <EnhancedI18n dictRequire={lang => require(`./locales/${lang}`)}>
         <Bar {...data} />
       </EnhancedI18n>
-    </ReduxProvider>
+    </Provider>
   )
 
   render(barComponent, barNode)
@@ -159,6 +158,8 @@ const determineSSL = (ssl, cozyURL) => {
   return true
 }
 
+let exposedAPI = {}
+
 const init = async ({
   appName,
   appNamePrefix = getAppNamePrefix(),
@@ -176,6 +177,9 @@ const init = async ({
   if (/^\/public/.test(window.location.pathname)) {
     isPublic = true
   }
+  // store
+  const createReduxStore = require('lib/store').default
+  const reduxStore = createReduxStore()
 
   reduxStore.dispatch(setInfos(appName, appNamePrefix, appSlug))
   stack.init({
@@ -189,6 +193,11 @@ const init = async ({
     reduxStore.dispatch(setLocale(lang))
   }
 
+  // init api
+  const api = require('lib/api/index').default
+  // Assign all api methods to the bar object
+  exposedAPI = api(reduxStore)
+
   return injectBarInDOM({
     appName,
     appNamePrefix,
@@ -197,7 +206,8 @@ const init = async ({
     replaceTitleOnMobile,
     isPublic,
     onLogOut,
-    userActionRequired: getUserActionRequired()
+    userActionRequired: getUserActionRequired(),
+    reduxStore
   })
 }
 
@@ -205,9 +215,37 @@ const updateAccessToken = accessToken => {
   stack.updateAccessToken(accessToken)
 }
 
+// Handle exceptions for API before init
+const apiReferences = {}
+APILocations.forEach(location => {
+  apiReferences[getJsApiName(location)] = value => {
+    if (exposedAPI[getJsApiName(location)]) {
+      return exposedAPI[getJsApiName(location)](value)
+    } else {
+      console.error(
+        `You tried to use the CozyBar API (${getJsApiName(
+          location
+        )}) but the CozyBar is not initialised yet via cozy.bar.init(...).`
+      )
+    }
+  }
+  apiReferences[getReactApiName(location)] = props => {
+    const React = require('react')
+    if (exposedAPI[getReactApiName(location)]) {
+      return React.createElement(exposedAPI[getReactApiName(location)], props)
+    } else {
+      console.error(
+        `You tried to use the CozyBar API (${getReactApiName(
+          location
+        )}) but the CozyBar is not initialised yet via cozy.bar.init(...).`
+      )
+    }
+  }
+})
+
 module.exports = {
   init,
   version: __VERSION__,
-  ...api(reduxStore),
+  ...apiReferences,
   updateAccessToken
 }
