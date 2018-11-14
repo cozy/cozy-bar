@@ -19,6 +19,7 @@ import SearchBar from 'components/SearchBar'
 import Claudy from 'components/Claudy'
 import SupportModal from 'components/SupportModal'
 import {
+  hasFetched,
   getContent,
   getCurrentApp,
   fetchApps,
@@ -38,29 +39,47 @@ class Bar extends Component {
       supportDisplayed: false,
       searchBarEnabled: props.currentApp === 'Cozy Drive' && !props.isPublic
     }
-    if (!props.isPublic) {
-      props.fetchContext()
-      props.fetchSettingsData(false)
-      props.fetchApps()
-    }
   }
 
   componentDidMount() {
-    // if tracking enabled, init the piwik tracker
     if (shouldEnableTracking()) {
-      const trackerInstance = getTracker(
-        __PIWIK_TRACKER_URL__,
-        __PIWIK_SITEID__,
-        false,
-        false
-      )
-      configureTracker({
-        appDimensionId: __PIWIK_DIMENSION_ID_APP__,
-        app: 'Cozy Bar',
-        heartbeat: 0
-      })
-      this.setState({ usageTracker: trackerInstance })
+      this.initPiwikTracker()
     }
+    this.fetchInitialData()
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (
+      !this.props.hasFetchedApps &&
+      this.state.drawerVisible &&
+      prevState.drawerVisible !== this.state.drawerVisible
+    ) {
+      this.props.fetchApps()
+    }
+  }
+
+  initPiwikTracker() {
+    const trackerInstance = getTracker(
+      __PIWIK_TRACKER_URL__,
+      __PIWIK_SITEID__,
+      false,
+      false
+    )
+    configureTracker({
+      appDimensionId: __PIWIK_DIMENSION_ID_APP__,
+      app: 'Cozy Bar',
+      heartbeat: 0
+    })
+    this.setState({ usageTracker: trackerInstance })
+  }
+
+  fetchInitialData() {
+    if (this.props.isPublic) {
+      return
+    }
+    this.props.fetchContext()
+    this.props.fetchSettingsData(false)
+    this.props.fetchApps()
   }
 
   toggleDrawer = () => {
@@ -206,7 +225,8 @@ const mapStateToProps = state => ({
   barRight: getContent(state, 'right'),
   barCenter: getContent(state, 'center'),
   currentApp: getCurrentApp(state),
-  claudyEnabled: shouldEnableClaudy(state)
+  claudyEnabled: shouldEnableClaudy(state),
+  hasFetchedApps: hasFetched(state)
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -214,6 +234,10 @@ const mapDispatchToProps = dispatch => ({
   fetchContext: () => dispatch(fetchContext()),
   fetchSettingsData: displayBusy => dispatch(fetchSettingsData(displayBusy))
 })
+
+export {
+  Bar
+}
 
 export default translate()(
   connect(
