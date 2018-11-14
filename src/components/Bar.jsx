@@ -180,7 +180,7 @@ class Bar extends Component {
                 (claudyEnabled && (() => this.toggleClaudy(true))) || false
               }
               isClaudyLoading={claudyFired}
-              drawerListener={() => onDrawer(this.state.drawerVisible)}
+              drawerListener={() => onDrawer(drawerVisible)}
               toggleSupport={this.toggleSupport}
               onLogOut={onLogOut}
             />
