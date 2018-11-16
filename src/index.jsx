@@ -216,29 +216,28 @@ const updateAccessToken = accessToken => {
 }
 
 // Handle exceptions for API before init
+const showAPIError = name =>
+  console.error(
+    `You tried to use the CozyBar API (${name}) but the CozyBar is not initialised yet via cozy.bar.init(...).`
+  )
+// apiReferences will be a proxy to the API
 const apiReferences = {}
 APILocations.forEach(location => {
-  apiReferences[getJsApiName(location)] = value => {
-    if (exposedAPI[getJsApiName(location)]) {
-      return exposedAPI[getJsApiName(location)](value)
+  const jsAPIName = getJsApiName(location)
+  const reactAPIName = getReactApiName(location)
+  apiReferences[jsAPIName] = value => {
+    if (exposedAPI[jsAPIName]) {
+      return exposedAPI[jsAPIName](value)
     } else {
-      console.error(
-        `You tried to use the CozyBar API (${getJsApiName(
-          location
-        )}) but the CozyBar is not initialised yet via cozy.bar.init(...).`
-      )
+      showAPIError(jsAPIName)
     }
   }
-  apiReferences[getReactApiName(location)] = props => {
+  apiReferences[reactAPIName] = props => {
     const React = require('react')
-    if (exposedAPI[getReactApiName(location)]) {
-      return React.createElement(exposedAPI[getReactApiName(location)], props)
+    if (exposedAPI[reactAPIName]) {
+      return React.createElement(exposedAPI[reactAPIName], props)
     } else {
-      console.error(
-        `You tried to use the CozyBar API (${getReactApiName(
-          location
-        )}) but the CozyBar is not initialised yet via cozy.bar.init(...).`
-      )
+      showAPIError(reactAPIName)
     }
   }
 })
