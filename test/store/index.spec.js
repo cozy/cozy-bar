@@ -1,4 +1,4 @@
-import createStore from 'lib/store'
+import getOrCreateStore, { createStore } from 'lib/store'
 import { isFetchingApps, getApps, hasFetched } from 'lib/reducers'
 
 describe('store', () => {
@@ -29,5 +29,13 @@ describe('store', () => {
     expect(hasFetched(getState())).toEqual(false)
     store.dispatch({ type: 'RECEIVE_APP_LIST', apps: [] })
     expect(hasFetched(getState())).toEqual(true)
+  })
+})
+
+describe('singleton', () => {
+  it('should work as a singleton', () => {
+    const store = getOrCreateStore()
+    const store2 = getOrCreateStore()
+    expect(store).toEqual(store2)
   })
 })

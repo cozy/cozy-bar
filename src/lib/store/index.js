@@ -1,6 +1,6 @@
 /* global __DEVELOPMENT__ */
 
-import { createStore, applyMiddleware } from 'redux'
+import { createStore as createReduxStore, applyMiddleware } from 'redux'
 import appsI18nMiddleware from '../middlewares/appsI18n'
 import thunkMiddleware from 'redux-thunk'
 import { persistStore, persistCombineReducers } from 'redux-persist'
@@ -22,11 +22,18 @@ const middlewares = [appsI18nMiddleware, thunkMiddleware]
 
 if (__DEVELOPMENT__) middlewares.push(loggerMiddleware)
 
-const createReduxStore = () => {
-  let store = createStore(reducer, applyMiddleware.apply(null, middlewares))
+export const createStore = () => {
+  store = createReduxStore(reducer, applyMiddleware.apply(null, middlewares))
   persistStore(store)
-
   return store
 }
 
-export default createReduxStore
+let store
+const getOrCreateStore = () => {
+  if (!store) {
+    store = createStore()
+  }
+  return store
+}
+
+export default getOrCreateStore

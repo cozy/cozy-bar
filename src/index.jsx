@@ -178,8 +178,8 @@ const init = async ({
     isPublic = true
   }
   // store
-  const createReduxStore = require('lib/store').default
-  const reduxStore = createReduxStore()
+  const getOrCreateStore = require('lib/store').default
+  const reduxStore = getOrCreateStore()
 
   reduxStore.dispatch(setInfos(appName, appNamePrefix, appSlug))
   stack.init({
