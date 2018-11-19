@@ -6,40 +6,46 @@ exports[`api spec should set content of the store via declarative api 1`] = `
 </div>
 `;
 
-exports[`api spec should set content of the store via declarative api 2`] = `"Right"`;
+exports[`api spec should set content of the store via declarative api 2`] = `
+<div>
+  <p>
+    Center
+  </p>
+</div>
+`;
 
 exports[`api spec should set content of the store via declarative api 3`] = `
-<span>
-  Center
-</span>
+<div>
+  <div>
+    test3
+    <span>
+      Right
+    </span>
+  </div>
+</div>
 `;
 
 exports[`api spec should set content of the store via imperative api 1`] = `
 <span
   dangerouslySetInnerHTML={
     Object {
-      "__html": "content left",
+      "__html": "Left",
     }
   }
 />
 `;
 
 exports[`api spec should set content of the store via imperative api 2`] = `
-<span
-  dangerouslySetInnerHTML={
-    Object {
-      "__html": "<p>content right</p>",
-    }
-  }
-/>
+<p>
+  Center
+</p>
 `;
 
 exports[`api spec should set content of the store via imperative api 3`] = `
-<span
-  dangerouslySetInnerHTML={
-    Object {
-      "__html": "content center",
-    }
-  }
-/>
+<div>
+  test3
+  <span>
+    Right
+  </span>
+</div>
 `;

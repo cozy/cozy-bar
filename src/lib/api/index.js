@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
-import { getContent, setContent, setLocale } from '../reducers'
+import { setContent, unsetContent, setLocale } from '../reducers'
 
 import { locations, getJsApiName, getReactApiName } from 'lib/api/helpers'
+
+// The React API need unique IDs, so we will increment this variable
+let idToIncrement = 0
 
 /**
  * Wraps argument into a React element if it is a string. Is used
@@ -27,7 +30,7 @@ const wrapInElement = v => {
 const barContentComponent = (store, location) =>
   class BarContent extends Component {
     componentDidMount() {
-      this.prev = getContent(store.getState(), location)
+      this.componentId = idToIncrement++
       this.setContent(this.props.children)
     }
 
@@ -36,11 +39,15 @@ const barContentComponent = (store, location) =>
         content = React.Children.only(content)
         // eslint-disable-next-line no-empty
       } catch (e) {}
-      store.dispatch(setContent(location, content))
+      store.dispatch(setContent(location, content, this.componentId))
+    }
+
+    unsetContent() {
+      store.dispatch(unsetContent(location, this.componentId))
     }
 
     componentWillUnmount() {
-      this.setContent(this.prev)
+      this.unsetContent()
     }
 
     componentDidUpdate(prevProps) {
@@ -69,7 +76,7 @@ export default store => {
   locations.forEach(location => {
     /// expose JS API
     methods[getJsApiName(location)] = value =>
-      store.dispatch(setContent(location, wrapInElement(value)))
+      store.dispatch(setContent(location, wrapInElement(value), 'js'))
 
     // expose React API
     methods[getReactApiName(location)] = barContentComponent(store, location)

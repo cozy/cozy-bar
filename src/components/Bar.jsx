@@ -235,9 +235,7 @@ const mapDispatchToProps = dispatch => ({
   fetchSettingsData: displayBusy => dispatch(fetchSettingsData(displayBusy))
 })
 
-export {
-  Bar
-}
+export { Bar }
 
 export default translate()(
   connect(
