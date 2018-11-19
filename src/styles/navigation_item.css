@@ -12,13 +12,6 @@
   background-color: var(--pale-grey);
 }
 
-[role=banner] .coz-nav-pop--apps [role=menuitem]:not([disabled]):not(.coz-apps-home-btn):hover,
-[role=banner] .coz-nav-pop--apps [role=menuitem]:not([disabled]):not(.coz-apps-home-btn):focus,
-[role=banner] .coz-drawer--apps [role=menuitem]:not([disabled]):not(.coz-apps-home-btn):hover,
-[role=banner] .coz-drawer--apps [role=menuitem]:not([disabled]):not(.coz-apps-home-btn):focus {
-  border-left: 4px solid var(--dodger-blue)
-}
-
 [role=banner] [role=menuitem][aria-busy=true]::after {
   right: 1.5em;
   top: .5em;
