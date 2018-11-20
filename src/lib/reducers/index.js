@@ -13,6 +13,7 @@ const proxy = (attr, method) => {
 
 const deleteApp = apps.deleteApp
 const setContent = content.setContent
+const unsetContent = content.unsetContent
 const setLocale = locale.setLocale
 const fetchApps = apps.fetchApps
 const receiveApp = apps.receiveApp
@@ -23,6 +24,7 @@ const fetchContext = context.fetchContext
 export {
   deleteApp,
   setContent,
+  unsetContent,
   setLocale,
   fetchApps,
   receiveApp,
