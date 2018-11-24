@@ -63,7 +63,7 @@
     "mini-css-extract-plugin": "0.4.4",
     "my-react": "npm:react@16.6.0",
     "my-react-dom": "npm:react-dom@16.6.0",
-    "npm-run-all": "4.1.3",
+    "npm-run-all": "4.1.5",
     "postcss": "7.0.5",
     "postcss-css-variables": "0.11.0",
     "postcss-discard-duplicates": "4.0.2",
