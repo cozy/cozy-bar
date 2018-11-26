@@ -14,7 +14,19 @@ const config = {
   whitelist: ['locale']
 }
 
-const loggerMiddleware = createLogger()
+// copied and changed from https://github.com/LogRocket/redux-logger/blob/3ca9f2c1ecf17a7acf18c6fa0bbf4b6b239738f1/src/core.js#L25
+function barTitleFormatter(action, time) {
+  const parts = ['[COZY-BAR]']
+
+  parts.push(`${String(action.type)}`)
+  if (time) parts.push(`@ ${time}`)
+
+  return parts.join(' ')
+}
+
+const loggerMiddleware = createLogger({
+  titleFormatter: barTitleFormatter
+})
 
 const reducer = persistCombineReducers(config, { ...reducers })
 
