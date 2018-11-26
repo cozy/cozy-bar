@@ -11,7 +11,7 @@ import storage from 'redux-persist/lib/storage'
 const config = {
   storage,
   key: 'cozy-bar',
-  whitelist: ['locale']
+  whitelist: ['locale', 'apps']
 }
 
 // copied and changed from https://github.com/LogRocket/redux-logger/blob/3ca9f2c1ecf17a7acf18c6fa0bbf4b6b239738f1/src/core.js#L25
