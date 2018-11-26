@@ -81,26 +81,33 @@ const injectBarInDOM = data => {
   return barComponent
 }
 
-const getDefaultStackURL = () => {
+// return an empty object by default to avoid checking existance
+const getAppNodeDataSet = () => {
   const appNode = document.querySelector(APP_SELECTOR)
-  if (!appNode || !appNode.dataset.cozyDomain) {
+  if (!appNode || !appNode.dataset) return {}
+  return appNode.dataset
+}
+
+const getDefaultStackURL = () => {
+  const data = getAppNodeDataSet()
+  if (!data.cozyDomain) {
     console.warn(
       `Cozy-bar can't discover the cozy's URL, and will probably fail to initialize the connection with the stack.`
     )
     return ''
   }
-  return appNode.dataset.cozyDomain
+  return data.cozyDomain
 }
 
 const getDefaultToken = () => {
-  const appNode = document.querySelector(APP_SELECTOR)
-  if (!appNode || !appNode.dataset.cozyToken) {
+  const data = getAppNodeDataSet()
+  if (!data.cozyToken) {
     console.warn(
       `Cozy-bar can't discover the app's token, and will probably fail to initialize the connection with the stack.`
     )
     return ''
   }
-  return appNode.dataset.cozyToken
+  return data.cozyToken
 }
 
 const getDefaultIcon = () => {
@@ -113,13 +120,13 @@ const getDefaultIcon = () => {
 }
 
 const getAppNamePrefix = () => {
-  const appNode = document.querySelector(APP_SELECTOR)
-  return appNode.dataset.cozyAppNamePrefix || null
+  const data = getAppNodeDataSet()
+  return data.cozyAppNamePrefix || null
 }
 
 const getAppSlug = () => {
-  const appNode = document.querySelector(APP_SELECTOR)
-  return appNode.dataset.cozyAppSlug
+  const data = getAppNodeDataSet()
+  return data.cozyAppSlug || null
 }
 
 const getUserActionRequired = () => {
