@@ -204,7 +204,7 @@ async function initializeRealtime({
   if (parsedURL) {
     realtimeConfig.url = url
   } else {
-    realtimeConfig.url = `${ssl ? 'https:' : 'http:'}${url}`
+    realtimeConfig.url = `${ssl ? 'wss:' : 'ws:'}${url}`
   }
 
   try {
