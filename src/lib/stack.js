@@ -204,7 +204,8 @@ async function initializeRealtime({
   if (parsedURL) {
     realtimeConfig.url = url
   } else {
-    realtimeConfig.url = `${ssl ? 'wss:' : 'ws:'}${url}`
+    // Protocol is http/https here, it is mapped to ws/wss by cozy-realtime
+    realtimeConfig.url = `${ssl ? 'https:' : 'http:'}${url}`
   }
 
   try {
