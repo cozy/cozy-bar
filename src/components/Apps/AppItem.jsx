@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { appShape } from 'proptypes/index'
-import { checkApp, startApp } from 'cozy-device-helper'
+import { checkApp, startApp, isAndroidApp } from 'cozy-device-helper'
 import expiringMemoize from 'lib/expiringMemoize'
 import AppIcon from 'cozy-ui/react/AppIcon'
 import { translate } from 'cozy-ui/react/I18n'
@@ -14,7 +14,7 @@ const NATIVE_APP_INFOS = {
     uri: 'cozydrive://'
   },
   banks: {
-    appId: 'io.cozy.banks.mobile',
+    appId: isAndroidApp() ? 'io.cozy.banks.mobile' : 'io.cozy.banks',
     uri: 'cozybanks://'
   }
 }
