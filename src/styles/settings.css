@@ -1,4 +1,4 @@
-[role=banner] .coz-nav .coz-nav-settings-btn {
+[role=banner] .coz-nav-settings-btn {
   display: flex;
   align-items: baseline;
   padding: 1rem 1rem;
@@ -12,14 +12,14 @@
   line-height: 1rem;
 }
 
-[role=banner] .coz-nav .coz-nav-settings-btn:hover,
-[role=banner] .coz-nav .coz-nav-settings-btn:focus {
+[role=banner] .coz-nav-settings-btn:hover,
+[role=banner] .coz-nav-settings-btn:focus {
   background-color: var(--pale-grey);
   box-shadow: inset 0 -1px 0 0 var(--silver);
   color: var(--charcoal-grey);
 }
 
-[role=banner] .coz-nav .coz-nav-pop--settings {
+[role=banner] .coz-nav-pop--settings {
   right: 0;
 }
 
