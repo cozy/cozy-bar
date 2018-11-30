@@ -50,6 +50,16 @@
   margin-right: .75rem;
 }
 
+[role=banner] .coz-nav .coz-nav-apps-btns-home {
+  color: var(--dodger-blue);
+}
+
+[role=banner] .coz-nav .coz-nav-apps-btns-home:hover,
+[role=banner] .coz-nav .coz-nav-apps-btns-home:active,
+[role=banner] .coz-nav .coz-nav-apps-btns-home:focus {
+  color: var(--science-blue);
+}
+
 [role=banner] .coz-nav .coz-nav-apps-btns.--currentHome .coz-nav-apps-btns-main {
   margin-left: 0;
 }

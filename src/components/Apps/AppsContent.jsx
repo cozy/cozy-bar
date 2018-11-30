@@ -8,7 +8,6 @@ import { getApps, getHomeApp, isFetchingApps } from 'lib/reducers'
 import AppItem from 'components/Apps/AppItem'
 import AppItemPlaceholder from 'components/Apps/AppItemPlaceholder'
 import cozyIcon from 'assets/icons/16/icon-cozy-16.svg'
-import homeIcon from 'assets/icons/icon-cozy-home.svg'
 
 const sorter = fn => (itemA, itemB) => fn(itemA) > fn(itemB)
 
@@ -30,14 +29,14 @@ class AppsContent extends Component {
     return (
       <div className="coz-nav-pop-content">
         <ul className="coz-nav-group">
-          {isMobile && homeApp && <AppItem app={homeApp} icon={homeIcon} />}
+          {isMobile && homeApp && <AppItem app={homeApp} useHomeIcon />}
           {isFetchingApps
             ? new Array(3)
                 .fill({})
                 .map((nothing, index) => <AppItemPlaceholder key={index} />)
-            :  apps
+            : apps
                 .sort(sorter(this.translateApp))
-                .map((app, index) => <AppItem app={app} key={index} />) }
+                .map((app, index) => <AppItem app={app} key={index} />)}
         </ul>
         {homeApp &&
           !isMobile &&
