@@ -5,8 +5,10 @@ import { appShape } from 'proptypes/index'
 import { checkApp, startApp, isAndroidApp } from 'cozy-device-helper'
 import expiringMemoize from 'lib/expiringMemoize'
 import AppIcon from 'cozy-ui/react/AppIcon'
+import HomeIcon from './IconCozyHome'
 import { translate } from 'cozy-ui/react/I18n'
 import stack from 'lib/stack'
+import PropTypes from 'prop-types'
 
 const NATIVE_APP_INFOS = {
   drive: {
@@ -60,8 +62,8 @@ export class AppItem extends React.Component {
   }
 
   render() {
-    const { app, icon, t } = this.props
-    const dataIcon = app.icon ? `icon-${app.slug}` : ''
+    const { app, t, useHomeIcon } = this.props
+    const dataIcon = app.slug ? `icon-${app.slug}` : ''
     const label = t(`${app.slug}.name`, {
       _: app.namePrefix ? `${app.namePrefix} ${app.name}` : app.name
     })
@@ -94,8 +96,8 @@ export class AppItem extends React.Component {
           title={label}
           onClick={onClick}
         >
-          {icon ? (
-            <img src={icon} className="coz-nav-apps-item-icon" alt="" />
+          {useHomeIcon ? (
+            <HomeIcon className="coz-nav-apps-item-icon" />
           ) : (
             <AppIcon
               app={app}
@@ -112,7 +114,8 @@ export class AppItem extends React.Component {
 }
 
 AppItem.propTypes = {
-  app: appShape.isRequired
+  app: appShape.isRequired,
+  useHomeIcon: PropTypes.bool
 }
 
 export default translate()(AppItem)
