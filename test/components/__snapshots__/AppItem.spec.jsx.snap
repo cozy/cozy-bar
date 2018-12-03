@@ -39,7 +39,7 @@ ShallowWrapper {
             }
           }
           className="coz-nav-apps-item-icon"
-          fetchIcon={[Function]}
+          secure={false}
         />
         <p
           className="coz-label"
@@ -64,7 +64,7 @@ ShallowWrapper {
               }
             }
             className="coz-nav-apps-item-icon"
-            fetchIcon={[Function]}
+            secure={false}
           />,
           <p
             className="coz-label"
@@ -90,7 +90,8 @@ ShallowWrapper {
               "slug": "cozy-drive",
             },
             "className": "coz-nav-apps-item-icon",
-            "fetchIcon": [Function],
+            "domain": undefined,
+            "secure": false,
           },
           "ref": null,
           "rendered": null,
@@ -133,7 +134,7 @@ ShallowWrapper {
               }
             }
             className="coz-nav-apps-item-icon"
-            fetchIcon={[Function]}
+            secure={false}
           />
           <p
             className="coz-label"
@@ -158,7 +159,7 @@ ShallowWrapper {
                 }
               }
               className="coz-nav-apps-item-icon"
-              fetchIcon={[Function]}
+              secure={false}
             />,
             <p
               className="coz-label"
@@ -184,7 +185,8 @@ ShallowWrapper {
                 "slug": "cozy-drive",
               },
               "className": "coz-nav-apps-item-icon",
-              "fetchIcon": [Function],
+              "domain": undefined,
+              "secure": false,
             },
             "ref": null,
             "rendered": null,
