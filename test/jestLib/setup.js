@@ -10,3 +10,5 @@ global.requestAnimationFrame = cb => {
 }
 
 Enzyme.configure({ adapter: new Adapter() })
+
+process.env.USE_REACT = true
