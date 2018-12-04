@@ -45,7 +45,7 @@
     "babel-preset-react": "6.24.1",
     "babel-runtime": "6.26.0",
     "bundlesize": "0.17.0",
-    "cozy-ui": "17.4.5",
+    "cozy-ui": "17.4.6",
     "css-loader": "1.0.1",
     "css-mqpacker": "7.0.0",
     "csswring": "7.0.0",
