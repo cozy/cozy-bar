@@ -50,7 +50,8 @@
   margin-right: .75rem;
 }
 
-[role=banner] .coz-nav-apps-btns-home {
+[role=banner] .coz-nav-apps-btns-home,
+[role=banner] .coz-nav-apps-btns-home:visited {
   color: var(--dodger-blue);
 }
 
