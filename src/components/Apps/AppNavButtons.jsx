@@ -34,6 +34,18 @@ class AppNavButton extends Component {
       )
     }
 
+    const displayName =
+      !isHomeApp && appNamePrefix
+        ? [
+            t(`${appSlug}.name_prefix`, {
+              _: appNamePrefix
+            }),
+            t(`${appSlug}.name`, {
+              _: appName
+            })
+          ].join(' ')
+        : t(`${appSlug}.name`, { _: appName })
+
     return (
       <div className={`coz-nav-apps-btns${isHomeApp ? ' --currentHome' : ''}`}>
         <a href={homeApp && homeApp.href} className="coz-nav-apps-btns-home">
@@ -51,11 +63,7 @@ class AppNavButton extends Component {
           {!isHomeApp && (
             <img className="coz-bar-hide-sm" src={iconPath} width="28" alt="" />
           )}
-          <span className="coz-nav-app-name">
-            {t(`${appSlug}.name`, {
-              _: appNamePrefix ? `${appNamePrefix} ${appName}` : appName
-            })}
-          </span>
+          <span className="coz-nav-app-name">{displayName}</span>
           {!isPublic && (
             <Icon icon={opened ? 'top' : 'bottom'} color="#95999d" size="12" />
           )}
