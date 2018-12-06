@@ -50,13 +50,14 @@
   margin-right: .75rem;
 }
 
-[role=banner] .coz-nav-apps-btns-home {
+[role=banner] .coz-nav-apps-btns-home,
+[role=banner] .coz-nav-apps-btns-home[href]:visited {
   color: var(--dodger-blue);
 }
 
-[role=banner] .coz-nav-apps-btns-home:hover,
-[role=banner] .coz-nav-apps-btns-home:active,
-[role=banner] .coz-nav-apps-btns-home:focus {
+[role=banner] .coz-nav-apps-btns-home[href]:hover,
+[role=banner] .coz-nav-apps-btns-home[href]:active,
+[role=banner] .coz-nav-apps-btns-home[href]:focus {
   color: var(--science-blue);
 }
 
