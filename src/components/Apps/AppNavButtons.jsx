@@ -46,14 +46,19 @@ class AppNavButton extends Component {
           ].join(' ')
         : t(`${appSlug}.name`, { _: appName })
 
+    const homeHref = !isPublic && homeApp && homeApp.href
+
     return (
       <div className={`coz-nav-apps-btns${isHomeApp ? ' --currentHome' : ''}`}>
-        <a
-          href={!isPublic && homeApp && homeApp.href}
-          className="coz-nav-apps-btns-home"
-        >
-          <HomeIcon currentColor />
-        </a>
+        {homeHref ? (
+          <a href={homeHref} className="coz-nav-apps-btns-home">
+            <HomeIcon currentColor />
+          </a>
+        ) : (
+          <span className="coz-nav-apps-btns-home">
+            <HomeIcon currentColor />
+          </span>
+        )}
         {!isHomeApp && <span className="coz-nav-apps-btns-sep" />}
         <button
           type="button"
