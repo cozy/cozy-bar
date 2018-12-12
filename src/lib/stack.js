@@ -1,6 +1,8 @@
+/* global __TARGET__ */
 /* eslint-env browser */
 
 import realtime from 'cozy-realtime'
+import getIcon from './icon'
 
 import {
   ForbiddenException,
@@ -117,11 +119,16 @@ function getApp(slug) {
 
 const cache = {}
 
-export const getAppIconProps = () => ({
-  // we mustn't give the protocol here
-  domain: COZY_HOST,
-  secure: USE_SSL
-})
+const _fetchIcon = app => getIcon(COZY_URL, fetchOptions(), app, true)
+export const getAppIconProps = () => {
+  return __TARGET__ === 'mobile'
+    ? { fetchIcon: _fetchIcon }
+    : {
+        // we mustn't give the protocol here
+        domain: COZY_HOST,
+        secure: USE_SSL
+      }
+}
 
 async function initializeRealtime({
   onCreateApp,
@@ -180,12 +187,17 @@ async function initializeRealtime({
 }
 
 const determineURL = (cozyURL, ssl) => {
-  let url = cozyURL
-  let host = cozyURL
+  let url
+  let host
   const protocol = ssl ? 'https' : 'http'
   try {
     host = new URL(cozyURL).host
-    if (host) url = `${protocol}://${host}`
+    if (host) {
+      url = `${protocol}://${host}`
+    } else {
+      url = cozyURL
+      host = cozyURL
+    }
   } catch (e) {
     host = cozyURL
     url = cozyURL
