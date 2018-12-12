@@ -1,4 +1,3 @@
-/* global __TARGET__ */
 /* eslint-env browser */
 
 import realtime from 'cozy-realtime'
@@ -26,7 +25,9 @@ function fetchOptions() {
 }
 
 let COZY_URL
+let COZY_HOST
 let COZY_TOKEN
+let USE_SSL
 
 const errorStatuses = {
   '401': UnauthorizedStackException,
@@ -117,8 +118,9 @@ function getApp(slug) {
 const cache = {}
 
 export const getAppIconProps = () => ({
-  domain: COZY_URL,
-  secure: window.location.protocol === 'https:'
+  // we mustn't give the protocol here
+  domain: COZY_HOST,
+  secure: USE_SSL
 })
 
 async function initializeRealtime({
@@ -177,16 +179,31 @@ async function initializeRealtime({
   }
 }
 
+const determineURL = (cozyURL, ssl) => {
+  let url = cozyURL
+  let host = cozyURL
+  const protocol = ssl ? 'https' : 'http'
+  try {
+    host = new URL(cozyURL).host
+    if (host) url = `${protocol}://${host}`
+  } catch (e) {
+    host = cozyURL
+    url = cozyURL
+  }
+  return { COZY_URL: url, COZY_HOST: host }
+}
+
 module.exports = {
   async init({ cozyURL, token, onCreateApp, onDeleteApp, ssl }) {
-    COZY_URL = `${__TARGET__ === 'mobile' ? '' : '//'}${cozyURL}`
+    ;({ COZY_URL, COZY_HOST } = determineURL(cozyURL, ssl))
     COZY_TOKEN = token
+    USE_SSL = ssl
     await initializeRealtime({
       onCreateApp,
       onDeleteApp,
       token: COZY_TOKEN,
       url: COZY_URL,
-      ssl
+      ssl: USE_SSL
     })
   },
   updateAccessToken(token) {
