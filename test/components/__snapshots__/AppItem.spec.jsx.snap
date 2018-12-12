@@ -39,7 +39,6 @@ ShallowWrapper {
             }
           }
           className="coz-nav-apps-item-icon"
-          secure={false}
         />
         <p
           className="coz-label"
@@ -64,7 +63,6 @@ ShallowWrapper {
               }
             }
             className="coz-nav-apps-item-icon"
-            secure={false}
           />,
           <p
             className="coz-label"
@@ -91,7 +89,7 @@ ShallowWrapper {
             },
             "className": "coz-nav-apps-item-icon",
             "domain": undefined,
-            "secure": false,
+            "secure": undefined,
           },
           "ref": null,
           "rendered": null,
@@ -134,7 +132,6 @@ ShallowWrapper {
               }
             }
             className="coz-nav-apps-item-icon"
-            secure={false}
           />
           <p
             className="coz-label"
@@ -159,7 +156,6 @@ ShallowWrapper {
                 }
               }
               className="coz-nav-apps-item-icon"
-              secure={false}
             />,
             <p
               className="coz-label"
@@ -186,7 +182,7 @@ ShallowWrapper {
               },
               "className": "coz-nav-apps-item-icon",
               "domain": undefined,
-              "secure": false,
+              "secure": undefined,
             },
             "ref": null,
             "rendered": null,
