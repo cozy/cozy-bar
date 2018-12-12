@@ -148,6 +148,8 @@
   margin-right: .5rem;
   height: 2rem;
   width: 2rem;
+  /* force svg inline to be 2rem */
+  min-width: 2rem;
 }
 
 [role=banner] .coz-nav-apps-item [role=menuitem] .coz-label {
