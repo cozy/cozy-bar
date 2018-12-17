@@ -190,18 +190,16 @@ const determineURL = (cozyURL, ssl) => {
   let url
   let host
   const protocol = ssl ? 'https' : 'http'
+
   try {
+    // only on mobile we get the full URL with the protocol
     host = new URL(cozyURL).host
-    if (host) {
-      url = `${protocol}://${host}`
-    } else {
-      url = cozyURL
-      host = cozyURL
-    }
-  } catch (e) {
-    host = cozyURL
-    url = cozyURL
-  }
+    url = !!host && `${protocol}://${host}`
+  } catch (e) {} //eslint-disable-line no-empty
+
+  host = host || cozyURL
+  url = url || `//${host}`
+
   return { COZY_URL: url, COZY_HOST: host }
 }
 
