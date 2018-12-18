@@ -130,31 +130,8 @@ export const getAppIconProps = () => {
       }
 }
 
-async function initializeRealtime({
-  onCreateApp,
-  onDeleteApp,
-  ssl,
-  url,
-  token
-}) {
-  // Let's check the url. By default it's just the domain, but some apps are
-  // passing a full URL with protocol.
-  let parsedURL
-  try {
-    parsedURL = new URL(url)
-  } catch (error) {
-    console.warn(
-      `Cannot parse URL for realtime, using ${url} as domain (${error.message})`
-    )
-  }
-
-  const realtimeConfig = { token }
-  if (parsedURL) {
-    realtimeConfig.url = url
-  } else {
-    // Protocol is http/https here, it is mapped to ws/wss by cozy-realtime
-    realtimeConfig.url = `${ssl ? 'https:' : 'http:'}${url}`
-  }
+async function initializeRealtime({ onCreateApp, onDeleteApp, url, token }) {
+  const realtimeConfig = { token, url }
 
   try {
     const realtimeApps = await realtime.subscribeAll(
@@ -195,10 +172,10 @@ const determineURL = (cozyURL, ssl) => {
     // only on mobile we get the full URL with the protocol
     host = new URL(cozyURL).host
     url = !!host && `${protocol}://${host}`
-  } catch (e) {} //eslint-disable-line no-empty
+  } catch (e) {} // eslint-disable-line no-empty
 
   host = host || cozyURL
-  url = url || `//${host}`
+  url = url || `${protocol}://${host}`
 
   return { COZY_URL: url, COZY_HOST: host }
 }
