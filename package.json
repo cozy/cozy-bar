@@ -93,7 +93,7 @@
     "core-js": "2.6.0",
     "cozy-client-js": "0.14.2",
     "cozy-device-helper": "1.5.0",
-    "cozy-realtime": "1.2.2",
+    "cozy-realtime": "1.2.5",
     "hammerjs": "2.0.8",
     "lerna-changelog": "0.8.2",
     "localforage": "1.7.3",
