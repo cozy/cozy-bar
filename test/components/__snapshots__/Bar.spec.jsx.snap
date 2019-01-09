@@ -1,0 +1,143 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Bar should display the Searchbar 1`] = `
+<div
+  className="coz-bar-wrapper"
+>
+  <div
+    className="coz-bar-container"
+  >
+    <button
+      className="coz-bar-btn coz-bar-burger"
+      data-icon="icon-apps"
+      data-tutorial="apps-mobile"
+      onClick={[Function]}
+      type="button"
+    >
+      <span
+        className="coz-bar-hidden"
+      >
+        drawer
+      </span>
+    </button>
+    <Apps
+      isPublic={false}
+    />
+    <div
+      className="u-flex-grow"
+    >
+      <Wrapper />
+    </div>
+    <Wrapper
+      toggleSupport={[Function]}
+    />
+    <Connect(Drawer)
+      drawerListener={[Function]}
+      isClaudyLoading={false}
+      onClaudy={false}
+      onClose={[Function]}
+      toggleSupport={[Function]}
+      visible={false}
+    />
+  </div>
+</div>
+`;
+
+exports[`Bar should not display searchbar if we are not on  a public page 1`] = `
+<div
+  className="coz-bar-wrapper"
+>
+  <div
+    className="coz-bar-container"
+  >
+    <Apps
+      isPublic={true}
+    />
+    <div
+      className="u-flex-grow"
+    />
+  </div>
+</div>
+`;
+
+exports[`Bar should not display searchbar if we are not on Cozy Drive 1`] = `
+<div
+  className="coz-bar-wrapper"
+>
+  <div
+    className="coz-bar-container"
+  >
+    <button
+      className="coz-bar-btn coz-bar-burger"
+      data-icon="icon-apps"
+      data-tutorial="apps-mobile"
+      onClick={[Function]}
+      type="button"
+    >
+      <span
+        className="coz-bar-hidden"
+      >
+        drawer
+      </span>
+    </button>
+    <Apps
+      isPublic={false}
+    />
+    <div
+      className="u-flex-grow"
+    />
+    <Wrapper
+      toggleSupport={[Function]}
+    />
+    <Connect(Drawer)
+      drawerListener={[Function]}
+      isClaudyLoading={false}
+      onClaudy={false}
+      onClose={[Function]}
+      toggleSupport={[Function]}
+      visible={false}
+    />
+  </div>
+</div>
+`;
+
+exports[`Bar should not display searchbar if we are on mobile 1`] = `
+<div
+  className="coz-bar-wrapper"
+>
+  <div
+    className="coz-bar-container"
+  >
+    <button
+      className="coz-bar-btn coz-bar-burger"
+      data-icon="icon-apps"
+      data-tutorial="apps-mobile"
+      onClick={[Function]}
+      type="button"
+    >
+      <span
+        className="coz-bar-hidden"
+      >
+        drawer
+      </span>
+    </button>
+    <Apps
+      isPublic={false}
+    />
+    <div
+      className="u-flex-grow"
+    />
+    <Wrapper
+      toggleSupport={[Function]}
+    />
+    <Connect(Drawer)
+      drawerListener={[Function]}
+      isClaudyLoading={false}
+      onClaudy={false}
+      onClose={[Function]}
+      toggleSupport={[Function]}
+      visible={false}
+    />
+  </div>
+</div>
+`;
