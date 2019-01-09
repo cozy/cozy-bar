@@ -10,6 +10,7 @@ import {
   getTracker,
   configureTracker
 } from 'cozy-ui/react/helpers/tracker'
+import { isMobileApp } from 'cozy-device-helper'
 
 import Banner from 'components/Banner'
 import Drawer from 'components/Drawer'
@@ -37,7 +38,8 @@ class Bar extends Component {
       drawerVisible: false,
       usageTracker: null,
       supportDisplayed: false,
-      searchBarEnabled: props.currentApp === 'Cozy Drive' && !props.isPublic
+      searchBarEnabled:
+        props.currentApp === 'Cozy Drive' && !props.isPublic && !isMobileApp()
     }
   }
 
