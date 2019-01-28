@@ -34,7 +34,7 @@ class SupportModal extends Component {
         <Modal
           secondaryAction={this.props.onClose}
           className="coz-support-modal"
-          into="body"
+          into="#cozy-bar-modal-dom-place"
         >
           <ModalContent className="coz-support-modal-wrapper">
             <div className="coz-support-modal-content">

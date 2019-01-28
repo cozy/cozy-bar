@@ -186,6 +186,7 @@ class Bar extends Component {
     } = this.props
     return (
       <div className="coz-bar-wrapper">
+        <div id="cozy-bar-modal-dom-place" />
         <div className="coz-bar-container">
           {barLeft || this.renderLeft()}
           {barCenter || this.renderCenter()}
