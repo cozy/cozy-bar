@@ -50,6 +50,11 @@
   margin-right: .75rem;
 }
 
+[role=banner] .coz-nav-apps-btns-home-svg {
+  max-width: 2rem;
+  max-height: 2rem;
+}
+
 [role=banner] .coz-nav-apps-btns-home,
 [role=banner] .coz-nav-apps-btns-home[href]:visited {
   color: var(--dodger-blue);
