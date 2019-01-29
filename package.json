@@ -93,7 +93,7 @@
     "@babel/core": "7.2.0",
     "babel-core": "7.0.0-bridge.0",
     "babel-preset-cozy-app": "1.2.5",
-    "core-js": "2.6.0",
+    "core-js": "2.6.3",
     "cozy-client-js": "0.14.2",
     "cozy-device-helper": "1.5.0",
     "cozy-realtime": "1.2.7",
