@@ -5,6 +5,9 @@ exports[`Bar should display the Searchbar 1`] = `
   className="coz-bar-wrapper"
 >
   <div
+    id="cozy-bar-modal-dom-place"
+  />
+  <div
     className="coz-bar-container"
   >
     <button
@@ -48,6 +51,9 @@ exports[`Bar should not display searchbar if we are not on  a public page 1`] = 
   className="coz-bar-wrapper"
 >
   <div
+    id="cozy-bar-modal-dom-place"
+  />
+  <div
     className="coz-bar-container"
   >
     <Apps
@@ -64,6 +70,9 @@ exports[`Bar should not display searchbar if we are not on Cozy Drive 1`] = `
 <div
   className="coz-bar-wrapper"
 >
+  <div
+    id="cozy-bar-modal-dom-place"
+  />
   <div
     className="coz-bar-container"
   >
@@ -105,6 +114,9 @@ exports[`Bar should not display searchbar if we are on mobile 1`] = `
 <div
   className="coz-bar-wrapper"
 >
+  <div
+    id="cozy-bar-modal-dom-place"
+  />
   <div
     className="coz-bar-container"
   >
