@@ -15,7 +15,7 @@ module.exports = {
   },
   resolve: {
     extensions: ['.js', '.json', '.yaml'],
-    modules: [SRC_DIR, path.join(__dirname, '../node_modules')],
+    modules: [SRC_DIR, 'node_modules'],
     alias: {
       react: path.resolve(__dirname, 'aliases/globalReact'),
       'react-dom': path.resolve(__dirname, 'aliases/globalReactDOM')
