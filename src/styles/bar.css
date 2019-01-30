@@ -37,7 +37,7 @@
   min-width: 8em;
   font-size: 1.5em;
   font-weight: normal;
-  color: var(--charcoal-grey);
+  color: var(--charcoalGrey);
 }
 
 @media (max-width: 48em) {

@@ -9,8 +9,7 @@ const commons = [
       require('autoprefixer')(['last 2 versions']),
       require('postcss-discard-empty')
     ] : []
-  }),
-  require('postcss-css-variables')
+  })
 ]
 
 module.exports = {

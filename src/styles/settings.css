@@ -4,7 +4,7 @@
   padding: 1rem 1rem;
   font-size: .875em;
   text-transform: uppercase;
-  color: var(--slate-grey);
+  color: var(--slateGrey);
   cursor: pointer;
   text-decoration: none;
   border: none;
@@ -14,9 +14,9 @@
 
 [role=banner] .coz-nav-settings-btn:hover,
 [role=banner] .coz-nav-settings-btn:focus {
-  background-color: var(--pale-grey);
+  background-color: var(--paleGrey);
   box-shadow: inset 0 -1px 0 0 var(--silver);
-  color: var(--charcoal-grey);
+  color: var(--charcoalGrey);
 }
 
 [role=banner] .coz-nav-pop--settings {
@@ -36,7 +36,7 @@
   background-color: transparent;
   text-align: left;
   white-space: nowrap;
-  color: var(--charcoal-grey);
+  color: var(--charcoalGrey);
   text-decoration: none;
   outline: none;
 }

@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   font-size: 1rem;
-  color: var(--slate-grey);
+  color: var(--slateGrey);
   text-decoration: none;
   border: none;
   background-color: transparent;
@@ -57,13 +57,13 @@
 
 [role=banner] .coz-nav-apps-btns-home,
 [role=banner] .coz-nav-apps-btns-home[href]:visited {
-  color: var(--dodger-blue);
+  color: var(--dodgerBlue);
 }
 
 [role=banner] .coz-nav-apps-btns-home[href]:hover,
 [role=banner] .coz-nav-apps-btns-home[href]:active,
 [role=banner] .coz-nav-apps-btns-home[href]:focus {
-  color: var(--science-blue);
+  color: var(--scienceBlue);
 }
 
 [role=banner] .coz-nav-apps-btns.--currentHome .coz-nav-apps-btns-main {
@@ -121,8 +121,8 @@
 [role=banner] .coz-nav-apps-item.--current a[role=menuitem] {
   font-weight: bold;
   cursor: default;
-  background-color: var(--pale-grey);
-  border-left: 4px solid var(--dodger-blue)
+  background-color: var(--paleGrey);
+  border-left: 4px solid var(--dodgerBlue)
 }
 
 [role=banner] .coz-nav-apps-item [role=menuitem],
@@ -136,7 +136,7 @@
   height: 3rem;
   /* we remove the left border from the padding */
   padding: .5rem 1rem .5rem calc(1rem - 4px);
-  color: var(--charcoal-grey);
+  color: var(--charcoalGrey);
   text-decoration: none;
   outline: none;
 }
@@ -203,7 +203,7 @@
     animation-iteration-count: infinite;
     animation-timing-function: linear;
     background-position: -20rem 0;
-    background-image: linear-gradient(to right, var(--silver) 0, var(--pale-grey) 50%, var(--silver) 100%);
+    background-image: linear-gradient(to right, var(--silver) 0, var(--paleGrey) 50%, var(--silver) 100%);
     background-size: 20rem 10rem;
     background-repeat: no-repeat;
     background-color: var(--silver);
