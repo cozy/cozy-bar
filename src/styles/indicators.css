@@ -23,7 +23,7 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  background-image: url("../assets/icons/spinner.svg");
+  background-image: url("~assets/icons/spinner.svg");
   animation: 1s linear infinite spin;
 }
 
