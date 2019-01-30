@@ -31,24 +31,24 @@
 [role=banner] progress[value] {
   /* Reset the default appearance */
   appearance: none;
-  background-color: var(--pale-grey);
+  background-color: var(--paleGrey);
   border: solid 1px var(--silver);
   border-radius: 2px;
-  color: var(--dodger-blue);
+  color: var(--dodgerBlue);
 }
 
 [role=banner] progress[value]::-webkit-progress-bar {
-  background: var(--pale-grey);
+  background: var(--paleGrey);
   border-radius: 2px;
 }
 
 [role=banner] progress[value]::-webkit-progress-value {
-  background: var(--dodger-blue);
+  background: var(--dodgerBlue);
   border-radius: 1px;
 }
 
 [role=banner] progress[value]::-moz-progress-bar {
-  background: var(--dodger-blue);
+  background: var(--dodgerBlue);
   border-radius: 1px;
 }
 
@@ -70,7 +70,7 @@
   right: 0;
   background: none;
   border-radius: 100%;
-  border: .2em solid var(--science-blue);
+  border: .2em solid var(--scienceBlue);
   border-right: .2em solid white;
   box-sizing: border-box;
   animation: 1s linear infinite spin;

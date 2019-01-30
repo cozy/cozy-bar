@@ -52,7 +52,7 @@
 [role=banner] .coz-searchbar-autosuggest-input:focus,
 [role=banner] .coz-searchbar-autosuggest-input-focused{
   outline: none;
-  border-color: var(--dodger-blue);
+  border-color: var(--dodgerBlue);
 }
 
 [role=banner] .coz-searchbar-autosuggest-suggestions-container {
@@ -100,7 +100,7 @@
 
 [role=banner] .coz-searchbar-autosuggest-suggestions-list b {
   font-weight: bolder;
-  color: var(--science-blue)
+  color: var(--scienceBlue)
 }
 
 [role=banner] .coz-searchbar-autosuggest-suggestion {
@@ -138,12 +138,12 @@
 }
 
 [role=banner] .coz-searchbar-autosuggest-suggestion-subtitle {
-  color: var(--cool-grey);
+  color: var(--coolGrey);
 }
 
 [role=banner] .coz-searchbar-autosuggest-suggestion-highlighted {
-  background: var(--pale-grey);
-  box-shadow: inset 4px 0 0 0 var(--dodger-blue);
+  background: var(--paleGrey);
+  box-shadow: inset 4px 0 0 0 var(--dodgerBlue);
 }
 
 [role=banner] .coz-searchbar-autosuggest-section-title {

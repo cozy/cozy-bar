@@ -15,7 +15,7 @@
   height: 3.5em;
   border-radius: 100%;
   border: none;
-  background-color: var(--dodger-blue);
+  background-color: var(--dodgerBlue);
   background-image: url('../assets/icons/32/icon-claudy.svg');
   background-repeat: no-repeat;
   background-size: 2em;

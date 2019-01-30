@@ -9,7 +9,7 @@
 [role=banner] a[role=menuitem]:focus,
 [role=banner] button[role=menuitem]:hover,
 [role=banner] button[role=menuitem]:focus {
-  background-color: var(--pale-grey);
+  background-color: var(--paleGrey);
 }
 
 [role=banner] [role=menuitem][aria-busy=true]::after {
