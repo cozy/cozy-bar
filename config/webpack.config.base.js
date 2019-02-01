@@ -18,7 +18,8 @@ module.exports = {
     modules: [SRC_DIR, 'node_modules'],
     alias: {
       react: path.resolve(__dirname, 'aliases/globalReact'),
-      'react-dom': path.resolve(__dirname, 'aliases/globalReactDOM')
+      'react-dom': path.resolve(__dirname, 'aliases/globalReactDOM'),
+      'cozy-ui/react': 'cozy-ui/transpiled/react'
     }
   },
   devtool: '#source-map',
