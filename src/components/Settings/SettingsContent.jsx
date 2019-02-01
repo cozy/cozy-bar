@@ -1,7 +1,7 @@
 /* global __TARGET__ */
 import React from 'react'
 
-import { translate } from 'cozy-ui/react/I18n'
+import { translate } from 'cozy-ui/transpiled/react/I18n'
 
 import StorageData from 'components/Settings/StorageData'
 

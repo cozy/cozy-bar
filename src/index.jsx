@@ -38,7 +38,7 @@ const injectBarInDOM = data => {
   const React = require('react')
   const { render } = require('react-dom')
   const { connect, Provider } = require('react-redux')
-  const I18n = require('cozy-ui/react/I18n').default
+  const I18n = require('cozy-ui/transpiled/react/I18n').default
   const Bar = require('./components/Bar').default
 
   const barNode = createBarElement()

@@ -4,12 +4,12 @@ import 'core-js/modules/es6.object.assign'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import { translate } from 'cozy-ui/react/I18n'
+import { translate } from 'cozy-ui/transpiled/react/I18n'
 import {
   shouldEnableTracking,
   getTracker,
   configureTracker
-} from 'cozy-ui/react/helpers/tracker'
+} from 'cozy-ui/transpiled/react/helpers/tracker'
 import { isMobileApp } from 'cozy-device-helper'
 
 import Banner from 'components/Banner'
