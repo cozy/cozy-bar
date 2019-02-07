@@ -3,7 +3,7 @@
 const webpack = require('webpack')
 const path = require('path')
 
-module.exports = {
+module.exports = ({ production }) => ({
   resolve: {
     extensions: ['.styl']
   },
@@ -24,7 +24,9 @@ module.exports = {
             loader: 'postcss-loader',
             options: {
               config: {
-                path: path.join(__dirname, '../postcss.config.js')
+                ctx: {
+                  env: production ? 'production' : 'development'
+                }
               },
               sourceMap: true
             }
@@ -45,4 +47,4 @@ module.exports = {
       }
     })
   ]
-}
+})
