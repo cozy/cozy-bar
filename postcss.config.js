@@ -1,23 +1,23 @@
 const path = require('path')
 
-const { production } = require('./config/webpack.vars')
+module.exports = ({ options }) => {
+  let plugins = [
+    require('postcss-import')({
+      path: [path.resolve(__dirname, 'src/styles/')]
+    }),
+    require('autoprefixer')(['last 2 versions', 'not dead', 'not ie <= 11'])
+  ]
 
-const commons = [
-  require('postcss-import')({
-    path: [path.resolve(__dirname, 'src/styles/')],
-    plugins: production ? [
-      require('autoprefixer')(['last 2 versions']),
-      require('postcss-discard-empty')
-    ] : []
-  })
-]
+  if (options.env === 'production') {
+    plugins = plugins.concat([
+      require('postcss-discard-empty'),
+      require('postcss-discard-duplicates'),
+      require('css-mqpacker'),
+      require('csswring')({
+        removeAllComments: true
+      })
+    ])
+  }
 
-module.exports = {
-  plugins: production ? commons.concat([
-    require('postcss-discard-duplicates'),
-    require('css-mqpacker'),
-    require('csswring')({
-      removeAllComments: true
-    })
-  ]) : commons
+  return { plugins }
 }

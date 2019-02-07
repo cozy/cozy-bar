@@ -4,7 +4,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const webpack = require('webpack')
 const path = require('path')
 
-module.exports = ({ filename }) => ({
+module.exports = ({ filename, production }) => ({
   resolve: {
     extensions: ['.styl']
   },
@@ -23,7 +23,9 @@ module.exports = ({ filename }) => ({
             loader: 'postcss-loader',
             options: {
               config: {
-                path: path.join(__dirname, '../postcss.config.js')
+                ctx: {
+                  env: production ? 'production' : 'development'
+                }
               },
               sourceMap: true
             }
@@ -51,7 +53,9 @@ module.exports = ({ filename }) => ({
             loader: 'postcss-loader',
             options: {
               config: {
-                path: path.join(__dirname, '../postcss.config.js')
+                ctx: {
+                  env: production ? 'production' : 'development'
+                }
               },
               sourceMap: true
             }

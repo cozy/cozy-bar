@@ -7,7 +7,7 @@ const vars = require('./webpack.vars')
 
 const cssConfig = vars => {
   if (vars.mobile) {
-    return require('./webpack.config.inline-styles.js')
+    return require('./webpack.config.inline-styles.js')(vars)
   } else {
     return require('./webpack.config.extract')(vars)
   }
@@ -21,7 +21,7 @@ module.exports = (env = {}) => {
     addAnalyzer ? require('./webpack.config.analyzer.js') : {},
     require('./webpack.config.jsx.js'),
     require(production ? './webpack.config.prod' : './webpack.config.dev'),
-    cssConfig({ filename, mobile }),
+    cssConfig({ filename, mobile, production }),
     {
       output: {
         filename: filename('js', mobile ? 'mobile' : ''),
