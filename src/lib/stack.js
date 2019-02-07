@@ -134,30 +134,26 @@ async function initializeRealtime({ onCreateApp, onDeleteApp, url, token }) {
   const realtimeConfig = { token, url }
 
   try {
-    const realtimeApps = await realtime.subscribeAll(
-      realtimeConfig,
-      'io.cozy.apps'
-    )
+    realtime
+      .subscribe(realtimeConfig, 'io.cozy.apps')
+      .onCreate(async app => {
+        // Fetch direclty the app to get attributes `related` as well.
+        let fullApp
+        try {
+          fullApp = await getApp(app.slug)
+        } catch (error) {
+          throw new Error(`Cannont fetch app ${app.slug}: ${error.message}`)
+        }
 
-    realtimeApps.onCreate(async app => {
-      // Fetch direclty the app to get attributes `related` as well.
-      let fullApp
-      try {
-        fullApp = await getApp(app.slug)
-      } catch (error) {
-        throw new Error(`Cannont fetch app ${app.slug}: ${error.message}`)
-      }
-
-      if (typeof onCreateApp === 'function') {
-        onCreateApp(fullApp)
-      }
-    })
-
-    realtimeApps.onDelete(app => {
-      if (typeof onDeleteApp === 'function') {
-        onDeleteApp(app)
-      }
-    })
+        if (typeof onCreateApp === 'function') {
+          onCreateApp(fullApp)
+        }
+      })
+      .onDelete(app => {
+        if (typeof onDeleteApp === 'function') {
+          onDeleteApp(app)
+        }
+      })
   } catch (error) {
     console.warn(`Cannot initialize realtime in Cozy-bar: ${error.message}`)
   }
