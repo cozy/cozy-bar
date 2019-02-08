@@ -22,6 +22,18 @@ require('./lib/importIcons')
 
 const APP_SELECTOR = '[role=application]'
 
+// documentLoaded returns a promise that resolves when the DOM is ready and the
+// CSS have been loaded.
+const documentLoaded = () => {
+  return new Promise((resolve) => {
+    if (document.readyState === 'complete') {
+      resolve()
+    } else {
+      window.addEventListener('load', resolve)
+    }
+  })
+}
+
 const createBarElement = () => {
   const barNode = document.createElement('div')
   barNode.setAttribute('id', 'coz-bar')
@@ -30,7 +42,7 @@ const createBarElement = () => {
   return barNode
 }
 
-const injectBarInDOM = data => {
+const injectBarInDOM = async data => {
   if (document.getElementById('coz-bar') !== null) {
     return
   }
@@ -67,6 +79,8 @@ const injectBarInDOM = data => {
   const EnhancedI18n = connect(state => ({
     lang: getLocale(state)
   }))(I18n)
+
+  await documentLoaded()
 
   const barComponent = (
     <Provider store={data.reduxStore}>
