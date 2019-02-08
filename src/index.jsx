@@ -249,6 +249,15 @@ APILocations.forEach(location => {
   }
 })
 
+// setLocale API
+apiReferences.setLocale = lang => {
+  if (exposedAPI.setLocale) {
+    return exposedAPI.setLocale(lang)
+  } else {
+    showAPIError('setLocale')
+  }
+}
+
 module.exports = {
   init,
   version: __VERSION__,
