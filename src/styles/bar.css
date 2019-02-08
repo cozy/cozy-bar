@@ -10,6 +10,17 @@
   font-size: 1rem;
 }
 
+@media (max-width: 64em) {
+  [role=banner] {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    box-sizing: border-box;
+  }
+}
+
 [role=banner] .coz-bar-wrapper {
   display: flex;
   flex-direction: column;
