@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { setContent, unsetContent, setLocale } from '../reducers'
+import { setContent, unsetContent, setLocale, setTheme } from '../reducers'
 
 import { locations, getJsApiName, getReactApiName } from 'lib/api/helpers'
 
@@ -84,6 +84,10 @@ export default store => {
 
   methods.setLocale = lang => {
     store.dispatch(setLocale(lang))
+  }
+
+  methods.setTheme = theme => {
+    store.dispatch(setTheme(theme))
   }
 
   return methods

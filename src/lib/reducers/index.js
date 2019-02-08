@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux'
 import * as content from './content'
 import * as locale from './locale'
+import * as design from './design'
 import appsReducer, * as apps from './apps'
 import settingsReducer, * as settings from './settings'
 import contextReducer, * as context from './context'
@@ -15,6 +16,7 @@ const deleteApp = apps.deleteApp
 const setContent = content.setContent
 const unsetContent = content.unsetContent
 const setLocale = locale.setLocale
+const setTheme = design.setTheme
 const fetchApps = apps.fetchApps
 const receiveApp = apps.receiveApp
 const setInfos = apps.setInfos
@@ -26,6 +28,7 @@ export {
   setContent,
   unsetContent,
   setLocale,
+  setTheme,
   fetchApps,
   receiveApp,
   setInfos,
@@ -36,6 +39,7 @@ export {
 
 export const getContent = proxy('content', content.getContent)
 export const getLocale = proxy('locale', locale.getLocale)
+export const getTheme = proxy('design', design.getTheme)
 export const getApps = proxy('apps', apps.getApps)
 export const getHomeApp = proxy('apps', apps.getHomeApp)
 export const isFetchingApps = proxy('apps', apps.isFetchingApps)
@@ -52,6 +56,7 @@ export const shouldEnableClaudy = proxy('context', context.shouldEnableClaudy)
 export const reducers = {
   content: content.reducer,
   locale: locale.reducer,
+  design: design.reducer,
   apps: appsReducer,
   settings: settingsReducer,
   context: contextReducer

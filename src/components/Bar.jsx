@@ -20,6 +20,7 @@ import SearchBar from 'components/SearchBar'
 import Claudy from 'components/Claudy'
 import SupportModal from 'components/SupportModal'
 import {
+  getTheme,
   hasFetched,
   getContent,
   getCurrentApp,
@@ -175,6 +176,7 @@ class Bar extends Component {
       usageTracker
     } = this.state
     const {
+      theme,
       barLeft,
       barRight,
       barCenter,
@@ -185,7 +187,7 @@ class Bar extends Component {
       userActionRequired
     } = this.props
     return (
-      <div className="coz-bar-wrapper">
+      <div className={`coz-bar-wrapper theme-${theme}`}>
         <div id="cozy-bar-modal-dom-place" />
         <div className="coz-bar-container">
           {barLeft || this.renderLeft()}
@@ -224,6 +226,7 @@ class Bar extends Component {
 }
 
 const mapStateToProps = state => ({
+  theme: getTheme(state),
   barLeft: getContent(state, 'left'),
   barRight: getContent(state, 'right'),
   barCenter: getContent(state, 'center'),
