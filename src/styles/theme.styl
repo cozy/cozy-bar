@@ -1,0 +1,21 @@
+[role=banner] .coz-bar-wrapper
+    box-shadow inset 0 -1px 0 0 var(--silver)
+
+    .coz-nav-apps-btns
+        color var(--slateGrey)
+
+@media (max-width: 64em)
+    [role=banner] .coz-bar-wrapper
+        background-color var(--white)
+
+@media (max-width: 48em)
+    [role=banner] .coz-bar-wrapper
+        &.theme-primary
+            box-shadow inherit
+            background-color var(--primary)
+
+            .coz-nav-apps-btns
+                color var(--primary-contrast-text)
+
+            [data-icon='icon-apps']
+                background-image url('~assets/icons/16/icon-apps-primary.svg')
