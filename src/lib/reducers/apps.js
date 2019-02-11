@@ -1,5 +1,5 @@
 import stack from '../stack'
-import unionWith from 'lodash.unionwith'
+import unionWith from 'lodash-es'
 
 // constants
 const DELETE_APP = 'DELETE_APP'
