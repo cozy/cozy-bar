@@ -114,10 +114,10 @@ describe('api spec', function() {
   it('should set theme', function() {
     const { setTheme } = api
     // default theme is `default`
-    expect(store.getState().theme.theme).toBe('default')
+    expect(store.getState().theme).toBe('default')
     setTheme('primary')
-    expect(store.getState().theme.theme).toBe('primary')
+    expect(store.getState().theme).toBe('primary')
     setTheme('wrongTheme')
-    expect(store.getState().theme.theme).toBe('default')
+    expect(store.getState().theme).toBe('default')
   })
 })

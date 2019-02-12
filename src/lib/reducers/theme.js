@@ -10,21 +10,18 @@ export const setTheme = theme => ({
 })
 
 // reducer
-export const getDefaultState = () => ({
-  theme: DEFAULT_THEME
-})
+export const getDefaultTheme = () => DEFAULT_THEME
 
-export const reducer = (state = getDefaultState(), action) => {
-  switch (action.type) {
-    case SET_THEME:
-      if (THEMES.includes(action.theme)) {
-        return { ...state, theme: action.theme }
-      }
-      return { ...state, theme: DEFAULT_THEME }
-    default:
-      return state
+export const reducer = (state = getDefaultTheme(), action) => {
+  if (action.type === SET_THEME) {
+    if (THEMES.includes(action.theme)) {
+      return action.theme
+    }
+    return DEFAULT_THEME
+  } else {
+    return state
   }
 }
 
 // selector
-export const getTheme = state => state.theme
+export const getTheme = state => state
