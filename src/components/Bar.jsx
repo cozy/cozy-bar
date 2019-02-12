@@ -187,7 +187,7 @@ class Bar extends Component {
       userActionRequired
     } = this.props
     return (
-      <div className={`coz-bar-wrapper theme-${theme}`}>
+      <div className={`coz-bar-wrapper coz-theme-${theme}`}>
         <div id="cozy-bar-modal-dom-place" />
         <div className="coz-bar-container">
           {barLeft || this.renderLeft()}
