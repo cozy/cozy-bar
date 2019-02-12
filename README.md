@@ -115,7 +115,7 @@ const MyConnectedComponent = connect(mapStateToProps, mapDispatchToProps, MyWrap
 Change theme bar
 ---
 
-It's possible to update design on the cozy-bar with `setTheme` function.
+It's possible to update theme on the cozy-bar with `setTheme` function.
 
 ```jsx
 const { setTheme } = cozy.bar
