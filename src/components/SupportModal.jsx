@@ -35,8 +35,9 @@ class SupportModal extends Component {
           secondaryAction={this.props.onClose}
           className="coz-support-modal"
           into="#cozy-bar-modal-dom-place"
+          closeBtnClassName="coz-support-modal-close"
         >
-          <ModalContent className="coz-support-modal-wrapper">
+          <ModalContent className="coz-support-modal-wrapper u-mt-1">
             <div className="coz-support-modal-content">
               {isLoading && <Spinner size="xxlarge" middle />}
               <div
