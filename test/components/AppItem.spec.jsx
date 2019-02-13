@@ -48,8 +48,37 @@ describe('app icon', () => {
     const root = shallow(<AppItem t={tMock} app={app} />)
     root.find('a').simulate('click')
     expect(openNativeSpy).not.toHaveBeenCalled()
-    root.setState({ isAppAvailable: true })
+    root.setState({ isMobileAppAvailable: true })
     root.find('a').simulate('click')
     expect(openNativeSpy).toHaveBeenCalled()
+  })
+
+  it('should change the onClick handler to use onAppSwitch if current app is mobile', () => {
+    const app = {
+      slug: 'cozy-drive',
+      name: 'Drive'
+    }
+    const appSwitchMock = jest.fn()
+    const root = shallow(
+      <AppItem t={tMock} app={app} onAppSwitch={appSwitchMock} />
+    )
+    root.find('a').simulate('click')
+    expect(appSwitchMock).not.toHaveBeenCalled()
+    root.setState({ isMobileAppAvailable: true })
+    root.find('a').simulate('click')
+    expect(appSwitchMock).toHaveBeenCalled()
+  })
+
+  it('should not change the onClick handler if current app is web and target app is web too', () => {
+    const app = {
+      slug: 'cozy-store',
+      name: 'Store'
+    }
+    const appSwitchMock = jest.fn()
+    const root = shallow(
+      <AppItem t={tMock} app={app} onAppSwitch={appSwitchMock} />
+    )
+    root.find('a').simulate('click')
+    expect(appSwitchMock).not.toHaveBeenCalled()
   })
 })
