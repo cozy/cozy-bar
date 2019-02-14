@@ -3,6 +3,7 @@ import { AppItem } from 'components/Apps/AppItem'
 import { shallow } from 'enzyme'
 import { tMock } from '../jestLib/I18n'
 
+jest.useFakeTimers()
 describe('app icon', () => {
   let spyConsoleError, openNativeSpy
   beforeEach(() => {
@@ -47,9 +48,11 @@ describe('app icon', () => {
     }
     const root = shallow(<AppItem t={tMock} app={app} />)
     root.find('a').simulate('click')
+    jest.runAllTimers()
     expect(openNativeSpy).not.toHaveBeenCalled()
     root.setState({ isMobileAppAvailable: true })
     root.find('a').simulate('click')
+    jest.runAllTimers()
     expect(openNativeSpy).toHaveBeenCalled()
   })
 
@@ -63,9 +66,11 @@ describe('app icon', () => {
       <AppItem t={tMock} app={app} onAppSwitch={appSwitchMock} />
     )
     root.find('a').simulate('click')
+    jest.runAllTimers()
     expect(appSwitchMock).not.toHaveBeenCalled()
     root.setState({ isMobileAppAvailable: true })
     root.find('a').simulate('click')
+    jest.runAllTimers()
     expect(appSwitchMock).toHaveBeenCalled()
   })
 
@@ -79,6 +84,7 @@ describe('app icon', () => {
       <AppItem t={tMock} app={app} onAppSwitch={appSwitchMock} />
     )
     root.find('a').simulate('click')
+    jest.runAllTimers()
     expect(appSwitchMock).not.toHaveBeenCalled()
   })
 })
