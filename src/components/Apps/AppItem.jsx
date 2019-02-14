@@ -49,6 +49,10 @@ export class AppItem extends React.Component {
     }
   }
 
+  componentWillUnmount() {
+    if (this.switchTimeout) clearTimeout(this.switchTimeout)
+  }
+
   async checkAppAvailability() {
     const { slug } = this.props.app
     const appInfo = NATIVE_APP_INFOS[slug]
@@ -58,18 +62,27 @@ export class AppItem extends React.Component {
     }
   }
 
+  onAppSwitch = () => {
+    const { onAppSwitch } = this.props
+    if (typeof onAppSwitch === 'function') {
+      this.switchTimeout = setTimeout(() => {
+        onAppSwitch()
+      }, 1000)
+    }
+  }
+
   openNativeApp(ev) {
-    const { app, onAppSwitch } = this.props
+    const { app } = this.props
     if (ev) {
       ev.preventDefault()
     }
     const appInfos = NATIVE_APP_INFOS[app.slug]
-    if (typeof onAppSwitch === 'function') onAppSwitch()
+    this.onAppSwitch()
     startApp(appInfos)
   }
 
   render() {
-    const { app, t, useHomeIcon, onAppSwitch } = this.props
+    const { app, t, useHomeIcon } = this.props
     const { isMobileAppAvailable } = this.state
     const dataIcon = app.slug ? `icon-${app.slug}` : ''
     const label = t(`${app.slug}.name`, {
@@ -82,10 +95,10 @@ export class AppItem extends React.Component {
       // target app is a mobile native one
       onClick = this.openNativeApp
       href = '#'
-    } else if (typeof onAppSwitch === 'function' && isMobileApp()) {
+    } else if (isMobileApp()) {
       // target app is web
       // run switch listener only if the current app is native mobile
-      onClick = onAppSwitch
+      onClick = this.onAppSwitch
     }
 
     if (app.isCurrentApp) {
