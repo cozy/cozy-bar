@@ -136,7 +136,7 @@ class Drawer extends Component {
     })
   }
 
-  close() {
+  close = () => {
     if (this.state.isClosing) return
     this.detachGestures()
     this.setState(() => ({ isClosing: true }))
@@ -177,7 +177,7 @@ class Drawer extends Component {
           }}
         >
           <nav className="coz-drawer--apps">
-            <AppsContent />
+            <AppsContent onAppSwitch={this.close} />
           </nav>
           <hr className="coz-sep-flex" />
           <nav className="coz-drawer--settings">

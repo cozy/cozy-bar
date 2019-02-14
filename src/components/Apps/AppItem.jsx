@@ -2,7 +2,12 @@
 
 import React from 'react'
 import { appShape } from 'proptypes/index'
-import { checkApp, startApp, isAndroidApp } from 'cozy-device-helper'
+import {
+  checkApp,
+  startApp,
+  isAndroidApp,
+  isMobileApp
+} from 'cozy-device-helper'
 import expiringMemoize from 'lib/expiringMemoize'
 import AppIcon from 'cozy-ui/react/AppIcon'
 import HomeIcon from './IconCozyHome'
@@ -30,7 +35,7 @@ const memoizedCheckApp = expiringMemoize(
 
 export class AppItem extends React.Component {
   state = {
-    isAppAvailable: null
+    isMobileAppAvailable: null
   }
 
   constructor() {
@@ -48,21 +53,24 @@ export class AppItem extends React.Component {
     const { slug } = this.props.app
     const appInfo = NATIVE_APP_INFOS[slug]
     if (appInfo) {
-      const isAppAvailable = Boolean(await memoizedCheckApp(appInfo))
-      this.setState({ isAppAvailable })
+      const isMobileAppAvailable = Boolean(await memoizedCheckApp(appInfo))
+      this.setState({ isMobileAppAvailable })
     }
   }
 
   openNativeApp(ev) {
+    const { app, onAppSwitch } = this.props
     if (ev) {
       ev.preventDefault()
     }
-    const appInfos = NATIVE_APP_INFOS[this.props.app.slug]
+    const appInfos = NATIVE_APP_INFOS[app.slug]
+    if (typeof onAppSwitch === 'function') onAppSwitch()
     startApp(appInfos)
   }
 
   render() {
-    const { app, t, useHomeIcon } = this.props
+    const { app, t, useHomeIcon, onAppSwitch } = this.props
+    const { isMobileAppAvailable } = this.state
     const dataIcon = app.slug ? `icon-${app.slug}` : ''
     const label = t(`${app.slug}.name`, {
       _: app.namePrefix ? `${app.namePrefix} ${app.name}` : app.name
@@ -70,13 +78,14 @@ export class AppItem extends React.Component {
 
     let href = app.href
     let onClick = null
-
-    if (!onClick && this.state.isAppAvailable) {
+    if (isMobileAppAvailable) {
+      // target app is a mobile native one
       onClick = this.openNativeApp
-    }
-
-    if (onClick) {
       href = '#'
+    } else if (typeof onAppSwitch === 'function' && isMobileApp()) {
+      // target app is web
+      // run switch listener only if the current app is native mobile
+      onClick = onAppSwitch
     }
 
     if (app.isCurrentApp) {

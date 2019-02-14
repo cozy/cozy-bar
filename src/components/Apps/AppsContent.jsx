@@ -18,7 +18,14 @@ class AppsContent extends Component {
   }
 
   render() {
-    const { t, apps, breakpoints, homeApp, isFetchingApps } = this.props
+    const {
+      t,
+      apps,
+      breakpoints,
+      homeApp,
+      isFetchingApps,
+      onAppSwitch
+    } = this.props
     const { isMobile } = breakpoints
     const isHomeApp = homeApp && homeApp.isCurrentApp
 
@@ -29,14 +36,19 @@ class AppsContent extends Component {
     return (
       <div className="coz-nav-pop-content">
         <ul className="coz-nav-group">
-          {isMobile && homeApp && <AppItem app={homeApp} useHomeIcon />}
+          {isMobile &&
+            homeApp && (
+              <AppItem app={homeApp} useHomeIcon onAppSwitch={onAppSwitch} />
+            )}
           {isFetchingApps
             ? new Array(3)
                 .fill({})
                 .map((nothing, index) => <AppItemPlaceholder key={index} />)
             : apps
                 .sort(sorter(this.translateApp))
-                .map((app, index) => <AppItem app={app} key={index} />)}
+                .map((app, index) => (
+                  <AppItem app={app} key={index} onAppSwitch={onAppSwitch} />
+                ))}
         </ul>
         {homeApp &&
           !isMobile &&
