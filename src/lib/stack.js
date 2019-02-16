@@ -174,8 +174,7 @@ module.exports = {
       onCreateApp,
       onDeleteApp,
       token: COZY_TOKEN,
-      url: COZY_URL,
-      ssl: USE_SSL
+      url: COZY_URL
     })
   },
   updateAccessToken(token) {
