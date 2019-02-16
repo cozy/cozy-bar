@@ -1,4 +1,8 @@
+/* global __TARGET__ */
+/* eslint-env browser */
+
 import internal from 'lib/stack-internal.js'
+import getIcon from 'lib/icon'
 
 import {
   ForbiddenException,
@@ -249,6 +253,45 @@ const getStorageData = function() {
 }
 
 /**
+ * Fetch an icon data from its path
+ * 
+ * The purpose of this function is to be sent
+ * to AppIcon components for mobile devices.
+ * 
+ * @private
+ * @function
+ * @param {string} iconPath - path of the icon in the stack
+ * @returns {Blob}
+ */
+const iconFetcher = function(iconPath) {
+  return getStackClient().fetch('GET', iconPath)
+}
+
+/**
+ * Get a props object that can be sent to an AppIcon component
+ *
+ * Mobile devices and web browsers need different props
+ * 
+ * @function
+ * @returns {Object}
+ */
+const getAppIconProps = function() {
+  const isMobile = (__TARGET__ === 'mobile')
+  
+  const mobileAppIconProps = {
+    fetchIcon: app => getIcon(iconFetcher, app, true)
+  }
+
+  const browserAppIconProps = {
+    // we mustn't give the protocol here
+    domain: getCozyURL().host,
+    secure: (getCozyURL().protocol === 'https:')
+  }
+
+  return isMobile ? mobileAppIconProps : browserAppIconProps
+}
+
+/**
  * Get settings context
  *
  * @function
@@ -287,6 +330,7 @@ export default {
     apps: getApps,
     context: withCache(getContext, {}),
     storageData: getStorageData,
+    iconProps: getAppIconProps,
     cozyURL: getCozyURLOrigin
   }, 
   updateAccessToken, 
