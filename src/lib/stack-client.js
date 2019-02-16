@@ -1,8 +1,8 @@
 /* global __TARGET__ */
 /* eslint-env browser */
 
-import internal from 'lib/stack-internal.js'
 import getIcon from 'lib/icon'
+import initializeRealtime from 'lib/realtime'
 
 import {
   ForbiddenException,
@@ -335,20 +335,23 @@ const cozyFetchJSON = function(cozy, method, path, body) {
  * @param {Function} arg.onDeleteApp
  * @returns {Promise}
  */
-const init = function(options) {
-  cozyClient = options.cozyClient
-  const legacyOptions = {
-    ...options,
-    cozyURL: getCozyURLOrigin(),
-    token: getStackClient().token.token
-  }
-  return internal.init(legacyOptions)
+const init = function({ 
+  cozyClient: client, 
+  onCreateApp, 
+  onDeleteApp 
+}) {
+  cozyClient = client
+  return initializeRealtime({
+    getApp,
+    onCreateApp,
+    onDeleteApp,
+    token: getStackClient().token.token,
+    url: getCozyURLOrigin(),
+  })
 } 
 
 export default { 
-  ...internal, 
   get: { 
-    ...internal.get,
     app: getApp,
     apps: getApps,
     context: withCache(getContext, {}),
