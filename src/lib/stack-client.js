@@ -124,6 +124,51 @@ const fetchJSON = function(method, path, body, options={}) {
 }
 
 /**
+ * Test if an error is from an HTTP 404
+ *
+ * @function
+ * @private
+ * @param {Function} error - received from a fetch
+ * @returns {boolean}
+ */
+const is404 = function(error) {
+  return ['NotFoundException', 'NotFound', 'FetchError'].includes(error.name) &&
+     error.status && 
+     error.status === 404
+} 
+
+/**
+ * Memoize the result of a function which does an HTTP fetch
+ * 
+ * If a call throws an error because the 
+ * underlying HTTP request returned a 404
+ * then this function returns a default value
+ * 
+ * In the absence of any other error, the result is
+ * cached and reused in the next call to the function.
+ * 
+ *
+ * @function
+ * @param {Function} fn - the function to memoize. It will be
+ *                        called without any parameter
+ * @param {Object} defaultValue - returned in case of 404
+ * @returns {Function} async function
+ */                  
+const withCache = function(fn, defaultValue) {
+  let cache = undefined
+  return async function() {
+    if (cache === undefined) {
+      try {
+        cache = await fn() 
+      } catch(error) {
+        cache = is404(error) ? defaultValue : undefined
+      }
+    } 
+    return cache
+  }
+}
+
+/**
  * List all installed applications
  *
  * Returns only the `data` key of the
@@ -167,6 +212,18 @@ const getApp = function(slug) {
   )
 }
 
+
+/**
+ * Get settings context
+ *
+ * @function
+ * @return {Promise}
+ * @see https://docs.cozy.io/en/cozy-stack/settings/#get-settingscontext
+ */
+const getContext = function() {
+  return fetchJSON('GET', '/settings/context')
+}
+
 /**
  * Initializes the functions to call the cozy stack
  *
@@ -193,6 +250,7 @@ export default {
     ...internal.get,
     app: getApp,
     apps: getApps,
+    context: withCache(getContext, {}),
     cozyURL: getCozyURLOrigin
   }, 
   updateAccessToken, 
