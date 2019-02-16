@@ -1,9 +1,21 @@
 import internal from 'lib/stack-internal.js'
 
 import {
+  ForbiddenException,
+  ServerErrorException,
+  NotFoundException,
+  MethodNotAllowedException,
   UnavailableStackException,
   UnauthorizedStackException
 } from './exceptions'
+
+const errorStatuses = {
+  '401': UnauthorizedStackException,
+  '403': ForbiddenException,
+  '404': NotFoundException,
+  '405': MethodNotAllowedException,
+  '500': ServerErrorException
+}
 
 /**
  * Cozy client instance
@@ -74,6 +86,64 @@ const updateAccessToken = function(token) {
 }
 
 /**
+ * Fetch a resource with cozy-client
+ *
+ * Utility to maintain the compatibility with the legacy 
+ * standalone cozy-bar client
+ *
+ * @function
+ * @private
+ * @returns {Promise} the full raw JSON playload
+ */
+const fetchJSON = function(method, path, body, options={}) {
+  
+  // We mirror here a few lines from cozy-stack-client
+  // because we want a customized fetchJSON 
+  const headers = (options.headers = options.headers || {})
+  headers['Accept'] = 'application/json'
+  if (method !== 'GET' && method !== 'HEAD' && body !== undefined) {
+    if (!headers['Content-Type']) {
+      headers['Content-Type'] = 'application/json'
+      body = JSON.stringify(body)
+    }
+  }
+
+  return getStackClient().fetch(method, path, body, options).then(
+    resp => {
+      if (typeof errorStatuses[resp.status] === 'function') {
+        throw new errorStatuses[resp.status]()
+      }    
+      const contentType = resp.headers.get('content-type')
+      const isJson = contentType.includes('json')
+      if (!isJson) {
+        throw new Error("Server response not in JSON")
+      }
+      return resp.json()
+    }
+  )
+}
+
+/**
+ * List all installed applications
+ *
+ * Returns only the `data` key of the
+ * whole JSON payload from the server
+ *
+ * @function
+ * @returns {Promise} 
+ */
+const getApps = function () {
+  return fetchJSON('GET', '/apps/').then(
+    json => {
+      if (json.error) {
+        throw new Error(json.error)
+      }
+      return json.data
+    }
+  )
+}
+
+/**
  * Initializes the functions to call the cozy stack
  *
  * @function
@@ -97,6 +167,7 @@ export default {
   ...internal, 
   get: { 
     ...internal.get,
+    apps: getApps,
     cozyURL: getCozyURLOrigin
   }, 
   updateAccessToken, 
