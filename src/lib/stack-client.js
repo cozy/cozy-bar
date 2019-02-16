@@ -97,7 +97,7 @@ const updateAccessToken = function(token) {
  *
  * @function
  * @private
- * @returns {Promise} the full raw JSON playload
+ * @returns {Promise} the full raw JSON payload
  */
 const fetchJSON = function(method, path, body, options={}) {
   
@@ -303,6 +303,29 @@ const getContext = function() {
 }
 
 /**
+ * Fetch a resource on the cozy stack
+ * with a prototype compatible with the legacy cozy-client-js
+ *
+ * @function
+ * @param {object} cozy - cozy-client-js 
+ * @param {string} method - HTTP method
+ * @param {string} path
+ * @param {object} body
+ * @returns {Promise}
+ */
+const cozyFetchJSON = function(cozy, method, path, body) {
+  return fetchJSON(method, path, body).then(
+    json => {
+      const responseData = Object.assign({}, json.data)
+      if (responseData.id) {
+        responseData._id = responseData.id
+      }
+      return responseData
+    }
+  )
+}
+
+/**
  * Initializes the functions to call the cozy stack
  *
  * @function
@@ -333,7 +356,8 @@ export default {
     iconProps: getAppIconProps,
     cozyURL: getCozyURLOrigin
   }, 
-  updateAccessToken, 
+  updateAccessToken,
+  cozyFetchJSON, 
   logout, 
   init 
 }
