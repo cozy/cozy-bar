@@ -3,6 +3,7 @@
 
 import realtime from 'cozy-realtime'
 import getIcon from './icon'
+import normalizeURL from './normalize-url'
 
 import {
   ForbiddenException,
@@ -159,28 +160,16 @@ async function initializeRealtime({ onCreateApp, onDeleteApp, url, token }) {
   }
 }
 
-const determineURL = (cozyURL, ssl) => {
-  let url
-  let host
-  const protocol = ssl ? 'https' : 'http'
-
-  try {
-    // only on mobile we get the full URL with the protocol
-    host = new URL(cozyURL).host
-    url = !!host && `${protocol}://${host}`
-  } catch (e) {} // eslint-disable-line no-empty
-
-  host = host || cozyURL
-  url = url || `${protocol}://${host}`
-
-  return { COZY_URL: url, COZY_HOST: host }
-}
 
 module.exports = {
   async init({ cozyURL, token, onCreateApp, onDeleteApp, ssl }) {
     ;({ COZY_URL, COZY_HOST } = determineURL(cozyURL, ssl))
+     const url = normalizeURL(cozyURL, ssl)
+    // The 4 following constant are global variables for the module
+    COZY_URL = url.origin
+    COZY_HOST = url.host
+    USE_SSL = (url.protocol === 'https:')
     COZY_TOKEN = token
-    USE_SSL = ssl
     await initializeRealtime({
       onCreateApp,
       onDeleteApp,
