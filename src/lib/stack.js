@@ -120,7 +120,19 @@ function getApp(slug) {
 
 const cache = {}
 
-const _fetchIcon = app => getIcon(COZY_URL, fetchOptions(), app, true)
+/**
+ * Fetch an icon from the stack by it's path
+ *
+ * @function
+ * @private
+ * @param {string} iconPath - path of the icon
+ * @returns {Promise} Fetch response
+ */
+const _iconFetcher = function(iconPath) {
+  return fetch(COZY_URL + iconPath, fetchOptions())
+}
+
+const _fetchIcon = app => getIcon(_iconFetcher, app, true)
 export const getAppIconProps = () => {
   return __TARGET__ === 'mobile'
     ? { fetchIcon: _fetchIcon }
