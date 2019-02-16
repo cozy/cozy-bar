@@ -46,6 +46,26 @@ const logout = function() {
 }
 
 /**
+ * Get a cozy URL object
+ *
+ * @function
+ * @returns {URL} 
+ */
+const getCozyURL = function() {
+  return new URL(getStackClient().uri)
+}
+
+/**
+ * Get a the cozy origin as an URL string
+ * 
+ * @function
+ * @returns {string}
+ */
+const getCozyURLOrigin = function() {
+  return getCozyURL().origin
+}
+
+/**
  * @deprecated
  * @private
  */
@@ -67,7 +87,7 @@ const init = function(options) {
   cozyClient = options.cozyClient
   const legacyOptions = {
     ...options,
-    cozyURL: cozyClient.getStackClient().uri,
+    cozyURL: getCozyURLOrigin(),
     token: cozyClient.getStackClient().token.token
   }
   return internal.init(legacyOptions)
@@ -76,7 +96,8 @@ const init = function(options) {
 export default { 
   ...internal, 
   get: { 
-    ...internal.get
+    ...internal.get,
+    cozyURL: getCozyURLOrigin
   }, 
   updateAccessToken, 
   logout, 
