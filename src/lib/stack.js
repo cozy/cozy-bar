@@ -33,8 +33,12 @@ const current = function() {
 /**
  * Initializes the functions to call the cozy stack
  *
+ * It can be initialized either with a cozy-client instance
+ * or a { cozyURL, ssl, token } tupple.
+ *
  * @function
  * @param {Object}  arg
+ * @param {Object}  arg.cozyClient - a cozy client instance
  * @param {string}  arg.cozyURL - URL or domain of the stack
  * @param {boolean} arg.ssl     - Tells if we should use a secure protocol
  *                            required if cozyURL does not have a protocol
@@ -44,7 +48,7 @@ const current = function() {
  * @returns {Promise}
  */
 const init = function(options) {
-  stack = internal
+  stack = (options.cozyClient) ? client : internal
   return stack.init(options)
 } 
 
