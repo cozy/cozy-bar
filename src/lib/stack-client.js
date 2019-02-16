@@ -212,6 +212,41 @@ const getApp = function(slug) {
   )
 }
 
+/** 
+ * default value when no quota is provided 
+ * @private
+ */
+const defaultQuota = 10**12 // 1 Tera
+
+/**
+ * Get storage and quota usage
+ *
+ * When no quota is returned by the server
+ * the quota used is the larger between 
+ * `defaultQuota` and 10 * usage
+ * 
+ * @function
+ * @returns {Object} {usage, quota, isLimited}
+ */
+const getStorageData = function() {
+  return fetchJSON('GET', '/settings/disk-usage').then( 
+    json => { 
+      // parseInt because responses from the server are in text
+      const usage = parseInt(json.data.attributes.used, 10)
+      const realQuota = parseInt(json.data.attributes.quota, 10)
+      // @TODO this is a workaround, we should certainly do smarter
+      // and either not requiring this attribute
+      // or set it to something more real
+      const quota = realQuota || Math.max(defaultQuota, 10 * usage)
+      const isLimited = json.data.attributes.is_limited
+      return { usage, quota, isLimited }
+    }
+  ).catch( 
+    error => {
+      throw new UnavailableStackException()
+    }
+  )
+}
 
 /**
  * Get settings context
@@ -251,6 +286,7 @@ export default {
     app: getApp,
     apps: getApps,
     context: withCache(getContext, {}),
+    storageData: getStorageData,
     cozyURL: getCozyURLOrigin
   }, 
   updateAccessToken, 
