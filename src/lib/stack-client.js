@@ -144,6 +144,30 @@ const getApps = function () {
 }
 
 /**
+ * Detail of an installed application by its slug
+ *
+ * Returns only the `data` key of the
+ * whole JSON payload from the server
+ *
+ * @function
+ * @param {string} slug 
+ * @returns {Promise} 
+ */
+const getApp = function(slug) {
+  if (!slug) {
+    throw new Error('Missing slug')
+  }
+  return fetchJSON('GET', `/apps/${slug}`).then(
+    json => {
+      if (json.error) { 
+        throw new Error(json.error) 
+      }
+      return json.data
+    }
+  )
+}
+
+/**
  * Initializes the functions to call the cozy stack
  *
  * @function
@@ -167,6 +191,7 @@ export default {
   ...internal, 
   get: { 
     ...internal.get,
+    app: getApp,
     apps: getApps,
     cozyURL: getCozyURLOrigin
   }, 
