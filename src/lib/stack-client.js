@@ -88,7 +88,7 @@ const init = function(options) {
   const legacyOptions = {
     ...options,
     cozyURL: getCozyURLOrigin(),
-    token: cozyClient.getStackClient().token.token
+    token: getStackClient().token.token
   }
   return internal.init(legacyOptions)
 } 
