@@ -46,6 +46,14 @@ const logout = function() {
 }
 
 /**
+ * @deprecated
+ * @private
+ */
+const updateAccessToken = function(token) {
+  throw new Error("updateAccessToken should not be used with a cozy-client instance initialization")
+}
+
+/**
  * Initializes the functions to call the cozy stack
  *
  * @function
@@ -65,4 +73,12 @@ const init = function(options) {
   return internal.init(legacyOptions)
 } 
 
-export default { ...internal, get: { ...internal.get}, logout, init }
+export default { 
+  ...internal, 
+  get: { 
+    ...internal.get
+  }, 
+  updateAccessToken, 
+  logout, 
+  init 
+}
