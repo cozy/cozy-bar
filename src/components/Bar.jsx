@@ -5,6 +5,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import { translate } from 'cozy-ui/react/I18n'
+import Icon from 'cozy-ui/react/Icon'
 import {
   shouldEnableTracking,
   getTracker,
@@ -29,6 +30,8 @@ import {
   fetchSettingsData,
   shouldEnableClaudy
 } from 'lib/reducers'
+
+import appsIcon from '!!svg-sprite-loader!assets/icons/16/icon-apps.svg'
 
 class Bar extends Component {
   constructor(props) {
@@ -148,9 +151,9 @@ class Bar extends Component {
         type="button"
         className="coz-bar-btn coz-bar-burger"
         onClick={this.toggleDrawer}
-        data-icon="icon-apps"
         data-tutorial="apps-mobile"
       >
+        <Icon icon={appsIcon} width={16} height={16} />
         <span className="coz-bar-hidden">{t('drawer')}</span>
       </button>
     ) : null

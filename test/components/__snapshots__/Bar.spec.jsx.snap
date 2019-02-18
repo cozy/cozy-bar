@@ -12,11 +12,16 @@ exports[`Bar should change theme 1`] = `
   >
     <button
       className="coz-bar-btn coz-bar-burger"
-      data-icon="icon-apps"
       data-tutorial="apps-mobile"
       onClick={[Function]}
       type="button"
     >
+      <Icon
+        height={16}
+        icon="test-file-stub"
+        spin={false}
+        width={16}
+      />
       <span
         className="coz-bar-hidden"
       >
@@ -54,11 +59,16 @@ exports[`Bar should display the Searchbar 1`] = `
   >
     <button
       className="coz-bar-btn coz-bar-burger"
-      data-icon="icon-apps"
       data-tutorial="apps-mobile"
       onClick={[Function]}
       type="button"
     >
+      <Icon
+        height={16}
+        icon="test-file-stub"
+        spin={false}
+        width={16}
+      />
       <span
         className="coz-bar-hidden"
       >
@@ -120,11 +130,16 @@ exports[`Bar should not display searchbar if we are not on Cozy Drive 1`] = `
   >
     <button
       className="coz-bar-btn coz-bar-burger"
-      data-icon="icon-apps"
       data-tutorial="apps-mobile"
       onClick={[Function]}
       type="button"
     >
+      <Icon
+        height={16}
+        icon="test-file-stub"
+        spin={false}
+        width={16}
+      />
       <span
         className="coz-bar-hidden"
       >
@@ -164,11 +179,16 @@ exports[`Bar should not display searchbar if we are on mobile 1`] = `
   >
     <button
       className="coz-bar-btn coz-bar-burger"
-      data-icon="icon-apps"
       data-tutorial="apps-mobile"
       onClick={[Function]}
       type="button"
     >
+      <Icon
+        height={16}
+        icon="test-file-stub"
+        spin={false}
+        width={16}
+      />
       <span
         className="coz-bar-hidden"
       >
