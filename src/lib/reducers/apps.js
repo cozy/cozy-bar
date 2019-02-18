@@ -9,7 +9,7 @@ const RECEIVE_HOME_APP = 'RECEIVE_HOME_APP'
 const FETCH_APPS = 'FETCH_APPS'
 const FETCH_APPS_FAILURE = 'FETCH_APPS_FAILURE'
 const SET_INFOS = 'SET_INFOS'
-const EXCLUDES = ['settings', 'onboarding']
+const EXCLUDES = ['settings']
 
 const isCurrentApp = (state, app) => app.slug === state.appSlug
 
