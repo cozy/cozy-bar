@@ -5,6 +5,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import { translate } from 'cozy-ui/react/I18n'
+import Icon from 'cozy-ui/react/Icon'
 import {
   shouldEnableTracking,
   getTracker,
@@ -20,6 +21,7 @@ import SearchBar from 'components/SearchBar'
 import Claudy from 'components/Claudy'
 import SupportModal from 'components/SupportModal'
 import {
+  getTheme,
   hasFetched,
   getContent,
   getCurrentApp,
@@ -28,6 +30,8 @@ import {
   fetchSettingsData,
   shouldEnableClaudy
 } from 'lib/reducers'
+
+import appsIcon from '!!svg-sprite-loader!assets/icons/16/icon-apps.svg'
 
 class Bar extends Component {
   constructor(props) {
@@ -147,9 +151,9 @@ class Bar extends Component {
         type="button"
         className="coz-bar-btn coz-bar-burger"
         onClick={this.toggleDrawer}
-        data-icon="icon-apps"
         data-tutorial="apps-mobile"
       >
+        <Icon icon={appsIcon} width={16} height={16} />
         <span className="coz-bar-hidden">{t('drawer')}</span>
       </button>
     ) : null
@@ -175,6 +179,7 @@ class Bar extends Component {
       usageTracker
     } = this.state
     const {
+      theme,
       barLeft,
       barRight,
       barCenter,
@@ -185,7 +190,7 @@ class Bar extends Component {
       userActionRequired
     } = this.props
     return (
-      <div className="coz-bar-wrapper">
+      <div className={`coz-bar-wrapper coz-theme-${theme}`}>
         <div id="cozy-bar-modal-dom-place" />
         <div className="coz-bar-container">
           {barLeft || this.renderLeft()}
@@ -224,6 +229,7 @@ class Bar extends Component {
 }
 
 const mapStateToProps = state => ({
+  theme: getTheme(state),
   barLeft: getContent(state, 'left'),
   barRight: getContent(state, 'right'),
   barCenter: getContent(state, 'center'),

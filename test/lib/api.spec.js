@@ -110,4 +110,14 @@ describe('api spec', function() {
     setLocale('de')
     expect(store.getState().locale).toBe('de')
   })
+
+  it('should set theme', function() {
+    const { setTheme } = api
+    // default theme is `default`
+    expect(store.getState().theme).toBe('default')
+    setTheme('primary')
+    expect(store.getState().theme).toBe('primary')
+    setTheme('wrongTheme')
+    expect(store.getState().theme).toBe('default')
+  })
 })

@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Bar should display the Searchbar 1`] = `
+exports[`Bar should change theme 1`] = `
 <div
-  className="coz-bar-wrapper"
+  className="coz-bar-wrapper coz-theme-primary"
 >
   <div
     id="cozy-bar-modal-dom-place"
@@ -12,11 +12,63 @@ exports[`Bar should display the Searchbar 1`] = `
   >
     <button
       className="coz-bar-btn coz-bar-burger"
-      data-icon="icon-apps"
       data-tutorial="apps-mobile"
       onClick={[Function]}
       type="button"
     >
+      <Icon
+        height={16}
+        icon="test-file-stub"
+        spin={false}
+        width={16}
+      />
+      <span
+        className="coz-bar-hidden"
+      >
+        drawer
+      </span>
+    </button>
+    <Apps />
+    <div
+      className="u-flex-grow"
+    />
+    <Wrapper
+      toggleSupport={[Function]}
+    />
+    <Connect(Drawer)
+      drawerListener={[Function]}
+      isClaudyLoading={false}
+      onClaudy={false}
+      onClose={[Function]}
+      toggleSupport={[Function]}
+      visible={false}
+    />
+  </div>
+</div>
+`;
+
+exports[`Bar should display the Searchbar 1`] = `
+<div
+  className="coz-bar-wrapper coz-theme-default"
+>
+  <div
+    id="cozy-bar-modal-dom-place"
+  />
+  <div
+    className="coz-bar-container"
+  >
+    <button
+      className="coz-bar-btn coz-bar-burger"
+      data-tutorial="apps-mobile"
+      onClick={[Function]}
+      type="button"
+    >
+      <Icon
+        height={16}
+        icon="test-file-stub"
+        spin={false}
+        width={16}
+      />
       <span
         className="coz-bar-hidden"
       >
@@ -48,7 +100,7 @@ exports[`Bar should display the Searchbar 1`] = `
 
 exports[`Bar should not display searchbar if we are not on  a public page 1`] = `
 <div
-  className="coz-bar-wrapper"
+  className="coz-bar-wrapper coz-theme-default"
 >
   <div
     id="cozy-bar-modal-dom-place"
@@ -68,7 +120,7 @@ exports[`Bar should not display searchbar if we are not on  a public page 1`] = 
 
 exports[`Bar should not display searchbar if we are not on Cozy Drive 1`] = `
 <div
-  className="coz-bar-wrapper"
+  className="coz-bar-wrapper coz-theme-default"
 >
   <div
     id="cozy-bar-modal-dom-place"
@@ -78,11 +130,16 @@ exports[`Bar should not display searchbar if we are not on Cozy Drive 1`] = `
   >
     <button
       className="coz-bar-btn coz-bar-burger"
-      data-icon="icon-apps"
       data-tutorial="apps-mobile"
       onClick={[Function]}
       type="button"
     >
+      <Icon
+        height={16}
+        icon="test-file-stub"
+        spin={false}
+        width={16}
+      />
       <span
         className="coz-bar-hidden"
       >
@@ -112,7 +169,7 @@ exports[`Bar should not display searchbar if we are not on Cozy Drive 1`] = `
 
 exports[`Bar should not display searchbar if we are on mobile 1`] = `
 <div
-  className="coz-bar-wrapper"
+  className="coz-bar-wrapper coz-theme-default"
 >
   <div
     id="cozy-bar-modal-dom-place"
@@ -122,11 +179,16 @@ exports[`Bar should not display searchbar if we are on mobile 1`] = `
   >
     <button
       className="coz-bar-btn coz-bar-burger"
-      data-icon="icon-apps"
       data-tutorial="apps-mobile"
       onClick={[Function]}
       type="button"
     >
+      <Icon
+        height={16}
+        icon="test-file-stub"
+        spin={false}
+        width={16}
+      />
       <span
         className="coz-bar-hidden"
       >

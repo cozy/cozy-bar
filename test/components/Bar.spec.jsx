@@ -16,6 +16,7 @@ describe('Bar', () => {
       fetchContext: jest.fn().mockResolvedValue({}),
       fetchApps: jest.fn().mockResolvedValue([]),
       fetchSettingsData: jest.fn().mockResolvedValue({}),
+      theme: 'default',
       t: x => x
     }
   })
@@ -46,6 +47,13 @@ describe('Bar', () => {
     expect(props.fetchApps).toHaveBeenCalledTimes(2)
     root.setState({ drawerVisible: true, usageTracker: {} })
     expect(props.fetchApps).toHaveBeenCalledTimes(2)
+  })
+
+  it('should change theme', () => {
+    const root = shallow(
+      <Bar {...props} theme="primary" />
+    )
+    expect(toJson(root)).toMatchSnapshot()
   })
 
   it('should display the Searchbar', () => {
