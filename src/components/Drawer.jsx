@@ -78,7 +78,7 @@ class Drawer extends Component {
     // IMPORTANT: on Chrome, the `overflow-y: scroll` property on .coz-drawer--apps prevented
     // swipe events to be dispatched correctly ; the `touch-action: pan-y` fixes the problem
     // see drawer.css
-    this.gesturesHandler = new Hammer.Manager(document.body, {
+    this.gesturesHandler = new Hammer.Manager(document.documentElement, {
       // we listen in all directions so that we can catch panup/pandown events and let the user scroll
       recognizers: [[Hammer.Pan, { direction: Hammer.DIRECTION_ALL }]]
     })
