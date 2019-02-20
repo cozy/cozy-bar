@@ -1,8 +1,8 @@
 /* global __TARGET__ */
 /* eslint-env browser */
 
-import realtime from 'cozy-realtime'
 import getIcon from './icon'
+import initializeRealtime from './realtime'
 import normalizeURL from './normalize-url'
 
 import {
@@ -131,36 +131,6 @@ export const getAppIconProps = () => {
       }
 }
 
-async function initializeRealtime({ onCreateApp, onDeleteApp, url, token }) {
-  const realtimeConfig = { token, url }
-
-  try {
-    realtime
-      .subscribe(realtimeConfig, 'io.cozy.apps')
-      .onCreate(async app => {
-        // Fetch direclty the app to get attributes `related` as well.
-        let fullApp
-        try {
-          fullApp = await getApp(app.slug)
-        } catch (error) {
-          throw new Error(`Cannont fetch app ${app.slug}: ${error.message}`)
-        }
-
-        if (typeof onCreateApp === 'function') {
-          onCreateApp(fullApp)
-        }
-      })
-      .onDelete(app => {
-        if (typeof onDeleteApp === 'function') {
-          onDeleteApp(app)
-        }
-      })
-  } catch (error) {
-    console.warn(`Cannot initialize realtime in Cozy-bar: ${error.message}`)
-  }
-}
-
-
 module.exports = {
   async init({ cozyURL, token, onCreateApp, onDeleteApp, ssl }) {
     ;({ COZY_URL, COZY_HOST } = determineURL(cozyURL, ssl))
@@ -171,6 +141,7 @@ module.exports = {
     USE_SSL = (url.protocol === 'https:')
     COZY_TOKEN = token
     await initializeRealtime({
+      getApp,
       onCreateApp,
       onDeleteApp,
       token: COZY_TOKEN,
