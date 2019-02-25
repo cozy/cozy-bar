@@ -142,37 +142,38 @@ const getUserActionRequired = () => {
   return undefined
 }
 
-const determineSSL = (ssl, cozyURL) => {
-  if (typeof ssl !== 'undefined') return ssl
-
-  let parsedURL
-  try {
-    parsedURL = new URL(cozyURL)
-    return parsedURL.protocol === 'https:'
-  } catch (error) {
-    console.warn(
-      `cozyURL parameter passed to Cozy-bar is not a valid URL (${
-        error.message
-      }). Cozy-bar will rely on window.location to detect SSL.`
-    )
-  }
-
-  if (window && window.location && window.location.protocol) {
-    return window.location.protocol === 'https:'
-  }
-
-  console.warn('Cozy-bar cannot detect SSL and will use default value (true)')
-  return true
-}
-
 let exposedAPI = {}
 
+/**
+ * Initializes the cozy bar
+ *
+ * It can be initialized either with a cozyClient instance
+ * or a { cozyURL, ssl, token } tupple.
+ *
+ * @function
+ * @param {Object}  arg
+ * @param {string}  arg.appName    - App name to be displayed in the bar
+ * @param {string}  arg.appNamePrefix
+ * @param {string}  arg.lang       - Language for the bar
+ * @param {string}  arg.iconPath   -
+ * @param {Object}  arg.cozyClient - a cozy client instance
+ * @param {string}  arg.cozyURL    - URL or domain of the stack
+ * @param {boolean} arg.ssl        - Tells if we should use a secure 
+ *                                   protocol required if cozyURL does
+ *                                   not have a protocol
+ * @param {string}  arg.token      - Access token for the stack
+ * @param {boolean} arg.replaceTitleOnMobile
+ * @param {boolean} arg.isPublic
+ * @param {Function} arg.onLogout
+ * @param {Function} arg.onDeleteApp
+ */
 const init = async ({
   appName,
   appNamePrefix = getAppNamePrefix(),
   appSlug = getAppSlug(),
   lang,
   iconPath = getDefaultIcon(),
+  cozyClient,
   cozyURL = getDefaultStackURL(),
   token = getDefaultToken(),
   replaceTitleOnMobile = false,
@@ -190,11 +191,12 @@ const init = async ({
 
   reduxStore.dispatch(setInfos(appName, appNamePrefix, appSlug))
   stack.init({
+    cozyClient,
     cozyURL,
     token,
     onCreateApp: app => reduxStore.dispatch(receiveApp(app)),
     onDeleteApp: app => reduxStore.dispatch(deleteApp(app)),
-    ssl: determineSSL(ssl, cozyURL)
+    ssl
   })
   if (lang) {
     reduxStore.dispatch(setLocale(lang))

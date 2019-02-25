@@ -9,9 +9,20 @@ const mimeTypes = {
   svg: 'image/svg+xml'
 }
 
+/**
+ * Get an icon URL usable in the HTML page from it's stack path
+ * 
+ * @function
+ * @private
+ * @param {function} iconFetcher - takes an icon path on the stack
+ *                                 and returns a fetch response with the icon
+ * @param {object} app - app object with a `links.icon` attribute
+ * @param {boolean} useCache
+ * @returns {Promise} url string of an icon usable in the HTML page
+ *                   may be empty if the `app` object didn't have an icon path
+ */
 module.exports = async function getIcon(
-  cozyUrl,
-  fetchHeaders,
+  iconFetcher,
   app = {},
   useCache = true
 ) {
@@ -22,7 +33,7 @@ module.exports = async function getIcon(
   let icon
 
   try {
-    const resp = await fetch(`${cozyUrl}${url}`, fetchHeaders)
+    const resp = await iconFetcher(url)
     if (!resp.ok)
       throw new Error(`Error while fetching icon ${resp.statusText}: ${url}`)
     icon = await resp.blob()
