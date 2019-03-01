@@ -1,5 +1,8 @@
+
 [role=banner] .coz-bar-wrapper
     box-shadow inset 0 -1px 0 0 var(--silver)
+    --cozBarThemePrimaryColor var(--primaryColor)
+    --cozBarThemePrimaryContrastTextColor var(--primaryContrastTextColor)
 
     .coz-nav-apps-btns
         color var(--slateGrey)
@@ -15,8 +18,8 @@
     [role=banner] .coz-bar-wrapper
         &.coz-theme-primary
             box-shadow inherit
-            background-color var(--primaryColor)
+            background-color var(--cozBarThemePrimaryColor)
 
             .coz-nav-apps-btns,
             .coz-bar-burger
-                color var(--primaryContrastTextColor)
+                color var(--cozBarThemePrimaryContrastTextColor)
