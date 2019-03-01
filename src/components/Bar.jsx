@@ -180,6 +180,7 @@ class Bar extends Component {
     } = this.state
     const {
       theme,
+      themeOverrides,
       barLeft,
       barRight,
       barCenter,
@@ -189,8 +190,17 @@ class Bar extends Component {
       onLogOut,
       userActionRequired
     } = this.props
+
+    const { 
+      primaryColor: pColor, 
+      primaryContrastTextColor: pctColor 
+    } = themeOverrides
+    const pStyle = pColor ? { '--cozBarThemePrimaryColor': pColor } : { }
+    const pctStyle = pctColor ? { '--cozBarThemePrimaryContrastTextColor': pctColor } : { }
+    const themeStyle = { ...pStyle, ...pctStyle }
+
     return (
-      <div className={`coz-bar-wrapper coz-theme-${theme}`}>
+      <div className={`coz-bar-wrapper coz-theme-${theme}`} style={themeStyle}>
         <div id="cozy-bar-modal-dom-place" />
         <div className="coz-bar-container">
           {barLeft || this.renderLeft()}
@@ -229,7 +239,8 @@ class Bar extends Component {
 }
 
 const mapStateToProps = state => ({
-  theme: getTheme(state),
+  theme: getTheme(state).name,
+  themeOverrides: getTheme(state).overrides,
   barLeft: getContent(state, 'left'),
   barRight: getContent(state, 'right'),
   barCenter: getContent(state, 'center'),
