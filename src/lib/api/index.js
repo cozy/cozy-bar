@@ -82,12 +82,12 @@ export default store => {
     methods[getReactApiName(location)] = barContentComponent(store, location)
   })
 
-  methods.setLocale = lang => {
-    store.dispatch(setLocale(lang))
+  methods.setLocale = (...args) => {
+    store.dispatch(setLocale(...args))
   }
 
-  methods.setTheme = theme => {
-    store.dispatch(setTheme(theme))
+  methods.setTheme = (...args) => {
+    store.dispatch(setTheme(...args))
   }
 
   return methods
