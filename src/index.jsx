@@ -252,18 +252,18 @@ APILocations.forEach(location => {
 })
 
 // setLocale API
-apiReferences.setLocale = lang => {
+apiReferences.setLocale = (...args) => {
   if (exposedAPI.setLocale) {
-    return exposedAPI.setLocale(lang)
+    return exposedAPI.setLocale(...args)
   } else {
     showAPIError('setLocale')
   }
 }
 
 // setTheme API
-apiReferences.setTheme = theme => {
+apiReferences.setTheme = (...args) => {
   if (exposedAPI.setTheme) {
-    return exposedAPI.setTheme(theme)
+    return exposedAPI.setTheme(...args)
   } else {
     showAPIError('setTheme')
   }

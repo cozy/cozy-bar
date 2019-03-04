@@ -114,10 +114,16 @@ describe('api spec', function() {
   it('should set theme', function() {
     const { setTheme } = api
     // default theme is `default`
-    expect(store.getState().theme).toBe('default')
+    expect(store.getState().theme.name).toBe('default')
+    expect(store.getState().theme.overrides).toEqual({})
     setTheme('primary')
-    expect(store.getState().theme).toBe('primary')
+    expect(store.getState().theme.name).toBe('primary')
+    expect(store.getState().theme.overrides).toEqual({})
+    setTheme('primary', { primaryColor: 'red' })
+    expect(store.getState().theme.name).toBe('primary')
+    expect(store.getState().theme.overrides).toEqual({ primaryColor: 'red' })
     setTheme('wrongTheme')
-    expect(store.getState().theme).toBe('default')
+    expect(store.getState().theme.name).toBe('default')
+    expect(store.getState().theme.overrides).toEqual({})
   })
 })

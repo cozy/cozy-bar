@@ -17,6 +17,7 @@ describe('Bar', () => {
       fetchApps: jest.fn().mockResolvedValue([]),
       fetchSettingsData: jest.fn().mockResolvedValue({}),
       theme: 'default',
+      themeOverrides: {},
       t: x => x
     }
   })
@@ -52,6 +53,13 @@ describe('Bar', () => {
   it('should change theme', () => {
     const root = shallow(
       <Bar {...props} theme="primary" />
+    )
+    expect(toJson(root)).toMatchSnapshot()
+  })
+
+  it('should change allow theme overrides', () => {
+    const root = shallow(
+      <Bar {...props} theme="primary" themeOverrides={{primaryColor: 'red'}} />
     )
     expect(toJson(root)).toMatchSnapshot()
   })
