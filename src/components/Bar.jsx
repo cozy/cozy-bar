@@ -1,6 +1,5 @@
 /* global __PIWIK_TRACKER_URL__  __PIWIK_SITEID__ __PIWIK_DIMENSION_ID_APP__ */
 
-import 'core-js/modules/es6.object.assign'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
