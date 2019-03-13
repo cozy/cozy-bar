@@ -1,14 +1,19 @@
 import realtime from 'cozy-realtime'
 
-
 /**
  * Initialize realtime sockets
- * 
+ *
  * @private
  * @param {object}
  * @returns {Promise}
  */
-async function initializeRealtime({ getApp, onCreateApp, onDeleteApp, url, token }) {
+async function initializeRealtime({
+  getApp,
+  onCreateApp,
+  onDeleteApp,
+  url,
+  token
+}) {
   const realtimeConfig = { token, url }
 
   try {

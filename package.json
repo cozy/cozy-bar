@@ -24,7 +24,7 @@
     "watch": "yarn run webpack --watch --display-chunks",
     "watch:mobile": "yarn run watch --env.target=mobile",
     "clean": "rm -rf ./dist/*",
-    "lint": "eslint 'config/**/*.{js,jsx}, src/**/*.{js,jsx}'",
+    "lint": "eslint '{config,src}/**/*.{js,jsx}'",
     "prebuild": "npm-run-all lint clean tx",
     "prewatch": "npm-run-all clean",
     "tx": "tx pull --all || true",

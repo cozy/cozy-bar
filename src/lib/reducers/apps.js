@@ -155,9 +155,8 @@ const camelCasify = object =>
   Object.keys(object).reduce((acc, key) => {
     const camelCaseKey = key
       .split('_')
-      .map(
-        (segment, index) =>
-          index ? segment.charAt(0).toUpperCase() + segment.slice(1) : segment
+      .map((segment, index) =>
+        index ? segment.charAt(0).toUpperCase() + segment.slice(1) : segment
       )
       .join('')
     acc[camelCaseKey] = object[key]

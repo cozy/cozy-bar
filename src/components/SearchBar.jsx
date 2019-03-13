@@ -339,14 +339,11 @@ class SearchBar extends Component {
           inputProps={inputProps}
           focusInputOnSuggestionClick={false}
         />
-        {input !== '' &&
-          !isInitialSearch &&
-          focused &&
-          !hasSuggestions && (
-            <div className={'coz-searchbar-autosuggest-status-container'}>
-              {t('searchbar.empty', { query: input })}
-            </div>
-          )}
+        {input !== '' && !isInitialSearch && focused && !hasSuggestions && (
+          <div className={'coz-searchbar-autosuggest-status-container'}>
+            {t('searchbar.empty', { query: input })}
+          </div>
+        )}
       </div>
     )
   }

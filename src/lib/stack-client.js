@@ -45,27 +45,26 @@ const getStackClient = function() {
  * @returns {Promise}
  */
 const logout = function() {
-  return getStackClient().fetch('DELETE', '/auth/login').then(
-    resp => {
+  return getStackClient()
+    .fetch('DELETE', '/auth/login')
+    .then(resp => {
       if (resp.status === 401) {
         throw new UnauthorizedStackException()
       } else if (resp.status === 204) {
         window.location.reload()
       }
       return true
-    }
-  ).catch(
-    () => { 
+    })
+    .catch(() => {
       throw new UnavailableStackException()
-    }
-  )
+    })
 }
 
 /**
  * Get a cozy URL object
  *
  * @function
- * @returns {URL} 
+ * @returns {URL}
  */
 const getCozyURL = function() {
   return new URL(getStackClient().uri)
@@ -73,7 +72,7 @@ const getCozyURL = function() {
 
 /**
  * Get a the cozy origin as an URL string
- * 
+ *
  * @function
  * @returns {string}
  */
@@ -85,24 +84,25 @@ const getCozyURLOrigin = function() {
  * @deprecated
  * @private
  */
-const updateAccessToken = function(token) {
-  throw new Error("updateAccessToken should not be used with a cozy-client instance initialization")
+const updateAccessToken = function() {
+  throw new Error(
+    'updateAccessToken should not be used with a cozy-client instance initialization'
+  )
 }
 
 /**
  * Fetch a resource with cozy-client
  *
- * Utility to maintain the compatibility with the legacy 
+ * Utility to maintain the compatibility with the legacy
  * standalone cozy-bar client
  *
  * @function
  * @private
  * @returns {Promise} the full raw JSON payload
  */
-const fetchJSON = function(method, path, body, options={}) {
-  
+const fetchJSON = function(method, path, body, options = {}) {
   // We mirror here a few lines from cozy-stack-client
-  // because we want a customized fetchJSON 
+  // because we want a customized fetchJSON
   const headers = (options.headers = options.headers || {})
   headers['Accept'] = 'application/json'
   if (method !== 'GET' && method !== 'HEAD' && body !== undefined) {
@@ -112,19 +112,19 @@ const fetchJSON = function(method, path, body, options={}) {
     }
   }
 
-  return getStackClient().fetch(method, path, body, options).then(
-    resp => {
+  return getStackClient()
+    .fetch(method, path, body, options)
+    .then(resp => {
       if (typeof errorStatuses[resp.status] === 'function') {
         throw new errorStatuses[resp.status]()
-      }    
+      }
       const contentType = resp.headers.get('content-type')
       const isJson = contentType.includes('json')
       if (!isJson) {
-        throw new Error("Server response not in JSON")
+        throw new Error('Server response not in JSON')
       }
       return resp.json()
-    }
-  )
+    })
 }
 
 /**
@@ -136,38 +136,41 @@ const fetchJSON = function(method, path, body, options={}) {
  * @returns {boolean}
  */
 const is404 = function(error) {
-  return ['NotFoundException', 'NotFound', 'FetchError'].includes(error.name) &&
-     error.status && 
-     error.status === 404
-} 
+  return (
+    ['NotFoundException', 'NotFound', 'FetchError'].includes(error.name) &&
+    error.status &&
+    error.status === 404
+  )
+}
 
 /**
  * Memoize the result of a function which does an HTTP fetch
- * 
- * If a call throws an error because the 
+ *
+ * If a call throws an error because the
  * underlying HTTP request returned a 404
  * then this function returns a default value
- * 
+ *
  * In the absence of any other error, the result is
  * cached and reused in the next call to the function.
- * 
+ *
  *
  * @function
  * @param {Function} fn - the function to memoize. It will be
  *                        called without any parameter
  * @param {Object} defaultValue - returned in case of 404
  * @returns {Function} async function
- */                  
+ */
+
 const withCache = function(fn, defaultValue) {
   let cache = undefined
   return async function() {
     if (cache === undefined) {
       try {
-        cache = await fn() 
-      } catch(error) {
+        cache = await fn()
+      } catch (error) {
         cache = is404(error) ? defaultValue : undefined
       }
-    } 
+    }
     return cache
   }
 }
@@ -179,17 +182,15 @@ const withCache = function(fn, defaultValue) {
  * whole JSON payload from the server
  *
  * @function
- * @returns {Promise} 
+ * @returns {Promise}
  */
-const getApps = function () {
-  return fetchJSON('GET', '/apps/').then(
-    json => {
-      if (json.error) {
-        throw new Error(json.error)
-      }
-      return json.data
+const getApps = function() {
+  return fetchJSON('GET', '/apps/').then(json => {
+    if (json.error) {
+      throw new Error(json.error)
     }
-  )
+    return json.data
+  })
 }
 
 /**
@@ -199,42 +200,40 @@ const getApps = function () {
  * whole JSON payload from the server
  *
  * @function
- * @param {string} slug 
- * @returns {Promise} 
+ * @param {string} slug
+ * @returns {Promise}
  */
 const getApp = function(slug) {
   if (!slug) {
     throw new Error('Missing slug')
   }
-  return fetchJSON('GET', `/apps/${slug}`).then(
-    json => {
-      if (json.error) { 
-        throw new Error(json.error) 
-      }
-      return json.data
+  return fetchJSON('GET', `/apps/${slug}`).then(json => {
+    if (json.error) {
+      throw new Error(json.error)
     }
-  )
+    return json.data
+  })
 }
 
-/** 
- * default value when no quota is provided 
+/**
+ * default value when no quota is provided
  * @private
  */
-const defaultQuota = 10**12 // 1 Tera
+const defaultQuota = 10 ** 12 // 1 Tera
 
 /**
  * Get storage and quota usage
  *
  * When no quota is returned by the server
- * the quota used is the larger between 
+ * the quota used is the larger between
  * `defaultQuota` and 10 * usage
- * 
+ *
  * @function
  * @returns {Object} {usage, quota, isLimited}
  */
 const getStorageData = function() {
-  return fetchJSON('GET', '/settings/disk-usage').then( 
-    json => { 
+  return fetchJSON('GET', '/settings/disk-usage')
+    .then(json => {
       // parseInt because responses from the server are in text
       const usage = parseInt(json.data.attributes.used, 10)
       const realQuota = parseInt(json.data.attributes.quota, 10)
@@ -244,20 +243,18 @@ const getStorageData = function() {
       const quota = realQuota || Math.max(defaultQuota, 10 * usage)
       const isLimited = json.data.attributes.is_limited
       return { usage, quota, isLimited }
-    }
-  ).catch( 
-    error => {
+    })
+    .catch(() => {
       throw new UnavailableStackException()
-    }
-  )
+    })
 }
 
 /**
  * Fetch an icon data from its path
- * 
+ *
  * The purpose of this function is to be sent
  * to AppIcon components for mobile devices.
- * 
+ *
  * @private
  * @function
  * @param {string} iconPath - path of the icon in the stack
@@ -271,13 +268,13 @@ const iconFetcher = function(iconPath) {
  * Get a props object that can be sent to an AppIcon component
  *
  * Mobile devices and web browsers need different props
- * 
+ *
  * @function
  * @returns {Object}
  */
 const getAppIconProps = function() {
-  const isMobile = (__TARGET__ === 'mobile')
-  
+  const isMobile = __TARGET__ === 'mobile'
+
   const mobileAppIconProps = {
     fetchIcon: app => getIcon(iconFetcher, app, true)
   }
@@ -285,7 +282,7 @@ const getAppIconProps = function() {
   const browserAppIconProps = {
     // we mustn't give the protocol here
     domain: getCozyURL().host,
-    secure: (getCozyURL().protocol === 'https:')
+    secure: getCozyURL().protocol === 'https:'
   }
 
   return isMobile ? mobileAppIconProps : browserAppIconProps
@@ -307,22 +304,20 @@ const getContext = function() {
  * with a prototype compatible with the legacy cozy-client-js
  *
  * @function
- * @param {object} cozy - cozy-client-js 
+ * @param {object} cozy - cozy-client-js
  * @param {string} method - HTTP method
  * @param {string} path
  * @param {object} body
  * @returns {Promise}
  */
 const cozyFetchJSON = function(cozy, method, path, body) {
-  return fetchJSON(method, path, body).then(
-    json => {
-      const responseData = Object.assign({}, json.data)
-      if (responseData.id) {
-        responseData._id = responseData.id
-      }
-      return responseData
+  return fetchJSON(method, path, body).then(json => {
+    const responseData = Object.assign({}, json.data)
+    if (responseData.id) {
+      responseData._id = responseData.id
     }
-  )
+    return responseData
+  })
 }
 
 /**
@@ -331,36 +326,32 @@ const cozyFetchJSON = function(cozy, method, path, body) {
  * @function
  * @param {Object}  arg
  * @param {Object}  arg.cozyClient - a cozy client instance
- * @param {Function} arg.onCreateApp 
+ * @param {Function} arg.onCreateApp
  * @param {Function} arg.onDeleteApp
  * @returns {Promise}
  */
-const init = function({ 
-  cozyClient: client, 
-  onCreateApp, 
-  onDeleteApp 
-}) {
+const init = function({ cozyClient: client, onCreateApp, onDeleteApp }) {
   cozyClient = client
   return initializeRealtime({
     getApp,
     onCreateApp,
     onDeleteApp,
     token: getStackClient().token.token,
-    url: getCozyURLOrigin(),
+    url: getCozyURLOrigin()
   })
-} 
+}
 
-export default { 
-  get: { 
+export default {
+  get: {
     app: getApp,
     apps: getApps,
     context: withCache(getContext, {}),
     storageData: getStorageData,
     iconProps: getAppIconProps,
     cozyURL: getCozyURLOrigin
-  }, 
+  },
   updateAccessToken,
-  cozyFetchJSON, 
-  logout, 
-  init 
+  cozyFetchJSON,
+  logout,
+  init
 }

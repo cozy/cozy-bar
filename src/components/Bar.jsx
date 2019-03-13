@@ -190,12 +190,14 @@ class Bar extends Component {
       userActionRequired
     } = this.props
 
-    const { 
-      primaryColor: pColor, 
-      primaryContrastTextColor: pctColor 
+    const {
+      primaryColor: pColor,
+      primaryContrastTextColor: pctColor
     } = themeOverrides
-    const pStyle = pColor ? { '--cozBarThemePrimaryColor': pColor } : { }
-    const pctStyle = pctColor ? { '--cozBarThemePrimaryContrastTextColor': pctColor } : { }
+    const pStyle = pColor ? { '--cozBarThemePrimaryColor': pColor } : {}
+    const pctStyle = pctColor
+      ? { '--cozBarThemePrimaryContrastTextColor': pctColor }
+      : {}
     const themeStyle = { ...pStyle, ...pctStyle }
 
     return (

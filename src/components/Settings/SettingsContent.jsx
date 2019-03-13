@@ -43,41 +43,38 @@ const Settings = ({
         </li>
       </ul>
     )}
-    {isDrawer &&
-      onClaudy &&
-      __TARGET__ !== 'mobile' && (
-        <ul className="coz-nav-group">
-          <li className="coz-nav-settings-item">
-            <button
-              type="button"
-              role="menuitem"
-              data-icon="icon-claudy"
-              aria-busy={isClaudyLoading}
-              onClick={onClaudy}
-              title={t('claudy.title')}
-            >
-              {t('claudy.title')}
-            </button>
-          </li>
-        </ul>
-      )}
-    {!isDrawer &&
-      storageData && (
-        <ul className="coz-nav-group">
-          <li className="coz-nav-settings-item">
-            <a
-              role="menuitem"
-              data-icon="icon-storage"
-              target="_self"
-              title={t('storage')}
-              href={`${settingsAppURL}#/storage`}
-            >
-              {t('storage')}
-              <StorageData data={storageData} />
-            </a>
-          </li>
-        </ul>
-      )}
+    {isDrawer && onClaudy && __TARGET__ !== 'mobile' && (
+      <ul className="coz-nav-group">
+        <li className="coz-nav-settings-item">
+          <button
+            type="button"
+            role="menuitem"
+            data-icon="icon-claudy"
+            aria-busy={isClaudyLoading}
+            onClick={onClaudy}
+            title={t('claudy.title')}
+          >
+            {t('claudy.title')}
+          </button>
+        </li>
+      </ul>
+    )}
+    {!isDrawer && storageData && (
+      <ul className="coz-nav-group">
+        <li className="coz-nav-settings-item">
+          <a
+            role="menuitem"
+            data-icon="icon-storage"
+            target="_self"
+            title={t('storage')}
+            href={`${settingsAppURL}#/storage`}
+          >
+            {t('storage')}
+            <StorageData data={storageData} />
+          </a>
+        </li>
+      </ul>
+    )}
     {__TARGET__ !== 'mobile' && (
       <ul className="coz-nav-group">
         <li className="coz-nav-settings-item">

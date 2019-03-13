@@ -158,7 +158,7 @@ let exposedAPI = {}
  * @param {string}  arg.iconPath   -
  * @param {Object}  arg.cozyClient - a cozy client instance
  * @param {string}  arg.cozyURL    - URL or domain of the stack
- * @param {boolean} arg.ssl        - Tells if we should use a secure 
+ * @param {boolean} arg.ssl        - Tells if we should use a secure
  *                                   protocol required if cozyURL does
  *                                   not have a protocol
  * @param {string}  arg.token      - Access token for the stack

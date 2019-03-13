@@ -11,7 +11,7 @@ const mimeTypes = {
 
 /**
  * Get an icon URL usable in the HTML page from it's stack path
- * 
+ *
  * @function
  * @private
  * @param {function} iconFetcher - takes an icon path on the stack

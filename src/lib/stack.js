@@ -1,6 +1,5 @@
 import internal from 'lib/stack-internal.js'
-import client from "lib/stack-client"
-
+import client from 'lib/stack-client'
 
 /**
  * Reference to the current client depending
@@ -25,7 +24,7 @@ let stack = internal
  */
 const current = function() {
   if (stack === undefined) {
-    throw new Error("client not initialized in cozy-bar")
+    throw new Error('client not initialized in cozy-bar')
   }
   return stack
 }
@@ -43,28 +42,28 @@ const current = function() {
  * @param {boolean} arg.ssl     - Tells if we should use a secure protocol
  *                            required if cozyURL does not have a protocol
  * @param {string}  arg.token   - Access token for the stack
- * @param {Function} arg.onCreateApp 
+ * @param {Function} arg.onCreateApp
  * @param {Function} arg.onDeleteApp
  * @returns {Promise}
  */
 const init = function(options) {
-  stack = (options.cozyClient) ? client : internal
+  stack = options.cozyClient ? client : internal
   return stack.init(options)
-} 
+}
 
 const get = {
-  app: (...args) => current().get.app(...args), 
-  apps: (...args) => current().get.apps(...args), 
+  app: (...args) => current().get.app(...args),
+  apps: (...args) => current().get.apps(...args),
   context: (...args) => current().get.context(...args),
   storageData: (...args) => current().get.storageData(...args),
   iconProps: (...args) => current().get.iconProps(...args),
-  cozyURL: (...args) => current().get.cozyURL(...args),
+  cozyURL: (...args) => current().get.cozyURL(...args)
 }
 
 export default {
-  init, 
-  get, 
-  updateAccessToken: (...args) => current().updateAccessToken(...args), 
-  logout: (...args) => current().logout(...args), 
+  init,
+  get,
+  updateAccessToken: (...args) => current().updateAccessToken(...args),
+  logout: (...args) => current().logout(...args),
   cozyFetchJSON: (...args) => current().cozyFetchJSON(...args)
 }
