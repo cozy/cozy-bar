@@ -7,11 +7,12 @@ import { persistStore, persistCombineReducers } from 'redux-persist'
 import { reducers } from '../reducers'
 import { createLogger } from 'redux-logger'
 import storage from 'redux-persist/lib/storage'
+import persistWhitelist from 'config/persistWhitelist'
 
 const config = {
   storage,
   key: 'cozy-bar',
-  whitelist: ['apps', 'context']
+  whitelist: persistWhitelist
 }
 
 // copied and changed from https://github.com/LogRocket/redux-logger/blob/3ca9f2c1ecf17a7acf18c6fa0bbf4b6b239738f1/src/core.js#L25
