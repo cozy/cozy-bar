@@ -11,7 +11,7 @@ import {
   MethodNotAllowedException,
   UnavailableStackException,
   UnauthorizedStackException
-} from './exceptions'
+} from 'lib/exceptions'
 
 const errorStatuses = {
   '401': UnauthorizedStackException,

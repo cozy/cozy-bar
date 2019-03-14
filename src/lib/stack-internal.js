@@ -1,9 +1,9 @@
 /* global __TARGET__ */
 /* eslint-env browser */
 
-import getIcon from './icon'
-import initializeRealtime from './realtime'
-import normalizeURL from './normalize-url'
+import getIcon from 'lib/icon'
+import initializeRealtime from 'lib/realtime'
+import normalizeURL from 'lib/normalize-url'
 
 import {
   ForbiddenException,
@@ -13,7 +13,7 @@ import {
   UnavailableStackException,
   UnavailableSettingsException,
   UnauthorizedStackException
-} from './exceptions'
+} from 'lib/exceptions'
 
 // the option credentials:include tells fetch to include the cookies in the
 // request even for cross-origin requests

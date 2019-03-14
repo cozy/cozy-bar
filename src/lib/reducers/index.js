@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux'
-import * as content from './content'
-import * as locale from './locale'
-import * as theme from './theme'
-import appsReducer, * as apps from './apps'
-import settingsReducer, * as settings from './settings'
-import contextReducer, * as context from './context'
+import * as content from 'lib/reducers/content'
+import * as locale from 'lib/reducers/locale'
+import * as theme from 'lib/reducers/theme'
+import appsReducer, * as apps from 'lib/reducers/apps'
+import settingsReducer, * as settings from 'lib/reducers/settings'
+import contextReducer, * as context from 'lib/reducers/context'
 
 const proxy = (attr, method) => {
   return (state, ...args) => {

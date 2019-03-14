@@ -1,10 +1,10 @@
 /* global __DEVELOPMENT__ */
 
 import { createStore as createReduxStore, applyMiddleware } from 'redux'
-import appsI18nMiddleware from '../middlewares/appsI18n'
+import appsI18nMiddleware from 'lib/middlewares/appsI18n'
 import thunkMiddleware from 'redux-thunk'
 import { persistStore, persistCombineReducers } from 'redux-persist'
-import { reducers } from '../reducers'
+import { reducers } from 'lib/reducers'
 import { createLogger } from 'redux-logger'
 import storage from 'redux-persist/lib/storage'
 import persistWhitelist from 'config/persistWhitelist'

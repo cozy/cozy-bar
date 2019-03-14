@@ -2,14 +2,14 @@
 
 'use strict'
 
-import stack from './lib/stack'
+import stack from 'lib/stack'
 import {
   deleteApp,
   getLocale,
   receiveApp,
   setLocale,
   setInfos
-} from './lib/reducers'
+} from 'lib/reducers'
 
 import {
   locations as APILocations,
@@ -17,8 +17,8 @@ import {
   getReactApiName
 } from 'lib/api/helpers'
 
-require('./styles')
-require('./lib/importIcons')
+require('styles')
+require('lib/importIcons')
 
 const APP_SELECTOR = '[role=application]'
 
@@ -39,7 +39,7 @@ const injectBarInDOM = data => {
   const { render } = require('react-dom')
   const { connect, Provider } = require('react-redux')
   const I18n = require('cozy-ui/react/I18n').default
-  const Bar = require('./components/Bar').default
+  const Bar = require('components/Bar').default
 
   const barNode = createBarElement()
   const appNode = document.querySelector(APP_SELECTOR)
