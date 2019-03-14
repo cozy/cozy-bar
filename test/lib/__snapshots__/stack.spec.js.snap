@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`stack proxy should throw error if trying to use the stack before init 1`] = `
+Object {
+  "cozyFetchJSON": [Function],
+  "get": Object {
+    "app": [MockFunction],
+    "apps": [Function],
+    "context": [Function],
+    "cozyURL": [Function],
+    "iconProps": [Function],
+    "settingsAppURL": [Function],
+    "storageData": [Function],
+  },
+  "init": [MockFunction] {
+    "calls": Array [
+      Array [
+        Object {
+          "cozyURL": "https://test.mycozy.cloud",
+          "onCreateApp": [Function],
+          "onDeleteApp": [Function],
+          "token": "mytoken",
+        },
+      ],
+    ],
+    "results": Array [
+      Object {
+        "isThrow": false,
+        "value": Promise {},
+      },
+    ],
+  },
+  "logout": [Function],
+  "updateAccessToken": [Function],
+}
+`;

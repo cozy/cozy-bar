@@ -65,5 +65,8 @@ export default {
   get,
   updateAccessToken: (...args) => current().updateAccessToken(...args),
   logout: (...args) => current().logout(...args),
-  cozyFetchJSON: (...args) => current().cozyFetchJSON(...args)
+  cozyFetchJSON: (...args) => current().cozyFetchJSON(...args),
+  // useful to connect some getters outside of this file without exposing
+  // directly the private stack variable
+  getStack: current
 }
