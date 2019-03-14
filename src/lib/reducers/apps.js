@@ -1,4 +1,4 @@
-import stack from '../stack'
+import stack from 'lib/stack'
 import unionWith from 'lodash.unionwith'
 
 // constants

@@ -10,7 +10,7 @@ import {
 } from 'cozy-device-helper'
 import expiringMemoize from 'lib/expiringMemoize'
 import AppIcon from 'cozy-ui/react/AppIcon'
-import HomeIcon from './IconCozyHome'
+import HomeIcon from 'components/Apps/IconCozyHome'
 import { translate } from 'cozy-ui/react/I18n'
 import stack from 'lib/stack'
 import PropTypes from 'prop-types'

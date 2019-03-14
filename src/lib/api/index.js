@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { setContent, unsetContent, setLocale, setTheme } from '../reducers'
+import { setContent, unsetContent, setLocale, setTheme } from 'lib/reducers'
 
 import { locations, getJsApiName, getReactApiName } from 'lib/api/helpers'
 

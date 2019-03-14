@@ -1,4 +1,4 @@
-import { cozyFetchJSON } from './stack'
+import { cozyFetchJSON } from 'lib/stack'
 
 // This is a function that does the bare minimum in order to bypass the normal intent flow. To be replaced in th next version of intents.
 export function fetchRawIntent(action, type, data = {}, permissions = []) {
