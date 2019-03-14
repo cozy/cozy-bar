@@ -80,16 +80,16 @@ describe('stack proxy', () => {
 
   it('should throw error if trying to use the stack before init', () => {
     jest.clearAllMocks()
+    jest.resetModules()
+    const stack = require('lib/stack').default
     const params = { cozyURL, token, onCreateApp, onDeleteApp }
 
-    // TODO for now the stack is default to internal even before init
-    // expect(() => {
-    //   stack.getStack()
-    // }).toThrowErrorMatchingSnapshot()
+    expect(() => {
+      stack.getStack()
+    }).toThrowErrorMatchingSnapshot()
     stack.init(params)
     expect(() => {
       stack.getStack()
     }).not.toThrowError()
-    expect(stack.getStack()).toMatchSnapshot()
   })
 })
