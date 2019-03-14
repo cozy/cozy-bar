@@ -32,7 +32,7 @@ import {
 
 import appsIcon from '!!svg-sprite-loader!assets/icons/16/icon-apps.svg'
 
-class Bar extends Component {
+export class Bar extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -44,6 +44,8 @@ class Bar extends Component {
       searchBarEnabled:
         props.currentApp === 'Cozy Drive' && !props.isPublic && !isMobileApp()
     }
+    this.fetchContent = this.fetchContent.bind(this)
+    this.fetchInitialData = this.fetchInitialData.bind(this)
   }
 
   componentDidMount() {
@@ -59,7 +61,7 @@ class Bar extends Component {
       this.state.drawerVisible &&
       prevState.drawerVisible !== this.state.drawerVisible
     ) {
-      this.props.fetchApps()
+      this.fetchContent()
     }
   }
 
@@ -78,13 +80,17 @@ class Bar extends Component {
     this.setState({ usageTracker: trackerInstance })
   }
 
+  fetchContent() {
+    this.props.fetchApps()
+  }
+
   fetchInitialData() {
     if (this.props.isPublic) {
       return
     }
     this.props.fetchContext()
     this.props.fetchSettingsData(false)
-    this.props.fetchApps()
+    this.fetchContent()
   }
 
   toggleDrawer = () => {
@@ -239,7 +245,7 @@ class Bar extends Component {
   }
 }
 
-const mapStateToProps = state => ({
+export const mapStateToProps = state => ({
   theme: getTheme(state).name,
   themeOverrides: getTheme(state).overrides,
   barLeft: getContent(state, 'left'),
@@ -250,13 +256,11 @@ const mapStateToProps = state => ({
   hasFetchedApps: hasFetched(state)
 })
 
-const mapDispatchToProps = dispatch => ({
+export const mapDispatchToProps = dispatch => ({
   fetchApps: () => dispatch(fetchApps()),
   fetchContext: () => dispatch(fetchContext()),
   fetchSettingsData: displayBusy => dispatch(fetchSettingsData(displayBusy))
 })
-
-export { Bar }
 
 export default translate()(
   connect(

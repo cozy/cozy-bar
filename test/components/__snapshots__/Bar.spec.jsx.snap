@@ -152,6 +152,27 @@ exports[`Bar should display the Searchbar 1`] = `
 </div>
 `;
 
+exports[`Bar should have correct dispatch props provided by the store 1`] = `
+Object {
+  "fetchApps": [Function],
+  "fetchContext": [Function],
+  "fetchSettingsData": [Function],
+}
+`;
+
+exports[`Bar should have correct state props provided by the store with the initial state 1`] = `
+Object {
+  "barCenter": undefined,
+  "barLeft": undefined,
+  "barRight": undefined,
+  "claudyEnabled": false,
+  "currentApp": "null null",
+  "hasFetchedApps": false,
+  "theme": "default",
+  "themeOverrides": Object {},
+}
+`;
+
 exports[`Bar should not display searchbar if we are not on  a public page 1`] = `
 <div
   className="coz-bar-wrapper coz-theme-default"
