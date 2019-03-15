@@ -4,8 +4,8 @@ import stack from 'lib/stack.js'
 
 const cozyURL = 'https://test.mycozy.cloud'
 const token = 'mytoken'
-const onCreateApp = function() {}
-const onDeleteApp = function() {}
+const onCreate = function() {}
+const onDelete = function() {}
 
 describe('stack proxy', () => {
   beforeAll(() => {
@@ -21,7 +21,7 @@ describe('stack proxy', () => {
   })
 
   describe('when initialized with an cozyURL + token', () => {
-    const params = { cozyURL, token, onCreateApp, onDeleteApp }
+    const params = { cozyURL, token, onCreate, onDelete }
 
     beforeAll(() => {
       jest.clearAllMocks()
@@ -58,8 +58,8 @@ describe('stack proxy', () => {
     }
     const params = {
       cozyClient,
-      onCreateApp: function() {},
-      onDeleteApp: function() {}
+      onCreate: function() {},
+      onDelete: function() {}
     }
 
     beforeAll(() => {
@@ -82,7 +82,7 @@ describe('stack proxy', () => {
     jest.clearAllMocks()
     jest.resetModules()
     const stack = require('lib/stack').default
-    const params = { cozyURL, token, onCreateApp, onDeleteApp }
+    const params = { cozyURL, token, onCreate, onDelete }
 
     expect(() => {
       stack.getStack()
