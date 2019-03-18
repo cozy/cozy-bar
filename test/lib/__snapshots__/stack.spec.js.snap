@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`stack proxy should throw error if trying to use the stack before init 1`] = `"client not initialized in cozy-bar"`;

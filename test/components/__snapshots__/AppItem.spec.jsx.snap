@@ -1,435 +1,60 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`app icon should render correctly 1`] = `
-ShallowWrapper {
-  "length": 1,
-  Symbol(enzyme.__root__): [Circular],
-  Symbol(enzyme.__unrendered__): <AppItem
-    app={
-      Object {
-        "name": "Drive",
-        "slug": "cozy-drive",
+<li
+  className="coz-nav-apps-item"
+>
+  <a
+    data-icon="icon-cozy-drive"
+    onClick={null}
+    role="menuitem"
+    title="Drive"
+  >
+    <AppIcon
+      app={
+        Object {
+          "name": "Drive",
+          "slug": "cozy-drive",
+        }
       }
-    }
-    t={[Function]}
-  />,
-  Symbol(enzyme.__renderer__): Object {
-    "batchedUpdates": [Function],
-    "getNode": [Function],
-    "render": [Function],
-    "simulateEvent": [Function],
-    "unmount": [Function],
-  },
-  Symbol(enzyme.__node__): Object {
-    "instance": null,
-    "key": undefined,
-    "nodeType": "host",
-    "props": Object {
-      "children": <a
-        data-icon="icon-cozy-drive"
-        onClick={null}
-        role="menuitem"
-        title="Drive"
-      >
-        <AppIcon
-          app={
-            Object {
-              "name": "Drive",
-              "slug": "cozy-drive",
-            }
-          }
-          className="coz-nav-apps-item-icon"
-        />
-        <p
-          className="coz-label"
-        >
-          Drive
-        </p>
-      </a>,
-      "className": "coz-nav-apps-item",
-    },
-    "ref": null,
-    "rendered": Object {
-      "instance": null,
-      "key": undefined,
-      "nodeType": "host",
-      "props": Object {
-        "children": Array [
-          <AppIcon
-            app={
-              Object {
-                "name": "Drive",
-                "slug": "cozy-drive",
-              }
-            }
-            className="coz-nav-apps-item-icon"
-          />,
-          <p
-            className="coz-label"
-          >
-            Drive
-          </p>,
-        ],
-        "data-icon": "icon-cozy-drive",
-        "href": undefined,
-        "onClick": null,
-        "role": "menuitem",
-        "title": "Drive",
-      },
-      "ref": null,
-      "rendered": Array [
-        Object {
-          "instance": null,
-          "key": "cozy-drive",
-          "nodeType": "class",
-          "props": Object {
-            "app": Object {
-              "name": "Drive",
-              "slug": "cozy-drive",
-            },
-            "className": "coz-nav-apps-item-icon",
-            "domain": undefined,
-            "secure": undefined,
-          },
-          "ref": null,
-          "rendered": null,
-          "type": [Function],
-        },
-        Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "host",
-          "props": Object {
-            "children": "Drive",
-            "className": "coz-label",
-          },
-          "ref": null,
-          "rendered": "Drive",
-          "type": "p",
-        },
-      ],
-      "type": "a",
-    },
-    "type": "li",
-  },
-  Symbol(enzyme.__nodes__): Array [
-    Object {
-      "instance": null,
-      "key": undefined,
-      "nodeType": "host",
-      "props": Object {
-        "children": <a
-          data-icon="icon-cozy-drive"
-          onClick={null}
-          role="menuitem"
-          title="Drive"
-        >
-          <AppIcon
-            app={
-              Object {
-                "name": "Drive",
-                "slug": "cozy-drive",
-              }
-            }
-            className="coz-nav-apps-item-icon"
-          />
-          <p
-            className="coz-label"
-          >
-            Drive
-          </p>
-        </a>,
-        "className": "coz-nav-apps-item",
-      },
-      "ref": null,
-      "rendered": Object {
-        "instance": null,
-        "key": undefined,
-        "nodeType": "host",
-        "props": Object {
-          "children": Array [
-            <AppIcon
-              app={
-                Object {
-                  "name": "Drive",
-                  "slug": "cozy-drive",
-                }
-              }
-              className="coz-nav-apps-item-icon"
-            />,
-            <p
-              className="coz-label"
-            >
-              Drive
-            </p>,
-          ],
-          "data-icon": "icon-cozy-drive",
-          "href": undefined,
-          "onClick": null,
-          "role": "menuitem",
-          "title": "Drive",
-        },
-        "ref": null,
-        "rendered": Array [
-          Object {
-            "instance": null,
-            "key": "cozy-drive",
-            "nodeType": "class",
-            "props": Object {
-              "app": Object {
-                "name": "Drive",
-                "slug": "cozy-drive",
-              },
-              "className": "coz-nav-apps-item-icon",
-              "domain": undefined,
-              "secure": undefined,
-            },
-            "ref": null,
-            "rendered": null,
-            "type": [Function],
-          },
-          Object {
-            "instance": null,
-            "key": undefined,
-            "nodeType": "host",
-            "props": Object {
-              "children": "Drive",
-              "className": "coz-label",
-            },
-            "ref": null,
-            "rendered": "Drive",
-            "type": "p",
-          },
-        ],
-        "type": "a",
-      },
-      "type": "li",
-    },
-  ],
-  Symbol(enzyme.__options__): Object {
-    "adapter": ReactSixteenAdapter {
-      "options": Object {
-        "enableComponentDidUpdateOnSetState": true,
-      },
-    },
-  },
-}
+      className="coz-nav-apps-item-icon"
+      domain="cozy.tools"
+      secure={true}
+    />
+    <p
+      className="coz-label"
+    >
+      Drive
+    </p>
+  </a>
+</li>
 `;
 
 exports[`app icon should render correctly with target mobile and providing fetchIcon to AppIcon 1`] = `
-ShallowWrapper {
-  "length": 1,
-  Symbol(enzyme.__root__): [Circular],
-  Symbol(enzyme.__unrendered__): <AppItem
-    app={
-      Object {
-        "name": "Drive",
-        "slug": "cozy-drive",
+<li
+  className="coz-nav-apps-item"
+>
+  <a
+    data-icon="icon-cozy-drive"
+    onClick={null}
+    role="menuitem"
+    title="Drive"
+  >
+    <AppIcon
+      app={
+        Object {
+          "name": "Drive",
+          "slug": "cozy-drive",
+        }
       }
-    }
-    t={[Function]}
-  />,
-  Symbol(enzyme.__renderer__): Object {
-    "batchedUpdates": [Function],
-    "getNode": [Function],
-    "render": [Function],
-    "simulateEvent": [Function],
-    "unmount": [Function],
-  },
-  Symbol(enzyme.__node__): Object {
-    "instance": null,
-    "key": undefined,
-    "nodeType": "host",
-    "props": Object {
-      "children": <a
-        data-icon="icon-cozy-drive"
-        onClick={null}
-        role="menuitem"
-        title="Drive"
-      >
-        <AppIcon
-          app={
-            Object {
-              "name": "Drive",
-              "slug": "cozy-drive",
-            }
-          }
-          className="coz-nav-apps-item-icon"
-          fetchIcon={[Function]}
-        />
-        <p
-          className="coz-label"
-        >
-          Drive
-        </p>
-      </a>,
-      "className": "coz-nav-apps-item",
-    },
-    "ref": null,
-    "rendered": Object {
-      "instance": null,
-      "key": undefined,
-      "nodeType": "host",
-      "props": Object {
-        "children": Array [
-          <AppIcon
-            app={
-              Object {
-                "name": "Drive",
-                "slug": "cozy-drive",
-              }
-            }
-            className="coz-nav-apps-item-icon"
-            fetchIcon={[Function]}
-          />,
-          <p
-            className="coz-label"
-          >
-            Drive
-          </p>,
-        ],
-        "data-icon": "icon-cozy-drive",
-        "href": undefined,
-        "onClick": null,
-        "role": "menuitem",
-        "title": "Drive",
-      },
-      "ref": null,
-      "rendered": Array [
-        Object {
-          "instance": null,
-          "key": "cozy-drive",
-          "nodeType": "class",
-          "props": Object {
-            "app": Object {
-              "name": "Drive",
-              "slug": "cozy-drive",
-            },
-            "className": "coz-nav-apps-item-icon",
-            "fetchIcon": [Function],
-          },
-          "ref": null,
-          "rendered": null,
-          "type": [Function],
-        },
-        Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "host",
-          "props": Object {
-            "children": "Drive",
-            "className": "coz-label",
-          },
-          "ref": null,
-          "rendered": "Drive",
-          "type": "p",
-        },
-      ],
-      "type": "a",
-    },
-    "type": "li",
-  },
-  Symbol(enzyme.__nodes__): Array [
-    Object {
-      "instance": null,
-      "key": undefined,
-      "nodeType": "host",
-      "props": Object {
-        "children": <a
-          data-icon="icon-cozy-drive"
-          onClick={null}
-          role="menuitem"
-          title="Drive"
-        >
-          <AppIcon
-            app={
-              Object {
-                "name": "Drive",
-                "slug": "cozy-drive",
-              }
-            }
-            className="coz-nav-apps-item-icon"
-            fetchIcon={[Function]}
-          />
-          <p
-            className="coz-label"
-          >
-            Drive
-          </p>
-        </a>,
-        "className": "coz-nav-apps-item",
-      },
-      "ref": null,
-      "rendered": Object {
-        "instance": null,
-        "key": undefined,
-        "nodeType": "host",
-        "props": Object {
-          "children": Array [
-            <AppIcon
-              app={
-                Object {
-                  "name": "Drive",
-                  "slug": "cozy-drive",
-                }
-              }
-              className="coz-nav-apps-item-icon"
-              fetchIcon={[Function]}
-            />,
-            <p
-              className="coz-label"
-            >
-              Drive
-            </p>,
-          ],
-          "data-icon": "icon-cozy-drive",
-          "href": undefined,
-          "onClick": null,
-          "role": "menuitem",
-          "title": "Drive",
-        },
-        "ref": null,
-        "rendered": Array [
-          Object {
-            "instance": null,
-            "key": "cozy-drive",
-            "nodeType": "class",
-            "props": Object {
-              "app": Object {
-                "name": "Drive",
-                "slug": "cozy-drive",
-              },
-              "className": "coz-nav-apps-item-icon",
-              "fetchIcon": [Function],
-            },
-            "ref": null,
-            "rendered": null,
-            "type": [Function],
-          },
-          Object {
-            "instance": null,
-            "key": undefined,
-            "nodeType": "host",
-            "props": Object {
-              "children": "Drive",
-              "className": "coz-label",
-            },
-            "ref": null,
-            "rendered": "Drive",
-            "type": "p",
-          },
-        ],
-        "type": "a",
-      },
-      "type": "li",
-    },
-  ],
-  Symbol(enzyme.__options__): Object {
-    "adapter": ReactSixteenAdapter {
-      "options": Object {
-        "enableComponentDidUpdateOnSetState": true,
-      },
-    },
-  },
-}
+      className="coz-nav-apps-item-icon"
+      fetchIcon={[Function]}
+    />
+    <p
+      className="coz-label"
+    >
+      Drive
+    </p>
+  </a>
+</li>
 `;

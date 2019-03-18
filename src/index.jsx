@@ -4,9 +4,9 @@
 
 import stack from 'lib/stack'
 import {
-  deleteApp,
   getLocale,
-  receiveApp,
+  onRealtimeCreate,
+  onRealtimeDelete,
   setLocale,
   setInfos
 } from 'lib/reducers'
@@ -165,7 +165,6 @@ let exposedAPI = {}
  * @param {boolean} arg.replaceTitleOnMobile
  * @param {boolean} arg.isPublic
  * @param {Function} arg.onLogout
- * @param {Function} arg.onDeleteApp
  */
 const init = async ({
   appName,
@@ -194,8 +193,8 @@ const init = async ({
     cozyClient,
     cozyURL,
     token,
-    onCreateApp: app => reduxStore.dispatch(receiveApp(app)),
-    onDeleteApp: app => reduxStore.dispatch(deleteApp(app)),
+    onCreate: data => reduxStore.dispatch(onRealtimeCreate(data)),
+    onDelete: data => reduxStore.dispatch(onRealtimeDelete(data)),
     ssl
   })
   if (lang) {

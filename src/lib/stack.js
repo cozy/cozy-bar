@@ -6,15 +6,8 @@ import client from 'lib/stack-client'
  * on which one has been initialized
  *
  * @private
- * @TODO We should set it to `undefined`
- * and throw an error when it is not initialized
- * Leaving with that default for today
- * so I do not need to rewrite deeply the tests
- * (they test some components without initializing
- * the stack client first, and rely on non-initialized
- * legacy client behaviour)
  */
-let stack = internal
+let stack
 
 /**
  * Get the current stack client (legacy or cozy-client based)
@@ -23,7 +16,7 @@ let stack = internal
  * @returns {Object} functions to call the stack
  */
 const current = function() {
-  if (stack === undefined) {
+  if (!stack) {
     throw new Error('client not initialized in cozy-bar')
   }
   return stack
@@ -65,5 +58,8 @@ export default {
   get,
   updateAccessToken: (...args) => current().updateAccessToken(...args),
   logout: (...args) => current().logout(...args),
-  cozyFetchJSON: (...args) => current().cozyFetchJSON(...args)
+  cozyFetchJSON: (...args) => current().cozyFetchJSON(...args),
+  // useful to connect some getters outside of this file without exposing
+  // directly the private stack variable
+  getStack: current
 }

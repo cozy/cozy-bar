@@ -326,16 +326,16 @@ const cozyFetchJSON = function(cozy, method, path, body) {
  * @function
  * @param {Object}  arg
  * @param {Object}  arg.cozyClient - a cozy client instance
- * @param {Function} arg.onCreateApp
- * @param {Function} arg.onDeleteApp
+ * @param {Function} arg.onCreate
+ * @param {Function} arg.onDelete
  * @returns {Promise}
  */
-const init = function({ cozyClient: client, onCreateApp, onDeleteApp }) {
+const init = function({ cozyClient: client, onCreate, onDelete }) {
   cozyClient = client
   return initializeRealtime({
     getApp,
-    onCreateApp,
-    onDeleteApp,
+    onCreate,
+    onDelete,
     token: getStackClient().token.token,
     url: getCozyURLOrigin()
   })
