@@ -7,6 +7,7 @@ import { persistStore, persistCombineReducers } from 'redux-persist'
 import { reducers } from '../reducers'
 import { createLogger } from 'redux-logger'
 import storage from 'redux-persist/lib/storage'
+import logger from '../logger'
 
 const config = {
   storage,
@@ -25,7 +26,8 @@ function barTitleFormatter(action, time) {
 }
 
 const loggerMiddleware = createLogger({
-  titleFormatter: barTitleFormatter
+  titleFormatter: barTitleFormatter,
+  logger
 })
 
 const reducer = persistCombineReducers(config, { ...reducers })
