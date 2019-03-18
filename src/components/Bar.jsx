@@ -30,7 +30,7 @@ import {
   shouldEnableClaudy
 } from 'lib/reducers'
 
-import appsIcon from '!!svg-sprite-loader!assets/icons/16/icon-apps.svg'
+import appsIcon from 'assets/sprites/icon-apps.svg'
 
 export class Bar extends Component {
   constructor(props) {
