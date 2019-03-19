@@ -81,7 +81,7 @@ describe('stack proxy', () => {
   it('should throw error if trying to use the stack before init', () => {
     jest.clearAllMocks()
     jest.resetModules()
-    const stack = require('lib/stack').default
+    const stack = require('lib/stack')
     const params = { cozyURL, token, onCreate, onDelete }
 
     expect(() => {

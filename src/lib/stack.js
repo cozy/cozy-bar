@@ -53,7 +53,7 @@ const get = {
   cozyURL: (...args) => current().get.cozyURL(...args)
 }
 
-export default {
+module.exports = {
   init,
   get,
   updateAccessToken: (...args) => current().updateAccessToken(...args),
