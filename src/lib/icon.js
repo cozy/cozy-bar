@@ -21,11 +21,7 @@ const mimeTypes = {
  * @returns {Promise} url string of an icon usable in the HTML page
  *                   may be empty if the `app` object didn't have an icon path
  */
-module.exports = async function getIcon(
-  iconFetcher,
-  app = {},
-  useCache = true
-) {
+export default async function getIcon(iconFetcher, app = {}, useCache = true) {
   if (useCache && cache.icons && cache.icons[url]) return cache.icons[url]
 
   const url = app.links && app.links.icon

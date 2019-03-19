@@ -53,7 +53,7 @@ const get = {
   cozyURL: (...args) => current().get.cozyURL(...args)
 }
 
-export default {
+const stackProxy = {
   init,
   get,
   updateAccessToken: (...args) => current().updateAccessToken(...args),
@@ -61,5 +61,9 @@ export default {
   cozyFetchJSON: (...args) => current().cozyFetchJSON(...args),
   // useful to connect some getters outside of this file without exposing
   // directly the private stack variable
-  getStack: current
+  getStack: current,
+  getIntents: () => current().get.intents()
 }
+
+export default stackProxy
+export const { cozyFetchJSON, getIntents } = stackProxy

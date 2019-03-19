@@ -1,6 +1,7 @@
 /* global __TARGET__ */
 /* eslint-env browser */
 
+import { Intents } from 'cozy-interapp'
 import getIcon from 'lib/icon'
 import initializeRealtime from 'lib/realtime'
 
@@ -26,6 +27,17 @@ const errorStatuses = {
  * @private
  */
 let cozyClient
+
+/**
+ * Get the client instance
+ *
+ * @private
+ * @function
+ * @returns {Object} cozy-client instance
+ */
+const getIntents = function() {
+  return new Intents({ client: cozyClient })
+}
 
 /**
  * Get the stackClient from the cozy-client instance
@@ -348,7 +360,8 @@ export default {
     context: withCache(getContext, {}),
     storageData: getStorageData,
     iconProps: getAppIconProps,
-    cozyURL: getCozyURLOrigin
+    cozyURL: getCozyURLOrigin,
+    intents: getIntents
   },
   updateAccessToken,
   cozyFetchJSON,

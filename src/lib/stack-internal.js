@@ -1,6 +1,7 @@
 /* global __TARGET__ */
 /* eslint-env browser */
 
+import { Intents } from 'cozy-interapp'
 import getIcon from 'lib/icon'
 import initializeRealtime from 'lib/realtime'
 import normalizeURL from 'lib/normalize-url'
@@ -143,7 +144,7 @@ export const getAppIconProps = () => {
       }
 }
 
-module.exports = {
+export default {
   async init({ cozyURL, token, onCreate, onDelete, ssl }) {
     const url = normalizeURL(cozyURL, ssl)
     // The 4 following constant are global variables for the module
@@ -170,6 +171,19 @@ module.exports = {
     iconProps: getAppIconProps,
     cozyURL() {
       return COZY_URL
+    },
+    // client argument follows cozy-client interface for cozy-interapp
+    intents() {
+      return new Intents({
+        client: {
+          stackClient: {
+            fetchJSON: (method, path, body) =>
+              cozyFetchJSON(null, method, path, body).then(data => ({
+                data
+              }))
+          }
+        }
+      })
     },
     settingsAppURL() {
       return getApp('settings').then(settings => {
