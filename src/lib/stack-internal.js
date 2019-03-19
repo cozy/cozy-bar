@@ -1,6 +1,7 @@
 /* global __TARGET__ */
 /* eslint-env browser */
 
+import { Intents } from 'cozy-interapp'
 import getIcon from 'lib/icon'
 import initializeRealtime from 'lib/realtime'
 import normalizeURL from 'lib/normalize-url'
@@ -171,16 +172,18 @@ module.exports = {
     cozyURL() {
       return COZY_URL
     },
-    // follow cozy-client interface for cozy-interapp
-    cozyClient() {
-      return {
-        stackClient: {
-          fetchJSON: (method, path, body) =>
-            cozyFetchJSON(null, method, path, body).then(data => ({
-              data
-            }))
+    // client argument follows cozy-client interface for cozy-interapp
+    intents() {
+      return new Intents({
+        client: {
+          stackClient: {
+            fetchJSON: (method, path, body) =>
+              cozyFetchJSON(null, method, path, body).then(data => ({
+                data
+              }))
+          }
         }
-      }
+      })
     },
     settingsAppURL() {
       return getApp('settings').then(settings => {

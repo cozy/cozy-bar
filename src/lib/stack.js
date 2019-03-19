@@ -62,5 +62,5 @@ module.exports = {
   // useful to connect some getters outside of this file without exposing
   // directly the private stack variable
   getStack: current,
-  getClient: () => current().get.cozyClient()
+  getIntents: () => current().get.intents()
 }

@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import Modal, { ModalContent } from 'cozy-ui/react/Modal'
 import Spinner from 'cozy-ui/react/Spinner'
-import { Intents } from 'cozy-interapp'
-import { getClient } from 'lib/stack'
+import { getIntents } from 'lib/stack'
 
 class SupportModal extends Component {
   constructor(props, context) {
@@ -11,7 +10,7 @@ class SupportModal extends Component {
     this.state = {
       isLoading: false
     }
-    this.intents = new Intents({ client: getClient() })
+    this.intents = getIntents()
   }
 
   toggle = () => {

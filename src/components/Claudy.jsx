@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import { Intents } from 'cozy-interapp'
-import { getClient } from 'lib/stack'
+import { getIntents } from 'lib/stack'
 
 class Claudy extends Component {
   constructor(props, context) {
@@ -10,7 +9,7 @@ class Claudy extends Component {
       isLoading: false,
       isActive: false
     }
-    this.intents = new Intents({ client: getClient() })
+    this.intents = getIntents()
   }
 
   componentWillReceiveProps(nextProps) {
