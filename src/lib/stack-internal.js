@@ -144,7 +144,7 @@ export const getAppIconProps = () => {
       }
 }
 
-module.exports = {
+export default {
   async init({ cozyURL, token, onCreate, onDelete, ssl }) {
     const url = normalizeURL(cozyURL, ssl)
     // The 4 following constant are global variables for the module

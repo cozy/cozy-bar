@@ -53,7 +53,7 @@ const get = {
   cozyURL: (...args) => current().get.cozyURL(...args)
 }
 
-module.exports = {
+const stackProxy = {
   init,
   get,
   updateAccessToken: (...args) => current().updateAccessToken(...args),
@@ -64,3 +64,6 @@ module.exports = {
   getStack: current,
   getIntents: () => current().get.intents()
 }
+
+export default stackProxy
+export const { cozyFetchJSON, getIntents } = stackProxy
