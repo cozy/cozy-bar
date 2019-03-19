@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import Modal, { ModalContent } from 'cozy-ui/react/Modal'
 import Spinner from 'cozy-ui/react/Spinner'
-import { create as createIntent } from 'lib/intents'
+import { Intents } from 'cozy-interapp'
+import { getClient } from 'lib/stack'
 
 class SupportModal extends Component {
   constructor(props, context) {
@@ -10,17 +11,17 @@ class SupportModal extends Component {
     this.state = {
       isLoading: false
     }
+    this.intents = new Intents({ client: getClient() })
   }
 
   toggle = () => {
     this.setState({ isLoading: true })
     // init support intent
-    createIntent(null, 'SUPPORT', 'io.cozy.settings', null).start(
-      this.intentWrapperRef,
-      () => {
+    this.intents
+      .create('SUPPORT', 'io.cozy.settings')
+      .start(this.intentWrapperRef, () => {
         this.setState({ isLoading: false })
-      }
-    )
+      })
   }
 
   componentDidMount() {

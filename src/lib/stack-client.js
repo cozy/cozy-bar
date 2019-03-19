@@ -28,6 +28,17 @@ const errorStatuses = {
 let cozyClient
 
 /**
+ * Get the client instance
+ *
+ * @private
+ * @function
+ * @returns {Object} cozy-client instance
+ */
+const getCozyClient = function() {
+  return cozyClient
+}
+
+/**
  * Get the stackClient from the cozy-client instance
  *
  * @private
@@ -348,7 +359,8 @@ export default {
     context: withCache(getContext, {}),
     storageData: getStorageData,
     iconProps: getAppIconProps,
-    cozyURL: getCozyURLOrigin
+    cozyURL: getCozyURLOrigin,
+    cozyClient: getCozyClient
   },
   updateAccessToken,
   cozyFetchJSON,

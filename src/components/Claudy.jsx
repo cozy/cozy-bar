@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { create as createIntent } from 'lib/intents'
+import { Intents } from 'cozy-interapp'
+import { getClient } from 'lib/stack'
 
 class Claudy extends Component {
   constructor(props, context) {
@@ -9,6 +10,7 @@ class Claudy extends Component {
       isLoading: false,
       isActive: false
     }
+    this.intents = new Intents({ client: getClient() })
   }
 
   componentWillReceiveProps(nextProps) {
@@ -19,19 +21,20 @@ class Claudy extends Component {
     if (!this.props.opened && !this.intentWrapperRef.childNodes.length) {
       this.setState({ isLoading: true })
       // init Claudy intent
-      createIntent(null, 'CLAUDY', 'io.cozy.settings', {
-        exposeIntentFrameRemoval: true
-      })
+      this.intents
+        .create('CLAUDY', 'io.cozy.settings', {
+          exposeIntentFrameRemoval: true
+        })
         .start(this.intentWrapperRef, () => {
           this.setState({ isLoading: false, isActive: true })
           this.props.onToggle() // toggle claudy when the intent is loaded
         })
-        .then(({ removeIntentFrame }) => {
+        .then(({ removeIntentIframe }) => {
           // exposeFrameRemoval intent event
           // remove the intent frame at the end of the menu closing transition
           const closedListener = e => {
             if (e.propertyName === 'transform') {
-              removeIntentFrame()
+              removeIntentIframe()
               this.setState({ isActive: false })
               e.target.removeEventListener('transitionend', closedListener)
             }

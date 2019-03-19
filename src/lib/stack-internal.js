@@ -171,6 +171,17 @@ module.exports = {
     cozyURL() {
       return COZY_URL
     },
+    // follow cozy-client interface for cozy-interapp
+    cozyClient() {
+      return {
+        stackClient: {
+          fetchJSON: (method, path, body) =>
+            cozyFetchJSON(null, method, path, body).then(data => ({
+              data
+            }))
+        }
+      }
+    },
     settingsAppURL() {
       return getApp('settings').then(settings => {
         if (!settings) {

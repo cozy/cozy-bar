@@ -61,5 +61,6 @@ module.exports = {
   cozyFetchJSON: (...args) => current().cozyFetchJSON(...args),
   // useful to connect some getters outside of this file without exposing
   // directly the private stack variable
-  getStack: current
+  getStack: current,
+  getClient: () => current().get.cozyClient()
 }
