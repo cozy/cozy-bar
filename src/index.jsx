@@ -2,14 +2,14 @@
 
 'use strict'
 
-import stack from './lib/stack'
+import stack from 'lib/stack'
 import {
-  deleteApp,
   getLocale,
-  receiveApp,
+  onRealtimeCreate,
+  onRealtimeDelete,
   setLocale,
   setInfos
-} from './lib/reducers'
+} from 'lib/reducers'
 
 import {
   locations as APILocations,
@@ -17,8 +17,8 @@ import {
   getReactApiName
 } from 'lib/api/helpers'
 
-require('./styles')
-require('./lib/importIcons')
+require('styles')
+require('lib/importIcons')
 
 const APP_SELECTOR = '[role=application]'
 
@@ -39,7 +39,7 @@ const injectBarInDOM = data => {
   const { render } = require('react-dom')
   const { connect, Provider } = require('react-redux')
   const I18n = require('cozy-ui/react/I18n').default
-  const Bar = require('./components/Bar').default
+  const Bar = require('components/Bar').default
 
   const barNode = createBarElement()
   const appNode = document.querySelector(APP_SELECTOR)
@@ -158,14 +158,13 @@ let exposedAPI = {}
  * @param {string}  arg.iconPath   -
  * @param {Object}  arg.cozyClient - a cozy client instance
  * @param {string}  arg.cozyURL    - URL or domain of the stack
- * @param {boolean} arg.ssl        - Tells if we should use a secure 
+ * @param {boolean} arg.ssl        - Tells if we should use a secure
  *                                   protocol required if cozyURL does
  *                                   not have a protocol
  * @param {string}  arg.token      - Access token for the stack
  * @param {boolean} arg.replaceTitleOnMobile
  * @param {boolean} arg.isPublic
  * @param {Function} arg.onLogout
- * @param {Function} arg.onDeleteApp
  */
 const init = async ({
   appName,
@@ -194,8 +193,8 @@ const init = async ({
     cozyClient,
     cozyURL,
     token,
-    onCreateApp: app => reduxStore.dispatch(receiveApp(app)),
-    onDeleteApp: app => reduxStore.dispatch(deleteApp(app)),
+    onCreate: data => reduxStore.dispatch(onRealtimeCreate(data)),
+    onDelete: data => reduxStore.dispatch(onRealtimeDelete(data)),
     ssl
   })
   if (lang) {

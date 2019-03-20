@@ -1,9 +1,10 @@
 /* global __TARGET__ */
 /* eslint-env browser */
 
-import getIcon from './icon'
-import initializeRealtime from './realtime'
-import normalizeURL from './normalize-url'
+import { Intents } from 'cozy-interapp'
+import getIcon from 'lib/icon'
+import initializeRealtime from 'lib/realtime'
+import normalizeURL from 'lib/normalize-url'
 
 import {
   ForbiddenException,
@@ -13,7 +14,7 @@ import {
   UnavailableStackException,
   UnavailableSettingsException,
   UnauthorizedStackException
-} from './exceptions'
+} from 'lib/exceptions'
 
 // the option credentials:include tells fetch to include the cookies in the
 // request even for cross-origin requests
@@ -143,18 +144,18 @@ export const getAppIconProps = () => {
       }
 }
 
-module.exports = {
-  async init({ cozyURL, token, onCreateApp, onDeleteApp, ssl }) {
+export default {
+  async init({ cozyURL, token, onCreate, onDelete, ssl }) {
     const url = normalizeURL(cozyURL, ssl)
     // The 4 following constant are global variables for the module
     COZY_URL = url.origin
     COZY_HOST = url.host
-    USE_SSL = (url.protocol === 'https:') 
+    USE_SSL = url.protocol === 'https:'
     COZY_TOKEN = token
     await initializeRealtime({
       getApp,
-      onCreateApp,
-      onDeleteApp,
+      onCreate,
+      onDelete,
       token: COZY_TOKEN,
       url: COZY_URL
     })
@@ -170,6 +171,19 @@ module.exports = {
     iconProps: getAppIconProps,
     cozyURL() {
       return COZY_URL
+    },
+    // client argument follows cozy-client interface for cozy-interapp
+    intents() {
+      return new Intents({
+        client: {
+          stackClient: {
+            fetchJSON: (method, path, body) =>
+              cozyFetchJSON(null, method, path, body).then(data => ({
+                data
+              }))
+          }
+        }
+      })
     },
     settingsAppURL() {
       return getApp('settings').then(settings => {

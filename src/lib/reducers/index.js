@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux'
-import * as content from './content'
-import * as locale from './locale'
-import * as theme from './theme'
-import appsReducer, * as apps from './apps'
-import settingsReducer, * as settings from './settings'
-import contextReducer, * as context from './context'
+import * as content from 'lib/reducers/content'
+import * as locale from 'lib/reducers/locale'
+import * as theme from 'lib/reducers/theme'
+import appsReducer, * as apps from 'lib/reducers/apps'
+import settingsReducer, * as settings from 'lib/reducers/settings'
+import contextReducer, * as context from 'lib/reducers/context'
 
 const proxy = (attr, method) => {
   return (state, ...args) => {
@@ -12,25 +12,21 @@ const proxy = (attr, method) => {
   }
 }
 
-const deleteApp = apps.deleteApp
 const setContent = content.setContent
 const unsetContent = content.unsetContent
 const setLocale = locale.setLocale
 const setTheme = theme.setTheme
 const fetchApps = apps.fetchApps
-const receiveApp = apps.receiveApp
 const setInfos = apps.setInfos
 const fetchSettingsData = settings.fetchSettingsData
 const logOut = settings.logOut
 const fetchContext = context.fetchContext
 export {
-  deleteApp,
   setContent,
   unsetContent,
   setLocale,
   setTheme,
   fetchApps,
-  receiveApp,
   setInfos,
   fetchSettingsData,
   logOut,
@@ -52,6 +48,10 @@ export const isFetchingSettings = proxy('settings', settings.isFetchingSettings)
 export const getHelpLink = proxy('context', context.getHelpLink)
 export const getClaudyActions = proxy('context', context.getClaudyActions)
 export const shouldEnableClaudy = proxy('context', context.shouldEnableClaudy)
+
+// realtime handlers
+export const onRealtimeCreate = apps.receiveApp
+export const onRealtimeDelete = apps.deleteApp
 
 export const reducers = {
   content: content.reducer,

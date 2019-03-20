@@ -1,21 +1,13 @@
 import internal from 'lib/stack-internal.js'
-import client from "lib/stack-client"
-
+import client from 'lib/stack-client'
 
 /**
  * Reference to the current client depending
  * on which one has been initialized
  *
  * @private
- * @TODO We should set it to `undefined`
- * and throw an error when it is not initialized
- * Leaving with that default for today
- * so I do not need to rewrite deeply the tests
- * (they test some components without initializing
- * the stack client first, and rely on non-initialized
- * legacy client behaviour)
  */
-let stack = internal
+let stack
 
 /**
  * Get the current stack client (legacy or cozy-client based)
@@ -24,8 +16,8 @@ let stack = internal
  * @returns {Object} functions to call the stack
  */
 const current = function() {
-  if (stack === undefined) {
-    throw new Error("client not initialized in cozy-bar")
+  if (!stack) {
+    throw new Error('client not initialized in cozy-bar')
   }
   return stack
 }
@@ -43,28 +35,35 @@ const current = function() {
  * @param {boolean} arg.ssl     - Tells if we should use a secure protocol
  *                            required if cozyURL does not have a protocol
  * @param {string}  arg.token   - Access token for the stack
- * @param {Function} arg.onCreateApp 
+ * @param {Function} arg.onCreateApp
  * @param {Function} arg.onDeleteApp
  * @returns {Promise}
  */
 const init = function(options) {
-  stack = (options.cozyClient) ? client : internal
+  stack = options.cozyClient ? client : internal
   return stack.init(options)
-} 
+}
 
 const get = {
-  app: (...args) => current().get.app(...args), 
-  apps: (...args) => current().get.apps(...args), 
+  app: (...args) => current().get.app(...args),
+  apps: (...args) => current().get.apps(...args),
   context: (...args) => current().get.context(...args),
   storageData: (...args) => current().get.storageData(...args),
   iconProps: (...args) => current().get.iconProps(...args),
-  cozyURL: (...args) => current().get.cozyURL(...args),
+  cozyURL: (...args) => current().get.cozyURL(...args)
 }
 
-export default {
-  init, 
-  get, 
-  updateAccessToken: (...args) => current().updateAccessToken(...args), 
-  logout: (...args) => current().logout(...args), 
-  cozyFetchJSON: (...args) => current().cozyFetchJSON(...args)
+const stackProxy = {
+  init,
+  get,
+  updateAccessToken: (...args) => current().updateAccessToken(...args),
+  logout: (...args) => current().logout(...args),
+  cozyFetchJSON: (...args) => current().cozyFetchJSON(...args),
+  // useful to connect some getters outside of this file without exposing
+  // directly the private stack variable
+  getStack: current,
+  getIntents: () => current().get.intents()
 }
+
+export default stackProxy
+export const { cozyFetchJSON, getIntents } = stackProxy

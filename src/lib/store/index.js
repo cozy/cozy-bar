@@ -1,18 +1,19 @@
 /* global __DEVELOPMENT__ */
 
 import { createStore as createReduxStore, applyMiddleware } from 'redux'
-import appsI18nMiddleware from '../middlewares/appsI18n'
+import appsI18nMiddleware from 'lib/middlewares/appsI18n'
 import thunkMiddleware from 'redux-thunk'
 import { persistStore, persistCombineReducers } from 'redux-persist'
-import { reducers } from '../reducers'
+import { reducers } from 'lib/reducers'
 import { createLogger } from 'redux-logger'
 import storage from 'redux-persist/lib/storage'
+import persistWhitelist from 'config/persistWhitelist'
 import logger from '../logger'
 
 const config = {
   storage,
   key: 'cozy-bar',
-  whitelist: ['apps', 'context']
+  whitelist: persistWhitelist
 }
 
 // copied and changed from https://github.com/LogRocket/redux-logger/blob/3ca9f2c1ecf17a7acf18c6fa0bbf4b6b239738f1/src/core.js#L25

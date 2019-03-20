@@ -39,10 +39,6 @@
   background-image: url(~assets/icons/16/icon-cog-16.svg);
 }
 
-[role=banner] [data-icon='icon-apps'] {
-  background-image: url(~assets/icons/16/icon-apps.svg);
-}
-
 [role=banner] [data-icon='icon-claudy'] {
   background-image: url(~assets/icons/16/icon-claudy.svg);
 }

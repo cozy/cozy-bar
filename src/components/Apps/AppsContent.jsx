@@ -36,10 +36,9 @@ class AppsContent extends Component {
     return (
       <div className="coz-nav-pop-content">
         <ul className="coz-nav-group">
-          {isMobile &&
-            homeApp && (
-              <AppItem app={homeApp} useHomeIcon onAppSwitch={onAppSwitch} />
-            )}
+          {isMobile && homeApp && (
+            <AppItem app={homeApp} useHomeIcon onAppSwitch={onAppSwitch} />
+          )}
           {isFetchingApps
             ? new Array(3)
                 .fill({})
@@ -50,18 +49,12 @@ class AppsContent extends Component {
                   <AppItem app={app} key={index} onAppSwitch={onAppSwitch} />
                 ))}
         </ul>
-        {homeApp &&
-          !isMobile &&
-          !isHomeApp && (
-            <a
-              role="menuitem"
-              href={homeApp.href}
-              className="coz-apps-home-btn"
-            >
-              <img src={cozyIcon} />
-              {t('menu.home')}
-            </a>
-          )}
+        {homeApp && !isMobile && !isHomeApp && (
+          <a role="menuitem" href={homeApp.href} className="coz-apps-home-btn">
+            <img src={cozyIcon} />
+            {t('menu.home')}
+          </a>
+        )}
       </div>
     )
   }

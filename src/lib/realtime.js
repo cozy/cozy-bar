@@ -1,19 +1,20 @@
 import realtime from 'cozy-realtime'
 
+const APPS_DOCTYPE = 'io.cozy.apps'
 
 /**
  * Initialize realtime sockets
- * 
+ *
  * @private
  * @param {object}
  * @returns {Promise}
  */
-async function initializeRealtime({ getApp, onCreateApp, onDeleteApp, url, token }) {
+async function initializeRealtime({ getApp, onCreate, onDelete, url, token }) {
   const realtimeConfig = { token, url }
 
   try {
     realtime
-      .subscribe(realtimeConfig, 'io.cozy.apps')
+      .subscribe(realtimeConfig, APPS_DOCTYPE)
       .onCreate(async app => {
         // Fetch directly the app to get attributes `related` as well.
         let fullApp
@@ -23,13 +24,13 @@ async function initializeRealtime({ getApp, onCreateApp, onDeleteApp, url, token
           throw new Error(`Cannot fetch app ${app.slug}: ${error.message}`)
         }
 
-        if (typeof onCreateApp === 'function') {
-          onCreateApp(fullApp)
+        if (typeof onCreate === 'function') {
+          onCreate(fullApp)
         }
       })
       .onDelete(app => {
-        if (typeof onDeleteApp === 'function') {
-          onDeleteApp(app)
+        if (typeof onDelete === 'function') {
+          onDelete(app)
         }
       })
   } catch (error) {

@@ -7,14 +7,14 @@ jest.mock('lib/realtime');
 initializeRealtime.mockResolvedValue(Promise.resolve())
 
 const {
-  init, 
+  init,
 } = stack
 
 
 describe("stack client", () => {
 
   describe("init", () => {
-    let cozyClient = { 
+    let cozyClient = {
       getStackClient: () => {
         return {
           token: { token: "mytoken"},
@@ -24,8 +24,8 @@ describe("stack client", () => {
     }
     let params = {
       cozyClient,
-      onCreateApp: function() {},
-      onDeleteApp: function() {},
+      onCreate: function() {},
+      onDelete: function() {},
     }
 
     beforeAll(async () => {

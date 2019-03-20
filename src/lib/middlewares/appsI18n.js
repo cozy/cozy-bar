@@ -1,5 +1,5 @@
 import { extend as extendI18n } from 'cozy-ui/react/I18n'
-import { SET_LOCALE } from '../reducers/locale'
+import { SET_LOCALE } from 'lib/reducers/locale'
 
 const extendI18nWithApp = lang => app => {
   const { langs, locales } = app
