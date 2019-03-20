@@ -40,6 +40,9 @@ const injectBarInDOM = data => {
   const { connect, Provider } = require('react-redux')
   const I18n = require('cozy-ui/react/I18n').default
   const Bar = require('components/Bar').default
+  const CozyProvider = require('cozy-client').CozyProvider
+
+  const { cozyClient } = data
 
   const barNode = createBarElement()
   const appNode = document.querySelector(APP_SELECTOR)
@@ -71,7 +74,13 @@ const injectBarInDOM = data => {
   const barComponent = (
     <Provider store={data.reduxStore}>
       <EnhancedI18n dictRequire={lang => require(`./locales/${lang}`)}>
-        <Bar {...data} />
+        {cozyClient ? (
+          <CozyProvider client={cozyClient}>
+            <Bar {...data} />
+          </CozyProvider>
+        ) : (
+          <Bar {...data} />
+        )}
       </EnhancedI18n>
     </Provider>
   )
@@ -210,6 +219,7 @@ const init = async ({
     appName,
     appNamePrefix,
     appSlug,
+    cozyClient,
     iconPath,
     replaceTitleOnMobile,
     isPublic,
