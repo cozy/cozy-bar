@@ -90,7 +90,7 @@
     "cozy-client-js": "0.14.2",
     "cozy-device-helper": "1.6.10",
     "cozy-interapp": "0.4.4",
-    "cozy-realtime": "2.0.6",
+    "cozy-realtime": "2.0.7",
     "enzyme-to-json": "3.3.5",
     "hammerjs": "2.0.8",
     "lerna-changelog": "0.8.2",
