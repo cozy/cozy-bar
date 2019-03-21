@@ -6,7 +6,9 @@ import {
   checkApp,
   startApp,
   isAndroidApp,
-  isMobileApp
+  isMobileApp,
+  isMobile,
+  openDeeplinkOrRedirect
 } from 'cozy-device-helper'
 import expiringMemoize from 'lib/expiringMemoize'
 import AppIcon from 'cozy-ui/react/AppIcon'
@@ -91,14 +93,28 @@ export class AppItem extends React.Component {
 
     let href = app.href
     let onClick = null
-    if (isMobileAppAvailable) {
-      // target app is a mobile native one
+    //if we are on the native app and the other native app is available
+    if (isMobileApp() && isMobileAppAvailable) {
       onClick = this.openNativeApp
       href = '#'
+      /*
+      if we are on a native app, but the other native app is not avaibale
+      we open the web link and close (via the AppSwtich) the drawer
+    */
     } else if (isMobileApp()) {
-      // target app is web
-      // run switch listener only if the current app is native mobile
       onClick = this.onAppSwitch
+      /*
+      If we are on the "mobile web version", we try to open the native app
+      if it exists. If it fails, we redirect to the web version of the 
+      requested app
+    */
+    } else if (isMobile() && NATIVE_APP_INFOS[app.slug]) {
+      onClick = e => {
+        e.preventDefault()
+        openDeeplinkOrRedirect(NATIVE_APP_INFOS[app.slug].uri, function() {
+          window.location.href = href
+        })
+      }
     }
 
     if (app.isCurrentApp) {
