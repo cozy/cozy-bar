@@ -1,5 +1,6 @@
 import stack from 'lib/stack'
 import unionWith from 'lodash.unionwith'
+import EXCLUDES from 'config/excludedApps'
 
 // constants
 const DELETE_APP = 'DELETE_APP'
@@ -9,7 +10,6 @@ const RECEIVE_HOME_APP = 'RECEIVE_HOME_APP'
 const FETCH_APPS = 'FETCH_APPS'
 const FETCH_APPS_FAILURE = 'FETCH_APPS_FAILURE'
 const SET_INFOS = 'SET_INFOS'
-const EXCLUDES = ['settings']
 
 const isCurrentApp = (state, app) => app.slug === state.appSlug
 
