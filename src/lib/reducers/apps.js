@@ -16,12 +16,7 @@ const isCurrentApp = (state, app) => app.slug === state.appSlug
 // selectors
 export const getApps = state => {
   if (!state.apps) return []
-
-  const appsWithCurrentApp = state.apps.filter(
-    app => app.slug !== (state.homeApp && state.homeApp.slug)
-  )
-
-  return appsWithCurrentApp
+  return state.apps
 }
 
 export const getHomeApp = state => {

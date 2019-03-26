@@ -3773,7 +3773,6 @@ cosmiconfig@^5.0.1:
     js-yaml "^3.9.0"
     parse-json "^4.0.0"
 
-
 cozy-client@^6.15.0:
   version "6.15.0"
   resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-6.15.0.tgz#a0c743d39690cbc6c22bb492090a3d4ad25cc3a0"
@@ -7978,7 +7977,7 @@ mime-types@2.1.20:
   dependencies:
     mime-db "~1.36.0"
 
-mime-types@^2.1.12, mime-types@~2.1.17, mime-types@~2.1.18, mime-types@~2.1.19:
+mime-types@^2.1.12, mime-types@~2.1.18, mime-types@~2.1.19:
   version "2.1.21"
   resolved "https://registry.yarnpkg.com/mime-types/-/mime-types-2.1.21.tgz#28995aa1ecb770742fe6ae7e58f9181c744b3f96"
   integrity sha512-3iL6DbwpyLzjR3xHSFNFeb9Nz/M8WDkX33t1GFQnFOllWk8pOrh/LSrB5OXlnlW5P9LH73X6loW/eogc+F5lJg==

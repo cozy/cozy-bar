@@ -44,6 +44,7 @@ class AppsContent extends Component {
                 .fill({})
                 .map((nothing, index) => <AppItemPlaceholder key={index} />)
             : apps
+                .filter(app => app.slug !== homeApp && homeApp.slug)
                 .sort(sorter(this.translateApp))
                 .map((app, index) => (
                   <AppItem app={app} key={index} onAppSwitch={onAppSwitch} />
