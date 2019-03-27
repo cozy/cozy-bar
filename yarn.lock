@@ -3773,7 +3773,7 @@ cosmiconfig@^5.0.1:
     js-yaml "^3.9.0"
     parse-json "^4.0.0"
 
-cozy-client@^6.15.0:
+cozy-client@6.15.0:
   version "6.15.0"
   resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-6.15.0.tgz#a0c743d39690cbc6c22bb492090a3d4ad25cc3a0"
   integrity sha512-3OlPV6cnXtMMmtHE6u+cOCsYmMlDPPYH+umj2j9FaH0BFFOmVPUzSBhAy4yvjmMLpREyplija2q3qyG7pOw45A==
