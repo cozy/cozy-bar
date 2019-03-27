@@ -3773,13 +3773,13 @@ cosmiconfig@^5.0.1:
     js-yaml "^3.9.0"
     parse-json "^4.0.0"
 
-cozy-client@6.15.0:
-  version "6.15.0"
-  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-6.15.0.tgz#a0c743d39690cbc6c22bb492090a3d4ad25cc3a0"
-  integrity sha512-3OlPV6cnXtMMmtHE6u+cOCsYmMlDPPYH+umj2j9FaH0BFFOmVPUzSBhAy4yvjmMLpREyplija2q3qyG7pOw45A==
+cozy-client@6.20.0:
+  version "6.20.0"
+  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-6.20.0.tgz#325a933f40cb183d7f6ac4ceab3b6234c252aaf0"
+  integrity sha512-3N0YD5Q00LJlG1fnWAEPjQa6+LxbXgGXd0Be1XTKiLiaPotvD6wE3od131OOv/UP3PWpzY3QnNS4A5/ScPAufw==
   dependencies:
     cozy-device-helper "1.6.3"
-    cozy-stack-client "^6.12.0"
+    cozy-stack-client "^6.20.0"
     lodash "4.17.11"
     prop-types "15.6.2"
     react "16.7.0"
@@ -3812,10 +3812,10 @@ cozy-realtime@2.0.7:
   resolved "https://registry.yarnpkg.com/cozy-realtime/-/cozy-realtime-2.0.7.tgz#1ca40806e4a3e752bf1d6ea4f8a761a8eaa123d2"
   integrity sha512-rGJ4lLqbhcw6CKYIKir3lpuck1GbJCy2hUiEKeQXjeLU0j4TIPB1OBk01oz46RyTcAr2tzW8EesRGd4eqy/8Hw==
 
-cozy-stack-client@^6.12.0:
-  version "6.12.0"
-  resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-6.12.0.tgz#8f6a1ddad68970245c874cf0d06ef0426314a340"
-  integrity sha512-aAlXQxD4UX7rWDLXjforwgiBgb2r4igAD0c9XBhZ2BX083bFzAInX0IWwLtHDRaJTqS9bqvXrHbbyJm13cBQog==
+cozy-stack-client@^6.20.0:
+  version "6.20.0"
+  resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-6.20.0.tgz#3d4b5334bd2a7c919e8b9e3989a46e470e2ab779"
+  integrity sha512-bxzGG+VQt7tAHgrdx/fVTlSxDLdeslNiF6s4YuwjQaCS5QOGbTB83kZRvDx5HswVzjZePaP0a2omE/Pe6HVonw==
   dependencies:
     detect-node "2.0.4"
     mime-types "2.1.20"
