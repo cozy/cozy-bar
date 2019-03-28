@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import Proptypes from 'prop-types'
 
 import { translate } from 'cozy-ui/react/I18n'
 import withBreakpoints from 'cozy-ui/react/helpers/withBreakpoints'
@@ -11,7 +12,7 @@ import cozyIcon from 'assets/icons/16/icon-cozy-16.svg'
 
 const sorter = fn => (itemA, itemB) => fn(itemA) > fn(itemB)
 
-class AppsContent extends Component {
+export class AppsContent extends Component {
   constructor(props, context) {
     super(props, context)
     this.translateApp = translateApp(this.props.t)
@@ -61,7 +62,14 @@ class AppsContent extends Component {
     )
   }
 }
-
+AppsContent.propTypes = {
+  homeApp: Proptypes.shape({
+    isCurrentApp: Proptypes.bool,
+    slug: Proptypes.string
+  }),
+  apps: Proptypes.array,
+  isFetchingApps: Proptypes.bool.isRequired
+}
 const translateApp = t => app => {
   const namePrefix = app.namePrefix
     ? t(`${app.slug}.namePrefix`, { _: app.namePrefix })
