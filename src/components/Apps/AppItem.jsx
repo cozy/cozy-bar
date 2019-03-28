@@ -117,12 +117,6 @@ export class AppItem extends React.Component {
       }
     }
 
-    if (app.isCurrentApp) {
-      // disabled for current app
-      onClick = null
-      href = null
-    }
-
     return (
       <li
         className={`coz-nav-apps-item${app.isCurrentApp ? ' --current' : ''}`}
