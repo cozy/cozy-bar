@@ -28,6 +28,7 @@ class AppsContent extends Component {
     } = this.props
     const { isMobile } = breakpoints
     const isHomeApp = homeApp && homeApp.isCurrentApp
+    const homeSlug = homeApp && homeApp.slug
 
     if (!isFetchingApps && (!apps || !apps.length)) {
       return <p className="coz-nav--error coz-nav-group">{t('no_apps')}</p>
@@ -44,7 +45,7 @@ class AppsContent extends Component {
                 .fill({})
                 .map((nothing, index) => <AppItemPlaceholder key={index} />)
             : apps
-                .filter(app => app.slug !== homeApp && homeApp.slug)
+                .filter(app => app.slug !== homeSlug)
                 .sort(sorter(this.translateApp))
                 .map((app, index) => (
                   <AppItem app={app} key={index} onAppSwitch={onAppSwitch} />
