@@ -204,7 +204,8 @@ const init = async ({
     token,
     onCreate: data => reduxStore.dispatch(onRealtimeCreate(data)),
     onDelete: data => reduxStore.dispatch(onRealtimeDelete(data)),
-    ssl
+    ssl,
+    isPublic
   })
   if (lang) {
     reduxStore.dispatch(setLocale(lang))
