@@ -73,7 +73,7 @@ const injectBarInDOM = data => {
 
   const barComponent = (
     <Provider store={data.reduxStore}>
-      <EnhancedI18n dictRequire={lang => require(`./locales/${lang}`)}>
+      <EnhancedI18n dictRequire={lang => require(`locales/${lang}`)}>
         {cozyClient ? (
           <CozyProvider client={cozyClient}>
             <Bar {...data} />
