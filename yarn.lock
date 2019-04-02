@@ -3842,10 +3842,10 @@ cozy-device-helper@1.7.0:
   dependencies:
     lodash "4.17.11"
 
-cozy-harvest-lib@0.38.3:
-  version "0.38.3"
-  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-0.38.3.tgz#ecf2a188ea6f647332fd3a7d2478a3cba7d91c09"
-  integrity sha512-JTFM3bm8JBqNtRY0QqH9JmFekdsG2EpTIEKrQmCStsCTNuOLv7q/Hp7uxZeBORWkdkZu0RLDIKPvO2LcFBFrGg==
+cozy-harvest-lib@0.38.4:
+  version "0.38.4"
+  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-0.38.4.tgz#ce207fbe83da1bb0dc512a3d2e91ac7b89333dc4"
+  integrity sha512-zxwSddBQSVqq2edAfXnciiQfZ9VdLUlJJMFSu9Jcm0jpgXFmjLP0HKFJMu6PgfV1UBNTrZRCEBErofiDjX+XPQ==
   dependencies:
     cozy-client "6.19.0"
     cozy-realtime "1.2.8"
