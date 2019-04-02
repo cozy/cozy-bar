@@ -10,6 +10,7 @@ import {
   ServerErrorException,
   NotFoundException,
   MethodNotAllowedException,
+  UnavailableSettingsException,
   UnavailableStackException,
   UnauthorizedStackException
 } from 'lib/exceptions'
@@ -332,6 +333,15 @@ const cozyFetchJSON = function(cozy, method, path, body) {
   })
 }
 
+const getSettingsAppURL = function() {
+  return getApp('settings').then(settings => {
+    if (!settings) {
+      throw new UnavailableSettingsException()
+    }
+    return settings.links.related
+  })
+}
+
 /**
  * Initializes the functions to call the cozy stack
  *
@@ -361,7 +371,8 @@ export default {
     storageData: getStorageData,
     iconProps: getAppIconProps,
     cozyURL: getCozyURLOrigin,
-    intents: getIntents
+    intents: getIntents,
+    settingsAppURL: getSettingsAppURL
   },
   updateAccessToken,
   cozyFetchJSON,

@@ -50,7 +50,8 @@ const get = {
   context: (...args) => current().get.context(...args),
   storageData: (...args) => current().get.storageData(...args),
   iconProps: (...args) => current().get.iconProps(...args),
-  cozyURL: (...args) => current().get.cozyURL(...args)
+  cozyURL: (...args) => current().get.cozyURL(...args),
+  settingsAppURL: (...args) => current().get.settingsAppURL(...args)
 }
 
 const stackProxy = {
