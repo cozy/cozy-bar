@@ -5,7 +5,6 @@ import { appShape } from 'proptypes/index'
 import {
   checkApp,
   startApp,
-  isAndroidApp,
   isMobileApp,
   isMobile,
   openDeeplinkOrRedirect
@@ -16,17 +15,7 @@ import HomeIcon from 'components/Apps/IconCozyHome'
 import { translate } from 'cozy-ui/react/I18n'
 import stack from 'lib/stack'
 import PropTypes from 'prop-types'
-
-const NATIVE_APP_INFOS = {
-  drive: {
-    appId: 'io.cozy.drive.mobile',
-    uri: 'cozydrive://'
-  },
-  banks: {
-    appId: isAndroidApp() ? 'io.cozy.banks.mobile' : 'io.cozy.banks',
-    uri: 'cozybanks://'
-  }
-}
+import { NATIVE_APP_INFOS } from 'config/native'
 
 const expirationDelay = 10 * 1000
 const memoizedCheckApp = expiringMemoize(
