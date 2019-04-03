@@ -350,12 +350,11 @@ const getSettingsAppURL = function() {
  * @param {Object}  arg.cozyClient - a cozy client instance
  * @param {Function} arg.onCreate
  * @param {Function} arg.onDelete
- * @param {Boolean} arg.isPublic - if the bar is called from a public context
  * @returns {Promise}
  */
-const init = function({ cozyClient: client, onCreate, onDelete, isPublic }) {
+const init = function({ cozyClient: client, onCreate, onDelete }) {
   cozyClient = client
-  if (isPublic) return
+  if (!cozyClient.isLogged) return
   return initializeRealtime({
     getApp,
     onCreate,
