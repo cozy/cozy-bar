@@ -13,6 +13,7 @@ class Apps extends Component {
 
   componentDidMount() {
     document.body.addEventListener('click', this.onClickOutside)
+    this.modalContainer = document.getElementById('cozy-bar-modal-dom-place')
   }
 
   componentWillUnmount() {
@@ -22,7 +23,10 @@ class Apps extends Component {
   onClickOutside = event => {
     if (this.state.opened) {
       // if it's not a cozy-bar nav popup, close the opened popup
-      if (!this.rootRef.contains(event.target)) {
+      if (
+        !this.rootRef.contains(event.target) &&
+        !this.modalContainer.contains(event.target)
+      ) {
         this.setState({ opened: false })
         event.stopPropagation()
       }
