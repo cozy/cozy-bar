@@ -120,7 +120,6 @@
 /* current app item */
 [role=banner] .coz-nav-apps-item.--current a[role=menuitem] {
   font-weight: bold;
-  cursor: default;
   background-color: var(--paleGrey);
   border-left: 4px solid var(--dodgerBlue)
 }
