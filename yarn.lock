@@ -3842,13 +3842,13 @@ cozy-device-helper@1.7.0:
   dependencies:
     lodash "4.17.11"
 
-cozy-harvest-lib@0.39.2:
-  version "0.39.2"
-  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-0.39.2.tgz#a354502d30aa12505860694bf074b8e7e317b93a"
-  integrity sha512-uJlyncLp5Sn73RGFca/c11+enGzKmriJ2MwMrInt2YClswaD5gVuUwJVQ6vklimDQTcnF4CogSQ0pMdt6uwfQg==
+cozy-harvest-lib@0.39.3:
+  version "0.39.3"
+  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-0.39.3.tgz#9decf6686f84c172179ebe5c84db434b1daca934"
+  integrity sha512-H4fn53cAYrKbvpimVGkskevKhUbZUa2/xeOjFBNAusmNsv/wyhnKv/zy+eJvw9r6mkbBI/bmhF9hiE78GsgD7g==
   dependencies:
     cozy-client "6.19.0"
-    cozy-realtime "1.2.8"
+    cozy-realtime "2.0.7"
     cozy-ui "19.21.2"
     final-form "4.11.1"
     lodash "4.17.11"
@@ -3860,11 +3860,6 @@ cozy-interapp@0.4.4:
   version "0.4.4"
   resolved "https://registry.yarnpkg.com/cozy-interapp/-/cozy-interapp-0.4.4.tgz#86a7d0d6b849cd6f251877116612901c59f93cf7"
   integrity sha512-55bSrj1jymMb9Qe/sPjmVfaOcjuTOL//AQzYV2fMIaQZfRtjn1vx0O15C/RC9Qhgjv22fzxcnRtUEg6fi7FHHw==
-
-cozy-realtime@1.2.8:
-  version "1.2.8"
-  resolved "https://registry.yarnpkg.com/cozy-realtime/-/cozy-realtime-1.2.8.tgz#c94c4bd8eb36009a381739062bd41947ddd516fc"
-  integrity sha512-G4seWPh7Ys+XApe1p165xKWq2jNKfmR/icUx45YplVZZm5wJk5pPGVrc70Rccr0DYuA8oHh1i/wpG/a5cHhpYQ==
 
 cozy-realtime@2.0.7:
   version "2.0.7"
