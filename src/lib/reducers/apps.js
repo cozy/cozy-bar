@@ -11,7 +11,7 @@ const FETCH_APPS = 'FETCH_APPS'
 const FETCH_APPS_FAILURE = 'FETCH_APPS_FAILURE'
 const SET_INFOS = 'SET_INFOS'
 
-const isCurrentApp = (state, app) => app.slug === state.appSlug
+export const isCurrentApp = (state, app) => app.slug === state.appSlug
 
 // selectors
 export const getApps = state => {
@@ -28,7 +28,6 @@ export const isFetchingApps = state => {
 }
 
 export const hasFetched = state => state.hasFetched
-export const getCurrentApp = state => `${state.appNamePrefix} ${state.appName}`
 
 // actions
 export const deleteApp = app => ({ type: DELETE_APP, app })

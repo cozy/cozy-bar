@@ -166,8 +166,8 @@ Object {
   "barLeft": undefined,
   "barRight": undefined,
   "claudyEnabled": false,
-  "currentApp": "null null",
   "hasFetchedApps": false,
+  "isDrive": false,
   "theme": "default",
   "themeOverrides": Object {},
 }
