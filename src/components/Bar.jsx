@@ -23,7 +23,7 @@ import {
   getTheme,
   hasFetched,
   getContent,
-  getCurrentApp,
+  isCurrentApp,
   fetchApps,
   fetchContext,
   fetchSettingsData,
@@ -41,8 +41,7 @@ export class Bar extends Component {
       drawerVisible: false,
       usageTracker: null,
       supportDisplayed: false,
-      searchBarEnabled:
-        props.currentApp === 'Cozy Drive' && !props.isPublic && !isMobileApp()
+      searchBarEnabled: this.props.isDrive && !props.isPublic && !isMobileApp()
     }
     this.fetchContent = this.fetchContent.bind(this)
     this.fetchInitialData = this.fetchInitialData.bind(this)
@@ -251,7 +250,7 @@ export const mapStateToProps = state => ({
   barLeft: getContent(state, 'left'),
   barRight: getContent(state, 'right'),
   barCenter: getContent(state, 'center'),
-  currentApp: getCurrentApp(state),
+  isDrive: isCurrentApp(state, { slug: 'drive' }),
   claudyEnabled: shouldEnableClaudy(state),
   hasFetchedApps: hasFetched(state)
 })
