@@ -83,33 +83,27 @@ describe('Bar', () => {
   })
 
   it('should display the Searchbar', () => {
-    const barWrapper = shallow(
-      <Bar {...props} currentApp="Cozy Drive" isPublic={false} />
-    )
+    const barWrapper = shallow(<Bar {...props} isDrive isPublic={false} />)
     expect(toJson(barWrapper)).toMatchSnapshot()
   })
 
   it('should not display searchbar if we are on mobile', () => {
     isMobileApp.mockReturnValue(true)
-    const barWrapper = shallow(
-      <Bar {...props} currentApp="Cozy Drive" isPublic={false} />
-    )
+    const barWrapper = shallow(<Bar {...props} isDrive isPublic={false} />)
     expect(toJson(barWrapper)).toMatchSnapshot()
   })
 
   it('should not display searchbar if we are not on Cozy Drive', () => {
     isMobileApp.mockReturnValue(true)
     const barWrapper = shallow(
-      <Bar {...props} currentApp="Cozy Contacts" isPublic={false} />
+      <Bar {...props} isDrive={false} isPublic={false} />
     )
     expect(toJson(barWrapper)).toMatchSnapshot()
   })
 
   it('should not display searchbar if we are not on  a public page', () => {
     isMobileApp.mockReturnValue(true)
-    const barWrapper = shallow(
-      <Bar {...props} currentApp="Cozy Drive" isPublic={true} />
-    )
+    const barWrapper = shallow(<Bar {...props} isDrive isPublic={true} />)
     expect(toJson(barWrapper)).toMatchSnapshot()
   })
 
