@@ -27,7 +27,10 @@ import {
   fetchApps,
   fetchContext,
   fetchSettingsData,
-  shouldEnableClaudy
+  shouldEnableClaudy,
+  isDrawerOpen,
+  openDrawer,
+  closeDrawer
 } from 'lib/reducers'
 
 import appsIcon from 'assets/sprites/icon-apps.svg'
@@ -92,15 +95,6 @@ export class Bar extends Component {
     this.fetchContent()
   }
 
-  toggleDrawer = () => {
-    // don't allow to toggle the drawer if claudy opened or is opening
-    if (this.state.claudyOpened || this.state.claudyFired) return
-    const drawerVisible = !this.state.drawerVisible
-    // don't wait for transitionend if displaying
-    if (drawerVisible) this.props.onDrawer(drawerVisible)
-    this.setState({ drawerVisible })
-  }
-
   toggleClaudy = (isFromDrawer = false) => {
     if (!this.props.claudyEnabled) return
     const { usageTracker, claudyOpened } = this.state
@@ -148,13 +142,13 @@ export class Bar extends Component {
   }
 
   renderLeft = () => {
-    const { t, isPublic } = this.props
+    const { t, isPublic, openDrawer } = this.props
     // data-tutorial attribute allows to be targeted in an application tutorial
     return !isPublic ? (
       <button
         type="button"
         className="coz-bar-btn coz-bar-burger"
-        onClick={this.toggleDrawer}
+        onClick={openDrawer}
         data-tutorial="apps-mobile"
       >
         <Icon icon={appsIcon} width={16} height={16} />
@@ -177,7 +171,6 @@ export class Bar extends Component {
     const {
       claudyFired,
       claudyOpened,
-      drawerVisible,
       searchBarEnabled,
       supportDisplayed,
       usageTracker
@@ -192,7 +185,9 @@ export class Bar extends Component {
       onDrawer,
       isPublic,
       onLogOut,
-      userActionRequired
+      userActionRequired,
+      isDrawerOpen,
+      closeDrawer
     } = this.props
 
     const {
@@ -217,13 +212,13 @@ export class Bar extends Component {
           {barRight || this.renderRight()}
           {!isPublic ? (
             <Drawer
-              visible={drawerVisible}
-              onClose={this.toggleDrawer}
+              visible={isDrawerOpen}
+              onClose={closeDrawer}
               onClaudy={
                 (claudyEnabled && (() => this.toggleClaudy(true))) || false
               }
               isClaudyLoading={claudyFired}
-              drawerListener={() => onDrawer(drawerVisible)}
+              drawerListener={() => onDrawer(isDrawerOpen)}
               toggleSupport={this.toggleSupport}
               onLogOut={onLogOut}
             />
@@ -252,13 +247,16 @@ export const mapStateToProps = state => ({
   barCenter: getContent(state, 'center'),
   isDrive: isCurrentApp(state, { slug: 'drive' }),
   claudyEnabled: shouldEnableClaudy(state),
-  hasFetchedApps: hasFetched(state)
+  hasFetchedApps: hasFetched(state),
+  isDrawerOpen: isDrawerOpen(state)
 })
 
 export const mapDispatchToProps = dispatch => ({
   fetchApps: () => dispatch(fetchApps()),
   fetchContext: () => dispatch(fetchContext()),
-  fetchSettingsData: displayBusy => dispatch(fetchSettingsData(displayBusy))
+  fetchSettingsData: displayBusy => dispatch(fetchSettingsData(displayBusy)),
+  openDrawer: () => dispatch(openDrawer()),
+  closeDrawer: () => dispatch(closeDrawer())
 })
 
 export default translate()(

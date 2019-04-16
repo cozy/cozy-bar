@@ -1,5 +1,11 @@
 import React, { Component } from 'react'
-import { setContent, unsetContent, setLocale, setTheme } from 'lib/reducers'
+import {
+  setContent,
+  unsetContent,
+  setLocale,
+  setTheme,
+  openDrawer
+} from 'lib/reducers'
 
 import { locations, getJsApiName, getReactApiName } from 'lib/api/helpers'
 
@@ -88,6 +94,10 @@ export default store => {
 
   methods.setTheme = (...args) => {
     store.dispatch(setTheme(...args))
+  }
+
+  methods.openDrawer = () => {
+    store.dispatch(openDrawer())
   }
 
   return methods

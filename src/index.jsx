@@ -278,6 +278,14 @@ apiReferences.setTheme = (...args) => {
   }
 }
 
+apiReferences.openDrawer = () => {
+  if (exposedAPI.openDrawer) {
+    return exposedAPI.openDrawer()
+  } else {
+    showAPIError('openDrawer')
+  }
+}
+
 module.exports = {
   init,
   version: __VERSION__,

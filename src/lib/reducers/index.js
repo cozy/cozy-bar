@@ -5,6 +5,7 @@ import * as theme from 'lib/reducers/theme'
 import appsReducer, * as apps from 'lib/reducers/apps'
 import settingsReducer, * as settings from 'lib/reducers/settings'
 import contextReducer, * as context from 'lib/reducers/context'
+import drawerReducer, * as drawer from 'lib/reducers/drawer'
 
 const proxy = (attr, method) => {
   return (state, ...args) => {
@@ -21,6 +22,8 @@ const setInfos = apps.setInfos
 const fetchSettingsData = settings.fetchSettingsData
 const logOut = settings.logOut
 const fetchContext = context.fetchContext
+const openDrawer = drawer.openDrawer
+const closeDrawer = drawer.closeDrawer
 export {
   setContent,
   unsetContent,
@@ -30,7 +33,9 @@ export {
   setInfos,
   fetchSettingsData,
   logOut,
-  fetchContext
+  fetchContext,
+  openDrawer,
+  closeDrawer
 }
 
 export const getContent = proxy('content', content.getContent)
@@ -48,6 +53,7 @@ export const isFetchingSettings = proxy('settings', settings.isFetchingSettings)
 export const getHelpLink = proxy('context', context.getHelpLink)
 export const getClaudyActions = proxy('context', context.getClaudyActions)
 export const shouldEnableClaudy = proxy('context', context.shouldEnableClaudy)
+export const isDrawerOpen = proxy('drawer', drawer.isDrawerOpen)
 
 // realtime handlers
 export const onRealtimeCreate = apps.receiveApp
@@ -59,7 +65,8 @@ export const reducers = {
   theme: theme.reducer,
   apps: appsReducer,
   settings: settingsReducer,
-  context: contextReducer
+  context: contextReducer,
+  drawer: drawerReducer
 }
 
 export default combineReducers(reducers)
