@@ -145,13 +145,14 @@ export const getAppIconProps = () => {
 }
 
 export default {
-  async init({ cozyURL, token, onCreate, onDelete, ssl }) {
+  async init({ cozyURL, token, onCreate, onDelete, ssl, isPublic }) {
     const url = normalizeURL(cozyURL, ssl)
     // The 4 following constant are global variables for the module
     COZY_URL = url.origin
     COZY_HOST = url.host
     USE_SSL = url.protocol === 'https:'
     COZY_TOKEN = token
+    if (isPublic) return
     await initializeRealtime({
       getApp,
       onCreate,

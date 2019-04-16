@@ -37,6 +37,7 @@ const current = function() {
  * @param {string}  arg.token   - Access token for the stack
  * @param {Function} arg.onCreateApp
  * @param {Function} arg.onDeleteApp
+ * @param {Boolean} arg.isPublic
  * @returns {Promise}
  */
 const init = function(options) {

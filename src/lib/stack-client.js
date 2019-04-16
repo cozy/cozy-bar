@@ -354,6 +354,7 @@ const getSettingsAppURL = function() {
  */
 const init = function({ cozyClient: client, onCreate, onDelete }) {
   cozyClient = client
+  if (!cozyClient.isLogged) return
   return initializeRealtime({
     getApp,
     onCreate,
