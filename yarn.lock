@@ -3798,13 +3798,13 @@ cosmiconfig@^5.0.1:
     js-yaml "^3.9.0"
     parse-json "^4.0.0"
 
-cozy-client@6.19.0:
-  version "6.19.0"
-  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-6.19.0.tgz#ea44c2681f6d206dae5fdb2d1d91075a35d8434e"
-  integrity sha512-aYXIRQR/pX8vbpTG7fmcgQhpCdA5t0JL9HEH09ti6dh7TCPMHqZ1f91VhM6Pb7NCPQYsL9rTU+2vAEYn4RQKyQ==
+cozy-client@6.20.0:
+  version "6.20.0"
+  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-6.20.0.tgz#325a933f40cb183d7f6ac4ceab3b6234c252aaf0"
+  integrity sha512-3N0YD5Q00LJlG1fnWAEPjQa6+LxbXgGXd0Be1XTKiLiaPotvD6wE3od131OOv/UP3PWpzY3QnNS4A5/ScPAufw==
   dependencies:
     cozy-device-helper "1.6.3"
-    cozy-stack-client "^6.18.1"
+    cozy-stack-client "^6.20.0"
     lodash "4.17.11"
     prop-types "15.6.2"
     react "16.7.0"
@@ -3813,13 +3813,13 @@ cozy-client@6.19.0:
     redux-thunk "2.3.0"
     sift "6.0.0"
 
-cozy-client@6.20.0:
-  version "6.20.0"
-  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-6.20.0.tgz#325a933f40cb183d7f6ac4ceab3b6234c252aaf0"
-  integrity sha512-3N0YD5Q00LJlG1fnWAEPjQa6+LxbXgGXd0Be1XTKiLiaPotvD6wE3od131OOv/UP3PWpzY3QnNS4A5/ScPAufw==
+cozy-client@6.21.0:
+  version "6.21.0"
+  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-6.21.0.tgz#b411260c75f2fca7b88d8084ab779cdd5b8d34f5"
+  integrity sha512-NbWvEGZqqIZkwXX9nVk4XvnOwblvvBAJMW52oqMfvHs+4unsfDofEWb1CkYPfMtR4pQaHJwH96/4JWMqSX4G4A==
   dependencies:
     cozy-device-helper "1.6.3"
-    cozy-stack-client "^6.20.0"
+    cozy-stack-client "^6.21.0"
     lodash "4.17.11"
     prop-types "15.6.2"
     react "16.7.0"
@@ -3842,13 +3842,13 @@ cozy-device-helper@1.7.1:
   dependencies:
     lodash "4.17.11"
 
-cozy-harvest-lib@0.39.3:
-  version "0.39.3"
-  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-0.39.3.tgz#9decf6686f84c172179ebe5c84db434b1daca934"
-  integrity sha512-H4fn53cAYrKbvpimVGkskevKhUbZUa2/xeOjFBNAusmNsv/wyhnKv/zy+eJvw9r6mkbBI/bmhF9hiE78GsgD7g==
+cozy-harvest-lib@0.39.6:
+  version "0.39.6"
+  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-0.39.6.tgz#f22c5e566fa6330ee4ca712417f92efbc2955c5c"
+  integrity sha512-toYJRE66XUYTah0LWSBtcQzmSBpWv9Hu1kmSPXSqFtjYV5nkmjP1lNiFOBAMYSYBx0mGBWJtFkyc8AhqwKFhQA==
   dependencies:
-    cozy-client "6.19.0"
-    cozy-realtime "2.0.7"
+    cozy-client "6.21.0"
+    cozy-realtime "^2.0.8"
     cozy-ui "19.21.2"
     final-form "4.11.1"
     lodash "4.17.11"
@@ -3861,20 +3861,24 @@ cozy-interapp@0.4.4:
   resolved "https://registry.yarnpkg.com/cozy-interapp/-/cozy-interapp-0.4.4.tgz#86a7d0d6b849cd6f251877116612901c59f93cf7"
   integrity sha512-55bSrj1jymMb9Qe/sPjmVfaOcjuTOL//AQzYV2fMIaQZfRtjn1vx0O15C/RC9Qhgjv22fzxcnRtUEg6fi7FHHw==
 
-cozy-realtime@2.0.7:
-  version "2.0.7"
-  resolved "https://registry.yarnpkg.com/cozy-realtime/-/cozy-realtime-2.0.7.tgz#1ca40806e4a3e752bf1d6ea4f8a761a8eaa123d2"
-  integrity sha512-rGJ4lLqbhcw6CKYIKir3lpuck1GbJCy2hUiEKeQXjeLU0j4TIPB1OBk01oz46RyTcAr2tzW8EesRGd4eqy/8Hw==
-
-cozy-realtime@2.0.8:
+cozy-realtime@2.0.8, cozy-realtime@^2.0.8:
   version "2.0.8"
   resolved "https://registry.yarnpkg.com/cozy-realtime/-/cozy-realtime-2.0.8.tgz#e2e9abfaeff8b610c2bbd1bf9cb5898484df2ef1"
   integrity sha512-L0PAaZXT6u1ixmdMIaSsPwcX1edLZ+8AdiqdOKL+olPaMDgNseyyjr4Vlnnsr7Sx5f6BpcWQFUQr+do+yX9i+w==
 
-cozy-stack-client@^6.18.1, cozy-stack-client@^6.20.0:
+cozy-stack-client@^6.20.0:
   version "6.20.0"
   resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-6.20.0.tgz#3d4b5334bd2a7c919e8b9e3989a46e470e2ab779"
   integrity sha512-bxzGG+VQt7tAHgrdx/fVTlSxDLdeslNiF6s4YuwjQaCS5QOGbTB83kZRvDx5HswVzjZePaP0a2omE/Pe6HVonw==
+  dependencies:
+    detect-node "2.0.4"
+    mime-types "2.1.20"
+    qs "6.6.0"
+
+cozy-stack-client@^6.21.0:
+  version "6.21.0"
+  resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-6.21.0.tgz#209550adcd13ffa6fe6fa54dd7e0327b94720898"
+  integrity sha512-ha8MmU9v73SX/IeT+Kzvf86HzrfUys4pGxvyVfNL80TPfM9rNj3mRvkx3/pJTV5TM2K25Jx5iRZbLiI5trj9vw==
   dependencies:
     detect-node "2.0.4"
     mime-types "2.1.20"
