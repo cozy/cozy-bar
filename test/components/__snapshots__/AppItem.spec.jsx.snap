@@ -1,60 +1,108 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`app icon should render correctly 1`] = `
-<li
-  className="coz-nav-apps-item"
+<AppItem
+  app={
+    Object {
+      "href": "http://fake.fr",
+      "name": "Drive",
+      "slug": "cozy-drive",
+    }
+  }
+  t={[Function]}
 >
-  <a
-    data-icon="icon-cozy-drive"
-    onClick={null}
-    role="menuitem"
-    title="Drive"
+  <AppLinker
+    href="http://fake.fr"
+    onAppSwitch={[Function]}
+    slug="cozy-drive"
   >
-    <AppIcon
-      app={
-        Object {
-          "name": "Drive",
-          "slug": "cozy-drive",
-        }
-      }
-      className="coz-nav-apps-item-icon"
-      domain="cozy.tools"
-      secure={true}
-    />
-    <p
-      className="coz-label"
+    <li
+      className="coz-nav-apps-item"
     >
-      Drive
-    </p>
-  </a>
-</li>
+      <a
+        data-icon="icon-cozy-drive"
+        href="http://fake.fr"
+        onClick={null}
+        role="menuitem"
+        title="Drive"
+      >
+        <AppIcon
+          app={
+            Object {
+              "href": "http://fake.fr",
+              "name": "Drive",
+              "slug": "cozy-drive",
+            }
+          }
+          className="coz-nav-apps-item-icon"
+          domain="cozy.tools"
+          key="cozy-drive"
+          secure={true}
+        >
+          <div
+            className="c-loading-placeholder c-app-icon coz-nav-apps-item-icon"
+          />
+        </AppIcon>
+        <p
+          className="coz-label"
+        >
+          Drive
+        </p>
+      </a>
+    </li>
+  </AppLinker>
+</AppItem>
 `;
 
 exports[`app icon should render correctly with target mobile and providing fetchIcon to AppIcon 1`] = `
-<li
-  className="coz-nav-apps-item"
+<AppItem
+  app={
+    Object {
+      "href": "http://fake.fr",
+      "name": "Drive",
+      "slug": "cozy-drive",
+    }
+  }
+  t={[Function]}
 >
-  <a
-    data-icon="icon-cozy-drive"
-    onClick={null}
-    role="menuitem"
-    title="Drive"
+  <AppLinker
+    href="http://fake.fr"
+    onAppSwitch={[Function]}
+    slug="cozy-drive"
   >
-    <AppIcon
-      app={
-        Object {
-          "name": "Drive",
-          "slug": "cozy-drive",
-        }
-      }
-      className="coz-nav-apps-item-icon"
-      fetchIcon={[Function]}
-    />
-    <p
-      className="coz-label"
+    <li
+      className="coz-nav-apps-item"
     >
-      Drive
-    </p>
-  </a>
-</li>
+      <a
+        data-icon="icon-cozy-drive"
+        href="http://fake.fr"
+        onClick={null}
+        role="menuitem"
+        title="Drive"
+      >
+        <AppIcon
+          app={
+            Object {
+              "href": "http://fake.fr",
+              "name": "Drive",
+              "slug": "cozy-drive",
+            }
+          }
+          className="coz-nav-apps-item-icon"
+          fetchIcon={[Function]}
+          key="cozy-drive"
+        >
+          <div
+            className="c-loading-placeholder c-app-icon coz-nav-apps-item-icon"
+          />
+        </AppIcon>
+        <p
+          className="coz-label"
+        >
+          Drive
+        </p>
+      </a>
+    </li>
+  </AppLinker>
+</AppItem>
 `;

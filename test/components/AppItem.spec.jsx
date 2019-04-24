@@ -1,12 +1,9 @@
 import React from 'react'
 import { AppItem } from 'components/Apps/AppItem'
-import { shallow } from 'enzyme'
+import { mount } from 'enzyme'
+import toJson from 'enzyme-to-json'
 import { tMock } from '../jestLib/I18n'
-import {
-  isMobileApp,
-  isMobile,
-  openDeeplinkOrRedirect
-} from 'cozy-device-helper'
+import { isMobileApp, isMobile } from 'cozy-device-helper'
 
 jest.useFakeTimers()
 jest.mock('lib/stack', () => ({
@@ -30,106 +27,39 @@ jest.mock('cozy-device-helper', () => ({
   openDeeplinkOrRedirect: jest.fn()
 }))
 describe('app icon', () => {
-  let spyConsoleError, openNativeSpy
+  let spyConsoleError
 
   beforeEach(() => {
     global.__TARGET__ = 'browser'
     spyConsoleError = jest.spyOn(console, 'error')
-    spyConsoleError.mockImplementation(message => {
-      if (message.lastIndexOf('Warning: Failed prop type:') === 0) {
-        throw new Error(message)
-      }
-    })
-    openNativeSpy = jest.spyOn(AppItem.prototype, 'openNativeApp')
+
     isMobileApp.mockReturnValue(false)
     isMobile.mockReturnValue(false)
   })
 
   afterEach(() => {
     spyConsoleError.mockRestore()
-    openNativeSpy.mockRestore()
+    //openNativeSpy.mockRestore()
   })
 
   it('should render correctly', () => {
     const app = {
       slug: 'cozy-drive',
-      name: 'Drive'
+      name: 'Drive',
+      href: 'http://fake.fr'
     }
-    const root = shallow(<AppItem t={tMock} app={app} />)
-    expect(root.getElement()).toMatchSnapshot()
+    const root = mount(<AppItem t={tMock} app={app} />)
+    expect(toJson(root)).toMatchSnapshot()
   })
 
   it('should render correctly with target mobile and providing fetchIcon to AppIcon', () => {
     global.__TARGET__ = 'mobile'
     const app = {
       slug: 'cozy-drive',
-      name: 'Drive'
+      name: 'Drive',
+      href: 'http://fake.fr'
     }
-    const root = shallow(<AppItem t={tMock} app={app} />)
-    expect(root.getElement()).toMatchSnapshot()
-  })
-
-  it('should change the onClick handler if native app is available', () => {
-    isMobileApp.mockReturnValue(true)
-    const app = {
-      slug: 'cozy-drive',
-      name: 'Drive'
-    }
-    const root = shallow(<AppItem t={tMock} app={app} />)
-    root.find('a').simulate('click')
-    jest.runAllTimers()
-    expect(openNativeSpy).not.toHaveBeenCalled()
-    root.setState({ isMobileAppAvailable: true })
-    root.find('a').simulate('click')
-    jest.runAllTimers()
-    expect(openNativeSpy).toHaveBeenCalled()
-  })
-
-  it('should change the onClick handler to use onAppSwitch if current app is mobile', () => {
-    const app = {
-      slug: 'cozy-drive',
-      name: 'Drive'
-    }
-    const appSwitchMock = jest.fn()
-    const root = shallow(
-      <AppItem t={tMock} app={app} onAppSwitch={appSwitchMock} />
-    )
-    root.find('a').simulate('click')
-    jest.runAllTimers()
-    expect(appSwitchMock).not.toHaveBeenCalled()
-    isMobileApp.mockReturnValue(true)
-    root.setState({ isMobileAppAvailable: true })
-    root.find('a').simulate('click')
-    jest.runAllTimers()
-    expect(appSwitchMock).toHaveBeenCalled()
-  })
-
-  it('should not change the onClick handler if current app is web and target app is web too', () => {
-    const app = {
-      slug: 'cozy-store',
-      name: 'Store'
-    }
-    const appSwitchMock = jest.fn()
-    const root = shallow(
-      <AppItem t={tMock} app={app} onAppSwitch={appSwitchMock} />
-    )
-    root.find('a').simulate('click')
-    jest.runAllTimers()
-    expect(appSwitchMock).not.toHaveBeenCalled()
-  })
-
-  it('should call deeplink if the currentApp is web mobile and the other app is native', () => {
-    isMobile.mockReturnValue(true)
-    const app = {
-      slug: 'drive',
-      name: 'Drive'
-    }
-    const appSwitchMock = jest.fn()
-    const root = shallow(
-      <AppItem t={tMock} app={app} onAppSwitch={appSwitchMock} />
-    )
-    root.find('a').simulate('click', { preventDefault: () => {} })
-    jest.runAllTimers()
-    expect(openDeeplinkOrRedirect).toHaveBeenCalled()
+    const root = mount(<AppItem t={tMock} app={app} />)
+    expect(toJson(root)).toMatchSnapshot()
   })
 })
