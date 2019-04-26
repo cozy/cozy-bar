@@ -13,6 +13,7 @@ exports[`app icon should render correctly 1`] = `
 >
   <AppLinker
     href="http://fake.fr"
+    nativePath="/"
     onAppSwitch={[Function]}
     slug="cozy-drive"
   >
@@ -67,6 +68,7 @@ exports[`app icon should render correctly with target mobile and providing fetch
 >
   <AppLinker
     href="http://fake.fr"
+    nativePath="/"
     onAppSwitch={[Function]}
     slug="cozy-drive"
   >
