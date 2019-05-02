@@ -88,7 +88,7 @@
     "babel-preset-cozy-app": "1.5.1",
     "cozy-client": "6.20.0",
     "cozy-device-helper": "1.7.1",
-    "cozy-harvest-lib": "0.39.6",
+    "cozy-harvest-lib": "0.41.0",
     "cozy-interapp": "0.4.4",
     "cozy-realtime": "2.0.8",
     "cozy-ui": "19.28.0",
