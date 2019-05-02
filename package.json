@@ -91,7 +91,7 @@
     "cozy-harvest-lib": "0.39.6",
     "cozy-interapp": "0.4.4",
     "cozy-realtime": "2.0.8",
-    "cozy-ui": "19.25.1",
+    "cozy-ui": "19.28.0",
     "enzyme-to-json": "3.3.5",
     "hammerjs": "2.0.8",
     "lerna-changelog": "0.8.2",
