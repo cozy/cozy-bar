@@ -1,6 +1,6 @@
 import React from 'react'
 import { AppItem } from 'components/Apps/AppItem'
-import { mount } from 'enzyme'
+import { mount, shallow } from 'enzyme'
 import toJson from 'enzyme-to-json'
 import { tMock } from '../jestLib/I18n'
 import { isMobileApp, isMobile } from 'cozy-device-helper'
@@ -26,6 +26,38 @@ jest.mock('cozy-device-helper', () => ({
   isMobile: jest.fn(),
   openDeeplinkOrRedirect: jest.fn()
 }))
+
+const app = {
+  slug: 'cozy-drive',
+  name: 'Drive',
+  href: 'http://fake.fr'
+}
+
+describe('AppItem', () => {
+  afterEach(() => {
+    jest.restoreAllMocks()
+  })
+
+  describe('buildAppUrl', () => {
+    it('should return untouched href', () => {
+      const wrapper = shallow(<AppItem app={app} t={tMock} />)
+      const url = wrapper.instance().buildAppUrl('http://fake.fr')
+      expect(url).toBe('http://fake.fr/')
+    })
+
+    it('should update query string', () => {
+      jest.spyOn(AppItem, 'buildQueryParams').mockReturnValue({
+        foo: 'bar',
+        bar: 'buz'
+      })
+
+      const wrapper = shallow(<AppItem app={app} t={tMock} />)
+      const url = wrapper.instance().buildAppUrl('http://fake.fr')
+      expect(url).toBe('http://fake.fr/?foo=bar&bar=buz')
+    })
+  })
+})
+
 describe('app icon', () => {
   let spyConsoleError
 
@@ -54,11 +86,6 @@ describe('app icon', () => {
 
   it('should render correctly with target mobile and providing fetchIcon to AppIcon', () => {
     global.__TARGET__ = 'mobile'
-    const app = {
-      slug: 'cozy-drive',
-      name: 'Drive',
-      href: 'http://fake.fr'
-    }
     const root = mount(<AppItem t={tMock} app={app} />)
     expect(toJson(root)).toMatchSnapshot()
   })

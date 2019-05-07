@@ -9,6 +9,17 @@ import stack from 'lib/stack'
 import PropTypes from 'prop-types'
 
 export class AppItem extends React.Component {
+  /**
+   * Used to add query params to AppLinker links, useful in overrides
+   * @param  {Object} props   AppItem props
+   * @param  {Object} context AppItem context
+   * @return {Object}         Query string parameters as object
+   */
+  static buildQueryParams = () => {
+    // default behaviour
+    return null
+  }
+
   constructor(props) {
     super(props)
     this.onAppSwitch = this.onAppSwitch.bind(this)
@@ -16,6 +27,17 @@ export class AppItem extends React.Component {
 
   componentWillUnmount() {
     if (this.switchTimeout) clearTimeout(this.switchTimeout)
+  }
+
+  buildAppUrl(href) {
+    const url = new URL(href)
+    const queryParams = AppItem.buildQueryParams(this.props, this.context)
+    if (queryParams) {
+      for (const name in queryParams) {
+        url.searchParams.append(name, queryParams[name])
+      }
+    }
+    return url.toString()
   }
 
   onAppSwitch() {
@@ -46,7 +68,7 @@ export class AppItem extends React.Component {
             >
               <a
                 role="menuitem"
-                href={href}
+                href={this.buildAppUrl(href)}
                 data-icon={dataIcon}
                 title={label}
                 onClick={onClick}
