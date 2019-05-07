@@ -22,7 +22,7 @@ exports[`app icon should render correctly 1`] = `
     >
       <a
         data-icon="icon-cozy-drive"
-        href="http://fake.fr"
+        href="http://fake.fr/"
         onClick={null}
         role="menuitem"
         title="Drive"
@@ -77,7 +77,7 @@ exports[`app icon should render correctly with target mobile and providing fetch
     >
       <a
         data-icon="icon-cozy-drive"
-        href="http://fake.fr"
+        href="http://fake.fr/"
         onClick={null}
         role="menuitem"
         title="Drive"
