@@ -61,18 +61,16 @@ describe('stack client', () => {
     })
 
     it('should have initialized the realtime is the user is logged', async () => {
+      const client = {
+        ...cozyClient,
+        isLogged: true
+      }
       await init({
         ...params,
-        cozyClient: {
-          ...cozyClient,
-          isLogged: true
-        }
+        cozyClient: client
       })
       expect(initializeRealtime).toHaveBeenCalled()
-      expect(initializeRealtime.mock.calls[0][0].token).toBe('mytoken')
-      expect(initializeRealtime.mock.calls[0][0].url).toBe(
-        'https://test.mycozy.cloud'
-      )
+      expect(initializeRealtime.mock.calls[0][0].cozyClient).toBe(client)
     })
   })
 })
