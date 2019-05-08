@@ -10,7 +10,7 @@ jest.mock('lib/stack', () => ({
   get: {
     iconProps: () => {
       return global.__TARGET__ === 'mobile'
-        ? { fetchIcon: jest.fn }
+        ? { fetchIcon: jest.fn().mockResolvedValue('http://urlOfIcon') }
         : {
             // we mustn't give the protocol here
             domain: 'cozy.tools',
