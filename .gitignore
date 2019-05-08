@@ -30,4 +30,8 @@ desktop.ini
 # Build
 dist
 
+# jest coverage files
 coverage/
+
+# parcel cache
+.cache
