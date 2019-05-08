@@ -1,5 +1,6 @@
 import stack from 'lib/stack-client'
 
+import CozyClient from 'cozy-client'
 import initializeRealtime from 'lib/realtime'
 
 jest.mock('lib/realtime')
@@ -9,14 +10,12 @@ const { init } = stack
 
 describe('stack client', () => {
   describe('init', () => {
-    let cozyClient = {
-      getStackClient: () => {
-        return {
-          token: { token: 'mytoken' },
-          uri: 'https://test.mycozy.cloud'
-        }
+    let cozyClient = new CozyClient({
+      stackClient: {
+        token: { token: 'mytoken' },
+        uri: 'https://test.mycozy.cloud'
       }
-    }
+    })
     let params = {
       cozyClient,
       onCreate: function() {},

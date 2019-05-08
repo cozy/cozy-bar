@@ -1,5 +1,6 @@
 /* global __TARGET__ */
 
+import CozyClient from 'cozy-client'
 import stack from 'lib/stack-client'
 
 let oldTarget
@@ -13,9 +14,9 @@ describe("stack client", () => {
       uri: "https://test.mycozy.cloud",
     }
     
-    const cozyClient = { 
-      getStackClient: () => stackClient
-    }
+    const cozyClient = new CozyClient({ 
+      stackClient
+    })
 
     const params = {
       cozyClient,

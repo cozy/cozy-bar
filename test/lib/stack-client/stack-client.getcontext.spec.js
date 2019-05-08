@@ -1,4 +1,5 @@
 import stack from 'lib/stack-client'
+import CozyClient from 'cozy-client'
 
 import {
   ForbiddenException,
@@ -44,9 +45,9 @@ describe("stack client", () => {
       fetch: jest.fn()
     }
     
-    const cozyClient = { 
-      getStackClient: () => stackClient
-    }
+    const cozyClient = new CozyClient({ 
+      stackClient
+    })
 
     const params = {
       cozyClient,
