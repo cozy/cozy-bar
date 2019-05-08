@@ -353,13 +353,23 @@ const getSettingsAppURL = function() {
  * @returns {Promise}
  */
 const init = function({ cozyClient: client, onCreate, onDelete }) {
-  cozyClient = client
-  if (!cozyClient.isLogged) return
-  initializeRealtime({
-    getApp,
-    onCreate,
-    onDelete,
-    cozyClient
+  cozyClient = client // Setting global variable
+  let terminateRealtime
+  const onLogin = () => {
+    terminateRealtime = initializeRealtime({
+      getApp,
+      onCreate,
+      onDelete,
+      cozyClient
+    })
+  }
+  if (cozyClient.isLogged) {
+    onLogin()
+  }
+  cozyClient.once('logout', () => {
+    if (terminateRealtime) {
+      terminateRealtime()
+    }
   })
 }
 
