@@ -182,13 +182,21 @@ const init = async ({
   lang,
   iconPath = getDefaultIcon(),
   cozyClient,
-  cozyURL = getDefaultStackURL(),
-  token = getDefaultToken(),
+  cozyURL,
+  token,
   replaceTitleOnMobile = false,
   isPublic = false,
   onLogOut,
   ssl
 } = {}) => {
+  if (cozyURL === undefined && !cozyClient) {
+    cozyURL = getDefaultStackURL()
+  }
+
+  if (token === undefined && !cozyClient) {
+    token = getDefaultToken()
+  }
+
   // Force public mode in `/public` URLs
   if (/^\/public/.test(window.location.pathname)) {
     isPublic = true
