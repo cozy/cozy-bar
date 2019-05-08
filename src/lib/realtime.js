@@ -9,7 +9,7 @@ const APPS_DOCTYPE = 'io.cozy.apps'
  * @param {object}
  * @returns {Promise}
  */
-async function initializeRealtime({ getApp, onCreate, onDelete, cozyClient }) {
+function initializeRealtime({ getApp, onCreate, onDelete, cozyClient }) {
   try {
     const realtime = new CozyRealtime({ cozyClient })
 
