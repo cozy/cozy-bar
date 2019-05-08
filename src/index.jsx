@@ -257,16 +257,21 @@ const showAPIError = name =>
   )
 // apiReferences will be a proxy to the API
 const apiReferences = {}
+
+const setProxyToAPI = fnName => {
+  apiReferences[fnName] = (...args) => {
+    if (exposedAPI[fnName]) {
+      return exposedAPI[fnName](...args)
+    } else {
+      showAPIError(fnName)
+    }
+  }
+}
+
 APILocations.forEach(location => {
   const jsAPIName = getJsApiName(location)
   const reactAPIName = getReactApiName(location)
-  apiReferences[jsAPIName] = value => {
-    if (exposedAPI[jsAPIName]) {
-      return exposedAPI[jsAPIName](value)
-    } else {
-      showAPIError(jsAPIName)
-    }
-  }
+  setProxyToAPI(jsAPIName)
   apiReferences[reactAPIName] = props => {
     const React = require('react')
     if (exposedAPI[reactAPIName]) {
@@ -277,22 +282,8 @@ APILocations.forEach(location => {
   }
 })
 
-// setLocale API
-apiReferences.setLocale = (...args) => {
-  if (exposedAPI.setLocale) {
-    return exposedAPI.setLocale(...args)
-  } else {
-    showAPIError('setLocale')
-  }
-}
-
-// setTheme API
-apiReferences.setTheme = (...args) => {
-  if (exposedAPI.setTheme) {
-    return exposedAPI.setTheme(...args)
-  } else {
-    showAPIError('setTheme')
-  }
+for (let fnName of ['setLocale', 'setTheme']) {
+  setProxyToAPI(fnName)
 }
 
 module.exports = {
