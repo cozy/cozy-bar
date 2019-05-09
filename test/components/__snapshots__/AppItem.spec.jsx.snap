@@ -91,7 +91,27 @@ exports[`app icon should render correctly with target mobile and providing fetch
             }
           }
           className="coz-nav-apps-item-icon"
-          fetchIcon={[Function]}
+          fetchIcon={
+            [MockFunction] {
+              "calls": Array [
+                Array [
+                  Object {
+                    "href": "http://fake.fr",
+                    "name": "Drive",
+                    "slug": "cozy-drive",
+                  },
+                  undefined,
+                  undefined,
+                ],
+              ],
+              "results": Array [
+                Object {
+                  "isThrow": false,
+                  "value": Promise {},
+                },
+              ],
+            }
+          }
           key="cozy-drive"
         >
           <div
