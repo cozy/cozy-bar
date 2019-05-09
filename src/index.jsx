@@ -2,6 +2,7 @@
 
 'use strict'
 
+import CozyClient from 'cozy-client'
 import stack from 'lib/stack'
 import {
   getLocale,
@@ -10,7 +11,6 @@ import {
   setLocale,
   setInfos
 } from 'lib/reducers'
-
 import {
   locations as APILocations,
   getJsApiName,
@@ -97,23 +97,27 @@ const getAppNodeDataSet = () => {
   return appNode.dataset
 }
 
-const getDefaultStackURL = () => {
+const getDefaultStackURL = isPublic => {
   const data = getAppNodeDataSet()
   if (!data.cozyDomain) {
-    console.warn(
-      `Cozy-bar can't discover the cozy's URL, and will probably fail to initialize the connection with the stack.`
-    )
+    if (!isPublic) {
+      console.warn(
+        `Cozy-bar can't discover the cozy's URL, and will probably fail to initialize the connection with the stack.`
+      )
+    }
     return ''
   }
   return data.cozyDomain
 }
 
-const getDefaultToken = () => {
+const getDefaultToken = isPublic => {
   const data = getAppNodeDataSet()
   if (!data.cozyToken) {
-    console.warn(
-      `Cozy-bar can't discover the app's token, and will probably fail to initialize the connection with the stack.`
-    )
+    if (!isPublic) {
+      console.warn(
+        `Cozy-bar can't discover the app's token, and will probably fail to initialize the connection with the stack.`
+      )
+    }
     return ''
   }
   return data.cozyToken
@@ -186,21 +190,27 @@ const init = async ({
   token,
   replaceTitleOnMobile = false,
   isPublic = false,
-  onLogOut,
-  ssl
+  onLogOut
 } = {}) => {
-  if (cozyURL === undefined && !cozyClient) {
-    cozyURL = getDefaultStackURL()
-  }
-
-  if (token === undefined && !cozyClient) {
-    token = getDefaultToken()
-  }
-
   // Force public mode in `/public` URLs
-  if (/^\/public/.test(window.location.pathname)) {
+  if (!isPublic && /^\/public/.test(window.location.pathname)) {
     isPublic = true
   }
+
+  if (!cozyClient) {
+    const ccURI = cozyURL || getDefaultStackURL(isPublic)
+    const ccToken = token || getDefaultToken(isPublic)
+    const ccOptions = {
+      uri: ccURI,
+      token: ccToken
+    }
+    console.warn('Automatically made cozyClient. Options: ', ccOptions)
+    cozyClient = new CozyClient({})
+    // TODO, initializing CozyClient with a uri/token should automatically
+    // call login(). Without login(), CozyClient.isLogged is false.
+    cozyClient.login(ccOptions)
+  }
+
   // store
   const getOrCreateStore = require('lib/store').default
   const reduxStore = getOrCreateStore()
@@ -208,12 +218,8 @@ const init = async ({
   reduxStore.dispatch(setInfos(appName, appNamePrefix, appSlug))
   stack.init({
     cozyClient,
-    cozyURL,
-    token,
     onCreate: data => reduxStore.dispatch(onRealtimeCreate(data)),
-    onDelete: data => reduxStore.dispatch(onRealtimeDelete(data)),
-    ssl,
-    isPublic
+    onDelete: data => reduxStore.dispatch(onRealtimeDelete(data))
   })
   if (lang) {
     reduxStore.dispatch(setLocale(lang))

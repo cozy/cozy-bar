@@ -4,7 +4,6 @@
 import { Intents } from 'cozy-interapp'
 import getIcon from 'lib/icon'
 import initializeRealtime from 'lib/realtime'
-import normalizeURL from 'lib/normalize-url'
 
 import {
   ForbiddenException,
@@ -145,20 +144,13 @@ export const getAppIconProps = () => {
 }
 
 export default {
-  async init({ cozyURL, token, onCreate, onDelete, ssl, isPublic }) {
-    const url = normalizeURL(cozyURL, ssl)
-    // The 4 following constant are global variables for the module
-    COZY_URL = url.origin
-    COZY_HOST = url.host
-    USE_SSL = url.protocol === 'https:'
-    COZY_TOKEN = token
-    if (isPublic) return
+  async init({ cozyClient, onCreate, onDelete }) {
+    if (!cozyClient.isLogged) return
     await initializeRealtime({
       getApp,
       onCreate,
       onDelete,
-      token: COZY_TOKEN,
-      url: COZY_URL
+      cozyClient
     })
   },
   updateAccessToken(token) {

@@ -1,9 +1,16 @@
+import CozyClient from 'cozy-client'
 import internal from 'lib/stack-internal.js'
 import client from 'lib/stack-client.js'
 import stack from 'lib/stack.js'
+import { createFakeCozyClient } from 'lib/fakeCozyClient'
 
 const cozyURL = 'https://test.mycozy.cloud'
 const token = 'mytoken'
+const fakeStackClient = {
+  uri: cozyURL,
+  token: { token }
+}
+const fakeCozyClient = createFakeCozyClient(cozyURL, token)
 const onCreate = function() {}
 const onDelete = function() {}
 
@@ -21,7 +28,7 @@ describe('stack proxy', () => {
   })
 
   describe('when initialized with an cozyURL + token', () => {
-    const params = { cozyURL, token, onCreate, onDelete }
+    const params = { cozyClient: fakeCozyClient, onCreate, onDelete }
 
     beforeAll(() => {
       jest.clearAllMocks()
@@ -48,16 +55,8 @@ describe('stack proxy', () => {
   })
 
   describe('when initialized with a cozy-client instance', () => {
-    const cozyClient = {
-      getStackClient: () => {
-        return {
-          token: { token: 'mytoken' },
-          uri: 'https://test.mycozy.cloud'
-        }
-      }
-    }
     const params = {
-      cozyClient,
+      cozyClient: new CozyClient({ fakeStackClient }),
       onCreate: function() {},
       onDelete: function() {}
     }
@@ -82,12 +81,13 @@ describe('stack proxy', () => {
     jest.clearAllMocks()
     jest.resetModules()
     const stack = require('lib/stack').default
-    const params = { cozyURL, token, onCreate, onDelete }
 
     expect(() => {
       stack.getStack()
     }).toThrowErrorMatchingSnapshot()
-    stack.init(params)
+
+    const fakeCozyClient = createFakeCozyClient(cozyURL, token)
+    stack.init({ cozyClient: fakeCozyClient, onCreate, onDelete })
     expect(() => {
       stack.getStack()
     }).not.toThrowError()

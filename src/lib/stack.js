@@ -41,7 +41,7 @@ const current = function() {
  * @returns {Promise}
  */
 const init = function(options) {
-  stack = options.cozyClient ? client : internal
+  stack = options.cozyClient.isFakeCozyClient ? internal : client
   return stack.init(options)
 }
 
