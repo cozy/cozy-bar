@@ -1,6 +1,13 @@
 import CozyRealtime from 'cozy-realtime'
+import CozyClient from 'cozy-client'
 
 const APPS_DOCTYPE = 'io.cozy.apps'
+
+const makeClient = (cozyURL, token) => {
+  const client = new CozyClient()
+  client.login({ uri: cozyURL, token })
+  return client
+}
 
 /**
  * Initialize realtime sockets
@@ -9,9 +16,18 @@ const APPS_DOCTYPE = 'io.cozy.apps'
  * @param {object}
  * @returns {Promise}
  */
-async function initializeRealtime({ getApp, onCreate, onDelete, cozyClient }) {
+async function initializeRealtime({
+  getApp,
+  onCreate,
+  onDelete,
+  cozyClient,
+  cozyURL,
+  token
+}) {
   try {
-    const realtime = new CozyRealtime({ cozyClient })
+    const realtime = new CozyRealtime({
+      cozyClient: cozyClient || makeClient(cozyURL, token)
+    })
 
     realtime.subscribe('created', APPS_DOCTYPE, async app => {
       // Fetch directly the app to get attributes `related` as well.
