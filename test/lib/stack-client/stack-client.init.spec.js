@@ -1,6 +1,5 @@
 import stack from 'lib/stack-client'
 
-import internal from 'lib/stack-internal'
 import initializeRealtime from 'lib/realtime'
 
 jest.mock('lib/realtime')
@@ -24,17 +23,8 @@ describe('stack client', () => {
       onDelete: function() {}
     }
 
-    beforeAll(async () => {
-      jest.spyOn(internal, 'init').mockResolvedValue(undefined)
-    })
-
     afterAll(() => {
       jest.restoreAllMocks()
-    })
-
-    it('should not called internal client', async () => {
-      await init(params)
-      expect(internal.init).not.toHaveBeenCalled()
     })
 
     it('should not have initialized the realtime if the user is not logged', async () => {
@@ -61,18 +51,16 @@ describe('stack client', () => {
     })
 
     it('should have initialized the realtime is the user is logged', async () => {
+      const client = {
+        ...cozyClient,
+        isLogged: true
+      }
       await init({
         ...params,
-        cozyClient: {
-          ...cozyClient,
-          isLogged: true
-        }
+        cozyClient: client
       })
       expect(initializeRealtime).toHaveBeenCalled()
-      expect(initializeRealtime.mock.calls[0][0].token).toBe('mytoken')
-      expect(initializeRealtime.mock.calls[0][0].url).toBe(
-        'https://test.mycozy.cloud'
-      )
+      expect(initializeRealtime.mock.calls[0][0].cozyClient).toBe(client)
     })
   })
 })

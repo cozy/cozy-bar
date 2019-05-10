@@ -359,9 +359,7 @@ const init = function({ cozyClient: client, onCreate, onDelete }) {
     getApp,
     onCreate,
     onDelete,
-    // Token structure differs between web and mobile
-    token: getStackClient().token.token || getStackClient().token.accessToken,
-    url: getCozyURLOrigin()
+    cozyClient
   })
 }
 

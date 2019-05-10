@@ -1,7 +1,5 @@
 import stack from 'lib/stack-client'
 
-import internal from 'lib/stack-internal'
-
 describe("stack client", () => {
 
   describe("getApps", () => {
@@ -50,17 +48,11 @@ describe("stack client", () => {
     }
 
     beforeAll( async () => {
-      jest.spyOn(internal.get, 'apps').mockResolvedValue(undefined)
       await stack.init(params)
     })
 
     afterAll(() => {
       jest.restoreAllMocks()
-    })
-
-    it("should not forward to the old internal client", async () => {
-      await stack.get.apps()
-      expect( internal.get.apps ).not.toHaveBeenCalled()
     })
 
     it("should return the `data` content", async () => {

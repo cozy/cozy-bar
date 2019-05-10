@@ -1,7 +1,5 @@
 import stack from 'lib/stack-client'
 
-import internal from 'lib/stack-internal'
-
 import {
   ForbiddenException,
   ServerErrorException,
@@ -57,7 +55,6 @@ describe("stack client", () => {
     }
 
     beforeAll( async () => {
-      jest.spyOn(internal.get, 'context').mockResolvedValue(undefined)
       await stack.init(params)
     })
 
@@ -74,12 +71,6 @@ describe("stack client", () => {
       await stack.get.context().catch(() => undefined)
       await stack.get.context().catch(() => undefined)
       expect( stackClient.fetch ).toHaveBeenCalledTimes(2)
-    })
-
-    it("should not forward to the old internal client", async () => {
-      stackClient.fetch.mockResolvedValue(context200)
-      await stack.get.context()
-      expect( internal.get.context ).not.toHaveBeenCalled()
     })
 
     it("should return the raw json content", async () => {

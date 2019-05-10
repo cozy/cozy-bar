@@ -1,4 +1,12 @@
-import internal from 'lib/stack-internal.js'
+/**
+ * This file served as a proxy between the old internal stack client from the
+ * bar and the new stack-client included in cozy-client. It is no longer
+ * necessary as there is no more internal-client. It is there only temporarily
+ * and should be removed as soon as possible.
+ *
+ * @TODO remove this and update the tests.
+ */
+
 import client from 'lib/stack-client'
 
 /**
@@ -41,7 +49,7 @@ const current = function() {
  * @returns {Promise}
  */
 const init = function(options) {
-  stack = options.cozyClient ? client : internal
+  stack = client
   return stack.init(options)
 }
 
