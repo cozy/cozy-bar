@@ -3793,13 +3793,13 @@ cosmiconfig@^5.0.1:
     js-yaml "^3.9.0"
     parse-json "^4.0.0"
 
-cozy-client@6.24.0:
-  version "6.24.0"
-  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-6.24.0.tgz#3bbc25c18f279ac8d12bced3ae6df21c5d006bbc"
-  integrity sha512-57SYkytcOfJXLKuz9fQ67hhiyS5CDOlclDPApDWokGd6UDyAuqtjqSiUJ4uuQVlKXKTzcssS8bAMzApQe6JpPw==
+cozy-client@6.28.0:
+  version "6.28.0"
+  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-6.28.0.tgz#0db0a084ee48912f9c942f057b5c3c2938625f65"
+  integrity sha512-XTrZjfVcG7VzTsdFCopK7BJoBdEiHqHCwPlyIKzk3KwBWhmr1FLPwoQVHiHq8EXRuAHSYczlguRqCdfRE+h+gw==
   dependencies:
     cozy-device-helper "1.6.3"
-    cozy-stack-client "^6.24.0"
+    cozy-stack-client "^6.25.0"
     lodash "4.17.11"
     microee "0.0.6"
     prop-types "15.6.2"
@@ -3847,7 +3847,7 @@ cozy-realtime@3.0.0:
   dependencies:
     minilog "3.1.0"
 
-cozy-stack-client@^6.24.0:
+cozy-stack-client@^6.25.0:
   version "6.25.0"
   resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-6.25.0.tgz#4fc50087d900be4b0976ceca3606c77703cf5f52"
   integrity sha512-SY7450Yg9n9HDcPsMaNgfTcId5rXOR7hpzyCo1OUZoLINOGlG9Crd10p01aiOLSbvw8z1piKJnGyxYSSrmBOXA==
