@@ -22,11 +22,26 @@ window.startApp = {
   start: resolve => resolve()
 }
 
+const isInitializedWithCozyClient = () => {
+  const v = localStorage.getItem('init-without-cozy-client')
+  return v === 'true' || v === null
+}
+
+const toggleCozyClientInitialization = () => {
+  const v = isInitializedWithCozyClient()
+  localStorage.setItem('init-without-cozy-client', v ? 'false' : 'true')
+  window.location.reload()
+}
+
 const Index = withClient(({ client }) => {
   return (
     <Layout>
       <Main>
         <div className="u-m-1">
+          Initialized with CozyClient:{' '}
+          {isInitializedWithCozyClient() ? 'yes' : 'no'}
+          <button onClick={toggleCozyClientInitialization}>toggle</button>
+          <br />
           You are logged in on {client.stackClient.uri} !<br />
           Client options: <pre>{JSON.stringify(client.options, null, 2)}</pre>
         </div>
@@ -56,16 +71,22 @@ const client = new CozyClient({
 
 // TODO bar: should only need a correctly configured client
 client.on('login', () => {
+  const oldOptions = {
+    token: client.stackClient.token.accessToken,
+    cozyURL: client.stackClient.uri
+  }
+  const newOptions = {
+    cozyClient: client
+  }
   cozy.bar.init({
     appNamePrefix: 'Cozy',
     appName: appInfo.name,
     appEditor: appInfo.editor,
     appSlug: appInfo.slug,
-    cozyClient: client,
-    cozyURL: client.uri,
     iconPath: appIcon,
     lang: 'en',
     replaceTitleOnMobile: true,
+    ...(isInitializedWithCozyClient() ? newOptions : oldOptions),
     // This should be done automatically
     onLogOut: async () => {
       await client.logout()
