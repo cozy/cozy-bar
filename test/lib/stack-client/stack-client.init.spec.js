@@ -1,6 +1,5 @@
 import stack from 'lib/stack-client'
 
-import internal from 'lib/stack-internal'
 import initializeRealtime from 'lib/realtime'
 
 jest.mock('lib/realtime')
@@ -24,17 +23,8 @@ describe('stack client', () => {
       onDelete: function() {}
     }
 
-    beforeAll(async () => {
-      jest.spyOn(internal, 'init').mockResolvedValue(undefined)
-    })
-
     afterAll(() => {
       jest.restoreAllMocks()
-    })
-
-    it('should not called internal client', async () => {
-      await init(params)
-      expect(internal.init).not.toHaveBeenCalled()
     })
 
     it('should not have initialized the realtime if the user is not logged', async () => {

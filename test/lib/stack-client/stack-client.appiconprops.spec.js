@@ -2,8 +2,6 @@
 
 import stack from 'lib/stack-client'
 
-import internal from 'lib/stack-internal'
-
 let oldTarget
 
 describe("stack client", () => {
@@ -27,18 +25,12 @@ describe("stack client", () => {
 
     beforeAll(async () => {
       oldTarget = global.__TARGET__
-      jest.spyOn(internal.get, 'iconProps').mockResolvedValue(undefined)
       await stack.init(params)
     })
 
     afterAll(() => {
       jest.restoreAllMocks()
       global.__TARGET__ = oldTarget
-    })
-
-    it("should not forward to the old internal client", () => {
-      stack.get.iconProps()
-      expect( internal.get.iconProps ).not.toHaveBeenCalled()
     })
 
     describe("for target=browser", () => {

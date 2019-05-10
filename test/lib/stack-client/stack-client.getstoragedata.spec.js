@@ -1,7 +1,5 @@
 import stack from 'lib/stack-client'
 
-import internal from 'lib/stack-internal'
-
 describe("stack client", () => {
 
   describe("getStorageData", () => {
@@ -58,7 +56,6 @@ describe("stack client", () => {
     }
 
     beforeAll( async () => {
-      jest.spyOn(internal.get, 'storageData').mockResolvedValue(undefined)
       await stack.init(params)
     })
 
@@ -69,11 +66,6 @@ describe("stack client", () => {
 
     afterAll(() => {
       jest.restoreAllMocks()
-    })
-
-    it("should not forward to the old internal client", async () => {
-      await stack.get.storageData()
-      expect( internal.get.storageData ).not.toHaveBeenCalled()
     })
 
     it("should return a decidated object", async () => {

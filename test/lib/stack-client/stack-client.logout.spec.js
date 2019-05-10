@@ -1,7 +1,5 @@
 import stack from 'lib/stack-client'
 
-import internal from 'lib/stack-internal'
-
 describe("stack client", () => {
 
   describe("logout", () => {
@@ -23,17 +21,12 @@ describe("stack client", () => {
     }
 
     beforeAll(async () => {
-      jest.spyOn(internal, 'logout').mockResolvedValue(undefined)
       await stack.init(params)
       await stack.logout()
     })
 
     afterAll(() => {
       jest.restoreAllMocks()
-    })
-
-    it("should not forward to the old internal client", () => {
-      expect( internal.logout ).not.toHaveBeenCalled()
     })
 
     it("should have called cozy-client", () => {
