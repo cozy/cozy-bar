@@ -3823,10 +3823,10 @@ cozy-device-helper@1.7.1:
   dependencies:
     lodash "4.17.11"
 
-cozy-harvest-lib@0.43.0:
-  version "0.43.0"
-  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-0.43.0.tgz#c59def5058cfa5c09d87ecc4e79972d3d0f8277e"
-  integrity sha512-vD7pxbH4FaqMF2Kp3qoLi5GLlXxv+qUzjYbT3EHwymnCrr1MGh7AcOaWEOCot59hhke2MgKyqevBTOZrKlPntg==
+cozy-harvest-lib@0.45.0:
+  version "0.45.0"
+  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-0.45.0.tgz#9eb81017aaa8596fa3d0296927474b419f9c7dbd"
+  integrity sha512-0NWUpfgLHHn27OJgzyVQ9Cb73qsVHDxjBZ8Lne+qhL+iw8cHDfzaKODs0vmG47L9e2i6tolRXMP7R3bOA1KIig==
   dependencies:
     final-form "4.11.1"
     lodash "4.17.11"
