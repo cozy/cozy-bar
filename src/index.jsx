@@ -2,7 +2,6 @@
 
 'use strict'
 
-import CozyClient from 'cozy-client'
 import stack from 'lib/stack'
 import {
   getLocale,
@@ -205,6 +204,7 @@ const init = async ({
       token: ccToken
     }
     console.warn('Automatically made cozyClient. Options: ', ccOptions)
+    const CozyClient = require('cozy-client').default
     cozyClient = new CozyClient({})
     // TODO, initializing CozyClient with a uri/token should automatically
     // call login(). Without login(), CozyClient.isLogged is false.
