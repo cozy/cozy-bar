@@ -1,21 +1,21 @@
 [role=banner] {
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
   z-index: var(--z-index-bar);
-  min-height: 3em;
-  flex-shrink: 0;
   display: flex;
   align-items: stretch;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 3em;
   font-family: Lato, sans-serif;
   font-size: 1rem;
 }
 
-@media (max-width: 64em) {
+@media (min-width: 64rem) {
   [role=banner] {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    box-sizing: border-box;
+    position: relative;
   }
 }
 
