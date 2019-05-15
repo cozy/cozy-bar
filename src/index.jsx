@@ -106,7 +106,9 @@ const getDefaultStackURL = isPublic => {
     }
     return ''
   }
-  return data.cozyDomain
+
+  const protocol = window.location.protocol
+  return `${protocol}//${data.cozyDomain}`
 }
 
 const getDefaultToken = isPublic => {
