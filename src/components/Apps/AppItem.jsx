@@ -55,7 +55,11 @@ export class AppItem extends React.Component {
     const dataIcon = app.slug ? `icon-${app.slug}` : ''
 
     return (
-      <AppLinker onAppSwitch={this.onAppSwitch} slug={app.slug} href={app.href}>
+      <AppLinker
+        onAppSwitch={this.onAppSwitch}
+        slug={app.slug}
+        href={this.buildAppUrl(app.href)}
+      >
         {({ onClick, href }) => {
           const label = t(`${app.slug}.name`, {
             _: app.namePrefix ? `${app.namePrefix} ${app.name}` : app.name
@@ -68,7 +72,7 @@ export class AppItem extends React.Component {
             >
               <a
                 role="menuitem"
-                href={this.buildAppUrl(href)}
+                href={href}
                 data-icon={dataIcon}
                 title={label}
                 onClick={onClick}
