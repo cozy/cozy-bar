@@ -160,7 +160,10 @@ class SearchBar extends Component {
       })
       delete source.resolvers[event.data.id]
     } else {
-      console.log('unhandled message:', event)
+      //We remove react devTools message.
+      if (!/^react-devtools/gi.test(event.data.source)) {
+        console.log('unhandled message:', event)
+      }
     }
   }
 
