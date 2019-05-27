@@ -3,6 +3,7 @@ import { translate } from 'cozy-ui/react/I18n'
 import Autosuggest from 'react-autosuggest'
 import debounce from 'lodash.debounce'
 import { fetchRawIntent } from 'lib/intents'
+import logger from 'lib/logger'
 
 const INTENT_VERB = 'OPEN'
 const INTENT_DOCTYPE = 'io.cozy.suggestions'
@@ -160,10 +161,7 @@ class SearchBar extends Component {
       })
       delete source.resolvers[event.data.id]
     } else {
-      //We remove react devTools message.
-      if (!/^react-devtools/gi.test(event.data.source)) {
-        console.log('unhandled message:', event)
-      }
+      logger.log('unhandled message:', event)
     }
   }
 
