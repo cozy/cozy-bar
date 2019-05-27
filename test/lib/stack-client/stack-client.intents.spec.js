@@ -1,5 +1,6 @@
 import { Intents } from 'cozy-interapp'
 import stack from 'lib/stack-client'
+import CozyClient from 'cozy-client'
 
 describe('stack client', () => {
   describe('intents', () => {
@@ -8,9 +9,9 @@ describe('stack client', () => {
       uri: 'https://test.mycozy.cloud'
     }
 
-    const cozyClient = {
-      getStackClient: () => stackClient
-    }
+    const cozyClient = new CozyClient({
+      stackClient
+    })
 
     const params = {
       cozyClient,

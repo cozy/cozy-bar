@@ -1,4 +1,5 @@
 import stack from 'lib/stack-client'
+import CozyClient from 'cozy-client'
 
 describe("stack client", () => {
 
@@ -14,15 +15,15 @@ describe("stack client", () => {
       },
       json
     })
-    let cozyClient = { 
-      getStackClient: () => {
-        return {
-          token: { token: "mytoken"},
-          uri: "https://test.mycozy.cloud",
-          fetch
-        }
+
+    let cozyClient = new CozyClient({ 
+      stackClient: {
+        token: { token: "mytoken"},
+        uri: "https://test.mycozy.cloud",
+        fetch
       }
-    }
+    })
+
     let params = {
         cozyClient,
         onCreateApp: function() {},
