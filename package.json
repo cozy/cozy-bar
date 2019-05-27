@@ -97,7 +97,7 @@
     "cozy-client": "6.24.0",
     "cozy-device-helper": "1.7.1",
     "cozy-harvest-lib": "0.43.0",
-    "cozy-interapp": "0.4.4",
+    "cozy-interapp": "0.4.5",
     "cozy-realtime": "3.0.0-beta.11",
     "cozy-ui": "19.36.1",
     "enzyme-to-json": "3.3.5",
