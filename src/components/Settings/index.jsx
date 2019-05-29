@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import { translate } from 'cozy-ui/react/I18n'
+import { Button } from 'cozy-ui/react/Button'
 
 import SettingsContent from 'components/Settings/SettingsContent'
 import {
@@ -68,16 +69,16 @@ class Settings extends Component {
           this.rootRef = ref
         }}
       >
-        <button
+        <Button
           type="button"
+          theme="text"
           onClick={this.toggleMenu}
           className="coz-nav-settings-btn"
           aria-controls="coz-nav-pop--settings"
-          aria-busy={isBusy}
-          data-icon="icon-cog"
-        >
-          {t('menu.settings')}
-        </button>
+          busy={isBusy}
+          icon="gear"
+          label={t('menu.settings')}
+        />
         <div
           className="coz-nav-pop coz-nav-pop--settings"
           id="coz-nav-pop--settings"
