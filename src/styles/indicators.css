@@ -8,25 +8,6 @@
   }
 }
 
-[role=banner] [aria-busy=true] {
-  position: relative;
-}
-
-[role=banner] [aria-busy=true]::after {
-  content: "";
-  position: absolute;
-  right: 0;
-  top: 0;
-  display: block;
-  width: 1em;
-  height: 1em;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-image: url("~assets/icons/spinner.svg");
-  animation: 1s linear infinite spin;
-}
-
 /* Progress bar */
 [role=banner] progress[value] {
   /* Reset the default appearance */

@@ -35,14 +35,6 @@
   background-image: url(~assets/icons/16/icon-storage-16.svg);
 }
 
-[role=banner] [data-icon='icon-cog'] {
-  background-image: url(~assets/icons/16/icon-cog-16.svg);
-}
-
-[role=banner] [data-icon='icon-claudy'] {
-  background-image: url(~assets/icons/16/icon-claudy.svg);
-}
-
 [role=banner] .u-flex-grow {
   display: flex;
   flex-grow: 1;

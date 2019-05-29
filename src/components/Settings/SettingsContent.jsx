@@ -2,6 +2,7 @@
 import React from 'react'
 
 import { translate } from 'cozy-ui/react/I18n'
+import { Button } from 'cozy-ui/react/Button'
 
 import StorageData from 'components/Settings/StorageData'
 
@@ -46,16 +47,16 @@ const Settings = ({
     {isDrawer && onClaudy && __TARGET__ !== 'mobile' && (
       <ul className="coz-nav-group">
         <li className="coz-nav-settings-item">
-          <button
+          <Button
             type="button"
             role="menuitem"
-            data-icon="icon-claudy"
-            aria-busy={isClaudyLoading}
+            className="coz-nav-settings-item-btn"
+            icon="cozy-negative"
+            busy={isClaudyLoading}
             onClick={onClaudy}
             title={t('claudy.title')}
-          >
-            {t('claudy.title')}
-          </button>
+            label={t('claudy.title')}
+          />
         </li>
       </ul>
     )}
@@ -78,15 +79,15 @@ const Settings = ({
     {__TARGET__ !== 'mobile' && (
       <ul className="coz-nav-group">
         <li className="coz-nav-settings-item">
-          <button
+          <Button
             type="button"
             role="menuitem"
+            className="coz-nav-settings-item-btn"
             onClick={toggleSupport}
-            data-icon="icon-help"
+            icon="help"
             title={t('help')}
-          >
-            {t('help')}
-          </button>
+            label={t('help')}
+          />
         </li>
       </ul>
     )}

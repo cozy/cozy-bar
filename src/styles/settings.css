@@ -1,17 +1,9 @@
 [role=banner] .coz-nav-settings-btn {
-  display: flex;
-  align-items: baseline;
-  padding: 1rem 1rem;
-  font-size: .875em;
-  text-transform: uppercase;
   color: var(--slateGrey);
-  cursor: pointer;
-  text-decoration: none;
-  border: none;
-  background-color: transparent;
-  line-height: 1rem;
 }
-
+[role=banner] .coz-nav-settings-btn svg {
+  fill: var(--coolGrey);
+}
 [role=banner] .coz-nav-settings-btn:hover,
 [role=banner] .coz-nav-settings-btn:focus {
   background-color: var(--paleGrey);
@@ -28,6 +20,7 @@
   z-index: 0;
   display: block;
   box-sizing: border-box;
+  margin: 0;
   width: 100%;
   padding: .8em 1.5em .8em calc(1.5em + 16px + .5em);
   border: none;
@@ -35,8 +28,17 @@
   background-position: 1.5em 50%;
   background-color: transparent;
   text-align: left;
+  font-size: 1rem;
+  font-weight: normal;
   white-space: nowrap;
   color: var(--charcoalGrey);
+  text-transform: none;
   text-decoration: none;
   outline: none;
+}
+[role=banner] .coz-nav-settings-item .coz-nav-settings-item-btn[role=menuitem] {
+  padding-left: 1.5rem;
+}
+[role=banner] .coz-nav-settings-item .coz-nav-settings-item-btn[role=menuitem] > span > span {
+  margin-right: auto;
 }
