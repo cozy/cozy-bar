@@ -1,23 +1,21 @@
 import stack from 'lib/stack-client'
 import CozyClient from 'cozy-client'
 
-describe("stack client", () => {
-
-  describe("cozyURL", () => {
-
+describe('stack client', () => {
+  describe('cozyURL', () => {
     const stackClient = {
-      token: { token: "mytoken"},
-      uri: "https://test.mycozy.cloud",
+      token: { token: 'mytoken' },
+      uri: 'https://test.mycozy.cloud'
     }
-    
-    const cozyClient = new CozyClient({ 
+
+    const cozyClient = new CozyClient({
       stackClient
     })
 
     const params = {
       cozyClient,
       onCreateApp: function() {},
-      onDeleteApp: function() {},
+      onDeleteApp: function() {}
     }
 
     beforeAll(async () => {
@@ -28,10 +26,8 @@ describe("stack client", () => {
       jest.restoreAllMocks()
     })
 
-    it("should give back the origin of cozy-client", () => {
-      expect( stack.get.cozyURL() ).toBe("https://test.mycozy.cloud")
+    it('should give back the origin of cozy-client', () => {
+      expect(stack.get.cozyURL()).toBe('https://test.mycozy.cloud')
     })
-
   })
-
 })

@@ -12,9 +12,9 @@ describe('stack client', () => {
   describe('init', () => {
     let cozyClient, params
 
-    const setup = async({ isLogged, isPublic }) => {
+    const setup = async ({ isLogged, isPublic }) => {
       if (isLogged === undefined) {
-        throw new Error("Please define explicity isLogged in your tests.")
+        throw new Error('Please define explicity isLogged in your tests.')
       }
       cozyClient = new CozyClient({
         token: { token: 'mytoken' },
@@ -40,7 +40,7 @@ describe('stack client', () => {
     })
 
     it('should not have initialized the realtime if the user is not logged even if isPublic is set to false', async () => {
-      await setup({ isLogged: false, isPublic: false})
+      await setup({ isLogged: false, isPublic: false })
       expect(initializeRealtime).toHaveBeenCalledTimes(0)
     })
 
