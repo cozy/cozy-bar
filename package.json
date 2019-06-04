@@ -17,12 +17,9 @@
     "prepublishOnly": "yarn build",
     "build": "npm-run-all --parallel 'build:*' 'build:*:*'",
     "webpack": "webpack --config ./config/webpack.js",
-    "build:browser": "yarn run webpack",
-    "build:mobile": "yarn run webpack --env.target=mobile",
-    "build:browser:min": "yarn run webpack --env.production",
-    "build:mobile:min": "yarn run webpack --env.production --env.target=mobile",
+    "build:development": "yarn run webpack",
+    "build:production": "yarn run webpack --env.production",
     "watch": "yarn run webpack --watch --display-chunks",
-    "watch:mobile": "yarn run watch --env.target=mobile",
     "clean": "rm -rf ./dist/*",
     "lint": "eslint '{config,src,examples,test}/**/*.{js,jsx}'",
     "prebuild": "npm-run-all lint clean tx",
@@ -155,7 +152,6 @@
     ],
     "globals": {
       "__ALLOW_HTTP__": false,
-      "__TARGET__": "browser",
       "__SENTRY_TOKEN__": "token",
       "__DEVELOPMENT__": false,
       "__VERSION__": "4.5.0"

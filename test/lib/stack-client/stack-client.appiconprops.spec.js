@@ -1,8 +1,6 @@
 import CozyClient from 'cozy-client'
 import stack from 'lib/stack-client'
 
-let oldTarget
-
 describe('stack client', () => {
   describe('getAppIconProps', () => {
     const stackClient = {
@@ -21,18 +19,16 @@ describe('stack client', () => {
     }
 
     beforeAll(async () => {
-      oldTarget = global.__TARGET__
       await stack.init(params)
     })
 
     afterAll(() => {
       jest.restoreAllMocks()
-      global.__TARGET__ = oldTarget
     })
 
     describe('for target=browser', () => {
       beforeAll(() => {
-        global.__TARGET__ = 'browser'
+        window.cordova = null
       })
 
       it('should have `domain` and `secure` set', () => {
@@ -49,7 +45,7 @@ describe('stack client', () => {
 
     describe('for target=mobile', () => {
       beforeAll(() => {
-        global.__TARGET__ = 'mobile'
+        window.cordova = {}
       })
 
       it('should note have `domain` and `secure` set', () => {

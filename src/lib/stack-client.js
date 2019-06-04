@@ -1,4 +1,3 @@
-/* global __TARGET__ */
 /* eslint-env browser */
 
 import { Intents } from 'cozy-interapp'
@@ -286,7 +285,7 @@ const iconFetcher = function(iconPath) {
  * @returns {Object}
  */
 const getAppIconProps = function() {
-  const isMobile = __TARGET__ === 'mobile'
+  const isMobile = window.cordova
 
   const mobileAppIconProps = {
     fetchIcon: app => getIcon(iconFetcher, app, true)

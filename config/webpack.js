@@ -1,7 +1,6 @@
 'use strict'
 
 const path = require('path')
-const webpack = require('webpack')
 const merge = require('webpack-merge')
 const vars = require('./webpack.vars')
 
@@ -26,12 +25,7 @@ module.exports = (env = {}) => {
       output: {
         filename: filename('js', mobile ? 'mobile' : ''),
         path: path.resolve(__dirname, '../dist')
-      },
-      plugins: [
-        new webpack.DefinePlugin({
-          __TARGET__: JSON.stringify(mobile ? 'mobile' : 'browser')
-        })
-      ]
+      }
     }
   )
 }

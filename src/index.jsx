@@ -1,4 +1,4 @@
-/* global __TARGET__, __VERSION__ */
+/* global __VERSION__ */
 
 'use strict'
 
@@ -22,10 +22,11 @@ require('lib/importIcons')
 const APP_SELECTOR = '[role=application]'
 
 const createBarElement = () => {
+  const target = window.cordova ? 'mobile' : 'browser'
   const barNode = document.createElement('div')
   barNode.setAttribute('id', 'coz-bar')
   barNode.setAttribute('role', 'banner')
-  barNode.classList.add(`coz-target--${__TARGET__}`)
+  barNode.classList.add(`coz-target--${target}`)
   return barNode
 }
 

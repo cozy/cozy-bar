@@ -9,7 +9,7 @@ jest.useFakeTimers()
 jest.mock('lib/stack', () => ({
   get: {
     iconProps: () => {
-      return global.__TARGET__ === 'mobile'
+      return window.cordova
         ? { fetchIcon: jest.fn().mockResolvedValue('http://urlOfIcon') }
         : {
             // we mustn't give the protocol here
@@ -62,7 +62,6 @@ describe('app icon', () => {
   let spyConsoleError
 
   beforeEach(() => {
-    global.__TARGET__ = 'browser'
     spyConsoleError = jest.spyOn(console, 'error')
 
     isMobileApp.mockReturnValue(false)
@@ -84,9 +83,13 @@ describe('app icon', () => {
     expect(toJson(root)).toMatchSnapshot()
   })
 
-  it('should render correctly with target mobile and providing fetchIcon to AppIcon', () => {
-    global.__TARGET__ = 'mobile'
-    const root = mount(<AppItem t={tMock} app={app} />)
-    expect(toJson(root)).toMatchSnapshot()
+  it('should render correctly with cordova and providing fetchIcon to AppIcon', () => {
+    window.cordova = {}
+    try {
+      const root = mount(<AppItem t={tMock} app={app} />)
+      expect(toJson(root)).toMatchSnapshot()
+    } finally {
+      delete window.cordova
+    }
   })
 })
