@@ -1,14 +1,7 @@
 import stack from 'lib/stack-client'
 import CozyClient from 'cozy-client'
 
-import {
-  ForbiddenException,
-  ServerErrorException,
-  NotFoundException,
-  MethodNotAllowedException,
-  UnavailableStackException,
-  UnauthorizedStackException
-} from 'lib/exceptions'
+import { NotFoundException, UnauthorizedStackException } from 'lib/exceptions'
 
 describe('stack client', () => {
   describe('getContext', () => {
@@ -18,7 +11,7 @@ describe('stack client', () => {
 
     const context200 = {
       status: 200,
-      headers: { get: h => 'application/json' },
+      headers: { get: () => 'application/json' },
       json: () => {
         return {
           data: {

@@ -5,7 +5,7 @@ describe('stack client', () => {
   describe('getStorageData', () => {
     const r200 = {
       status: 200,
-      headers: { get: h => 'application/json' },
+      headers: { get: () => 'application/json' },
       json: () => {
         return {
           data: {
@@ -23,7 +23,7 @@ describe('stack client', () => {
 
     const r200noquota = {
       status: 200,
-      headers: { get: h => 'application/json' },
+      headers: { get: () => 'application/json' },
       json: () => {
         return {
           data: {

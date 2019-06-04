@@ -1,5 +1,3 @@
-/* global __TARGET__ */
-
 import CozyClient from 'cozy-client'
 import stack from 'lib/stack-client'
 

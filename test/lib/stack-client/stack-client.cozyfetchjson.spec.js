@@ -9,7 +9,7 @@ describe('stack client', () => {
     let fetch = jest.fn().mockResolvedValue({
       status: 200,
       headers: {
-        get: header => 'application/json'
+        get: () => 'application/json'
       },
       json
     })
@@ -39,7 +39,7 @@ describe('stack client', () => {
 
     it('should call fetch from cozy-client', async () => {
       fetch.mockClear()
-      const data = await stack.cozyFetchJSON('_', 'GET', '/path')
+      await stack.cozyFetchJSON('_', 'GET', '/path')
       expect(fetch).toHaveBeenCalled()
     })
   })

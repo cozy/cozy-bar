@@ -10,7 +10,7 @@ describe('stack client', () => {
       uri: 'https://test.mycozy.cloud',
       fetch: jest.fn().mockResolvedValue({
         status: 200,
-        headers: { get: h => 'application/json' },
+        headers: { get: () => 'application/json' },
         json: () => {
           // example from https://docs.cozy.io/en/cozy-stack/apps/
           return {
