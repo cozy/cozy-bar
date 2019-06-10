@@ -45,7 +45,7 @@ module.exports = ({ filename, production }) => ({
               importLoaders: 2,
               sourceMap: true,
               modules: true,
-              localIdentName: '[local]--[hash: base64:5]'
+              localIdentName: 'cozy-ui-bar-[local]--[hash:base64:5]'
             }
           },
           {
