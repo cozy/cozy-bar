@@ -48,7 +48,7 @@
     "cozy-authentication": "1.13.1",
     "cozy-client": "6.38.2",
     "cozy-harvest-lib": "0.49.3",
-    "css-loader": "1.0.1",
+    "css-loader": "2.1.1",
     "css-mqpacker": "7.0.0",
     "cssnano-preset-advanced": "4.0.7",
     "csswring": "7.0.0",
