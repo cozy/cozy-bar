@@ -17,7 +17,7 @@ module.exports = ({ production }) => ({
           },
           {
             loader: 'css-loader',
-            options: { importLoaders: 1, sourceMap: true }
+            options: { importLoaders: 2, sourceMap: true }
           },
           {
             loader: 'postcss-loader',
