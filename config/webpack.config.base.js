@@ -14,20 +14,22 @@ module.exports = {
     umdNamedDefine: true
   },
   resolve: {
-    extensions: ['.js', '.json', '.yaml'],
+    extensions: ['.js', '.json', '.yaml', '.jsx'],
     modules: [SRC_DIR, 'node_modules'],
     alias: {
       react: path.resolve(__dirname, 'aliases/globalReact'),
-      'react-dom': path.resolve(__dirname, 'aliases/globalReactDOM'),
-      'cozy-ui/react': 'cozy-ui/transpiled/react'
+      'react-dom': path.resolve(__dirname, 'aliases/globalReactDOM')
     }
   },
   devtool: '#source-map',
   module: {
     rules: [
       {
-        test: /\.js$/,
-        exclude: /node_modules/,
+        test: /\.jsx?$/,
+        include: [
+          path.resolve(__dirname, '../src'),
+          path.dirname(require.resolve('cozy-ui'))
+        ],
         loader: 'babel-loader'
       },
       {
