@@ -16,7 +16,7 @@ module.exports = ({ filename, production }) => ({
           MiniCssExtractPlugin.loader,
           {
             loader: 'css-loader',
-            options: { importLoaders: 2, sourceMap: true }
+            options: { importLoaders: 1, sourceMap: true }
           },
           {
             loader: 'postcss-loader',
@@ -42,7 +42,7 @@ module.exports = ({ filename, production }) => ({
           {
             loader: 'css-loader',
             options: {
-              importLoaders: 2,
+              importLoaders: 1,
               sourceMap: true,
               modules: true,
               localIdentName: 'cozy-ui-bar-[local]--[hash:base64:5]'
