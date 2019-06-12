@@ -26,10 +26,7 @@ module.exports = {
     rules: [
       {
         test: /\.jsx?$/,
-        include: [
-          path.resolve(__dirname, '../src'),
-          path.dirname(require.resolve('cozy-ui'))
-        ],
+        exclude: /node_modules\/(?!(cozy-ui\/react))/,
         loader: 'babel-loader'
       },
       {
