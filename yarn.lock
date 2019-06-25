@@ -4269,6 +4269,13 @@ cozy-device-helper@1.7.1:
   dependencies:
     lodash "4.17.11"
 
+cozy-device-helper@1.7.2:
+  version "1.7.2"
+  resolved "https://registry.yarnpkg.com/cozy-device-helper/-/cozy-device-helper-1.7.2.tgz#940d03351002702865a1b710ec6f61e1dc159d12"
+  integrity sha512-kObApQRfAHfWu+F+OhoeLhiMU1MGGRUACWymKW6ybhyHtsFB97nxtHtelg6QoIPEfF6CSJDfIdvEsTZhE1qMfA==
+  dependencies:
+    lodash "4.17.11"
+
 cozy-interapp@0.4.5:
   version "0.4.5"
   resolved "https://registry.yarnpkg.com/cozy-interapp/-/cozy-interapp-0.4.5.tgz#115912a389448ebb8dc532972270b46e15010063"
