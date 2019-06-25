@@ -96,7 +96,7 @@
     "babel-preset-cozy-app": "1.5.1",
     "cozy-device-helper": "1.7.2",
     "cozy-interapp": "0.4.5",
-    "cozy-realtime": "3.0.0-beta.11",
+    "cozy-realtime": "3.1.0",
     "cozy-ui": "20.16.1",
     "enzyme-to-json": "3.3.5",
     "hammerjs": "2.0.8",
