@@ -30,7 +30,14 @@ export class AppItem extends React.Component {
   }
 
   buildAppUrl(href) {
-    const url = new URL(href)
+    let url
+    try {
+      url = new URL(href)
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error(error.message)
+      return null
+    }
     const queryParams = AppItem.buildQueryParams(this.props, this.context)
     if (queryParams) {
       for (const name in queryParams) {
@@ -58,7 +65,7 @@ export class AppItem extends React.Component {
       <AppLinker
         onAppSwitch={this.onAppSwitch}
         slug={app.slug}
-        href={this.buildAppUrl(app.href)}
+        href={this.buildAppUrl(app.href) || ''}
       >
         {({ onClick, href }) => {
           const label = t(`${app.slug}.name`, {

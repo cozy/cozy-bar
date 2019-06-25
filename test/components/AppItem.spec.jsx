@@ -56,6 +56,19 @@ describe('AppItem', () => {
       const url = wrapper.instance().buildAppUrl('http://fake.fr')
       expect(url).toBe('http://fake.fr/?foo=bar&bar=buz')
     })
+
+    it('should return null for invalid url', () => {
+      jest.spyOn(console, 'error').mockImplementation(() => {})
+
+      const invalidApp = {
+        name: 'Invalid app',
+        url: 'Clearly not an url',
+        slug: 'invalid-app'
+      }
+      const wrapper = shallow(<AppItem app={invalidApp} t={tMock} />)
+      const appLinkerWrapper = wrapper.find('AppLinker')
+      expect(appLinkerWrapper.props().href).toEqual('')
+    })
   })
 })
 
