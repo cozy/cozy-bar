@@ -4247,13 +4247,13 @@ cozy-authentication@1.13.1:
     react-markdown "4.0.8"
     url-polyfill "1.1.0"
 
-cozy-client@6.38.2:
-  version "6.38.2"
-  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-6.38.2.tgz#cd9b25cee64a257393accb791a432557a7beb8ea"
-  integrity sha512-L2abVeV09CYfvs4xS8pdpqk0njGsPX0qoubkB35w5uSbCsh6uxG8bCeIQz1Loq+IHfAKStThUsciX7l2kLffGg==
+cozy-client@6.46.0:
+  version "6.46.0"
+  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-6.46.0.tgz#2512541d65158e0c32e171eb7acbd1060475f46d"
+  integrity sha512-lmddGQ2LaHOB09Rq3q6/JVHBXQgYURmlTt5l6nGpAelZ5LBgEBEEqNQY4hgDajnVKEnGOlwgC58XcQ3d/6jvvg==
   dependencies:
     cozy-device-helper "1.6.3"
-    cozy-stack-client "^6.38.1"
+    cozy-stack-client "^6.46.0"
     lodash "4.17.11"
     microee "0.0.6"
     prop-types "15.6.2"
@@ -4297,10 +4297,10 @@ cozy-realtime@3.0.0-beta.11:
   dependencies:
     minilog "3.1.0"
 
-cozy-stack-client@^6.38.1:
-  version "6.38.1"
-  resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-6.38.1.tgz#2680d798b1e0e74565e9e0592e364f39754fc169"
-  integrity sha512-prDUCB4Z5nA0Las+FCp0Ub0Nuz4mjg7vsDvobr6HN+IQvCGfTo8IZvK/TQRccSIDwq42MuoWYrvAC4gRii/00w==
+cozy-stack-client@^6.46.0:
+  version "6.46.0"
+  resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-6.46.0.tgz#9f36a9bceb51254f9b4991babf0e9cc72973c968"
+  integrity sha512-2u1pSP9pzAbcpOW8QIX+oLh2BVw/39FGUnuEo4Uio0HTvFy0a5hiXEX3IuUr+cvcy4TUH0Hb16N8ESowle6CxA==
   dependencies:
     detect-node "2.0.4"
     mime-types "2.1.24"
