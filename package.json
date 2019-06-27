@@ -37,7 +37,7 @@
     "example": "env USE_REACT=true nf -j examples/Procfile start"
   },
   "devDependencies": {
-    "autoprefixer": "9.5.1",
+    "autoprefixer": "9.6.0",
     "babel-jest": "23.6.0",
     "babel-loader": "7.1.5",
     "babel-polyfill": "6.26.0",
