@@ -52,11 +52,11 @@ class AppNavButton extends Component {
       <div className={`coz-nav-apps-btns${isHomeApp ? ' --currentHome' : ''}`}>
         {homeHref ? (
           <a href={homeHref} className="coz-nav-apps-btns-home">
-            <HomeIcon className="coz-nav-apps-btns-home-svg" currentColor />
+            <HomeIcon className="coz-nav-apps-btns-home-svg" />
           </a>
         ) : (
           <span className="coz-nav-apps-btns-home">
-            <HomeIcon className="coz-nav-apps-btns-home-svg" currentColor />
+            <HomeIcon className="coz-nav-apps-btns-home-svg" />
           </span>
         )}
         {!isHomeApp && <span className="coz-nav-apps-btns-sep" />}
