@@ -54,7 +54,7 @@ module.exports = {
     ]
   },
   plugins: [
-    new webpack.ContextReplacementPlugin(/date-fns[/\\]locale$/, /en/),
+    new webpack.ContextReplacementPlugin(/date-fns[/\\]locale$/, /(en|es|fr)/),
     new webpack.DefinePlugin({
       __VERSION__: JSON.stringify(pkg.version)
     })
