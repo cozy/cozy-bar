@@ -6,10 +6,9 @@
 
 const importIcons = function() {
   // add needed cozy-ui icon names here
-  const names = ['bottom', 'cross', 'top']
-  names.map(n => {
-    require('cozy-ui/assets/icons/ui/' + n + '.svg')
-  })
+  require('cozy-ui/assets/icons/ui/bottom.svg')
+  require('cozy-ui/assets/icons/ui/cross.svg')
+  require('cozy-ui/assets/icons/ui/top.svg')
 }
 
 importIcons()
