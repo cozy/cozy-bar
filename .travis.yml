@@ -1,36 +1,36 @@
 language: node_js
 node_js:
-- '8'
+  - "8"
 env:
   global:
-  # TX_PASSWORD
-  - secure: ESL2AFj2ER9Smf+BsInpq7/Q0Z3LWbvwzgbCd4S4XxVCU8XM17aKYf+3ypRe0djxsezqX48RKF5DBTZWNNrb0/ey8/saNlBw7FDafi6kkxtTl8j2wvOwkLmqnVFSzj3P5f8jfmFPPbjy1Myzw8q8nkeg68iS+vCc86P8PeOjlFqifNcb7dnM+EBH8FmYk78pUkBo62dn16RlqpdcSh1f1Ywa/kXkgl+hmjnkcLz6W8FYG2H9fveixK/uMFtXeQ4SXMobNh5KGwFNi9jbyOcwVHUMp3h1W8qPXM9J4It5MUvmFRprjDl7xX58TzpGzCdzqezVOG7CgZd8DCOTgroakRtqWBOctf+oWVqplP8N4+pggYyRcbQdv7CXdOm/3K+relR/MKB6QeQ2Iey2FI/v73CcvAi60bJM8plsV/GogTT39jGLzbjGL5WZPr+gIMshKtiEXD5mt9kq/hdJS1heSg/F9Eh2Rtluo+3rgSNfbm2XdMDmHXeZT1Z5vCoY+ekKhfqrIYt//DrH1+QAPl5WL3nJSDz/b9S4GM1G/3ZptxGYt99hzm9NSTfCGHIlhUcJs2qDENWM14HRVhjKoh8MPo5NeVpT2nLAsNGYA9iW4lZMxDRBcV1hsdA9JHj8MCKINldp9Mr0qHRYR7NrSuThU5iZW1C4IwbLYNzF+A/tqd4=
-  # BUNDLESIZE_GITHUB_TOKEN
-  - secure: UwPqmiFe70zFNWn+OFi3B4joRu0zV0vsIC636TMe2aReR+0snsl6WoXBy6Ul41MmZSB0dP1gR/j89xcmxt+7UIjITAGxdOplBJ2mellACTTtaRW+9gvnQw/aku+C5+qolaPlLov3/jLAEVNO1rj20mpmTOPGopX7kApgi2y6F9ve26bHC9xqQIaJ0XiAy7WiD9MlDyhX76qFeJeD8tb0fbGWz86SnXhEz+z7QzSAkN/CPSeFdPuAn8+8NspuATJkq/Rj6tebAWXaWsBd8SEKyGY6ma9xjf60JRdrSa75E8hxINq+BEPgqi0DNOnnjWmket//hp3kM9rR+neiybIyiwbf2k0tIlPeAZUHV0phcSY/UXcEU0t6Qk5Qvfu3/gHR0xieQzL9CaZvvFbURFStKvO/ynJK5zZOJ1aYsPXzkkXn9FgvynF4H7vJkB8Xa5MdoSqHNfMN+5HrY2c8g9tt3rRAp0jvXY/X7av5tyLy5okQbztCGNc7edq0u0LYGxHnqgzMqtSYNLboI5crpXGQmS06pnYp3eLeni6DB1MY0SAXQ0Oj046j4XZjSC9gT7rn9nQeYdY2p1U2KkR5Mrd1CgfaBW45r889zdF65GdmvrdT/zyZxW9SAMinB29TiRWVPvUbhmKMtIzRNnad4eG/3bZ5RjGlk9S9DX8zK3HUzi4=
-  # NPM_TOKEN (mycozycloud)
-  - secure: "Z1z9aIqfmUzHrg/WzDJ4IJjnTWTjJx/3HrcBmYfqqfiu3Pgo1Bc1sh2p/dJoYJP+6vg9HkMc2sFrsPy9FtVa67a0QoHEgOq6mdcwEFP1cG5LPRdZTuSMe/j4+UcxvcghE/ilIcFPUmD4aryWhW3i8VdKochLYSU01Ktyyw+JLcAv0cSnotkKlv1MPVAFvhbFo/xu/yVJxDhAvvEXGQuR21GOM42nJachauERdtjJAf8HZDN4NI1n08ESowICfh0m4iyodnjKHgIx+kydmrEF3Viu/d2Onj3nFUiUMOgDdwS0ZimZ9YfwatuZI8spSwmJFevsgi5g5HAhBE7CUAr3Onw0rZXTSe5PPkb5QGw+zCXEAU8RLzj76l5bl/3+/PA3vrKr2eRT7Sp0DPS/NC6xyzNJpWu74ey8tBqmgh1aZoW5dcvjM1OtkFgMaVKzxlsUUG/RIgXNKloO2ZuUF4pw/ASLu82HghwpMNDe+RcsVENe+kekkoA63LGASUmMqEJVLFwynzFK04TPcCs6t2Pb+J2485FbvTqYzCPf69YYSXLub33vrs9N3VrybXfRl71B+af6qs6rNqMe30HxomISY5CfJEfN2kgI92NELnLCr1Qcses4QLXIJHDukTVFWiEA/Pinsk5NHyDZIw4ZONbjE1WBXu8OCTMlgH426p0xrVU="
-  # GH_TOKEN (cozy-bot)
-  - secure: "sJCHHhxwzhYBHvTj1w6v+yFcvP7RhqkW/WwEYivsOl272WHI1hDloEx0vOQ9HfJemCTCtOxxkCWaaSHl5fYWOT7kGgRyyANK04rBkQUnZbgNIWrf0YaNUiP6kH39wFfoko+pYiDzXhS0BenURRynKycwtUpT/MjmNOdENtRrZZUGEKPxowwSrxFEwsTQuRSeC4+oDHVR4A+X0ZZ1b0x9iST8jwKStGRDnNMmn0X6oTJCa+96toDxFEQDAmCU8zvibQLMmRPUzqGglX7XuSCVaQdAdaMNANb/xb+v+jQTm0+5CBb9F8rUgxdrEjSOg0pKreslSTRpieU9UXDHKvp2x8oEhC6NR4i9Fb+FR7nsjad5cr6h0yeAF6O6ziLWPKT15x8LNSwcD8NPPDUyOVIXjAaoJfkMqvPEQfKxlLXTuyufAlCWqnK9ZioZsJFrE8P1mwB66qEfZ3zKfPoIRAujFqfOUi4CS6ND+TXZYwkRRtuuV1UbXAZ0I6ZyO8VeFFkB/olEl+RFbGOLIAWpjsJCeF6xukgh/s/8b9I8vkXWzQ7+rErQK9F6HoB9RgDeMrJnH9iOYLprcJV+H3GXkmbOHa3V2huPm2pyrkGoHjDmH2htGwS9XsLvxFiuBj/X256nqSTOvb+qY4RUwCv0hwEi7PeS2B92RicjXE1i+SAxf8s="
+    # TX_PASSWORD
+    - secure: ESL2AFj2ER9Smf+BsInpq7/Q0Z3LWbvwzgbCd4S4XxVCU8XM17aKYf+3ypRe0djxsezqX48RKF5DBTZWNNrb0/ey8/saNlBw7FDafi6kkxtTl8j2wvOwkLmqnVFSzj3P5f8jfmFPPbjy1Myzw8q8nkeg68iS+vCc86P8PeOjlFqifNcb7dnM+EBH8FmYk78pUkBo62dn16RlqpdcSh1f1Ywa/kXkgl+hmjnkcLz6W8FYG2H9fveixK/uMFtXeQ4SXMobNh5KGwFNi9jbyOcwVHUMp3h1W8qPXM9J4It5MUvmFRprjDl7xX58TzpGzCdzqezVOG7CgZd8DCOTgroakRtqWBOctf+oWVqplP8N4+pggYyRcbQdv7CXdOm/3K+relR/MKB6QeQ2Iey2FI/v73CcvAi60bJM8plsV/GogTT39jGLzbjGL5WZPr+gIMshKtiEXD5mt9kq/hdJS1heSg/F9Eh2Rtluo+3rgSNfbm2XdMDmHXeZT1Z5vCoY+ekKhfqrIYt//DrH1+QAPl5WL3nJSDz/b9S4GM1G/3ZptxGYt99hzm9NSTfCGHIlhUcJs2qDENWM14HRVhjKoh8MPo5NeVpT2nLAsNGYA9iW4lZMxDRBcV1hsdA9JHj8MCKINldp9Mr0qHRYR7NrSuThU5iZW1C4IwbLYNzF+A/tqd4=
+    # BUNDLESIZE_GITHUB_TOKEN
+    - secure: "NoHalqgN2LO+TM77YtBoM1SWaNvIKwYaOwj3XWOEf+OKjCRjKjhcRRvj37R5rqxoF/2wZMkQKxmTHxbMeDHMAHVdE4pu+ufKtnlrwrZeREKqpPQw7lwY3B0OHNnZzmijBKxM5gVumxRATdbFaBImxjoNoEiyt2qo5lWxquBf8gIdGEn2rFCbjAwvtLHbA8ztnf5Z7fvOQe19PllYE8Z7vU4TJNFrRN3U6WccneadbtLho73BH9yT8A4jNDFFAxNUWfulPT0zR7LWq0rmDWvDVeXedfDSyfviiMt2Oh/dMuJUFri7dzJB8ErxdTVVEzLfiIK2nHrHZRnS79+3Ay/G2WJD1pYHvdFivJH0v5LHeqDwu9qvECTSv4PnpTkt1QI367Yasd+u6F4kCeNTmYSRuSqbxgnsw4xvbpbtDuDCAJR6XQrtT3FnXV9w8n9GYmeMCbDSX9TP+uMq3UU8Lb4jwTrSYsnbVvAZBuhHAvldLaOk1KUloYYeiicd2ha1ieyeM9krc+NbgGBgFJKjKHfQIsG2GZxp4DMsmPDbtdsoyK69/V6P2TT/Q6KP3tSElCvM0WFYRzJNpaV1Vn8+Bi/9mxvz4Y5jU9lyQifEtyFA1smM4ByPY0iXOwLgnvTZmsfJBQsIVmUCazKi4Kqu3/7QQymIbTQGDonyyCGrB4ylir8="
+    # NPM_TOKEN (mycozycloud)
+    - secure: "Z1z9aIqfmUzHrg/WzDJ4IJjnTWTjJx/3HrcBmYfqqfiu3Pgo1Bc1sh2p/dJoYJP+6vg9HkMc2sFrsPy9FtVa67a0QoHEgOq6mdcwEFP1cG5LPRdZTuSMe/j4+UcxvcghE/ilIcFPUmD4aryWhW3i8VdKochLYSU01Ktyyw+JLcAv0cSnotkKlv1MPVAFvhbFo/xu/yVJxDhAvvEXGQuR21GOM42nJachauERdtjJAf8HZDN4NI1n08ESowICfh0m4iyodnjKHgIx+kydmrEF3Viu/d2Onj3nFUiUMOgDdwS0ZimZ9YfwatuZI8spSwmJFevsgi5g5HAhBE7CUAr3Onw0rZXTSe5PPkb5QGw+zCXEAU8RLzj76l5bl/3+/PA3vrKr2eRT7Sp0DPS/NC6xyzNJpWu74ey8tBqmgh1aZoW5dcvjM1OtkFgMaVKzxlsUUG/RIgXNKloO2ZuUF4pw/ASLu82HghwpMNDe+RcsVENe+kekkoA63LGASUmMqEJVLFwynzFK04TPcCs6t2Pb+J2485FbvTqYzCPf69YYSXLub33vrs9N3VrybXfRl71B+af6qs6rNqMe30HxomISY5CfJEfN2kgI92NELnLCr1Qcses4QLXIJHDukTVFWiEA/Pinsk5NHyDZIw4ZONbjE1WBXu8OCTMlgH426p0xrVU="
+    # GH_TOKEN (cozy-bot)
+    - secure: "sJCHHhxwzhYBHvTj1w6v+yFcvP7RhqkW/WwEYivsOl272WHI1hDloEx0vOQ9HfJemCTCtOxxkCWaaSHl5fYWOT7kGgRyyANK04rBkQUnZbgNIWrf0YaNUiP6kH39wFfoko+pYiDzXhS0BenURRynKycwtUpT/MjmNOdENtRrZZUGEKPxowwSrxFEwsTQuRSeC4+oDHVR4A+X0ZZ1b0x9iST8jwKStGRDnNMmn0X6oTJCa+96toDxFEQDAmCU8zvibQLMmRPUzqGglX7XuSCVaQdAdaMNANb/xb+v+jQTm0+5CBb9F8rUgxdrEjSOg0pKreslSTRpieU9UXDHKvp2x8oEhC6NR4i9Fb+FR7nsjad5cr6h0yeAF6O6ziLWPKT15x8LNSwcD8NPPDUyOVIXjAaoJfkMqvPEQfKxlLXTuyufAlCWqnK9ZioZsJFrE8P1mwB66qEfZ3zKfPoIRAujFqfOUi4CS6ND+TXZYwkRRtuuV1UbXAZ0I6ZyO8VeFFkB/olEl+RFbGOLIAWpjsJCeF6xukgh/s/8b9I8vkXWzQ7+rErQK9F6HoB9RgDeMrJnH9iOYLprcJV+H3GXkmbOHa3V2huPm2pyrkGoHjDmH2htGwS9XsLvxFiuBj/X256nqSTOvb+qY4RUwCv0hwEi7PeS2B92RicjXE1i+SAxf8s="
 cache:
   yarn: true
   directories:
-  - node_modules
+    - node_modules
 addons:
   apt:
     sources:
-    - deadsnakes
+      - deadsnakes
     packages:
-    - python3.5
+      - python3.5
 before_install:
-- curl -fsSL https://bootstrap.pypa.io/get-pip.py | python3.5 - --user
-- travis_retry pip3.5 install --user transifex-client==0.12.5
-- install -m0644 .transifexrc.tpl ~/.transifexrc
-- echo "password = $TX_PASSWORD" >> ~/.transifexrc
+  - curl -fsSL https://bootstrap.pypa.io/get-pip.py | python3.5 - --user
+  - travis_retry pip3.5 install --user transifex-client==0.12.5
+  - install -m0644 .transifexrc.tpl ~/.transifexrc
+  - echo "password = $TX_PASSWORD" >> ~/.transifexrc
 script:
-- yarn build
-- yarn test
+  - yarn build
+  - yarn test
 before_deploy:
-- touch .npmignore
+  - touch .npmignore
 deploy:
   provider: script
   skip_cleanup: true
