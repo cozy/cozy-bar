@@ -1,9 +1,8 @@
-/* global __TARGET__ */
 import React from 'react'
 
 import { translate } from 'cozy-ui/react/I18n'
 import { Button } from 'cozy-ui/react/Button'
-
+import { isMobileApp } from 'cozy-device-helper'
 import StorageData from 'components/Settings/StorageData'
 
 const Settings = ({
@@ -44,7 +43,7 @@ const Settings = ({
         </li>
       </ul>
     )}
-    {isDrawer && onClaudy && __TARGET__ !== 'mobile' && (
+    {isDrawer && onClaudy && !isMobileApp() && (
       <ul className="coz-nav-group">
         <li className="coz-nav-settings-item">
           <Button
@@ -76,7 +75,7 @@ const Settings = ({
         </li>
       </ul>
     )}
-    {__TARGET__ !== 'mobile' && (
+    {!isMobileApp() && (
       <ul className="coz-nav-group">
         <li className="coz-nav-settings-item">
           <Button

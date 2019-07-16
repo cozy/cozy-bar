@@ -78,7 +78,7 @@ exports[`app icon should render correctly with target mobile and providing fetch
       <a
         data-icon="icon-cozy-drive"
         href="http://fake.fr/"
-        onClick={null}
+        onClick={[Function]}
         role="menuitem"
         title="Drive"
       >
