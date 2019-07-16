@@ -16,7 +16,9 @@ import {
   getReactApiName
 } from 'lib/api/helpers'
 import { isMobileApp } from 'cozy-device-helper'
-require('styles')
+//require('styles')
+
+import style from './styles/index.styl' // eslint-disable-line no-unused-vars
 require('lib/importIcons')
 
 const APP_SELECTOR = '[role=application]'

@@ -34,7 +34,8 @@
     "posttest": "bundlesize",
     "travis-deploy-once": "travis-deploy-once",
     "semantic-release": "semantic-release",
-    "example": "env USE_REACT=true nf -j examples/Procfile start"
+    "example": "env USE_REACT=true nf -j examples/Procfile start",
+    "transpile": "env BABEL_ENV=transpilation babel src/ --out-dir transpiled/ --verbose"
   },
   "devDependencies": {
     "autoprefixer": "9.6.0",
@@ -91,9 +92,10 @@
     "yaml-loader": "0.5.0"
   },
   "dependencies": {
-    "@babel/core": "7.3.4",
-    "babel-core": "7.0.0-bridge.0",
-    "babel-preset-cozy-app": "1.5.1",
+    "@babel/cli": "^7.5.0",
+    "@babel/core": "^7.5.4",
+    "babel-plugin-css-modules-transform": "^1.6.2",
+    "babel-preset-cozy-app": "1.5.2",
     "cozy-device-helper": "1.7.3",
     "cozy-interapp": "0.4.5",
     "cozy-realtime": "3.1.0",
