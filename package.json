@@ -63,7 +63,7 @@
     "identity-obj-proxy": "3.0.0",
     "jest": "23.6.0",
     "json-loader": "0.5.7",
-    "mini-css-extract-plugin": "0.7.0",
+    "mini-css-extract-plugin": "0.8.0",
     "my-react": "npm:react@16.6.0",
     "my-react-dom": "npm:react-dom@16.6.0",
     "npm-run-all": "4.1.5",
