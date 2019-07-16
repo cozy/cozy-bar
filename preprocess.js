@@ -4,11 +4,16 @@ const fs = require('fs')
 
 const renderStylus = function(css, filename) {
   const nodeModulesPath = __dirname + '/node_modules'
-  console.log({ nodeModulesPath })
+  const srcPath = __dirname + '/src'
+  /* const paths = [nodeModulesPath, srcPath]
+  console.log(paths)
+  console.log({ nodeModulesPath }) */
+  //We should be able to use webpack stylus loader here
+  css = css.replace(/import \'~/g, "import '")
   try {
     return stylus(css)
-      .define('url', stylus.url({ paths: [nodeModulesPath] }))
       .include(nodeModulesPath)
+      .include(srcPath)
       .use(cozyStylusPlugin())
       .set('filename', filename)
       .render()
