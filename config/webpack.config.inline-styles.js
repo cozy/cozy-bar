@@ -12,12 +12,11 @@ module.exports = ({ production }) => ({
         test: /\.styl$/,
         use: [
           {
-            loader: 'style-loader',
-            options: { sourceMap: true }
+            loader: 'style-loader'
           },
           {
             loader: 'css-loader',
-            options: { importLoaders: 1, sourceMap: true }
+            options: { importLoaders: 1 }
           },
           {
             loader: 'postcss-loader',
