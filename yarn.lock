@@ -4278,12 +4278,12 @@ cosmiconfig@^5.2.1:
     js-yaml "^3.13.1"
     parse-json "^4.0.0"
 
-cozy-authentication@1.13.1:
-  version "1.13.1"
-  resolved "https://registry.yarnpkg.com/cozy-authentication/-/cozy-authentication-1.13.1.tgz#be9cc7b7f2c3f5bbc54807301784fe3762270a98"
-  integrity sha512-9rujnwWvNMFUB3D3r6zvMIJaeMUoQbI27RG87hmUlKLigrG7ZSndKkAb8UygMQnSmrFbcpBv67aAAJ5qRbBqkw==
+cozy-authentication@1.16.0:
+  version "1.16.0"
+  resolved "https://registry.yarnpkg.com/cozy-authentication/-/cozy-authentication-1.16.0.tgz#9ec1a8ea2af3f0bc8623d5c3c17b853e43adf3ce"
+  integrity sha512-MVbV9xFfSNOoksKeJPYITeen2W/dPhps6kar5wHZo6u7JuV8hMftQmWXSo9Ak5ORAhaS7KdIV/rfILB/9tzsOA==
   dependencies:
-    cozy-device-helper "1.7.1"
+    cozy-device-helper "^1.7.3"
     localforage "1.7.3"
     prop-types "15.7.2"
     react-markdown "4.0.8"
@@ -4306,14 +4306,7 @@ cozy-client@6.49.2:
     sift "6.0.0"
     url-search-params-polyfill "^6.0.0"
 
-cozy-device-helper@1.7.1:
-  version "1.7.1"
-  resolved "https://registry.yarnpkg.com/cozy-device-helper/-/cozy-device-helper-1.7.1.tgz#56c57a14b423de2700a0a695c3f7710cf6a2383d"
-  integrity sha512-CTEJOzRK+AtrGN/Wqjj5n0DM1mMMvNGSZDxKlTCvY0FNYYko05vX5qIEb9vFVm7UhH7GFZjZ+S73g3Kwq/hF4Q==
-  dependencies:
-    lodash "4.17.11"
-
-cozy-device-helper@1.7.3:
+cozy-device-helper@1.7.3, cozy-device-helper@^1.7.3:
   version "1.7.3"
   resolved "https://registry.yarnpkg.com/cozy-device-helper/-/cozy-device-helper-1.7.3.tgz#9952004454e73ba2c340ca58717af065c6326984"
   integrity sha512-fneU5CvmLaW2qaK01Van5z53PXA0OT2JC8R6YGpexJGeIZSY7s4gg73JWxFUpdPVz1OSWUP4CY0mrAWSfVIkzw==
