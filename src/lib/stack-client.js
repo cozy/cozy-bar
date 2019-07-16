@@ -1,4 +1,3 @@
-/* global __TARGET__ */
 /* eslint-env browser */
 
 import { Intents } from 'cozy-interapp'
@@ -14,6 +13,7 @@ import {
   UnavailableStackException,
   UnauthorizedStackException
 } from 'lib/exceptions'
+import { isMobileApp } from 'cozy-device-helper'
 
 const errorStatuses = {
   '401': UnauthorizedStackException,
@@ -286,8 +286,6 @@ const iconFetcher = function(iconPath) {
  * @returns {Object}
  */
 const getAppIconProps = function() {
-  const isMobile = __TARGET__ === 'mobile'
-
   const mobileAppIconProps = {
     fetchIcon: app => getIcon(iconFetcher, app, true)
   }
@@ -297,8 +295,7 @@ const getAppIconProps = function() {
     domain: getCozyURL().host,
     secure: getCozyURL().protocol === 'https:'
   }
-
-  return isMobile ? mobileAppIconProps : browserAppIconProps
+  return isMobileApp() ? mobileAppIconProps : browserAppIconProps
 }
 
 /**

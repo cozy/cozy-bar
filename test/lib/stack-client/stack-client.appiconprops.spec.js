@@ -1,7 +1,11 @@
 import CozyClient from 'cozy-client'
 import stack from 'lib/stack-client'
+import { isMobileApp } from 'cozy-device-helper'
 
-let oldTarget
+jest.mock('cozy-device-helper', () => ({
+  ...require.requireActual('cozy-device-helper'),
+  isMobileApp: jest.fn()
+}))
 
 describe('stack client', () => {
   describe('getAppIconProps', () => {
@@ -21,20 +25,17 @@ describe('stack client', () => {
     }
 
     beforeAll(async () => {
-      oldTarget = global.__TARGET__
       await stack.init(params)
     })
 
     afterAll(() => {
       jest.restoreAllMocks()
-      global.__TARGET__ = oldTarget
     })
 
     describe('for target=browser', () => {
       beforeAll(() => {
-        global.__TARGET__ = 'browser'
+        isMobileApp.mockReturnValue(false)
       })
-
       it('should have `domain` and `secure` set', () => {
         const data = stack.get.iconProps()
         expect(data.domain).toBe('test.mycozy.cloud')
@@ -49,10 +50,10 @@ describe('stack client', () => {
 
     describe('for target=mobile', () => {
       beforeAll(() => {
-        global.__TARGET__ = 'mobile'
+        isMobileApp.mockReturnValue(true)
       })
 
-      it('should note have `domain` and `secure` set', () => {
+      it('should not have `domain` and `secure` set', () => {
         const data = stack.get.iconProps()
         expect(data.domain).toBeUndefined()
         expect(data.secure).toBeUndefined()
