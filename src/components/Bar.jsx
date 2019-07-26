@@ -157,7 +157,7 @@ export class Bar extends Component {
         onClick={this.toggleDrawer}
         data-tutorial="apps-mobile"
       >
-        <Icon icon={appsIcon} width={16} height={16} />
+        <Icon icon={appsIcon} width={16} height={16} color="currentColor" />
         <span className="coz-bar-hidden">{t('drawer')}</span>
       </button>
     ) : null
