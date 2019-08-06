@@ -6,7 +6,8 @@ const extendI18nWithApp = lang => app => {
 
   const hasLangs = langs && langs.length
   if (!hasLangs) {
-    console.warn && console.warn(`App ${app.name} does not specify any lang`)
+    // TODO The app does not provide langs, we should probably warn the developer
+    // when the app is published on the registry.
     return app
   }
 
@@ -18,10 +19,8 @@ const extendI18nWithApp = lang => app => {
     localeKeys && localeKeys.length && localeKeys.includes(currentLang)
 
   if (!providesLocales) {
-    console.warn &&
-      console.warn(
-        `App ${app.name} does not specify any locale for lang ${currentLang}`
-      )
+    // TODO The app does not provide locales, we should probably warn the developer
+    // when the app is published on the regisry.
     return app
   }
 
