@@ -32,7 +32,8 @@ export const fetchContext = () => async (dispatch, getState) => {
     if (error.status && error.status === 404) {
       dispatch({ type: RECEIVE_NO_CONTEXT })
     }
-    console.warn && console.warn('Cannot get Cozy context')
+    // eslint-disable-next-line no-console
+    console.warn('Cannot get Cozy context')
     return null
   }
 }

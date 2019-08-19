@@ -237,6 +237,7 @@ class SearchBar extends Component {
       const url = onSelect.substr(5)
       window.location.href = url
     } else {
+      // eslint-disable-next-line no-console
       console.log(
         'suggestion onSelect (' + onSelect + ') could not be executed'
       )

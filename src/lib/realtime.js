@@ -35,6 +35,7 @@ function initializeRealtime({ getApp, onCreate, onDelete, cozyClient }) {
     realtime.subscribe('created', APPS_DOCTYPE, handleAppCreation)
     realtime.subscribe('deleted', APPS_DOCTYPE, handleAppRemoval)
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.warn(`Cannot initialize realtime in Cozy-bar: ${error.message}`)
   }
 }

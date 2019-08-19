@@ -56,6 +56,7 @@ export const fetchApps = () => async dispatch => {
     await dispatch(receiveAppList(apps))
   } catch (e) {
     dispatch({ type: FETCH_APPS_FAILURE })
+    // eslint-disable-next-line no-console
     console.warn(e.message ? e.message : e)
   }
 }
@@ -76,8 +77,8 @@ const setHomeApp = appsList => async dispatch => {
       return dispatch(receiveHomeApp(homeApp))
     })
     .catch(error => {
-      console.warn &&
-        console.warn(`Cozy-bar cannot fetch home app data: ${error.message}`)
+      // eslint-disable-next-line no-console
+      console.warn(`Cozy-bar cannot fetch home app data: ${error.message}`)
       return appsList
     })
 }
