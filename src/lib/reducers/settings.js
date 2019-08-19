@@ -31,6 +31,7 @@ const fetchStorageData = () => async dispatch => {
     const storageData = await stack.get.storageData()
     return dispatch({ type: RECEIVE_STORAGE, storageData })
   } catch (e) {
+    // eslint-disable-next-line no-console
     console.warn && console.warn('Cannot get Cozy storage informations')
     return null
   }
@@ -48,8 +49,8 @@ const fetchSettingsAppURL = () => async (dispatch, getState) => {
     const settingsAppURL = await stack.get.settingsAppURL()
     return dispatch({ type: RECEIVE_SETTINGS_URL, settingsAppURL })
   } catch (e) {
-    console.warn &&
-      console.warn('Settings app is unavailable, settings links are disabled')
+    // eslint-disable-next-line no-console
+    console.warn('Settings app is unavailable, settings links are disabled')
     return null
   }
 }
@@ -72,6 +73,7 @@ export const logOut = () => async dispatch => {
   try {
     await stack.logout()
   } catch (e) {
+    // eslint-disable-next-line no-console
     console.warn('Error while logging out in the cozy-bar', e)
   }
 }

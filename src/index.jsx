@@ -47,6 +47,7 @@ const injectBarInDOM = data => {
   const barNode = createBarElement()
   const appNode = document.querySelector(APP_SELECTOR)
   if (!appNode) {
+    // eslint-disable-next-line no-console
     console.warn(
       `Cozy-bar is looking for a "${APP_SELECTOR}" tag that contains your application and can't find it :'(… The BAR is now disabled`
     )
@@ -101,6 +102,7 @@ const getDefaultStackURL = isPublic => {
   const data = getAppNodeDataSet()
   if (!data.cozyDomain) {
     if (!isPublic) {
+      // eslint-disable-next-line no-console
       console.warn(
         `Cozy-bar can't discover the cozy's URL, and will probably fail to initialize the connection with the stack.`
       )
@@ -116,6 +118,7 @@ const getDefaultToken = isPublic => {
   const data = getAppNodeDataSet()
   if (!data.cozyToken) {
     if (!isPublic) {
+      // eslint-disable-next-line no-console
       console.warn(
         `Cozy-bar can't discover the app's token, and will probably fail to initialize the connection with the stack.`
       )
@@ -206,6 +209,7 @@ const init = async ({
       uri: ccURI,
       token: ccToken
     }
+    // eslint-disable-next-line no-console
     console.warn('Automatically made cozyClient. Options: ', ccOptions)
     const CozyClient = require('cozy-client').default
     cozyClient = new CozyClient({})
@@ -252,10 +256,12 @@ const updateAccessToken = accessToken => {
 }
 
 // Handle exceptions for API before init
-const showAPIError = name =>
+const showAPIError = name => {
+  // eslint-disable-next-line no-console
   console.error(
     `You tried to use the CozyBar API (${name}) but the CozyBar is not initialised yet via cozy.bar.init(...).`
   )
+}
 // apiReferences will be a proxy to the API
 const apiReferences = {}
 
