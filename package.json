@@ -45,7 +45,7 @@
     "babel-preset-react": "6.24.1",
     "babel-runtime": "6.26.0",
     "bundlesize": "0.18.0",
-    "cozy-authentication": "1.16.0",
+    "cozy-authentication": "1.17.0",
     "cozy-client": "6.53.0",
     "css-loader": "1.0.1",
     "css-mqpacker": "7.0.0",
