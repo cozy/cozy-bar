@@ -4,7 +4,6 @@ import CozyClient from 'cozy-client'
 import initializeRealtime from 'lib/realtime'
 
 jest.mock('lib/realtime')
-initializeRealtime.mockResolvedValue(Promise.resolve())
 
 const { init } = stack
 
@@ -30,6 +29,15 @@ describe('stack client', () => {
       await init(params)
     }
 
+    beforeEach(() => {
+      isLogged = undefined
+      isPublic = undefined
+      initializeRealtime.mockReset().mockImplementation(() => {
+        terminateRealtime = jest.fn()
+        return terminateRealtime
+      })
+    })
+
     afterAll(() => {
       jest.restoreAllMocks()
     })
@@ -48,6 +56,14 @@ describe('stack client', () => {
       await setup({ isLogged: true })
       expect(initializeRealtime).toHaveBeenCalled()
       expect(initializeRealtime.mock.calls[0][0].cozyClient).toBe(cozyClient)
+    })
+
+    it('should terminate realtime if the user logs out', async  () => {
+      isLogged = true
+      await setup()
+      expect(terminateRealtime).not.toHaveBeenCalled()
+      cozyClient.emit('logout')
+      expect(terminateRealtime).toHaveBeenCalled()
     })
   })
 })
