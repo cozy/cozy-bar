@@ -31,7 +31,7 @@ function initializeRealtime({ getApp, onCreate, onDelete, cozyClient }) {
   }
 
   try {
-    const realtime = new CozyRealtime({ cozyClient })
+    const realtime = new CozyRealtime({ client: cozyClient })
     realtime.subscribe('created', APPS_DOCTYPE, handleAppCreation)
     realtime.subscribe('deleted', APPS_DOCTYPE, handleAppRemoval)
   } catch (error) {
