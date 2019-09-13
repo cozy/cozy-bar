@@ -4418,16 +4418,16 @@ cosmiconfig@^5.2.1:
     js-yaml "^3.13.1"
     parse-json "^4.0.0"
 
-cozy-authentication@1.17.0:
-  version "1.17.0"
-  resolved "https://registry.yarnpkg.com/cozy-authentication/-/cozy-authentication-1.17.0.tgz#e3437adcd9bbb2dc0887815db4a3a9c80df30e29"
-  integrity sha512-CA12yAbKBdXV1EYxI0lr0hNq/AUPcnjGnz3waJWt18owbECYPreXe7rxUAQqAC+NIidMP4badraG9LtcQKvkaA==
+cozy-authentication@1.19.1:
+  version "1.19.1"
+  resolved "https://registry.yarnpkg.com/cozy-authentication/-/cozy-authentication-1.19.1.tgz#88baebe9f906f21e2adcd91176d2aae8a2ff3828"
+  integrity sha512-TnEW+Uh+81Stk8ouY59oFXjs4TrD9fSOQhrf+Onffzr8J313s9Sq1a7hdqLeFmKfJiBqMISiujoxBy0wG3qApQ==
   dependencies:
-    cozy-device-helper "^1.7.5"
+    cozy-device-helper "^1.8.0"
     localforage "1.7.3"
     prop-types "15.7.2"
-    react-markdown "4.0.8"
-    url-polyfill "1.1.0"
+    snarkdown "1.2.2"
+    url-polyfill "1.1.7"
 
 cozy-client@6.58.1:
   version "6.58.1"
@@ -4452,10 +4452,10 @@ cozy-device-helper@1.7.3:
   dependencies:
     lodash "4.17.13"
 
-cozy-device-helper@^1.7.5:
-  version "1.7.5"
-  resolved "https://registry.yarnpkg.com/cozy-device-helper/-/cozy-device-helper-1.7.5.tgz#7e1ad1937c5c34d4e8df2ebcae6bd6cb88a49d3a"
-  integrity sha512-5L6QdsJYcE+UpKjJGL6Uk5Lc2sSpDS8KQTf7mvIVrd7IOg/UJIEp9rt1aHQnTRevGShe5ANkmGQmlTfI1uKzUg==
+cozy-device-helper@^1.8.0:
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/cozy-device-helper/-/cozy-device-helper-1.8.0.tgz#17b41d0ea28a504b906669a43449952e72615abb"
+  integrity sha512-XomsjdCCWcS01x1QK/Wc4EI4zTxJN8Ouh7956wm2AEQyjj4lN+7cj8tqEBlb8fLWm68/3S3Z4V3iSJDgnJHu6A==
   dependencies:
     lodash "4.17.15"
 
@@ -12091,7 +12091,7 @@ react-lifecycles-compat@^3.0.0, react-lifecycles-compat@^3.0.4:
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
 
-react-markdown@4.0.8, react-markdown@^4.0.8:
+react-markdown@^4.0.8:
   version "4.0.8"
   resolved "https://registry.yarnpkg.com/react-markdown/-/react-markdown-4.0.8.tgz#e3621b5becaac82a651008d7bc8390d3e4e438c0"
   integrity sha512-Z6oa648rufvzyO0KwYJ/9p9AsdYGIluqK6OlpJ35ouJ8HPF0Ko1WDNdyymjDSHxNrkb7HDyEcIDJCQs8NlET5A==
@@ -13367,6 +13367,11 @@ snapdragon@^0.8.1:
     source-map "^0.5.6"
     source-map-resolve "^0.5.0"
     use "^3.1.0"
+
+snarkdown@1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/snarkdown/-/snarkdown-1.2.2.tgz#0cfe2f3012b804de120fc0c9f7791e869c59cc74"
+  integrity sha1-DP4vMBK4BN4SD8DJ93kehpxZzHQ=
 
 socks-proxy-agent@^3.0.1:
   version "3.0.1"
@@ -14701,10 +14706,10 @@ url-parse-lax@^3.0.0:
   dependencies:
     prepend-http "^2.0.0"
 
-url-polyfill@1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/url-polyfill/-/url-polyfill-1.1.0.tgz#d34e1a596d954b864bc8608f84c592820df422db"
-  integrity sha512-QAbzqCwd84yA6VyjV30aZXla+lrRmczDurvlsVnK+tFOu677ZNGz8shcFWQRp5BF9/z7qvNiCQLqpWPtVoUEBg==
+url-polyfill@1.1.7:
+  version "1.1.7"
+  resolved "https://registry.yarnpkg.com/url-polyfill/-/url-polyfill-1.1.7.tgz#402ee84360eb549bbeb585f4c7971e79a31de9e3"
+  integrity sha512-ZrAxYWCREjmMtL8gSbSiKKLZZticgihCvVBtrFbUVpyoETt8GQJeG2okMWA8XryDAaHMjJfhnc+rnhXRbI4DXA==
 
 url-search-params-polyfill@^6.0.0:
   version "6.0.0"
