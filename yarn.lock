@@ -4447,7 +4447,7 @@ cozy-device-helper@1.7.3:
   dependencies:
     lodash "4.17.13"
 
-cozy-device-helper@^1.8.0:
+cozy-device-helper@1.8.0, cozy-device-helper@^1.8.0:
   version "1.8.0"
   resolved "https://registry.yarnpkg.com/cozy-device-helper/-/cozy-device-helper-1.8.0.tgz#17b41d0ea28a504b906669a43449952e72615abb"
   integrity sha512-XomsjdCCWcS01x1QK/Wc4EI4zTxJN8Ouh7956wm2AEQyjj4lN+7cj8tqEBlb8fLWm68/3S3Z4V3iSJDgnJHu6A==
