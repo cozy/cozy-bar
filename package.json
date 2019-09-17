@@ -58,7 +58,7 @@
     "eslint-config-cozy-app": "1.2.2",
     "eslint-plugin-prettier": "3.1.0",
     "eslint-plugin-react": "7.14.3",
-    "file-loader": "2.0.0",
+    "file-loader": "4.2.0",
     "foreman": "3.0.1",
     "identity-obj-proxy": "3.0.0",
     "jest": "23.6.0",
