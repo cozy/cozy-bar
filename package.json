@@ -91,7 +91,7 @@
     "yaml-loader": "0.5.0"
   },
   "dependencies": {
-    "@babel/core": "7.5.5",
+    "@babel/core": "7.6.2",
     "babel-core": "7.0.0-bridge.0",
     "babel-preset-cozy-app": "1.6.0",
     "cozy-device-helper": "1.8.0",
