@@ -323,7 +323,11 @@ class SearchBar extends Component {
     return (
       <div className="coz-searchbar" role="search">
         {sourceURLs.map((url, i) => (
-          <iframe src={url} style={{ display: 'none' }} key={url + i} />
+          <iframe
+            src={url}
+            style={{ visibility: 'hidden', height: '0px', width: '0px' }}
+            key={url + i}
+          />
         ))}
         <Autosuggest
           theme={theme}
