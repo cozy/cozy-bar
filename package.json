@@ -67,7 +67,7 @@
     "my-react": "npm:react@16.10.1",
     "my-react-dom": "npm:react-dom@16.10.1",
     "npm-run-all": "4.1.5",
-    "postcss": "7.0.18",
+    "postcss": "7.0.21",
     "postcss-discard-duplicates": "4.0.2",
     "postcss-discard-empty": "4.0.1",
     "postcss-import": "12.0.1",
