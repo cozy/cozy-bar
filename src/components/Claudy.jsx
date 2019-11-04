@@ -12,8 +12,12 @@ class Claudy extends Component {
     this.intents = getIntents()
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.claudyFired) this.toggle()
+  }
+
+  componentWillReceiveProps(nextProps) {
+    return this.UNSAFE_componentWillReceiveProps(nextProps)
   }
 
   toggle = () => {
