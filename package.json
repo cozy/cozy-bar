@@ -46,7 +46,7 @@
     "babel-runtime": "6.26.0",
     "bundlesize": "0.18.0",
     "cozy-authentication": "1.19.1",
-    "cozy-client": "6.64.7",
+    "cozy-client": "6.66.0",
     "css-loader": "1.0.1",
     "css-mqpacker": "7.0.0",
     "cssnano-preset-advanced": "4.0.7",
