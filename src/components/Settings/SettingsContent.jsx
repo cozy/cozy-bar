@@ -1,11 +1,12 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 import { translate } from 'cozy-ui/react/I18n'
-import { Button } from 'cozy-ui/react/Button'
+import { Button, ButtonLink } from 'cozy-ui/react/Button'
 import { isMobileApp } from 'cozy-device-helper'
 import StorageData from 'components/Settings/StorageData'
 
-const Settings = ({
+const SettingsContent = ({
   t,
   onLogOut,
   settingsAppURL,
@@ -13,7 +14,9 @@ const Settings = ({
   onClaudy,
   isDrawer = false,
   isClaudyLoading,
-  toggleSupport
+  toggleSupport,
+  shoulDisplayViewOfferButton,
+  managerUrlPremiumLink
 }) => (
   <div className="coz-nav-pop-content">
     {isDrawer && <hr />}
@@ -75,6 +78,23 @@ const Settings = ({
         </li>
       </ul>
     )}
+    {(!isDrawer || !isMobileApp()) && shoulDisplayViewOfferButton && (
+      <ul className="coz-nav-group">
+        <li className="coz-nav-settings-item">
+          <ButtonLink
+            subtle
+            role="menuitem"
+            className="coz-nav-settings-item-btn"
+            //onClick={toggleSupport}
+            icon="cloud-happy"
+            title={t('view_offers')}
+            label={t('view_offers')}
+            href={managerUrlPremiumLink}
+          />
+        </li>
+      </ul>
+    )}
+
     {!isMobileApp() && (
       <ul className="coz-nav-group">
         <li className="coz-nav-settings-item">
@@ -106,4 +126,19 @@ const Settings = ({
   </div>
 )
 
-export default translate()(Settings)
+SettingsContent.defaultProps = {
+  shoulDisplayViewOfferButton: false
+}
+
+SettingsContent.propTypes = {
+  shoulDisplayViewOfferButton: PropTypes.bool,
+  t: PropTypes.func.isRequired,
+  onLogOut: PropTypes.func.isRequired,
+  settingsAppURL: PropTypes.string,
+  storageData: PropTypes.object,
+  onClaudy: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
+  isDrawer: PropTypes.bool,
+  isClaudyLoading: PropTypes.bool,
+  toggleSupport: PropTypes.func.isRequired
+}
+export default translate()(SettingsContent)
