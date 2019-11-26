@@ -85,7 +85,6 @@ const SettingsContent = ({
             subtle
             role="menuitem"
             className="coz-nav-settings-item-btn"
-            //onClick={toggleSupport}
             icon="cloud-happy"
             title={t('view_offers')}
             label={t('view_offers')}
