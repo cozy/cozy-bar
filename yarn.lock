@@ -4464,9 +4464,9 @@ cozy-realtime@3.2.1:
     minilog "3.1.0"
 
 cozy-stack-client@^8.0.0:
-  version "7.12.0"
-  resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-7.12.0.tgz#9a5df9fa77730d04cf1a31c1e5db9c931c8db94d"
-  integrity sha512-ld0/Hm4F9HGjGESEg/QbO71cRFslprxo4EZ4bWKhm5gi1iMeUnOBeDHSTI36iI+xs4ouZTvf9KxTcnkchKG8Cw==
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-8.0.0.tgz#1c0d69b3b5261ba383ae2b2c293bd74b07b28bdf"
+  integrity sha512-Kawi0Qc9NedVQyCq8CHePRdxYHQlKrHfNQqZZoNZroma/NlxTB1kvhAbwh/UDuVx+jF1wh3PnDRdivKBdILVeQ==
   dependencies:
     detect-node "^2.0.4"
     mime "^2.4.0"
