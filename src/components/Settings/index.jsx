@@ -73,7 +73,7 @@ export class Settings extends Component {
       isFetching
     } = this.props
 
-    let shoulDisplayViewOfferButton = false
+    let shouldDisplayViewOfferButton = false
     let managerUrlPremiumLink
     let isFetchingFromQueries
     const canCheckPremium = cozyClientCanCheckPremium()
@@ -89,20 +89,20 @@ export class Settings extends Component {
           diskUsage: diskUsageQuery,
           instance: instanceQuery
         }
-        shoulDisplayViewOfferButton = instanceModel.shouldDisplayOffers(data)
+        shouldDisplayViewOfferButton = instanceModel.shouldDisplayOffers(data)
         managerUrlPremiumLink = instanceModel.buildPremiumLink(data)
       }
     }
 
-    let isAllFetchingAreDone = false
+    let areAllFetchingDone = false
     if (!canCheckPremium) {
-      isAllFetchingAreDone = !isFetching
+      areAllFetchingDone = !isFetching
     } else {
-      isAllFetchingAreDone = !isFetchingFromQueries && !isFetching
+      areAllFetchingDone = !isFetchingFromQueries && !isFetching
     }
 
     const { opened } = this.state
-    const openMenu = opened && isAllFetchingAreDone
+    const openMenu = opened && areAllFetchingDone
     return (
       <div
         className="coz-nav coz-nav-settings"
@@ -125,7 +125,7 @@ export class Settings extends Component {
           id="coz-nav-pop--settings"
           aria-hidden={!openMenu}
         >
-          {isAllFetchingAreDone && (
+          {areAllFetchingDone && (
             <>
               <SettingsContent
                 onLogOut={() => {
@@ -138,7 +138,7 @@ export class Settings extends Component {
                 toggleSupport={toggleSupport}
                 storageData={storageData}
                 settingsAppURL={settingsAppURL}
-                shoulDisplayViewOfferButton={shoulDisplayViewOfferButton}
+                shoulDisplayViewOfferButton={shouldDisplayViewOfferButton}
                 managerUrlPremiumLink={managerUrlPremiumLink}
               />
             </>
