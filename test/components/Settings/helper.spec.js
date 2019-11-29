@@ -1,14 +1,17 @@
-import { isFetching } from 'components/Settings/helper'
+import {
+  isFetchingQueries,
+  cozyClientCanCheckPremium
+} from 'components/Settings/helper'
 
 describe('Settings Helper', () => {
-  it('should return true if isFetching', () => {
+  it('should return true if isFetchingQueries', () => {
     const fakeRequest1 = {
       fetchStatus: 'loading'
     }
     const fakeRequest2 = {
       fetchStatus: 'loaded'
     }
-    expect(isFetching([fakeRequest1, fakeRequest2])).toBe(true)
+    expect(isFetchingQueries([fakeRequest1, fakeRequest2])).toBe(true)
   })
 
   it('should not return true if not fetching', () => {
@@ -18,6 +21,10 @@ describe('Settings Helper', () => {
     const fakeRequest2 = {
       fetchStatus: 'loaded'
     }
-    expect(isFetching([fakeRequest1, fakeRequest2])).toBe(false)
+    expect(isFetchingQueries([fakeRequest1, fakeRequest2])).toBe(false)
+  })
+
+  it('should return true for cozyClientCanCheckPremium', () => {
+    expect(cozyClientCanCheckPremium()).toBe(true)
   })
 })

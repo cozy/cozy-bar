@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
-import get from 'lodash/get'
 import { translate } from 'cozy-ui/react/I18n'
 import { Button } from 'cozy-ui/react/Button'
 import { queryConnect } from 'cozy-client/dist'
 import { instance as instanceModel } from 'cozy-client/dist/models/'
+
 import SettingsContent from 'components/Settings/SettingsContent'
 import {
   fetchSettingsData,
@@ -18,7 +18,10 @@ import {
 
 import { instanceReq, contextReq, diskUsageReq } from '../../queries'
 
-import { isFetching } from 'components/Settings/helper'
+import {
+  isFetchingQueries,
+  cozyClientCanCheckPremium
+} from 'components/Settings/helper'
 
 export class Settings extends Component {
   constructor(props) {
@@ -66,29 +69,40 @@ export class Settings extends Component {
       instanceQuery,
       contextQuery,
       storageData,
-      settingsAppURL
+      settingsAppURL,
+      isFetching
     } = this.props
-    const isCurrentlyFetching = isFetching([
-      diskUsageQuery,
-      instanceQuery,
-      contextQuery
-    ])
+
     let shoulDisplayViewOfferButton = false
     let managerUrlPremiumLink
-    if (!isCurrentlyFetching) {
-      const data = {
-        context: contextQuery,
-        diskUsage: diskUsageQuery,
-        instance: instanceQuery
+    let isFetchingFromQueries
+    const canCheckPremium = cozyClientCanCheckPremium()
+    if (canCheckPremium) {
+      isFetchingFromQueries = isFetchingQueries([
+        diskUsageQuery,
+        instanceQuery,
+        contextQuery
+      ])
+      if (!isFetchingFromQueries) {
+        const data = {
+          context: contextQuery,
+          diskUsage: diskUsageQuery,
+          instance: instanceQuery
+        }
+        shoulDisplayViewOfferButton = instanceModel.shouldDisplayOffers(data)
+        managerUrlPremiumLink = instanceModel.buildPremiumLink(data)
       }
-      shoulDisplayViewOfferButton = instanceModel.shouldDisplayOffers(data)
-      //TODO REMOVE AFTER https://github.com/cozy/cozy-client/pull/572 merge
-      const managerUrl = get(data, 'context.data.attributes.manager_url', false)
-      const uuid = instanceModel.getUuid(data)
-      managerUrlPremiumLink = `${managerUrl}/cozy/instances/${uuid}/premium`
     }
+
+    let isAllFetchingAreDone = false
+    if (!canCheckPremium) {
+      isAllFetchingAreDone = !isFetching
+    } else {
+      isAllFetchingAreDone = !isFetchingFromQueries && !isFetching
+    }
+
     const { opened } = this.state
-    const openMenu = opened && !isCurrentlyFetching
+    const openMenu = opened && isAllFetchingAreDone
     return (
       <div
         className="coz-nav coz-nav-settings"
@@ -111,7 +125,7 @@ export class Settings extends Component {
           id="coz-nav-pop--settings"
           aria-hidden={!openMenu}
         >
-          {!isCurrentlyFetching && (
+          {isAllFetchingAreDone && (
             <>
               <SettingsContent
                 onLogOut={() => {
