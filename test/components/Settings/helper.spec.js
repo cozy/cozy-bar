@@ -31,7 +31,5 @@ describe('Settings Helper', () => {
 
     expect(cozyClientCanCheckPremium(CozyClient)).toBe(false)
     expect(cozyClientCanCheckPremium({ version: '10.7.8' })).toBe(true)
-    //we expect the current CozyClient version is OK
-    expect(cozyClientCanCheckPremium()).toBe(true)
   })
 })

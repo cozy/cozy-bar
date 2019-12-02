@@ -16,10 +16,10 @@ export const isFetchingQueries = requests => {
  * then read the constructor and then read the version from it
  */
 export const cozyClientCanCheckPremium = (forcedCozyClient = null) => {
+  const usedClient = client.getClient() ? client.getClient().constructor : {}
   const cozyClientToUse =
-    forcedCozyClient !== null
-      ? forcedCozyClient
-      : client.getClient().constructor
+    forcedCozyClient !== null ? forcedCozyClient : usedClient
+
   if (!cozyClientToUse.version) return false
   const result = compare(cozyClientToUse.version, '8.3.0')
   return result >= 0
