@@ -4,7 +4,7 @@ import { compose } from 'redux'
 import { translate } from 'cozy-ui/react/I18n'
 import { Button } from 'cozy-ui/react/Button'
 import { queryConnect } from 'cozy-client/dist'
-import { instance as instanceModel } from 'cozy-client/dist/models/'
+import { instance as instanceModel } from 'cozy-client'
 
 import SettingsContent from 'components/Settings/SettingsContent'
 import {
