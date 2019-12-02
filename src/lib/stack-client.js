@@ -339,6 +339,10 @@ const getSettingsAppURL = function() {
   })
 }
 
+const getClient = function() {
+  return cozyClient
+}
+
 /**
  * Initializes the functions to call the cozy stack
  *
@@ -374,5 +378,6 @@ export default {
   updateAccessToken,
   cozyFetchJSON,
   logout,
-  init
+  init,
+  getClient
 }
