@@ -5,7 +5,11 @@ import { translate } from 'cozy-ui/react/I18n'
 import { Button } from 'cozy-ui/react/Button'
 import { queryConnect } from 'cozy-client/dist'
 import { models } from 'cozy-client'
-const { instance: instanceModel } = models
+let instanceModel = undefined
+if (models) {
+  instanceModel = models.instance
+}
+
 import SettingsContent from 'components/Settings/SettingsContent'
 import {
   fetchSettingsData,
@@ -161,16 +165,27 @@ const mapDispatchToProps = dispatch => ({
   fetchSettingsData: () => dispatch(fetchSettingsData()),
   logOut: () => dispatch(logOut())
 })
-
-export default compose(
-  translate(),
-  queryConnect({
-    instanceQuery: instanceReq,
-    contextQuery: contextReq,
-    diskUsageQuery: diskUsageReq
-  }),
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )
-)(Settings)
+let exported
+if (cozyClientCanCheckPremium()) {
+  exported = compose(
+    translate(),
+    queryConnect({
+      instanceQuery: instanceReq,
+      contextQuery: contextReq,
+      diskUsageQuery: diskUsageReq
+    }),
+    connect(
+      mapStateToProps,
+      mapDispatchToProps
+    )
+  )(Settings)
+} else {
+  exported = compose(
+    translate(),
+    connect(
+      mapStateToProps,
+      mapDispatchToProps
+    )
+  )(Settings)
+}
+export default exported
