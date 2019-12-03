@@ -1,5 +1,5 @@
 /* eslint-env browser */
-
+import compare from 'semver-compare'
 import { Intents } from 'cozy-interapp'
 import getIcon from 'lib/icon'
 import initializeRealtime from 'lib/realtime'
@@ -339,8 +339,25 @@ const getSettingsAppURL = function() {
   })
 }
 
-const getClient = function() {
-  return cozyClient
+/**
+ *
+ * @param {cozyClient} forcedCozyClient only used to test purpose
+ *
+ * We can not read `version` from `import CozyClient from cozy-client`
+ * since in that case, we'll read version from the cozy-bar node modules
+ * and not from the app one.
+ *
+ * In order to avoid this issue, we get the instance passed by the app to the bar),
+ * then read the constructor and then read the version from it
+ */
+const compareClientVersion = function(targetVersion, forcedCozyClient = null) {
+  const usedClient = cozyClient ? cozyClient.constructor : {}
+  const cozyClientToUse =
+    forcedCozyClient !== null ? forcedCozyClient : usedClient
+
+  if (!cozyClientToUse.version) return false
+  const result = compare(cozyClientToUse.version, targetVersion)
+  return result >= 0
 }
 
 /**
@@ -364,6 +381,8 @@ const init = function({ cozyClient: client, onCreate, onDelete }) {
   })
 }
 
+export { compareClientVersion }
+
 export default {
   get: {
     app: getApp,
@@ -378,6 +397,5 @@ export default {
   updateAccessToken,
   cozyFetchJSON,
   logout,
-  init,
-  getClient
+  init
 }

@@ -1,7 +1,4 @@
-import {
-  isFetchingQueries,
-  cozyClientCanCheckPremium
-} from 'components/Settings/helper'
+import { isFetchingQueries } from 'components/Settings/helper'
 
 describe('Settings Helper', () => {
   it('should return true if isFetchingQueries', () => {
@@ -22,14 +19,5 @@ describe('Settings Helper', () => {
       fetchStatus: 'loaded'
     }
     expect(isFetchingQueries([fakeRequest1, fakeRequest2])).toBe(false)
-  })
-
-  it('should return true for cozyClientCanCheckPremium', () => {
-    const CozyClient = {
-      version: '6.7.8'
-    }
-
-    expect(cozyClientCanCheckPremium(CozyClient)).toBe(false)
-    expect(cozyClientCanCheckPremium({ version: '10.7.8' })).toBe(true)
   })
 })
