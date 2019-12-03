@@ -7,7 +7,7 @@ exports[`Apps Content should display home in the app items lists, if we are on m
   <ul
     className="coz-nav-group"
   >
-    <Wrapper
+    <AppItem
       app={
         Object {
           "slug": "cozy-home",
@@ -69,7 +69,7 @@ exports[`Apps Content should render display Drive 1`] = `
   <ul
     className="coz-nav-group"
   >
-    <Wrapper
+    <AppItem
       app={
         Object {
           "name": "Drive",

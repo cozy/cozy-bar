@@ -1,12 +1,19 @@
 import React from 'react'
+import get from 'lodash/get'
 import { appShape } from 'proptypes/index'
+import { models } from 'cozy-client'
 
 import AppIcon from 'cozy-ui/react/AppIcon'
 import AppLinker from 'cozy-ui/react/AppLinker'
 import HomeIcon from 'components/Apps/IconCozyHome'
-import { translate } from 'cozy-ui/react/I18n'
 import stack from 'lib/stack'
 import PropTypes from 'prop-types'
+
+const getAppDisplayName = get(models, 'applications.getAppDisplayName', app => {
+  return app.namePrefix && app.namePrefix.toLowerCase() !== 'cozy'
+    ? `${app.namePrefix} ${app.name}`
+    : app.name
+})
 
 export class AppItem extends React.Component {
   /**
@@ -57,9 +64,10 @@ export class AppItem extends React.Component {
   }
 
   render() {
-    const { t, useHomeIcon, app } = this.props
+    const { useHomeIcon, app } = this.props
 
     const dataIcon = app.slug ? `icon-${app.slug}` : ''
+    const appName = getAppDisplayName(app)
 
     return (
       <AppLinker
@@ -68,9 +76,6 @@ export class AppItem extends React.Component {
         href={this.buildAppUrl(app.href) || ''}
       >
         {({ onClick, href }) => {
-          const label = t(`${app.slug}.name`, {
-            _: app.namePrefix ? `${app.namePrefix} ${app.name}` : app.name
-          })
           return (
             <li
               className={`coz-nav-apps-item${
@@ -81,7 +86,7 @@ export class AppItem extends React.Component {
                 role="menuitem"
                 href={href}
                 data-icon={dataIcon}
-                title={label}
+                title={appName}
                 onClick={onClick}
               >
                 {useHomeIcon ? (
@@ -94,7 +99,7 @@ export class AppItem extends React.Component {
                     {...stack.get.iconProps()}
                   />
                 )}
-                <p className="coz-label">{label}</p>
+                <p className="coz-label">{appName}</p>
               </a>
             </li>
           )
@@ -109,4 +114,4 @@ AppItem.propTypes = {
   useHomeIcon: PropTypes.bool
 }
 
-export default translate()(AppItem)
+export default AppItem
