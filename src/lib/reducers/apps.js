@@ -1,6 +1,5 @@
 import stack from 'lib/stack'
 import unionWith from 'lodash.unionwith'
-import EXCLUDES from 'config/excludedApps'
 
 // constants
 const DELETE_APP = 'DELETE_APP'
@@ -46,9 +45,7 @@ export const fetchApps = () => async dispatch => {
   try {
     dispatch({ type: FETCH_APPS })
     const rawAppList = await stack.get.apps()
-    const apps = rawAppList
-      .filter(app => !EXCLUDES.includes(app.attributes.slug))
-      .map(mapApp)
+    const apps = rawAppList.map(mapApp)
     if (!rawAppList.length)
       throw new Error('No installed apps found by the bar')
     // TODO load only one time icons
