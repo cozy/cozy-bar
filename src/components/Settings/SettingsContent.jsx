@@ -16,7 +16,8 @@ const SettingsContent = ({
   isClaudyLoading,
   toggleSupport,
   shoulDisplayViewOfferButton,
-  managerUrlPremiumLink
+  managerUrlPremiumLink,
+  viewOfferButtonText
 }) => (
   <div className="coz-nav-pop-content">
     {isDrawer && <hr />}
@@ -86,8 +87,8 @@ const SettingsContent = ({
             role="menuitem"
             className="coz-nav-settings-item-btn"
             icon="cloud-happy"
-            title={t('view_offers')}
-            label={t('view_offers')}
+            title={viewOfferButtonText}
+            label={viewOfferButtonText}
             href={managerUrlPremiumLink}
           />
         </li>
@@ -138,6 +139,7 @@ SettingsContent.propTypes = {
   onClaudy: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
   isDrawer: PropTypes.bool,
   isClaudyLoading: PropTypes.bool,
-  toggleSupport: PropTypes.func.isRequired
+  toggleSupport: PropTypes.func.isRequired,
+  viewOfferButtonText: PropTypes.string
 }
 export default translate()(SettingsContent)

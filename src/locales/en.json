@@ -5,6 +5,7 @@
   "storage": "Storage",
   "storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
   "view_offers": "View offers",
+  "view_my_offer": "My offer",
   "help": "Help",
   "logout": "Sign out",
   "soon": "soon",
