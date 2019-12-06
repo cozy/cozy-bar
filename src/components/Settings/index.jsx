@@ -1,13 +1,32 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
+import get from 'lodash/get'
+
 import { translate } from 'cozy-ui/react/I18n'
 import { Button } from 'cozy-ui/react/Button'
 import { queryConnect } from 'cozy-client/dist'
 import { models } from 'cozy-client'
 let instanceModel = undefined
+let hasAnOffer = undefined
+let isFremiumFixed = undefined
 if (models) {
   instanceModel = models.instance
+  //TODO fallback from cozy-client
+  isFremiumFixed = data => {
+    const GB = 1000 * 1000 * 1000
+    const PREMIUM_QUOTA = 50 * GB
+    const quota = get(data, 'diskUsage.data.attributes.quota', false)
+    return parseInt(quota) < PREMIUM_QUOTA
+  }
+  hasAnOffer = data => {
+    return (
+      !instanceModel.isSelfHosted(data) &&
+      instanceModel.arePremiumLinksEnabled(data) &&
+      instanceModel.getUuid(data) &&
+      !isFremiumFixed(data)
+    )
+  }
 }
 
 import SettingsContent from 'components/Settings/SettingsContent'
@@ -80,6 +99,7 @@ export class Settings extends Component {
     let shouldDisplayViewOfferButton = false
     let managerUrlPremiumLink
     let isFetchingFromQueries
+    let viewOfferButtonText = ''
     const canCheckPremium = cozyClientCanCheckPremium()
     if (canCheckPremium) {
       isFetchingFromQueries = isFetchingQueries([
@@ -93,8 +113,14 @@ export class Settings extends Component {
           diskUsage: diskUsageQuery,
           instance: instanceQuery
         }
+        shouldDisplayViewOfferButton =
+          instanceModel.shouldDisplayOffers(data) || hasAnOffer(data)
 
-        shouldDisplayViewOfferButton = instanceModel.shouldDisplayOffers(data)
+        if (shouldDisplayViewOfferButton && !hasAnOffer(data)) {
+          viewOfferButtonText = t('view_offers')
+        } else if (hasAnOffer(data)) {
+          viewOfferButtonText = t('view_my_offer')
+        }
         managerUrlPremiumLink = instanceModel.buildPremiumLink(data)
       }
     }
@@ -145,6 +171,7 @@ export class Settings extends Component {
                 settingsAppURL={settingsAppURL}
                 shoulDisplayViewOfferButton={shouldDisplayViewOfferButton}
                 managerUrlPremiumLink={managerUrlPremiumLink}
+                viewOfferButtonText={viewOfferButtonText}
               />
             </>
           )}
