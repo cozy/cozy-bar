@@ -18,6 +18,7 @@
   background-color: transparent;
   border: none;
   color: black;
+  font-size: 1rem;
 }
 
 [role=banner] .coz-nav-apps-btns-main:hover,
