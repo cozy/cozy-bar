@@ -104,7 +104,7 @@
     "localforage": "1.7.3",
     "lodash.debounce": "4.0.8",
     "lodash.unionwith": "4.6.0",
-    "minilog": "3.1.0",
+    "minilog": "https://github.com/cozy/minilog.git#master",
     "parcel": "1.12.3",
     "piwik-react-router": "0.12.1",
     "prop-types": "15.7.2",
