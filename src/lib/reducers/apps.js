@@ -49,7 +49,7 @@ export const fetchApps = () => async dispatch => {
     if (!rawAppList.length)
       throw new Error('No installed apps found by the bar')
     // TODO load only one time icons
-    await dispatch(setHomeApp(apps))
+    await dispatch(setDefaultApp(apps))
     await dispatch(receiveAppList(apps))
   } catch (e) {
     dispatch({ type: FETCH_APPS_FAILURE })
@@ -58,26 +58,37 @@ export const fetchApps = () => async dispatch => {
   }
 }
 
-const setHomeApp = appsList => async dispatch => {
-  return stack.get
-    .context()
-    .then(context => {
-      const homeLink =
-        context.data &&
-        context.data.attributes &&
-        context.data.attributes.default_redirection
+/**
+ *
+ * @param {Array} appsList
+ */
+export const setDefaultApp = appsList => async dispatch => {
+  try {
+    const context = await stack.get.context()
+    const defaultRedirection =
+      context.data &&
+      context.data.attributes &&
+      context.data.attributes.default_redirection
+    let homeApp = null
+    //self hosted cozy has no context by default
+    //so let's use hardcoded home slug if needed
+    if (!defaultRedirection) {
+      const HOME_APP_SLUG = 'home'
+      homeApp = findAppInArray(HOME_APP_SLUG, appsList)
+    } else {
       const slugRegexp = /^([^/]+)\/.*/
-      const homeSlug =
-        homeLink && homeLink.match(slugRegexp) && homeLink.match(slugRegexp)[1]
-      if (!homeSlug) return appsList
-      const homeApp = appsList.find(app => app.slug === homeSlug)
+      const matches = defaultRedirection.match(slugRegexp)
+      const defaultAppSlug = matches && matches[1]
+      homeApp = findAppInArray(defaultAppSlug, appsList)
+    }
+
+    if (homeApp) {
       return dispatch(receiveHomeApp(homeApp))
-    })
-    .catch(error => {
-      // eslint-disable-next-line no-console
-      console.warn(`Cozy-bar cannot fetch home app data: ${error.message}`)
-      return appsList
-    })
+    }
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.warn(`Cozy-bar cannot fetch home app data: ${error.message}`)
+  }
 }
 
 // reducers
@@ -160,3 +171,5 @@ const mapApp = app => ({
   ...camelCasify(app.attributes),
   href: app.links && app.links.related
 })
+
+const findAppInArray = (appSlug, apps) => apps.find(app => app.slug === appSlug)
