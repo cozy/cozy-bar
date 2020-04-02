@@ -9,7 +9,7 @@ const fakeStackClient = {
   uri: cozyURL,
   token: { token }
 }
-describe('app reduceur', () => {
+describe('app reducer', () => {
   beforeAll(() => {
     jest.clearAllMocks()
     const params = {
