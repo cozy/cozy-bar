@@ -113,7 +113,7 @@
     "redux": "3.7.2",
     "redux-persist": "5.10.0",
     "redux-thunk": "2.3.0",
-    "semver-compare": "^1.0.0"
+    "semver-compare": "1.0.0"
   },
   "peerDependencies": {
     "cozy-client": "*"
