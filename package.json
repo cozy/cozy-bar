@@ -30,7 +30,7 @@
     "tx": "tx pull --all || true",
     "postbuild": "yarn shasum",
     "shasum": "shasum -a 256 dist/cozy-bar.min.js && shasum -a 256 dist/cozy-bar.min.css",
-    "test": "jest --verbose --coverage",
+    "test": "jest",
     "posttest": "bundlesize",
     "travis-deploy-once": "travis-deploy-once",
     "semantic-release": "semantic-release",
