@@ -16,9 +16,15 @@ describe('stack client', () => {
       if (isLogged === undefined) {
         throw new Error('Please define explicity isLogged in your tests.')
       }
+      const stackClient = {
+        token: { token: 'mytoken' },
+        uri: 'https://test.mycozy.cloud',
+        on: () => {}
+      }
       cozyClient = new CozyClient({
         token: { token: 'mytoken' },
-        uri: 'https://test.mycozy.cloud'
+        uri: 'https://test.mycozy.cloud',
+        stackClient
       })
       cozyClient.isLogged = isLogged
       params = {

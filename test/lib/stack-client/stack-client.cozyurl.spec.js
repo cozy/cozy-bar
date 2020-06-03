@@ -5,7 +5,8 @@ describe('stack client', () => {
   describe('cozyURL', () => {
     const stackClient = {
       token: { token: 'mytoken' },
-      uri: 'https://test.mycozy.cloud'
+      uri: 'https://test.mycozy.cloud',
+      on: () => {}
     }
 
     const cozyClient = new CozyClient({

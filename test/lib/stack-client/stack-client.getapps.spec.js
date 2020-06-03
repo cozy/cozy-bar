@@ -5,6 +5,7 @@ describe('stack client', () => {
   describe('getApps', () => {
     const stackClient = {
       token: { token: 'mytoken' },
+      on: () => {},
       uri: 'https://test.mycozy.cloud',
       fetch: jest.fn().mockResolvedValue({
         status: 200,

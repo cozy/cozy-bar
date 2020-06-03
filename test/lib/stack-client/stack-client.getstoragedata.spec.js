@@ -40,6 +40,7 @@ describe('stack client', () => {
 
     const stackClient = {
       token: { token: 'mytoken' },
+      on: () => {},
       uri: 'https://test.mycozy.cloud',
       fetch: jest.fn()
     }

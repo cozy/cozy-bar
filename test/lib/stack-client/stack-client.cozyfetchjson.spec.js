@@ -18,7 +18,8 @@ describe('stack client', () => {
       stackClient: {
         token: { token: 'mytoken' },
         uri: 'https://test.mycozy.cloud',
-        fetch
+        fetch,
+        on: () => {}
       }
     })
 

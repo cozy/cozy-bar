@@ -6,7 +6,8 @@ const cozyURL = 'https://test.mycozy.cloud'
 const token = 'mytoken'
 const fakeStackClient = {
   uri: cozyURL,
-  token: { token }
+  token: { token },
+  on: () => {}
 }
 const onCreate = function() {}
 const onDelete = function() {}
