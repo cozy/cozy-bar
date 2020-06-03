@@ -176,7 +176,8 @@ const init = async ({
   }
 
   // Assign all api methods to the bar object
-  exposedAPI = createBarAPI(reduxStore)
+  const apiMethods = createBarAPI(reduxStore)
+  Object.assign(exposedAPI, apiMethods)
 
   const options = {
     appName,
