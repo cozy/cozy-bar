@@ -1,16 +1,12 @@
 import { Intents } from 'cozy-interapp'
 import stack from 'lib/stack-client'
 import CozyClient from 'cozy-client'
+import mockStackClient from '../mockStackClient'
 
 describe('stack client', () => {
   describe('intents', () => {
-    const stackClient = {
-      token: { token: 'mytoken' },
-      uri: 'https://test.mycozy.cloud'
-    }
-
     const cozyClient = new CozyClient({
-      stackClient
+      stackClient: mockStackClient
     })
 
     const params = {

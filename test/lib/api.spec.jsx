@@ -2,13 +2,13 @@ import React from 'react'
 import { shallow } from 'enzyme'
 
 import createStore from 'lib/store'
-import initApi from 'lib/api'
+import { createBarAPI } from 'lib/api'
 import appReducers, { getContent as _getContent } from 'lib/reducers'
 import { getDefaultState } from 'lib/reducers/content'
 import { locations, getJsApiName, getReactApiName } from 'lib/api/helpers'
 
 const store = createStore()
-const api = initApi(store)
+const api = createBarAPI(store)
 
 // add test reducer to reset state
 const RESET_API = 'RESET_API'

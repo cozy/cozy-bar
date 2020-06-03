@@ -1,0 +1,57 @@
+{
+  "drawer": "Показать панель меню",
+  "profile": "Профиль",
+  "connectedDevices": "Присоединённые устройства",
+  "storage": "Хранилище",
+  "storage_phrase": "%{diskUsage} ГБ из %{diskQuota} ГБ использовано",
+  "view_offers": "View offers",
+  "view_my_offer": "My offer",
+  "help": "Помощь",
+  "logout": "Выход",
+  "soon": "скоро",
+  "error_UnavailableStack": "Это стек не доступен (превышено время ожидания)",
+  "error_UnauthorizedStack": "Некоторые разрешения отсутствуют, получить доступ к запрашиваемому ресурсу в стеке не возможно.",
+  "no_apps": "В Cozy приложение не найдены.",
+
+  "menu": {
+    "apps": "Приложения",
+    "settings": "Настройки",
+    "home_mobile": "Back to home...",
+    "home": "Back to home",
+    "home_title": "Home"
+  },
+
+  "Categories": {
+    "cozy": "Cozy приложения",
+    "partners": "Приложения партнеров",
+    "ptnb": "expPTNB",
+    "others": "Другие приложения"
+  },
+
+  "claudy": {
+    "title": "Как найти ваш Cozy?"
+  },
+
+  "searchbar": {
+    "placeholder": "Найти что-нибудь",
+    "empty": "По запросу “%{query}” ничего не найдено."
+  },
+
+  "permsModal": {
+    "title": "Получите доступ ко всем функциям Cozy из приложения",
+    "description": "Авторизация %{app}  для отображения приложений Cozy на этом устройстве",
+    "button": "Разрешенный доступ"
+  },
+  "comingSoon": {
+    "store": {
+      "title": "Магазин Приложений скоро будет доступен в вашем Cozy.",
+      "description": "Благодаря Магазину Cozy вы можете установить те приложения, которые вам нужны в вашем Cozy."
+    }
+  },
+  "banner": {
+    "tos-updated": {
+      "description": "To comply with the GDPR, Cozy Cloud has updated its Terms of Services that have taken effect on May 25, 2018",
+      "CTA": "Прочитать"
+    }
+  }
+}

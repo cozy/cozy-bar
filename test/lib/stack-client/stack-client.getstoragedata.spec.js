@@ -1,5 +1,6 @@
 import stack from 'lib/stack-client'
 import CozyClient from 'cozy-client'
+import mockStackClient from '../mockStackClient'
 
 describe('stack client', () => {
   describe('getStorageData', () => {
@@ -39,8 +40,7 @@ describe('stack client', () => {
     }
 
     const stackClient = {
-      token: { token: 'mytoken' },
-      uri: 'https://test.mycozy.cloud',
+      ...mockStackClient,
       fetch: jest.fn()
     }
 

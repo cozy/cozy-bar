@@ -38,7 +38,7 @@ exports[`Bar should change allow theme overrides 1`] = `
     <div
       className="u-flex-grow"
     />
-    <Wrapper
+    <withI18n(Connect(Settings))
       toggleSupport={[Function]}
     />
     <Connect(Drawer)
@@ -87,7 +87,7 @@ exports[`Bar should change theme 1`] = `
     <div
       className="u-flex-grow"
     />
-    <Wrapper
+    <withI18n(Connect(Settings))
       toggleSupport={[Function]}
     />
     <Connect(Drawer)
@@ -138,9 +138,9 @@ exports[`Bar should display the Searchbar 1`] = `
     <div
       className="u-flex-grow"
     >
-      <Wrapper />
+      <withI18n(SearchBar) />
     </div>
-    <Wrapper
+    <withI18n(Connect(Settings))
       toggleSupport={[Function]}
     />
     <Connect(Drawer)
@@ -233,7 +233,7 @@ exports[`Bar should not display searchbar if we are not on Cozy Drive 1`] = `
     <div
       className="u-flex-grow"
     />
-    <Wrapper
+    <withI18n(Connect(Settings))
       toggleSupport={[Function]}
     />
     <Connect(Drawer)
@@ -284,7 +284,7 @@ exports[`Bar should not display searchbar if we are on mobile 1`] = `
     <div
       className="u-flex-grow"
     />
-    <Wrapper
+    <withI18n(Connect(Settings))
       toggleSupport={[Function]}
     />
     <Connect(Drawer)

@@ -1,0 +1,57 @@
+{
+  "drawer": "Afficher le menu latéral",
+  "profile": "Profil",
+  "connectedDevices": "Appareils connectés",
+  "storage": "Espace disque",
+  "storage_phrase": "%{diskUsage} Go sur %{diskQuota} Go",
+  "view_offers": "Voir les offres",
+  "view_my_offer": "Mon offre",
+  "help": "Aide",
+  "logout": "Déconnexion",
+  "soon": "à venir",
+  "error_UnavailableStack": "Connexion à la stack impossible (connection timed-out)",
+  "error_UnauthorizedStack": "Des permissions sont manquante, l'application ne peut accéder aux ressources demandées.",
+  "no_apps": "Pas d'applications Cozy trouvées.",
+
+  "menu": {
+    "apps": "Applications",
+    "settings": "Paramètres",
+    "home_mobile": "Retour à l'accueil...",
+    "home": "Retour à l'accueil",
+    "home_title": "Accueil "
+  },
+
+  "Categories": {
+    "cozy": "Apps Cozy",
+    "partners": "Expérimentation MesInfos",
+    "ptnb": "Expérimentation Carnet du logement",
+    "others": "Autres apps"
+  },
+
+  "claudy": {
+    "title": "Comment utiliser votre Cozy ?"
+  },
+
+  "searchbar": {
+    "placeholder": "Rechercher",
+    "empty": "Aucun résultat trouvé pour la requête \"%{query}\""
+  },
+
+  "permsModal": {
+    "title": "Accéder à ton Cozy à partir de ton application",
+    "description": "Autoriser %{app} à afficher les applications de ton Cozy sur cet appareil",
+    "button": "Autoriser l'accès"
+  },
+  "comingSoon": {
+    "store": {
+      "title": "L'application Store sera bientôt disponible dans votre Cozy",
+      "description": "Grâce à cozy Store vous pourrez installer les applications que vous souhaitez sur votre Cozy."
+    }
+  },
+  "banner": {
+    "tos-updated": {
+      "description": "Dans le cadre du RGPD, Cozy Cloud met à jour ses Conditions Générales d'Utilisation qui ont pris effet le 25 Mai 2018",
+      "CTA": "Lire maintenant"
+    }
+  }
+}

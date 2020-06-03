@@ -1,5 +1,6 @@
 import stack from 'lib/stack-client'
 import CozyClient from 'cozy-client'
+import mockStackClient from '../mockStackClient'
 
 describe('stack client', () => {
   describe('cozyFetchJSON', () => {
@@ -16,8 +17,7 @@ describe('stack client', () => {
 
     let cozyClient = new CozyClient({
       stackClient: {
-        token: { token: 'mytoken' },
-        uri: 'https://test.mycozy.cloud',
+        ...mockStackClient,
         fetch
       }
     })
