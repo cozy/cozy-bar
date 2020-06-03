@@ -3,6 +3,7 @@ import { shallow } from 'enzyme'
 import { isMobileApp } from 'cozy-device-helper'
 import toJson from 'enzyme-to-json'
 import reducers from 'lib/reducers'
+import CozyClient from 'cozy-client'
 
 import { Bar, mapStateToProps, mapDispatchToProps } from './Bar'
 
@@ -12,23 +13,25 @@ jest.mock('cozy-device-helper', () => ({
 }))
 
 describe('Bar', () => {
-  let props
+  let props, client
   beforeEach(() => {
     jest.resetAllMocks()
-    jest.spyOn(Bar.prototype, 'fetchContent')
+    jest.spyOn(Bar.prototype, 'fetchApps')
     isMobileApp.mockReturnValue(false)
+    client = new CozyClient({})
     props = {
       fetchContext: jest.fn().mockResolvedValue({}),
       fetchApps: jest.fn().mockResolvedValue([]),
       fetchSettingsData: jest.fn().mockResolvedValue({}),
       theme: 'default',
       themeOverrides: {},
-      t: x => x
+      t: x => x,
+      cozyClient: client
     }
   })
 
   afterEach(() => {
-    Bar.prototype.fetchContent.mockRestore()
+    Bar.prototype.fetchApps.mockRestore()
   })
 
   it('should fetch data when mounted', () => {
@@ -36,7 +39,7 @@ describe('Bar', () => {
     expect(props.fetchContext).toHaveBeenCalled()
     expect(props.fetchApps).toHaveBeenCalled()
     expect(props.fetchSettingsData).toHaveBeenCalled()
-    expect(Bar.prototype.fetchContent).toHaveBeenCalled()
+    expect(Bar.prototype.fetchApps).toHaveBeenCalled()
   })
 
   it('should not fetch data if public', () => {
@@ -44,7 +47,7 @@ describe('Bar', () => {
     expect(props.fetchContext).not.toHaveBeenCalled()
     expect(props.fetchApps).not.toHaveBeenCalled()
     expect(props.fetchSettingsData).not.toHaveBeenCalled()
-    expect(Bar.prototype.fetchContent).not.toHaveBeenCalled()
+    expect(Bar.prototype.fetchApps).not.toHaveBeenCalled()
   })
 
   it('should not fetch apps if hasFetchedApps is true', () => {
@@ -52,19 +55,19 @@ describe('Bar', () => {
     jest.resetAllMocks()
     barWrapper.setState({ drawerVisible: true }) // to call componentdidUpdate
     expect(props.fetchApps).not.toHaveBeenCalled()
-    expect(Bar.prototype.fetchContent).not.toHaveBeenCalled()
+    expect(Bar.prototype.fetchApps).not.toHaveBeenCalled()
   })
 
   it('should re-fetch apps if apps are not fetched and drawer opens', () => {
     const barWrapper = shallow(<Bar {...props} />)
-    expect(Bar.prototype.fetchContent).toHaveBeenCalledTimes(1)
+    expect(Bar.prototype.fetchApps).toHaveBeenCalledTimes(1)
     expect(props.fetchApps).toHaveBeenCalledTimes(1)
     barWrapper.setState({ drawerVisible: true })
     expect(props.fetchApps).toHaveBeenCalledTimes(2)
-    expect(Bar.prototype.fetchContent).toHaveBeenCalledTimes(2)
+    expect(Bar.prototype.fetchApps).toHaveBeenCalledTimes(2)
     barWrapper.setState({ drawerVisible: true, usageTracker: {} })
     expect(props.fetchApps).toHaveBeenCalledTimes(2)
-    expect(Bar.prototype.fetchContent).toHaveBeenCalledTimes(2)
+    expect(Bar.prototype.fetchApps).toHaveBeenCalledTimes(2)
   })
 
   it('should change theme', () => {
@@ -115,5 +118,16 @@ describe('Bar', () => {
 
   it('should have correct dispatch props provided by the store', () => {
     expect(mapDispatchToProps(jest.fn())).toMatchSnapshot()
+  })
+
+  it('should call re-fetch data when token is refreshed', () => {
+    shallow(
+      <Bar {...props} isDrive={false} isPublic={false} />
+    )
+    client.emit('tokenRefreshed')
+    expect(props.fetchContext).toHaveBeenCalledTimes(2)
+    expect(props.fetchApps).toHaveBeenCalledTimes(2)
+    expect(props.fetchSettingsData).toHaveBeenCalledTimes(2)
+    expect(Bar.prototype.fetchApps).toHaveBeenCalledTimes(2)
   })
 })

@@ -43,8 +43,9 @@ export class Bar extends Component {
       supportDisplayed: false,
       searchBarEnabled: props.isDrive && !props.isPublic && !isMobileApp()
     }
-    this.fetchContent = this.fetchContent.bind(this)
+    this.fetchApps = this.fetchApps.bind(this)
     this.fetchInitialData = this.fetchInitialData.bind(this)
+    this.handleTokenRefreshed = this.handleTokenRefreshed.bind(this)
   }
 
   componentDidMount() {
@@ -52,6 +53,14 @@ export class Bar extends Component {
       this.initPiwikTracker()
     }
     this.fetchInitialData()
+
+    const cozyClient = this.props.cozyClient
+    cozyClient.on('tokenRefreshed', this.handleTokenRefreshed)
+  }
+
+  componentWillUnmount() {
+    const cozyClient = this.props.cozyClient
+    cozyClient.removeListener('tokenRefreshed', this.handleTokenRefreshed)
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -60,8 +69,12 @@ export class Bar extends Component {
       this.state.drawerVisible &&
       prevState.drawerVisible !== this.state.drawerVisible
     ) {
-      this.fetchContent()
+      this.fetchApps()
     }
+  }
+
+  handleTokenRefreshed() {
+    this.fetchInitialData()
   }
 
   initPiwikTracker() {
@@ -79,7 +92,7 @@ export class Bar extends Component {
     this.setState({ usageTracker: trackerInstance })
   }
 
-  fetchContent() {
+  fetchApps() {
     this.props.fetchApps()
   }
 
@@ -89,7 +102,7 @@ export class Bar extends Component {
     }
     this.props.fetchContext()
     this.props.fetchSettingsData(false)
-    this.fetchContent()
+    this.fetchApps()
   }
 
   toggleDrawer = () => {
