@@ -1,6 +1,6 @@
 /* global __VERSION__ */
 
-'use strict'
+import { isMobileApp } from 'cozy-device-helper'
 
 import stack from 'lib/stack'
 import {
@@ -15,11 +15,17 @@ import {
   getJsApiName,
   getReactApiName
 } from 'lib/api/helpers'
-import { isMobileApp } from 'cozy-device-helper'
+import {
+  getAppNamePrefix,
+  getAppSlug,
+  getDefaultIcon,
+  getDefaultStackURL,
+  getDefaultToken,
+  getUserActionRequired,
+  APP_SELECTOR
+} from './dom'
 import 'styles'
 import 'lib/importIcons'
-
-const APP_SELECTOR = '[role=application]'
 
 const createBarElement = () => {
   const targetName = isMobileApp() ? 'mobile' : 'browser'
@@ -96,73 +102,19 @@ const renderBar = (barNode, options) => {
   return barComponent
 }
 
-// return an empty object by default to avoid checking existance
-const getAppNodeDataSet = () => {
-  const appNode = document.querySelector(APP_SELECTOR)
-  if (!appNode || !appNode.dataset) return {}
-  return appNode.dataset
-}
-
-const getDefaultStackURL = isPublic => {
-  const data = getAppNodeDataSet()
-  if (!data.cozyDomain) {
-    if (!isPublic) {
-      // eslint-disable-next-line no-console
-      console.warn(
-        `Cozy-bar can't discover the cozy's URL, and will probably fail to initialize the connection with the stack.`
-      )
-    }
-    return ''
+const makeCozyClientAutomatically = ({ cozyURL, token, isPublic }) => {
+  const ccURI = cozyURL || getDefaultStackURL(isPublic)
+  const ccToken = token || getDefaultToken(isPublic)
+  const ccOptions = {
+    uri: ccURI,
+    token: ccToken
   }
 
-  const protocol = window.location.protocol
-  return `${protocol}//${data.cozyDomain}`
-}
+  const CozyClient = require('cozy-client').default
 
-const getDefaultToken = isPublic => {
-  const data = getAppNodeDataSet()
-  if (!data.cozyToken) {
-    if (!isPublic) {
-      // eslint-disable-next-line no-console
-      console.warn(
-        `Cozy-bar can't discover the app's token, and will probably fail to initialize the connection with the stack.`
-      )
-    }
-    return ''
-  }
-  return data.cozyToken
-}
-
-const getDefaultIcon = () => {
-  const linkNode = document.querySelector('link[rel="icon"][sizes^="32"]')
-  if (linkNode !== null) {
-    return linkNode.getAttribute('href')
-  } else {
-    return 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'
-  }
-}
-
-const getAppNamePrefix = () => {
-  const data = getAppNodeDataSet()
-  return data.cozyAppNamePrefix || null
-}
-
-const getAppSlug = () => {
-  const data = getAppNodeDataSet()
-  return data.cozyAppSlug || null
-}
-
-const getUserActionRequired = () => {
-  const meta = document.querySelector('meta[name=user-action-required]')
-  const data = meta && meta.dataset
-  if (data) {
-    const { title, code, detail, links } = data
-    if (code) {
-      // we suppose that at least code will always exist
-      return { title, code, detail, links }
-    }
-  }
-  return undefined
+  // eslint-disable-next-line no-console
+  console.warn('Automatically made cozyClient. Options: ', ccOptions)
+  return new CozyClient(ccOptions)
 }
 
 let exposedAPI = {}
@@ -208,19 +160,7 @@ const init = async ({
   }
 
   if (!cozyClient) {
-    const ccURI = cozyURL || getDefaultStackURL(isPublic)
-    const ccToken = token || getDefaultToken(isPublic)
-    const ccOptions = {
-      uri: ccURI,
-      token: ccToken
-    }
-    // eslint-disable-next-line no-console
-    console.warn('Automatically made cozyClient. Options: ', ccOptions)
-    const CozyClient = require('cozy-client').default
-    cozyClient = new CozyClient({})
-    // TODO, initializing CozyClient with a uri/token should automatically
-    // call login(). Without login(), CozyClient.isLogged is false.
-    cozyClient.login(ccOptions)
+    cozyClient = makeCozyClientAutomatically({ cozyURL, token, isPublic })
   }
 
   // store
