@@ -10,11 +10,9 @@ import {
   setLocale,
   setInfos
 } from 'lib/reducers'
-import {
-  locations as APILocations,
-  getJsApiName,
-  getReactApiName
-} from 'lib/api/helpers'
+
+import { createBarAPI, createBarProxiedAPI } from 'lib/api'
+
 import {
   getAppNamePrefix,
   getAppSlug,
@@ -177,10 +175,8 @@ const init = async ({
     reduxStore.dispatch(setLocale(lang))
   }
 
-  // init api
-  const api = require('lib/api/index').default
   // Assign all api methods to the bar object
-  exposedAPI = api(reduxStore)
+  exposedAPI = createBarAPI(reduxStore)
 
   const options = {
     appName,
@@ -203,47 +199,11 @@ const updateAccessToken = accessToken => {
   stack.updateAccessToken(accessToken)
 }
 
-// Handle exceptions for API before init
-const showAPIError = name => {
-  // eslint-disable-next-line no-console
-  console.error(
-    `You tried to use the CozyBar API (${name}) but the CozyBar is not initialised yet via cozy.bar.init(...).`
-  )
-}
-// apiReferences will be a proxy to the API
-const apiReferences = {}
-
-const setProxyToAPI = fnName => {
-  apiReferences[fnName] = (...args) => {
-    if (exposedAPI[fnName]) {
-      return exposedAPI[fnName](...args)
-    } else {
-      showAPIError(fnName)
-    }
-  }
-}
-
-APILocations.forEach(location => {
-  const jsAPIName = getJsApiName(location)
-  const reactAPIName = getReactApiName(location)
-  setProxyToAPI(jsAPIName)
-  apiReferences[reactAPIName] = props => {
-    const React = require('react')
-    if (exposedAPI[reactAPIName]) {
-      return React.createElement(exposedAPI[reactAPIName], props)
-    } else {
-      showAPIError(reactAPIName)
-    }
-  }
-})
-
-for (let fnName of ['setLocale', 'setTheme']) {
-  setProxyToAPI(fnName)
-}
+const proxiedAPI = createBarProxiedAPI(exposedAPI)
 
 module.exports = {
   init,
   version: __VERSION__,
-  ...apiReferences,
+  ...proxiedAPI,
   updateAccessToken
 }
