@@ -1,7 +1,6 @@
 import React from 'react'
 import { AppItem } from 'components/Apps/AppItem'
 import { mount, shallow } from 'enzyme'
-import toJson from 'enzyme-to-json'
 import { tMock } from '../jestLib/I18n'
 import { isMobileApp, isMobile } from 'cozy-device-helper'
 
@@ -19,7 +18,9 @@ jest.mock('lib/stack', () => ({
     iconProps: () => {
       const { isMobileApp } = require('cozy-device-helper')
       return isMobileApp()
-        ? { fetchIcon: jest.fn().mockResolvedValue('http://urlOfIcon') }
+        ? {
+            fetchIcon: jest.fn().mockResolvedValue('http://urlOfIcon')
+          }
         : {
             // we mustn't give the protocol here
             domain: 'cozy.tools',
@@ -94,12 +95,15 @@ describe('app icon', () => {
       href: 'http://fake.fr'
     }
     const root = mount(<AppItem t={tMock} app={app} />)
-    expect(toJson(root)).toMatchSnapshot()
+    const appIcon = root.find('AppIcon')
+    expect(appIcon.props().className).toContain('coz-nav-apps-item-icon')
   })
 
   it('should render correctly with target mobile and providing fetchIcon to AppIcon', () => {
     isMobileApp.mockReturnValue(true)
     const root = mount(<AppItem t={tMock} app={app} />)
-    expect(toJson(root)).toMatchSnapshot()
+    const appIcon = root.find('AppIcon')
+    expect(appIcon.props().className).toContain('coz-nav-apps-item-icon')
+    expect(appIcon.props().fetchIcon).not.toBe(undefined)
   })
 })
