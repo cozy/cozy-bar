@@ -1,14 +1,8 @@
 import CozyClient from 'cozy-client'
 import client from 'lib/stack-client.js'
 import stack from 'lib/stack.js'
+import mockStackClient from './mockStackClient'
 
-const cozyURL = 'https://test.mycozy.cloud'
-const token = 'mytoken'
-const fakeStackClient = {
-  uri: cozyURL,
-  token: { token },
-  on: () => {}
-}
 const onCreate = function() {}
 const onDelete = function() {}
 
@@ -24,7 +18,7 @@ describe('stack proxy', () => {
 
   describe('when initialized with a cozy-client instance', () => {
     const params = {
-      cozyClient: new CozyClient({ fakeStackClient }),
+      cozyClient: new CozyClient({ stackClient: mockStackClient }),
       onCreate: function() {},
       onDelete: function() {}
     }
@@ -55,7 +49,7 @@ describe('stack proxy', () => {
     }).toThrowErrorMatchingSnapshot()
 
     stack.init({
-      cozyClient: new CozyClient({ stackClient: fakeStackClient }),
+      cozyClient: new CozyClient({ stackClient: mockStackClient }),
       onCreate,
       onDelete
     })

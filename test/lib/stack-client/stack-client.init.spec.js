@@ -2,6 +2,7 @@ import stack from 'lib/stack-client'
 
 import CozyClient from 'cozy-client'
 import initializeRealtime from 'lib/realtime'
+import mockStackClient from '../mockStackClient'
 
 jest.mock('lib/realtime')
 initializeRealtime.mockResolvedValue(Promise.resolve())
@@ -16,15 +17,11 @@ describe('stack client', () => {
       if (isLogged === undefined) {
         throw new Error('Please define explicity isLogged in your tests.')
       }
-      const stackClient = {
-        token: { token: 'mytoken' },
-        uri: 'https://test.mycozy.cloud',
-        on: () => {}
-      }
+
       cozyClient = new CozyClient({
         token: { token: 'mytoken' },
         uri: 'https://test.mycozy.cloud',
-        stackClient
+        stackClient: mockStackClient
       })
       cozyClient.isLogged = isLogged
       params = {

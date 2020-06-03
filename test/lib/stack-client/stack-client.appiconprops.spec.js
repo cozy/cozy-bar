@@ -2,6 +2,8 @@ import CozyClient from 'cozy-client'
 import stack from 'lib/stack-client'
 import { isMobileApp } from 'cozy-device-helper'
 
+import mockStackClient from '../mockStackClient'
+
 jest.mock('cozy-device-helper', () => ({
   ...require.requireActual('cozy-device-helper'),
   isMobileApp: jest.fn()
@@ -9,14 +11,8 @@ jest.mock('cozy-device-helper', () => ({
 
 describe('stack client', () => {
   describe('getAppIconProps', () => {
-    const stackClient = {
-      token: { token: 'mytoken' },
-      uri: 'https://test.mycozy.cloud',
-      on: () => {}
-    }
-
     const cozyClient = new CozyClient({
-      stackClient
+      stackClient: mockStackClient
     })
 
     const params = {

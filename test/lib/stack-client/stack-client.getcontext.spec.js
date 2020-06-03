@@ -1,7 +1,7 @@
 import stack from 'lib/stack-client'
 import CozyClient from 'cozy-client'
-
 import { NotFoundException, UnauthorizedStackException } from 'lib/exceptions'
+import mockStackClient from '../mockStackClient'
 
 describe('stack client', () => {
   describe('getContext', () => {
@@ -31,9 +31,7 @@ describe('stack client', () => {
     }
 
     const stackClient = {
-      token: { token: 'mytoken' },
-      on: () => {},
-      uri: 'https://test.mycozy.cloud',
+      ...mockStackClient,
       fetch: jest.fn()
     }
 

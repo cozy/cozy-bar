@@ -1,12 +1,11 @@
 import CozyClient from 'cozy-client'
 import stack from 'lib/stack-client'
+import mockStackClient from '../mockStackClient'
 
 describe('stack client', () => {
   describe('getApps', () => {
     const stackClient = {
-      token: { token: 'mytoken' },
-      on: () => {},
-      uri: 'https://test.mycozy.cloud',
+      ...mockStackClient,
       fetch: jest.fn().mockResolvedValue({
         status: 200,
         headers: { get: () => 'application/json' },

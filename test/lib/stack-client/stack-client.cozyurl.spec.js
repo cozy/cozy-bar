@@ -1,16 +1,11 @@
 import stack from 'lib/stack-client'
 import CozyClient from 'cozy-client'
+import mockStackClient from '../mockStackClient'
 
 describe('stack client', () => {
   describe('cozyURL', () => {
-    const stackClient = {
-      token: { token: 'mytoken' },
-      uri: 'https://test.mycozy.cloud',
-      on: () => {}
-    }
-
     const cozyClient = new CozyClient({
-      stackClient
+      stackClient: mockStackClient
     })
 
     const params = {
