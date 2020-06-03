@@ -1,9 +1,10 @@
 import React from 'react'
-import { Bar, mapStateToProps, mapDispatchToProps } from 'components/Bar'
 import { shallow } from 'enzyme'
 import { isMobileApp } from 'cozy-device-helper'
 import toJson from 'enzyme-to-json'
 import reducers from 'lib/reducers'
+
+import { Bar, mapStateToProps, mapDispatchToProps } from './Bar'
 
 jest.mock('cozy-device-helper', () => ({
   ...require.requireActual('cozy-device-helper'),
