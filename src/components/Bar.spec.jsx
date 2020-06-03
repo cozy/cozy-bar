@@ -121,9 +121,7 @@ describe('Bar', () => {
   })
 
   it('should call re-fetch data when token is refreshed', () => {
-    shallow(
-      <Bar {...props} isDrive={false} isPublic={false} />
-    )
+    shallow(<Bar {...props} isDrive={false} isPublic={false} />)
     client.emit('tokenRefreshed')
     expect(props.fetchContext).toHaveBeenCalledTimes(2)
     expect(props.fetchApps).toHaveBeenCalledTimes(2)
