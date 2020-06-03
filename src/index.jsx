@@ -34,15 +34,6 @@ const injectBarInDOM = data => {
   if (document.getElementById('coz-bar') !== null) {
     return
   }
-  // import React related modules on init only
-  const React = require('react')
-  const { render } = require('react-dom')
-  const { connect, Provider } = require('react-redux')
-  const I18n = require('cozy-ui/react/I18n').default
-  const Bar = require('components/Bar').default
-  const CozyProvider = require('cozy-client').CozyProvider
-
-  const { cozyClient } = data
 
   const barNode = createBarElement()
   const appNode = document.querySelector(APP_SELECTOR)
@@ -66,6 +57,20 @@ const injectBarInDOM = data => {
     document.body.classList.add('has-banner')
   }
 
+  return barNode
+}
+
+const renderBar = (barNode, options) => {
+  // import React related modules on init only
+  const React = require('react')
+  const { render } = require('react-dom')
+  const { connect, Provider } = require('react-redux')
+  const I18n = require('cozy-ui/react/I18n').default
+  const Bar = require('components/Bar').default
+  const CozyProvider = require('cozy-client').CozyProvider
+
+  const { cozyClient } = options
+
   // we connect the I18n component to the store to listen
   // locale change from the api setLocale()
   const EnhancedI18n = connect(state => ({
@@ -73,14 +78,14 @@ const injectBarInDOM = data => {
   }))(I18n)
 
   const barComponent = (
-    <Provider store={data.reduxStore}>
+    <Provider store={options.reduxStore}>
       <EnhancedI18n dictRequire={lang => require(`locales/${lang}`)}>
         {cozyClient ? (
           <CozyProvider client={cozyClient}>
-            <Bar {...data} />
+            <Bar {...options} />
           </CozyProvider>
         ) : (
-          <Bar {...data} />
+          <Bar {...options} />
         )}
       </EnhancedI18n>
     </Provider>
@@ -237,7 +242,7 @@ const init = async ({
   // Assign all api methods to the bar object
   exposedAPI = api(reduxStore)
 
-  return injectBarInDOM({
+  const options = {
     appName,
     appNamePrefix,
     appSlug,
@@ -248,7 +253,10 @@ const init = async ({
     onLogOut,
     userActionRequired: getUserActionRequired(),
     reduxStore
-  })
+  }
+
+  const barNode = injectBarInDOM(options)
+  renderBar(barNode, options)
 }
 
 const updateAccessToken = accessToken => {
