@@ -16,8 +16,8 @@ import {
   getReactApiName
 } from 'lib/api/helpers'
 import { isMobileApp } from 'cozy-device-helper'
-require('styles')
-require('lib/importIcons')
+import 'styles'
+import 'lib/importIcons'
 
 const APP_SELECTOR = '[role=application]'
 
