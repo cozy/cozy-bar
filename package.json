@@ -25,7 +25,7 @@
     "watch:mobile": "yarn run watch --env.target=mobile",
     "clean": "rm -rf ./dist/*",
     "lint": "eslint '{config,src,examples,test}/**/*.{js,jsx}'",
-    "prebuild": "npm-run-all lint clean tx",
+    "prebuild": "npm-run-all lint clean",
     "prewatch": "npm-run-all clean",
     "tx": "tx pull --all || true",
     "postbuild": "yarn shasum",

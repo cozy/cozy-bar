@@ -3,8 +3,6 @@ node_js:
   - "8"
 env:
   global:
-    # TX_PASSWORD
-    - secure: ESL2AFj2ER9Smf+BsInpq7/Q0Z3LWbvwzgbCd4S4XxVCU8XM17aKYf+3ypRe0djxsezqX48RKF5DBTZWNNrb0/ey8/saNlBw7FDafi6kkxtTl8j2wvOwkLmqnVFSzj3P5f8jfmFPPbjy1Myzw8q8nkeg68iS+vCc86P8PeOjlFqifNcb7dnM+EBH8FmYk78pUkBo62dn16RlqpdcSh1f1Ywa/kXkgl+hmjnkcLz6W8FYG2H9fveixK/uMFtXeQ4SXMobNh5KGwFNi9jbyOcwVHUMp3h1W8qPXM9J4It5MUvmFRprjDl7xX58TzpGzCdzqezVOG7CgZd8DCOTgroakRtqWBOctf+oWVqplP8N4+pggYyRcbQdv7CXdOm/3K+relR/MKB6QeQ2Iey2FI/v73CcvAi60bJM8plsV/GogTT39jGLzbjGL5WZPr+gIMshKtiEXD5mt9kq/hdJS1heSg/F9Eh2Rtluo+3rgSNfbm2XdMDmHXeZT1Z5vCoY+ekKhfqrIYt//DrH1+QAPl5WL3nJSDz/b9S4GM1G/3ZptxGYt99hzm9NSTfCGHIlhUcJs2qDENWM14HRVhjKoh8MPo5NeVpT2nLAsNGYA9iW4lZMxDRBcV1hsdA9JHj8MCKINldp9Mr0qHRYR7NrSuThU5iZW1C4IwbLYNzF+A/tqd4=
     # BUNDLESIZE_GITHUB_TOKEN
     - secure: "NoHalqgN2LO+TM77YtBoM1SWaNvIKwYaOwj3XWOEf+OKjCRjKjhcRRvj37R5rqxoF/2wZMkQKxmTHxbMeDHMAHVdE4pu+ufKtnlrwrZeREKqpPQw7lwY3B0OHNnZzmijBKxM5gVumxRATdbFaBImxjoNoEiyt2qo5lWxquBf8gIdGEn2rFCbjAwvtLHbA8ztnf5Z7fvOQe19PllYE8Z7vU4TJNFrRN3U6WccneadbtLho73BH9yT8A4jNDFFAxNUWfulPT0zR7LWq0rmDWvDVeXedfDSyfviiMt2Oh/dMuJUFri7dzJB8ErxdTVVEzLfiIK2nHrHZRnS79+3Ay/G2WJD1pYHvdFivJH0v5LHeqDwu9qvECTSv4PnpTkt1QI367Yasd+u6F4kCeNTmYSRuSqbxgnsw4xvbpbtDuDCAJR6XQrtT3FnXV9w8n9GYmeMCbDSX9TP+uMq3UU8Lb4jwTrSYsnbVvAZBuhHAvldLaOk1KUloYYeiicd2ha1ieyeM9krc+NbgGBgFJKjKHfQIsG2GZxp4DMsmPDbtdsoyK69/V6P2TT/Q6KP3tSElCvM0WFYRzJNpaV1Vn8+Bi/9mxvz4Y5jU9lyQifEtyFA1smM4ByPY0iXOwLgnvTZmsfJBQsIVmUCazKi4Kqu3/7QQymIbTQGDonyyCGrB4ylir8="
     # NPM_TOKEN (mycozycloud)
@@ -15,11 +13,6 @@ cache:
   yarn: true
   directories:
     - node_modules
-before_install:
-  - curl -fsSL https://bootstrap.pypa.io/get-pip.py | python - --user
-  - pip install --user transifex-client==0.12.5
-  - install -m0644 .transifexrc.tpl ~/.transifexrc
-  - echo "password = $TX_PASSWORD" >> ~/.transifexrc
 script:
   - yarn build
   - yarn test
