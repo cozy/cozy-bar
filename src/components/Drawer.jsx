@@ -18,6 +18,7 @@ class Drawer extends Component {
       isScrolling: false,
       isClosing: false
     }
+    this.handleLogout = this.handleLogout.bind(this)
   }
 
   onDrawerClick = event => {
@@ -151,14 +152,25 @@ class Drawer extends Component {
     this.asideRef.style.transform = 'translateX(-' + progress * 100 + '%)'
   }
 
+  async handleLogout() {
+    const { onLogOut, logOut } = this.props
+
+    if (onLogOut && typeof onLogOut === 'function') {
+      const res = onLogOut()
+      if (res instanceof Promise) {
+        await res
+      }
+    }
+
+    logOut()
+  }
+
   render() {
     const {
       onClaudy,
       visible,
       isClaudyLoading,
       toggleSupport,
-      onLogOut,
-      logOut,
       settingsAppURL,
       storageData
     } = this.props
@@ -182,13 +194,7 @@ class Drawer extends Component {
           <hr className="coz-sep-flex" />
           <nav className="coz-drawer--settings">
             <SettingsContent
-              onLogOut={() => {
-                if (onLogOut && typeof onLogOut === 'function') {
-                  onLogOut()
-                }
-
-                logOut()
-              }}
+              onLogOut={this.handleLogout}
               storageData={storageData}
               settingsAppURL={settingsAppURL}
               isClaudyLoading={isClaudyLoading}
@@ -202,6 +208,8 @@ class Drawer extends Component {
     )
   }
 }
+
+export { Drawer }
 
 const mapStateToProps = state => ({
   storageData: getStorageData(state),
