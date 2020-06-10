@@ -4472,10 +4472,10 @@ cozy-stack-client@^8.4.0:
     mime "^2.4.0"
     qs "^6.7.0"
 
-cozy-ui@22.3.1:
-  version "22.3.1"
-  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-22.3.1.tgz#9bd22099255e88ab2a9694a8b18d21cde3f627f5"
-  integrity sha512-yK4XO7RkV2lTbmYIgXHNBl7mw69VrB3VQMFIkSZWdzI27XIxTTT2jDUQYuIornKd0BFw81mmL2yp4um3KJuCsQ==
+cozy-ui@22.3.2:
+  version "22.3.2"
+  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-22.3.2.tgz#812f739c655b923a9ca4370ec374f0c1ed2dfa8f"
+  integrity sha512-1YbHEm3GAh3JSxNa0AzjkijuAhuvMgjakhVmpdand4HqKn3oir5fd1KykZohT5BjLRh57/NnYmRECbrZh/2oGQ==
   dependencies:
     "@babel/runtime" "^7.3.4"
     body-scroll-lock "^2.5.8"
@@ -9618,7 +9618,6 @@ mute-stream@0.0.7, mute-stream@~0.0.4:
   integrity sha1-MHXOk7whuPq0PhvE2n6BFe0ee6s=
 
 "my-react-dom@npm:react-dom@16.10.1", react-dom@16.10.1:
-  name my-react-dom
   version "16.10.1"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.10.1.tgz#479a6511ba34a429273c213cbc2a9ac4d296dac1"
   integrity sha512-SmM4ZW0uug0rn95U8uqr52I7UdNf6wdGLeXDmNLfg3y5q5H9eAbdjF5ubQc3bjDyRrvdAB2IKG7X0GzSpnn5Mg==
