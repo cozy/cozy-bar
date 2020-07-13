@@ -96,6 +96,7 @@
     "babel-preset-cozy-app": "1.7.0",
     "cozy-client": "13.8.3",
     "cozy-device-helper": "1.8.0",
+    "cozy-flags": "^2.3.1",
     "cozy-interapp": "0.4.9",
     "cozy-realtime": "3.2.1",
     "cozy-ui": "35.22.0",
@@ -158,7 +159,6 @@
     "globals": {
       "__ALLOW_HTTP__": false,
       "__SENTRY_TOKEN__": "token",
-      "__DEVELOPMENT__": false,
       "__VERSION__": "4.5.0"
     }
   }
