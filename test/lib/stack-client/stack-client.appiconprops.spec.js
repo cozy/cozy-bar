@@ -29,7 +29,7 @@ describe('stack client', () => {
       jest.restoreAllMocks()
     })
 
-    describe('for target=browser', () => {
+    describe('for browser', () => {
       beforeAll(() => {
         isMobileApp.mockReturnValue(false)
       })
@@ -45,7 +45,7 @@ describe('stack client', () => {
       })
     })
 
-    describe('for target=mobile', () => {
+    describe('for mobile', () => {
       beforeAll(() => {
         isMobileApp.mockReturnValue(true)
       })

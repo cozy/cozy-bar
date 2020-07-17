@@ -103,7 +103,7 @@ describe('app icon', () => {
     expect(appIcon.props().className).toContain('coz-nav-apps-item-icon')
   })
 
-  it('should render correctly with target mobile and providing fetchIcon to AppIcon', () => {
+  it('should render correctly on mobile and provide fetchIcon to AppIcon', () => {
     isMobileApp.mockReturnValue(true)
     const { root } = setup()
     const appIcon = root.find('AppIcon')
