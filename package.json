@@ -15,11 +15,8 @@
   "license": "MIT",
   "scripts": {
     "prepublishOnly": "yarn build",
-    "build": "npm-run-all --parallel 'build:*' 'build:*:*'",
-    "webpack": "webpack --config ./config/webpack.js",
-    "build:browser": "yarn run webpack",
-    "build:browser:min": "yarn run webpack --env.production",
-    "watch": "yarn run webpack --watch --display-chunks",
+    "build": "webpack --env.production",
+    "watch": "webpack --watch --display-chunks",
     "clean": "rm -rf ./dist/*",
     "lint": "eslint '{config,src,examples,test}/**/*.{js,jsx}'",
     "prebuild": "npm-run-all lint clean",
