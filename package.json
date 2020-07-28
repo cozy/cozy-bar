@@ -145,7 +145,7 @@
       "^react$": "<rootDir>/config/aliases/globalReact",
       "^(react-dom|react-dom/(.*))$": "<rootDir>/config/aliases/globalReactDOM",
       "\\.(png|gif|jpe?g|svg)$": "<rootDir>/test/__mocks__/fileMock.js",
-      "styles": "identity-obj-proxy"
+      "\\.styl$": "identity-obj-proxy"
     },
     "browser": true,
     "transformIgnorePatterns": [
