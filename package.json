@@ -37,14 +37,13 @@
     "example": "env USE_REACT=true nf -j examples/Procfile start"
   },
   "devDependencies": {
+    "@babel/core": "7.6.2",
+    "@babel/polyfill": "^7.10.4",
     "@testing-library/react": "^10.2.1",
     "autoprefixer": "9.6.0",
-    "babel-jest": "23.6.0",
-    "babel-loader": "7.1.5",
-    "babel-polyfill": "6.26.0",
-    "babel-preset-env": "1.7.0",
-    "babel-preset-react": "6.24.1",
-    "babel-runtime": "6.26.0",
+    "babel-jest": "24.9.0",
+    "babel-loader": "^8.1.0",
+    "babel-preset-cozy-app": "^1.9.0",
     "bundlesize": "0.18.0",
     "cozy-authentication": "1.19.1",
     "css-loader": "1.0.1",
@@ -61,7 +60,7 @@
     "file-loader": "2.0.0",
     "foreman": "3.0.1",
     "identity-obj-proxy": "3.0.0",
-    "jest": "23.6.0",
+    "jest": "24.9.0",
     "json-loader": "0.5.7",
     "mini-css-extract-plugin": "0.8.0",
     "my-react": "npm:react@16.13.1",
@@ -92,9 +91,6 @@
     "yaml-loader": "0.5.0"
   },
   "dependencies": {
-    "@babel/core": "7.6.2",
-    "babel-core": "7.0.0-bridge.0",
-    "babel-preset-cozy-app": "1.7.0",
     "cozy-client": "13.8.3",
     "cozy-device-helper": "1.8.0",
     "cozy-interapp": "0.4.9",
@@ -149,7 +145,7 @@
       "^react$": "<rootDir>/config/aliases/globalReact",
       "^(react-dom|react-dom/(.*))$": "<rootDir>/config/aliases/globalReactDOM",
       "\\.(png|gif|jpe?g|svg)$": "<rootDir>/test/__mocks__/fileMock.js",
-      "styles": "identity-obj-proxy"
+      "\\.styl$": "identity-obj-proxy"
     },
     "browser": true,
     "transformIgnorePatterns": [
