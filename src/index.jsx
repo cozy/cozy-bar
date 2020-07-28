@@ -22,7 +22,7 @@ import {
   getUserActionRequired,
   APP_SELECTOR
 } from './dom'
-import 'styles/index.styl'
+import 'styles'
 import 'lib/importIcons'
 
 const createBarElement = () => {
