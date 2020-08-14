@@ -202,9 +202,28 @@ const updateAccessToken = accessToken => {
 
 const proxiedAPI = createBarProxiedAPI(exposedAPI)
 
-module.exports = {
+const {
+  setBarCenter,
+  setBarLeft,
+  setBarRight,
+  BarCenter,
+  BarRight,
+  BarLeft,
+  setTheme
+} = proxiedAPI
+
+const version = __VERSION__
+
+export default {
   init,
-  version: __VERSION__,
-  ...proxiedAPI,
+  version,
+  setBarCenter,
+  setBarLeft,
+  setBarRight,
+  BarLeft,
+  BarRight,
+  BarCenter,
+  setTheme,
+  setLocale,
   updateAccessToken
 }
