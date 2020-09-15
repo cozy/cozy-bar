@@ -1,5 +1,5 @@
 import CozyClient from 'cozy-client'
-import cozyBar from './index'
+import * as cozyBar from './index'
 
 describe('init', () => {
   beforeEach(() => {
