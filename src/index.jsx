@@ -214,7 +214,7 @@ const {
 
 const version = __VERSION__
 
-export default {
+export {
   init,
   version,
   setBarCenter,
