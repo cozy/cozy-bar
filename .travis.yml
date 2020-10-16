@@ -15,7 +15,9 @@ cache:
     - node_modules
 script:
   - yarn build
+  - yarn shasum
   - yarn test
+  - yarn bundlesize
 before_deploy:
   - touch .npmignore
 deploy:

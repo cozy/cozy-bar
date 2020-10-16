@@ -28,10 +28,8 @@
     "prebuild": "npm-run-all lint clean",
     "prewatch": "npm-run-all clean",
     "tx": "tx pull --all || true",
-    "postbuild": "yarn shasum",
     "shasum": "shasum -a 256 dist/cozy-bar.min.js && shasum -a 256 dist/cozy-bar.min.css",
     "test": "jest",
-    "posttest": "bundlesize",
     "travis-deploy-once": "travis-deploy-once",
     "semantic-release": "semantic-release",
     "example": "env USE_REACT=true nf -j examples/Procfile start"
