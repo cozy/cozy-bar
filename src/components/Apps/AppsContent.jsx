@@ -3,12 +3,14 @@ import { connect } from 'react-redux'
 import Proptypes from 'prop-types'
 
 import { translate } from 'cozy-ui/react/I18n'
+import Icon from 'cozy-ui/transpiled/react/Icon'
+import CloudIcon from 'cozy-ui/transpiled/react/Icons/Cloud'
+
 import withBreakpoints from 'cozy-ui/react/helpers/withBreakpoints'
 import { getApps, getHomeApp, isFetchingApps } from 'lib/reducers'
 
 import AppItem from 'components/Apps/AppItem'
 import AppItemPlaceholder from 'components/Apps/AppItemPlaceholder'
-import cozyIcon from 'assets/icons/16/icon-cozy-16.svg'
 
 const sorter = fn => (itemA, itemB) => fn(itemA) > fn(itemB)
 
@@ -54,7 +56,7 @@ export class AppsContent extends Component {
         </ul>
         {homeApp && !isMobile && !isHomeApp && (
           <a role="menuitem" href={homeApp.href} className="coz-apps-home-btn">
-            <img src={cozyIcon} />
+            <Icon icon={CloudIcon} />
             {t('menu.home')}
           </a>
         )}
