@@ -36,7 +36,8 @@ const contentToTest = {
       test3
       <span>Right</span>
     </div>
-  )
+  ),
+  search: 'Search'
 }
 
 describe('api spec', function() {
@@ -45,6 +46,7 @@ describe('api spec', function() {
       type: RESET_API
     })
   })
+
   it('should set content of the store via imperative api', function() {
     locations.map(location => {
       api[getJsApiName(location)](contentToTest[location])
