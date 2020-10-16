@@ -8,6 +8,7 @@ import { Route, hashHistory } from 'react-router'
 import { MobileRouter } from 'cozy-authentication'
 import 'cozy-ui/transpiled/react/stylesheet.css'
 import appIcon from './icon.png'
+import { Sprite as IconSprite } from 'cozy-ui/transpiled/react/Icon'
 
 const minilog = window.minilog
 minilog.enable()
@@ -46,6 +47,7 @@ const Index = withClient(({ client }) => {
           Client options: <pre>{JSON.stringify(client.options, null, 2)}</pre>
         </div>
       </Main>
+      <IconSprite />
     </Layout>
   )
 })
