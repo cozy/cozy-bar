@@ -28,11 +28,6 @@
   min-width: 20em;
 }
 
-/* Remove default margin for p elements */
-[role=banner] a[role=menuitem] p.coz-label {
-  margin: 0;
-}
-
 [role=banner] div[role=menuitem]:not([data-icon]) {
   margin: 0;
   padding-left: 1.5em;

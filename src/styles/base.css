@@ -15,26 +15,6 @@
   padding-left: calc(16px + .5em);
 }
 
-[role=banner] [data-icon='icon-profile'] {
-  background-image: url(~assets/icons/16/icon-people-16.svg);
-}
-
-[role=banner] [data-icon='icon-connectedDevices'] {
-  background-image: url(~assets/icons/16/icon-phone-16.svg);
-}
-
-[role=banner] [data-icon='icon-help'] {
-  background-image: url(~assets/icons/16/icon-question-mark-16.svg);
-}
-
-[role=banner] [data-icon='icon-logout'] {
-  background-image: url(~assets/icons/16/icon-logout-16.svg);
-}
-
-[role=banner] [data-icon='icon-storage'] {
-  background-image: url(~assets/icons/16/icon-storage-16.svg);
-}
-
 [role=banner] .u-flex-grow {
   display: flex;
   flex-grow: 1;
