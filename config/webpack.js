@@ -4,23 +4,16 @@ const path = require('path')
 const merge = require('webpack-merge')
 const vars = require('./webpack.vars')
 
-const cssConfig = vars => {
-  if (vars.mobile) {
-    return require('./webpack.config.inline-styles.js')(vars)
-  } else {
-    return require('./webpack.config.extract')(vars)
-  }
-}
-
 module.exports = (env = {}) => {
   const { filename, production, addAnalyzer } = vars(env)
   const mobile = env.target === 'mobile'
+  const options = { filename, mobile, production }
   return merge(
     require('./webpack.config.base.js'),
     addAnalyzer ? require('./webpack.config.analyzer.js') : {},
     require('./webpack.config.jsx.js'),
     require(production ? './webpack.config.prod' : './webpack.config.dev'),
-    cssConfig({ filename, mobile, production }),
+    require('./webpack.config.styles.js')(options),
     {
       output: {
         filename: filename('js', mobile ? 'mobile' : ''),
