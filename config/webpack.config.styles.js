@@ -1,9 +1,8 @@
 'use strict'
 
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const webpack = require('webpack')
 
-module.exports = ({ filename, production, mobile }) => ({
+module.exports = ({ production }) => ({
   resolve: {
     extensions: ['.styl']
   },
@@ -13,7 +12,6 @@ module.exports = ({ filename, production, mobile }) => ({
         test: /\.styl$/,
         exclude: /cozy-ui\/react/,
         use: [
-          mobile ? MiniCssExtractPlugin.loader : null,
           {
             loader: 'css-loader',
             options: { importLoaders: 2, sourceMap: true }
@@ -32,13 +30,12 @@ module.exports = ({ filename, production, mobile }) => ({
           {
             loader: 'stylus-loader'
           }
-        ].filter(Boolean)
+        ]
       },
       {
         test: /\.styl$/,
         include: /cozy-ui\/react/,
         use: [
-          mobile ? MiniCssExtractPlugin.loader : null,
           {
             loader: 'css-loader',
             options: {
@@ -62,19 +59,11 @@ module.exports = ({ filename, production, mobile }) => ({
           {
             loader: 'stylus-loader'
           }
-        ].filter(Boolean)
+        ]
       }
     ]
   },
   plugins: [
-    mobile
-      ? new MiniCssExtractPlugin({
-          // Options similar to the same options in webpackOptions.output
-          // both options are optional
-          filename: filename('css'),
-          chunkFilename: filename('css', '[name].[id]')
-        })
-      : null,
     new webpack.LoaderOptionsPlugin({
       options: {
         stylus: {
@@ -82,5 +71,5 @@ module.exports = ({ filename, production, mobile }) => ({
         }
       }
     })
-  ].filter(Boolean)
+  ]
 })
