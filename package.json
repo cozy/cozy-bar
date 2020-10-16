@@ -31,6 +31,7 @@
   "devDependencies": {
     "@babel/core": "7.6.2",
     "@babel/polyfill": "^7.10.4",
+    "@material-ui/core": "3.9.4",
     "@testing-library/react": "^10.2.1",
     "autoprefixer": "9.6.0",
     "babel-jest": "24.9.0",
