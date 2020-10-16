@@ -20,7 +20,8 @@ export const unsetContent = (location, id) => ({
 export const getDefaultState = () => ({
   left: new Map(),
   center: new Map(),
-  right: new Map()
+  right: new Map(),
+  search: new Map()
 })
 
 export const reducer = (state = getDefaultState(), action) => {

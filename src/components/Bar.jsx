@@ -201,6 +201,7 @@ export class Bar extends Component {
       barLeft,
       barRight,
       barCenter,
+      barSearch,
       claudyEnabled,
       onDrawer,
       isPublic,
@@ -225,7 +226,7 @@ export class Bar extends Component {
           {barLeft || this.renderLeft()}
           {barCenter || this.renderCenter()}
           <div className="u-flex-grow">
-            {searchBarEnabled ? <SearchBar /> : null}
+            {barSearch || (searchBarEnabled ? <SearchBar /> : null)}
           </div>
           {barRight || this.renderRight()}
           {!isPublic ? (
@@ -263,6 +264,7 @@ export const mapStateToProps = state => ({
   barLeft: getContent(state, 'left'),
   barRight: getContent(state, 'right'),
   barCenter: getContent(state, 'center'),
+  barSearch: getContent(state, 'search'),
   isDrive: isCurrentApp(state, { slug: 'drive' }),
   claudyEnabled: shouldEnableClaudy(state),
   hasFetchedApps: hasFetched(state)

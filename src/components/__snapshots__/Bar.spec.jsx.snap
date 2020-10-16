@@ -168,6 +168,7 @@ Object {
   "barCenter": undefined,
   "barLeft": undefined,
   "barRight": undefined,
+  "barSearch": undefined,
   "claudyEnabled": false,
   "hasFetchedApps": false,
   "isDrive": false,

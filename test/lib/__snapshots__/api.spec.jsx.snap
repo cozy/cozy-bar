@@ -25,6 +25,12 @@ exports[`api spec should set content of the store via declarative api 3`] = `
 </div>
 `;
 
+exports[`api spec should set content of the store via declarative api 4`] = `
+<div>
+  Search
+</div>
+`;
+
 exports[`api spec should set content of the store via imperative api 1`] = `
 <span
   dangerouslySetInnerHTML={
@@ -48,4 +54,14 @@ exports[`api spec should set content of the store via imperative api 3`] = `
     Right
   </span>
 </div>
+`;
+
+exports[`api spec should set content of the store via imperative api 4`] = `
+<span
+  dangerouslySetInnerHTML={
+    Object {
+      "__html": "Search",
+    }
+  }
+/>
 `;

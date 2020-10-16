@@ -10,8 +10,8 @@ let idToIncrement = 0
  * Wraps argument into a React element if it is a string. Is used
  * for setBar{Left,Right,Center} to be able to pass HTML
  *
- * @param  {[type]} v [description]
- * @return {[type]}   [description]
+ * @param  {ReactElement|string} v
+ * @return {ReactElement}
  */
 const wrapInElement = v => {
   if (typeof v === 'string') {

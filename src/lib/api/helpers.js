@@ -1,4 +1,4 @@
-export const locations = ['left', 'center', 'right']
+export const locations = ['left', 'center', 'right', 'search']
 
 const upperFirstLetter = val => {
   return val[0].toUpperCase() + val.slice(1)

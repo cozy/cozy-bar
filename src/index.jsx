@@ -206,9 +206,11 @@ const {
   setBarCenter,
   setBarLeft,
   setBarRight,
+  setBarSearch,
   BarCenter,
   BarRight,
   BarLeft,
+  BarSearch,
   setTheme
 } = proxiedAPI
 
@@ -220,9 +222,11 @@ export {
   setBarCenter,
   setBarLeft,
   setBarRight,
+  setBarSearch,
   BarLeft,
   BarRight,
   BarCenter,
+  BarSearch,
   setTheme,
   setLocale,
   updateAccessToken
