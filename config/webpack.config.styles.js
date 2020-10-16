@@ -13,6 +13,9 @@ module.exports = ({ production }) => ({
         exclude: /cozy-ui\/react/,
         use: [
           {
+            loader: 'style-loader'
+          },
+          {
             loader: 'css-loader',
             options: { importLoaders: 2, sourceMap: true }
           },
