@@ -1,9 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { translate } from 'cozy-ui/react/I18n'
-import { Button, ButtonLink } from 'cozy-ui/react/Button'
+import { translate } from 'cozy-ui/transpiled/react/I18n'
 import Icon from 'cozy-ui/transpiled/react/Icon'
+import { Button, ButtonLink } from 'cozy-ui/transpiled/react/Button'
+
 import { isMobileApp } from 'cozy-device-helper'
 import StorageData from 'components/Settings/StorageData'
 

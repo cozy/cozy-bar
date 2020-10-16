@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 
-import AppIcon from 'cozy-ui/react/AppIcon'
+import AppIcon from 'cozy-ui/transpiled/react/AppIcon'
 
 import stack from 'lib/stack'
 import homeIcon from 'assets/sprites/icon-cozy-home.svg'
