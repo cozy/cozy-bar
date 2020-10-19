@@ -124,18 +124,17 @@ let exposedAPI = {}
  * or a { cozyURL, ssl, token } tupple.
  *
  * @function
- * @param {Object}  arg
- * @param {string}  arg.appName    - App name to be displayed in the bar
- * @param {string}  arg.appNamePrefix
- * @param {string}  arg.lang       - Language for the bar
- * @param {string}  arg.iconPath   -
- * @param {Object}  arg.cozyClient - a cozy client instance
- * @param {string}  arg.cozyURL    - URL or domain of the stack
- * @param {boolean} arg.ssl        - Tells if we should use a secure
+ * @param {Object}  options
+ * @param {string}  options.appName    - App name to be displayed in the bar
+ * @param {string}  options.appNamePrefix
+ * @param {string}  options.lang       - Language for the bar
+ * @param {string}  options.iconPath   -
+ * @param {Object}  options.cozyClient - a cozy client instance
+ * @param {string}  options.cozyURL    - URL or domain of the stack
+ * @param {boolean} options.ssl        - Tells if we should use a secure
  *                                   protocol required if cozyURL does
  *                                   not have a protocol
  * @param {string}  arg.token      - Access token for the stack
- * @param {boolean} arg.replaceTitleOnMobile
  * @param {boolean} arg.isPublic
  * @param {Function} arg.onLogout
  */

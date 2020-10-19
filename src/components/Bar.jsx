@@ -140,21 +140,13 @@ export class Bar extends Component {
   }
 
   renderCenter() {
-    const {
-      appName,
-      appNamePrefix,
-      appSlug,
-      iconPath,
-      replaceTitleOnMobile,
-      isPublic
-    } = this.props
+    const { appName, appNamePrefix, appSlug, iconPath, isPublic } = this.props
     return (
       <Apps
         appName={appName}
         appNamePrefix={appNamePrefix}
         appSlug={appSlug}
         iconPath={iconPath}
-        replaceTitleOnMobile={replaceTitleOnMobile}
         isPublic={isPublic}
       />
     )

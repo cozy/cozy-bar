@@ -39,20 +39,11 @@ class Apps extends Component {
 
   // data-tutorial attribute allows to be targeted in an application tutorial
   render() {
-    const {
-      replaceTitleOnMobile,
-      appName,
-      appNamePrefix,
-      appSlug,
-      iconPath,
-      isPublic
-    } = this.props
+    const { appName, appNamePrefix, appSlug, iconPath, isPublic } = this.props
     const { opened } = this.state
     return (
       <nav
-        className={`coz-nav coz-nav-apps${
-          replaceTitleOnMobile ? ' coz-bar-hide-sm' : ''
-        }`}
+        className="coz-nav coz-nav-apps"
         ref={ref => {
           this.rootRef = ref
         }}
