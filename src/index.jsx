@@ -1,6 +1,14 @@
 /* global __VERSION__ */
 
+import React from 'react'
+import { render } from 'react-dom'
+import { connect, Provider } from 'react-redux'
+
 import { isMobileApp } from 'cozy-device-helper'
+import I18n from 'cozy-ui/transpiled/react/I18n'
+import { CozyProvider } from 'cozy-client'
+
+import Bar from 'components/Bar'
 
 import stack from 'lib/stack'
 import {
@@ -65,14 +73,6 @@ const injectBarInDOM = data => {
 }
 
 const renderBar = (barNode, options) => {
-  // import React related modules on init only
-  const React = require('react')
-  const { render } = require('react-dom')
-  const { connect, Provider } = require('react-redux')
-  const I18n = require('cozy-ui/react/I18n').default
-  const Bar = require('components/Bar').default
-  const CozyProvider = require('cozy-client').CozyProvider
-
   const { cozyClient } = options
 
   // we connect the I18n component to the store to listen
