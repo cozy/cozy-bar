@@ -101,7 +101,8 @@ export class Settings extends Component {
     let isFetchingFromQueries
     let viewOfferButtonText = ''
     const canCheckPremium = cozyClientCanCheckPremium()
-    if (canCheckPremium) {
+    if (false && canCheckPremium) {
+      // console.log()
       isFetchingFromQueries = isFetchingQueries([
         diskUsageQuery,
         instanceQuery,
