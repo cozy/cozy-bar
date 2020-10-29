@@ -5,7 +5,7 @@ import { persistStore, persistCombineReducers } from 'redux-persist'
 import { reducers } from 'lib/reducers'
 import { createLogger } from 'redux-logger'
 import storage from 'redux-persist/lib/storage'
-import persistWhitelist from 'config/persistWhitelist'
+import persistWhitelist from 'config/persistWhitelist.json'
 import logger from '../logger'
 
 const config = {

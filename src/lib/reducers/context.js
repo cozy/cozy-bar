@@ -1,5 +1,5 @@
 import stack from 'lib/stack'
-import CLAUDY_ACTIONS from 'config/claudyActions'
+import CLAUDY_ACTIONS from 'config/claudyActions.json'
 import { LOG_OUT } from 'lib/reducers/settings'
 
 const FETCH_CONTEXT = 'FETCH_CONTEXT'

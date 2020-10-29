@@ -30,10 +30,6 @@ module.exports = {
         loader: 'babel-loader'
       },
       {
-        test: /\.yaml$/,
-        loaders: ['json-loader', 'yaml-loader']
-      },
-      {
         test: /\.svg$/,
         include: /icons/,
         exclude: /node_modules/,
