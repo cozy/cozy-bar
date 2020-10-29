@@ -1,6 +1,6 @@
 /* global cozy */
 
-import React from 'react'
+import React, * as reactExports from 'react'
 import ReactDOM from 'react-dom'
 import { Layout, Main } from 'cozy-ui/transpiled/react/Layout'
 import CozyClient, { CozyProvider, withClient } from 'cozy-client'
@@ -8,6 +8,7 @@ import { Route, hashHistory } from 'react-router'
 import { MobileRouter } from 'cozy-authentication'
 import 'cozy-ui/transpiled/react/stylesheet.css'
 import appIcon from './icon.png'
+import { Sprite as IconSprite } from 'cozy-ui/transpiled/react/Icon'
 
 const minilog = window.minilog
 minilog.enable()
@@ -46,6 +47,7 @@ const Index = withClient(({ client }) => {
           Client options: <pre>{JSON.stringify(client.options, null, 2)}</pre>
         </div>
       </Main>
+      <IconSprite />
     </Layout>
   )
 })
@@ -69,8 +71,17 @@ const client = new CozyClient({
   }
 })
 
+const loadBar = async () => {
+  // TODO can we avoid this ?
+  window.React = React
+  Object.assign(React, reactExports)
+  window.ReactDOM = ReactDOM
+  await import('http://localhost:8000/cozy-bar.js')
+  return window.cozy.bar
+}
+
 // TODO bar: should only need a correctly configured client
-client.on('login', () => {
+client.on('login', async () => {
   const oldOptions = {
     token: client.stackClient.token.accessToken,
     cozyURL: client.stackClient.uri
@@ -78,7 +89,9 @@ client.on('login', () => {
   const newOptions = {
     cozyClient: client
   }
-  cozy.bar.init({
+
+  const bar = await loadBar()
+  bar.init({
     appNamePrefix: 'Cozy',
     appName: appInfo.name,
     appEditor: appInfo.editor,

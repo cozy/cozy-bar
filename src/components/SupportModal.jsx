@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import Modal, { ModalContent } from 'cozy-ui/react/Modal'
-import Spinner from 'cozy-ui/react/Spinner'
+import Modal, { ModalContent } from 'cozy-ui/transpiled/react/Modal'
+import Spinner from 'cozy-ui/transpiled/react/Spinner'
 import { getIntents } from 'lib/stack'
 
 class SupportModal extends Component {

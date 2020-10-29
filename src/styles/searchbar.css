@@ -26,11 +26,9 @@
   position: absolute;
   left: 0;
   top: 0;
-  background: url('~assets/icons/16/icon-magnifier-16.svg') .6em center no-repeat;
 }
 [role=banner] .coz-searchbar-autosuggest-container.--searching:before{
   padding-left: .5em;
-  background: url('~assets/icons/spinner.svg') center no-repeat;
   background-size: 1em;
   animation: spin 1s linear infinite;
 }

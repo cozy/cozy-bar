@@ -3,13 +3,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import { translate } from 'cozy-ui/react/I18n'
-import Icon from 'cozy-ui/react/Icon'
+import { translate } from 'cozy-ui/transpiled/react/I18n'
+import Icon from 'cozy-ui/transpiled/react/Icon'
 import {
   shouldEnableTracking,
   getTracker,
   configureTracker
-} from 'cozy-ui/react/helpers/tracker'
+} from 'cozy-ui/transpiled/react/helpers/tracker'
 import { isMobileApp } from 'cozy-device-helper'
 
 import Banner from 'components/Banner'

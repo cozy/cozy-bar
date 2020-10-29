@@ -1,7 +1,7 @@
 import React from 'react'
 import { Provider } from 'react-redux'
 
-import I18n from 'cozy-ui/react/I18n'
+import I18n from 'cozy-ui/transpiled/react/I18n'
 import { createStore } from 'lib/store'
 import enLocale from 'locales/en.json'
 import { render, screen, fireEvent, act } from '@testing-library/react'
