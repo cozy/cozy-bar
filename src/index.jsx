@@ -23,7 +23,6 @@ import {
   APP_SELECTOR
 } from './dom'
 import 'styles/index.styl'
-import 'lib/importIcons'
 
 import enLocale from 'locales/en.json'
 import frLocale from 'locales/fr.json'
