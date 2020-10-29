@@ -22,7 +22,6 @@ import {
   getUserActionRequired,
   APP_SELECTOR
 } from './dom'
-import 'styles/index.styl'
 
 import enLocale from 'locales/en.json'
 import frLocale from 'locales/fr.json'
