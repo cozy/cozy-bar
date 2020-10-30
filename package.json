@@ -83,6 +83,7 @@
     "yaml-jest": "1.0.5",
   },
   "dependencies": {
+    "@svgr/cli": "5.4.0",
     "cozy-client": "13.8.3",
     "cozy-device-helper": "1.8.0",
     "cozy-interapp": "0.4.9",
