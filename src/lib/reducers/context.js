@@ -1,6 +1,7 @@
 import stack from 'lib/stack'
 import CLAUDY_ACTIONS from 'config/claudyActions.json'
 import { LOG_OUT } from 'lib/reducers/settings'
+import flag from 'cozy-flags'
 
 const FETCH_CONTEXT = 'FETCH_CONTEXT'
 const FETCH_CONTEXT_SUCCESS = 'FETCH_CONTEXT_SUCCESS'
@@ -53,7 +54,9 @@ const reducer = (state = defaultState, action) => {
     case FETCH_CONTEXT_SUCCESS: {
       const attr =
         action.context && action.context.data && action.context.data.attributes
-      const contextActions = (attr && attr['claudy_actions']) || []
+      const contextActions = flag('bar.claudy.force-all-actions')
+        ? Object.keys(CLAUDY_ACTIONS)
+        : attr && attr['claudy_actions']
       // get an arrays of action
       const claudyActions = contextActions
         .map(slug => {

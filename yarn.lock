@@ -3917,6 +3917,13 @@ cozy-device-helper@^1.7.3, cozy-device-helper@^1.8.0:
   dependencies:
     lodash "4.17.19"
 
+cozy-flags@2.4.1:
+  version "2.4.1"
+  resolved "https://registry.yarnpkg.com/cozy-flags/-/cozy-flags-2.4.1.tgz#0bb4ccb3278238fb12813c421ea7f60b6da961fa"
+  integrity sha512-a/06JaRJ50STnOMPHdoDCQHPQuf0nN2yg9PXnRFKSeJfeq+2yQz3rbBkXq/jL1QnRrPEiBDK/TYfS+2pf+9w9Q==
+  dependencies:
+    microee "^0.0.6"
+
 cozy-interapp@0.4.9:
   version "0.4.9"
   resolved "https://registry.yarnpkg.com/cozy-interapp/-/cozy-interapp-0.4.9.tgz#5ef68d54755cc99c3e154e5a4646b68cbe5f16fd"
@@ -3951,10 +3958,10 @@ cozy-stack-client@^13.8.3:
     mime "^2.4.0"
     qs "^6.7.0"
 
-cozy-ui@39.2.0:
-  version "39.2.0"
-  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-39.2.0.tgz#e0f5ae0a5d7511d08c0db256cb9e4c123641c492"
-  integrity sha512-dvHl/PudTpins4pGxIsvB0DTtPbJp8y3vKPnvazr5zRWj4USpgbYPTGOU7BGVJattn8R9LMBXDZXz+BCfXuNTg==
+cozy-ui@40.1.0:
+  version "40.1.0"
+  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-40.1.0.tgz#358577bb8f978f4ebcc81d93fc198f6f41ee6ffd"
+  integrity sha512-+XoXQxLBL5tHJvhkIVemDTpu8L8B11j7t9WL1j5Ou1cHOcWAM0WPSYh+mk9aIzsVQ5OJDbO8X5mqvzZYBPzq6A==
   dependencies:
     "@babel/runtime" "^7.3.4"
     "@popperjs/core" "^2.4.4"
