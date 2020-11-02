@@ -14,7 +14,10 @@ module.exports = {
         [
           'module-resolver',
           {
-            root: ['./src']
+            root: ['./src'],
+            alias: {
+              'cozy-ui/react': 'cozy-ui/transpiled/react'
+            }
           }
         ],
         [
