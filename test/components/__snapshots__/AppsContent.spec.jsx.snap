@@ -40,8 +40,9 @@ exports[`Apps Content should not display home within the app items list, but jus
     className="coz-apps-home-btn"
     role="menuitem"
   >
-    <img
-      src="test-file-stub"
+    <Icon
+      icon={[Function]}
+      spin={false}
     />
     Back to home
   </a>
