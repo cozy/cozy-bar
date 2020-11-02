@@ -85,7 +85,6 @@ client.on('login', () => {
     appSlug: appInfo.slug,
     iconPath: appIcon,
     lang: 'en',
-    replaceTitleOnMobile: true,
     ...(isInitializedWithCozyClient() ? newOptions : oldOptions),
     // This should be done automatically
     onLogOut: async () => {

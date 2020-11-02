@@ -13,11 +13,8 @@ module.exports = ({ production }) => ({
         exclude: /cozy-ui\/react/,
         use: [
           {
-            loader: 'style-loader'
-          },
-          {
             loader: 'css-loader',
-            options: { importLoaders: 2 }
+            options: { importLoaders: 2, sourceMap: true }
           },
           {
             loader: 'postcss-loader',
@@ -39,10 +36,6 @@ module.exports = ({ production }) => ({
         test: /\.styl$/,
         include: /cozy-ui\/react/,
         use: [
-          {
-            loader: 'style-loader',
-            options: { sourceMap: true }
-          },
           {
             loader: 'css-loader',
             options: {
