@@ -1,9 +1,6 @@
 [role=banner] .coz-nav-settings-btn {
   color: var(--slateGrey);
 }
-[role=banner] .coz-nav-settings-btn svg {
-  fill: var(--coolGrey);
-}
 [role=banner] .coz-nav-settings-btn:hover,
 [role=banner] .coz-nav-settings-btn:focus {
   background-color: var(--paleGrey);

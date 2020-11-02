@@ -17,7 +17,7 @@ import StorageData from 'components/Settings/StorageData'
 import StorageIcon from 'components/StorageIcon'
 
 const MenuIcon = ({ icon }) => {
-  return <Icon className="u-mr-half" color="var(--charcoalGrey)" icon={icon} />
+  return <Icon className="u-mr-half" color="var(--slateGrey)" icon={icon} />
 }
 
 const NavGroup = ({ children }) => {
@@ -52,11 +52,7 @@ const SettingsContent = ({
             target="_self"
             title={t('profile')}
           >
-            <Icon
-              className="u-mr-half"
-              color="var(--coolGrey)"
-              icon={PeopleIcon}
-            />
+            <MenuIcon className="u-mr-half" icon={PeopleIcon} />
             {t('profile')}
           </a>
         </NavItem>
@@ -110,7 +106,7 @@ const SettingsContent = ({
             subtle
             role="menuitem"
             className="coz-nav-settings-item-btn"
-            icon={CloudHappyIcon}
+            icon={<MenuIcon icon={CloudHappyIcon} />}
             title={viewOfferButtonText}
             label={viewOfferButtonText}
             href={managerUrlPremiumLink}
