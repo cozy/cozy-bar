@@ -20,7 +20,7 @@
     "watch": "yarn run webpack --watch --display-chunks",
     "clean": "rm -rf ./dist/*",
     "lint": "eslint '{config,src,examples,test}/**/*.{js,jsx}'",
-    "prebuild": "npm-run-all lint clean",
+    "prebuild": "npm-run-all clean",
     "prewatch": "npm-run-all clean",
     "tx": "tx pull --all || true",
     "shasum": "shasum -a 256 dist/cozy-bar.min.js",
