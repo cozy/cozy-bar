@@ -28,23 +28,6 @@ module.exports = {
         test: /\.jsx?$/,
         exclude: /node_modules\/(?!(cozy-ui\/react))/,
         loader: 'babel-loader'
-      },
-      {
-        test: /\.svg$/,
-        include: /icons/,
-        exclude: /node_modules/,
-        loader: 'url-loader'
-      },
-      {
-        test: /\.svg$/,
-        include: /sprites/,
-        exclude: /node_modules/,
-        loader: 'svg-sprite-loader'
-      },
-      {
-        test: /\.svg$/,
-        include: /cozy-ui/,
-        loader: 'svg-sprite-loader'
       }
     ]
   },
