@@ -24,7 +24,7 @@ before_deploy:
 deploy:
   provider: script
   skip_cleanup: true
-  script: npm run semantic-release
+  script: yarn run semantic-release
   on:
     branch: master
     repo: cozy/cozy-bar
