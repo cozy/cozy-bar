@@ -22,8 +22,16 @@ import {
   getUserActionRequired,
   APP_SELECTOR
 } from './dom'
-import 'styles/index.styl'
-import 'lib/importIcons'
+
+import enLocale from 'locales/en.json'
+import frLocale from 'locales/fr.json'
+import esLocale from 'locales/es.json'
+
+const locales = {
+  en: enLocale,
+  fr: frLocale,
+  es: esLocale
+}
 
 const createBarElement = () => {
   const targetName = isMobileApp() ? 'mobile' : 'browser'
@@ -83,7 +91,7 @@ const renderBar = (barNode, options) => {
 
   const barComponent = (
     <Provider store={options.reduxStore}>
-      <EnhancedI18n dictRequire={lang => require(`locales/${lang}`)}>
+      <EnhancedI18n dictRequire={lang => locales[lang]}>
         {cozyClient ? (
           <CozyProvider client={cozyClient}>
             <Bar {...options} />

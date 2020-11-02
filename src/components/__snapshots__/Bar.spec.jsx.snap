@@ -24,7 +24,7 @@ exports[`Bar should change allow theme overrides 1`] = `
       <Icon
         color="currentColor"
         height={16}
-        icon="test-file-stub"
+        icon={[Function]}
         spin={false}
         width={16}
       />
@@ -73,7 +73,7 @@ exports[`Bar should change theme 1`] = `
       <Icon
         color="currentColor"
         height={16}
-        icon="test-file-stub"
+        icon={[Function]}
         spin={false}
         width={16}
       />
@@ -122,7 +122,7 @@ exports[`Bar should display the Searchbar 1`] = `
       <Icon
         color="currentColor"
         height={16}
-        icon="test-file-stub"
+        icon={[Function]}
         spin={false}
         width={16}
       />
@@ -218,7 +218,7 @@ exports[`Bar should not display searchbar if we are not on Cozy Drive 1`] = `
       <Icon
         color="currentColor"
         height={16}
-        icon="test-file-stub"
+        icon={[Function]}
         spin={false}
         width={16}
       />
@@ -269,7 +269,7 @@ exports[`Bar should not display searchbar if we are on mobile 1`] = `
       <Icon
         color="currentColor"
         height={16}
-        icon="test-file-stub"
+        icon={[Function]}
         spin={false}
         width={16}
       />

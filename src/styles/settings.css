@@ -1,9 +1,6 @@
 [role=banner] .coz-nav-settings-btn {
   color: var(--slateGrey);
 }
-[role=banner] .coz-nav-settings-btn svg {
-  fill: var(--coolGrey);
-}
 [role=banner] .coz-nav-settings-btn:hover,
 [role=banner] .coz-nav-settings-btn:focus {
   background-color: var(--paleGrey);
@@ -16,29 +13,22 @@
 }
 
 [role=banner] .coz-nav-settings-item [role=menuitem] {
-  position: relative;
-  z-index: 0;
   display: block;
   box-sizing: border-box;
   margin: 0;
   width: 100%;
-  padding: .8em 1.5em .8em calc(1.5em + 16px + .5em);
+  padding: 0.75rem 1rem;
   border: none;
-  align-items: center;
-  background-position: 1.5em 50%;
   background-color: transparent;
   text-align: left;
   font-size: 1rem;
-  font-weight: normal;
   white-space: nowrap;
   color: var(--charcoalGrey);
-  text-transform: none;
   text-decoration: none;
   outline: none;
 }
-[role=banner] .coz-nav-settings-item .coz-nav-settings-item-btn[role=menuitem] {
-  padding-left: 1.5rem;
-}
+
 [role=banner] .coz-nav-settings-item .coz-nav-settings-item-btn[role=menuitem] > span > span {
   margin-right: auto;
 }
+

@@ -1,10 +1,32 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { translate } from 'cozy-ui/react/I18n'
-import { Button, ButtonLink } from 'cozy-ui/react/Button'
 import { isMobileApp } from 'cozy-device-helper'
+
+import { translate } from 'cozy-ui/react/I18n'
+import { ButtonLink } from 'cozy-ui/react/Button'
+import Icon from 'cozy-ui/transpiled/react/Icon'
+import PhoneIcon from 'cozy-ui/transpiled/react/Icons/Phone'
+import CloudIcon from 'cozy-ui/transpiled/react/Icons/Cloud'
+import PeopleIcon from 'cozy-ui/transpiled/react/Icons/People'
+import CloudHappyIcon from 'cozy-ui/transpiled/react/Icons/CloudHappy'
+import LogoutIcon from 'cozy-ui/transpiled/react/Icons/Logout'
+import HelpIcon from 'cozy-ui/transpiled/react/Icons/Help'
+
 import StorageData from 'components/Settings/StorageData'
+import StorageIcon from 'components/StorageIcon'
+
+const MenuIcon = ({ icon }) => {
+  return <Icon className="u-mr-half" color="var(--slateGrey)" icon={icon} />
+}
+
+const NavGroup = ({ children }) => {
+  return <ul className="coz-nav-group">{children}</ul>
+}
+
+const NavItem = ({ children }) => {
+  return <li className="coz-nav-settings-item">{children}</li>
+}
 
 const SettingsContent = ({
   t,
@@ -22,107 +44,103 @@ const SettingsContent = ({
   <div className="coz-nav-pop-content">
     {isDrawer && <hr />}
     {settingsAppURL && (
-      <ul className="coz-nav-group">
-        <li className="coz-nav-settings-item">
+      <NavGroup>
+        <NavItem>
           <a
             role="menuitem"
             href={`${settingsAppURL}#/profile`}
             target="_self"
-            data-icon="icon-profile"
             title={t('profile')}
           >
-            <p className="coz-label">{t('profile')}</p>
+            <MenuIcon className="u-mr-half" icon={PeopleIcon} />
+            {t('profile')}
           </a>
-        </li>
-        <li className="coz-nav-settings-item">
+        </NavItem>
+        <NavItem>
           <a
             role="menuitem"
             href={`${settingsAppURL}#/connectedDevices`}
             target="_self"
-            data-icon="icon-connectedDevices"
             title={t('connectedDevices')}
           >
-            <p className="coz-label">{t('connectedDevices')}</p>
+            <MenuIcon icon={PhoneIcon} />
+            {t('connectedDevices')}
           </a>
-        </li>
-      </ul>
+        </NavItem>
+      </NavGroup>
     )}
     {isDrawer && onClaudy && !isMobileApp() && (
-      <ul className="coz-nav-group">
-        <li className="coz-nav-settings-item">
-          <Button
+      <NavGroup>
+        <NavItem>
+          <button
             type="button"
             role="menuitem"
             className="coz-nav-settings-item-btn"
-            icon="cloud"
             busy={isClaudyLoading}
             onClick={onClaudy}
-            title={t('claudy.title')}
-            label={t('claudy.title')}
-          />
-        </li>
-      </ul>
+          >
+            <MenuIcon icon={CloudIcon} /> {t('claudy.title')}
+          </button>
+        </NavItem>
+      </NavGroup>
     )}
     {!isDrawer && storageData && (
-      <ul className="coz-nav-group">
-        <li className="coz-nav-settings-item">
+      <NavGroup>
+        <NavItem>
           <a
             role="menuitem"
-            data-icon="icon-storage"
             target="_self"
             title={t('storage')}
             href={`${settingsAppURL}#/storage`}
           >
-            {t('storage')}
+            <MenuIcon icon={StorageIcon} /> {t('storage')}
             <StorageData data={storageData} />
           </a>
-        </li>
-      </ul>
+        </NavItem>
+      </NavGroup>
     )}
     {(!isDrawer || !isMobileApp()) && shoulDisplayViewOfferButton && (
-      <ul className="coz-nav-group">
-        <li className="coz-nav-settings-item">
+      <NavGroup>
+        <NavItem>
           <ButtonLink
             subtle
             role="menuitem"
             className="coz-nav-settings-item-btn"
-            icon="cloud-happy"
+            icon={<MenuIcon icon={CloudHappyIcon} />}
             title={viewOfferButtonText}
             label={viewOfferButtonText}
             href={managerUrlPremiumLink}
           />
-        </li>
-      </ul>
+        </NavItem>
+      </NavGroup>
     )}
 
     {!isMobileApp() && (
-      <ul className="coz-nav-group">
-        <li className="coz-nav-settings-item">
-          <Button
+      <NavGroup>
+        <NavItem>
+          <button
             type="button"
             role="menuitem"
             className="coz-nav-settings-item-btn"
             onClick={toggleSupport}
-            icon="help"
-            title={t('help')}
-            label={t('help')}
-          />
-        </li>
-      </ul>
+          >
+            <MenuIcon icon={HelpIcon} /> {t('help')}
+          </button>
+        </NavItem>
+      </NavGroup>
     )}
-    <ul className="coz-nav-group">
-      <li className="coz-nav-settings-item">
+    <NavGroup>
+      <NavItem>
         <button
           type="button"
           role="menuitem"
-          data-icon="icon-logout"
           onClick={onLogOut}
           title={t('logout')}
         >
-          {t('logout')}
+          <MenuIcon icon={LogoutIcon} /> {t('logout')}
         </button>
-      </li>
-    </ul>
+      </NavItem>
+    </NavGroup>
   </div>
 )
 

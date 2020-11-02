@@ -30,3 +30,6 @@ coverage/
 
 # parcel cache
 .cache
+
+# transpiled files
+transpiled

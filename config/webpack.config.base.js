@@ -28,34 +28,17 @@ module.exports = {
         test: /\.jsx?$/,
         exclude: /node_modules\/(?!(cozy-ui\/react))/,
         loader: 'babel-loader'
-      },
-      {
-        test: /\.yaml$/,
-        loaders: ['json-loader', 'yaml-loader']
-      },
-      {
-        test: /\.svg$/,
-        include: /icons/,
-        exclude: /node_modules/,
-        loader: 'url-loader'
-      },
-      {
-        test: /\.svg$/,
-        include: /sprites/,
-        exclude: /node_modules/,
-        loader: 'svg-sprite-loader'
-      },
-      {
-        test: /\.svg$/,
-        include: /cozy-ui/,
-        loader: 'svg-sprite-loader'
       }
     ]
   },
   plugins: [
     new webpack.ContextReplacementPlugin(/date-fns[/\\]locale$/, /(en|es|fr)/),
     new webpack.DefinePlugin({
-      __VERSION__: JSON.stringify(pkg.version)
+      __VERSION__: JSON.stringify(pkg.version),
+      __PIWIK_SITEID__: 8,
+      __PIWIK_SITEID_MOBILE__: 12,
+      __PIWIK_DIMENSION_ID_APP__: 1,
+      __PIWIK_TRACKER_URL__: JSON.stringify('https://piwik.cozycloud.cc')
     })
   ]
 }

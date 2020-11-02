@@ -30,7 +30,17 @@ import {
   shouldEnableClaudy
 } from 'lib/reducers'
 
-import appsIcon from 'assets/sprites/icon-apps.svg'
+/* Generated with node_modules/.bin/svgr src/assets/sprites/icon-apps.svg */
+function SvgIconApps(props) {
+  return (
+    <svg width={16} height={16} {...props}>
+      <path
+        d="M0 0h4v4H0V0zm0 6h4v4H0V6zm0 6h4v4H0v-4zM6 0h4v4H6V0zm0 6h4v4H6V6zm0 6h4v4H6v-4zm6-12h4v4h-4V0zm0 6h4v4h-4V6zm0 6h4v4h-4v-4z"
+        fillRule="evenodd"
+      />
+    </svg>
+  )
+}
 
 export class Bar extends Component {
   constructor(props) {
@@ -162,7 +172,7 @@ export class Bar extends Component {
         onClick={this.toggleDrawer}
         data-tutorial="apps-mobile"
       >
-        <Icon icon={appsIcon} width={16} height={16} color="currentColor" />
+        <Icon icon={SvgIconApps} width={16} height={16} color="currentColor" />
         <span className="coz-bar-hidden">{t('drawer')}</span>
       </button>
     ) : null

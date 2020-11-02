@@ -1,0 +1,20 @@
+{
+  "desktop": {
+    "icon": "icon-laptop.svg",
+    "link": {
+      "type": "external"
+    }
+  },
+  "mobile": {
+    "icon": "icon-phone.svg",
+    "link": {
+      "type": "external"
+    }
+  },
+  "support": {
+    "icon": "icon-question-mark.svg",
+    "link": {
+      "type": "external"
+    }
+  }
+}
