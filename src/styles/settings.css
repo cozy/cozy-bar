@@ -13,22 +13,17 @@
 }
 
 [role=banner] .coz-nav-settings-item [role=menuitem] {
-  position: relative;
-  z-index: 0;
   display: block;
   box-sizing: border-box;
   margin: 0;
   width: 100%;
-  padding: 0.5rem 1rem;
+  padding: 0.75rem 1rem;
   border: none;
-  align-items: center;
   background-color: transparent;
   text-align: left;
   font-size: 1rem;
-  font-weight: normal;
   white-space: nowrap;
   color: var(--charcoalGrey);
-  text-transform: none;
   text-decoration: none;
   outline: none;
 }
@@ -36,3 +31,4 @@
 [role=banner] .coz-nav-settings-item .coz-nav-settings-item-btn[role=menuitem] > span > span {
   margin-right: auto;
 }
+
