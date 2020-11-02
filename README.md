@@ -124,6 +124,16 @@ setTheme('default')
 setTheme('primary')
 ```
 
+Debugging
+---
+
+It is possible to activate the logger from the bar by activating the flag 'bar.debug'.
+Then you have to reload the page.
+
+```
+flag(bar.debug, true)
+```
+
 Contribute
 ----------
 

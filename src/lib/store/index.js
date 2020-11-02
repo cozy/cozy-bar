@@ -7,6 +7,7 @@ import { createLogger } from 'redux-logger'
 import storage from 'redux-persist/lib/storage'
 import persistWhitelist from 'config/persistWhitelist.json'
 import logger from '../logger'
+import flag from 'cozy-flags'
 
 const config = {
   storage,
@@ -22,7 +23,9 @@ const reducer = persistCombineReducers(config, { ...reducers })
 
 const middlewares = [appsI18nMiddleware, thunkMiddleware]
 
-middlewares.push(loggerMiddleware)
+if (flag('bar.debug')) {
+  middlewares.push(loggerMiddleware)
+}
 
 export const createStore = () => {
   store = createReduxStore(reducer, applyMiddleware.apply(null, middlewares))
