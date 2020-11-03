@@ -1,5 +1,5 @@
 import flag from 'cozy-flags'
-import _minilog from 'minilog'
+import _minilog from '@cozy/minilog'
 
 const minilog = window.minilog || _minilog
 const logger = minilog('cozy-bar')

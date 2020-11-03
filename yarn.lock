@@ -1098,6 +1098,13 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
+"@cozy/minilog@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@cozy/minilog/-/minilog-1.0.0.tgz#1acc1aad849261e931e255a5f181b638315f7b84"
+  integrity sha512-IkDHF9CLh0kQeSEVsou59ar/VehvenpbEUjLfwhckJyOUqZnKAWmXy8qrBgMT5Loxr8Xjs2wmMnj0D67wP00eQ==
+  dependencies:
+    microee "0.0.6"
+
 "@emotion/cache@^10.0.27":
   version "10.0.29"
   resolved "https://registry.yarnpkg.com/@emotion/cache/-/cache-10.0.29.tgz#87e7e64f412c060102d589fe7c6dc042e6f9d1e0"
