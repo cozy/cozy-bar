@@ -15,6 +15,7 @@ cache:
     - node_modules
 script:
   - yarn lint
+  - yarn transpile
   - yarn build
   - yarn shasum
   - yarn test
