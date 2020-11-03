@@ -36,6 +36,7 @@
     "@babel/core": "7.6.2",
     "@babel/polyfill": "^7.10.4",
     "@material-ui/core": "3.9.4",
+    "@svgr/cli": "5.4.0",
     "@testing-library/react": "^10.2.1",
     "autoprefixer": "9.6.0",
     "babel-jest": "24.9.0",
@@ -91,7 +92,6 @@
     "yaml-jest": "1.0.5"
   },
   "dependencies": {
-    "@svgr/cli": "5.4.0",
     "cozy-client": "13.8.3",
     "cozy-device-helper": "1.8.0",
     "cozy-flags": "2.4.1",
