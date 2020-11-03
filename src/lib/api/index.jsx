@@ -74,7 +74,7 @@ export const createBarAPI = store => {
   // setBar{Left,Right,Center} and <Bar{Left,Right,Center} />
   const methods = {}
   locations.forEach(location => {
-    /// expose JS API
+    // expose JS API
     methods[getJsApiName(location)] = value =>
       store.dispatch(setContent(location, wrapInElement(value), 'js'))
 

@@ -70,8 +70,8 @@ export const setDefaultApp = appsList => async dispatch => {
       context.data.attributes &&
       context.data.attributes.default_redirection
     let homeApp = null
-    //self hosted cozy has no context by default
-    //so let's use hardcoded home slug if needed
+    // self hosted cozy has no context by default
+    // so let's use hardcoded home slug if needed
     if (!defaultRedirection) {
       const HOME_APP_SLUG = 'home'
       homeApp = findAppInArray(HOME_APP_SLUG, appsList)
