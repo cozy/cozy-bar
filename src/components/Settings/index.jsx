@@ -12,7 +12,7 @@ let hasAnOffer = undefined
 let isFremiumFixed = undefined
 if (models) {
   instanceModel = models.instance
-  //TODO fallback from cozy-client
+  // TODO fallback from cozy-client
   isFremiumFixed = data => {
     const GB = 1000 * 1000 * 1000
     const PREMIUM_QUOTA = 50 * GB

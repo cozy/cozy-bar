@@ -14,11 +14,7 @@ cache:
   directories:
     - node_modules
 script:
-  - yarn lint
-  - yarn build
-  - yarn shasum
-  - yarn test
-  - yarn bundlesize
+  - ./scripts/travis.sh
 before_deploy:
   - touch .npmignore
 deploy:
