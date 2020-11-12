@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import { getHomeApp } from 'lib/reducers'
+import TopIcon from 'cozy-ui/react/Icons/Top'
+import BottomIcon from 'cozy-ui/react/Icons/Top'
 
 import { translate } from 'cozy-ui/react/I18n'
 import Icon from 'cozy-ui/react/Icon'
@@ -73,7 +75,11 @@ class AppNavButton extends Component {
           )}
           <span className="coz-nav-app-name">{displayName}</span>
           {!isPublic && (
-            <Icon icon={opened ? 'top' : 'bottom'} color="#95999d" size="12" />
+            <Icon
+              icon={opened ? TopIcon : BottomIcon}
+              color="#95999d"
+              size="12"
+            />
           )}
         </button>
       </div>
