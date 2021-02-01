@@ -1,20 +1,16 @@
+import { Q } from 'cozy-client'
+
 export const instanceReq = {
-  query: client => {
-    return client.get('io.cozy.settings', 'instance')
-  },
+  query: () => Q('io.cozy.settings').getById('instance'),
   as: 'instanceQuery'
 }
 
 export const contextReq = {
-  query: client => {
-    return client.get('io.cozy.settings', 'context')
-  },
+  query: () => Q('io.cozy.settings').getById('context'),
   as: 'contextQuery'
 }
 
 export const diskUsageReq = {
-  query: client => {
-    return client.get('io.cozy.settings', 'disk-usage')
-  },
+  query: () => Q('io.cozy.settings').getById('disk-usage'),
   as: 'diskUsageQuery'
 }
