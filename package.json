@@ -79,7 +79,7 @@
     "postcss-loader": "3.0.0",
     "react": "16.10.1",
     "react-dom": "16.10.1",
-    "react-router": "3.2.4",
+    "react-router": "3.2.6",
     "redux-logger": "3.0.6",
     "semantic-release": "15.13.24",
     "style-loader": "0.23.1",
