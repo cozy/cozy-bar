@@ -2,11 +2,11 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Proptypes from 'prop-types'
 
-import { translate } from 'cozy-ui/react/I18n'
+import { translate } from 'cozy-ui/transpiled/react/I18n'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import CloudIcon from 'cozy-ui/transpiled/react/Icons/Cloud'
 
-import withBreakpoints from 'cozy-ui/react/helpers/withBreakpoints'
+import withBreakpoints from 'cozy-ui/transpiled/react/helpers/withBreakpoints'
 import { getApps, getHomeApp, isFetchingApps } from 'lib/reducers'
 
 import AppItem from 'components/Apps/AppItem'

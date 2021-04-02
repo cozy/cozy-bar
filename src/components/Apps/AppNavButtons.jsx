@@ -2,11 +2,11 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import { getHomeApp } from 'lib/reducers'
-import TopIcon from 'cozy-ui/react/Icons/Top'
-import BottomIcon from 'cozy-ui/react/Icons/Top'
+import TopIcon from 'cozy-ui/transpiled/react/Icons/Top'
+import BottomIcon from 'cozy-ui/transpiled/react/Icons/Top'
 
-import { translate } from 'cozy-ui/react/I18n'
-import Icon from 'cozy-ui/react/Icon'
+import { translate } from 'cozy-ui/transpiled/react/I18n'
+import Icon from 'cozy-ui/transpiled/react/Icon'
 import HomeIcon from 'components/Apps/IconCozyHome'
 import { isFetchingApps } from 'lib/reducers'
 

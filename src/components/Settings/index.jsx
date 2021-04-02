@@ -3,10 +3,11 @@ import { connect } from 'react-redux'
 import { compose } from 'redux'
 import get from 'lodash/get'
 
-import { translate } from 'cozy-ui/react/I18n'
-import { Button } from 'cozy-ui/react/Button'
+import { translate } from 'cozy-ui/transpiled/react/I18n'
+import { Button } from 'cozy-ui/transpiled/react/Button'
 import { queryConnect } from 'cozy-client/dist'
 import { models } from 'cozy-client'
+
 let instanceModel = undefined
 let hasAnOffer = undefined
 let isFremiumFixed = undefined

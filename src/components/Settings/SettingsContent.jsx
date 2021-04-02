@@ -3,8 +3,8 @@ import PropTypes from 'prop-types'
 
 import { isMobileApp } from 'cozy-device-helper'
 
-import { translate } from 'cozy-ui/react/I18n'
-import { ButtonLink } from 'cozy-ui/react/Button'
+import { translate } from 'cozy-ui/transpiled/react/I18n'
+import { ButtonLink } from 'cozy-ui/transpiled/react/Button'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import PhoneIcon from 'cozy-ui/transpiled/react/Icons/Phone'
 import CloudIcon from 'cozy-ui/transpiled/react/Icons/Cloud'
