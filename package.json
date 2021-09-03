@@ -99,7 +99,7 @@
     "cozy-flags": "2.4.1",
     "cozy-interapp": "0.4.9",
     "cozy-realtime": "3.2.1",
-    "cozy-ui": "40.1.0",
+    "cozy-ui": "^51.8.0",
     "hammerjs": "2.0.8",
     "lodash.debounce": "4.0.8",
     "lodash.unionwith": "4.6.0",
@@ -128,7 +128,9 @@
       "styl",
       "yaml"
     ],
-    "modulePathIgnorePatterns": ["<rootDir>/transpiled/"],
+    "modulePathIgnorePatterns": [
+      "<rootDir>/transpiled/"
+    ],
     "setupFiles": [
       "<rootDir>/test/jestLib/setup.js"
     ],
