@@ -5,6 +5,8 @@ import get from 'lodash/get'
 
 import { translate } from 'cozy-ui/react/I18n'
 import { Button } from 'cozy-ui/react/Button'
+import GearIcon from 'cozy-ui/react/Icons/Gear'
+
 import { queryConnect } from 'cozy-client/dist'
 import { models } from 'cozy-client'
 let instanceModel = undefined
@@ -148,7 +150,7 @@ export class Settings extends Component {
           className="coz-nav-settings-btn"
           aria-controls="coz-nav-pop--settings"
           busy={isBusy}
-          icon="gear"
+          icon={GearIcon}
           label={t('menu.settings')}
         />
         <div
