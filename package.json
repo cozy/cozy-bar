@@ -61,6 +61,7 @@
     "foreman": "3.0.1",
     "identity-obj-proxy": "3.0.0",
     "jest": "24.9.0",
+    "jest-fetch-mock": "^3.0.3",
     "json-loader": "0.5.7",
     "mini-css-extract-plugin": "0.8.0",
     "my-react": "npm:react@16.13.1",
@@ -90,7 +91,7 @@
     "yaml-loader": "0.5.0"
   },
   "dependencies": {
-    "cozy-client": "13.8.3",
+    "cozy-client": "^27.14.4",
     "cozy-device-helper": "1.8.0",
     "cozy-interapp": "0.4.9",
     "cozy-realtime": "3.2.1",
