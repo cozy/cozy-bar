@@ -46,6 +46,7 @@
     "babel-preset-cozy-app": "^1.9.0",
     "bundlesize": "0.18.0",
     "cozy-authentication": "1.19.1",
+    "cozy-intent": "^1.7.0",
     "css-loader": "1.0.1",
     "css-mqpacker": "7.0.0",
     "cssnano-preset-advanced": "4.0.7",
@@ -113,7 +114,8 @@
     "semver-compare": "^1.0.0"
   },
   "peerDependencies": {
-    "cozy-client": "*"
+    "cozy-client": "*",
+    "cozy-intent": ">=1.7.0"
   },
   "bundlesize": [
     {
