@@ -12,6 +12,7 @@ import {
 } from 'cozy-ui/react/helpers/tracker'
 import { isMobileApp } from 'cozy-device-helper'
 
+import { ButtonCozyHome } from 'components/Apps/ButtonCozyHome'
 import Banner from 'components/Banner'
 import Drawer from 'components/Drawer'
 import Settings from 'components/Settings'
@@ -27,7 +28,8 @@ import {
   fetchApps,
   fetchContext,
   fetchSettingsData,
-  shouldEnableClaudy
+  shouldEnableClaudy,
+  getWebviewContext
 } from 'lib/reducers'
 
 /* Generated with node_modules/.bin/svgr src/assets/sprites/icon-apps.svg */
@@ -163,7 +165,12 @@ export class Bar extends Component {
   }
 
   renderLeft = () => {
-    const { t, isPublic } = this.props
+    const { t, isPublic, webviewContext } = this.props
+
+    if (webviewContext) {
+      return <ButtonCozyHome webviewContext={webviewContext} />
+    }
+
     // data-tutorial attribute allows to be targeted in an application tutorial
     return !isPublic ? (
       <button
@@ -197,6 +204,7 @@ export class Bar extends Component {
       supportDisplayed,
       usageTracker
     } = this.state
+
     const {
       theme,
       themeOverrides,
@@ -269,7 +277,8 @@ export const mapStateToProps = state => ({
   barSearch: getContent(state, 'search'),
   isDrive: isCurrentApp(state, { slug: 'drive' }),
   claudyEnabled: shouldEnableClaudy(state),
-  hasFetchedApps: hasFetched(state)
+  hasFetchedApps: hasFetched(state),
+  webviewContext: getWebviewContext(state)
 })
 
 export const mapDispatchToProps = dispatch => ({

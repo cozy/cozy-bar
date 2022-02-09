@@ -1,5 +1,11 @@
 import React, { Component } from 'react'
-import { setContent, unsetContent, setLocale, setTheme } from 'lib/reducers'
+import {
+  setContent,
+  unsetContent,
+  setLocale,
+  setTheme,
+  setWebviewContext
+} from 'lib/reducers'
 
 import { locations, getJsApiName, getReactApiName } from 'lib/api/helpers'
 
@@ -90,6 +96,10 @@ export const createBarAPI = store => {
     store.dispatch(setTheme(...args))
   }
 
+  methods.setWebviewContext = (...args) => {
+    store.dispatch(setWebviewContext(...args))
+  }
+
   return methods
 }
 
@@ -128,7 +138,7 @@ export const createBarProxiedAPI = exposedAPI => {
     }
   })
 
-  for (let fnName of ['setLocale', 'setTheme']) {
+  for (let fnName of ['setLocale', 'setTheme', 'setWebviewContext']) {
     apiReferences[fnName] = makeProxyMethodToAPI(exposedAPI, fnName)
   }
   return apiReferences

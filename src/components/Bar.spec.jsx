@@ -1,6 +1,6 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import { isMobileApp } from 'cozy-device-helper'
+import { isFlagshipApp, isMobileApp } from 'cozy-device-helper'
 import toJson from 'enzyme-to-json'
 import reducers from 'lib/reducers'
 import CozyClient from 'cozy-client'
@@ -9,7 +9,8 @@ import { Bar, mapStateToProps, mapDispatchToProps } from './Bar'
 
 jest.mock('cozy-device-helper', () => ({
   ...require.requireActual('cozy-device-helper'),
-  isMobileApp: jest.fn()
+  isMobileApp: jest.fn(),
+  isFlagshipApp: jest.fn()
 }))
 
 describe('Bar', () => {
@@ -32,6 +33,7 @@ describe('Bar', () => {
 
   afterEach(() => {
     Bar.prototype.fetchApps.mockRestore()
+    isFlagshipApp.mockClear()
   })
 
   it('should fetch data when mounted', () => {
