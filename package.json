@@ -92,6 +92,7 @@
     "yaml-loader": "0.5.0"
   },
   "dependencies": {
+    "@cozy/minilog": "^1.0.0",
     "cozy-client": "^27.14.4",
     "cozy-device-helper": "^1.16.1",
     "cozy-interapp": "0.4.9",
@@ -103,7 +104,6 @@
     "localforage": "1.7.3",
     "lodash.debounce": "4.0.8",
     "lodash.unionwith": "4.6.0",
-    "minilog": "https://github.com/cozy/minilog.git#master",
     "piwik-react-router": "0.12.1",
     "prop-types": "15.7.2",
     "react-autosuggest": "9.4.3",
