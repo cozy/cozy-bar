@@ -128,4 +128,15 @@ describe('api spec', function() {
     expect(store.getState().theme.name).toBe('default')
     expect(store.getState().theme.overrides).toEqual({})
   })
+
+  it('should set webviewContext', function() {
+    const { setWebviewContext } = api
+    // default webviewContext is `undefined`
+    expect(store.getState().unserializable.webviewContext).toBe(undefined)
+    setWebviewContext('foo')
+    expect(store.getState().unserializable.webviewContext).toBe('foo')
+    setWebviewContext('bar')
+    expect(store.getState().unserializable.webviewContext).toBe('bar')
+    setWebviewContext(undefined)
+  })
 })

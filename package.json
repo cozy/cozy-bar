@@ -46,6 +46,7 @@
     "babel-preset-cozy-app": "^1.9.0",
     "bundlesize": "0.18.0",
     "cozy-authentication": "1.19.1",
+    "cozy-intent": "^1.7.0",
     "css-loader": "1.0.1",
     "css-mqpacker": "7.0.0",
     "cssnano-preset-advanced": "4.0.7",
@@ -61,6 +62,7 @@
     "foreman": "3.0.1",
     "identity-obj-proxy": "3.0.0",
     "jest": "24.9.0",
+    "jest-fetch-mock": "^3.0.3",
     "json-loader": "0.5.7",
     "mini-css-extract-plugin": "0.8.0",
     "my-react": "npm:react@16.13.1",
@@ -90,8 +92,8 @@
     "yaml-loader": "0.5.0"
   },
   "dependencies": {
-    "cozy-client": "13.8.3",
-    "cozy-device-helper": "1.8.0",
+    "cozy-client": "^27.14.4",
+    "cozy-device-helper": "^1.16.1",
     "cozy-interapp": "0.4.9",
     "cozy-realtime": "3.2.1",
     "cozy-ui": "35.22.0",
@@ -112,7 +114,8 @@
     "semver-compare": "^1.0.0"
   },
   "peerDependencies": {
-    "cozy-client": "*"
+    "cozy-client": "*",
+    "cozy-intent": ">=1.7.0"
   },
   "bundlesize": [
     {
