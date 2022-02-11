@@ -218,7 +218,8 @@ const {
   BarRight,
   BarLeft,
   BarSearch,
-  setTheme
+  setTheme,
+  setWebviewContext
 } = proxiedAPI
 
 const version = __VERSION__
@@ -235,6 +236,7 @@ export {
   BarCenter,
   BarSearch,
   setTheme,
+  setWebviewContext,
   setLocale,
   updateAccessToken
 }

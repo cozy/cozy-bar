@@ -1,7 +1,13 @@
 import CozyClient from 'cozy-client'
+import jestFetchMock from 'jest-fetch-mock'
+
 import * as cozyBar from './index'
 
 describe('init', () => {
+  beforeAll(() => {
+    global.fetch = jestFetchMock
+  })
+
   beforeEach(() => {
     jest.spyOn(console, 'error')
     const div = document.createElement('div')

@@ -2,6 +2,7 @@ import { combineReducers } from 'redux'
 import * as content from 'lib/reducers/content'
 import * as locale from 'lib/reducers/locale'
 import * as theme from 'lib/reducers/theme'
+import * as unserializable from 'lib/reducers/unserializable'
 import appsReducer, * as apps from 'lib/reducers/apps'
 import settingsReducer, * as settings from 'lib/reducers/settings'
 import contextReducer, * as context from 'lib/reducers/context'
@@ -16,6 +17,7 @@ const setContent = content.setContent
 const unsetContent = content.unsetContent
 const setLocale = locale.setLocale
 const setTheme = theme.setTheme
+const setWebviewContext = unserializable.setWebviewContext
 const fetchApps = apps.fetchApps
 const setInfos = apps.setInfos
 const fetchSettingsData = settings.fetchSettingsData
@@ -26,6 +28,7 @@ export {
   unsetContent,
   setLocale,
   setTheme,
+  setWebviewContext,
   fetchApps,
   setInfos,
   fetchSettingsData,
@@ -48,18 +51,23 @@ export const isFetchingSettings = proxy('settings', settings.isFetchingSettings)
 export const getHelpLink = proxy('context', context.getHelpLink)
 export const getClaudyActions = proxy('context', context.getClaudyActions)
 export const shouldEnableClaudy = proxy('context', context.shouldEnableClaudy)
+export const getWebviewContext = proxy(
+  'unserializable',
+  unserializable.getWebviewContext
+)
 
 // realtime handlers
 export const onRealtimeCreate = apps.receiveApp
 export const onRealtimeDelete = apps.deleteApp
 
 export const reducers = {
-  content: content.reducer,
-  locale: locale.reducer,
-  theme: theme.reducer,
   apps: appsReducer,
+  content: content.reducer,
+  context: contextReducer,
+  locale: locale.reducer,
   settings: settingsReducer,
-  context: contextReducer
+  theme: theme.reducer,
+  unserializable: unserializable.reducer
 }
 
 export default combineReducers(reducers)
