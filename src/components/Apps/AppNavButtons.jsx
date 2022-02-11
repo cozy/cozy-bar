@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import { getHomeApp } from 'lib/reducers'
-import TopIcon from 'cozy-ui/react/Icons/Top'
 import BottomIcon from 'cozy-ui/react/Icons/Bottom'
-
-import { translate } from 'cozy-ui/react/I18n'
 import Icon from 'cozy-ui/react/Icon'
+import TopIcon from 'cozy-ui/react/Icons/Top'
+import { translate } from 'cozy-ui/react/I18n'
+
+import { ButtonCozyHome } from 'components/Apps/ButtonCozyHome'
+import { getHomeApp } from 'lib/reducers'
 import { isFetchingApps } from 'lib/reducers'
-import { ButtonCozyHome } from './ButtonCozyHome'
 
 class AppNavButton extends Component {
   render() {

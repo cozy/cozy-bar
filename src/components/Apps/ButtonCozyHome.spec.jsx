@@ -1,7 +1,7 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 
-import { ButtonCozyHome } from './ButtonCozyHome'
+import { ButtonCozyHome } from 'components/Apps/ButtonCozyHome'
 
 const homeHref = 'foo'
 const expectedCall = 'backToHome'
