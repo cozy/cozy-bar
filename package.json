@@ -1,6 +1,6 @@
 {
   "name": "cozy-bar",
-  "version": "7.17.1",
+  "version": "7.17.2",
   "description": "cozy-bar.js library, a small lib provided by cozy-stack to inject the Cozy-bar component into each app",
   "main": "dist/cozy-bar.js",
   "author": "Cozy Cloud <contact@cozycloud.cc> (https://cozy.io/)",
@@ -96,7 +96,7 @@
     "cozy-client": "^27.14.4",
     "cozy-device-helper": "^1.16.1",
     "cozy-interapp": "0.4.9",
-    "cozy-realtime": "3.2.1",
+    "cozy-realtime": "^4.0.5",
     "cozy-ui": "35.22.0",
     "enzyme-to-json": "3.3.5",
     "hammerjs": "2.0.8",
