@@ -1,3 +1,3 @@
-import minilog from 'minilog'
+import minilog from '@cozy/minilog'
 
 window.minilog = minilog
