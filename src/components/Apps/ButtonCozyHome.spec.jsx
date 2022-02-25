@@ -25,20 +25,20 @@ describe('ButtonCozyHome', () => {
     expect(element.props.href).toBe(homeHref)
   })
 
-  it('should render a button when webviewContext', () => {
+  it('should render an anchor when webviewContext', () => {
     const render = shallow(<ButtonCozyHome webviewContext={webviewContext} />)
     const element = render.getElement()
 
-    expect(element.type).toBe('button')
+    expect(element.type).toBe('a')
   })
 
-  it('should give priority to button if both webviewContext and homeHref are present', () => {
+  it('should give priority to anchor if both webviewContext and homeHref are present', () => {
     const render = shallow(
       <ButtonCozyHome homeHref={homeHref} webviewContext={webviewContext} />
     )
     const element = render.getElement()
 
-    expect(element.type).toBe('button')
+    expect(element.type).toBe('a')
   })
 
   it('should call the correct context method on click', () => {
