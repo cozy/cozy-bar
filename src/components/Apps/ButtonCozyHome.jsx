@@ -5,14 +5,14 @@ import IconCozyHome from './IconCozyHome'
 export const ButtonCozyHome = ({ webviewContext, homeHref }) => {
   if (webviewContext)
     return (
-      <button
+      <a
         onClick={() => {
           webviewContext.call('backToHome')
         }}
-        className="coz-nav-apps-btns-home --flagship"
+        className="coz-nav-apps-btns-home"
       >
         <IconCozyHome className="coz-nav-apps-btns-home-svg" />
-      </button>
+      </a>
     )
 
   if (homeHref)
