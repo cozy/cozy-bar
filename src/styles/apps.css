@@ -50,6 +50,14 @@
   margin-right: .75rem;
 }
 
+[role=banner] .coz-nav-apps-btns-home.--is-flagship {
+  align-items: center;
+  display: flex;
+  height: 100%;
+  margin: 0;
+  padding: 0 1rem;
+}
+
 
 [role=banner] .coz-nav-apps-btns-home-svg {
   max-width: 2rem;
