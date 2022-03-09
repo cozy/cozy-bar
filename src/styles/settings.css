@@ -1,4 +1,5 @@
 [role=banner] .coz-nav-settings-btn {
+  align-items: center;
   color: var(--slateGrey);
 }
 [role=banner] .coz-nav-settings-btn svg {
