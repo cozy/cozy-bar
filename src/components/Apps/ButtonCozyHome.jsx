@@ -1,11 +1,12 @@
 import React from 'react'
+import { isFlagshipApp } from 'cozy-device-helper'
 
 import flag from 'cozy-flags'
 
 import IconCozyHome from './IconCozyHome'
 
 export const ButtonCozyHome = ({ webviewContext, homeHref }) => {
-  if (webviewContext || flag('flagship.debug'))
+  if (isFlagshipApp() || flag('flagship.debug'))
     return (
       <a
         onClick={() => {
