@@ -10,7 +10,7 @@ import {
   getTracker,
   configureTracker
 } from 'cozy-ui/react/helpers/tracker'
-import { isMobileApp } from 'cozy-device-helper'
+import { isFlagshipApp, isMobileApp } from 'cozy-device-helper'
 import flag from 'cozy-flags'
 
 import { ButtonCozyHome } from 'components/Apps/ButtonCozyHome'
@@ -168,7 +168,7 @@ export class Bar extends Component {
   renderLeft = () => {
     const { t, isPublic, webviewContext } = this.props
 
-    if (webviewContext || flag('flagship.debug')) {
+    if (isFlagshipApp() || flag('flagship.debug')) {
       return <ButtonCozyHome webviewContext={webviewContext} />
     }
 
