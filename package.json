@@ -85,7 +85,7 @@
     "redux-logger": "3.0.6",
     "semantic-release": "15.13.24",
     "style-loader": "0.23.1",
-    "stylus": "0.54.7",
+    "stylus": "0.57.0",
     "stylus-loader": "3.0.2",
     "svg-sprite-loader": "4.1.6",
     "url-loader": "1.1.2",
