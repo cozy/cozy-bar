@@ -97,7 +97,7 @@
   "dependencies": {
     "@cozy/minilog": "^1.0.0",
     "cozy-client": "^27.17.0",
-    "cozy-device-helper": "^1.16.1",
+    "cozy-device-helper": "1.17.0",
     "cozy-flags": "^2.8.5",
     "cozy-interapp": "0.4.9",
     "cozy-realtime": "^4.0.5",
