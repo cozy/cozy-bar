@@ -53,9 +53,11 @@
 [role=banner] .coz-nav-apps-btns-home.--is-flagship {
   align-items: center;
   display: flex;
+  flex-shrink: 0;
   height: 100%;
-  margin: 0;
-  padding: 0 1rem;
+  justify-content: center;
+  margin-right: .25rem;
+  width: 3rem;
 }
 
 
