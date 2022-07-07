@@ -24,5 +24,6 @@ deploy:
   skip_cleanup: true
   script: npm run semantic-release
   on:
-    branches: ["v7-stable", "master"]
+    all_branches: true
+    condition: $TRAVIS_BRANCH =~ ^(v7-stable|master)$
     repo: cozy/cozy-bar
