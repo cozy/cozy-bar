@@ -124,6 +124,22 @@ setTheme('default')
 setTheme('primary')
 ```
 
+Development mode
+----------
+
+In order to add new features to the cozy-bar v7 while working on another cozy-app:
+
+* Please ensure your app has the latest v7-stable `cozy-bar` version
+
+* Please ensure your app has at least the 6.3.4 `cozy-scripts` version
+
+* Then, follow these steps:
+
+`$ yarn link` // in cozy-bar
+`$ rlink cozy-bar` // in the cozy-app
+`$ yarn start` // in cozy-bar
+`$ yarn start` // in the cozy-app
+
 Contribute
 ----------
 

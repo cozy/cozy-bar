@@ -34,7 +34,8 @@
     "posttest": "bundlesize",
     "travis-deploy-once": "travis-deploy-once",
     "semantic-release": "semantic-release",
-    "example": "env USE_REACT=true nf -j examples/Procfile start"
+    "example": "env USE_REACT=true nf -j examples/Procfile start",
+    "start": "yarn watch"
   },
   "devDependencies": {
     "@babel/core": "7.6.2",
