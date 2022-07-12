@@ -34,7 +34,8 @@
     "example": "env USE_REACT=true nf -j examples/Procfile start",
     "transpile:js": "env BABEL_ENV=transpilation babel -D src/ --out-dir transpiled/ --verbose",
     "transpile:css": "env CSSMODULES=false node_modules/.bin/stylus src/styles/index.styl -u ./node_modules/cozy-ui/stylus/index.js -o transpiled/cozy-bar.css",
-    "transpile": "yarn run transpile:js && yarn run transpile:css"
+    "transpile": "yarn run transpile:js && yarn run transpile:css",
+    "start": "yarn watch"
   },
   "devDependencies": {
     "@babel/cli": "7.12.1",
