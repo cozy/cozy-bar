@@ -12,9 +12,9 @@
 [Cozy] is a platform that brings all your web services in the same private space.  With it, your webapps and your devices can share data easily, providing you with a new experience. You can install Cozy on your own hardware where no one's tracking you.
 
 
-## What's cozy-bar.js?
+## What's cozy-bar?
 
-`cozy-bar.js` is a javascript library made by Cozy. It enables the _CozyBar_ component in your application. This component is a banner on the top of your application, responsible of cross-apps navigation, user facilities, intents, etc.
+`cozy-bar` is a javascript library made by Cozy. It enables the _CozyBar_ component in your application. This component is a banner on the top of your application, responsible of cross-apps navigation, user facilities, intents, etc.
 
 
 ## Use
@@ -151,14 +151,10 @@ In order to add new features to the cozy-bar v7 while working on another cozy-ap
 Contribute
 ----------
 
-If you want to work on cozy-client-js itself and submit code modifications, feel free to open pull-requests! See the [contributing guide][contribute] for more information about this repository structure, testing, linting and how to properly open pull-requests.
+If you want to work on cozy-bar itself and submit code modifications, feel free to open pull-requests! See the [contributing guide][contribute] for more information about this repository structure, testing, linting and how to properly open pull-requests.
 
 
 ## Community
-
-### Maintainer
-
-The lead maintainer for cozy-bar.js is [@CPatchane](https://github.com/CPatchane), send him/her a :beers: to say hello!
 
 
 ### Get in touch
@@ -173,7 +169,7 @@ You can reach the Cozy Community by:
 
 ## Licence
 
-cozy-bar.js is developed by Cozy Cloud and distributed under the [MIT].
+cozy-bar is developed by Cozy Cloud and distributed under the [MIT].
 
 
 
