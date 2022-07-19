@@ -44,7 +44,8 @@ export class Bar extends Component {
       drawerVisible: false,
       usageTracker: null,
       supportDisplayed: false,
-      searchBarEnabled: props.isDrive && !props.isPublic && !isMobileApp()
+      searchBarEnabled:
+        props.isDrive && !props.isPublic && !isMobileApp() && !isFlagshipApp()
     }
     this.fetchApps = this.fetchApps.bind(this)
     this.fetchInitialData = this.fetchInitialData.bind(this)
