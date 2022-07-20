@@ -140,6 +140,15 @@ In order to add new features to the cozy-bar v7 while working on another cozy-ap
 `$ yarn start` // in cozy-bar
 `$ yarn start` // in the cozy-app
 
+### How does it work?
+
+When an app (like Drive) is building, the cozy-bar assets are defined dynamically if __STACK_ASSETS__ = true
+[inside the browser file](https://github.com/cozy/cozy-drive/blob/master/src/drive/targets/browser/index.ejs#L27-L32)
+
+In [dev mode on webpack, __STACK_ASSETS__ = false](https://github.com/cozy/create-cozy-app/blob/532dc9848526d48b749a8fd4fecdce1c9a6880c2/packages/cozy-scripts/config/webpack.environment.dev.js#L27)
+
+[In that case, the cozy-bar is injected](https://github.com/cozy/create-cozy-app/blob/532dc9848526d48b749a8fd4fecdce1c9a6880c2/packages/cozy-scripts/config/webpack.environment.dev.js#L35-L57)
+
 Contribute
 ----------
 
