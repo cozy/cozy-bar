@@ -229,11 +229,13 @@ class SearchBar extends Component {
     this.setState({ query: null, searching: false })
   }
 
-  onSuggestionSelected = (event, { suggestion }) => {
+  onSuggestionSelected = async (event, { suggestion }) => {
     const { onSelect } = suggestion
     // `onSelect` is a string that describes what should happen when the suggestion is selected. Currently, the only format we're supporting is `open:http://example.com` to change the url of the current page.
 
-    if (/^open:/.test(onSelect)) {
+    if (typeof onSelect === 'function') {
+      await onSelect()
+    } else if (/^open:/.test(onSelect)) {
       const url = onSelect.substr(5)
       window.location.href = url
     } else {
