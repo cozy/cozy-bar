@@ -234,10 +234,9 @@ class SearchBar extends Component {
     // `onSelect` is a string that describes what should happen when the suggestion is selected. Currently, the only format we're supporting is `open:http://example.com` to change the url of the current page.
 
     if (typeof onSelect === 'function') {
-      await onSelect()
+      window.location.href = `open:` + (await onSelect())
     } else if (/^open:/.test(onSelect)) {
-      const url = onSelect.substr(5)
-      window.location.href = url
+      window.location.href = onSelect.substr(5)
     } else {
       // eslint-disable-next-line no-console
       console.log(
