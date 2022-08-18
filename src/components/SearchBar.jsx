@@ -4,6 +4,7 @@ import Autosuggest from 'react-autosuggest'
 import debounce from 'lodash.debounce'
 import { fetchRawIntent } from 'lib/intents'
 import logger from 'lib/logger'
+import { models, withClient } from 'cozy-client'
 
 const INTENT_VERB = 'OPEN'
 const INTENT_DOCTYPE = 'io.cozy.suggestions'
@@ -229,12 +230,13 @@ class SearchBar extends Component {
     this.setState({ query: null, searching: false })
   }
 
-  onSuggestionSelected = async (event, { suggestion }) => {
+  onSuggestionSelected = client => async (event, { suggestion }) => {
     const { onSelect } = suggestion
     // `onSelect` is a string that describes what should happen when the suggestion is selected. Currently, the only format we're supporting is `open:http://example.com` to change the url of the current page.
 
-    if (typeof onSelect === 'function') {
-      window.location.href = `open:` + (await onSelect())
+    if (/^id_note:/.test(onSelect)) {
+      const url = await models.note.fetchURL(client, { id: onSelect.substr(8) })
+      window.location.href = url
     } else if (/^open:/.test(onSelect)) {
       window.location.href = onSelect.substr(5)
     } else {
@@ -287,7 +289,7 @@ class SearchBar extends Component {
       sourceURLs
     } = this.state
     if (sourceURLs.length === 0) return null
-    const { t } = this.props
+    const { t, client } = this.props
 
     const isInitialSearch = input !== '' && query === null
     const hasSuggestions =
@@ -338,7 +340,7 @@ class SearchBar extends Component {
             this.debouncedOnSuggestionsFetchRequested
           }
           onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-          onSuggestionSelected={this.onSuggestionSelected}
+          onSuggestionSelected={this.onSuggestionSelected(client)}
           getSuggestionValue={this.getSuggestionValue}
           getSectionSuggestions={this.getSectionSuggestions}
           renderSectionTitle={this.renderSectionTitle}
@@ -356,4 +358,4 @@ class SearchBar extends Component {
   }
 }
 
-export default translate()(SearchBar)
+export default translate()(withClient(SearchBar))
