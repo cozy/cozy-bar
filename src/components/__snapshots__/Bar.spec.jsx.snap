@@ -138,7 +138,7 @@ exports[`Bar should display the Searchbar 1`] = `
     <div
       className="u-flex-grow"
     >
-      <withI18n(SearchBar) />
+      <withI18n(withClient(SearchBar)) />
     </div>
     <withI18n(Connect(Settings))
       toggleSupport={[Function]}
