@@ -105,7 +105,7 @@ class SearchBar extends Component {
 
   sources = []
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.debouncedOnSuggestionsFetchRequested = debounce(
       this.onSuggestionsFetchRequested,
       250
