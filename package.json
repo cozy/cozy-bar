@@ -61,7 +61,7 @@
     "cozy-flags": "^2.8.5",
     "cozy-interapp": "0.4.9",
     "cozy-realtime": "^4.0.5",
-    "cozy-ui": "^51.8.0",
+    "cozy-ui": "^70.6.0",
     "css-loader": "1.0.1",
     "css-mqpacker": "7.0.0",
     "cssnano-preset-advanced": "4.0.7",
@@ -123,7 +123,7 @@
     "cozy-flags": "^2.8.5",
     "cozy-interapp": "0.4.9",
     "cozy-realtime": "^4.0.5",
-    "cozy-ui": "^51.8.0"
+    "cozy-ui": ">=70.6.0"
   },
   "bundlesize": [
     {
