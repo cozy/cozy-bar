@@ -41,7 +41,6 @@
     "@babel/cli": "7.12.1",
     "@babel/core": "7.6.2",
     "@babel/polyfill": "^7.10.4",
-    "@material-ui/core": "3.9.4",
     "@svgr/cli": "5.4.0",
     "@testing-library/react": "^10.2.1",
     "autoprefixer": "9.6.0",
