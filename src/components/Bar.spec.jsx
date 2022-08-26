@@ -8,7 +8,7 @@ import CozyClient from 'cozy-client'
 import { Bar, mapStateToProps, mapDispatchToProps } from './Bar'
 
 jest.mock('cozy-device-helper', () => ({
-  ...require.requireActual('cozy-device-helper'),
+  ...jest.requireActual('cozy-device-helper'),
   isMobileApp: jest.fn(),
   isFlagshipApp: jest.fn()
 }))

@@ -5,7 +5,7 @@ import { isMobileApp } from 'cozy-device-helper'
 import mockStackClient from '../mockStackClient'
 
 jest.mock('cozy-device-helper', () => ({
-  ...require.requireActual('cozy-device-helper'),
+  ...jest.requireActual('cozy-device-helper'),
   isMobileApp: jest.fn()
 }))
 

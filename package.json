@@ -41,10 +41,11 @@
     "@babel/cli": "7.12.1",
     "@babel/core": "7.6.2",
     "@babel/polyfill": "^7.10.4",
+    "@cozy/minilog": "^1.0.0",
     "@svgr/cli": "5.4.0",
     "@testing-library/react": "^10.2.1",
     "autoprefixer": "9.6.0",
-    "babel-jest": "24.9.0",
+    "babel-jest": "^29.0.0",
     "babel-loader": "^8.1.0",
     "babel-plugin-css-modules-transform": "^1.6.2",
     "babel-plugin-inline-json-import": "^0.3.2",
@@ -53,11 +54,10 @@
     "babel-preset-cozy-app": "^1.9.0",
     "bundlesize": "0.18.0",
     "cozy-authentication": "1.19.1",
-    "cozy-intent": "^1.7.0",
-    "@cozy/minilog": "^1.0.0",
     "cozy-client": "^27.17.0",
     "cozy-device-helper": "1.17.0",
     "cozy-flags": "^2.8.5",
+    "cozy-intent": "^1.7.0",
     "cozy-interapp": "0.4.9",
     "cozy-realtime": "^4.0.5",
     "cozy-ui": "^70.6.0",
@@ -73,7 +73,7 @@
     "file-loader": "2.0.0",
     "foreman": "3.0.1",
     "identity-obj-proxy": "3.0.0",
-    "jest": "24.9.0",
+    "jest": "^29.0.0",
     "jest-fetch-mock": "^3.0.3",
     "json-loader": "0.5.7",
     "mini-css-extract-plugin": "0.8.0",
@@ -103,6 +103,7 @@
   },
   "dependencies": {
     "hammerjs": "2.0.8",
+    "jest-environment-jsdom": "^29.0.0",
     "lodash.debounce": "4.0.8",
     "lodash.set": "^4.3.2",
     "lodash.unionwith": "4.6.0",
@@ -115,11 +116,11 @@
     "semver-compare": "^1.0.0"
   },
   "peerDependencies": {
-    "cozy-intent": ">=1.7.0",
     "@cozy/minilog": "^1.0.0",
     "cozy-client": "^27.17.0",
     "cozy-device-helper": "1.17.0",
     "cozy-flags": "^2.8.5",
+    "cozy-intent": ">=1.7.0",
     "cozy-interapp": "0.4.9",
     "cozy-realtime": "^4.0.5",
     "cozy-ui": ">=70.6.0"
@@ -136,7 +137,9 @@
       "jsx",
       "json",
       "styl",
-      "yaml"
+      "yaml",
+      "ts",
+      "tsx"
     ],
     "modulePathIgnorePatterns": [
       "<rootDir>/transpiled/"
@@ -149,7 +152,7 @@
       "src"
     ],
     "transform": {
-      "\\.(js|jsx)$": "babel-jest"
+      "^.+\\.(ts|tsx|js|jsx)?$": "babel-jest"
     },
     "moduleNameMapper": {
       "^config/(.*)": "<rootDir>/src/config/$1",
@@ -167,6 +170,10 @@
       "__SENTRY_TOKEN__": "token",
       "__DEVELOPMENT__": false,
       "__VERSION__": "4.5.0"
-    }
+    },
+    "testEnvironmentOptions": {
+      "url": "http://cozy.localhost:8080/"
+    },
+    "testEnvironment": "jsdom"
   }
 }
