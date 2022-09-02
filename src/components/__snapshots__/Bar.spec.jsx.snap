@@ -138,7 +138,13 @@ exports[`Bar should display the Searchbar 1`] = `
     <div
       className="u-flex-grow"
     >
-      <Wrapper />
+      <Wrapper
+        client={
+          CozyClient {
+            "uri": undefined,
+          }
+        }
+      />
     </div>
     <Wrapper
       toggleSupport={[Function]}

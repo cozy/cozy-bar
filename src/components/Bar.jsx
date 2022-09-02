@@ -236,7 +236,10 @@ export class Bar extends Component {
           {barLeft || this.renderLeft()}
           {barCenter || this.renderCenter()}
           <div className="u-flex-grow">
-            {barSearch || (searchBarEnabled ? <SearchBar /> : null)}
+            {barSearch ||
+              (searchBarEnabled ? (
+                <SearchBar client={this.props.cozyClient} />
+              ) : null)}
           </div>
           {barRight || this.renderRight()}
           {!isPublic ? (

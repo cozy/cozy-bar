@@ -4,7 +4,7 @@ import Autosuggest from 'react-autosuggest'
 import debounce from 'lodash.debounce'
 import { fetchRawIntent } from 'lib/intents'
 import logger from 'lib/logger'
-import { models, withClient } from 'cozy-client'
+import { models } from 'cozy-client'
 
 const INTENT_VERB = 'OPEN'
 const INTENT_DOCTYPE = 'io.cozy.suggestions'
@@ -234,7 +234,7 @@ class SearchBar extends Component {
     const { onSelect } = suggestion
     // `onSelect` is a string that describes what should happen when the suggestion is selected. Currently, the only format we're supporting is `open:http://example.com` to change the url of the current page.
 
-    if (/^id_note:/.test(onSelect)) {
+    if (/^id_note:/.test(onSelect) && client) {
       const url = await models.note.fetchURL(client, { id: onSelect.substr(8) })
       window.location.href = url
     } else if (/^open:/.test(onSelect)) {
@@ -358,4 +358,4 @@ class SearchBar extends Component {
   }
 }
 
-export default translate()(withClient(SearchBar))
+export default translate()(SearchBar)
