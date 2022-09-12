@@ -39,6 +39,7 @@
 }
 [role=banner] .coz-nav-settings-item .coz-nav-settings-item-btn[role=menuitem] {
   padding-left: 1.5rem;
+  display: initial;
 }
 [role=banner] .coz-nav-settings-item .coz-nav-settings-item-btn[role=menuitem] > span > span {
   margin-right: auto;
