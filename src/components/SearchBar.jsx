@@ -173,6 +173,19 @@ class SearchBar extends Component {
   }
 
   changeFocusState = focused => {
+    // hack in order to launch the stack request on drive.
+    // it'll be solved by using v8 or v9 bar on Drive
+    const availableSources = this.sources.filter(source => source.ready)
+    availableSources.forEach(async source => {
+      await new Promise(resolve => {
+        const resolverId = new Date().getTime().toString()
+        source.resolvers[resolverId] = resolve
+        source.window.postMessage(
+          { query: 'fakedata', id: resolverId },
+          source.origin
+        )
+      })
+    })
     this.setState({
       focused
     })
