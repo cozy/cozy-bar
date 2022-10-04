@@ -65,7 +65,6 @@ export class AppItem extends React.Component {
 
   render() {
     const { useHomeIcon, app } = this.props
-
     const dataIcon = app.slug ? `icon-${app.slug}` : ''
     const appName = getAppDisplayName(app)
 
@@ -74,6 +73,7 @@ export class AppItem extends React.Component {
         onAppSwitch={this.onAppSwitch}
         slug={app.slug}
         href={this.buildAppUrl(app.href) || ''}
+        app={app}
       >
         {({ onClick, href }) => {
           return (
