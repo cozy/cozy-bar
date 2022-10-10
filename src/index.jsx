@@ -75,7 +75,7 @@ const injectBarInDOM = data => {
 const renderBar = (barNode, options) => {
   // import React related modules on init only
   const React = require('react')
-  const { render } = require('react-dom')
+
   const { connect, Provider } = require('react-redux')
   const I18n = require('cozy-ui/react/I18n').default
   const Bar = require('components/Bar').default
@@ -102,8 +102,15 @@ const renderBar = (barNode, options) => {
       </EnhancedI18n>
     </Provider>
   )
+  if (React.version.startsWith('18.')) {
+    const { createRoot } = require('react-dom/client')
+    const root = createRoot(barNode)
+    root.render(barComponent)
+  } else {
+    const { render } = require('react-dom')
+    render(barComponent, barNode)
+  }
 
-  render(barComponent, barNode)
   // for testing only
   return barComponent
 }
