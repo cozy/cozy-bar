@@ -7,7 +7,7 @@ import { isMobileApp, isMobile } from 'cozy-device-helper'
 jest.useFakeTimers()
 
 jest.mock('cozy-device-helper', () => ({
-  ...require.requireActual('cozy-device-helper'),
+  ...jest.requireActual('cozy-device-helper'),
   isMobileApp: jest.fn(),
   isMobile: jest.fn(),
   openDeeplinkOrRedirect: jest.fn()
@@ -19,13 +19,13 @@ jest.mock('lib/stack', () => ({
       const { isMobileApp } = require('cozy-device-helper')
       return isMobileApp()
         ? {
-            fetchIcon: jest.fn().mockResolvedValue('http://urlOfIcon')
-          }
+          fetchIcon: jest.fn().mockResolvedValue('http://urlOfIcon')
+        }
         : {
-            // we mustn't give the protocol here
-            domain: 'cozy.tools',
-            secure: true
-          }
+          // we mustn't give the protocol here
+          domain: 'cozy.tools',
+          secure: true
+        }
     }
   }
 }))
@@ -64,7 +64,7 @@ describe('AppItem', () => {
     })
 
     it('should return null for invalid url', () => {
-      jest.spyOn(console, 'error').mockImplementation(() => {})
+      jest.spyOn(console, 'error').mockImplementation(() => { })
 
       const invalidApp = {
         name: 'Invalid app',
