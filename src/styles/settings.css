@@ -28,6 +28,10 @@
   outline: none;
 }
 
+[role=banner] .coz-nav-settings-item {
+  display: flex;
+}
+
 [role=banner] .coz-nav-settings-item .coz-nav-settings-item-btn[role=menuitem] > span > span {
   margin-right: auto;
 }
