@@ -72,8 +72,7 @@ describe('AppItem', () => {
         slug: 'invalid-app'
       }
       const { wrapper } = setup({ app: invalidApp })
-      const appLinkerWrapper = wrapper.find('AppLinker')
-      expect(appLinkerWrapper.props().href).toEqual('')
+      expect(wrapper.props().href).toEqual('')
     })
   })
 })

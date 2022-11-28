@@ -101,7 +101,6 @@ export class Settings extends Component {
     let shouldDisplayViewOfferButton = false
     let managerUrlPremiumLink
     let isFetchingFromQueries
-    let viewOfferButtonText = ''
     const canCheckPremium = cozyClientCanCheckPremium()
     if (canCheckPremium) {
       isFetchingFromQueries = isFetchingQueries([
@@ -118,11 +117,6 @@ export class Settings extends Component {
         shouldDisplayViewOfferButton =
           instanceModel.shouldDisplayOffers(data) || hasAnOffer(data)
 
-        if (shouldDisplayViewOfferButton && !hasAnOffer(data)) {
-          viewOfferButtonText = t('view_offers')
-        } else if (hasAnOffer(data)) {
-          viewOfferButtonText = t('view_my_offer')
-        }
         managerUrlPremiumLink = instanceModel.buildPremiumLink(data)
       }
     }
@@ -173,7 +167,6 @@ export class Settings extends Component {
                 settingsAppURL={settingsAppURL}
                 shoulDisplayViewOfferButton={shouldDisplayViewOfferButton}
                 managerUrlPremiumLink={managerUrlPremiumLink}
-                viewOfferButtonText={viewOfferButtonText}
               />
             </>
           )}
