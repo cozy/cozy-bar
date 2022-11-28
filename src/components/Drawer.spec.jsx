@@ -24,7 +24,7 @@ const Wrapper = ({ children }) => {
 describe('bar', () => {
   describe('logout', () => {
     const findLogoutButton = () => {
-      return screen.getByText('Sign out')
+      return screen.getByText('Log out')
     }
     const setup = ({ onLogOut, logOut }) => {
       render(

@@ -19,8 +19,24 @@
   background-image: url(~assets/icons/16/icon-people-16.svg);
 }
 
-[role=banner] [data-icon='icon-connectedDevices'] {
-  background-image: url(~assets/icons/16/icon-phone-16.svg);
+[role=banner] [data-icon='icon-cozy-circle'] {
+  background-image: url(~assets/icons/16/icon-cozy-circle-16.svg);
+}
+
+[role=banner] [data-icon='icon-graph-circle'] {
+  background-image: url(~assets/icons/16/icon-graph-circle-16.svg);
+}
+
+[role=banner] [data-icon='icon-hand'] {
+  background-image: url(~assets/icons/16/icon-hand-16.svg);
+}
+
+[role=banner] [data-icon='icon-devices'] {
+  background-image: url(~assets/icons/16/icon-devices-16.svg);
+}
+
+[role=banner] [data-icon='icon-globe'] {
+  background-image: url(~assets/icons/16/icon-globe-16.svg);
 }
 
 [role=banner] [data-icon='icon-help'] {
@@ -31,8 +47,8 @@
   background-image: url(~assets/icons/16/icon-logout-16.svg);
 }
 
-[role=banner] [data-icon='icon-storage'] {
-  background-image: url(~assets/icons/16/icon-storage-16.svg);
+[role=banner] [data-icon='icon-openwith'] {
+  background-image: url(~assets/icons/16/icon-openwith-16.svg);
 }
 
 [role=banner] .u-flex-grow {

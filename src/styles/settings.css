@@ -2,9 +2,11 @@
   align-items: center;
   color: var(--slateGrey);
 }
+
 [role=banner] .coz-nav-settings-btn svg {
   fill: var(--coolGrey);
 }
+
 [role=banner] .coz-nav-settings-btn:hover,
 [role=banner] .coz-nav-settings-btn:focus {
   background-color: var(--paleGrey);
@@ -37,12 +39,16 @@
   text-decoration: none;
   outline: none;
 }
+
 [role=banner] .coz-nav-settings-item {
   display: flex;
 }
+
 [role=banner] .coz-nav-settings-item .coz-nav-settings-item-btn[role=menuitem] {
   padding-left: 1.5rem;
 }
-[role=banner] .coz-nav-settings-item .coz-nav-settings-item-btn[role=menuitem] > span > span {
-  margin-right: auto;
+
+[role=banner] .coz-nav-settings-item .coz-nav-settings-item-storage-link[role=menuitem] {
+  background-position-y: 20%;
 }
+
