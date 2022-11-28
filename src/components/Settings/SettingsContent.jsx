@@ -1,23 +1,36 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import flag from 'cozy-flags'
 
 import { isMobileApp } from 'cozy-device-helper'
 
-import { ButtonLink } from 'cozy-ui/react/Button'
 import { translate } from 'cozy-ui/transpiled/react/I18n'
 import Icon from 'cozy-ui/transpiled/react/Icon'
-import PhoneIcon from 'cozy-ui/transpiled/react/Icons/Phone'
+import OpenwithIcon from 'cozy-ui/transpiled/react/Icons/Openwith'
 import CloudIcon from 'cozy-ui/transpiled/react/Icons/Cloud'
 import PeopleIcon from 'cozy-ui/transpiled/react/Icons/People'
-import CloudHappyIcon from 'cozy-ui/transpiled/react/Icons/CloudHappy'
+import GraphCircleIcon from 'cozy-ui/transpiled/react/Icons/GraphCircle'
+import CozyCircleIcon from 'cozy-ui/transpiled/react/Icons/CozyCircle'
+import HandIcon from 'cozy-ui/transpiled/react/Icons/Hand'
+import DevicesIcon from 'cozy-ui/transpiled/react/Icons/Devices'
+import GlobeIcon from 'cozy-ui/transpiled/react/Icons/Globe'
 import LogoutIcon from 'cozy-ui/transpiled/react/Icons/Logout'
 import HelpIcon from 'cozy-ui/transpiled/react/Icons/Help'
 
 import StorageData from 'components/Settings/StorageData'
-import StorageIcon from 'components/StorageIcon'
 
 const MenuIcon = ({ icon }) => {
   return <Icon className="u-mr-half" color="var(--slateGrey)" icon={icon} />
+}
+
+const ExternalLinkIcon = () => {
+  return (
+    <Icon
+      className="coz-nav-settings-item-btn-external-icon"
+      color="var(--coolGrey)"
+      icon={OpenwithIcon}
+    />
+  )
 }
 
 const NavGroup = ({ children }) => {
@@ -36,10 +49,8 @@ const SettingsContent = ({
   onClaudy,
   isDrawer = false,
   isClaudyLoading,
-  toggleSupport,
   shoulDisplayViewOfferButton,
-  managerUrlPremiumLink,
-  viewOfferButtonText
+  managerUrlPremiumLink
 }) => (
   <div className="coz-nav-pop-content">
     {isDrawer && <hr />}
@@ -56,19 +67,73 @@ const SettingsContent = ({
             {t('profile')}
           </a>
         </NavItem>
+        {(!isDrawer || !isMobileApp()) && shoulDisplayViewOfferButton && (
+          <NavItem>
+            <a
+              role="menuitem"
+              href={managerUrlPremiumLink}
+              target="_self"
+              title={t('plans')}
+            >
+              <MenuIcon icon={CozyCircleIcon} />
+              {t('plans')}
+              <ExternalLinkIcon />
+            </a>
+          </NavItem>
+        )}
         <NavItem>
           <a
             role="menuitem"
-            href={`${settingsAppURL}#/connectedDevices`}
             target="_self"
-            title={t('connectedDevices')}
+            title={t('storage')}
+            href={`${settingsAppURL}#/storage`}
           >
-            <MenuIcon icon={PhoneIcon} />
-            {t('connectedDevices')}
+            <MenuIcon icon={GraphCircleIcon} />
+            <span>
+              {t('storage')}
+              <StorageData data={storageData} />
+            </span>
           </a>
         </NavItem>
       </NavGroup>
     )}
+    <NavGroup>
+      {flag('settings.permissions-dashboard') && (
+        <NavItem>
+          <a
+            role="menuitem"
+            href={`${settingsAppURL}#/permissions/slug`}
+            target="_self"
+            title={t('permissions')}
+          >
+            <MenuIcon icon={HandIcon} />
+            {t('permissions')}
+          </a>
+        </NavItem>
+      )}
+      <NavItem>
+        <a
+          role="menuitem"
+          href={`${settingsAppURL}#/connectedDevices`}
+          target="_self"
+          title={t('connectedDevices')}
+        >
+          <MenuIcon icon={DevicesIcon} />
+          {t('connectedDevices')}
+        </a>
+      </NavItem>
+      <NavItem>
+        <a
+          role="menuitem"
+          href={`${settingsAppURL}#/sessions`}
+          target="_self"
+          title={t('connections')}
+        >
+          <MenuIcon icon={GlobeIcon} />
+          {t('connections')}
+        </a>
+      </NavItem>
+    </NavGroup>
     {isDrawer && onClaudy && !isMobileApp() && (
       <NavGroup>
         <NavItem>
@@ -84,52 +149,22 @@ const SettingsContent = ({
         </NavItem>
       </NavGroup>
     )}
-    {!isDrawer && storageData && (
-      <NavGroup>
+    <NavGroup>
+      {!isMobileApp() && (
         <NavItem>
           <a
             role="menuitem"
-            target="_self"
-            title={t('storage')}
-            href={`${settingsAppURL}#/storage`}
+            target="_blank"
+            rel="noopener noreferrer"
+            href="https://support.cozy.io/"
+            title={t('help')}
           >
-            <MenuIcon icon={StorageIcon} /> {t('storage')}
-            <StorageData data={storageData} />
+            <MenuIcon icon={HelpIcon} />
+            {t('help')}
+            <ExternalLinkIcon />
           </a>
         </NavItem>
-      </NavGroup>
-    )}
-    {(!isDrawer || !isMobileApp()) && shoulDisplayViewOfferButton && (
-      <NavGroup>
-        <NavItem>
-          <ButtonLink
-            subtle
-            role="menuitem"
-            className="coz-nav-settings-item-btn"
-            icon={<MenuIcon icon={CloudHappyIcon} />}
-            title={viewOfferButtonText}
-            label={viewOfferButtonText}
-            href={managerUrlPremiumLink}
-          />
-        </NavItem>
-      </NavGroup>
-    )}
-
-    {!isMobileApp() && (
-      <NavGroup>
-        <NavItem>
-          <button
-            type="button"
-            role="menuitem"
-            className="coz-nav-settings-item-btn"
-            onClick={toggleSupport}
-          >
-            <MenuIcon icon={HelpIcon} /> {t('help')}
-          </button>
-        </NavItem>
-      </NavGroup>
-    )}
-    <NavGroup>
+      )}
       <NavItem>
         <button
           type="button"
@@ -156,8 +191,6 @@ SettingsContent.propTypes = {
   storageData: PropTypes.object,
   onClaudy: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
   isDrawer: PropTypes.bool,
-  isClaudyLoading: PropTypes.bool,
-  toggleSupport: PropTypes.func.isRequired,
-  viewOfferButtonText: PropTypes.string
+  isClaudyLoading: PropTypes.bool
 }
 export default translate()(SettingsContent)

@@ -13,7 +13,7 @@
 }
 
 [role=banner] .coz-nav-settings-item [role=menuitem] {
-  display: block;
+  display: flex;
   box-sizing: border-box;
   margin: 0;
   width: 100%;
@@ -36,3 +36,6 @@
   margin-right: auto;
 }
 
+[role=banner] .coz-nav-settings-item .coz-nav-settings-item-btn-external-icon {
+  margin-left: auto;
+}
