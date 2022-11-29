@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { translate } from 'cozy-ui/react/I18n'
+import { translate } from 'cozy-ui/transpiled/react/I18n'
 import Autosuggest from 'react-autosuggest'
 import debounce from 'lodash.debounce'
 import { fetchRawIntent } from 'lib/intents'
