@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import BottomIcon from 'cozy-ui/react/Icons/Bottom'
-import Icon from 'cozy-ui/react/Icon'
-import TopIcon from 'cozy-ui/react/Icons/Top'
-import { translate } from 'cozy-ui/react/I18n'
+import BottomIcon from 'cozy-ui/transpiled/react/Icons/Bottom'
+import Icon from 'cozy-ui/transpiled/react/Icon'
+import TopIcon from 'cozy-ui/transpiled/react/Icons/Top'
+import { translate } from 'cozy-ui/transpiled/react/I18n'
 
 import { ButtonCozyHome } from 'components/Apps/ButtonCozyHome'
 import { getHomeApp } from 'lib/reducers'

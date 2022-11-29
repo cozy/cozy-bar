@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { ButtonLink } from 'cozy-ui/react/Button'
-import { translate } from 'cozy-ui/react/I18n'
+import { ButtonLink } from 'cozy-ui/transpiled/react/Button'
+import { translate } from 'cozy-ui/transpiled/react/I18n'
 
 class Banner extends Component {
   constructor(props) {
