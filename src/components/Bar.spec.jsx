@@ -67,7 +67,7 @@ describe('Bar', () => {
     barWrapper.setState({ drawerVisible: true })
     expect(props.fetchApps).toHaveBeenCalledTimes(2)
     expect(Bar.prototype.fetchApps).toHaveBeenCalledTimes(2)
-    barWrapper.setState({ drawerVisible: true, usageTracker: {} })
+    barWrapper.setState({ drawerVisible: true })
     expect(props.fetchApps).toHaveBeenCalledTimes(2)
     expect(Bar.prototype.fetchApps).toHaveBeenCalledTimes(2)
   })

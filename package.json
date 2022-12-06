@@ -106,7 +106,6 @@
     "lodash.debounce": "4.0.8",
     "lodash.set": "^4.3.2",
     "lodash.unionwith": "4.6.0",
-    "piwik-react-router": "0.12.1",
     "prop-types": "15.7.2",
     "react-autosuggest": "9.4.3",
     "react-redux": "5.1.1",
