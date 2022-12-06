@@ -12,7 +12,7 @@
 [role=banner] [data-icon] {
   background-repeat: no-repeat;
   background-position: 0 50%;
-  padding-left: calc(16px + .5em);
+  padding-left: 32px;
 }
 
 [role=banner] [data-icon='icon-profile'] {

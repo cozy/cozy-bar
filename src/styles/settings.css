@@ -25,10 +25,10 @@
   box-sizing: border-box;
   margin: 0;
   width: 100%;
-  padding: .8em 1.5em .8em calc(1.5em + 16px + .5em);
+  padding: .8em 32px .8em 32px;
+  margin-left: 16px;
   border: none;
   align-items: center;
-  background-position: 1.5em 50%;
   background-color: transparent;
   text-align: left;
   font-size: 1rem;
