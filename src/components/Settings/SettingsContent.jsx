@@ -20,7 +20,7 @@ import HelpIcon from 'cozy-ui/transpiled/react/Icons/Help'
 import StorageData from 'components/Settings/StorageData'
 
 const MenuIcon = ({ icon }) => {
-  return <Icon className="u-mr-half" color="var(--slateGrey)" icon={icon} />
+  return <Icon className="u-mr-1" color="var(--slateGrey)" icon={icon} />
 }
 
 const ExternalLinkIcon = () => {
@@ -63,7 +63,7 @@ const SettingsContent = ({
             target="_self"
             title={t('profile')}
           >
-            <MenuIcon className="u-mr-half" icon={PeopleIcon} />
+            <MenuIcon icon={PeopleIcon} />
             {t('profile')}
           </a>
         </NavItem>

@@ -17,7 +17,7 @@
   box-sizing: border-box;
   margin: 0;
   width: 100%;
-  padding: 0.75rem 1rem;
+  padding: 0.8rem 16px;
   border: none;
   background-color: transparent;
   text-align: left;
@@ -38,4 +38,5 @@
 
 [role=banner] .coz-nav-settings-item .coz-nav-settings-item-btn-external-icon {
   margin-left: auto;
+  padding-left: 16px;
 }
