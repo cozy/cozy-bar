@@ -1,15 +1,8 @@
-/* global __PIWIK_TRACKER_URL__  __PIWIK_SITEID__ __PIWIK_DIMENSION_ID_APP__ */
-
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import { translate } from 'cozy-ui/transpiled/react/I18n'
 import Icon from 'cozy-ui/transpiled/react/Icon'
-import {
-  shouldEnableTracking,
-  getTracker,
-  configureTracker
-} from 'cozy-ui/transpiled/react/helpers/tracker'
 import { isFlagshipApp, isMobileApp } from 'cozy-device-helper'
 import flag from 'cozy-flags'
 
@@ -52,7 +45,6 @@ export class Bar extends Component {
       claudyFired: false, // true to fire claudy (used by the drawer)
       claudyOpened: false,
       drawerVisible: false,
-      usageTracker: null,
       supportDisplayed: false,
       searchBarEnabled: props.isDrive && !props.isPublic && !isMobileApp()
     }
@@ -62,9 +54,6 @@ export class Bar extends Component {
   }
 
   componentDidMount() {
-    if (shouldEnableTracking()) {
-      this.initPiwikTracker()
-    }
     this.fetchInitialData()
 
     const cozyClient = this.props.cozyClient
@@ -88,21 +77,6 @@ export class Bar extends Component {
 
   handleTokenRefreshed() {
     this.fetchInitialData()
-  }
-
-  initPiwikTracker() {
-    const trackerInstance = getTracker(
-      __PIWIK_TRACKER_URL__,
-      __PIWIK_SITEID__,
-      false,
-      false
-    )
-    configureTracker({
-      appDimensionId: __PIWIK_DIMENSION_ID_APP__,
-      app: 'Cozy Bar',
-      heartbeat: 0
-    })
-    this.setState({ usageTracker: trackerInstance })
   }
 
   fetchApps() {
@@ -129,21 +103,13 @@ export class Bar extends Component {
 
   toggleClaudy = (isFromDrawer = false) => {
     if (!this.props.claudyEnabled) return
-    const { usageTracker, claudyOpened } = this.state
+    const { claudyOpened } = this.state
     if (isFromDrawer && !claudyOpened) {
       // if opened from drawer
       // reset to toggle via the Claudy component
       return this.setState({ claudyFired: true })
     }
     if (this.state.claudyFired) this.setState({ claudyFired: false })
-    if (usageTracker) {
-      usageTracker.push([
-        'trackEvent',
-        'Claudy',
-        claudyOpened ? 'close' : 'open',
-        'claudy'
-      ])
-    }
     this.setState({ claudyOpened: !claudyOpened })
   }
 
@@ -202,8 +168,7 @@ export class Bar extends Component {
       claudyOpened,
       drawerVisible,
       searchBarEnabled,
-      supportDisplayed,
-      usageTracker
+      supportDisplayed
     } = this.state
 
     const {
@@ -255,7 +220,6 @@ export class Bar extends Component {
           ) : null}
           {claudyEnabled && (
             <Claudy
-              usageTracker={usageTracker}
               claudyFired={claudyFired}
               onToggle={() => this.toggleClaudy(false)}
               opened={claudyOpened}

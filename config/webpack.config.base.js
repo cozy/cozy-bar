@@ -34,11 +34,7 @@ module.exports = {
   plugins: [
     new webpack.ContextReplacementPlugin(/date-fns[/\\]locale$/, /(en|es|fr)/),
     new webpack.DefinePlugin({
-      __VERSION__: JSON.stringify(pkg.version),
-      __PIWIK_SITEID__: 8,
-      __PIWIK_SITEID_MOBILE__: 12,
-      __PIWIK_DIMENSION_ID_APP__: 1,
-      __PIWIK_TRACKER_URL__: JSON.stringify('https://matomo.cozycloud.cc')
+      __VERSION__: JSON.stringify(pkg.version)
     })
   ]
 }
