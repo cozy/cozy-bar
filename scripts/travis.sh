@@ -8,4 +8,3 @@ yarn transpile
 yarn build     
 yarn shasum     
 yarn test     
-yarn bundlesize  
