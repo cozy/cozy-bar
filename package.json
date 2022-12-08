@@ -52,7 +52,6 @@
     "babel-plugin-module-resolver": "^4.0.0",
     "babel-plugin-transform-define": "^2.0.0",
     "babel-preset-cozy-app": "^1.9.0",
-    "bundlesize": "0.18.0",
     "cozy-authentication": "1.19.1",
     "cozy-intent": "^1.7.0",
     "@cozy/minilog": "^1.0.0",
@@ -127,12 +126,6 @@
     "cozy-ui": "^77.9.1",
     "cozy-logger": "1.9.1"
   },
-  "bundlesize": [
-    {
-      "path": "./dist/cozy-bar.min.js",
-      "maxSize": "350 KB"
-    }
-  ],
   "jest": {
     "moduleFileExtensions": [
       "js",
