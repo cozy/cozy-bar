@@ -4106,9 +4106,9 @@ cozy-flags@^2.10.2:
     microee "^0.0.6"
 
 cozy-intent@^1.7.0:
-  version "1.7.0"
-  resolved "https://registry.yarnpkg.com/cozy-intent/-/cozy-intent-1.7.0.tgz#3294d717562154d169750b7859c27d781f2cfc60"
-  integrity sha512-KlELg/Yz2yA0BQvEXMZ0OOesf7hZGyKMgRUO02drxK7HRuBaEoMIpFIrZuaQSCoWlK90ffxxQzMtLVW/rwFDOg==
+  version "1.17.3"
+  resolved "https://registry.yarnpkg.com/cozy-intent/-/cozy-intent-1.17.3.tgz#dcf8085a9c561ce56ab0c7afc69474243e4f9e9c"
+  integrity sha512-Qko/tUJlXWh5wYLfw+CknbIm+KeAW4F3lAk/n1CA+uKwcseua+LCoNIypC/04ttm9g6ntbEogb/u4h6d5+H6lg==
   dependencies:
     post-me "0.4.5"
 

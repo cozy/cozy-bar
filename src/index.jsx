@@ -26,7 +26,6 @@ import {
 import enLocale from 'locales/en.json'
 import frLocale from 'locales/fr.json'
 import esLocale from 'locales/es.json'
-import { WebviewIntentProvider } from 'cozy-intent'
 const locales = {
   en: enLocale,
   fr: frLocale,
@@ -91,17 +90,15 @@ const renderBar = (barNode, options) => {
 
   const barComponent = (
     <Provider store={options.reduxStore}>
-      <WebviewIntentProvider>
-        <EnhancedI18n dictRequire={lang => locales[lang]}>
-          {cozyClient ? (
-            <CozyProvider client={cozyClient}>
-              <Bar {...options} />
-            </CozyProvider>
-          ) : (
+      <EnhancedI18n dictRequire={lang => locales[lang]}>
+        {cozyClient ? (
+          <CozyProvider client={cozyClient}>
             <Bar {...options} />
-          )}
-        </EnhancedI18n>
-      </WebviewIntentProvider>
+          </CozyProvider>
+        ) : (
+          <Bar {...options} />
+        )}
+      </EnhancedI18n>
     </Provider>
   )
 
