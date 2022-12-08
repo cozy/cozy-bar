@@ -31,7 +31,6 @@
     "postbuild": "yarn shasum",
     "shasum": "shasum -a 256 dist/cozy-bar.min.js && shasum -a 256 dist/cozy-bar.min.css",
     "test": "jest",
-    "posttest": "bundlesize",
     "travis-deploy-once": "travis-deploy-once",
     "semantic-release": "semantic-release",
     "example": "env USE_REACT=true nf -j examples/Procfile start",
@@ -45,7 +44,6 @@
     "babel-jest": "24.9.0",
     "babel-loader": "^8.1.0",
     "babel-preset-cozy-app": "^1.9.0",
-    "bundlesize": "0.18.0",
     "cozy-authentication": "1.19.1",
     "css-loader": "1.0.1",
     "css-mqpacker": "7.0.0",
@@ -117,12 +115,6 @@
   "peerDependencies": {
     "cozy-client": "*"
   },
-  "bundlesize": [
-    {
-      "path": "./dist/cozy-bar.min.js",
-      "maxSize": "350 KB"
-    }
-  ],
   "jest": {
     "moduleFileExtensions": [
       "js",
