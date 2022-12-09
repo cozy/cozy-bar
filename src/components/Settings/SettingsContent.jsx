@@ -44,8 +44,11 @@ const SettingsContent = ({
                 title={t('plans')}
               >
                 <p className="coz-label">{t('plans')}</p>
+                <span
+                  className="coz-nav-settings-item-openwith-icon"
+                  data-icon="icon-openwith"
+                ></span>
               </a>
-              <span data-icon="icon-openwith"></span>
             </li>
           )}
           {!isDrawer && storageData && (
@@ -133,8 +136,11 @@ const SettingsContent = ({
             title={t('help')}
           >
             <p className="coz-label">{t('help')}</p>
+            <span
+              className="coz-nav-settings-item-openwith-icon"
+              data-icon="icon-openwith"
+            ></span>
           </a>
-          <span data-icon="icon-openwith"></span>
         </li>
       )}
       <li className="coz-nav-settings-item">

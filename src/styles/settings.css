@@ -21,12 +21,12 @@
 [role=banner] .coz-nav-settings-item [role=menuitem] {
   position: relative;
   z-index: 0;
-  display: block;
+  display: flex;
+  justify-content: space-between;
   box-sizing: border-box;
   margin: 0;
   width: 100%;
-  padding: .8em 32px .8em 32px;
-  margin-left: 16px;
+  padding: .8em 16px .8em 48px;
   border: none;
   align-items: center;
   background-color: transparent;
@@ -40,8 +40,10 @@
   outline: none;
 }
 
-[role=banner] .coz-nav-settings-item {
-  display: flex;
+[role=banner] .coz-nav-settings-item-openwith-icon {
+  background-position-x: 0px;
+  padding-left: 16px;
+  height: 16px;
 }
 
 [role=banner] .coz-nav-settings-item .coz-nav-settings-item-btn[role=menuitem] {
@@ -50,5 +52,7 @@
 
 [role=banner] .coz-nav-settings-item .coz-nav-settings-item-storage-link[role=menuitem] {
   background-position-y: 20%;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
