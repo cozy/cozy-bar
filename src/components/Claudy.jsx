@@ -16,10 +16,6 @@ class Claudy extends Component {
     if (nextProps.claudyFired) this.toggle()
   }
 
-  componentWillReceiveProps(nextProps) {
-    return this.UNSAFE_componentWillReceiveProps(nextProps)
-  }
-
   toggle = () => {
     if (!this.props.opened && !this.intentWrapperRef.childNodes.length) {
       this.setState({ isLoading: true })
