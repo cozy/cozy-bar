@@ -42,10 +42,6 @@ class Drawer extends Component {
     this.turnTransitionsOn()
   }
 
-  componentWillReceiveProps = async nextProps => {
-    await this.UNSAFE_componentWillReceiveProps(nextProps)
-  }
-
   UNSAFE_componentWillReceiveProps = async nextProps => {
     if (!this.props.visible && nextProps.visible) {
       await this.props.fetchSettingsData()

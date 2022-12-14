@@ -71,7 +71,6 @@ export class AppItem extends React.Component {
     return (
       <AppLinker
         onAppSwitch={this.onAppSwitch}
-        slug={app.slug}
         href={this.buildAppUrl(app.href) || ''}
         app={app}
       >
