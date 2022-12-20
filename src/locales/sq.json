@@ -12,7 +12,6 @@
   "error_UnavailableStack": "The stack is unreachable (connection timed-out).",
   "error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
   "no_apps": "S’u gjetën aplikacione te Cozy",
-
   "menu": {
     "apps": "Aplikacione",
     "settings": "Rregullime",
@@ -20,23 +19,15 @@
     "home": "Back to home",
     "home_title": "Home"
   },
-
   "Categories": {
     "cozy": "Aplikacione Cozy",
     "partners": "Aplikacione partnerësh",
     "ptnb": "expPTNB",
     "others": "Aplikacione të tjerë"
   },
-
   "claudy": {
     "title": "How to drive your Cozy?"
   },
-
-  "searchbar": {
-    "placeholder": "Search anything",
-    "empty": "No result has been found for the query “%{query}”"
-  },
-
   "permsModal": {
     "title": "Hyni në krejt Cozy-n nga aplikacioni juaj",
     "description": "Autorizojeni %{app} të shfaqë në këtë pajisje aplikacionet tuaja Cozy",

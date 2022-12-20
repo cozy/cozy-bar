@@ -13,7 +13,6 @@
   "error_UnavailableStack": "The stack is unreachable (connection timed-out).",
   "error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
   "no_apps": "No applications found on the Cozy.",
-
   "menu": {
     "apps": "Apps",
     "settings": "Settings",
@@ -21,23 +20,15 @@
     "home": "Back to home",
     "home_title": "Home"
   },
-
   "Categories": {
     "cozy": "Cozy apps",
     "partners": "Partners apps",
     "ptnb": "expPTNB",
     "others": "Other apps"
   },
-
   "claudy": {
     "title": "How to drive your Cozy?"
   },
-
-  "searchbar": {
-    "placeholder": "Search anything",
-    "empty": "No result has been found for the query “%{query}”"
-  },
-
   "permsModal": {
     "title": "Access your whole Cozy from your application",
     "description": "Authorize %{app} to display your Cozy applications on this device",

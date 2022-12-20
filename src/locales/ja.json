@@ -12,7 +12,6 @@
   "error_UnavailableStack": "スタックに到達できません (接続タイムアウト)。",
   "error_UnauthorizedStack": "一部のアクセス許可が不足しているため、アプリケーションはスタック上の要求されたリソースにアクセスできません。",
   "no_apps": "Cozy にアプリケーションはありません。",
-
   "menu": {
     "apps": "アプリ",
     "settings": "設定",
@@ -20,23 +19,15 @@
     "home": "ホームに戻る",
     "home_title": "ホーム"
   },
-
   "Categories": {
     "cozy": "Cozy アプリ",
     "partners": "パートナーアプリ",
     "ptnb": "expPTNB",
     "others": "他のアプリ"
   },
-
   "claudy": {
     "title": "Cozy をドライブする方法は?"
   },
-
-  "searchbar": {
-    "placeholder": "検索します",
-    "empty": "問い合わせ “%{query}” の結果が見つかりません"
-  },
-
   "permsModal": {
     "title": "お使いのアプリケーションから Cozy 全体にアクセス",
     "description": "%{app} を承認して、このデバイスにお使いの Cozy アプリケーションを表示します",

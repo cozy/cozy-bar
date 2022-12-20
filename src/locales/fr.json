@@ -13,7 +13,6 @@
   "error_UnavailableStack": "Connexion à la stack impossible (connection timed-out)",
   "error_UnauthorizedStack": "Des permissions sont manquante, l'application ne peut accéder aux ressources demandées.",
   "no_apps": "Pas d'applications Cozy trouvées.",
-
   "menu": {
     "apps": "Applications",
     "settings": "Paramètres",
@@ -21,23 +20,15 @@
     "home": "Retour à l'accueil",
     "home_title": "Accueil "
   },
-
   "Categories": {
     "cozy": "Apps Cozy",
     "partners": "Expérimentation MesInfos",
     "ptnb": "Expérimentation Carnet du logement",
     "others": "Autres apps"
   },
-
   "claudy": {
     "title": "Comment utiliser votre Cozy ?"
   },
-
-  "searchbar": {
-    "placeholder": "Rechercher",
-    "empty": "Aucun résultat trouvé pour la requête \"%{query}\""
-  },
-
   "permsModal": {
     "title": "Accéder à ton Cozy à partir de ton application",
     "description": "Autoriser %{app} à afficher les applications de ton Cozy sur cet appareil",
