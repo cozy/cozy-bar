@@ -12,7 +12,6 @@
   "error_UnavailableStack": "La stack è irraggiungibile (connessione scaduta)",
   "error_UnauthorizedStack": "Alcune autorizzazioni mancano, l'applicazione non può accedere alle risorse richieste.",
   "no_apps": "Nessuna applicazione trovata nel Cozy",
-
   "menu": {
     "apps": "App",
     "settings": "Impostazioni",
@@ -20,23 +19,15 @@
     "home": "Torna alla home",
     "home_title": "Home"
   },
-
   "Categories": {
     "cozy": "App Cozy",
     "partners": "App partner",
     "ptnb": "expPTNB",
     "others": "Altre app"
   },
-
   "claudy": {
     "title": "Come usare il tuo Cozy?"
   },
-
-  "searchbar": {
-    "placeholder": "Cerca",
-    "empty": "Nessun risultato trovato per la richiesta “%{query}”"
-  },
-
   "permsModal": {
     "title": "Accedi al tuo Cozy dalla tua applicazione",
     "description": "Autorizza %{app} a mostrare le applicazioni del tuo Cozy su questo dispositivo",

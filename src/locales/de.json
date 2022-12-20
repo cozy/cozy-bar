@@ -12,7 +12,6 @@
   "error_UnavailableStack": "Der Stapel ist nicht erreichbar (Verbindung Zeitüberschreitung).",
   "error_UnauthorizedStack": "Einige Berechtigungen fehlen, die Anwendung kann nicht auf die angeforderte Ressource auf dem Stapel zugreifen.",
   "no_apps": "Keine Anwendungen für Cozy gefunden.",
-
   "menu": {
     "apps": "Anwendungen",
     "settings": "Einstellungen",
@@ -20,23 +19,15 @@
     "home": "Back to home",
     "home_title": "Home"
   },
-
   "Categories": {
     "cozy": "Cozy Anwendungen",
     "partners": "Partner Anwendungen",
     "ptnb": "expPTNB",
     "others": "Andere Anwendungen"
   },
-
   "claudy": {
     "title": "Wie willst du dein Cozy steuern?"
   },
-
-  "searchbar": {
-    "placeholder": "Alle Dateien durchsuchen",
-    "empty": "Es wurde kein Ergebnis für die Suche \"%{query}\" gefunden"
-  },
-
   "permsModal": {
     "title": "Greife von deiner Anwendung aus auf dein komplettes Cozy zu",
     "description": "Erlaube %{app} den Zugriff auf deine Cozy Anwendungen auf diesem Gerät",

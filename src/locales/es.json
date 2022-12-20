@@ -12,7 +12,6 @@
   "error_UnavailableStack": "Conexión a la stack imposible ( se agotó el tiempo para la conexión ).",
   "error_UnauthorizedStack": "Faltan algunos permisos, la aplicación no puede acceder a los recursos solicitados.",
   "no_apps": "No se han encontrado aplicaciones en su Cozy.",
-
   "menu": {
     "apps": "Aplicaciones",
     "settings": "Parámetros",
@@ -20,23 +19,15 @@
     "home": "Regresar a Inicio",
     "home_title": "Inicio"
   },
-
   "Categories": {
     "cozy": "Aplicaciones Cozy",
     "partners": "Aplicaciones de asociados",
     "ptnb": "expPTNB",
     "others": "Otras aplicaciones"
   },
-
   "claudy": {
     "title": "¿Cómo utilizar su Cozy?"
   },
-
-  "searchbar": {
-    "placeholder": "Buscar",
-    "empty": "No se ha encontrado ningún resultado para su consulta “%{query}”"
-  },
-
   "permsModal": {
     "title": "Acceder a su Cozy desde su aplicación",
     "description": "Autorizar a %{app} para mostrar sus aplicaciones Cozy en este aparato",

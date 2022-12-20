@@ -88,31 +88,6 @@ describe('Bar', () => {
     expect(toJson(barWrapper)).toMatchSnapshot()
   })
 
-  it('should display the Searchbar', () => {
-    const barWrapper = shallow(<Bar {...props} isDrive isPublic={false} />)
-    expect(toJson(barWrapper)).toMatchSnapshot()
-  })
-
-  it('should not display searchbar if we are on mobile', () => {
-    isMobileApp.mockReturnValue(true)
-    const barWrapper = shallow(<Bar {...props} isDrive isPublic={false} />)
-    expect(toJson(barWrapper)).toMatchSnapshot()
-  })
-
-  it('should not display searchbar if we are not on Cozy Drive', () => {
-    isMobileApp.mockReturnValue(true)
-    const barWrapper = shallow(
-      <Bar {...props} isDrive={false} isPublic={false} />
-    )
-    expect(toJson(barWrapper)).toMatchSnapshot()
-  })
-
-  it('should not display searchbar if we are not on  a public page', () => {
-    isMobileApp.mockReturnValue(true)
-    const barWrapper = shallow(<Bar {...props} isDrive isPublic={true} />)
-    expect(toJson(barWrapper)).toMatchSnapshot()
-  })
-
   it('should have correct state props provided by the store with the initial state', () => {
     const initialState = reducers(undefined, {})
     expect(mapStateToProps(initialState)).toMatchSnapshot()
