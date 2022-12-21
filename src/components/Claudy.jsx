@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { getIntents } from 'lib/stack'
+import ClaudyIcon from './ClaudyIcon'
+import Icon from 'cozy-ui/transpiled/react/Icon'
 
 class Claudy extends Component {
   constructor(props, context) {
@@ -62,7 +64,11 @@ class Claudy extends Component {
           data-claudy-opened={isActive}
           data-claudy-loading={isLoading}
           onClick={this.toggle}
-        />
+          aria-haspopup="true"
+          aria-expanded={isActive}
+        >
+          <Icon icon={ClaudyIcon} height="32" width="32" />
+        </button>
         <div
           className="coz-claudy-intent-wrapper"
           ref={wrapper => {
