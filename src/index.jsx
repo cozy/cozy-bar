@@ -33,6 +33,8 @@ const locales = {
   es: esLocale
 }
 
+import BarComponent from './components/BarComponent'
+
 const createBarElement = () => {
   const targetName = isMobileApp() ? 'mobile' : 'browser'
   const barNode = document.createElement('div')
@@ -243,5 +245,6 @@ export {
   setTheme,
   setWebviewContext,
   setLocale,
-  updateAccessToken
+  updateAccessToken,
+  BarComponent
 }
