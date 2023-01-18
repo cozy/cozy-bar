@@ -42,6 +42,10 @@
   background-image: url(~assets/icons/16/icon-question-mark-16.svg);
 }
 
+[role=banner] [data-icon='icon-contact'] {
+  background-image: url(~assets/icons/16/icon-email-16.svg);
+}
+
 [role=banner] [data-icon='icon-logout'] {
   background-image: url(~assets/icons/16/icon-logout-16.svg);
 }
