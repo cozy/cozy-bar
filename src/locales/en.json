@@ -8,6 +8,7 @@
   "storage": "Storage",
   "storage_phrase": "%{diskUsage} GB of %{diskQuota} GB used",
   "help": "FAQ",
+  "contact": "Contact us",
   "logout": "Log out",
   "soon": "soon",
   "error_UnavailableStack": "The stack is unreachable (connection timed-out).",

@@ -16,6 +16,7 @@ import DevicesIcon from 'cozy-ui/transpiled/react/Icons/Devices'
 import GlobeIcon from 'cozy-ui/transpiled/react/Icons/Globe'
 import LogoutIcon from 'cozy-ui/transpiled/react/Icons/Logout'
 import HelpIcon from 'cozy-ui/transpiled/react/Icons/Help'
+import EmailIcon from 'cozy-ui/transpiled/react/Icons/Email'
 
 import StorageData from 'components/Settings/StorageData'
 
@@ -49,6 +50,7 @@ const SettingsContent = ({
   onClaudy,
   isDrawer = false,
   isClaudyLoading,
+  toggleSupport,
   shoulDisplayViewOfferButton,
   managerUrlPremiumLink
 }) => (
@@ -151,19 +153,32 @@ const SettingsContent = ({
     )}
     <NavGroup>
       {!isMobileApp() && (
-        <NavItem>
-          <a
-            role="menuitem"
-            target="_blank"
-            rel="noopener noreferrer"
-            href="https://support.cozy.io/"
-            title={t('help')}
-          >
-            <MenuIcon icon={HelpIcon} />
-            {t('help')}
-            <ExternalLinkIcon />
-          </a>
-        </NavItem>
+        <>
+          <NavItem>
+            <a
+              role="menuitem"
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://support.cozy.io/"
+              title={t('help')}
+            >
+              <MenuIcon icon={HelpIcon} />
+              {t('help')}
+              <ExternalLinkIcon />
+            </a>
+          </NavItem>
+          <NavItem>
+            <button
+              type="button"
+              role="menuitem"
+              onClick={toggleSupport}
+              title={t('contact')}
+            >
+              <MenuIcon icon={EmailIcon} />
+              {t('contact')}
+            </button>
+          </NavItem>
+        </>
       )}
       <NavItem>
         <button

@@ -1,6 +1,7 @@
 /* global __VERSION__ */
 
 import { isMobileApp } from 'cozy-device-helper'
+import { BreakpointsProvider } from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 
 import stack from 'lib/stack'
 import {
@@ -91,13 +92,15 @@ const renderBar = (barNode, options) => {
   const barComponent = (
     <Provider store={options.reduxStore}>
       <EnhancedI18n dictRequire={lang => locales[lang]}>
-        {cozyClient ? (
-          <CozyProvider client={cozyClient}>
+        <BreakpointsProvider>
+          {cozyClient ? (
+            <CozyProvider client={cozyClient}>
+              <Bar {...options} />
+            </CozyProvider>
+          ) : (
             <Bar {...options} />
-          </CozyProvider>
-        ) : (
-          <Bar {...options} />
-        )}
+          )}
+        </BreakpointsProvider>
       </EnhancedI18n>
     </Provider>
   )
