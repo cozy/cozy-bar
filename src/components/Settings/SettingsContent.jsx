@@ -15,6 +15,7 @@ const SettingsContent = ({
   onClaudy,
   isDrawer = false,
   isClaudyLoading,
+  toggleSupport,
   shoulDisplayViewOfferButton,
   managerUrlPremiumLink
 }) => (
@@ -126,22 +127,35 @@ const SettingsContent = ({
     )}
     <ul className="coz-nav-group">
       {!isMobileApp() && (
-        <li className="coz-nav-settings-item">
-          <a
-            role="menuitem"
-            href="https://support.cozy.io/"
-            target="_blank"
-            rel="noopener noreferrer"
-            data-icon="icon-help"
-            title={t('help')}
-          >
-            <p className="coz-label">{t('help')}</p>
-            <span
-              className="coz-nav-settings-item-openwith-icon"
-              data-icon="icon-openwith"
-            ></span>
-          </a>
-        </li>
+        <>
+          <li className="coz-nav-settings-item">
+            <a
+              role="menuitem"
+              href="https://support.cozy.io/"
+              target="_blank"
+              rel="noopener noreferrer"
+              data-icon="icon-help"
+              title={t('help')}
+            >
+              <p className="coz-label">{t('help')}</p>
+              <span
+                className="coz-nav-settings-item-openwith-icon"
+                data-icon="icon-openwith"
+              ></span>
+            </a>
+          </li>
+          <li className="coz-nav-settings-item">
+            <button
+              type="button"
+              role="menuitem"
+              data-icon="icon-contact"
+              onClick={toggleSupport}
+              title={t('contact')}
+            >
+              {t('contact')}
+            </button>
+          </li>
+        </>
       )}
       <li className="coz-nav-settings-item">
         <button

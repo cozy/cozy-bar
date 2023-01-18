@@ -8,6 +8,7 @@
   "storage": "Stockage",
   "storage_phrase": "%{diskUsage} Go sur %{diskQuota} Go",
   "help": "Manuel d'utilisation",
+  "contact": "Nous contacter",
   "logout": "Déconnexion",
   "soon": "à venir",
   "error_UnavailableStack": "Connexion à la stack impossible (connection timed-out)",
