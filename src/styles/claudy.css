@@ -22,6 +22,9 @@
   opacity: .5;
   transition: all .2s ease-out;
   outline: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 [role=banner] .coz-claudy-icon:hover,
