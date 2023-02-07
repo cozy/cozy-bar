@@ -165,6 +165,13 @@ If you want to work on cozy-bar itself and submit code modifications, feel free 
 
 ## Community
 
+### Localization
+
+Localization and translations are handled by [Transifex][tx], which is used by all Cozy's apps.
+
+As a _translator_, you can login to [Transifex][tx-signin] (using your Github account) and claim an access to the [app repository][tx-app]. Locales are pulled when app is build before publishing.
+
+As a _developer_, you just have to modify json in `/src/locales`. New locales will be automatically added to Transifex. If you need to pull or push manually locales, you can use [Transifex CLI](tx-cli). If you were using a [transifex-client](tx-client), you must move to [Transifex CLI](tx-cli) to be compatible with the v3 API.
 
 ### Get in touch
 
