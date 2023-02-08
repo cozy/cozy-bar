@@ -89,7 +89,6 @@ export class Settings extends Component {
       logOut,
       onLogOut,
       t,
-      toggleSupport,
       diskUsageQuery,
       instanceQuery,
       contextQuery,
@@ -162,7 +161,6 @@ export class Settings extends Component {
                     logOut()
                   }
                 }}
-                toggleSupport={toggleSupport}
                 storageData={storageData}
                 settingsAppURL={settingsAppURL}
                 shoulDisplayViewOfferButton={shouldDisplayViewOfferButton}
