@@ -29,11 +29,7 @@ describe('bar', () => {
     const setup = ({ onLogOut, logOut }) => {
       render(
         <Wrapper>
-          <Drawer
-            toggleSupport={jest.fn()}
-            logOut={logOut}
-            onLogOut={onLogOut}
-          />
+          <Drawer logOut={logOut} onLogOut={onLogOut} />
         </Wrapper>
       )
     }

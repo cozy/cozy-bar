@@ -13,7 +13,6 @@ import Settings from 'components/Settings'
 import Apps from 'components/Apps'
 import SearchBar from 'components/SearchBar'
 import Claudy from 'components/Claudy'
-import SupportModal from 'components/SupportModal'
 import {
   getTheme,
   hasFetched,
@@ -35,7 +34,6 @@ export class Bar extends Component {
       claudyFired: false, // true to fire claudy (used by the drawer)
       claudyOpened: false,
       drawerVisible: false,
-      supportDisplayed: false,
       searchBarEnabled:
         props.isDrive && !props.isPublic && !isMobileApp() && !isFlagshipApp()
     }
@@ -104,11 +102,6 @@ export class Bar extends Component {
     this.setState({ claudyOpened: !claudyOpened })
   }
 
-  toggleSupport = () => {
-    const { supportDisplayed } = this.state
-    this.setState({ supportDisplayed: !supportDisplayed })
-  }
-
   renderCenter() {
     const {
       appName,
@@ -153,12 +146,7 @@ export class Bar extends Component {
 
   renderRight = () => {
     const { isPublic } = this.props
-    return !isPublic ? (
-      <Settings
-        toggleSupport={this.toggleSupport}
-        onLogOut={this.props.onLogOut}
-      />
-    ) : null
+    return !isPublic ? <Settings onLogOut={this.props.onLogOut} /> : null
   }
 
   render() {
@@ -166,8 +154,7 @@ export class Bar extends Component {
       claudyFired,
       claudyOpened,
       drawerVisible,
-      searchBarEnabled,
-      supportDisplayed
+      searchBarEnabled
     } = this.state
 
     const {
@@ -216,7 +203,6 @@ export class Bar extends Component {
               }
               isClaudyLoading={claudyFired}
               drawerListener={() => onDrawer(drawerVisible)}
-              toggleSupport={this.toggleSupport}
               onLogOut={onLogOut}
             />
           ) : null}
@@ -227,7 +213,6 @@ export class Bar extends Component {
               opened={claudyOpened}
             />
           )}
-          {supportDisplayed && <SupportModal onClose={this.toggleSupport} />}
         </div>
         {userActionRequired && <Banner {...userActionRequired} />}
       </div>

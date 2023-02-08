@@ -170,7 +170,6 @@ class Drawer extends Component {
       onClaudy,
       visible,
       isClaudyLoading,
-      toggleSupport,
       settingsAppURL,
       storageData
     } = this.props
@@ -199,7 +198,6 @@ class Drawer extends Component {
               settingsAppURL={settingsAppURL}
               isClaudyLoading={isClaudyLoading}
               onClaudy={onClaudy}
-              toggleSupport={toggleSupport}
               isDrawer
             />
           </nav>
