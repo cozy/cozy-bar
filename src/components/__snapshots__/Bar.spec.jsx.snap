@@ -38,15 +38,12 @@ exports[`Bar should change allow theme overrides 1`] = `
     <div
       className="u-flex-grow"
     />
-    <Wrapper
-      toggleSupport={[Function]}
-    />
+    <Wrapper />
     <Connect(Drawer)
       drawerListener={[Function]}
       isClaudyLoading={false}
       onClaudy={false}
       onClose={[Function]}
-      toggleSupport={[Function]}
       visible={false}
     />
   </div>
@@ -87,15 +84,12 @@ exports[`Bar should change theme 1`] = `
     <div
       className="u-flex-grow"
     />
-    <Wrapper
-      toggleSupport={[Function]}
-    />
+    <Wrapper />
     <Connect(Drawer)
       drawerListener={[Function]}
       isClaudyLoading={false}
       onClaudy={false}
       onClose={[Function]}
-      toggleSupport={[Function]}
       visible={false}
     />
   </div>
@@ -146,15 +140,12 @@ exports[`Bar should display the Searchbar 1`] = `
         }
       />
     </div>
-    <Wrapper
-      toggleSupport={[Function]}
-    />
+    <Wrapper />
     <Connect(Drawer)
       drawerListener={[Function]}
       isClaudyLoading={false}
       onClaudy={false}
       onClose={[Function]}
-      toggleSupport={[Function]}
       visible={false}
     />
   </div>
@@ -241,15 +232,12 @@ exports[`Bar should not display searchbar if we are not on Cozy Drive 1`] = `
     <div
       className="u-flex-grow"
     />
-    <Wrapper
-      toggleSupport={[Function]}
-    />
+    <Wrapper />
     <Connect(Drawer)
       drawerListener={[Function]}
       isClaudyLoading={false}
       onClaudy={false}
       onClose={[Function]}
-      toggleSupport={[Function]}
       visible={false}
     />
   </div>
@@ -292,15 +280,12 @@ exports[`Bar should not display searchbar if we are on mobile 1`] = `
     <div
       className="u-flex-grow"
     />
-    <Wrapper
-      toggleSupport={[Function]}
-    />
+    <Wrapper />
     <Connect(Drawer)
       drawerListener={[Function]}
       isClaudyLoading={false}
       onClaudy={false}
       onClose={[Function]}
-      toggleSupport={[Function]}
       visible={false}
     />
   </div>
