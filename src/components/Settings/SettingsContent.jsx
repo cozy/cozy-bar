@@ -15,7 +15,6 @@ const SettingsContent = ({
   onClaudy,
   isDrawer = false,
   isClaudyLoading,
-  toggleSupport,
   shoulDisplayViewOfferButton,
   managerUrlPremiumLink
 }) => (
@@ -145,15 +144,15 @@ const SettingsContent = ({
             </a>
           </li>
           <li className="coz-nav-settings-item">
-            <button
-              type="button"
+            <a
               role="menuitem"
+              href={`${settingsAppURL}#/support`}
+              target="_self"
               data-icon="icon-contact"
-              onClick={toggleSupport}
               title={t('contact')}
             >
-              {t('contact')}
-            </button>
+              <p className="coz-label">{t('contact')}</p>
+            </a>
           </li>
         </>
       )}
