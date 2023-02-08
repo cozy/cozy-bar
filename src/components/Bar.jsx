@@ -12,7 +12,6 @@ import Drawer from 'components/Drawer'
 import Settings from 'components/Settings'
 import Apps from 'components/Apps'
 import Claudy from 'components/Claudy'
-import SupportModal from 'components/SupportModal'
 import {
   getTheme,
   hasFetched,
@@ -43,8 +42,7 @@ export class Bar extends Component {
     this.state = {
       claudyFired: false, // true to fire claudy (used by the drawer)
       claudyOpened: false,
-      drawerVisible: false,
-      supportDisplayed: false
+      drawerVisible: false
     }
     this.fetchApps = this.fetchApps.bind(this)
     this.fetchInitialData = this.fetchInitialData.bind(this)
@@ -111,11 +109,6 @@ export class Bar extends Component {
     this.setState({ claudyOpened: !claudyOpened })
   }
 
-  toggleSupport = () => {
-    const { supportDisplayed } = this.state
-    this.setState({ supportDisplayed: !supportDisplayed })
-  }
-
   renderCenter() {
     const { appName, appNamePrefix, appSlug, iconPath, isPublic } = this.props
     return (
@@ -152,21 +145,11 @@ export class Bar extends Component {
 
   renderRight = () => {
     const { isPublic } = this.props
-    return !isPublic ? (
-      <Settings
-        toggleSupport={this.toggleSupport}
-        onLogOut={this.props.onLogOut}
-      />
-    ) : null
+    return !isPublic ? <Settings onLogOut={this.props.onLogOut} /> : null
   }
 
   render() {
-    const {
-      claudyFired,
-      claudyOpened,
-      drawerVisible,
-      supportDisplayed
-    } = this.state
+    const { claudyFired, claudyOpened, drawerVisible } = this.state
 
     const {
       theme,
@@ -209,7 +192,6 @@ export class Bar extends Component {
               }
               isClaudyLoading={claudyFired}
               drawerListener={() => onDrawer(drawerVisible)}
-              toggleSupport={this.toggleSupport}
               onLogOut={onLogOut}
             />
           ) : null}
@@ -220,7 +202,6 @@ export class Bar extends Component {
               opened={claudyOpened}
             />
           )}
-          {supportDisplayed && <SupportModal onClose={this.toggleSupport} />}
         </div>
         {userActionRequired && <Banner {...userActionRequired} />}
       </div>
