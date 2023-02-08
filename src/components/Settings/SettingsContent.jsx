@@ -50,7 +50,6 @@ const SettingsContent = ({
   onClaudy,
   isDrawer = false,
   isClaudyLoading,
-  toggleSupport,
   shoulDisplayViewOfferButton,
   managerUrlPremiumLink
 }) => (
@@ -168,15 +167,15 @@ const SettingsContent = ({
             </a>
           </NavItem>
           <NavItem>
-            <button
-              type="button"
+            <a
               role="menuitem"
-              onClick={toggleSupport}
+              href={`${settingsAppURL}#/support`}
+              target="_self"
               title={t('contact')}
             >
               <MenuIcon icon={EmailIcon} />
               {t('contact')}
-            </button>
+            </a>
           </NavItem>
         </>
       )}
