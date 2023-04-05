@@ -49,8 +49,6 @@ export const getSettingsAppURL = proxy('settings', settings.getSettingsAppURL)
 export const isSettingsBusy = proxy('settings', settings.isSettingsBusy)
 export const isFetchingSettings = proxy('settings', settings.isFetchingSettings)
 export const getHelpLink = proxy('context', context.getHelpLink)
-export const getClaudyActions = proxy('context', context.getClaudyActions)
-export const shouldEnableClaudy = proxy('context', context.shouldEnableClaudy)
 export const getWebviewContext = proxy(
   'unserializable',
   unserializable.getWebviewContext

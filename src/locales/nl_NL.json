@@ -28,10 +28,6 @@
     "others": "Overige apps"
   },
 
-  "claudy": {
-    "title": "How beheers je je Cozy?"
-  },
-
   "searchbar": {
     "placeholder": "Zoeken naar iets",
     "empty": "Geen resultaten gevonden voor de zoekopdracht \"%{query}\""
