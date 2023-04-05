@@ -41,8 +41,6 @@ exports[`Bar should change allow theme overrides 1`] = `
     <withI18n(Connect(Settings)) />
     <Connect(Drawer)
       drawerListener={[Function]}
-      isClaudyLoading={false}
-      onClaudy={false}
       onClose={[Function]}
       visible={false}
     />
@@ -87,8 +85,6 @@ exports[`Bar should change theme 1`] = `
     <withI18n(Connect(Settings)) />
     <Connect(Drawer)
       drawerListener={[Function]}
-      isClaudyLoading={false}
-      onClaudy={false}
       onClose={[Function]}
       visible={false}
     />
@@ -110,7 +106,6 @@ Object {
   "barLeft": undefined,
   "barRight": undefined,
   "barSearch": undefined,
-  "claudyEnabled": false,
   "hasFetchedApps": false,
   "isDrive": false,
   "theme": "default",

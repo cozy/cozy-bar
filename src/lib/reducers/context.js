@@ -1,5 +1,4 @@
 import stack from 'lib/stack'
-import CLAUDY_ACTIONS from 'config/claudyActions.json'
 import { LOG_OUT } from 'lib/reducers/settings'
 import flag from 'cozy-flags'
 
@@ -10,14 +9,6 @@ const RECEIVE_NO_CONTEXT = 'RECEIVE_NO_CONTEXT'
 // selectors
 export const getHelpLink = state => {
   return state.helpLink
-}
-
-export const getClaudyActions = state => {
-  return state.claudyActions
-}
-export const shouldEnableClaudy = state => {
-  const claudyActions = getClaudyActions(state)
-  return !!claudyActions && !!claudyActions.length
 }
 
 // actions
@@ -41,7 +32,6 @@ export const fetchContext = () => async (dispatch, getState) => {
 
 // reducers
 const defaultState = {
-  claudyActions: [],
   contextNotExist: false,
   helpLink: null,
   isFetching: false
@@ -54,22 +44,9 @@ const reducer = (state = defaultState, action) => {
     case FETCH_CONTEXT_SUCCESS: {
       const attr =
         action.context && action.context.data && action.context.data.attributes
-      const contextActions = flag('bar.claudy.force-all-actions')
-        ? Object.keys(CLAUDY_ACTIONS)
-        : attr && attr['claudy_actions']
-      // get an arrays of action
-      const claudyActions = contextActions
-        .map(slug => {
-          if (CLAUDY_ACTIONS.hasOwnProperty(slug)) {
-            // adding also the action slug
-            return Object.assign({}, CLAUDY_ACTIONS[slug], { slug })
-          }
-        })
-        .filter(action => action)
       return {
         ...state,
         helpLink: (attr && attr['help_link']) || null,
-        claudyActions,
         isFetching: false,
         contextNotExist: false
       }

@@ -47,9 +47,7 @@ const SettingsContent = ({
   onLogOut,
   settingsAppURL,
   storageData,
-  onClaudy,
   isDrawer = false,
-  isClaudyLoading,
   shoulDisplayViewOfferButton,
   managerUrlPremiumLink
 }) => (
@@ -135,21 +133,6 @@ const SettingsContent = ({
         </a>
       </NavItem>
     </NavGroup>
-    {isDrawer && onClaudy && !isMobileApp() && (
-      <NavGroup>
-        <NavItem>
-          <button
-            type="button"
-            role="menuitem"
-            className="coz-nav-settings-item-btn"
-            busy={isClaudyLoading}
-            onClick={onClaudy}
-          >
-            <MenuIcon icon={CloudIcon} /> {t('claudy.title')}
-          </button>
-        </NavItem>
-      </NavGroup>
-    )}
     <NavGroup>
       {!isMobileApp() && (
         <>
@@ -203,8 +186,6 @@ SettingsContent.propTypes = {
   onLogOut: PropTypes.func.isRequired,
   settingsAppURL: PropTypes.string,
   storageData: PropTypes.object,
-  onClaudy: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
-  isDrawer: PropTypes.bool,
-  isClaudyLoading: PropTypes.bool
+  isDrawer: PropTypes.bool
 }
 export default translate()(SettingsContent)
