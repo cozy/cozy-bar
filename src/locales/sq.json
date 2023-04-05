@@ -28,10 +28,6 @@
     "others": "Aplikacione të tjerë"
   },
 
-  "claudy": {
-    "title": "How to drive your Cozy?"
-  },
-
   "searchbar": {
     "placeholder": "Search anything",
     "empty": "No result has been found for the query “%{query}”"

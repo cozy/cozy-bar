@@ -28,10 +28,6 @@
     "others": "其他应用"
   },
 
-  "claudy": {
-    "title": "如何驱动您的Cozy？"
-  },
-
   "searchbar": {
     "placeholder": "搜索任何内容",
     "empty": "没有任何关于“%{query}”的内容"

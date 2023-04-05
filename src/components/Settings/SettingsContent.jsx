@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 
 import flag from 'cozy-flags'
 import { translate } from 'cozy-ui/react/I18n'
-import { Button } from 'cozy-ui/react/Button'
 import { isMobileApp } from 'cozy-device-helper'
 import StorageData from 'components/Settings/StorageData'
 
@@ -12,9 +11,7 @@ const SettingsContent = ({
   onLogOut,
   settingsAppURL,
   storageData,
-  onClaudy,
   isDrawer = false,
-  isClaudyLoading,
   shoulDisplayViewOfferButton,
   managerUrlPremiumLink,
   tabIndex,
@@ -122,24 +119,6 @@ const SettingsContent = ({
         </ul>
       </>
     )}
-    {isDrawer && onClaudy && !isMobileApp() && (
-      <ul className="coz-nav-group">
-        <li className="coz-nav-settings-item">
-          <Button
-            type="button"
-            role="menuitem"
-            className="coz-nav-settings-item-btn"
-            icon="cloud"
-            busy={isClaudyLoading}
-            onClick={onClaudy}
-            title={t('claudy.title')}
-            label={t('claudy.title')}
-            tabIndex={tabIndex}
-            aria-hidden={ariaHidden}
-          />
-        </li>
-      </ul>
-    )}
     <ul className="coz-nav-group">
       {!isMobileApp() && (
         <>
@@ -203,9 +182,7 @@ SettingsContent.propTypes = {
   onLogOut: PropTypes.func.isRequired,
   settingsAppURL: PropTypes.string,
   storageData: PropTypes.object,
-  onClaudy: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
   isDrawer: PropTypes.bool,
-  isClaudyLoading: PropTypes.bool,
   tabIndex: PropTypes.number,
   ariaHidden: PropTypes.bool
 }

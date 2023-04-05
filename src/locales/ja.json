@@ -28,10 +28,6 @@
     "others": "他のアプリ"
   },
 
-  "claudy": {
-    "title": "Cozy をドライブする方法は?"
-  },
-
   "searchbar": {
     "placeholder": "検索します",
     "empty": "問い合わせ “%{query}” の結果が見つかりません"

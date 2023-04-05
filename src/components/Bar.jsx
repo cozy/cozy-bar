@@ -13,7 +13,6 @@ import Drawer from 'components/Drawer'
 import Settings from 'components/Settings'
 import Apps from 'components/Apps'
 import SearchBar from 'components/SearchBar'
-import Claudy from 'components/Claudy'
 import {
   getTheme,
   hasFetched,
@@ -22,7 +21,6 @@ import {
   fetchApps,
   fetchContext,
   fetchSettingsData,
-  shouldEnableClaudy,
   getWebviewContext
 } from 'lib/reducers'
 
@@ -32,8 +30,6 @@ export class Bar extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      claudyFired: false, // true to fire claudy (used by the drawer)
-      claudyOpened: false,
       drawerVisible: false,
       searchBarEnabled:
         props.isDrive && !props.isPublic && !isMobileApp() && !isFlagshipApp()
@@ -83,24 +79,10 @@ export class Bar extends Component {
   }
 
   toggleDrawer = () => {
-    // don't allow to toggle the drawer if claudy opened or is opening
-    if (this.state.claudyOpened || this.state.claudyFired) return
     const drawerVisible = !this.state.drawerVisible
     // don't wait for transitionend if displaying
     if (drawerVisible) this.props.onDrawer(drawerVisible)
     this.setState({ drawerVisible })
-  }
-
-  toggleClaudy = (isFromDrawer = false) => {
-    if (!this.props.claudyEnabled) return
-    const { claudyOpened } = this.state
-    if (isFromDrawer && !claudyOpened) {
-      // if opened from drawer
-      // reset to toggle via the Claudy component
-      return this.setState({ claudyFired: true })
-    }
-    if (this.state.claudyFired) this.setState({ claudyFired: false })
-    this.setState({ claudyOpened: !claudyOpened })
   }
 
   renderCenter() {
@@ -158,12 +140,7 @@ export class Bar extends Component {
   }
 
   render() {
-    const {
-      claudyFired,
-      claudyOpened,
-      drawerVisible,
-      searchBarEnabled
-    } = this.state
+    const { drawerVisible, searchBarEnabled } = this.state
 
     const {
       theme,
@@ -172,7 +149,6 @@ export class Bar extends Component {
       barRight,
       barCenter,
       barSearch,
-      claudyEnabled,
       onDrawer,
       isPublic,
       onLogOut,
@@ -207,22 +183,11 @@ export class Bar extends Component {
             <Drawer
               visible={drawerVisible}
               onClose={this.toggleDrawer}
-              onClaudy={
-                (claudyEnabled && (() => this.toggleClaudy(true))) || false
-              }
-              isClaudyLoading={claudyFired}
               drawerListener={() => onDrawer(drawerVisible)}
               onLogOut={onLogOut}
               isInvertedTheme={isInvertedTheme}
             />
           ) : null}
-          {claudyEnabled && (
-            <Claudy
-              claudyFired={claudyFired}
-              onToggle={() => this.toggleClaudy(false)}
-              opened={claudyOpened}
-            />
-          )}
         </div>
         {userActionRequired && <Banner {...userActionRequired} />}
       </div>
@@ -254,7 +219,6 @@ export const mapStateToProps = state => ({
   barCenter: getContent(state, 'center'),
   barSearch: getContent(state, 'search'),
   isDrive: isCurrentApp(state, { slug: 'drive' }),
-  claudyEnabled: shouldEnableClaudy(state),
   hasFetchedApps: hasFetched(state),
   webviewContext: getWebviewContext(state)
 })

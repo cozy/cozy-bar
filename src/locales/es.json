@@ -28,10 +28,6 @@
     "others": "Otras aplicaciones"
   },
 
-  "claudy": {
-    "title": "¿Cómo utilizar su Cozy?"
-  },
-
   "searchbar": {
     "placeholder": "Buscar",
     "empty": "No se ha encontrado ningún resultado para su consulta “%{query}”"

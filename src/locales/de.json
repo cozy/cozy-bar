@@ -28,10 +28,6 @@
     "others": "Andere Anwendungen"
   },
 
-  "claudy": {
-    "title": "Wie willst du dein Cozy steuern?"
-  },
-
   "searchbar": {
     "placeholder": "Alle Dateien durchsuchen",
     "empty": "Es wurde kein Ergebnis für die Suche \"%{query}\" gefunden"
