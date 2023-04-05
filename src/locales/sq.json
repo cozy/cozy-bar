@@ -25,9 +25,6 @@
     "ptnb": "expPTNB",
     "others": "Aplikacione të tjerë"
   },
-  "claudy": {
-    "title": "How to drive your Cozy?"
-  },
   "permsModal": {
     "title": "Hyni në krejt Cozy-n nga aplikacioni juaj",
     "description": "Autorizojeni %{app} të shfaqë në këtë pajisje aplikacionet tuaja Cozy",

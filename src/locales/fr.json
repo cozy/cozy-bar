@@ -27,9 +27,6 @@
     "ptnb": "Expérimentation Carnet du logement",
     "others": "Autres apps"
   },
-  "claudy": {
-    "title": "Comment utiliser votre Cozy ?"
-  },
   "permsModal": {
     "title": "Accéder à ton Cozy à partir de ton application",
     "description": "Autoriser %{app} à afficher les applications de ton Cozy sur cet appareil",
