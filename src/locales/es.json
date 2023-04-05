@@ -25,9 +25,6 @@
     "ptnb": "expPTNB",
     "others": "Otras aplicaciones"
   },
-  "claudy": {
-    "title": "¿Cómo utilizar su Cozy?"
-  },
   "permsModal": {
     "title": "Acceder a su Cozy desde su aplicación",
     "description": "Autorizar a %{app} para mostrar sus aplicaciones Cozy en este aparato",

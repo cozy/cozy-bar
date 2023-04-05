@@ -25,9 +25,6 @@
     "ptnb": "expPTNB",
     "others": "Overige apps"
   },
-  "claudy": {
-    "title": "How beheers je je Cozy?"
-  },
   "permsModal": {
     "title": "Toegang tot je gehele Cozy vanuit je app",
     "description": "%{app} machtigen om je Cozy-apps te tonen op dit apparaat",

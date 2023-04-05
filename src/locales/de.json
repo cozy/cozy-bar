@@ -25,9 +25,6 @@
     "ptnb": "expPTNB",
     "others": "Andere Anwendungen"
   },
-  "claudy": {
-    "title": "Wie willst du dein Cozy steuern?"
-  },
   "permsModal": {
     "title": "Greife von deiner Anwendung aus auf dein komplettes Cozy zu",
     "description": "Erlaube %{app} den Zugriff auf deine Cozy Anwendungen auf diesem Gerät",

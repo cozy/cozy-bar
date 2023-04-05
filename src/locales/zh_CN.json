@@ -25,9 +25,6 @@
     "ptnb": "expPTNB",
     "others": "其他应用"
   },
-  "claudy": {
-    "title": "如何驱动您的Cozy？"
-  },
   "permsModal": {
     "title": "从您的应用程序访问整个Cozy",
     "description": "授权%{app}在此设备上显示您的Cozy应用程序",

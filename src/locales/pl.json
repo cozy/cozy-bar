@@ -25,9 +25,6 @@
     "ptnb": "expPTNB",
     "others": "Aplikacje inne"
   },
-  "claudy": {
-    "title": "Jak korzystać z Twojego Cozy?"
-  },
   "permsModal": {
     "title": "Uzyskaj dostęp do swojego Cozy z dowolnej aplikacji.",
     "description": "Autoryzuj %{app} aby korzystać z aplikacji Cozy na tym urządzeniu",

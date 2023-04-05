@@ -7,7 +7,6 @@ import { isMobileApp } from 'cozy-device-helper'
 import { translate } from 'cozy-ui/transpiled/react/I18n'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import OpenwithIcon from 'cozy-ui/transpiled/react/Icons/Openwith'
-import CloudIcon from 'cozy-ui/transpiled/react/Icons/Cloud'
 import PeopleIcon from 'cozy-ui/transpiled/react/Icons/People'
 import GraphCircleIcon from 'cozy-ui/transpiled/react/Icons/GraphCircle'
 import CozyCircleIcon from 'cozy-ui/transpiled/react/Icons/CozyCircle'
@@ -47,9 +46,7 @@ const SettingsContent = ({
   onLogOut,
   settingsAppURL,
   storageData,
-  onClaudy,
   isDrawer = false,
-  isClaudyLoading,
   shoulDisplayViewOfferButton,
   managerUrlPremiumLink
 }) => (
@@ -135,21 +132,6 @@ const SettingsContent = ({
         </a>
       </NavItem>
     </NavGroup>
-    {isDrawer && onClaudy && !isMobileApp() && (
-      <NavGroup>
-        <NavItem>
-          <button
-            type="button"
-            role="menuitem"
-            className="coz-nav-settings-item-btn"
-            busy={isClaudyLoading}
-            onClick={onClaudy}
-          >
-            <MenuIcon icon={CloudIcon} /> {t('claudy.title')}
-          </button>
-        </NavItem>
-      </NavGroup>
-    )}
     <NavGroup>
       {!isMobileApp() && (
         <>
@@ -203,8 +185,6 @@ SettingsContent.propTypes = {
   onLogOut: PropTypes.func.isRequired,
   settingsAppURL: PropTypes.string,
   storageData: PropTypes.object,
-  onClaudy: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
-  isDrawer: PropTypes.bool,
-  isClaudyLoading: PropTypes.bool
+  isDrawer: PropTypes.bool
 }
 export default translate()(SettingsContent)

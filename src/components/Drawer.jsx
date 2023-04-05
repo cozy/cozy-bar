@@ -163,14 +163,7 @@ class Drawer extends Component {
   }
 
   render() {
-    const {
-      onClaudy,
-      visible,
-      isClaudyLoading,
-      settingsAppURL,
-      storageData,
-      isInvertedTheme
-    } = this.props
+    const { visible, settingsAppURL, storageData, isInvertedTheme } = this.props
     return (
       <div
         className="coz-drawer-wrapper"
@@ -197,8 +190,6 @@ class Drawer extends Component {
               onLogOut={this.handleLogout}
               storageData={storageData}
               settingsAppURL={settingsAppURL}
-              isClaudyLoading={isClaudyLoading}
-              onClaudy={onClaudy}
               isDrawer
             />
           </nav>
@@ -212,8 +203,6 @@ Drawer.propTypes = {
   visible: PropTypes.bool,
   onClose: PropTypes.func,
   onLogOut: PropTypes.func,
-  onClaudy: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
-  isClaudyLoading: PropTypes.bool,
   isInvertedTheme: PropTypes.bool,
   storageData: PropTypes.object,
   settingsAppURL: PropTypes.string,
