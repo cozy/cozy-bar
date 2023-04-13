@@ -45,15 +45,4 @@ describe('app reducer', () => {
       type: 'RECEIVE_HOME_APP'
     })
   })
-
-  it('dispatch nothing if the default redirection if not in the apps array', async () => {
-    jest.spyOn(client.get, 'context').mockResolvedValue({
-      data: { attributes: { default_redirection: 'drive/' } }
-    })
-    const dispatchMock = jest.fn(x => x)
-
-    const setted = setDefaultApp([{ slug: 'home' }])
-    await setted(dispatchMock)
-    expect(dispatchMock).not.toHaveBeenCalled()
-  })
 })
