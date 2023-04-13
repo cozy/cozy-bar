@@ -88,7 +88,7 @@
 /* POP */
 [role=banner] .coz-nav-pop--apps {
   width: 20rem;
-  max-height: 20rem;
+  max-height: 29.5rem;
   left: 3.5rem;
   transform-origin: 10% 0%;
 }
@@ -103,7 +103,7 @@
   display: flex;
   flex-direction: column;
   /* pop size less pop border size*/
-  max-height: calc(20rem - 2px);
+  max-height: calc(29.5rem - 2px);
   width: 100%;
 }
 
