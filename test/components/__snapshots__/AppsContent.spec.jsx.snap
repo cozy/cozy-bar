@@ -43,7 +43,7 @@ exports[`Apps Content should not display home within the app items list, but jus
     <img
       src="test-file-stub"
     />
-    Back to home
+    Back to dashboard
   </a>
 </div>
 `;
