@@ -18,8 +18,8 @@
   "menu": {
     "apps": "Applications",
     "settings": "Paramètres",
-    "home_mobile": "Retour à l'accueil...",
-    "home": "Retour à l'accueil",
+    "home_mobile": "Retour vers le tableau de bord...",
+    "home": "Retour vers le tableau de bord",
     "home_title": "Accueil "
   },
 
