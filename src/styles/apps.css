@@ -190,7 +190,7 @@
   justify-content: flex-start;
 }
 
-[role=banner] [role=menuitem].coz-apps-home-btn img {
+[role=banner] [role=menuitem].coz-apps-home-btn svg {
   width: 1rem;
   height: 1rem;
   margin-right: .5rem;
