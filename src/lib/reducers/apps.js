@@ -64,23 +64,8 @@ export const fetchApps = () => async dispatch => {
  */
 export const setDefaultApp = appsList => async dispatch => {
   try {
-    const context = await stack.get.context()
-    const defaultRedirection =
-      context.data &&
-      context.data.attributes &&
-      context.data.attributes.default_redirection
-    let homeApp = null
-    // self hosted cozy has no context by default
-    // so let's use hardcoded home slug if needed
-    if (!defaultRedirection) {
-      const HOME_APP_SLUG = 'home'
-      homeApp = findAppInArray(HOME_APP_SLUG, appsList)
-    } else {
-      const slugRegexp = /^([^/]+)\/.*/
-      const matches = defaultRedirection.match(slugRegexp)
-      const defaultAppSlug = matches && matches[1]
-      homeApp = findAppInArray(defaultAppSlug, appsList)
-    }
+    const HOME_APP_SLUG = 'home'
+    const homeApp = findAppInArray(HOME_APP_SLUG, appsList)
 
     if (homeApp) {
       return dispatch(receiveHomeApp(homeApp))
