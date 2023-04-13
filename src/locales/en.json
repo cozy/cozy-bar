@@ -17,8 +17,8 @@
   "menu": {
     "apps": "Apps",
     "settings": "Settings",
-    "home_mobile": "Back to home...",
-    "home": "Back to home",
+    "home_mobile": "Back to dashboard...",
+    "home": "Back to dashboard",
     "home_title": "Home"
   },
   "Categories": {
