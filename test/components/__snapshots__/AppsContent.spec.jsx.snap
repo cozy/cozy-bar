@@ -13,6 +13,7 @@ exports[`Apps Content should display home in the app items lists, if we are on m
           "slug": "cozy-home",
         }
       }
+      tabIndex={-1}
       useHomeIcon={true}
     />
   </ul>
@@ -39,6 +40,7 @@ exports[`Apps Content should not display home within the app items list, but jus
   <a
     className="coz-apps-home-btn"
     role="menuitem"
+    tabIndex={-1}
   >
     <img
       src="test-file-stub"
@@ -76,6 +78,7 @@ exports[`Apps Content should render display Drive 1`] = `
           "slug": "cozy-drive",
         }
       }
+      tabIndex={-1}
     />
   </ul>
 </div>

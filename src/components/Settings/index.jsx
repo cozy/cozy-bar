@@ -127,6 +127,8 @@ export class Settings extends Component {
 
     const { opened } = this.state
     const openMenu = opened && areAllFetchingDone
+    const tabIndex = opened ? 0 : -1
+
     return (
       <div
         className="coz-nav coz-nav-settings"
@@ -148,6 +150,7 @@ export class Settings extends Component {
           className="coz-nav-pop coz-nav-pop--settings"
           id="coz-nav-pop--settings"
           aria-hidden={!openMenu}
+          tabIndex={tabIndex}
         >
           {areAllFetchingDone && (
             <>
@@ -163,6 +166,8 @@ export class Settings extends Component {
                 settingsAppURL={settingsAppURL}
                 shoulDisplayViewOfferButton={shouldDisplayViewOfferButton}
                 managerUrlPremiumLink={managerUrlPremiumLink}
+                tabIndex={tabIndex}
+                ariaHidden={!opened}
               />
             </>
           )}

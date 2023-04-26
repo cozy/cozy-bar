@@ -64,7 +64,7 @@ export class AppItem extends React.Component {
   }
 
   render() {
-    const { useHomeIcon, app } = this.props
+    const { useHomeIcon, app, ariaHidden, tabIndex } = this.props
 
     const dataIcon = app.slug ? `icon-${app.slug}` : ''
     const appName = getAppDisplayName(app)
@@ -88,6 +88,8 @@ export class AppItem extends React.Component {
                 data-icon={dataIcon}
                 title={appName}
                 onClick={onClick}
+                tabIndex={tabIndex}
+                aria-hidden={ariaHidden}
               >
                 {useHomeIcon ? (
                   <HomeIcon className="coz-nav-apps-item-icon" />
