@@ -173,11 +173,13 @@ class Drawer extends Component {
       settingsAppURL,
       storageData
     } = this.props
+    const tabIndex = visible ? 0 : -1
     return (
       <div
         className="coz-drawer-wrapper"
         onClick={this.onDrawerClick}
         aria-hidden={visible ? 'false' : 'true'}
+        tabIndex={tabIndex}
         ref={node => {
           this.wrapperRef = node
         }}
@@ -198,6 +200,7 @@ class Drawer extends Component {
               settingsAppURL={settingsAppURL}
               isClaudyLoading={isClaudyLoading}
               onClaudy={onClaudy}
+              tabIndex={tabIndex}
               isDrawer
             />
           </nav>

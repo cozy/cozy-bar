@@ -48,6 +48,7 @@ class Apps extends Component {
       isPublic
     } = this.props
     const { opened } = this.state
+    const tabIndex = opened ? 0 : -1
     return (
       <nav
         className={`coz-nav coz-nav-apps${
@@ -70,8 +71,9 @@ class Apps extends Component {
           className="coz-nav-pop coz-nav-pop--apps"
           id="coz-nav-pop--apps"
           aria-hidden={!opened}
+          tabIndex={tabIndex}
         >
-          <AppsContent />
+          <AppsContent tabIndex={tabIndex} ariaHidden={!opened} />
         </div>
       </nav>
     )

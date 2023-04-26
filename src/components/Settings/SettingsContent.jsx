@@ -16,7 +16,9 @@ const SettingsContent = ({
   isDrawer = false,
   isClaudyLoading,
   shoulDisplayViewOfferButton,
-  managerUrlPremiumLink
+  managerUrlPremiumLink,
+  tabIndex,
+  ariaHidden
 }) => (
   <div className="coz-nav-pop-content">
     {isDrawer && <hr />}
@@ -30,6 +32,8 @@ const SettingsContent = ({
               target="_self"
               data-icon="icon-profile"
               title={t('profile')}
+              tabIndex={tabIndex}
+              aria-hidden={ariaHidden}
             >
               <p className="coz-label">{t('profile')}</p>
             </a>
@@ -42,6 +46,8 @@ const SettingsContent = ({
                 target="_self"
                 data-icon="icon-cozy-circle"
                 title={t('plans')}
+                tabIndex={tabIndex}
+                aria-hidden={ariaHidden}
               >
                 <p className="coz-label">{t('plans')}</p>
                 <span
@@ -61,6 +67,8 @@ const SettingsContent = ({
                   title={t('storage')}
                   href={`${settingsAppURL}#/storage`}
                   className="coz-nav-settings-item-storage-link"
+                  tabIndex={tabIndex}
+                  aria-hidden={ariaHidden}
                 >
                   {t('storage')}
                   <StorageData data={storageData} />
@@ -78,6 +86,8 @@ const SettingsContent = ({
                 target="_self"
                 data-icon="icon-hand"
                 title={t('permissions')}
+                tabIndex={tabIndex}
+                aria-hidden={ariaHidden}
               >
                 <p className="coz-label">{t('permissions')}</p>
               </a>
@@ -90,6 +100,8 @@ const SettingsContent = ({
               target="_self"
               data-icon="icon-devices"
               title={t('connectedDevices')}
+              tabIndex={tabIndex}
+              aria-hidden={ariaHidden}
             >
               <p className="coz-label">{t('connectedDevices')}</p>
             </a>
@@ -101,6 +113,8 @@ const SettingsContent = ({
               target="_self"
               data-icon="icon-globe"
               title={t('connections')}
+              tabIndex={tabIndex}
+              aria-hidden={ariaHidden}
             >
               <p className="coz-label">{t('connections')}</p>
             </a>
@@ -120,6 +134,8 @@ const SettingsContent = ({
             onClick={onClaudy}
             title={t('claudy.title')}
             label={t('claudy.title')}
+            tabIndex={tabIndex}
+            aria-hidden={ariaHidden}
           />
         </li>
       </ul>
@@ -135,6 +151,7 @@ const SettingsContent = ({
               rel="noopener noreferrer"
               data-icon="icon-help"
               title={t('help')}
+              tabIndex={tabIndex}
             >
               <p className="coz-label">{t('help')}</p>
               <span
@@ -150,6 +167,8 @@ const SettingsContent = ({
               target="_self"
               data-icon="icon-contact"
               title={t('contact')}
+              tabIndex={tabIndex}
+              aria-hidden={ariaHidden}
             >
               <p className="coz-label">{t('contact')}</p>
             </a>
@@ -163,6 +182,8 @@ const SettingsContent = ({
           data-icon="icon-logout"
           onClick={onLogOut}
           title={t('logout')}
+          tabIndex={tabIndex}
+          aria-hidden={ariaHidden}
         >
           {t('logout')}
         </button>
@@ -172,7 +193,8 @@ const SettingsContent = ({
 )
 
 SettingsContent.defaultProps = {
-  shoulDisplayViewOfferButton: false
+  shoulDisplayViewOfferButton: false,
+  tabIndex: -1
 }
 
 SettingsContent.propTypes = {
@@ -183,6 +205,8 @@ SettingsContent.propTypes = {
   storageData: PropTypes.object,
   onClaudy: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
   isDrawer: PropTypes.bool,
-  isClaudyLoading: PropTypes.bool
+  isClaudyLoading: PropTypes.bool,
+  tabIndex: PropTypes.number,
+  ariaHidden: PropTypes.bool
 }
 export default translate()(SettingsContent)

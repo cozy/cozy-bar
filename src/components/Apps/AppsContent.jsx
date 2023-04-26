@@ -25,7 +25,9 @@ export class AppsContent extends Component {
       breakpoints,
       homeApp,
       isFetchingApps,
-      onAppSwitch
+      onAppSwitch,
+      tabIndex,
+      ariaHidden
     } = this.props
     const { isMobile } = breakpoints
     const isHomeApp = homeApp && homeApp.isCurrentApp
@@ -39,7 +41,13 @@ export class AppsContent extends Component {
       <div className="coz-nav-pop-content">
         <ul className="coz-nav-group">
           {isMobile && homeApp && (
-            <AppItem app={homeApp} useHomeIcon onAppSwitch={onAppSwitch} />
+            <AppItem
+              app={homeApp}
+              useHomeIcon
+              onAppSwitch={onAppSwitch}
+              tabIndex={tabIndex}
+              ariaHidden={ariaHidden}
+            />
           )}
           {isFetchingApps
             ? new Array(3)
@@ -49,11 +57,23 @@ export class AppsContent extends Component {
                 .filter(app => app.slug !== homeSlug)
                 .sort(sorter(this.translateApp))
                 .map((app, index) => (
-                  <AppItem app={app} key={index} onAppSwitch={onAppSwitch} />
+                  <AppItem
+                    app={app}
+                    key={index}
+                    onAppSwitch={onAppSwitch}
+                    tabIndex={tabIndex}
+                    ariaHidden={ariaHidden}
+                  />
                 ))}
         </ul>
         {homeApp && !isMobile && !isHomeApp && (
-          <a role="menuitem" href={homeApp.href} className="coz-apps-home-btn">
+          <a
+            role="menuitem"
+            href={homeApp.href}
+            className="coz-apps-home-btn"
+            tabIndex={tabIndex}
+            aria-hidden={ariaHidden}
+          >
             <img src={cozyIcon} />
             {t('menu.home')}
           </a>
@@ -62,6 +82,11 @@ export class AppsContent extends Component {
     )
   }
 }
+
+AppsContent.defaultProps = {
+  tabIndex: -1
+}
+
 AppsContent.propTypes = {
   homeApp: Proptypes.shape({
     isCurrentApp: Proptypes.bool,
