@@ -3699,19 +3699,17 @@ cozy-authentication@1.19.1:
     snarkdown "1.2.2"
     url-polyfill "1.1.7"
 
-cozy-client@^27.14.4:
-  version "27.14.4"
-  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-27.14.4.tgz#4b305ea38071b2fc305dd3dc7dbbe844e3fcf50a"
-  integrity sha512-oIKOWTGdDIV+//Jv0mP8pEXu4DdyKh41NQfPROCDaplezCeHEIddKwgGCPc1NomHEyWDWKTnZIyOh994v/BBfg==
+cozy-client@^38.2.1:
+  version "38.2.1"
+  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-38.2.1.tgz#b18d002b38de7bd28af17b64b7e570fda36059f1"
+  integrity sha512-WoRtOmOBHpR/WeQhUijaa36IqN5c7uWVoFjXC49eKOdd9NnnF9hpG4Aq3OHLfNtKeZsYtwscDiaeB3f5J/GNtQ==
   dependencies:
     "@cozy/minilog" "1.0.0"
     "@types/jest" "^26.0.20"
     "@types/lodash" "^4.14.170"
     btoa "^1.2.1"
-    cozy-device-helper "^1.12.0"
-    cozy-flags "2.7.1"
-    cozy-logger "^1.6.0"
-    cozy-stack-client "^27.14.4"
+    cozy-stack-client "^38.0.2"
+    date-fns "2.29.3"
     json-stable-stringify "^1.0.1"
     lodash "^4.17.13"
     microee "^0.0.6"
@@ -3726,20 +3724,6 @@ cozy-client@^27.14.4:
     sift "^6.0.0"
     url-search-params-polyfill "^8.0.0"
 
-cozy-device-helper@^1.12.0, cozy-device-helper@^1.16.1:
-  version "1.16.1"
-  resolved "https://registry.yarnpkg.com/cozy-device-helper/-/cozy-device-helper-1.16.1.tgz#559b6c3f104541b53603590ccd6fc89296878f26"
-  integrity sha512-20IZGl7O1+J9qft+zMElL5nrSakAgqOx00IDsbbnJSFDLYtbA6wW6tIKOahYB+YLsDXEwiw6bzccqjiBXU0JAQ==
-  dependencies:
-    lodash "^4.17.19"
-
-cozy-device-helper@^1.17.0:
-  version "1.17.0"
-  resolved "https://registry.yarnpkg.com/cozy-device-helper/-/cozy-device-helper-1.17.0.tgz#fbce9737ea83c67969b2b173163b37299a36283c"
-  integrity sha512-G61i75dPe/JwLUxN0foWG34lnm+0iybMu05AjoXv/UU2fRsTPfNnsHH4ZRi5JS6OPK4ccuj+ffRmabdywo23TA==
-  dependencies:
-    lodash "^4.17.19"
-
 cozy-device-helper@^1.8.0:
   version "1.10.0"
   resolved "https://registry.yarnpkg.com/cozy-device-helper/-/cozy-device-helper-1.10.0.tgz#86c102d32b012f648dbce36cc6031d3895ee95a2"
@@ -3747,47 +3731,46 @@ cozy-device-helper@^1.8.0:
   dependencies:
     lodash "4.17.19"
 
-cozy-flags@2.7.1:
-  version "2.7.1"
-  resolved "https://registry.yarnpkg.com/cozy-flags/-/cozy-flags-2.7.1.tgz#f37251fee248ef9bef079a22bc52954f1a892dfc"
-  integrity sha512-TtVhuyMSRADRr4q5LSaRjq6u03S5m1zkZRc8n3q8bfad86FizqGC02m3e/Zh4kWTwnsO0pVW+mzeVSsBqDVT/g==
+cozy-device-helper@^2.7.0:
+  version "2.7.0"
+  resolved "https://registry.yarnpkg.com/cozy-device-helper/-/cozy-device-helper-2.7.0.tgz#573749997f18e5a1f11f720faec8c9bf2406beeb"
+  integrity sha512-jMzW7s4IDuMivbsP8fo1IWW1z5l0wJ0u440E0fQmdsi+Zm/L9GXFKthLuuceYqXlH6c/APUCfpozJqjFMMHU1A==
+  dependencies:
+    lodash "^4.17.19"
+
+cozy-flags@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/cozy-flags/-/cozy-flags-3.0.1.tgz#ffb0f3e57f6e3d631f8fa420e866f0eacddd222a"
+  integrity sha512-+uvrrzchRxg2+M0a9uoCEJCLDLwe1DdmTgXlu56zFagqMQGCxgLSHLL7MrP/8cjt9LjgzVdqO4Mg+mDtAIqc/g==
   dependencies:
     microee "^0.0.6"
 
-cozy-flags@^2.8.5:
-  version "2.8.5"
-  resolved "https://registry.yarnpkg.com/cozy-flags/-/cozy-flags-2.8.5.tgz#4aaaf681218e41de3d368953f5572bdb84930351"
-  integrity sha512-vh1i6oIMvXCxCAVTBp7JJFvQ78xaM2TqrdhQ7PXQ51wckm8a3T8K7RQIUAyjxMxJqorVNwlDyhDSLAs+yzyUsQ==
-  dependencies:
-    microee "^0.0.6"
+cozy-interapp@^0.8.0:
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/cozy-interapp/-/cozy-interapp-0.8.0.tgz#ca6749fcc674603269cf861fe808fc1a1add409c"
+  integrity sha512-oXz0HjMLmUWjhVZjZoqVL6llZDLE7v0Hv+kDT8b3s/0hF7Wa9MISBsjJ9sAJbRcJUGfnYNcwBu39F8zZNvMHuQ==
 
-cozy-interapp@0.4.9:
-  version "0.4.9"
-  resolved "https://registry.yarnpkg.com/cozy-interapp/-/cozy-interapp-0.4.9.tgz#5ef68d54755cc99c3e154e5a4646b68cbe5f16fd"
-  integrity sha512-skyjrewnMu5zMfST7vTNGl3jsuWae1Iwfdev6pW9RLgb58M7oBSpsIa3ofRANv5tx0XVQDVSEzWvbFQ84WJPSg==
-
-cozy-logger@^1.6.0:
-  version "1.6.0"
-  resolved "https://registry.yarnpkg.com/cozy-logger/-/cozy-logger-1.6.0.tgz#51675e081e0a40baae6c38c64718cfaee5ee66ff"
-  integrity sha512-UkPR5lQDY6HldNv3N3c8HaxlfgcgAB/iRBFwJNFL2I17lhcM0u7w27vo1nuFeX6geMeFUjvedq/awawxZ1mTQg==
+cozy-logger@^1.10.1:
+  version "1.10.1"
+  resolved "https://registry.yarnpkg.com/cozy-logger/-/cozy-logger-1.10.1.tgz#077f2c517ce0d52eb28d19a22389ac0fb9fcc4b7"
+  integrity sha512-6/A5Hqd7cLHmCIhUdyaRdssb7wqsl+mcsVWG3ViJZUEKwtT3N/MoMptT/haPCDKR5XLxIlYbvLmQWom3qtJE+A==
   dependencies:
     chalk "^2.4.2"
     json-stringify-safe "5.0.1"
 
-cozy-realtime@^4.0.5:
-  version "4.0.5"
-  resolved "https://registry.yarnpkg.com/cozy-realtime/-/cozy-realtime-4.0.5.tgz#61115917229092353264e8a94791f8a7219ec08c"
-  integrity sha512-ZsoEtnqneABu7+J/lTtCTFgNCNnXbruJo5LWKXZq0T6B2FFAH5AwbJCHSoOFftk3IUYEqAaZaLSdTmxalO06SQ==
+cozy-realtime@^4.4.1:
+  version "4.4.1"
+  resolved "https://registry.yarnpkg.com/cozy-realtime/-/cozy-realtime-4.4.1.tgz#dc39f0f55232b12c3d8bb44326f586ee39917a17"
+  integrity sha512-6ONVkZ9DWcm0q/GyeL78Y16qqdCoXxqC3wbAZ70Gk1TLux/ImILTRBbyVSPEmjrrU3AeGCmBjG92XBslHd5pHw==
   dependencies:
     "@cozy/minilog" "^1.0.0"
-    cozy-device-helper "^1.17.0"
+    cozy-device-helper "^2.7.0"
 
-cozy-stack-client@^27.14.4:
-  version "27.14.4"
-  resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-27.14.4.tgz#04a8d27c87a85093bcd28fa8fd5afd79e615987f"
-  integrity sha512-urSAFPEqMXBH0h2eHG+Cn9LqARe3TAXlUCRIpU/F2rGzeAJkeUpAEkMPgCJYhIdDC6q0qcQHwuBhwjcJFNZDyA==
+cozy-stack-client@^38.0.2:
+  version "38.0.2"
+  resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-38.0.2.tgz#d6534510b11e15a4f353b075348a130d7e4af184"
+  integrity sha512-GOOsyfugChHA+fiyr/6h6ARoUFYn/dVV3t2VWFfzQr/jpiXpOCaPr+jW+9D1HAfi2RTZJ6S7Zt8GXguEU/dthg==
   dependencies:
-    cozy-flags "2.7.1"
     detect-node "^2.0.4"
     mime "^2.4.0"
     qs "^6.7.0"
@@ -4192,6 +4175,11 @@ data-urls@^1.0.0, data-urls@^1.1.0:
     abab "^2.0.0"
     whatwg-mimetype "^2.2.0"
     whatwg-url "^7.0.0"
+
+date-fns@2.29.3:
+  version "2.29.3"
+  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.29.3.tgz#27402d2fc67eb442b511b70bbdf98e6411cd68a8"
+  integrity sha512-dDCnyH2WnnKusqvZZ6+jA1O51Ibt8ZMRNkDZdyAyK4YfbDwa/cEmuztzG5pk6hqlp9aSBPYcjOlktquahGwGeA==
 
 date-fns@^1.28.5:
   version "1.30.1"
