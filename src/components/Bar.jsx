@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 
 import { translate } from 'cozy-ui/react/I18n'
 import Icon from 'cozy-ui/react/Icon'
@@ -109,7 +110,8 @@ export class Bar extends Component {
       appSlug,
       iconPath,
       replaceTitleOnMobile,
-      isPublic
+      isPublic,
+      isInvertedTheme
     } = this.props
     return (
       <Apps
@@ -119,15 +121,21 @@ export class Bar extends Component {
         iconPath={iconPath}
         replaceTitleOnMobile={replaceTitleOnMobile}
         isPublic={isPublic}
+        isInvertedTheme={isInvertedTheme}
       />
     )
   }
 
   renderLeft = () => {
-    const { t, isPublic, webviewContext } = this.props
+    const { t, isPublic, webviewContext, isInvertedTheme } = this.props
 
     if (isFlagshipApp() || flag('flagship.debug')) {
-      return <ButtonCozyHome webviewContext={webviewContext} />
+      return (
+        <ButtonCozyHome
+          webviewContext={webviewContext}
+          isInvertedTheme={isInvertedTheme}
+        />
+      )
     }
 
     // data-tutorial attribute allows to be targeted in an application tutorial
@@ -168,7 +176,8 @@ export class Bar extends Component {
       onDrawer,
       isPublic,
       onLogOut,
-      userActionRequired
+      userActionRequired,
+      isInvertedTheme
     } = this.props
 
     const {
@@ -204,6 +213,7 @@ export class Bar extends Component {
               isClaudyLoading={claudyFired}
               drawerListener={() => onDrawer(drawerVisible)}
               onLogOut={onLogOut}
+              isInvertedTheme={isInvertedTheme}
             />
           ) : null}
           {claudyEnabled && (
@@ -218,6 +228,22 @@ export class Bar extends Component {
       </div>
     )
   }
+}
+
+Bar.propTypes = {
+  appName: PropTypes.string,
+  appNamePrefix: PropTypes.string,
+  appSlug: PropTypes.string,
+  iconPath: PropTypes.string,
+  replaceTitleOnMobile: PropTypes.bool,
+  isPublic: PropTypes.bool,
+  isInvertedTheme: PropTypes.bool,
+  onLogOut: PropTypes.func,
+  onDrawer: PropTypes.func,
+  userActionRequired: PropTypes.object,
+  cozyClient: PropTypes.object.isRequired,
+  isDrive: PropTypes.bool.isRequired,
+  searchBarEnabled: PropTypes.bool
 }
 
 export const mapStateToProps = state => ({

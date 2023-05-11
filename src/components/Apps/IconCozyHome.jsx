@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react'
+import PropTypes from 'prop-types'
 
 import AppIcon from 'cozy-ui/react/AppIcon'
 
@@ -7,9 +8,13 @@ import homeIcon from 'assets/sprites/icon-cozy-home.svg'
 
 class IconCozyHome extends PureComponent {
   render() {
-    const { className } = this.props
-    const fetchIcon = () =>
-      `${stack.get.cozyURL()}/assets/images/icon-cozy-home.svg`
+    const { className, isInvertedTheme } = this.props
+    const fetchIcon = () => {
+      if (isInvertedTheme) {
+        return `${stack.get.cozyURL()}/assets/images/icon-cozy-home-inverted.svg`
+      }
+      return `${stack.get.cozyURL()}/assets/images/icon-cozy-home.svg`
+    }
 
     return (
       <AppIcon
@@ -19,6 +24,11 @@ class IconCozyHome extends PureComponent {
       />
     )
   }
+}
+
+IconCozyHome.propTypes = {
+  className: PropTypes.string,
+  isInvertedTheme: PropTypes.bool
 }
 
 export default IconCozyHome
