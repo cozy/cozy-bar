@@ -1,14 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import Proptypes from 'prop-types'
+import PropTypes from 'prop-types'
 
 import { translate } from 'cozy-ui/transpiled/react/I18n'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import CloudIcon from 'cozy-ui/transpiled/react/Icons/Cloud'
-
 import withBreakpoints from 'cozy-ui/transpiled/react/helpers/withBreakpoints'
-import { getApps, getHomeApp, isFetchingApps } from 'lib/reducers'
 
+import { getApps, getHomeApp, isFetchingApps } from 'lib/reducers'
 import AppItem from 'components/Apps/AppItem'
 import AppItemPlaceholder from 'components/Apps/AppItemPlaceholder'
 
@@ -27,7 +26,8 @@ export class AppsContent extends Component {
       breakpoints,
       homeApp,
       isFetchingApps,
-      onAppSwitch
+      onAppSwitch,
+      isInvertedTheme
     } = this.props
     const { isMobile } = breakpoints
     const isHomeApp = homeApp && homeApp.isCurrentApp
@@ -41,7 +41,12 @@ export class AppsContent extends Component {
       <div className="coz-nav-pop-content">
         <ul className="coz-nav-group">
           {isMobile && homeApp && (
-            <AppItem app={homeApp} useHomeIcon onAppSwitch={onAppSwitch} />
+            <AppItem
+              app={homeApp}
+              useHomeIcon
+              onAppSwitch={onAppSwitch}
+              isInvertedTheme={isInvertedTheme}
+            />
           )}
           {isFetchingApps
             ? new Array(3)
@@ -51,7 +56,12 @@ export class AppsContent extends Component {
                 .filter(app => app.slug !== homeSlug)
                 .sort(sorter(this.translateApp))
                 .map((app, index) => (
-                  <AppItem app={app} key={index} onAppSwitch={onAppSwitch} />
+                  <AppItem
+                    app={app}
+                    key={index}
+                    onAppSwitch={onAppSwitch}
+                    isInvertedTheme={isInvertedTheme}
+                  />
                 ))}
         </ul>
         {homeApp && !isMobile && !isHomeApp && (
@@ -64,13 +74,17 @@ export class AppsContent extends Component {
     )
   }
 }
+
 AppsContent.propTypes = {
-  homeApp: Proptypes.shape({
-    isCurrentApp: Proptypes.bool,
-    slug: Proptypes.string
+  homeApp: PropTypes.shape({
+    isCurrentApp: PropTypes.bool,
+    slug: PropTypes.string,
+    href: PropTypes.string
   }),
-  apps: Proptypes.array,
-  isFetchingApps: Proptypes.bool.isRequired
+  apps: PropTypes.array,
+  isFetchingApps: PropTypes.bool.isRequired,
+  onAppSwitch: PropTypes.func,
+  isInvertedTheme: PropTypes.bool
 }
 const translateApp = t => app => {
   const namePrefix = app.namePrefix

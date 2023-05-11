@@ -41,6 +41,8 @@ window.cozy.bar.init({
 - `lang` is extracted from the `lang` attribute of the `<html>` tag. Defaults to 'en'
 - `iconPath` uses the favicon 32px. Defaults to a blank GIF
 
+To make the icon of Cozy(`icon-cozy-home.svg`) compatible with an inverted theme, please set the parameter `isInvertedTheme` to `true`
+
 ## Help link
 
 Help link is defined in your Cozy's [configuration file](https://github.com/cozy/cozy-stack/blob/master/docs/config.md#main-configuration-file), in the `context` section. See the `cozy.example.yaml` file [provided by the stack](https://github.com/cozy/cozy-stack/blob/master/cozy.example.yaml#L80).
