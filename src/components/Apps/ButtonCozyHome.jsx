@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 import flag from 'cozy-flags'
 import { isFlagshipApp } from 'cozy-device-helper'
@@ -6,7 +7,12 @@ import { translate } from 'cozy-ui/react/I18n'
 
 import IconCozyHome from './IconCozyHome'
 
-const ButtonCozyHomeWithI18n = ({ webviewContext, homeHref, t }) => {
+const ButtonCozyHomeWithI18n = ({
+  webviewContext,
+  homeHref,
+  t,
+  isInvertedTheme
+}) => {
   if (isFlagshipApp() || flag('flagship.debug'))
     return (
       <a
@@ -18,11 +24,14 @@ const ButtonCozyHomeWithI18n = ({ webviewContext, homeHref, t }) => {
         aria-label={t('menu.home')}
         data-testid="ButtonCozyHome-flagship"
       >
-        <IconCozyHome className="coz-nav-apps-btns-home-svg" />
+        <IconCozyHome
+          className="coz-nav-apps-btns-home-svg"
+          isInvertedTheme={isInvertedTheme}
+        />
       </a>
     )
 
-  if (homeHref)
+  if (homeHref) {
     return (
       <a
         href={homeHref}
@@ -31,9 +40,13 @@ const ButtonCozyHomeWithI18n = ({ webviewContext, homeHref, t }) => {
         aria-label={t('menu.home')}
         data-testid="ButtonCozyHome-homeHref"
       >
-        <IconCozyHome className="coz-nav-apps-btns-home-svg" />
+        <IconCozyHome
+          className="coz-nav-apps-btns-home-svg"
+          isInvertedTheme={isInvertedTheme}
+        />
       </a>
     )
+  }
 
   return (
     <span
@@ -41,9 +54,18 @@ const ButtonCozyHomeWithI18n = ({ webviewContext, homeHref, t }) => {
       aria-hidden="true"
       data-testid="ButtonCozyHome-span"
     >
-      <IconCozyHome className="coz-nav-apps-btns-home-svg" />
+      <IconCozyHome
+        className="coz-nav-apps-btns-home-svg"
+        isInvertedTheme={isInvertedTheme}
+      />
     </span>
   )
+}
+
+ButtonCozyHomeWithI18n.propTypes = {
+  webviewContext: PropTypes.object,
+  homeHref: PropTypes.string,
+  isInvertedTheme: PropTypes.bool
 }
 
 const ButtonCozyHome = translate()(ButtonCozyHomeWithI18n)

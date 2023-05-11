@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import Proptypes from 'prop-types'
+import PropTypes from 'prop-types'
 
 import { translate } from 'cozy-ui/react/I18n'
 import withBreakpoints from 'cozy-ui/react/helpers/withBreakpoints'
-import { getApps, getHomeApp, isFetchingApps } from 'lib/reducers'
 
+import { getApps, getHomeApp, isFetchingApps } from 'lib/reducers'
 import AppItem from 'components/Apps/AppItem'
 import AppItemPlaceholder from 'components/Apps/AppItemPlaceholder'
 import cozyIcon from 'assets/icons/16/icon-cozy-16.svg'
@@ -27,7 +27,8 @@ export class AppsContent extends Component {
       isFetchingApps,
       onAppSwitch,
       tabIndex,
-      ariaHidden
+      ariaHidden,
+      isInvertedTheme
     } = this.props
     const { isMobile } = breakpoints
     const isHomeApp = homeApp && homeApp.isCurrentApp
@@ -47,6 +48,7 @@ export class AppsContent extends Component {
               onAppSwitch={onAppSwitch}
               tabIndex={tabIndex}
               ariaHidden={ariaHidden}
+              isInvertedTheme={isInvertedTheme}
             />
           )}
           {isFetchingApps
@@ -63,6 +65,7 @@ export class AppsContent extends Component {
                     onAppSwitch={onAppSwitch}
                     tabIndex={tabIndex}
                     ariaHidden={ariaHidden}
+                    isInvertedTheme={isInvertedTheme}
                   />
                 ))}
         </ul>
@@ -88,12 +91,17 @@ AppsContent.defaultProps = {
 }
 
 AppsContent.propTypes = {
-  homeApp: Proptypes.shape({
-    isCurrentApp: Proptypes.bool,
-    slug: Proptypes.string
+  homeApp: PropTypes.shape({
+    isCurrentApp: PropTypes.bool,
+    slug: PropTypes.string,
+    href: PropTypes.string
   }),
-  apps: Proptypes.array,
-  isFetchingApps: Proptypes.bool.isRequired
+  apps: PropTypes.array,
+  isFetchingApps: PropTypes.bool.isRequired,
+  onAppSwitch: PropTypes.func,
+  tabIndex: PropTypes.number,
+  ariaHidden: PropTypes.bool,
+  isInvertedTheme: PropTypes.bool
 }
 const translateApp = t => app => {
   const namePrefix = app.namePrefix

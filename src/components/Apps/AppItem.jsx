@@ -1,13 +1,14 @@
 import React from 'react'
 import get from 'lodash/get'
-import { appShape } from 'proptypes/index'
-import { models } from 'cozy-client'
+import PropTypes from 'prop-types'
 
+import { models } from 'cozy-client'
 import AppIcon from 'cozy-ui/react/AppIcon'
 import AppLinker from 'cozy-ui/react/AppLinker'
+
 import HomeIcon from 'components/Apps/IconCozyHome'
+import { appShape } from 'proptypes/index'
 import stack from 'lib/stack'
-import PropTypes from 'prop-types'
 
 const getAppDisplayName = get(models, 'applications.getAppDisplayName', app => {
   return app.namePrefix && app.namePrefix.toLowerCase() !== 'cozy'
@@ -64,7 +65,13 @@ export class AppItem extends React.Component {
   }
 
   render() {
-    const { useHomeIcon, app, ariaHidden, tabIndex } = this.props
+    const {
+      useHomeIcon,
+      app,
+      ariaHidden,
+      tabIndex,
+      isInvertedTheme
+    } = this.props
 
     const dataIcon = app.slug ? `icon-${app.slug}` : ''
     const appName = getAppDisplayName(app)
@@ -92,7 +99,10 @@ export class AppItem extends React.Component {
                 aria-hidden={ariaHidden}
               >
                 {useHomeIcon ? (
-                  <HomeIcon className="coz-nav-apps-item-icon" />
+                  <HomeIcon
+                    className="coz-nav-apps-item-icon"
+                    isInvertedTheme={isInvertedTheme}
+                  />
                 ) : (
                   <AppIcon
                     app={app}
@@ -113,7 +123,11 @@ export class AppItem extends React.Component {
 
 AppItem.propTypes = {
   app: appShape.isRequired,
-  useHomeIcon: PropTypes.bool
+  useHomeIcon: PropTypes.bool,
+  ariaHidden: PropTypes.bool,
+  tabIndex: PropTypes.number,
+  isInvertedTheme: PropTypes.bool,
+  onAppSwitch: PropTypes.func
 }
 
 export default AppItem

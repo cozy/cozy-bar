@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
 import AppsContent from 'components/Apps/AppsContent'
 import AppNavButtons from 'components/Apps/AppNavButtons'
@@ -45,7 +46,8 @@ class Apps extends Component {
       appNamePrefix,
       appSlug,
       iconPath,
-      isPublic
+      isPublic,
+      isInvertedTheme
     } = this.props
     const { opened } = this.state
     const tabIndex = opened ? 0 : -1
@@ -66,6 +68,7 @@ class Apps extends Component {
           handleClick={this.toggleMenu}
           opened={opened}
           isPublic={isPublic}
+          isInvertedTheme={isInvertedTheme}
         />
         <div
           className="coz-nav-pop coz-nav-pop--apps"
@@ -73,11 +76,25 @@ class Apps extends Component {
           aria-hidden={!opened}
           tabIndex={tabIndex}
         >
-          <AppsContent tabIndex={tabIndex} ariaHidden={!opened} />
+          <AppsContent
+            tabIndex={tabIndex}
+            ariaHidden={!opened}
+            isInvertedTheme={isInvertedTheme}
+          />
         </div>
       </nav>
     )
   }
+}
+
+Apps.propTypes = {
+  appName: PropTypes.string,
+  appNamePrefix: PropTypes.string,
+  appSlug: PropTypes.string,
+  iconPath: PropTypes.string,
+  replaceTitleOnMobile: PropTypes.bool,
+  isPublic: PropTypes.bool,
+  isInvertedTheme: PropTypes.bool
 }
 
 export default Apps

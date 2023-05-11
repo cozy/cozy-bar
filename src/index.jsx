@@ -121,23 +121,23 @@ let exposedAPI = {}
  * Initializes the cozy bar
  *
  * It can be initialized either with a cozyClient instance
- * or a { cozyURL, ssl, token } tupple.
  *
- * @function
- * @param {Object}  arg
- * @param {string}  arg.appName    - App name to be displayed in the bar
- * @param {string}  arg.appNamePrefix
- * @param {string}  arg.lang       - Language for the bar
- * @param {string}  arg.iconPath   -
- * @param {Object}  arg.cozyClient - a cozy client instance
- * @param {string}  arg.cozyURL    - URL or domain of the stack
- * @param {boolean} arg.ssl        - Tells if we should use a secure
- *                                   protocol required if cozyURL does
- *                                   not have a protocol
- * @param {string}  arg.token      - Access token for the stack
- * @param {boolean} arg.replaceTitleOnMobile
- * @param {boolean} arg.isPublic
- * @param {Function} arg.onLogout
+ * @param {Object} options - Options
+ * @param {string} options.appName - App name to be displayed in the bar
+ * @param {string} options.appNamePrefix - App name prefix to be displayed in the bar
+ * @param {string} options.appSlug - App slug to be displayed in the bar
+ * @param {string} options.lang - Language for the bar
+ * @param {string} options.iconPath - Icon path for the bar
+ * @param {string} options.isInvertedTheme - For use Home icon with inverted color
+ * @param {Object} options.cozyClient - A cozy client instance
+ * @param {string} options.cozyURL - URL or domain of the stack
+ * @param {string} options.token - Access token for the stack
+ * @param {boolean} options.replaceTitleOnMobile - Replace title on mobile (default: false)
+ * @param {boolean} options.isPublic - Is public (default: false)
+ * @param {Function} options.onLogout - On logout callback
+ * @example
+ * import cozyBar from 'cozy-bar'
+ * cozyBar.init({ appName: 'My awesome app', appNamePrefix: 'Cozy', lang: 'en', iconPath: 'icon.svg', cozyClient: client })
  */
 const init = async ({
   appName,
@@ -145,6 +145,7 @@ const init = async ({
   appSlug = getAppSlug(),
   lang,
   iconPath = getDefaultIcon(),
+  isInvertedTheme,
   cozyClient,
   cozyURL,
   token,
@@ -181,6 +182,7 @@ const init = async ({
 
   const options = {
     appName,
+    isInvertedTheme,
     appNamePrefix,
     appSlug,
     cozyClient,

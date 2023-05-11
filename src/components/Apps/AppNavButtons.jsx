@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-
-import { getHomeApp } from 'lib/reducers'
+import PropTypes from 'prop-types'
 
 import { translate } from 'cozy-ui/react/I18n'
 import Icon from 'cozy-ui/react/Icon'
+
+import { getHomeApp } from 'lib/reducers'
 import { isFetchingApps } from 'lib/reducers'
 import { ButtonCozyHome } from './ButtonCozyHome'
 
@@ -17,6 +18,7 @@ class AppNavButton extends Component {
       appNamePrefix,
       appSlug,
       iconPath,
+      isInvertedTheme,
       isFetchingApps,
       isPublic,
       opened,
@@ -50,7 +52,7 @@ class AppNavButton extends Component {
 
     return (
       <div className={`coz-nav-apps-btns${isHomeApp ? ' --currentHome' : ''}`}>
-        <ButtonCozyHome homeHref={homeHref} />
+        <ButtonCozyHome homeHref={homeHref} isInvertedTheme={isInvertedTheme} />
 
         {!isHomeApp && <span className="coz-nav-apps-btns-sep" />}
 
@@ -73,6 +75,23 @@ class AppNavButton extends Component {
       </div>
     )
   }
+}
+
+AppNavButton.propTypes = {
+  homeApp: PropTypes.shape({
+    isCurrentApp: PropTypes.bool,
+    slug: PropTypes.string,
+    href: PropTypes.string
+  }),
+  handleClick: PropTypes.func,
+  appName: PropTypes.string,
+  appNamePrefix: PropTypes.string,
+  appSlug: PropTypes.string,
+  iconPath: PropTypes.string,
+  isInvertedTheme: PropTypes.bool,
+  isFetchingApps: PropTypes.bool,
+  isPublic: PropTypes.bool,
+  opened: PropTypes.bool
 }
 
 const mapStateToProps = state => ({
