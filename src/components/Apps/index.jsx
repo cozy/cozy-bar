@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
 import AppsContent from 'components/Apps/AppsContent'
 import AppNavButtons from 'components/Apps/AppNavButtons'
@@ -39,7 +40,14 @@ class Apps extends Component {
 
   // data-tutorial attribute allows to be targeted in an application tutorial
   render() {
-    const { appName, appNamePrefix, appSlug, iconPath, isPublic } = this.props
+    const {
+      appName,
+      appNamePrefix,
+      appSlug,
+      iconPath,
+      isPublic,
+      isInvertedTheme
+    } = this.props
     const { opened } = this.state
     return (
       <nav
@@ -56,17 +64,27 @@ class Apps extends Component {
           handleClick={this.toggleMenu}
           opened={opened}
           isPublic={isPublic}
+          isInvertedTheme={isInvertedTheme}
         />
         <div
           className="coz-nav-pop coz-nav-pop--apps"
           id="coz-nav-pop--apps"
           aria-hidden={!opened}
         >
-          <AppsContent />
+          <AppsContent isInvertedTheme={isInvertedTheme} />
         </div>
       </nav>
     )
   }
+}
+
+Apps.propTypes = {
+  appName: PropTypes.string,
+  appNamePrefix: PropTypes.string,
+  appSlug: PropTypes.string,
+  iconPath: PropTypes.string,
+  isPublic: PropTypes.bool,
+  isInvertedTheme: PropTypes.bool
 }
 
 export default Apps

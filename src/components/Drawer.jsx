@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Hammer from 'hammerjs'
+import PropTypes from 'prop-types'
 
 import AppsContent from 'components/Apps/AppsContent'
 import SettingsContent from 'components/Settings/SettingsContent'
@@ -167,7 +168,8 @@ class Drawer extends Component {
       visible,
       isClaudyLoading,
       settingsAppURL,
-      storageData
+      storageData,
+      isInvertedTheme
     } = this.props
     return (
       <div
@@ -184,7 +186,10 @@ class Drawer extends Component {
           }}
         >
           <nav className="coz-drawer--apps">
-            <AppsContent onAppSwitch={this.close} />
+            <AppsContent
+              onAppSwitch={this.close}
+              isInvertedTheme={isInvertedTheme}
+            />
           </nav>
           <hr className="coz-sep-flex" />
           <nav className="coz-drawer--settings">
@@ -201,6 +206,19 @@ class Drawer extends Component {
       </div>
     )
   }
+}
+
+Drawer.propTypes = {
+  visible: PropTypes.bool,
+  onClose: PropTypes.func,
+  onLogOut: PropTypes.func,
+  onClaudy: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
+  isClaudyLoading: PropTypes.bool,
+  isInvertedTheme: PropTypes.bool,
+  storageData: PropTypes.object,
+  settingsAppURL: PropTypes.string,
+  fetchSettingsData: PropTypes.func,
+  logOut: PropTypes.func
 }
 
 export { Drawer }
