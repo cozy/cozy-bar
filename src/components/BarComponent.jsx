@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Provider, connect } from 'react-redux'
 
 import { isMobileApp } from 'cozy-device-helper'
@@ -15,8 +15,6 @@ import {
   setInfos
 } from 'lib/reducers'
 
-import { createBarAPI } from 'lib/api'
-
 import { getUserActionRequired } from '../dom'
 
 import enLocale from 'locales/en.json'
@@ -31,35 +29,19 @@ const locales = {
 import Bar from './Bar'
 import I18n from 'cozy-ui/transpiled/react/I18n'
 
-/* const BarComponent = () => {
-  const targetName = isMobileApp() ? 'mobile' : 'browser'
-
-  return (
-    <div id="coz-bar" role="banner" className={`coz-target--${targetName}`}>
-      <Bar />
-    </div>
-  )
-} */
-
-let exposedAPI = {}
+import { getAppNamePrefix, getAppSlug, getDefaultIcon } from '../dom'
+import { BarContext } from './BarProvider'
 
 const BarComponent = ({
   appName,
-  appNamePrefix,
-  appSlug,
+  appNamePrefix = getAppNamePrefix(),
+  appSlug = getAppSlug(),
   lang,
-  iconPath,
-  replaceTitleOnMobile,
-  isPublic,
+  iconPath = getDefaultIcon(),
+  replaceTitleOnMobile = false,
+  isPublic = false,
   onLogOut
 }) => {
-  // default value
-  // appNamePrefix = getAppNamePrefix(),
-  // appSlug = getAppSlug(),
-  // iconPath = getDefaultIcon(),
-  // replaceTitleOnMobile = false,
-  // isPublic = false,
-
   const cozyClient = useClient()
   const targetName = isMobileApp() ? 'mobile' : 'browser'
 
@@ -81,10 +63,6 @@ const BarComponent = ({
     reduxStore.dispatch(setLocale(lang))
   }
 
-  // Assign all api methods to the bar object
-  const apiMethods = createBarAPI(reduxStore)
-  Object.assign(exposedAPI, apiMethods)
-
   const options = {
     appName,
     appNamePrefix,
@@ -100,29 +78,27 @@ const BarComponent = ({
 
   // we connect the I18n component to the store to listen
   // locale change from the api setLocale()
-  const EnhancedI18n = connect(state => ({
+  /*  const EnhancedI18n = connect(state => ({
     lang: getLocale(state)
-  }))(I18n)
+  }))(I18n) */
+
+  // <EnhancedI18n dictRequire={lang => locales[lang]}></EnhancedI18n>
+
+  const { barSearch, barLeft, barCenter, barRight } = useContext(BarContext)
 
   return (
     <div id="coz-bar" role="banner" className={`coz-target--${targetName}`}>
       <Provider store={options.reduxStore}>
-        <EnhancedI18n dictRequire={lang => locales[lang]}>
-          <Bar {...options} />
-        </EnhancedI18n>
+        <Bar
+          {...options}
+          barSearch={barSearch}
+          barLeft={barLeft}
+          barCenter={barCenter}
+          barRight={barRight}
+        />
       </Provider>
     </div>
   )
 }
 
 export default BarComponent
-
-/*   // method to put cozy-bar z-index on the top when Drawer visible and vice versa
-  data.onDrawer = visible => {
-    barNode.dataset.drawerVisible = visible
-  }
-
-  // specific layout behaviour if banner displayed
-  if (data.userActionRequired) {
-    document.body.classList.add('has-banner')
-  } */

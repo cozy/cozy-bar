@@ -34,6 +34,9 @@ const locales = {
 }
 
 import BarComponent from './components/BarComponent'
+import BarProvider from './components/BarProvider'
+import BarSearch from './components/BarSearch'
+import BarRight from './components/BarRight'
 
 const createBarElement = () => {
   const targetName = isMobileApp() ? 'mobile' : 'browser'
@@ -222,9 +225,7 @@ const {
   setBarRight,
   setBarSearch,
   BarCenter,
-  BarRight,
   BarLeft,
-  BarSearch,
   setTheme,
   setWebviewContext
 } = proxiedAPI
@@ -239,12 +240,13 @@ export {
   setBarRight,
   setBarSearch,
   BarLeft,
-  BarRight,
   BarCenter,
-  BarSearch,
   setTheme,
   setWebviewContext,
   setLocale,
   updateAccessToken,
-  BarComponent
+  BarComponent,
+  BarProvider,
+  BarSearch,
+  BarRight
 }
