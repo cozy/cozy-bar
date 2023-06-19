@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 
 import AppIcon from 'cozy-ui/transpiled/react/AppIcon'
@@ -20,24 +20,21 @@ function SvgIconCozyHome(props) {
   )
 }
 
-class IconCozyHome extends PureComponent {
-  render() {
-    const { className, isInvertedTheme } = this.props
-    const fetchIcon = () => {
-      if (isInvertedTheme) {
-        return `${stack.get.cozyURL()}/assets/images/icon-cozy-home-inverted.svg`
-      }
-      return `${stack.get.cozyURL()}/assets/images/icon-cozy-home.svg`
+const IconCozyHome = ({ className, isInvertedTheme }) => {
+  const fetchIcon = () => {
+    if (isInvertedTheme) {
+      return `${stack.get.cozyURL()}/assets/images/icon-cozy-home-inverted.svg`
     }
-
-    return (
-      <AppIcon
-        fetchIcon={fetchIcon}
-        fallbackIcon={SvgIconCozyHome}
-        className={className}
-      />
-    )
+    return `${stack.get.cozyURL()}/assets/images/icon-cozy-home.svg`
   }
+
+  return (
+    <AppIcon
+      fetchIcon={fetchIcon}
+      fallbackIcon={SvgIconCozyHome}
+      className={className}
+    />
+  )
 }
 
 IconCozyHome.propTypes = {
