@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import get from 'lodash/get'
 import PropTypes from 'prop-types'
 
@@ -16,101 +16,64 @@ const getAppDisplayName = get(models, 'applications.getAppDisplayName', app => {
     : app.name
 })
 
-export class AppItem extends React.Component {
-  /**
-   * Used to add query params to AppLinker links, useful in overrides
-   * @param  {Object} props   AppItem props
-   * @param  {Object} context AppItem context
-   * @return {Object}         Query string parameters as object
-   */
-  static buildQueryParams = () => {
-    // default behaviour
-    return null
-  }
+export const AppItem = ({ onAppSwitch, useHomeIcon, app, isInvertedTheme }) => {
+  const [switchTimeout, setSwitchTimeout] = useState()
 
-  constructor(props) {
-    super(props)
-    this.onAppSwitch = this.onAppSwitch.bind(this)
-  }
-
-  componentWillUnmount() {
-    if (this.switchTimeout) clearTimeout(this.switchTimeout)
-  }
-
-  buildAppUrl(href) {
-    let url
-    try {
-      url = new URL(href)
-    } catch (error) {
-      // eslint-disable-next-line no-console
-      console.error(error.message)
-      return null
+  useEffect(() => {
+    return () => {
+      if (switchTimeout) clearTimeout(switchTimeout)
     }
-    const queryParams = AppItem.buildQueryParams(this.props, this.context)
-    if (queryParams) {
-      for (const name in queryParams) {
-        url.searchParams.append(name, queryParams[name])
-      }
-    }
-    return url.toString()
-  }
+  }, [switchTimeout])
 
-  onAppSwitch() {
-    const { onAppSwitch } = this.props
+  const switchApp = () => {
     if (typeof onAppSwitch === 'function') {
-      this.switchTimeout = setTimeout(() => {
-        onAppSwitch()
-      }, 1000)
+      setSwitchTimeout(
+        setTimeout(() => {
+          onAppSwitch()
+        }, 1000)
+      )
     }
   }
 
-  render() {
-    const { useHomeIcon, app, isInvertedTheme } = this.props
+  const dataIcon = app.slug ? `icon-${app.slug}` : ''
+  const appName = getAppDisplayName(app)
 
-    const dataIcon = app.slug ? `icon-${app.slug}` : ''
-    const appName = getAppDisplayName(app)
-
-    return (
-      <AppLinker
-        onAppSwitch={this.onAppSwitch}
-        href={this.buildAppUrl(app.href) || ''}
-        app={app}
-      >
-        {({ onClick, href }) => {
-          return (
-            <li
-              className={`coz-nav-apps-item${
-                app.isCurrentApp ? ' --current' : ''
-              }`}
+  return (
+    <AppLinker onAppSwitch={switchApp} href={app.href || ''} app={app}>
+      {({ onClick, href }) => {
+        return (
+          <li
+            className={`coz-nav-apps-item${
+              app.isCurrentApp ? ' --current' : ''
+            }`}
+          >
+            <a
+              role="menuitem"
+              href={href}
+              data-icon={dataIcon}
+              title={appName}
+              onClick={onClick}
             >
-              <a
-                role="menuitem"
-                href={href}
-                data-icon={dataIcon}
-                title={appName}
-                onClick={onClick}
-              >
-                {useHomeIcon ? (
-                  <HomeIcon
-                    className="coz-nav-apps-item-icon"
-                    isInvertedTheme={isInvertedTheme}
-                  />
-                ) : (
-                  <AppIcon
-                    app={app}
-                    className="coz-nav-apps-item-icon"
-                    key={app.slug}
-                    {...stack.get.iconProps()}
-                  />
-                )}
-                <p className="coz-label">{appName}</p>
-              </a>
-            </li>
-          )
-        }}
-      </AppLinker>
-    )
-  }
+              {useHomeIcon ? (
+                <HomeIcon
+                  className="coz-nav-apps-item-icon"
+                  isInvertedTheme={isInvertedTheme}
+                />
+              ) : (
+                <AppIcon
+                  app={app}
+                  className="coz-nav-apps-item-icon"
+                  key={app.slug}
+                  {...stack.get.iconProps()}
+                />
+              )}
+              <p className="coz-label">{appName}</p>
+            </a>
+          </li>
+        )
+      }}
+    </AppLinker>
+  )
 }
 
 AppItem.propTypes = {
