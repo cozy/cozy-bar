@@ -1,81 +1,71 @@
-import React, { Component } from 'react'
+import React, { useRef, useEffect, useCallback, useState } from 'react'
 import PropTypes from 'prop-types'
 
 import AppsContent from 'components/Apps/AppsContent'
 import AppNavButtons from 'components/Apps/AppNavButtons'
 
-class Apps extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      opened: false
-    }
-  }
+const Apps = ({
+  appName,
+  appNamePrefix,
+  appSlug,
+  iconPath,
+  isPublic,
+  isInvertedTheme
+}) => {
+  const [isOpen, setOpen] = useState()
+  const rootRef = useRef()
+  const modalContainer = useRef()
 
-  componentDidMount() {
-    document.body.addEventListener('click', this.onClickOutside)
-    this.modalContainer = document.getElementById('cozy-bar-modal-dom-place')
-  }
-
-  componentWillUnmount() {
-    document.body.removeEventListener('click', this.onClickOutside)
-  }
-
-  onClickOutside = event => {
-    if (this.state.opened) {
-      // if it's not a cozy-bar nav popup, close the opened popup
-      if (
-        !this.rootRef.contains(event.target) &&
-        !this.modalContainer.contains(event.target)
-      ) {
-        this.setState({ opened: false })
-        event.stopPropagation()
+  const onClickOutside = useCallback(
+    event => {
+      if (isOpen) {
+        // if it's not a cozy-bar nav popup, close the opened popup
+        if (
+          !rootRef.current.contains(event.target) &&
+          !modalContainer.current.contains(event.target)
+        ) {
+          setOpen(false)
+          event.stopPropagation()
+        }
       }
-    }
-  }
+    },
+    [isOpen]
+  )
 
-  toggleMenu = () => {
-    this.setState({ opened: !this.state.opened })
+  useEffect(() => {
+    document.body.addEventListener('click', onClickOutside)
+    modalContainer.current = document.getElementById('cozy-bar-modal-dom-place')
+    return () => {
+      document.body.removeEventListener('click', onClickOutside)
+    }
+  }, [onClickOutside])
+
+  const toggleMenu = () => {
+    setOpen(!isOpen)
   }
 
   // data-tutorial attribute allows to be targeted in an application tutorial
-  render() {
-    const {
-      appName,
-      appNamePrefix,
-      appSlug,
-      iconPath,
-      isPublic,
-      isInvertedTheme
-    } = this.props
-    const { opened } = this.state
-    return (
-      <nav
-        className="coz-nav coz-nav-apps"
-        ref={ref => {
-          this.rootRef = ref
-        }}
+  return (
+    <nav className="coz-nav coz-nav-apps" ref={rootRef}>
+      <AppNavButtons
+        appName={appName}
+        appNamePrefix={appNamePrefix}
+        appSlug={appSlug}
+        iconPath={iconPath}
+        handleClick={toggleMenu}
+        opened={isOpen}
+        isPublic={isPublic}
+        isInvertedTheme={isInvertedTheme}
+      />
+      <div
+        className="coz-nav-pop coz-nav-pop--apps"
+        id="coz-nav-pop--apps"
+        aria-hidden={!isOpen}
       >
-        <AppNavButtons
-          appName={appName}
-          appNamePrefix={appNamePrefix}
-          appSlug={appSlug}
-          iconPath={iconPath}
-          handleClick={this.toggleMenu}
-          opened={opened}
-          isPublic={isPublic}
-          isInvertedTheme={isInvertedTheme}
-        />
-        <div
-          className="coz-nav-pop coz-nav-pop--apps"
-          id="coz-nav-pop--apps"
-          aria-hidden={!opened}
-        >
-          <AppsContent isInvertedTheme={isInvertedTheme} />
-        </div>
-      </nav>
-    )
-  }
+        <AppsContent isInvertedTheme={isInvertedTheme} />
+      </div>
+    </nav>
+  )
 }
 
 Apps.propTypes = {
