@@ -142,7 +142,7 @@ const SettingsContent = ({
             type="button"
             role="menuitem"
             className="coz-nav-settings-item-btn"
-            busy={isClaudyLoading}
+            busy={isClaudyLoading.toString()}
             onClick={onClaudy}
           >
             <MenuIcon icon={CloudIcon} /> {t('claudy.title')}
