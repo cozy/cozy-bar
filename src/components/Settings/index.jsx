@@ -4,7 +4,7 @@ import { compose } from 'redux'
 import get from 'lodash/get'
 
 import { translate } from 'cozy-ui/transpiled/react/I18n'
-import { Button } from 'cozy-ui/transpiled/react/Button'
+import { Button } from 'cozy-ui/transpiled/react/deprecated/Button'
 import GearIcon from 'cozy-ui/transpiled/react/Icons/Gear'
 
 import { queryConnect } from 'cozy-client/dist'
