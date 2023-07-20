@@ -5,11 +5,11 @@ import PropTypes from 'prop-types'
 import BottomIcon from 'cozy-ui/transpiled/react/Icons/Bottom'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import TopIcon from 'cozy-ui/transpiled/react/Icons/Top'
-import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 
 import { ButtonCozyHome } from 'components/Apps/ButtonCozyHome'
 import { getHomeApp } from 'lib/reducers'
 import { isFetchingApps } from 'lib/reducers'
+import useI18n from 'components/useI18n'
 
 const AppNavButton = ({
   homeApp,

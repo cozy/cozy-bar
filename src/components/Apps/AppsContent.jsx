@@ -2,7 +2,6 @@ import React from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
-import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import CloudIcon from 'cozy-ui/transpiled/react/Icons/Cloud'
 import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
@@ -10,6 +9,7 @@ import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
 import { getApps, getHomeApp, isFetchingApps } from 'lib/reducers'
 import AppItem from 'components/Apps/AppItem'
 import AppItemPlaceholder from 'components/Apps/AppItemPlaceholder'
+import useI18n from 'components/useI18n'
 
 const sorter = fn => (itemA, itemB) => fn(itemA) > fn(itemB)
 

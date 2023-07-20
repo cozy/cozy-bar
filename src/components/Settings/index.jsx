@@ -2,9 +2,9 @@ import React, { useRef, useEffect, useState, useCallback } from 'react'
 import { connect } from 'react-redux'
 import get from 'lodash/get'
 
-import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 import { Button } from 'cozy-ui/transpiled/react/deprecated/Button'
 import GearIcon from 'cozy-ui/transpiled/react/Icons/Gear'
+import useI18n from 'components/useI18n'
 
 import { models, useQuery } from 'cozy-client'
 let instanceModel = undefined

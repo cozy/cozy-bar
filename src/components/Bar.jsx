@@ -2,7 +2,6 @@ import React, { useEffect, useState, useCallback } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
-import { translate } from 'cozy-ui/transpiled/react/providers/I18n'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import { isFlagshipApp } from 'cozy-device-helper'
 import flag from 'cozy-flags'
@@ -21,6 +20,7 @@ import {
   fetchSettingsData,
   getWebviewContext
 } from 'lib/reducers'
+import useI18n from 'components/useI18n'
 import { useClient } from 'cozy-client'
 
 /* Generated with node_modules/.bin/svgr src/assets/sprites/icon-apps.svg */
@@ -55,10 +55,10 @@ export const Bar = ({
   appNamePrefix,
   appSlug,
   iconPath,
-  hasFetchedApps,
-  t
+  hasFetchedApps
 }) => {
   const client = useClient()
+  const { t } = useI18n()
 
   const [drawerVisible, setDrawerVisible] = useState(false)
 
@@ -204,9 +204,7 @@ export const mapDispatchToProps = dispatch => ({
   fetchSettingsData: displayBusy => dispatch(fetchSettingsData(displayBusy))
 })
 
-export default translate()(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(Bar)
-)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Bar)
