@@ -1,7 +1,9 @@
 import React from 'react'
-import { translate } from 'cozy-ui/transpiled/react/providers/I18n'
 
-const StorageData = ({ t, data }) => {
+import useI18n from 'components/useI18n'
+
+const StorageData = ({ data }) => {
+  const { t } = useI18n()
   const diskQuota = Number.isInteger(data.quota)
     ? (data.quota / (1000 * 1000 * 1000)).toFixed(2)
     : data.quota
@@ -26,4 +28,4 @@ const StorageData = ({ t, data }) => {
   )
 }
 
-export default translate()(StorageData)
+export default StorageData
