@@ -1,9 +1,9 @@
-import React, { Component } from 'react'
+import React, { useRef, useEffect, useState, useCallback } from 'react'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import get from 'lodash/get'
 
-import { translate } from 'cozy-ui/transpiled/react/providers/I18n'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 import { Button } from 'cozy-ui/transpiled/react/deprecated/Button'
 import GearIcon from 'cozy-ui/transpiled/react/Icons/Gear'
 
@@ -48,130 +48,115 @@ import {
   cozyClientCanCheckPremium
 } from 'components/Settings/helper'
 
-export class Settings extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      opened: false
-    }
-  }
+export const Settings = ({
+  isBusy,
+  logOut,
+  onLogOut,
+  diskUsageQuery,
+  instanceQuery,
+  contextQuery,
+  storageData,
+  settingsAppURL,
+  isFetching
+}) => {
+  const [isOpen, setOpen] = useState(false)
+  const rootRef = useRef()
+  const { t } = useI18n()
 
-  componentDidMount() {
-    document.body.addEventListener('click', this.onClickOutside)
-  }
-
-  componentWillUnmount() {
-    document.body.removeEventListener('click', this.onClickOutside)
-  }
-
-  onClickOutside = event => {
-    if (this.props.isFetching || this.state.opened) {
-      // if it's not a cozy-bar nav popup, close the opened popup
-      if (!this.rootRef.contains(event.target)) {
-        this.setState({ opened: false })
-        event.stopPropagation()
+  const onClickOutside = useCallback(
+    event => {
+      if (isFetching || isOpen) {
+        // if it's not a cozy-bar nav popup, close the opened popup
+        if (!rootRef.current.contains(event.target)) {
+          setOpen(false)
+          event.stopPropagation()
+        }
       }
+    },
+    [isFetching, isOpen]
+  )
+
+  useEffect(() => {
+    document.body.addEventListener('click', onClickOutside)
+    return () => {
+      document.body.removeEventListener('click', onClickOutside)
     }
-  }
+  }, [onClickOutside])
 
-  toggleMenu = () => {
-    let stateUpdate = { opened: false }
+  const toggleMenu = () => {
     // if popup already opened, stop here to close it
-    if (this.state.opened) return this.setState(stateUpdate)
+    if (isOpen) return setOpen(false)
     // fetch data
-    this.props.fetchSettingsData()
-    this.setState({ opened: true })
+    fetchSettingsData()
+    setOpen(true)
   }
 
-  render() {
-    const {
-      isBusy,
-      logOut,
-      onLogOut,
-      t,
+  let shouldDisplayViewOfferButton = false
+  let managerUrlPremiumLink
+  let isFetchingFromQueries
+  const canCheckPremium = cozyClientCanCheckPremium()
+  if (canCheckPremium) {
+    isFetchingFromQueries = isFetchingQueries([
       diskUsageQuery,
       instanceQuery,
-      contextQuery,
-      storageData,
-      settingsAppURL,
-      isFetching
-    } = this.props
-
-    let shouldDisplayViewOfferButton = false
-    let managerUrlPremiumLink
-    let isFetchingFromQueries
-    const canCheckPremium = cozyClientCanCheckPremium()
-    if (canCheckPremium) {
-      isFetchingFromQueries = isFetchingQueries([
-        diskUsageQuery,
-        instanceQuery,
-        contextQuery
-      ])
-      if (!isFetchingFromQueries) {
-        const data = {
-          context: contextQuery,
-          diskUsage: diskUsageQuery,
-          instance: instanceQuery
-        }
-        shouldDisplayViewOfferButton =
-          instanceModel.shouldDisplayOffers(data) || hasAnOffer(data)
-
-        managerUrlPremiumLink = instanceModel.buildPremiumLink(data)
+      contextQuery
+    ])
+    if (!isFetchingFromQueries) {
+      const data = {
+        context: contextQuery,
+        diskUsage: diskUsageQuery,
+        instance: instanceQuery
       }
-    }
+      shouldDisplayViewOfferButton =
+        instanceModel.shouldDisplayOffers(data) || hasAnOffer(data)
 
-    let areAllFetchingDone = false
-    if (!canCheckPremium) {
-      areAllFetchingDone = !isFetching
-    } else {
-      areAllFetchingDone = !isFetchingFromQueries && !isFetching
+      managerUrlPremiumLink = instanceModel.buildPremiumLink(data)
     }
-
-    const { opened } = this.state
-    const openMenu = opened && areAllFetchingDone
-    return (
-      <div
-        className="coz-nav coz-nav-settings"
-        ref={ref => {
-          this.rootRef = ref
-        }}
-      >
-        <Button
-          type="button"
-          theme="text"
-          onClick={this.toggleMenu}
-          className="coz-nav-settings-btn"
-          aria-controls="coz-nav-pop--settings"
-          busy={isBusy}
-          icon={GearIcon}
-          label={t('menu.settings')}
-        />
-        <div
-          className="coz-nav-pop coz-nav-pop--settings"
-          id="coz-nav-pop--settings"
-          aria-hidden={!openMenu}
-        >
-          {areAllFetchingDone && (
-            <>
-              <SettingsContent
-                onLogOut={() => {
-                  if (onLogOut && typeof onLogOut === 'function') {
-                    onLogOut()
-                  } else {
-                    logOut()
-                  }
-                }}
-                storageData={storageData}
-                settingsAppURL={settingsAppURL}
-                shoulDisplayViewOfferButton={shouldDisplayViewOfferButton}
-                managerUrlPremiumLink={managerUrlPremiumLink}
-              />
-            </>
-          )}
-        </div>
-      </div>
-    )
   }
+
+  let areAllFetchingDone = false
+  if (!canCheckPremium) {
+    areAllFetchingDone = !isFetching
+  } else {
+    areAllFetchingDone = !isFetchingFromQueries && !isFetching
+  }
+
+  const openMenu = isOpen && areAllFetchingDone
+  return (
+    <div className="coz-nav coz-nav-settings" ref={rootRef}>
+      <Button
+        type="button"
+        theme="text"
+        onClick={toggleMenu}
+        className="coz-nav-settings-btn"
+        aria-controls="coz-nav-pop--settings"
+        busy={isBusy}
+        icon={GearIcon}
+        label={t('menu.settings')}
+      />
+      <div
+        className="coz-nav-pop coz-nav-pop--settings"
+        id="coz-nav-pop--settings"
+        aria-hidden={!openMenu}
+      >
+        {areAllFetchingDone && (
+          <SettingsContent
+            onLogOut={() => {
+              if (onLogOut && typeof onLogOut === 'function') {
+                onLogOut()
+              } else {
+                logOut()
+              }
+            }}
+            storageData={storageData}
+            settingsAppURL={settingsAppURL}
+            shoulDisplayViewOfferButton={shouldDisplayViewOfferButton}
+            managerUrlPremiumLink={managerUrlPremiumLink}
+          />
+        )}
+      </div>
+    </div>
+  )
 }
 
 const mapStateToProps = state => ({
@@ -188,7 +173,6 @@ const mapDispatchToProps = dispatch => ({
 let exported
 if (cozyClientCanCheckPremium()) {
   exported = compose(
-    translate(),
     queryConnect({
       instanceQuery: instanceReq,
       contextQuery: contextReq,
@@ -200,12 +184,9 @@ if (cozyClientCanCheckPremium()) {
     )
   )(Settings)
 } else {
-  exported = compose(
-    translate(),
-    connect(
-      mapStateToProps,
-      mapDispatchToProps
-    )
+  exported = connect(
+    mapStateToProps,
+    mapDispatchToProps
   )(Settings)
 }
 export default exported
