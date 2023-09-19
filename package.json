@@ -61,7 +61,7 @@
     "cozy-flags": "^2.10.2",
     "cozy-interapp": "0.4.9",
     "cozy-realtime": "^4.0.5",
-    "cozy-ui": "^88.2.1",
+    "cozy-ui": "^93.1.1",
     "css-loader": "1.0.1",
     "css-mqpacker": "7.0.0",
     "cssnano-preset-advanced": "4.0.7",
@@ -121,7 +121,7 @@
     "cozy-flags": "^2.10.2",
     "cozy-interapp": "0.4.9",
     "cozy-realtime": "^4.0.5",
-    "cozy-ui": "^88.2.1",
+    "cozy-ui": "^93.1.1",
     "cozy-logger": "1.9.1"
   },
   "jest": {
