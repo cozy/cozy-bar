@@ -1,7 +1,7 @@
 /* global __VERSION__ */
 
 import { isMobileApp } from 'cozy-device-helper'
-import { BreakpointsProvider } from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
+import { BreakpointsProvider } from 'cozy-ui/transpiled/react/providers/Breakpoints'
 
 import stack from 'lib/stack'
 import {
@@ -77,7 +77,7 @@ const renderBar = (barNode, options) => {
   const React = require('react')
   const { render } = require('react-dom')
   const { connect, Provider } = require('react-redux')
-  const I18n = require('cozy-ui/transpiled/react/I18n').default
+  const I18n = require('cozy-ui/transpiled/react/providers/I18n').default
   const Bar = require('components/Bar').default
   const CozyProvider = require('cozy-client').CozyProvider
 

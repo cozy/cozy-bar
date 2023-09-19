@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import BottomIcon from 'cozy-ui/transpiled/react/Icons/Bottom'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import TopIcon from 'cozy-ui/transpiled/react/Icons/Top'
-import { translate } from 'cozy-ui/transpiled/react/I18n'
+import { translate } from 'cozy-ui/transpiled/react/providers/I18n'
 
 import { ButtonCozyHome } from 'components/Apps/ButtonCozyHome'
 import { getHomeApp } from 'lib/reducers'

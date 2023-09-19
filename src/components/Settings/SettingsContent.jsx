@@ -4,7 +4,7 @@ import flag from 'cozy-flags'
 
 import { isMobileApp } from 'cozy-device-helper'
 
-import { translate } from 'cozy-ui/transpiled/react/I18n'
+import { translate } from 'cozy-ui/transpiled/react/providers/I18n'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import OpenwithIcon from 'cozy-ui/transpiled/react/Icons/Openwith'
 import PeopleIcon from 'cozy-ui/transpiled/react/Icons/People'
