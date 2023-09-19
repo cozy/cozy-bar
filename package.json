@@ -55,7 +55,7 @@
     "cozy-authentication": "1.19.1",
     "cozy-intent": "^1.7.0",
     "@cozy/minilog": "^1.0.0",
-    "cozy-client": "^38.9.2",
+    "cozy-client": "^40.5.0",
     "cozy-device-helper": "2.6.0",
     "cozy-logger": "1.9.1",
     "cozy-flags": "^2.10.2",
@@ -116,7 +116,7 @@
   },
   "peerDependencies": {
     "@cozy/minilog": "^1.0.0",
-    "cozy-client": "^38.9.2",
+    "cozy-client": "^40.5.0",
     "cozy-device-helper": "2.6.0",
     "cozy-flags": "^2.10.2",
     "cozy-interapp": "0.4.9",
