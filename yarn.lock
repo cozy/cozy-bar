@@ -13664,16 +13664,16 @@ supports-hyperlinks@^1.0.1:
     has-flag "^2.0.0"
     supports-color "^5.0.0"
 
-svg-baker-runtime@1.4.1:
-  version "1.4.1"
-  resolved "https://registry.yarnpkg.com/svg-baker-runtime/-/svg-baker-runtime-1.4.1.tgz#d3f77dffdf1f1a8b8f1e84ef67d2c1b53d60d770"
-  integrity sha512-4HLs8dU5kP4+zWix3MoZUge7kSVO6VCg14dLJWVIRWZx1vik21k/h5T620VXRoIyn0nw8g1R8Qk+VvW9BLOOPA==
+svg-baker-runtime@^1.4.7:
+  version "1.4.7"
+  resolved "https://registry.yarnpkg.com/svg-baker-runtime/-/svg-baker-runtime-1.4.7.tgz#f4720637f5b6202eef6378d81f1fead0815f8a4e"
+  integrity sha512-Zorfwwj5+lWjk/oxwSMsRdS2sPQQdTmmsvaSpzU+i9ZWi3zugHLt6VckWfnswphQP0LmOel3nggpF5nETbt6xw==
   dependencies:
     deepmerge "1.3.2"
     mitt "1.1.2"
-    svg-baker "^1.4.0"
+    svg-baker "^1.7.0"
 
-svg-baker@^1.4.0, svg-baker@^1.4.1:
+svg-baker@^1.5.0, svg-baker@^1.7.0:
   version "1.7.0"
   resolved "https://registry.yarnpkg.com/svg-baker/-/svg-baker-1.7.0.tgz#8367f78d875550c52fe4756f7303d5c5d7c2e9a7"
   integrity sha512-nibslMbkXOIkqKVrfcncwha45f97fGuAOn1G99YwnwTj8kF9YiM6XexPcUso97NxOm6GsP0SIvYVIosBis1xLg==
@@ -13697,10 +13697,10 @@ svg-parser@^2.0.2:
   resolved "https://registry.yarnpkg.com/svg-parser/-/svg-parser-2.0.4.tgz#fdc2e29e13951736140b76cb122c8ee6630eb6b5"
   integrity sha512-e4hG1hRwoOdRb37cIMSgzNsxyzKfayW6VOflrwvR+/bzrkyxY/31WkbgnQpgtrNp1SdpJvpUAGTa/ZoiPNDuRQ==
 
-svg-sprite-loader@4.1.6:
-  version "4.1.6"
-  resolved "https://registry.yarnpkg.com/svg-sprite-loader/-/svg-sprite-loader-4.1.6.tgz#ca03d51201e326c1c018389c81d5b0eb78dc01de"
-  integrity sha512-fVLDJ36GUfLmeZEB+RFq/OmiEThifZsQQ+8YSmbpOtyvlkLBbnGydYG6IHJehgbpy58898JyoHk+krd6C+6dXg==
+svg-sprite-loader@4.3.0:
+  version "4.3.0"
+  resolved "https://registry.yarnpkg.com/svg-sprite-loader/-/svg-sprite-loader-4.3.0.tgz#a427f777fe15bba83a806e2fde01a736b19445c8"
+  integrity sha512-IkXI2e0bWr32G6VCqw0g8x8eRsMSUKkyd3axnI6D5pEZ9zv3Zi7FTVVnOUi/Io3i2D1UAofOW+35N8qwIUql4w==
   dependencies:
     bluebird "^3.5.0"
     deepmerge "1.3.2"
@@ -13708,8 +13708,8 @@ svg-sprite-loader@4.1.6:
     escape-string-regexp "1.0.5"
     html-webpack-plugin "^3.2.0"
     loader-utils "^1.1.0"
-    svg-baker "^1.4.1"
-    svg-baker-runtime "1.4.1"
+    svg-baker "^1.5.0"
+    svg-baker-runtime "^1.4.7"
     url-slug "2.0.0"
 
 svgo@^1.0.0, svgo@^1.2.2, svgo@^1.3.2:
