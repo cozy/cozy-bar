@@ -3,19 +3,18 @@ import PropTypes from 'prop-types'
 
 import flag from 'cozy-flags'
 import { isFlagshipApp } from 'cozy-device-helper'
+import { useWebviewIntent } from 'cozy-intent'
 
 import IconCozyHome from './IconCozyHome'
 
-export const ButtonCozyHome = ({
-  webviewContext,
-  homeHref,
-  isInvertedTheme
-}) => {
+export const ButtonCozyHome = ({ homeHref, isInvertedTheme }) => {
+  const webviewIntent = useWebviewIntent()
+
   if (isFlagshipApp() || flag('flagship.debug'))
     return (
       <a
         onClick={() => {
-          webviewContext.call('backToHome')
+          webviewIntent.call('backToHome')
         }}
         className="coz-nav-apps-btns-home --is-flagship"
       >
@@ -48,7 +47,6 @@ export const ButtonCozyHome = ({
 }
 
 ButtonCozyHome.propTypes = {
-  webviewContext: PropTypes.object,
   homeHref: PropTypes.string,
   isInvertedTheme: PropTypes.bool
 }

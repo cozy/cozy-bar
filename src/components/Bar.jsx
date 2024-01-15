@@ -16,8 +16,7 @@ import {
   hasFetched,
   fetchApps,
   fetchContext,
-  fetchSettingsData,
-  getWebviewContext
+  fetchSettingsData
 } from 'lib/reducers'
 import useI18n from 'components/useI18n'
 import { useClient } from 'cozy-client'
@@ -49,7 +48,6 @@ export const Bar = ({
   onLogOut,
   userActionRequired,
   isInvertedTheme,
-  webviewContext,
   appName,
   appNamePrefix,
   appSlug,
@@ -110,12 +108,7 @@ export const Bar = ({
 
   const renderLeft = () => {
     if (isFlagshipApp() || flag('flagship.debug')) {
-      return (
-        <ButtonCozyHome
-          webviewContext={webviewContext}
-          isInvertedTheme={isInvertedTheme}
-        />
-      )
+      return <ButtonCozyHome isInvertedTheme={isInvertedTheme} />
     }
 
     // data-tutorial attribute allows to be targeted in an application tutorial
@@ -188,8 +181,7 @@ Bar.propTypes = {
 export const mapStateToProps = state => ({
   theme: getTheme(state).name,
   themeOverrides: getTheme(state).overrides,
-  hasFetchedApps: hasFetched(state),
-  webviewContext: getWebviewContext(state)
+  hasFetchedApps: hasFetched(state)
 })
 
 export const mapDispatchToProps = dispatch => ({
