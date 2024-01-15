@@ -2,14 +2,15 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import { ButtonCozyHome } from './ButtonCozyHome'
 import { isFlagshipApp } from 'cozy-device-helper'
+import { useWebviewIntent } from 'cozy-intent'
 
 jest.mock('cozy-device-helper')
+jest.mock('cozy-intent', () => ({
+  useWebviewIntent: jest.fn(() => ({ call: jest.fn() }))
+}))
 
 const homeHref = 'foo'
 const expectedCall = 'backToHome'
-const webviewContext = {
-  call: jest.fn()
-}
 
 describe('ButtonCozyHome', () => {
   it('should render a span with no props', () => {
@@ -31,7 +32,7 @@ describe('ButtonCozyHome', () => {
 
   it('should render an anchor when isFlagshipApp', () => {
     isFlagshipApp.mockImplementation(() => true)
-    const render = shallow(<ButtonCozyHome webviewContext={webviewContext} />)
+    const render = shallow(<ButtonCozyHome />)
     const element = render.getElement()
 
     expect(element.type).toBe('a')
@@ -39,9 +40,7 @@ describe('ButtonCozyHome', () => {
 
   it('should give priority to anchor if both isFlagshipApp and homeHref are present', () => {
     isFlagshipApp.mockImplementation(() => true)
-    const render = shallow(
-      <ButtonCozyHome homeHref={homeHref} webviewContext={webviewContext} />
-    )
+    const render = shallow(<ButtonCozyHome homeHref={homeHref} />)
     const element = render.getElement()
 
     expect(element.type).toBe('a')
@@ -49,12 +48,12 @@ describe('ButtonCozyHome', () => {
 
   it('should call the correct context method on click', () => {
     isFlagshipApp.mockImplementation(() => true)
-    const render = shallow(
-      <ButtonCozyHome homeHref={homeHref} webviewContext={webviewContext} />
-    )
+    const mockCall = jest.fn()
+    useWebviewIntent.mockImplementation(() => ({ call: mockCall }))
+    const render = shallow(<ButtonCozyHome homeHref={homeHref} />)
 
     render.simulate('click')
 
-    expect(webviewContext.call).toBeCalledWith(expectedCall)
+    expect(mockCall).toBeCalledWith(expectedCall)
   })
 })
