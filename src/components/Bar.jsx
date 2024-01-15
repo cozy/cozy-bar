@@ -92,9 +92,8 @@ export const Bar = ({
   }, [drawerVisible, fetchApps, hasFetchedApps])
 
   const toggleDrawer = () => {
-    // don't wait for transitionend if displaying
-    if (!drawerVisible) onDrawer(drawerVisible)
-    setDrawerVisible(true)
+    onDrawer(!drawerVisible)
+    setDrawerVisible(!drawerVisible)
   }
 
   const renderCenter = () => {
