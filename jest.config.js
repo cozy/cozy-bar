@@ -2,6 +2,7 @@ module.exports = {
   moduleFileExtensions: ['js', 'jsx', 'json', 'styl', 'yaml'],
   modulePathIgnorePatterns: ['<rootDir>/transpiled/'],
   setupFiles: ['<rootDir>/test/jestLib/setup.js'],
+  setupFilesAfterEnv: ['<rootDir>/test/jestLib/setupFilesAfterEnv.js'],
   moduleDirectories: ['node_modules', 'src'],
   transform: {
     '\\.(js|jsx)$': 'babel-jest'
