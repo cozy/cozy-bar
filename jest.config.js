@@ -9,8 +9,6 @@ module.exports = {
   },
   moduleNameMapper: {
     '^config/(.*)': '<rootDir>/src/config/$1',
-    '^react$': '<rootDir>/config/aliases/globalReact',
-    '^(react-dom|react-dom/(.*))$': '<rootDir>/config/aliases/globalReactDOM',
     '\\.(png|gif|jpe?g|svg)$': '<rootDir>/test/__mocks__/fileMock.js',
     '\\.styl$': 'identity-obj-proxy'
   },
