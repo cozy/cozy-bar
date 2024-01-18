@@ -14,7 +14,6 @@ import Apps from 'components/Apps'
 import {
   getTheme,
   hasFetched,
-  getContent,
   fetchApps,
   fetchContext,
   fetchSettingsData,
@@ -189,10 +188,6 @@ Bar.propTypes = {
 export const mapStateToProps = state => ({
   theme: getTheme(state).name,
   themeOverrides: getTheme(state).overrides,
-  barLeft: getContent(state, 'left'),
-  barRight: getContent(state, 'right'),
-  barCenter: getContent(state, 'center'),
-  barSearch: getContent(state, 'search'),
   hasFetchedApps: hasFetched(state),
   webviewContext: getWebviewContext(state)
 })

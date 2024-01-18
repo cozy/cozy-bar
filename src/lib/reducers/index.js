@@ -1,5 +1,4 @@
 import { combineReducers } from 'redux'
-import * as content from 'lib/reducers/content'
 import * as locale from 'lib/reducers/locale'
 import * as theme from 'lib/reducers/theme'
 import * as unserializable from 'lib/reducers/unserializable'
@@ -13,8 +12,6 @@ const proxy = (attr, method) => {
   }
 }
 
-const setContent = content.setContent
-const unsetContent = content.unsetContent
 const setLocale = locale.setLocale
 const setTheme = theme.setTheme
 const setWebviewContext = unserializable.setWebviewContext
@@ -24,8 +21,6 @@ const fetchSettingsData = settings.fetchSettingsData
 const logOut = settings.logOut
 const fetchContext = context.fetchContext
 export {
-  setContent,
-  unsetContent,
   setLocale,
   setTheme,
   setWebviewContext,
@@ -36,7 +31,6 @@ export {
   fetchContext
 }
 
-export const getContent = proxy('content', content.getContent)
 export const getLocale = proxy('locale', locale.getLocale)
 export const getTheme = proxy('theme', theme.getTheme)
 export const getApps = proxy('apps', apps.getApps)
@@ -60,7 +54,6 @@ export const onRealtimeDelete = apps.deleteApp
 
 export const reducers = {
   apps: appsReducer,
-  content: content.reducer,
   context: contextReducer,
   locale: locale.reducer,
   settings: settingsReducer,
