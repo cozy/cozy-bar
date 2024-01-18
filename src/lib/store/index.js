@@ -1,5 +1,4 @@
 import { createStore as createReduxStore, applyMiddleware } from 'redux'
-import appsI18nMiddleware from 'lib/middlewares/appsI18n'
 import thunkMiddleware from 'redux-thunk'
 import { persistStore, persistCombineReducers } from 'redux-persist'
 import { reducers } from 'lib/reducers'
@@ -21,7 +20,7 @@ const loggerMiddleware = createLogger({
 
 const reducer = persistCombineReducers(config, { ...reducers })
 
-const middlewares = [appsI18nMiddleware, thunkMiddleware]
+const middlewares = [thunkMiddleware]
 
 if (flag('bar.debug')) {
   middlewares.push(loggerMiddleware)
