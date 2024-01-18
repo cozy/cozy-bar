@@ -1,34 +1,53 @@
-import CozyClient from 'cozy-client'
-import jestFetchMock from 'jest-fetch-mock'
+import React from 'react'
+import { render, screen } from '@testing-library/react'
 
-import * as cozyBar from './index'
+import { BarComponent, BarProvider, BarRight } from './index'
+import { BarLike } from '../test/lib/BarLike'
 
-describe('init', () => {
-  beforeAll(() => {
-    global.fetch = jestFetchMock
+describe('The bar library', function() {
+  it('should render correctly the cozy-bar', () => {
+    // Set up our document body
+    document.body.innerHTML =
+      '<div role="application">' + '  The application will be here' + '</div>'
+    const options = {
+      appName: 'Mock',
+      appNamePrefix: 'Cozy',
+      iconPath: '',
+      cozyURL: 'https://mock.cozy',
+      token: 'mock'
+    }
+
+    render(
+      <BarLike>
+        <BarComponent {...options} />
+      </BarLike>
+    )
   })
 
-  beforeEach(() => {
-    jest.spyOn(console, 'error')
-    const div = document.createElement('div')
-    div.setAttribute('role', 'application')
-    document.body.appendChild(div)
-  })
+  it('should render correctly the cozy-bar with customization', () => {
+    document.body.innerHTML =
+      '<div role="application">' + '  The application will be here' + '</div>'
+    const options = {
+      appName: 'test-app',
+      appNamePrefix: 'cozy',
+      iconPath: '',
+      cozyURL: 'https://mock.cozy',
+      token: 'mock'
+    }
 
-  afterEach(() => {
-    // eslint-disable-next-line no-console
-    console.error.mockRestore()
-  })
+    render(
+      <BarLike>
+        <BarProvider>
+          <BarComponent {...options} />
+          <BarRight>Custom text</BarRight>
+        </BarProvider>
+      </BarLike>
+    )
 
-  it('should init the bar', () => {
-    const client = new CozyClient({})
-    cozyBar.init({
-      appName: 'App',
-      cozyClient: client,
-      lang: 'fr'
-    })
-    cozyBar.setBarCenter('Page title')
-    // eslint-disable-next-line no-console
-    expect(console.error).not.toHaveBeenCalled()
+    const buttonElement = screen.queryByRole('button', { name: /settings/i })
+    expect(buttonElement).not.toBeInTheDocument()
+
+    const currentApp = screen.getByText('Custom text')
+    expect(currentApp).toBeInTheDocument()
   })
 })
