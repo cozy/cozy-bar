@@ -10,7 +10,8 @@ module.exports = {
   moduleNameMapper: {
     '^config/(.*)': '<rootDir>/src/config/$1',
     '\\.(png|gif|jpe?g|svg)$': '<rootDir>/test/__mocks__/fileMock.js',
-    '\\.styl$': 'identity-obj-proxy'
+    '\\.styl$': 'identity-obj-proxy',
+    '^test/(.*)': '<rootDir>/test/$1'
   },
   browser: true,
   transformIgnorePatterns: ['node_modules/(?!cozy-ui)'],
