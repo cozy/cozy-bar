@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
@@ -16,12 +16,12 @@ import {
   getTheme,
   hasFetched,
   getContent,
-  isCurrentApp,
   fetchApps,
   fetchContext,
   fetchSettingsData,
   getWebviewContext
 } from 'lib/reducers'
+import { useClient } from 'cozy-client'
 
 /* Generated with node_modules/.bin/svgr src/assets/sprites/icon-apps.svg */
 function SvgIconApps(props) {
@@ -35,72 +35,69 @@ function SvgIconApps(props) {
   )
 }
 
-export class Bar extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      drawerVisible: false
+export const Bar = ({
+  fetchContext,
+  fetchSettingsData,
+  fetchApps,
+  isPublic,
+  onDrawer,
+  theme,
+  themeOverrides,
+  barLeft,
+  barRight,
+  barCenter,
+  barSearch,
+  onLogOut,
+  userActionRequired,
+  isInvertedTheme,
+  webviewContext,
+  appName,
+  appNamePrefix,
+  appSlug,
+  iconPath,
+  hasFetchedApps,
+  t
+}) => {
+  const client = useClient()
+
+  const [drawerVisible, setDrawerVisible] = useState(false)
+
+  const fetchInitialData = useCallback(() => {
+    if (!isPublic) {
+      fetchContext()
+      fetchSettingsData(false)
+      if (!hasFetchedApps) {
+        fetchApps()
+      }
     }
-    this.fetchApps = this.fetchApps.bind(this)
-    this.fetchInitialData = this.fetchInitialData.bind(this)
-    this.handleTokenRefreshed = this.handleTokenRefreshed.bind(this)
-  }
+  }, [fetchApps, fetchContext, fetchSettingsData, hasFetchedApps, isPublic])
 
-  componentDidMount() {
-    this.fetchInitialData()
-
-    const cozyClient = this.props.cozyClient
-    cozyClient.on('tokenRefreshed', this.handleTokenRefreshed)
-  }
-
-  componentWillUnmount() {
-    const cozyClient = this.props.cozyClient
-    cozyClient.removeListener('tokenRefreshed', this.handleTokenRefreshed)
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (
-      !this.props.hasFetchedApps &&
-      this.state.drawerVisible &&
-      prevState.drawerVisible !== this.state.drawerVisible
-    ) {
-      this.fetchApps()
+  useEffect(() => {
+    const handleTokenRefreshed = () => {
+      fetchInitialData()
     }
-  }
 
-  handleTokenRefreshed() {
-    this.fetchInitialData()
-  }
+    fetchInitialData()
+    client.on('tokenRefreshed', handleTokenRefreshed)
 
-  fetchApps() {
-    this.props.fetchApps()
-  }
-
-  fetchInitialData() {
-    if (this.props.isPublic) {
-      return
+    return () => {
+      client.removeListener('tokenRefreshed', handleTokenRefreshed)
     }
-    this.props.fetchContext()
-    this.props.fetchSettingsData(false)
-    this.fetchApps()
-  }
+  }, [client, fetchInitialData])
 
-  toggleDrawer = () => {
-    const drawerVisible = !this.state.drawerVisible
+  useEffect(() => {
+    if (!hasFetchedApps && drawerVisible) {
+      fetchApps()
+    }
+  }, [drawerVisible, fetchApps, hasFetchedApps])
+
+  const toggleDrawer = () => {
     // don't wait for transitionend if displaying
-    if (drawerVisible) this.props.onDrawer(drawerVisible)
-    this.setState({ drawerVisible })
+    if (!drawerVisible) onDrawer(drawerVisible)
+    setDrawerVisible(true)
   }
 
-  renderCenter() {
-    const {
-      appName,
-      appNamePrefix,
-      appSlug,
-      iconPath,
-      isPublic,
-      isInvertedTheme
-    } = this.props
+  const renderCenter = () => {
     return (
       <Apps
         appName={appName}
@@ -113,9 +110,7 @@ export class Bar extends Component {
     )
   }
 
-  renderLeft = () => {
-    const { t, isPublic, webviewContext, isInvertedTheme } = this.props
-
+  const renderLeft = () => {
     if (isFlagshipApp() || flag('flagship.debug')) {
       return (
         <ButtonCozyHome
@@ -130,7 +125,7 @@ export class Bar extends Component {
       <button
         type="button"
         className="coz-bar-btn coz-bar-burger"
-        onClick={this.toggleDrawer}
+        onClick={toggleDrawer}
         data-tutorial="apps-mobile"
       >
         <Icon icon={SvgIconApps} width={16} height={16} color="currentColor" />
@@ -139,60 +134,45 @@ export class Bar extends Component {
     ) : null
   }
 
-  renderRight = () => {
-    const { isPublic } = this.props
-    return !isPublic ? <Settings onLogOut={this.props.onLogOut} /> : null
+  const renderRight = () => {
+    return !isPublic ? <Settings onLogOut={onLogOut} /> : null
   }
 
-  render() {
-    const { drawerVisible } = this.state
+  const {
+    primaryColor: pColor,
+    primaryContrastTextColor: pctColor
+  } = themeOverrides
+  const pStyle = pColor ? { '--cozBarThemePrimaryColor': pColor } : {}
+  const pctStyle = pctColor
+    ? { '--cozBarThemePrimaryContrastTextColor': pctColor }
+    : {}
+  const themeStyle = { ...pStyle, ...pctStyle }
 
-    const {
-      theme,
-      themeOverrides,
-      barLeft,
-      barRight,
-      barCenter,
-      barSearch,
-      onDrawer,
-      isPublic,
-      onLogOut,
-      userActionRequired,
-      isInvertedTheme
-    } = this.props
-
-    const {
-      primaryColor: pColor,
-      primaryContrastTextColor: pctColor
-    } = themeOverrides
-    const pStyle = pColor ? { '--cozBarThemePrimaryColor': pColor } : {}
-    const pctStyle = pctColor
-      ? { '--cozBarThemePrimaryContrastTextColor': pctColor }
-      : {}
-    const themeStyle = { ...pStyle, ...pctStyle }
-
-    return (
-      <div className={`coz-bar-wrapper coz-theme-${theme}`} style={themeStyle}>
-        <div id="cozy-bar-modal-dom-place" />
-        <div className="coz-bar-container">
-          {barLeft || this.renderLeft()}
-          {barCenter || this.renderCenter()}
-          <div className="u-flex-grow">{barSearch}</div>
-          {barRight || this.renderRight()}
-          {!isPublic ? (
-            <Drawer
-              visible={drawerVisible}
-              onClose={this.toggleDrawer}
-              drawerListener={() => onDrawer(drawerVisible)}
-              onLogOut={onLogOut}
-              isInvertedTheme={isInvertedTheme}
-            />
-          ) : null}
-        </div>
-        {userActionRequired && <Banner {...userActionRequired} />}
+  return (
+    <div
+      className={`coz-bar-wrapper coz-theme-${theme}`}
+      style={themeStyle}
+      data-testid="coz-bar-wrapper"
+    >
+      <div id="cozy-bar-modal-dom-place" />
+      <div className="coz-bar-container">
+        {barLeft || renderLeft()}
+        {barCenter || renderCenter()}
+        <div className="u-flex-grow">{barSearch}</div>
+        {barRight || renderRight()}
+        {!isPublic ? (
+          <Drawer
+            visible={drawerVisible}
+            onClose={toggleDrawer}
+            drawerListener={() => onDrawer(drawerVisible)}
+            onLogOut={onLogOut}
+            isInvertedTheme={isInvertedTheme}
+          />
+        ) : null}
       </div>
-    )
-  }
+      {userActionRequired && <Banner {...userActionRequired} />}
+    </div>
+  )
 }
 
 Bar.propTypes = {
@@ -204,9 +184,7 @@ Bar.propTypes = {
   isInvertedTheme: PropTypes.bool,
   onLogOut: PropTypes.func,
   onDrawer: PropTypes.func,
-  userActionRequired: PropTypes.object,
-  cozyClient: PropTypes.object.isRequired,
-  isDrive: PropTypes.bool.isRequired
+  userActionRequired: PropTypes.object
 }
 
 export const mapStateToProps = state => ({
@@ -216,7 +194,6 @@ export const mapStateToProps = state => ({
   barRight: getContent(state, 'right'),
   barCenter: getContent(state, 'center'),
   barSearch: getContent(state, 'search'),
-  isDrive: isCurrentApp(state, { slug: 'drive' }),
   hasFetchedApps: hasFetched(state),
   webviewContext: getWebviewContext(state)
 })
