@@ -1,19 +1,21 @@
-dist: focal
 language: node_js
-node_js:
-  - 16
+node_js: 16
+dist: jammy
+cache:
+  npm: false
+branches:
+  only:
+    - master
 env:
   global:
     # NPM_TOKEN (mycozycloud)
     - secure: "Z1z9aIqfmUzHrg/WzDJ4IJjnTWTjJx/3HrcBmYfqqfiu3Pgo1Bc1sh2p/dJoYJP+6vg9HkMc2sFrsPy9FtVa67a0QoHEgOq6mdcwEFP1cG5LPRdZTuSMe/j4+UcxvcghE/ilIcFPUmD4aryWhW3i8VdKochLYSU01Ktyyw+JLcAv0cSnotkKlv1MPVAFvhbFo/xu/yVJxDhAvvEXGQuR21GOM42nJachauERdtjJAf8HZDN4NI1n08ESowICfh0m4iyodnjKHgIx+kydmrEF3Viu/d2Onj3nFUiUMOgDdwS0ZimZ9YfwatuZI8spSwmJFevsgi5g5HAhBE7CUAr3Onw0rZXTSe5PPkb5QGw+zCXEAU8RLzj76l5bl/3+/PA3vrKr2eRT7Sp0DPS/NC6xyzNJpWu74ey8tBqmgh1aZoW5dcvjM1OtkFgMaVKzxlsUUG/RIgXNKloO2ZuUF4pw/ASLu82HghwpMNDe+RcsVENe+kekkoA63LGASUmMqEJVLFwynzFK04TPcCs6t2Pb+J2485FbvTqYzCPf69YYSXLub33vrs9N3VrybXfRl71B+af6qs6rNqMe30HxomISY5CfJEfN2kgI92NELnLCr1Qcses4QLXIJHDukTVFWiEA/Pinsk5NHyDZIw4ZONbjE1WBXu8OCTMlgH426p0xrVU="
     # GH_TOKEN (cozy-bot)
     - secure: "kZSPdYXbbwI3fgnZ4G9GQncQJM+PXOmF2iTeRMYLgNqWOoUC8vu3LglmecmY7IM5nMr7RY2H4QYQUas8ZQvpY8s82Rr5CvxasEfgLb4xPy2VRyYAR+yVsX38nitJTpciwqwdaY3Z3mIh/RzChHfyQ9GS4hI6GdTxlxWUgQdmRbzsw02qDFPCfwhZxn0Bi+wM6b9k9bbxhKyk2eSxeizwQSFjLh4M7gxi5K+3eRV6yKBLQAiqkPat0ekPX19olnxP8NnzeeAaX57EBUaywuyzadmSJlfHgKM02CgVacpNP+6RSAM+bjMd0Ua3hmMaVgxXwEhirpq2oSIATa0chyO5yulMC5P7hJl/F7Kt5YXWt4ikWAs6N1hiTYaXkaDuYE4hJ1Bg3dO4yL5njSC2/1ytwM9f+C4i4GCPsbrBH3QKT5P53CNA52CtTujcwsn6bS5NlBskWwXk5Ey5HFLo+w5LEEbDP91D3ylEkDWF0Yf8XqzwapiW+jUiceeCbEZMboe3laMinM/t/atgszCUgGCyD702aFUmwJuQHzu/NNryazlqbOnknlWolXsS/K9EWWF9eL8e/jBJLfMlpOEGlZP5mbbjwoeDEdaHWhNubQIqdgiJCozp1NQaagHK2Rw3cF2z9+ev/qGhHvwJXZd5xcsn/He6kHlszDFqaAccZgBFmKU="
-cache:
-  yarn: true
-  directories:
-    - node_modules
 script:
-  - ./scripts/travis.sh
+  - yarn lint
+  - yarn test
+  - yarn build
 before_deploy:
   - touch .npmignore
 deploy:
