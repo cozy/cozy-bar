@@ -1,7 +1,12 @@
 import React, { useLayoutEffect, useState, useEffect } from 'react'
 import { createPortal } from 'react-dom'
 
-import { onRealtimeCreate, onRealtimeDelete, setInfos } from 'lib/reducers'
+import {
+  onRealtimeCreate,
+  onRealtimeDelete,
+  setInfos,
+  setTheme
+} from 'lib/reducers'
 
 import {
   getAppNamePrefix,
@@ -17,6 +22,8 @@ import { useClient } from 'cozy-client'
 import { isMobileApp } from 'cozy-device-helper'
 
 import stack from 'lib/stack'
+
+import { useBarContext } from './BarProvider'
 
 const createBarElement = () => {
   const targetName = isMobileApp() ? 'mobile' : 'browser'
@@ -88,6 +95,10 @@ const BarComponent = ({
   isPublic = false,
   onLogOut
 }) => {
+  const barContext = useBarContext()
+  const { barSearch, barLeft, barCenter, barRight, theme, themeOverrides } =
+    barContext || {}
+
   const [wrapperElement, setWrapperElement] = useState(null)
 
   const cozyClient = useClient()
@@ -131,13 +142,25 @@ const BarComponent = ({
     }
   }
 
+  useEffect(() => {
+    if (theme) {
+      reduxStore.dispatch(setTheme(theme, themeOverrides || {}))
+    }
+  })
+
   return (
     <ReactPortal
       wrapperElement={wrapperElement}
       setWrapperElement={setWrapperElement}
     >
       <Provider store={options.reduxStore}>
-        <Bar {...options} />
+        <Bar
+          {...options}
+          barSearch={barSearch}
+          barLeft={barLeft}
+          barCenter={barCenter}
+          barRight={barRight}
+        />
       </Provider>
     </ReactPortal>
   )
