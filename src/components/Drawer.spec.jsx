@@ -1,25 +1,11 @@
 import React from 'react'
-import { Provider } from 'react-redux'
 
-import I18n from 'cozy-ui/transpiled/react/providers/I18n'
-import { createStore } from 'lib/store'
-import enLocale from 'locales/en.json'
 import { render, screen, fireEvent, act } from '@testing-library/react'
+
 import { Drawer } from './Drawer'
+import { BarLike } from 'test/lib/BarLike'
 
 const sleep = duration => new Promise(resolve => setTimeout(resolve, duration))
-
-const fakeStore = createStore()
-
-const Wrapper = ({ children }) => {
-  return (
-    <Provider store={fakeStore}>
-      <I18n dictRequire={() => enLocale} lang="en">
-        {children}
-      </I18n>
-    </Provider>
-  )
-}
 
 describe('bar', () => {
   describe('logout', () => {
@@ -28,9 +14,9 @@ describe('bar', () => {
     }
     const setup = ({ onLogOut, logOut }) => {
       render(
-        <Wrapper>
+        <BarLike>
           <Drawer logOut={logOut} onLogOut={onLogOut} />
-        </Wrapper>
+        </BarLike>
       )
     }
 
