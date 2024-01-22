@@ -2,12 +2,10 @@
   "name": "cozy-bar",
   "version": "0.0.0-development",
   "description": "cozy-bar.js library, a small lib provided by cozy-stack to inject the Cozy-bar component into each app",
-  "main": "dist/cozy-bar.js",
+  "main": "dist/index.js",
   "author": "Cozy Cloud <contact@cozycloud.cc> (https://cozy.io/)",
   "files": [
-    "dist",
-    "src",
-    "transpiled"
+    "dist"
   ],
   "repository": {
     "type": "git",
@@ -19,23 +17,17 @@
   },
   "license": "MIT",
   "scripts": {
+    "build": "env BABEL_ENV=transpilation babel ./src -d ./dist --extensions .js,.jsx --ignore '**/*.spec.jsx','**/*.spec.js' --copy-files",
     "prepublishOnly": "yarn build",
-    "build": "yarn run webpack --env.production",
-    "webpack": "webpack --config ./config/webpack.js",
-    "watch": "yarn run webpack --watch --display-chunks",
     "clean": "rm -rf ./dist/*",
     "lint": "eslint '{config,src,examples,test}/**/*.{js,jsx}'",
     "prebuild": "npm-run-all clean",
     "prewatch": "npm-run-all clean",
     "tx": "tx pull --all || true",
-    "shasum": "shasum -a 256 dist/cozy-bar.min.js",
     "test": "jest",
     "travis-deploy-once": "travis-deploy-once",
     "example": "env USE_REACT=true nf -j examples/Procfile start",
-    "transpile:js": "env BABEL_ENV=transpilation babel -D src/ --out-dir transpiled/ --verbose",
-    "transpile:css": "env CSSMODULES=false node_modules/.bin/stylus src/styles/index.styl -u ./node_modules/cozy-ui/stylus/index.js -o transpiled/cozy-bar.css",
-    "transpile": "yarn run transpile:js && yarn run transpile:css",
-    "start": "yarn watch"
+    "start": "yarn build --watch"
   },
   "devDependencies": {
     "@babel/cli": "7.12.1",
