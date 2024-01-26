@@ -10,15 +10,3 @@
 @import './drawer.css'
 
 @import './theme.styl'
-
-@import 'settings/z-index'
-@import 'components/button.styl' // To import $visuallyhidden
-
-:root {
-  --z-index-bar: $bar-index;
-  --z-index-selection: $selection-index;
-  --z-index-over-selection: $selection-index + 1;
-}
-
-.coz-bar-hidden
-  @extend $visuallyhidden

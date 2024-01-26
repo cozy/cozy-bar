@@ -2,7 +2,7 @@
   position: fixed;
   top: 0;
   left: 0;
-  z-index: var(--z-index-bar);
+  z-index: var(--zIndex-bar);
   display: flex;
   align-items: stretch;
   flex-shrink: 0;
