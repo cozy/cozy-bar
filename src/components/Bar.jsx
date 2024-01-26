@@ -120,7 +120,7 @@ export const Bar = ({
         data-tutorial="apps-mobile"
       >
         <Icon icon={SvgIconApps} width={16} height={16} color="currentColor" />
-        <span className="coz-bar-hidden">{t('drawer')}</span>
+        <span className="u-visuallyhidden">{t('drawer')}</span>
       </button>
     ) : null
   }
