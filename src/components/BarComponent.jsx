@@ -9,6 +9,7 @@ import {
 } from 'lib/reducers'
 
 import {
+  getAppName,
   getAppNamePrefix,
   getAppSlug,
   getDefaultIcon,
@@ -86,12 +87,11 @@ function ReactPortal({
 }
 
 const BarComponent = ({
-  appName,
+  appName = getAppName(),
   appNamePrefix = getAppNamePrefix(),
   appSlug = getAppSlug(),
   iconPath = getDefaultIcon(),
   isInvertedTheme,
-  replaceTitleOnMobile = false,
   isPublic = false,
   onLogOut
 }) => {
@@ -132,7 +132,6 @@ const BarComponent = ({
     appSlug,
     cozyClient,
     iconPath,
-    replaceTitleOnMobile,
     isPublic: isPublicForce || isPublic,
     onLogOut,
     userActionRequired: getUserActionRequired(),
