@@ -1,4 +1,4 @@
-[![Travis build status shield](https://img.shields.io/travis/cozy/cozy-bar/master.svg)](https://travis-ci.org/cozy/cozy-bar)
+[![Travis build status shield](https://img.shields.io/travis/com/cozy/cozy-bar)](https://travis-ci.org/cozy/cozy-bar)
 [![NPM release version shield](https://img.shields.io/npm/v/cozy-bar.svg)](https://www.npmjs.com/package/cozy-bar)
 [![NPM Licence shield](https://img.shields.io/npm/l/cozy-bar.svg)](https://github.com/cozy/cozy-bar/blob/master/LICENSE)
 
@@ -12,27 +12,28 @@
 [Cozy] is a platform that brings all your web services in the same private space.  With it, your webapps and your devices can share data easily, providing you with a new experience. You can install Cozy on your own hardware where no one's tracking you.
 
 
-## What's cozy-bar?
+## What's CozyBar ?
 
-`cozy-bar` is a javascript library made by Cozy. It enables the _CozyBar_ component in your application. This component is a banner on the top of your application, responsible of cross-apps navigation, user facilities, intents, etc.
-
-
-## Use
-
-`cozy-bar.js` is an asset directly served by the [cozy-stack](https://github.com/cozy/cozy-stack). To use it, simply add `<script src="/js/cozy-bar.js" defer></script>` in the `<head>` section of the `index.html` of your application. It exposes an API behind the `window.cozy.bar` namespace, that let you interact with the _CozyBar_ itself.
-
-The library requires your markup to contain an element with `role=application` and attributes `data-cozy-domain` and `data-cozy-token`. The DOM of the banner will be added before this element.
+The CozyBar is a banner on the top of your application, responsible of cross-apps navigation, user facilities, intents, etc. This is a React component.
 
 
-Once you have the library included in your application, starts by intialize it in your app bootstrap:
+## Getting started
 
-```js
-window.cozy.bar.init({
-  appName: MY_APP_NAME,
-  appNamePrefix: MY_APP_NAME_PREFIX
-  iconPath: PATH_TO_SVG_ICON,
-  lang: LOCALE
-})
+The library requires your markup to contain an element with `role=application`. The DOM of the banner will be added before this element.
+
+### Installation
+```sh
+yarn add cozy-bar
+```
+
+### How to use
+
+You need to include the `BarComponent` into your react tree :
+
+```jsx
+import { BarComponent } from 'cozy-bar'
+
+<BarComponent appName={MY_APP_NAME}  appNamePrefix={MY_APP_NAME_PREFIX} iconPath={PATH_TO_SVG_ICON} lang={LOCALE} />
 ```
 
 `appName` param in hash is mandatory when `appNamePrefix`, `lang` and `iconPath` are optionals. If not passed, their values are detected into the DOM:
@@ -43,79 +44,41 @@ window.cozy.bar.init({
 
 To make the icon of Cozy(`icon-cozy-home.svg`) compatible with an inverted theme, please set the parameter `isInvertedTheme` to `true`
 
-## Help link
-
-Help link is defined in your Cozy's [configuration file](https://github.com/cozy/cozy-stack/blob/master/docs/config.md#main-configuration-file), in the `context` section. See the `cozy.example.yaml` file [provided by the stack](https://github.com/cozy/cozy-stack/blob/master/cozy.example.yaml#L80).
-
-## Coming Soon application
-
-Coming Soon applications (or apps) are defined in your Cozy's [configuration file](https://github.com/cozy/cozy-stack/blob/master/docs/config.md#main-configuration-file). See the `cozy.example.yaml` file [provided by the stack](https://github.com/cozy/cozy-stack/blob/master/cozy.example.yaml#L80).
-
 ## Customizing the content of the bar
 
 From within your app, you can decide to take over certain areas of the cozy-bar. This might especially be useful on mobile where the area it occupies is prime real estate — we generally don't recommend to use this option on larger screen resolutions.
 
-The bar is divided in 3 areas that you can control individually : left, center and right:
+The bar is divided in 4 areas that you can control individually : left, center, search and right:
 
 ![cozy-bar-triplet](https://user-images.githubusercontent.com/2261445/33609298-de4d379e-d9c7-11e7-839d-f5ab6155c902.png)
 
-To do this, you need to call one of the 3 exposed functions like this:
+To do this, you need to wrap your `BarComponent` into an `BarProvider` after your can use component to modify component inside :
 
 ```jsx
-const setBarLeft = cozy.bar.setBarLeft
-setBarLeft('<div>Hello!</div>')
-// there's also cozy.bar.setBarCenter and cozy.bar.setBarRight
-```
+import { BarLeft, BarCenter, BarRight, BarSearch } from 'cozy-bar'
 
-If you're using React, you can use the component form instead:
-
-```jsx
-const { BarLeft, BarCenter, BarRight } = cozy.bar
-
-// then, somewhere in a render function
+// then, somewhere in a render function below the BarProvider
 <BarLeft>
   <div>Hello!</div>
 </BarLeft>
 ```
 
-### Using a context in the bar
-
-If you're using Redux or React Context and include a connected component or a Provider in the bar, it might not work as expected since inside `<BarLeft>` and friends, the redux store and context are different.
-
-```jsx
-const MyConnectedComponent = connect(mapStateToProps, mapDispatchToProps, MyComponent)
-
-// … in a render function
-<BarLeft>
-  <MyConnectedComponent /> // … you won't get the expected props from redux
-</BarLeft>
-```
-
-Instead, you can do something like this (for Context you can pass the values as prop):
-
-```jsx
-const MyWrappedComponent = (props) => (
-<BarLeft>
-  <MyComponent {...props} />
-</BarLeft>
-)
-
-const MyConnectedComponent = connect(mapStateToProps, mapDispatchToProps, MyWrappedComponent)
-
-// …in a render function
-<MyConnectedComponent />
-```
-
 ## Change theme bar
 
-It's possible to update theme on the cozy-bar with `setTheme` function.
+It's possible to update theme on the cozy-bar with `setTheme` function using the bar context
 
 ```jsx
-const { setTheme } = cozy.bar
+import { useBarContext } from 'cozy-bar'
+
+const { setTheme } = useBarContext()
 
 setTheme('default')
 setTheme('primary')
 ```
+
+## Migrate from previous version
+
+If you're migrating from v8 (or v9, v10, which is the same as v8), check out [the migration guide](/docs/upgrading/v8.md). If you're migrating from v7, check out [the migration guide for v7](/docs/upgrading/v7.md). If you need to find the code for v7, [it is on the v7-stable branch](https://github.com/cozy/cozy-bar/tree/v7-stable).
 
 ## Debugging
 
@@ -129,11 +92,7 @@ flag(bar.debug, true)
 Development mode
 ----------
 
-In order to add new features to the cozy-bar v7 while working on another cozy-app:
 
-* Please ensure your app has the latest v7-stable `cozy-bar` version
-
-* Please ensure your app has at least the 6.3.4 `cozy-scripts` version
 
 * Then, follow these steps:
 
@@ -144,15 +103,6 @@ In order to add new features to the cozy-bar v7 while working on another cozy-ap
 `$ yarn start` // in cozy-bar
 
 `$ yarn start` // in the cozy-app
-
-### How does it work?
-
-When Drive is building, the cozy-bar assets are defined dynamically if __STACK_ASSETS__ = true
-[inside the browser file](https://github.com/cozy/cozy-drive/blob/master/src/drive/targets/browser/index.ejs#L27-L32)
-
-In [dev mode on webpack, __STACK_ASSETS__ = false](https://github.com/cozy/create-cozy-app/blob/532dc9848526d48b749a8fd4fecdce1c9a6880c2/packages/cozy-scripts/config/webpack.environment.dev.js#L27)
-
-[In that case, the cozy-bar is injected](https://github.com/cozy/create-cozy-app/blob/532dc9848526d48b749a8fd4fecdce1c9a6880c2/packages/cozy-scripts/config/webpack.environment.dev.js#L35-L57)
 
 Contribute
 ----------
@@ -183,7 +133,6 @@ You can reach the Cozy Community by:
 ## Licence
 
 cozy-bar is developed by Cozy Cloud and distributed under the [MIT].
-
 
 
 [cozy]: https://cozy.io "Cozy Cloud"
