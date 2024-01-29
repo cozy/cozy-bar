@@ -5,40 +5,31 @@ import { BarComponent, BarProvider, BarRight } from './index'
 import { BarLike } from '../test/lib/BarLike'
 
 describe('The bar library', function() {
-  it('should render correctly the cozy-bar', () => {
+  beforeEach(() => {
     // Set up our document body
     document.body.innerHTML =
-      '<div role="application">' + '  The application will be here' + '</div>'
-    const options = {
-      appName: 'Mock',
-      appNamePrefix: 'Cozy',
-      iconPath: '',
-      cozyURL: 'https://mock.cozy',
-      token: 'mock'
-    }
+      '<div role="application" ' +
+      'data-cozy="{&quot;app&quot;:{&quot;editor&quot;: &quot;Cozy&quot;,&quot;icon&quot;: &quot;public/app-icon.svg&quot;,&quot;name&quot;: &quot;Drive&quot;,&quot;prefix&quot;: &quot;Cozy&quot;,&quot;slug&quot;: &quot;drive&quot;}}">' +
+      '  The application will be here' +
+      '</div>'
+  })
 
+  it('should render correctly the cozy-bar', () => {
     render(
       <BarLike>
-        <BarComponent {...options} />
+        <BarComponent />
       </BarLike>
     )
+
+    const buttonElement = screen.queryByRole('button', { name: /settings/i })
+    expect(buttonElement).toBeInTheDocument()
   })
 
   it('should render correctly the cozy-bar with customization', () => {
-    document.body.innerHTML =
-      '<div role="application">' + '  The application will be here' + '</div>'
-    const options = {
-      appName: 'test-app',
-      appNamePrefix: 'cozy',
-      iconPath: '',
-      cozyURL: 'https://mock.cozy',
-      token: 'mock'
-    }
-
     render(
       <BarLike>
         <BarProvider>
-          <BarComponent {...options} />
+          <BarComponent />
           <BarRight>Custom text</BarRight>
         </BarProvider>
       </BarLike>

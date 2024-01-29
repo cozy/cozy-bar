@@ -33,16 +33,19 @@ You need to include the `BarComponent` into your react tree :
 ```jsx
 import { BarComponent } from 'cozy-bar'
 
-<BarComponent appName={MY_APP_NAME}  appNamePrefix={MY_APP_NAME_PREFIX} iconPath={PATH_TO_SVG_ICON} lang={LOCALE} />
+<BarComponent />
 ```
 
-`appName` param in hash is mandatory when `appNamePrefix`, `lang` and `iconPath` are optionals. If not passed, their values are detected into the DOM:
+The `BarComponent` will get default params into `data-cozy` attribute of the element `role=application`. You can still customize this parameter through props:
+- `appName`: The name of the app.
+- `appNamePrefix`: The prefix of the app. Originally used for apps maintained by Cozy Cloud teams.
+- `appSlug`: The slug of the app.
+- `iconPath`: The path to the app icon. Defaults to a blank GIF
 
-- `appNamePrefix` is extracted from the manifest. Originally used for apps maintained by Cozy Cloud teams.
-- `lang` is extracted from the `lang` attribute of the `<html>` tag. Defaults to 'en'
-- `iconPath` uses the favicon 32px. Defaults to a blank GIF
-
-To make the icon of Cozy(`icon-cozy-home.svg`) compatible with an inverted theme, please set the parameter `isInvertedTheme` to `true`
+There is also other parameter to adapt the bar to your app:
+- `isInvertedTheme`: To make the icon of Cozy(`icon-cozy-home.svg`) compatible with an inverted theme
+- `isPublic`: To show the public version of the Bar
+- `onLogout`: A callback to react to the logout of the user
 
 ## Customizing the content of the bar
 
@@ -91,8 +94,6 @@ flag(bar.debug, true)
 
 Development mode
 ----------
-
-
 
 * Then, follow these steps:
 
