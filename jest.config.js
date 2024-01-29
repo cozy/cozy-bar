@@ -1,6 +1,6 @@
 module.exports = {
   moduleFileExtensions: ['js', 'jsx', 'json', 'styl', 'yaml'],
-  modulePathIgnorePatterns: ['<rootDir>/transpiled/'],
+  modulePathIgnorePatterns: ['<rootDir>/dist/'],
   setupFiles: ['<rootDir>/test/jestLib/setup.js'],
   setupFilesAfterEnv: ['<rootDir>/test/jestLib/setupFilesAfterEnv.js'],
   moduleDirectories: ['node_modules', 'src'],
