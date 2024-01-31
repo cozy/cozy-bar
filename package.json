@@ -93,13 +93,14 @@
     "semver-compare": "^1.0.0"
   },
   "peerDependencies": {
-    "@cozy/minilog": "^1.0.0",
-    "cozy-client": "^40.5.0",
-    "cozy-device-helper": "2.6.0",
-    "cozy-flags": "^2.10.2",
-    "cozy-interapp": "0.4.9",
-    "cozy-logger": "1.9.1",
-    "cozy-realtime": "^4.0.5",
-    "cozy-ui": "^93.1.1"
+    "@cozy/minilog": ">=1.0.0",
+    "cozy-client": ">=40.5.0",
+    "cozy-device-helper": ">=2.6.0",
+    "cozy-flags": ">=2.10.2",
+    "cozy-interapp": ">=0.4.9",
+    "cozy-realtime": ">=4.0.5",
+    "cozy-ui": ">=93.1.1",
+    "react": ">=16.10.1",
+    "react-dom": ">=16.10.1"
   }
 }
