@@ -30,8 +30,6 @@ describe('Bar', () => {
     fetchContext = mockFetchContext,
     fetchApps = mockFetchApps,
     fetchSettingsData = mockFetchSettingsData,
-    theme = 'default',
-    themeOverrides = {},
     isPublic = false,
     hasFetchedApps = false,
     client
@@ -42,8 +40,6 @@ describe('Bar', () => {
           fetchContext={fetchContext}
           fetchApps={fetchApps}
           fetchSettingsData={fetchSettingsData}
-          theme={theme}
-          themeOverrides={themeOverrides}
           isPublic={isPublic}
           hasFetchedApps={hasFetchedApps}
           onDrawer={jest.fn()}
@@ -92,23 +88,6 @@ describe('Bar', () => {
     await screen.getByText('Contact us')
 
     expect(mockFetchApps).toHaveBeenCalledTimes(2)
-  })
-
-  it('should change theme', () => {
-    setup({ theme: 'primary' })
-
-    const wrapper = screen.getByTestId('coz-bar-wrapper')
-
-    expect(wrapper.className).toBe('coz-bar-wrapper coz-theme-primary')
-  })
-
-  it.skip('should change allow theme overrides', () => {
-    setup({ theme: 'primary', themeOverrides: { primaryColor: 'red' } })
-
-    const wrapper = screen.getByTestId('coz-bar-wrapper')
-
-    // TODO : This not working because JSDom doesn't support CSS variables
-    expect(wrapper).toHaveStyle('--cozBarThemePrimaryColor: red')
   })
 
   it('should call re-fetch data when token is refreshed', () => {

@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useState, useCallback } from 'react'
+import React, {
+  createContext,
+  useContext,
+  useState,
+  memo,
+  useMemo
+} from 'react'
 
 const BarContext = createContext()
 
@@ -10,37 +16,29 @@ const BarProvider = ({ children }) => {
   const [barRight, setBarRight] = useState(null)
   const [barLeft, setBarLeft] = useState(null)
   const [barSearch, setBarSearch] = useState(null)
-  const [theme, setTheme] = useState()
-  const [themeOverrides, setThemeOverrides] = useState()
+  const [themeVariant, setThemeVariant] = useState('normal')
 
-  const handleThemeChange = useCallback((theme, overrides) => {
-    setTheme(theme)
-    if (overrides) {
-      setThemeOverrides(overrides)
-    }
-  }, [])
-
-  return (
-    <BarContext.Provider
-      value={{
-        barCenter,
-        setBarCenter,
-        barRight,
-        setBarRight,
-        barLeft,
-        setBarLeft,
-        barSearch,
-        setBarSearch,
-        setTheme: handleThemeChange,
-        themeOverrides,
-        theme
-      }}
-    >
-      {children}
-    </BarContext.Provider>
+  const value = useMemo(
+    () => ({
+      barCenter,
+      setBarCenter,
+      barRight,
+      setBarRight,
+      barLeft,
+      setBarLeft,
+      barSearch,
+      setBarSearch,
+      themeVariant,
+      setThemeVariant
+    }),
+    [barCenter, barLeft, barRight, barSearch, themeVariant]
   )
+
+  return <BarContext.Provider value={value}>{children}</BarContext.Provider>
 }
 
 const useBarContext = () => useContext(BarContext)
 
-export { BarProvider, BarContext, useBarContext }
+export { BarContext, useBarContext }
+
+export default memo(BarProvider)

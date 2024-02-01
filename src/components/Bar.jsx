@@ -12,7 +12,6 @@ import Drawer from 'components/Drawer'
 import Settings from 'components/Settings'
 import Apps from 'components/Apps'
 import {
-  getTheme,
   hasFetched,
   fetchApps,
   fetchContext,
@@ -39,8 +38,6 @@ export const Bar = ({
   fetchApps,
   isPublic,
   onDrawer,
-  theme,
-  themeOverrides,
   barLeft,
   barRight,
   barCenter,
@@ -129,22 +126,8 @@ export const Bar = ({
     return !isPublic ? <Settings onLogOut={onLogOut} /> : null
   }
 
-  const {
-    primaryColor: pColor,
-    primaryContrastTextColor: pctColor
-  } = themeOverrides
-  const pStyle = pColor ? { '--cozBarThemePrimaryColor': pColor } : {}
-  const pctStyle = pctColor
-    ? { '--cozBarThemePrimaryContrastTextColor': pctColor }
-    : {}
-  const themeStyle = { ...pStyle, ...pctStyle }
-
   return (
-    <div
-      className={`coz-bar-wrapper coz-theme-${theme}`}
-      style={themeStyle}
-      data-testid="coz-bar-wrapper"
-    >
+    <div className="coz-bar-wrapper" data-testid="coz-bar-wrapper">
       <div id="cozy-bar-modal-dom-place" />
       <div className="coz-bar-container">
         {barLeft || renderLeft()}
@@ -179,8 +162,6 @@ Bar.propTypes = {
 }
 
 export const mapStateToProps = state => ({
-  theme: getTheme(state).name,
-  themeOverrides: getTheme(state).overrides,
   hasFetchedApps: hasFetched(state)
 })
 
