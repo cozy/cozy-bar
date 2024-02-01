@@ -20,14 +20,14 @@ import StorageData from 'components/Settings/StorageData'
 import useI18n from 'components/useI18n'
 
 const MenuIcon = ({ icon }) => {
-  return <Icon className="u-mr-1" color="var(--slateGrey)" icon={icon} />
+  return <Icon className="u-mr-1" color="var(--iconTextColor)" icon={icon} />
 }
 
 const ExternalLinkIcon = () => {
   return (
     <Icon
       className="coz-nav-settings-item-btn-external-icon"
-      color="var(--coolGrey)"
+      color="var(--iconTextColor)"
       icon={OpenwithIcon}
     />
   )

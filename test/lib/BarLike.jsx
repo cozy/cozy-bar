@@ -4,6 +4,7 @@ import { Provider } from 'react-redux'
 import I18n from 'cozy-ui/transpiled/react/providers/I18n'
 import { CozyProvider, createMockClient } from 'cozy-client'
 import { BreakpointsProvider } from 'cozy-ui/transpiled/react/providers/Breakpoints'
+import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
 
 import { createStore } from 'lib/store'
 import enLocale from 'locales/en.json'
@@ -23,9 +24,11 @@ const BarLike = ({ children, client }) => {
   return (
     <CozyProvider client={client || mockClient}>
       <Provider store={fakeStore}>
-        <BreakpointsProvider>
-          <TestI18n>{children}</TestI18n>
-        </BreakpointsProvider>
+        <CozyTheme>
+          <BreakpointsProvider>
+            <TestI18n>{children}</TestI18n>
+          </BreakpointsProvider>
+        </CozyTheme>
       </Provider>
     </CozyProvider>
   )

@@ -70,7 +70,7 @@ const AppNavButton = ({
         {!isPublic && (
           <Icon
             icon={opened ? TopIcon : BottomIcon}
-            color="#95999d"
+            color="var(--secondaryTextColor)"
             size="12"
           />
         )}

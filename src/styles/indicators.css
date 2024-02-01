@@ -12,24 +12,24 @@
 [role=banner] progress[value] {
   /* Reset the default appearance */
   appearance: none;
-  background-color: var(--paleGrey);
-  border: solid 1px var(--silver);
+  background-color: var(--defaultBackgroundColor);
+  border: solid 1px var(--borderMainColor);
   border-radius: 2px;
-  color: var(--dodgerBlue);
+  color: var(--primaryColor);
 }
 
 [role=banner] progress[value]::-webkit-progress-bar {
-  background: var(--paleGrey);
+  background: var(--defaultBackgroundColor);
   border-radius: 2px;
 }
 
 [role=banner] progress[value]::-webkit-progress-value {
-  background: var(--dodgerBlue);
+  background: var(--primaryColor);
   border-radius: 1px;
 }
 
 [role=banner] progress[value]::-moz-progress-bar {
-  background: var(--dodgerBlue);
+  background: var(--primaryColor);
   border-radius: 1px;
 }
 
@@ -38,5 +38,5 @@
   margin: 0 0 .1em 0;
   font-weight: normal;
   font-size: .875em;
-  color: var(--pomegranate);
+  color: var(--errorColor);
 }
