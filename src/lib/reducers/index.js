@@ -1,5 +1,4 @@
 import { combineReducers } from 'redux'
-import * as theme from 'lib/reducers/theme'
 import appsReducer, * as apps from 'lib/reducers/apps'
 import settingsReducer, * as settings from 'lib/reducers/settings'
 import contextReducer, * as context from 'lib/reducers/context'
@@ -10,22 +9,13 @@ const proxy = (attr, method) => {
   }
 }
 
-const setTheme = theme.setTheme
 const fetchApps = apps.fetchApps
 const setInfos = apps.setInfos
 const fetchSettingsData = settings.fetchSettingsData
 const logOut = settings.logOut
 const fetchContext = context.fetchContext
-export {
-  setTheme,
-  fetchApps,
-  setInfos,
-  fetchSettingsData,
-  logOut,
-  fetchContext
-}
+export { fetchApps, setInfos, fetchSettingsData, logOut, fetchContext }
 
-export const getTheme = proxy('theme', theme.getTheme)
 export const getApps = proxy('apps', apps.getApps)
 export const getHomeApp = proxy('apps', apps.getHomeApp)
 export const isFetchingApps = proxy('apps', apps.isFetchingApps)
@@ -44,8 +34,7 @@ export const onRealtimeDelete = apps.deleteApp
 export const reducers = {
   apps: appsReducer,
   context: contextReducer,
-  settings: settingsReducer,
-  theme: theme.reducer
+  settings: settingsReducer
 }
 
 export default combineReducers(reducers)

@@ -1,8 +1,6 @@
 
 [role=banner] .coz-bar-wrapper
     box-shadow inset 0 -1px 0 0 var(--dividerColor)
-    --cozBarThemePrimaryColor var(--primaryColor)
-    --cozBarThemePrimaryContrastTextColor var(--primaryContrastTextColor)
     background-color var(--paperBackgroundColor)
 
     .coz-nav-apps-btns
@@ -10,17 +8,3 @@
 
     .coz-bar-burger
         color var(--iconTextColor)
-
-@media (max-width: 64em)
-    [role=banner] .coz-bar-wrapper
-        background-color var(--paperBackgroundColor)
-
-@media (max-width: 48em)
-    [role=banner] .coz-bar-wrapper
-        &.coz-theme-primary
-            box-shadow inherit
-            background-color var(--cozBarThemePrimaryColor)
-
-            .coz-nav-apps-btns,
-            .coz-bar-burger
-                color var(--cozBarThemePrimaryContrastTextColor)

@@ -1,12 +1,7 @@
 import React, { useLayoutEffect, useState, useEffect } from 'react'
 import { createPortal } from 'react-dom'
 
-import {
-  onRealtimeCreate,
-  onRealtimeDelete,
-  setInfos,
-  setTheme
-} from 'lib/reducers'
+import { onRealtimeCreate, onRealtimeDelete, setInfos } from 'lib/reducers'
 
 import {
   getAppName,
@@ -97,7 +92,7 @@ const BarComponent = ({
   onLogOut
 }) => {
   const barContext = useBarContext()
-  const { barSearch, barLeft, barCenter, barRight, theme, themeOverrides } =
+  const { barSearch, barLeft, barCenter, barRight, themeVariant } =
     barContext || {}
 
   const [wrapperElement, setWrapperElement] = useState(null)
@@ -142,19 +137,13 @@ const BarComponent = ({
     }
   }
 
-  useEffect(() => {
-    if (theme) {
-      reduxStore.dispatch(setTheme(theme, themeOverrides || {}))
-    }
-  })
-
   return (
     <ReactPortal
       wrapperElement={wrapperElement}
       setWrapperElement={setWrapperElement}
     >
       <Provider store={options.reduxStore}>
-        <CozyTheme>
+        <CozyTheme variant={themeVariant}>
           <Bar
             {...options}
             barSearch={barSearch}
