@@ -81,7 +81,7 @@ setTheme('primary')
 
 ## Migrate from previous version
 
-If you're migrating from v8 (or v9, v10, which is the same as v8), check out [the migration guide](/docs/upgrading/v8.md). If you're migrating from v7, check out [the migration guide for v7](/docs/upgrading/v7.md). If you need to find the code for v7, [it is on the v7-stable branch](https://github.com/cozy/cozy-bar/tree/v7-stable).
+If you're migrating from v7, check out [the migration guide for v7](/docs/upgrading/v7.md). If you're migrating from an other version, check out [the migration guide](/docs/upgrading/v8.md). If you need to find the code for v7, [it is on the v7-stable branch](https://github.com/cozy/cozy-bar/tree/v7-stable).
 
 ## Debugging
 
