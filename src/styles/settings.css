@@ -1,11 +1,9 @@
 [role=banner] .coz-nav-settings-btn {
-  color: var(--slateGrey);
+  color: var(--primaryTextColor);
 }
 [role=banner] .coz-nav-settings-btn:hover,
 [role=banner] .coz-nav-settings-btn:focus {
-  background-color: var(--paleGrey);
-  box-shadow: inset 0 -1px 0 0 var(--silver);
-  color: var(--charcoalGrey);
+  background-color: var(--actionColorHover);
 }
 
 [role=banner] .coz-nav-pop--settings {
@@ -23,7 +21,7 @@
   text-align: left;
   font-size: 1rem;
   white-space: nowrap;
-  color: var(--charcoalGrey);
+  color: var(--primaryTextColor);
   text-decoration: none;
   outline: none;
 }

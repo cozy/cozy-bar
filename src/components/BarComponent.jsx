@@ -21,6 +21,7 @@ import Bar from './Bar'
 import { Provider } from 'react-redux'
 import { useClient } from 'cozy-client'
 import { isMobileApp } from 'cozy-device-helper'
+import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
 
 import stack from 'lib/stack'
 
@@ -153,13 +154,15 @@ const BarComponent = ({
       setWrapperElement={setWrapperElement}
     >
       <Provider store={options.reduxStore}>
-        <Bar
-          {...options}
-          barSearch={barSearch}
-          barLeft={barLeft}
-          barCenter={barCenter}
-          barRight={barRight}
-        />
+        <CozyTheme>
+          <Bar
+            {...options}
+            barSearch={barSearch}
+            barLeft={barLeft}
+            barCenter={barCenter}
+            barRight={barRight}
+          />
+        </CozyTheme>
       </Provider>
     </ReactPortal>
   )

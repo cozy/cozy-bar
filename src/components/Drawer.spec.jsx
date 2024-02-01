@@ -37,6 +37,7 @@ describe('bar', () => {
       const logOut = jest.fn().mockImplementation(() => {
         callOrder.push('logOut')
       })
+
       const onLogOut = jest.fn().mockImplementation(async () => {
         prom = sleep(100)
         callOrder.push('onLogOut')
@@ -52,6 +53,7 @@ describe('bar', () => {
       expect(logOut).not.toHaveBeenCalled()
       await prom
       await sleep(0)
+
       expect(logOut).toHaveBeenCalled()
       expect(onLogOut).toHaveBeenCalled()
       expect(callOrder).toEqual(['onLogOut', 'logOut'])
@@ -63,6 +65,7 @@ describe('bar', () => {
       act(() => {
         clickLogout()
       })
+
       expect(logOut).toHaveBeenCalled()
     })
 
@@ -73,6 +76,7 @@ describe('bar', () => {
       act(() => {
         clickLogout()
       })
+
       expect(logOut).toHaveBeenCalled()
       expect(onLogOut).toHaveBeenCalled()
     })

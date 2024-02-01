@@ -20,6 +20,7 @@ describe('app reducer', () => {
 
     stack.init(params)
   })
+
   it('dispatch RECEIVE_HOME_APP if context has default redirection', async () => {
     jest.spyOn(client.get, 'context').mockResolvedValue({
       data: { attributes: { default_redirection: 'home/' } }
@@ -28,6 +29,7 @@ describe('app reducer', () => {
 
     const setted = setDefaultApp([{ slug: 'home' }])
     await setted(dispatchMock)
+
     expect(dispatchMock).toHaveBeenCalledWith({
       homeApp: { slug: 'home' },
       type: 'RECEIVE_HOME_APP'
@@ -40,6 +42,7 @@ describe('app reducer', () => {
 
     const setted = setDefaultApp([{ slug: 'home' }])
     await setted(dispatchMock)
+
     expect(dispatchMock).toHaveBeenCalledWith({
       homeApp: { slug: 'home' },
       type: 'RECEIVE_HOME_APP'
