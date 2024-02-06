@@ -1,16 +1,19 @@
 import { Q } from 'cozy-client'
 
-export const instanceReq = {
-  query: () => Q('io.cozy.settings').getById('io.cozy.settings.instance'),
-  as: 'io.cozy.settings/io.cozy.settings.instance'
-}
+export const buildInstanceQuery = ({ enabled = true } = {}) => ({
+  definition: () => Q('io.cozy.settings').getById('io.cozy.settings.instance'),
+  options: {
+    as: 'io.cozy.settings/io.cozy.settings.instance',
+    enabled
+  }
+})
 
-export const contextReq = {
-  query: () => Q('io.cozy.settings').getById('context'),
-  as: 'io.cozy.settings/context'
-}
+export const buildContextQuery = ({ enabled = true } = {}) => ({
+  definition: () => Q('io.cozy.settings').getById('context'),
+  options: { as: 'io.cozy.settings/context', enabled }
+})
 
-export const diskUsageReq = {
-  query: () => Q('io.cozy.settings').getById('disk-usage'),
-  as: 'io.cozy.settings/disk-usage'
-}
+export const buildDiskUsageQuery = ({ enabled = true } = {}) => ({
+  definition: () => Q('io.cozy.settings').getById('disk-usage'),
+  options: { as: 'io.cozy.settings/disk-usage', enabled }
+})

@@ -1,14 +1,12 @@
 import React, { useRef, useEffect, useState, useCallback } from 'react'
 import { connect } from 'react-redux'
-import { compose } from 'redux'
 import get from 'lodash/get'
 
 import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 import { Button } from 'cozy-ui/transpiled/react/deprecated/Button'
 import GearIcon from 'cozy-ui/transpiled/react/Icons/Gear'
 
-import { queryConnect } from 'cozy-client/dist'
-import { models } from 'cozy-client'
+import { models, useQuery } from 'cozy-client'
 let instanceModel = undefined
 let hasAnOffer = undefined
 let isFremiumFixed = undefined
@@ -41,7 +39,11 @@ import {
   logOut
 } from 'lib/reducers'
 
-import { instanceReq, contextReq, diskUsageReq } from '../../queries'
+import {
+  buildDiskUsageQuery,
+  buildInstanceQuery,
+  buildContextQuery
+} from '../../queries'
 
 import {
   isFetchingQueries,
@@ -52,9 +54,6 @@ export const Settings = ({
   isBusy,
   logOut,
   onLogOut,
-  diskUsageQuery,
-  instanceQuery,
-  contextQuery,
   storageData,
   settingsAppURL,
   isFetching
@@ -62,6 +61,23 @@ export const Settings = ({
   const [isOpen, setOpen] = useState(false)
   const rootRef = useRef()
   const { t } = useI18n()
+
+  const canCheckPremium = cozyClientCanCheckPremium()
+
+  const diskUsageQuery = buildDiskUsageQuery({ enabled: canCheckPremium })
+  const diskUsageResult = useQuery(
+    diskUsageQuery.definition,
+    diskUsageQuery.options
+  )
+
+  const instanceQuery = buildInstanceQuery({ enabled: canCheckPremium })
+  const instanceResult = useQuery(
+    instanceQuery.definition,
+    instanceQuery.options
+  )
+
+  const contextQuery = buildContextQuery({ enabled: canCheckPremium })
+  const contextResult = useQuery(contextQuery.definition, contextQuery.options)
 
   const onClickOutside = useCallback(
     event => {
@@ -94,18 +110,19 @@ export const Settings = ({
   let shouldDisplayViewOfferButton = false
   let managerUrlPremiumLink
   let isFetchingFromQueries
-  const canCheckPremium = cozyClientCanCheckPremium()
+
   if (canCheckPremium) {
     isFetchingFromQueries = isFetchingQueries([
-      diskUsageQuery,
-      instanceQuery,
-      contextQuery
+      diskUsageResult,
+      instanceResult,
+      contextResult
     ])
+
     if (!isFetchingFromQueries) {
       const data = {
-        context: contextQuery,
-        diskUsage: diskUsageQuery,
-        instance: instanceQuery
+        context: contextResult.data,
+        diskUsage: diskUsageResult.data,
+        instance: instanceResult.data
       }
       shouldDisplayViewOfferButton =
         instanceModel.shouldDisplayOffers(data) || hasAnOffer(data)
@@ -170,23 +187,8 @@ const mapDispatchToProps = dispatch => ({
   fetchSettingsData: () => dispatch(fetchSettingsData()),
   logOut: () => dispatch(logOut())
 })
-let exported
-if (cozyClientCanCheckPremium()) {
-  exported = compose(
-    queryConnect({
-      instanceQuery: instanceReq,
-      contextQuery: contextReq,
-      diskUsageQuery: diskUsageReq
-    }),
-    connect(
-      mapStateToProps,
-      mapDispatchToProps
-    )
-  )(Settings)
-} else {
-  exported = connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(Settings)
-}
-export default exported
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Settings)
