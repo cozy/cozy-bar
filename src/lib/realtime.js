@@ -1,5 +1,3 @@
-import CozyRealtime from 'cozy-realtime'
-
 const APPS_DOCTYPE = 'io.cozy.apps'
 
 /**
@@ -31,7 +29,14 @@ function initializeRealtime({ getApp, onCreate, onDelete, cozyClient }) {
   }
 
   try {
-    const realtime = new CozyRealtime({ client: cozyClient })
+    const realtime = cozyClient.plugins.realtime
+
+    if (!realtime) {
+      throw new Error(
+        'You must include the realtime plugin to use cozy-bar realtime features.'
+      )
+    }
+
     realtime.subscribe('created', APPS_DOCTYPE, handleAppCreation)
     realtime.subscribe('deleted', APPS_DOCTYPE, handleAppRemoval)
   } catch (error) {
