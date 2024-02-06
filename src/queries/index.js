@@ -9,11 +9,12 @@ export const buildInstanceQuery = ({ enabled = true } = {}) => ({
 })
 
 export const buildContextQuery = ({ enabled = true } = {}) => ({
-  definition: () => Q('io.cozy.settings').getById('context'),
-  options: { as: 'io.cozy.settings/context', enabled }
+  definition: () => Q('io.cozy.settings').getById('io.cozy.settings.context'),
+  options: { as: 'io.cozy.settings/io.cozy.settings.context', enabled }
 })
 
 export const buildDiskUsageQuery = ({ enabled = true } = {}) => ({
-  definition: () => Q('io.cozy.settings').getById('disk-usage'),
-  options: { as: 'io.cozy.settings/disk-usage', enabled }
+  definition: () =>
+    Q('io.cozy.settings').getById('io.cozy.settings.disk-usage'),
+  options: { as: 'io.cozy.settings/io.cozy.settings.disk-usage', enabled }
 })
