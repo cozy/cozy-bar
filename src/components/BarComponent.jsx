@@ -89,7 +89,8 @@ const BarComponent = ({
   iconPath = getDefaultIcon(),
   isInvertedTheme,
   isPublic = false,
-  onLogOut
+  onLogOut,
+  disableInternalStore = false
 }) => {
   const barContext = useBarContext()
   const { barSearch, barLeft, barCenter, barRight, themeVariant } =
@@ -103,23 +104,21 @@ const BarComponent = ({
   let isPublicForce = !isPublic && /^\/public/.test(window.location.pathname)
 
   const getOrCreateStore = require('lib/store').default
-  const reduxStore = getOrCreateStore()
+  let store
+  if (disableInternalStore) {
+    store = cozyClient.store
+  } else {
+    store = getOrCreateStore()
+  }
 
   useEffect(() => {
-    reduxStore.dispatch(setInfos(appName, appNamePrefix, appSlug))
+    store.dispatch(setInfos(appName, appNamePrefix, appSlug))
     stack.init({
       cozyClient,
-      onCreate: data => reduxStore.dispatch(onRealtimeCreate(data)),
-      onDelete: data => reduxStore.dispatch(onRealtimeDelete(data))
+      onCreate: data => store.dispatch(onRealtimeCreate(data)),
+      onDelete: data => store.dispatch(onRealtimeDelete(data))
     })
-  }, [
-    appName,
-    appNamePrefix,
-    appSlug,
-    cozyClient,
-    getOrCreateStore,
-    reduxStore
-  ])
+  }, [appName, appNamePrefix, appSlug, cozyClient, store])
 
   const options = {
     appName,
@@ -131,7 +130,6 @@ const BarComponent = ({
     isPublic: isPublicForce || isPublic,
     onLogOut,
     userActionRequired: getUserActionRequired(),
-    reduxStore,
     onDrawer: visible => {
       wrapperElement.dataset.visible = visible
     }
@@ -142,8 +140,8 @@ const BarComponent = ({
       wrapperElement={wrapperElement}
       setWrapperElement={setWrapperElement}
     >
-      <Provider store={options.reduxStore}>
-        <CozyTheme variant={themeVariant}>
+      <CozyTheme variant={themeVariant}>
+        {disableInternalStore ? (
           <Bar
             {...options}
             barSearch={barSearch}
@@ -151,8 +149,18 @@ const BarComponent = ({
             barCenter={barCenter}
             barRight={barRight}
           />
-        </CozyTheme>
-      </Provider>
+        ) : (
+          <Provider store={store}>
+            <Bar
+              {...options}
+              barSearch={barSearch}
+              barLeft={barLeft}
+              barCenter={barCenter}
+              barRight={barRight}
+            />
+          </Provider>
+        )}
+      </CozyTheme>
     </ReactPortal>
   )
 }

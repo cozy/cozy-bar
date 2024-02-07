@@ -5,7 +5,7 @@ import contextReducer, * as context from 'lib/reducers/context'
 
 const proxy = (attr, method) => {
   return (state, ...args) => {
-    return method(state[attr], ...args)
+    return method(state.cozyBar[attr], ...args)
   }
 }
 
@@ -32,9 +32,11 @@ export const onRealtimeCreate = apps.receiveApp
 export const onRealtimeDelete = apps.deleteApp
 
 export const reducers = {
-  apps: appsReducer,
-  context: contextReducer,
-  settings: settingsReducer
+  cozyBar: combineReducers({
+    apps: appsReducer,
+    context: contextReducer,
+    settings: settingsReducer
+  })
 }
 
 export default combineReducers(reducers)
