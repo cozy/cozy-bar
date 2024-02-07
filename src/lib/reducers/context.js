@@ -13,7 +13,7 @@ export const getHelpLink = state => {
 // actions
 export const fetchContext = () => async (dispatch, getState) => {
   dispatch({ type: FETCH_CONTEXT })
-  if (getState().context.contextNotExist) {
+  if (getState().cozyBar.context.contextNotExist) {
     return dispatch({ type: FETCH_CONTEXT_SUCCESS, context: null })
   }
   try {

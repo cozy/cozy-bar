@@ -9,5 +9,6 @@ export { BarCenter } from './components/BarCenter'
 export { BarTheme } from './components/BarTheme'
 export { BarSearch } from './components/BarSearch'
 export { default as BarProvider } from './components/BarProvider'
+export { reducers as barReducers } from './lib/reducers'
 
 export const version = __VERSION__

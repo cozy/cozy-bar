@@ -39,10 +39,10 @@ const fetchStorageData = () => async dispatch => {
 
 const fetchSettingsAppURL = () => async (dispatch, getState) => {
   // If the `settings` app is available, it will used to add the links 'Profile' and 'Connected Devices'
-  if (getState().settings.settingsAppURL) {
+  if (getState().cozyBar.settings.settingsAppURL) {
     return dispatch({
       type: RECEIVE_SETTINGS_URL,
-      settingsAppURL: getState().settings.settingsAppURL
+      settingsAppURL: getState().cozyBar.settings.settingsAppURL
     })
   }
   try {
