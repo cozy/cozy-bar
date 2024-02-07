@@ -45,10 +45,7 @@ import {
   buildContextQuery
 } from '../../queries'
 
-import {
-  isFetchingQueries,
-  cozyClientCanCheckPremium
-} from 'components/Settings/helper'
+import { isFetchingQueries } from 'components/Settings/helper'
 
 export const Settings = ({
   isBusy,
@@ -62,21 +59,19 @@ export const Settings = ({
   const rootRef = useRef()
   const { t } = useI18n()
 
-  const canCheckPremium = cozyClientCanCheckPremium()
-
-  const diskUsageQuery = buildDiskUsageQuery({ enabled: canCheckPremium })
+  const diskUsageQuery = buildDiskUsageQuery()
   const diskUsageResult = useQuery(
     diskUsageQuery.definition,
     diskUsageQuery.options
   )
 
-  const instanceQuery = buildInstanceQuery({ enabled: canCheckPremium })
+  const instanceQuery = buildInstanceQuery()
   const instanceResult = useQuery(
     instanceQuery.definition,
     instanceQuery.options
   )
 
-  const contextQuery = buildContextQuery({ enabled: canCheckPremium })
+  const contextQuery = buildContextQuery()
   const contextResult = useQuery(contextQuery.definition, contextQuery.options)
 
   const onClickOutside = useCallback(
@@ -111,34 +106,27 @@ export const Settings = ({
   let managerUrlPremiumLink
   let isFetchingFromQueries
 
-  if (canCheckPremium) {
-    isFetchingFromQueries = isFetchingQueries([
-      diskUsageResult,
-      instanceResult,
-      contextResult
-    ])
+  isFetchingFromQueries = isFetchingQueries([
+    diskUsageResult,
+    instanceResult,
+    contextResult
+  ])
 
-    if (!isFetchingFromQueries) {
-      const data = {
-        context: contextResult.data,
-        diskUsage: diskUsageResult.data,
-        instance: instanceResult.data
-      }
-      shouldDisplayViewOfferButton =
-        instanceModel.shouldDisplayOffers(data) || hasAnOffer(data)
-
-      managerUrlPremiumLink = instanceModel.buildPremiumLink(data)
+  if (!isFetchingFromQueries) {
+    const data = {
+      context: contextResult.data,
+      diskUsage: diskUsageResult.data,
+      instance: instanceResult.data
     }
+    shouldDisplayViewOfferButton =
+      instanceModel.shouldDisplayOffers(data) || hasAnOffer(data)
+
+    managerUrlPremiumLink = instanceModel.buildPremiumLink(data)
   }
 
-  let areAllFetchingDone = false
-  if (!canCheckPremium) {
-    areAllFetchingDone = !isFetching
-  } else {
-    areAllFetchingDone = !isFetchingFromQueries && !isFetching
-  }
-
+  const areAllFetchingDone = !isFetchingFromQueries && !isFetching
   const openMenu = isOpen && areAllFetchingDone
+
   return (
     <div className="coz-nav coz-nav-settings" ref={rootRef}>
       <Button
