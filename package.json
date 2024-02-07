@@ -89,8 +89,7 @@
     "redux": "4.1.2",
     "redux-logger": "3.0.6",
     "redux-persist": "5.10.0",
-    "redux-thunk": "2.3.0",
-    "semver-compare": "^1.0.0"
+    "redux-thunk": "2.3.0"
   },
   "peerDependencies": {
     "@cozy/minilog": ">=1.0.0",

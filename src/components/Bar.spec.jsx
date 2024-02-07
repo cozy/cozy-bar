@@ -4,7 +4,7 @@ import { BarLike } from 'test/lib/BarLike'
 
 import { Bar } from './Bar'
 import { fireEvent, render, screen } from '@testing-library/react'
-import CozyClient from 'cozy-client'
+import { createMockClient } from 'cozy-client'
 
 jest.mock('cozy-device-helper', () => ({
   ...require.requireActual('cozy-device-helper'),
@@ -31,11 +31,12 @@ describe('Bar', () => {
     fetchApps = mockFetchApps,
     fetchSettingsData = mockFetchSettingsData,
     isPublic = false,
-    hasFetchedApps = false,
-    client
+    hasFetchedApps = false
   } = {}) => {
-    return render(
-      <BarLike client={client}>
+    const mockClient = createMockClient({})
+
+    const result = render(
+      <BarLike client={mockClient}>
         <Bar
           fetchContext={fetchContext}
           fetchApps={fetchApps}
@@ -46,6 +47,11 @@ describe('Bar', () => {
         />
       </BarLike>
     )
+
+    return {
+      ...result,
+      client: mockClient
+    }
   }
 
   it('should fetch data when mounted', () => {
@@ -91,8 +97,7 @@ describe('Bar', () => {
   })
 
   it('should call re-fetch data when token is refreshed', () => {
-    const client = new CozyClient({})
-    setup({ client: client })
+    const { client } = setup()
     client.emit('tokenRefreshed')
 
     expect(mockFetchContext).toHaveBeenCalledTimes(2)
