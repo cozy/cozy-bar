@@ -1,34 +1,50 @@
 const APP_SELECTOR = '[role=application]'
 
 // return an empty object by default to avoid checking existance
+const getAppNodeDataSet = () => {
+  const appNode = document.querySelector(APP_SELECTOR)
+  if (!appNode || !appNode.dataset) return {}
+  return appNode.dataset
+}
+
 const getCozyData = () => {
-  const root = document.querySelector(APP_SELECTOR)
-  if (!root || !root.dataset) return {}
-  return JSON.parse(root.dataset.cozy)
+  const dataset = getAppNodeDataSet()
+  if (!dataset.cozy) return { app: {} }
+  return JSON.parse(dataset.cozy)
 }
 
 const getDefaultIcon = () => {
-  const data = getCozyData()
-  if (data.app.icon) {
-    return data.app.icon
+  const cozy = getCozyData()
+  const dataset = getAppNodeDataSet()
+
+  if (cozy.app.icon) {
+    return cozy.app.icon
+  } else if (dataset.cozyIconPath) {
+    return dataset.cozyIconPath
   } else {
     return 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'
   }
 }
 
 const getAppName = () => {
-  const data = getCozyData()
-  return data.app.name || null
+  const cozy = getCozyData()
+  const dataset = getAppNodeDataSet()
+
+  return cozy.app.name || dataset.cozyAppName || null
 }
 
 const getAppNamePrefix = () => {
-  const data = getCozyData()
-  return data.app.prefix || null
+  const cozy = getCozyData()
+  const dataset = getAppNodeDataSet()
+
+  return cozy.app.prefix || dataset.cozyAppNamePrefix || null
 }
 
 const getAppSlug = () => {
-  const data = getCozyData()
-  return data.app.slug || null
+  const cozy = getCozyData()
+  const dataset = getAppNodeDataSet()
+
+  return cozy.app.slug || dataset.cozyAppSlug || null
 }
 
 const getUserActionRequired = () => {
