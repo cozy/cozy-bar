@@ -3822,10 +3822,10 @@ cosmiconfig@^7.0.0:
     path-type "^4.0.0"
     yaml "^1.10.0"
 
-cozy-authentication@1.19.1:
-  version "1.19.1"
-  resolved "https://registry.yarnpkg.com/cozy-authentication/-/cozy-authentication-1.19.1.tgz#88baebe9f906f21e2adcd91176d2aae8a2ff3828"
-  integrity sha512-TnEW+Uh+81Stk8ouY59oFXjs4TrD9fSOQhrf+Onffzr8J313s9Sq1a7hdqLeFmKfJiBqMISiujoxBy0wG3qApQ==
+cozy-authentication@1.19.2:
+  version "1.19.2"
+  resolved "https://registry.yarnpkg.com/cozy-authentication/-/cozy-authentication-1.19.2.tgz#290246c44d46b5dc38f2fe2ff2517ab7d169c62e"
+  integrity sha512-weFcYcxeLIDk6P2+UCMsVW6okqzTfm2v33Zz7K0F4dPpn/+VlGqaGWVLcjhX99Hgk5iuNsxTh+d1TD/dyVyhkQ==
   dependencies:
     cozy-device-helper "^1.8.0"
     localforage "1.7.3"

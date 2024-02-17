@@ -45,7 +45,7 @@
     "babel-plugin-module-resolver": "^4.0.0",
     "babel-plugin-transform-define": "^2.0.0",
     "babel-preset-cozy-app": "^1.9.0",
-    "cozy-authentication": "1.19.1",
+    "cozy-authentication": "1.19.2",
     "cozy-client": "^40.5.0",
     "cozy-device-helper": "2.6.0",
     "cozy-flags": "^2.10.2",
