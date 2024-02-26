@@ -26,7 +26,6 @@
     "tx": "tx pull --all || true",
     "test": "jest",
     "travis-deploy-once": "travis-deploy-once",
-    "example": "env USE_REACT=true nf -j examples/Procfile start",
     "start": "yarn build --watch"
   },
   "devDependencies": {
@@ -45,7 +44,6 @@
     "babel-plugin-module-resolver": "^4.0.0",
     "babel-plugin-transform-define": "^2.0.0",
     "babel-preset-cozy-app": "^1.9.0",
-    "cozy-authentication": "1.19.1",
     "cozy-client": "^40.5.0",
     "cozy-device-helper": "2.6.0",
     "cozy-flags": "^2.10.2",
@@ -71,7 +69,6 @@
     "parcel": "1.12.3",
     "react": "16.10.1",
     "react-dom": "16.10.1",
-    "react-router": "3.2.4",
     "semantic-release": "15.13.24",
     "style-loader": "0.23.1",
     "stylus": "0.57.0",
