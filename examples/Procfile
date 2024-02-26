@@ -1,3 +1,0 @@
-build-bar: yarn watch
-serve-bar: cd dist; python3 -m http.server 8000
-serve-example: yarn parcel examples/index.html --no-cache --port 1234
