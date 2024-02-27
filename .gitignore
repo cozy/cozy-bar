@@ -28,8 +28,5 @@ dist
 # jest coverage files
 coverage/
 
-# parcel cache
-.cache
-
 # transpiled files
 transpiled
