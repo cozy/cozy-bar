@@ -42,7 +42,7 @@
     "babel-plugin-module-resolver": "^4.0.0",
     "babel-plugin-transform-define": "^2.0.0",
     "babel-preset-cozy-app": "^1.9.0",
-    "cozy-client": "^40.5.0",
+    "cozy-client": "^45.13.0",
     "cozy-device-helper": "2.6.0",
     "cozy-flags": "^2.10.2",
     "cozy-intent": "^1.7.0",
@@ -76,7 +76,7 @@
   },
   "peerDependencies": {
     "@cozy/minilog": ">=1.0.0",
-    "cozy-client": ">=40.5.0",
+    "cozy-client": ">=45.13.0",
     "cozy-device-helper": ">=2.6.0",
     "cozy-flags": ">=2.10.2",
     "cozy-interapp": ">=0.4.9",
