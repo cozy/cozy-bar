@@ -50,7 +50,7 @@
   margin-right: .75rem;
 }
 
-[role=banner] .coz-nav-apps-btns-home.--is-flagship {
+[role=banner] .coz-nav-apps-btns-home--is-flagship {
   align-items: center;
   display: flex;
   flex-shrink: 0;
@@ -77,11 +77,11 @@
   color: var(--actionColorHover);
 }
 
-[role=banner] .coz-nav-apps-btns.--currentHome .coz-nav-apps-btns-main {
+[role=banner] .coz-nav-apps-btns--currentHome .coz-nav-apps-btns-main {
   margin-left: 0;
 }
 
-[role=banner] .coz-nav-apps-btns.--currentHome .coz-nav-apps-btns-home {
+[role=banner] .coz-nav-apps-btns--currentHome .coz-nav-apps-btns-home {
   margin-right: 0;
 }
 
@@ -93,7 +93,7 @@
   transform-origin: 10% 0%;
 }
 
-[role=banner] .coz-nav .--currentHome+.coz-nav-pop--apps {
+[role=banner] .coz-nav .coz-nav-apps-btns--currentHome+.coz-nav-pop--apps {
   left: 0;
 }
 
@@ -129,7 +129,7 @@
 }
 
 /* current app item */
-[role=banner] .coz-nav-apps-item.--current a[role=menuitem] {
+[role=banner] .coz-nav-apps-item--current a[role=menuitem] {
   font-weight: bold;
   background-color: var(--defaultBackgroundColor);
   border-left: 4px solid var(--primaryColor)
@@ -183,11 +183,6 @@
   font-size: 14px;
   justify-content: center;
   align-items: center;
-}
-
-[role=banner] [role=menuitem].coz-apps-home-btn.--mobile>span {
-  display: flex;
-  justify-content: flex-start;
 }
 
 [role=banner] [role=menuitem].coz-apps-home-btn svg {
@@ -246,7 +241,7 @@
   width: 7rem;
 }
 
-[role=banner] .coz-nav-apps-btns.--loading {
+[role=banner] .coz-nav-apps-btns--loading {
   width: 12rem;
 }
 

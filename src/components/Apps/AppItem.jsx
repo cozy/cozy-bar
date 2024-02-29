@@ -44,7 +44,7 @@ export const AppItem = ({ onAppSwitch, useHomeIcon, app, isInvertedTheme }) => {
         return (
           <li
             className={`coz-nav-apps-item${
-              app.isCurrentApp ? ' --current' : ''
+              app.isCurrentApp ? ' coz-nav-apps-item--current' : ''
             }`}
           >
             <a

@@ -28,7 +28,7 @@ const AppNavButton = ({
 
   if (!isPublic && isFetchingApps) {
     return (
-      <div className="coz-nav-apps-btns --loading">
+      <div className="coz-nav-apps-btns coz-nav-apps-btns--loading">
         <div className="coz-nav-apps-btns-home coz-loading-placeholder" />
         <div className="coz-nav-apps-btns-main coz-loading-placeholder" />
       </div>
@@ -50,7 +50,11 @@ const AppNavButton = ({
   const homeHref = !isPublic && homeApp && homeApp.href
 
   return (
-    <div className={`coz-nav-apps-btns${isHomeApp ? ' --currentHome' : ''}`}>
+    <div
+      className={`coz-nav-apps-btns${
+        isHomeApp ? ' coz-nav-apps-btns--currentHome' : ''
+      }`}
+    >
       <ButtonCozyHome homeHref={homeHref} isInvertedTheme={isInvertedTheme} />
 
       {!isHomeApp && <span className="coz-nav-apps-btns-sep" />}
