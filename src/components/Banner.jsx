@@ -21,12 +21,14 @@ const Banner = ({ code, links }) => {
   return (
     <div className={`coz-bar-banner${unmounted ? ' unmounted' : ''}`}>
       <p>{t(`banner.${code}.description`)}</p>
-      <ButtonLink
-        className="coz-bar-banner-button"
-        size="tiny"
-        href={links}
-        label={t(`banner.${code}.CTA`)}
-      />
+      {links && (
+        <ButtonLink
+          className="coz-bar-banner-button"
+          size="tiny"
+          href={links}
+          label={t(`banner.${code}.CTA`)}
+        />
+      )}
     </div>
   )
 }
