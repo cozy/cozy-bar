@@ -42,6 +42,9 @@
     "tos-updated": {
       "description": "Dans le cadre du RGPD, Cozy Cloud met à jour ses Conditions Générales d'Utilisation qui ont pris effet le 25 Mai 2018",
       "CTA": "Lire maintenant"
+    },
+    "moved": {
+      "description": "Ce Cozy a été déplacé vers une nouvelle adresse"
     }
   }
 }

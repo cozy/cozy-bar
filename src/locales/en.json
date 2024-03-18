@@ -42,6 +42,9 @@
     "tos-updated": {
       "description": "To comply with the GDPR, Cozy Cloud has updated its Terms of Services that have taken effect on May 25, 2018",
       "CTA": "Read now"
+    },
+    "moved": {
+      "description": "The Cozy has been moved to a new address"
     }
   }
 }
