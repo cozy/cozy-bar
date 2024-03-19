@@ -6,7 +6,10 @@ import { Button } from 'cozy-ui/transpiled/react/deprecated/Button'
 import GearIcon from 'cozy-ui/transpiled/react/Icons/Gear'
 import useI18n from 'components/useI18n'
 
-import { models, useQuery } from 'cozy-client'
+import { models, useClient, useQuery } from 'cozy-client'
+import { generateWebLink } from 'cozy-client/dist'
+import flag from 'cozy-flags'
+
 let instanceModel = undefined
 let hasAnOffer = undefined
 let isFremiumFixed = undefined
@@ -58,6 +61,7 @@ export const Settings = ({
   const [isOpen, setOpen] = useState(false)
   const rootRef = useRef()
   const { t } = useI18n()
+  const client = useClient()
 
   const diskUsageQuery = buildDiskUsageQuery()
   const diskUsageResult = useQuery(
@@ -121,7 +125,21 @@ export const Settings = ({
     shouldDisplayViewOfferButton =
       instanceModel.shouldDisplayOffers(data) || hasAnOffer(data)
 
-    managerUrlPremiumLink = instanceModel.buildPremiumLink(data)
+    const hasSubscription = flag('settings.subscription')
+
+    if (hasSubscription && client) {
+      const webLink = generateWebLink({
+        cozyUrl: client.getStackClient().uri,
+        hash: '/subscription',
+        pathname: '/',
+        slug: 'settings',
+        subDomainType: client.getInstanceOptions().subdomain
+      })
+
+      managerUrlPremiumLink = webLink
+    } else {
+      managerUrlPremiumLink = instanceModel.buildPremiumLink(data)
+    }
   }
 
   const areAllFetchingDone = !isFetchingFromQueries && !isFetching
