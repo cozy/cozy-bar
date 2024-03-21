@@ -136,7 +136,9 @@ export class Bar extends Component {
 
   renderRight = () => {
     const { isPublic } = this.props
-    return !isPublic ? <Settings onLogOut={this.props.onLogOut} /> : null
+    return !isPublic ? (
+      <Settings client={this.props.cozyClient} onLogOut={this.props.onLogOut} />
+    ) : null
   }
 
   render() {
