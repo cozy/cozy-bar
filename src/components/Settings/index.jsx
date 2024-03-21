@@ -5,8 +5,10 @@ import get from 'lodash/get'
 
 import { translate } from 'cozy-ui/react/I18n'
 import { Button } from 'cozy-ui/react/Button'
-import { queryConnect } from 'cozy-client/dist'
+import { queryConnect, generateWebLink } from 'cozy-client/dist'
 import { models } from 'cozy-client'
+import flag from 'cozy-flags'
+
 let instanceModel = undefined
 let hasAnOffer = undefined
 let isFremiumFixed = undefined
@@ -92,7 +94,8 @@ export class Settings extends Component {
       contextQuery,
       storageData,
       settingsAppURL,
-      isFetching
+      isFetching,
+      client
     } = this.props
 
     let shouldDisplayViewOfferButton = false
@@ -114,7 +117,21 @@ export class Settings extends Component {
         shouldDisplayViewOfferButton =
           instanceModel.shouldDisplayOffers(data) || hasAnOffer(data)
 
-        managerUrlPremiumLink = instanceModel.buildPremiumLink(data)
+        const hasSubscription = flag('settings.subscription')
+
+        if (hasSubscription && client) {
+          const webLink = generateWebLink({
+            cozyUrl: client.getStackClient().uri,
+            hash: '/subscription',
+            pathname: '/',
+            slug: 'settings',
+            subDomainType: client.getInstanceOptions().subdomain
+          })
+
+          managerUrlPremiumLink = webLink
+        } else {
+          managerUrlPremiumLink = instanceModel.buildPremiumLink(data)
+        }
       }
     }
 
