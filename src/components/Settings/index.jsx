@@ -6,7 +6,7 @@ import { Button } from 'cozy-ui/transpiled/react/deprecated/Button'
 import GearIcon from 'cozy-ui/transpiled/react/Icons/Gear'
 import useI18n from 'components/useI18n'
 
-import { models, useClient, useQuery } from 'cozy-client'
+import { models, useClient, useInstanceInfo } from 'cozy-client'
 import { generateWebLink } from 'cozy-client/dist'
 import flag from 'cozy-flags'
 
@@ -42,14 +42,6 @@ import {
   logOut
 } from 'lib/reducers'
 
-import {
-  buildDiskUsageQuery,
-  buildInstanceQuery,
-  buildContextQuery
-} from '../../queries'
-
-import { isFetchingQueries } from 'components/Settings/helper'
-
 export const Settings = ({
   isBusy,
   logOut,
@@ -63,20 +55,7 @@ export const Settings = ({
   const { t } = useI18n()
   const client = useClient()
 
-  const diskUsageQuery = buildDiskUsageQuery()
-  const diskUsageResult = useQuery(
-    diskUsageQuery.definition,
-    diskUsageQuery.options
-  )
-
-  const instanceQuery = buildInstanceQuery()
-  const instanceResult = useQuery(
-    instanceQuery.definition,
-    instanceQuery.options
-  )
-
-  const contextQuery = buildContextQuery()
-  const contextResult = useQuery(contextQuery.definition, contextQuery.options)
+  const { isLoaded: isInstanceInfoLoaded, ...instanceInfo } = useInstanceInfo()
 
   const onClickOutside = useCallback(
     event => {
@@ -108,22 +87,11 @@ export const Settings = ({
 
   let shouldDisplayViewOfferButton = false
   let managerUrlPremiumLink
-  let isFetchingFromQueries
 
-  isFetchingFromQueries = isFetchingQueries([
-    diskUsageResult,
-    instanceResult,
-    contextResult
-  ])
-
-  if (!isFetchingFromQueries) {
-    const data = {
-      context: contextResult.data,
-      diskUsage: diskUsageResult.data,
-      instance: instanceResult.data
-    }
+  if (isInstanceInfoLoaded) {
     shouldDisplayViewOfferButton =
-      instanceModel.shouldDisplayOffers(data) || hasAnOffer(data)
+      instanceModel.shouldDisplayOffers(instanceInfo) ||
+      hasAnOffer(instanceInfo)
 
     const hasSubscription = flag('settings.subscription')
 
@@ -138,11 +106,11 @@ export const Settings = ({
 
       managerUrlPremiumLink = webLink
     } else {
-      managerUrlPremiumLink = instanceModel.buildPremiumLink(data)
+      managerUrlPremiumLink = instanceModel.buildPremiumLink(instanceInfo)
     }
   }
 
-  const areAllFetchingDone = !isFetchingFromQueries && !isFetching
+  const areAllFetchingDone = isInstanceInfoLoaded && !isFetching
   const openMenu = isOpen && areAllFetchingDone
 
   return (
