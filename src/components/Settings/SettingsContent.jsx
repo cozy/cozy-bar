@@ -146,7 +146,7 @@ const SettingsContent = ({
               >
                 <MenuIcon icon={HelpIcon} />
                 {t('help')}
-                <ExternalLinkIcon />
+                {!flag('settings.subscription') && <ExternalLinkIcon />}
               </a>
             </NavItem>
             <NavItem>

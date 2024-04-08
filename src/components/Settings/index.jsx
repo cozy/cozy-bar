@@ -93,7 +93,7 @@ export const Settings = ({
       instanceModel.shouldDisplayOffers(instanceInfo) ||
       hasAnOffer(instanceInfo)
 
-    const hasSubscription = flag('settings.subscriptions')
+    const hasSubscription = flag('settings.subscription')
 
     if (hasSubscription && client) {
       const webLink = generateWebLink({
