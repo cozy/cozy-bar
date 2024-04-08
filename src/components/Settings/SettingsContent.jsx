@@ -47,10 +47,12 @@ const SettingsContent = ({
                 aria-hidden={ariaHidden}
               >
                 <p className="coz-label">{t('plans')}</p>
-                <span
-                  className="coz-nav-settings-item-openwith-icon"
-                  data-icon="icon-openwith"
-                ></span>
+                {!flag('settings.subscription') && (
+                  <span
+                    className="coz-nav-settings-item-openwith-icon"
+                    data-icon="icon-openwith"
+                  ></span>
+                )}
               </a>
             </li>
           )}
