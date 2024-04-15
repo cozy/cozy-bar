@@ -76,7 +76,7 @@ const SettingsContent = ({
               >
                 <MenuIcon icon={CozyCircleIcon} />
                 {t('plans')}
-                <ExternalLinkIcon />
+                {!flag('settings.subscription') && <ExternalLinkIcon />}
               </a>
             </NavItem>
           )}
@@ -146,7 +146,7 @@ const SettingsContent = ({
               >
                 <MenuIcon icon={HelpIcon} />
                 {t('help')}
-                {!flag('settings.subscription') && <ExternalLinkIcon />}
+                <ExternalLinkIcon />
               </a>
             </NavItem>
             <NavItem>
