@@ -66,24 +66,11 @@ class UnauthorizedStackException extends Error {
   }
 }
 
-class UnavailableSettingsException extends Error {
-  constructor(message) {
-    super()
-
-    this.name = 'UnavailableSettings'
-    this.message =
-      message ||
-      "The 'Settings' application isn't available or installed in the stack"
-    this.stack = new Error().stack
-  }
-}
-
 export {
   ForbiddenException,
   ServerErrorException,
   NotFoundException,
   MethodNotAllowedException,
   UnavailableStackException,
-  UnavailableSettingsException,
   UnauthorizedStackException
 }

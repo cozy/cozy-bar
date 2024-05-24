@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import flag from 'cozy-flags'
 
 import { isMobileApp } from 'cozy-device-helper'
+import { useClient } from 'cozy-client'
 
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import OpenwithIcon from 'cozy-ui/transpiled/react/Icons/Openwith'
@@ -16,6 +17,7 @@ import LogoutIcon from 'cozy-ui/transpiled/react/Icons/Logout'
 import HelpIcon from 'cozy-ui/transpiled/react/Icons/Help'
 import EmailIcon from 'cozy-ui/transpiled/react/Icons/Email'
 
+import { getSettingsLink } from 'components/Settings/helper'
 import StorageData from 'components/Settings/StorageData'
 import useI18n from 'components/useI18n'
 
@@ -43,65 +45,65 @@ const NavItem = ({ children }) => {
 
 const SettingsContent = ({
   onLogOut,
-  settingsAppURL,
   storageData,
   isDrawer = false,
   shoulDisplayViewOfferButton,
   managerUrlPremiumLink
 }) => {
   const { t } = useI18n()
+  const client = useClient()
+
   return (
     <div className="coz-nav-pop-content">
       {isDrawer && <hr />}
-      {settingsAppURL && (
-        <NavGroup>
+
+      <NavGroup>
+        <NavItem>
+          <a
+            role="menuitem"
+            href={getSettingsLink({ client, hash: 'profile' })}
+            target="_self"
+            title={t('profile')}
+          >
+            <MenuIcon icon={PeopleIcon} />
+            {t('profile')}
+          </a>
+        </NavItem>
+        {(!isDrawer || !isMobileApp()) && shoulDisplayViewOfferButton && (
           <NavItem>
             <a
               role="menuitem"
-              href={`${settingsAppURL}#/profile`}
+              href={managerUrlPremiumLink}
               target="_self"
-              title={t('profile')}
+              title={t('plans')}
             >
-              <MenuIcon icon={PeopleIcon} />
-              {t('profile')}
+              <MenuIcon icon={CozyCircleIcon} />
+              {t('plans')}
+              {!flag('settings.subscription') && <ExternalLinkIcon />}
             </a>
           </NavItem>
-          {(!isDrawer || !isMobileApp()) && shoulDisplayViewOfferButton && (
-            <NavItem>
-              <a
-                role="menuitem"
-                href={managerUrlPremiumLink}
-                target="_self"
-                title={t('plans')}
-              >
-                <MenuIcon icon={CozyCircleIcon} />
-                {t('plans')}
-                {!flag('settings.subscription') && <ExternalLinkIcon />}
-              </a>
-            </NavItem>
-          )}
-          <NavItem>
-            <a
-              role="menuitem"
-              target="_self"
-              title={t('storage')}
-              href={`${settingsAppURL}#/storage`}
-            >
-              <MenuIcon icon={GraphCircleIcon} />
-              <span>
-                {t('storage')}
-                <StorageData data={storageData} />
-              </span>
-            </a>
-          </NavItem>
-        </NavGroup>
-      )}
+        )}
+        <NavItem>
+          <a
+            role="menuitem"
+            target="_self"
+            title={t('storage')}
+            href={getSettingsLink({ client, hash: 'storage' })}
+          >
+            <MenuIcon icon={GraphCircleIcon} />
+            <span>
+              {t('storage')}
+              {storageData ? <StorageData data={storageData} /> : null}
+            </span>
+          </a>
+        </NavItem>
+      </NavGroup>
       <NavGroup>
         {flag('settings.permissions-dashboard') && (
           <NavItem>
             <a
               role="menuitem"
-              href={`${settingsAppURL}#/permissions/slug`}
+              href={getSettingsLink({ client, hash: 'permissions/slug' })}
               target="_self"
               title={t('permissions')}
             >
@@ -113,7 +115,7 @@ const SettingsContent = ({
         <NavItem>
           <a
             role="menuitem"
-            href={`${settingsAppURL}#/connectedDevices`}
+            href={getSettingsLink({ client, hash: 'connectedDevices' })}
             target="_self"
             title={t('connectedDevices')}
           >
@@ -124,7 +126,7 @@ const SettingsContent = ({
         <NavItem>
           <a
             role="menuitem"
-            href={`${settingsAppURL}#/sessions`}
+            href={getSettingsLink({ client, hash: 'sessions' })}
             target="_self"
             title={t('connections')}
           >
@@ -152,7 +154,7 @@ const SettingsContent = ({
             <NavItem>
               <a
                 role="menuitem"
-                href={`${settingsAppURL}#/support`}
+                href={getSettingsLink({ client, hash: 'support' })}
                 target="_self"
                 title={t('contact')}
               >
@@ -184,7 +186,6 @@ SettingsContent.defaultProps = {
 SettingsContent.propTypes = {
   shoulDisplayViewOfferButton: PropTypes.bool,
   onLogOut: PropTypes.func.isRequired,
-  settingsAppURL: PropTypes.string,
   storageData: PropTypes.object,
   isDrawer: PropTypes.bool
 }

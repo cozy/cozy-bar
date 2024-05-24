@@ -18,7 +18,11 @@ const TestI18n = ({ children }) => {
 }
 
 const BarLike = ({ children, client }) => {
-  const mockClient = createMockClient({})
+  const mockClient = createMockClient({
+    clientOptions: {
+      uri: 'http://cozy.localhost:8080'
+    }
+  })
   const fakeStore = createStore()
 
   return (
