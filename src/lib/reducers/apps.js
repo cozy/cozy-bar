@@ -8,6 +8,7 @@ const RECEIVE_APP_LIST = 'RECEIVE_APP_LIST'
 const RECEIVE_HOME_APP = 'RECEIVE_HOME_APP'
 const FETCH_APPS = 'FETCH_APPS'
 const FETCH_APPS_FAILURE = 'FETCH_APPS_FAILURE'
+const FETCH_APPS_SUCCESS = 'FETCH_APPS_SUCCESS'
 const SET_INFOS = 'SET_INFOS'
 
 export const isCurrentApp = (state, app) => app.slug === state.appSlug
@@ -91,6 +92,8 @@ const reducer = (state = defaultState, action) => {
   switch (action.type) {
     case FETCH_APPS:
       return { ...state, isFetching: true }
+    case FETCH_APPS_SUCCESS:
+      return { ...state, isFetching: false }
     case FETCH_APPS_FAILURE:
       return { ...state, isFetching: false }
     case RECEIVE_APP:
