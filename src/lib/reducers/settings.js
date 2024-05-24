@@ -5,7 +5,6 @@ const FETCH_SETTINGS_BUSY = 'FETCH_SETTINGS_BUSY'
 const FETCH_SETTINGS_SUCCESS = 'FETCH_SETTINGS_SUCCESS'
 const RECEIVE_NO_CONTEXT = 'RECEIVE_NO_CONTEXT'
 const RECEIVE_STORAGE = 'RECEIVE_STORAGE'
-const RECEIVE_SETTINGS_URL = 'RECEIVE_SETTINGS_URL'
 
 export const LOG_OUT = 'LOG_OUT'
 
@@ -14,9 +13,6 @@ const BUSY_DELAY = 450
 // selectors
 export const getStorageData = state => {
   return state.storageData
-}
-export const getSettingsAppURL = state => {
-  return state.settingsAppURL
 }
 export const isSettingsBusy = state => {
   return state.isBusy
@@ -37,24 +33,6 @@ const fetchStorageData = () => async dispatch => {
   }
 }
 
-const fetchSettingsAppURL = () => async (dispatch, getState) => {
-  // If the `settings` app is available, it will used to add the links 'Profile' and 'Connected Devices'
-  if (getState().cozyBar.settings.settingsAppURL) {
-    return dispatch({
-      type: RECEIVE_SETTINGS_URL,
-      settingsAppURL: getState().cozyBar.settings.settingsAppURL
-    })
-  }
-  try {
-    const settingsAppURL = await stack.get.settingsAppURL()
-    return dispatch({ type: RECEIVE_SETTINGS_URL, settingsAppURL })
-  } catch (e) {
-    // eslint-disable-next-line no-console
-    console.warn('Settings app is unavailable, settings links are disabled')
-    return null
-  }
-}
-
 export const fetchSettingsData = (displayBusy = true) => async dispatch => {
   dispatch({ type: FETCH_SETTINGS })
   // put the busy status after BUSY_DELAY secs
@@ -63,7 +41,6 @@ export const fetchSettingsData = (displayBusy = true) => async dispatch => {
     if (displayBusy) dispatch({ type: FETCH_SETTINGS_BUSY })
   }, BUSY_DELAY)
   await dispatch(fetchStorageData())
-  await dispatch(fetchSettingsAppURL())
   clearTimeout(busySpinner)
   dispatch({ type: FETCH_SETTINGS_SUCCESS })
 }
@@ -83,7 +60,6 @@ const defaultState = {
   contextNotExist: false,
   isFetching: false,
   isBusy: false,
-  settingsAppURL: null,
   storageData: null
 }
 
@@ -99,8 +75,6 @@ const reducer = (state = defaultState, action) => {
       return { ...state, contextNotExist: true }
     case RECEIVE_STORAGE:
       return { ...state, storageData: action.storageData }
-    case RECEIVE_SETTINGS_URL:
-      return { ...state, settingsAppURL: action.settingsAppURL }
     case LOG_OUT:
       return defaultState
     default:

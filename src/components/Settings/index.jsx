@@ -36,7 +36,6 @@ import SettingsContent from 'components/Settings/SettingsContent'
 import {
   fetchSettingsData,
   getStorageData,
-  getSettingsAppURL,
   isSettingsBusy,
   isFetchingSettings,
   logOut
@@ -47,7 +46,6 @@ export const Settings = ({
   logOut,
   onLogOut,
   storageData,
-  settingsAppURL,
   isFetching
 }) => {
   const [isOpen, setOpen] = useState(false)
@@ -140,7 +138,6 @@ export const Settings = ({
               }
             }}
             storageData={storageData}
-            settingsAppURL={settingsAppURL}
             shoulDisplayViewOfferButton={shouldDisplayViewOfferButton}
             managerUrlPremiumLink={managerUrlPremiumLink}
           />
@@ -152,7 +149,6 @@ export const Settings = ({
 
 const mapStateToProps = state => ({
   storageData: getStorageData(state),
-  settingsAppURL: getSettingsAppURL(state),
   isBusy: isSettingsBusy(state),
   isFetching: isFetchingSettings(state)
 })

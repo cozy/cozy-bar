@@ -5,12 +5,7 @@ import PropTypes from 'prop-types'
 
 import AppsContent from 'components/Apps/AppsContent'
 import SettingsContent from 'components/Settings/SettingsContent'
-import {
-  fetchSettingsData,
-  getSettingsAppURL,
-  getStorageData,
-  logOut
-} from 'lib/reducers'
+import { fetchSettingsData, getStorageData, logOut } from 'lib/reducers'
 
 class Drawer extends Component {
   constructor(props) {
@@ -163,7 +158,7 @@ class Drawer extends Component {
   }
 
   render() {
-    const { visible, settingsAppURL, storageData, isInvertedTheme } = this.props
+    const { visible, storageData, isInvertedTheme } = this.props
     return (
       <div
         className="coz-drawer-wrapper"
@@ -189,7 +184,6 @@ class Drawer extends Component {
             <SettingsContent
               onLogOut={this.handleLogout}
               storageData={storageData}
-              settingsAppURL={settingsAppURL}
               isDrawer
             />
           </nav>
@@ -205,7 +199,6 @@ Drawer.propTypes = {
   onLogOut: PropTypes.func,
   isInvertedTheme: PropTypes.bool,
   storageData: PropTypes.object,
-  settingsAppURL: PropTypes.string,
   fetchSettingsData: PropTypes.func,
   logOut: PropTypes.func
 }
@@ -213,8 +206,7 @@ Drawer.propTypes = {
 export { Drawer }
 
 const mapStateToProps = state => ({
-  storageData: getStorageData(state),
-  settingsAppURL: getSettingsAppURL(state)
+  storageData: getStorageData(state)
 })
 
 const mapDispatchToProps = dispatch => ({

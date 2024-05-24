@@ -33,7 +33,11 @@ describe('Bar', () => {
     isPublic = false,
     hasFetchedApps = false
   } = {}) => {
-    const mockClient = createMockClient({})
+    const mockClient = createMockClient({
+      clientOptions: {
+        uri: 'http://cozy.localhost:8080'
+      }
+    })
 
     const result = render(
       <BarLike client={mockClient}>
