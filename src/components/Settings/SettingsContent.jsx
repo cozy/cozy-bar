@@ -8,6 +8,7 @@ import { useClient } from 'cozy-client'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import OpenwithIcon from 'cozy-ui/transpiled/react/Icons/Openwith'
 import PeopleIcon from 'cozy-ui/transpiled/react/Icons/People'
+import PaletteIcon from 'cozy-ui/transpiled/react/Icons/Palette'
 import GraphCircleIcon from 'cozy-ui/transpiled/react/Icons/GraphCircle'
 import CozyCircleIcon from 'cozy-ui/transpiled/react/Icons/CozyCircle'
 import HandIcon from 'cozy-ui/transpiled/react/Icons/Hand'
@@ -69,6 +70,19 @@ const SettingsContent = ({
             {t('profile')}
           </a>
         </NavItem>
+        {flag('ui.darkmode.enabled') && (
+          <NavItem>
+            <a
+              role="menuitem"
+              href={getSettingsLink({ client, hash: 'appearance' })}
+              target="_self"
+              title={t('appearance')}
+            >
+              <MenuIcon icon={PaletteIcon} />
+              {t('appearance')}
+            </a>
+          </NavItem>
+        )}
         {(!isDrawer || !isMobileApp()) && shoulDisplayViewOfferButton && (
           <NavItem>
             <a

@@ -1,6 +1,7 @@
 {
   "drawer": "Show menu drawer",
   "profile": "Profile",
+  "appearance": "Appearance",
   "plans": "Plans",
   "permissions": "Permissions",
   "connectedDevices": "Connected devices",
