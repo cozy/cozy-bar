@@ -27,6 +27,7 @@
 
 [role=banner] .coz-bar-container {
   display: flex;
+  align-items: center;
   height: 3rem;
   width: 100%;
   padding: 0 1.25em 0 1em;
