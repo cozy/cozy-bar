@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 
 import AppsContent from 'components/Apps/AppsContent'
 import SettingsContent from 'components/Settings/SettingsContent'
-import { fetchSettingsData, getStorageData, logOut } from 'lib/reducers'
+import { fetchSettingsData } from 'lib/reducers'
 
 class Drawer extends Component {
   constructor(props) {
@@ -14,7 +14,6 @@ class Drawer extends Component {
       isScrolling: false,
       isClosing: false
     }
-    this.handleLogout = this.handleLogout.bind(this)
   }
 
   onDrawerClick = event => {
@@ -144,21 +143,9 @@ class Drawer extends Component {
     this.asideRef.style.transform = 'translateX(-' + progress * 100 + '%)'
   }
 
-  async handleLogout() {
-    const { onLogOut, logOut } = this.props
-
-    if (onLogOut && typeof onLogOut === 'function') {
-      const res = onLogOut()
-      if (res instanceof Promise) {
-        await res
-      }
-    }
-
-    logOut()
-  }
-
   render() {
-    const { visible, storageData, isInvertedTheme } = this.props
+    const { visible, isInvertedTheme, onLogOut } = this.props
+
     return (
       <div
         className="coz-drawer-wrapper"
@@ -181,11 +168,7 @@ class Drawer extends Component {
           </nav>
           <hr className="coz-sep-flex" />
           <nav className="coz-drawer--settings">
-            <SettingsContent
-              onLogOut={this.handleLogout}
-              storageData={storageData}
-              isDrawer
-            />
+            <SettingsContent isDrawer onLogOut={onLogOut} />
           </nav>
         </aside>
       </div>
@@ -198,23 +181,16 @@ Drawer.propTypes = {
   onClose: PropTypes.func,
   onLogOut: PropTypes.func,
   isInvertedTheme: PropTypes.bool,
-  storageData: PropTypes.object,
-  fetchSettingsData: PropTypes.func,
-  logOut: PropTypes.func
+  fetchSettingsData: PropTypes.func
 }
 
 export { Drawer }
 
-const mapStateToProps = state => ({
-  storageData: getStorageData(state)
-})
-
 const mapDispatchToProps = dispatch => ({
-  fetchSettingsData: () => dispatch(fetchSettingsData()),
-  logOut: () => dispatch(logOut())
+  fetchSettingsData: () => dispatch(fetchSettingsData())
 })
 
 export default connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps
 )(Drawer)
