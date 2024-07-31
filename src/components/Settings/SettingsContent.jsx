@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import PropTypes from 'prop-types'
 import flag from 'cozy-flags'
 
-import { isMobileApp } from 'cozy-device-helper'
+import { isMobileApp, isFlagshipApp } from 'cozy-device-helper'
 import { useClient } from 'cozy-client'
-
+import { useWebviewIntent } from 'cozy-intent'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import OpenwithIcon from 'cozy-ui/transpiled/react/Icons/Openwith'
 import PeopleIcon from 'cozy-ui/transpiled/react/Icons/People'
@@ -46,13 +46,32 @@ const NavItem = ({ children }) => {
 
 const SettingsContent = ({
   onLogOut,
-  storageData,
   isDrawer = false,
   shoulDisplayViewOfferButton,
   managerUrlPremiumLink
 }) => {
   const { t } = useI18n()
   const client = useClient()
+  const webviewIntent = useWebviewIntent()
+
+  const logOut = useCallback(async () => {
+    await client.logout()
+
+    return isFlagshipApp() && webviewIntent
+      ? webviewIntent.call('logout')
+      : window.location.reload()
+  }, [client, webviewIntent])
+
+  const handleLogout = async () => {
+    if (onLogOut && typeof onLogOut === 'function') {
+      const res = onLogOut()
+      if (res instanceof Promise) {
+        await res
+      }
+    } else {
+      logOut()
+    }
+  }
 
   return (
     <div className="coz-nav-pop-content">
@@ -107,7 +126,7 @@ const SettingsContent = ({
             <MenuIcon icon={GraphCircleIcon} />
             <span>
               {t('storage')}
-              {storageData ? <StorageData data={storageData} /> : null}
+              <StorageData />
             </span>
           </a>
         </NavItem>
@@ -182,7 +201,7 @@ const SettingsContent = ({
           <button
             type="button"
             role="menuitem"
-            onClick={onLogOut}
+            onClick={handleLogout}
             title={t('logout')}
           >
             <MenuIcon icon={LogoutIcon} /> {t('logout')}
@@ -199,8 +218,8 @@ SettingsContent.defaultProps = {
 
 SettingsContent.propTypes = {
   shoulDisplayViewOfferButton: PropTypes.bool,
-  onLogOut: PropTypes.func.isRequired,
-  storageData: PropTypes.object,
+  managerUrlPremiumLink: PropTypes.string,
+  onLogOut: PropTypes.func,
   isDrawer: PropTypes.bool
 }
 export default SettingsContent

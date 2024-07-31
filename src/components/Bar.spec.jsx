@@ -80,8 +80,8 @@ describe('Bar', () => {
     const toogleButton = await screen.getByText('Show menu drawer')
     fireEvent.click(toogleButton)
 
-    // wait the drawer to be opened
-    await screen.getByText('Contact us')
+    // wait the drawer and the settings menu to be opened
+    await screen.getAllByText('Contact us')
 
     expect(mockFetchApps).not.toHaveBeenCalled()
   })
@@ -94,8 +94,8 @@ describe('Bar', () => {
     const toogleButton = await screen.getByText('Show menu drawer')
     fireEvent.click(toogleButton)
 
-    // wait the drawer to be opened
-    await screen.getByText('Contact us')
+    // wait the drawer and the settings menu to be opened
+    await screen.getAllByText('Contact us')
 
     expect(mockFetchApps).toHaveBeenCalledTimes(2)
   })
