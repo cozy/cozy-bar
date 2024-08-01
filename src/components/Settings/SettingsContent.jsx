@@ -46,7 +46,7 @@ const NavItem = ({ children }) => {
 
 const SettingsContent = ({
   onLogOut,
-  isDrawer = false,
+  isDrawer,
   shoulDisplayViewOfferButton,
   managerUrlPremiumLink
 }) => {
@@ -102,7 +102,7 @@ const SettingsContent = ({
             </a>
           </NavItem>
         )}
-        {(!isDrawer || !isMobileApp()) && shoulDisplayViewOfferButton && (
+        {shoulDisplayViewOfferButton && (
           <NavItem>
             <a
               role="menuitem"
@@ -213,6 +213,7 @@ const SettingsContent = ({
 }
 
 SettingsContent.defaultProps = {
+  isDrawer: false,
   shoulDisplayViewOfferButton: false
 }
 
