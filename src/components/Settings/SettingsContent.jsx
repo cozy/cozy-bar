@@ -2,7 +2,7 @@ import React, { useCallback } from 'react'
 import PropTypes from 'prop-types'
 import flag from 'cozy-flags'
 
-import { isMobileApp, isFlagshipApp } from 'cozy-device-helper'
+import { isFlagshipApp } from 'cozy-device-helper'
 import { useClient } from 'cozy-client'
 import { useWebviewIntent } from 'cozy-intent'
 import Icon from 'cozy-ui/transpiled/react/Icon'
@@ -169,34 +169,31 @@ const SettingsContent = ({
         </NavItem>
       </NavGroup>
       <NavGroup>
-        {!isMobileApp() && (
-          <>
-            <NavItem>
-              <a
-                role="menuitem"
-                target="_blank"
-                rel="noopener noreferrer"
-                href="https://support.cozy.io/"
-                title={t('help')}
-              >
-                <MenuIcon icon={HelpIcon} />
-                {t('help')}
-                <ExternalLinkIcon />
-              </a>
-            </NavItem>
-            <NavItem>
-              <a
-                role="menuitem"
-                href={getSettingsLink({ client, hash: 'support' })}
-                target="_self"
-                title={t('contact')}
-              >
-                <MenuIcon icon={EmailIcon} />
-                {t('contact')}
-              </a>
-            </NavItem>
-          </>
-        )}
+        <NavItem>
+          <a
+            role="menuitem"
+            target="_blank"
+            rel="noopener noreferrer"
+            href="https://support.cozy.io/"
+            title={t('help')}
+          >
+            <MenuIcon icon={HelpIcon} />
+            {t('help')}
+            <ExternalLinkIcon />
+          </a>
+        </NavItem>
+        <NavItem>
+          <a
+            role="menuitem"
+            href={getSettingsLink({ client, hash: 'support' })}
+            target="_self"
+            title={t('contact')}
+          >
+            <MenuIcon icon={EmailIcon} />
+            {t('contact')}
+          </a>
+        </NavItem>
+
         <NavItem>
           <button
             type="button"
