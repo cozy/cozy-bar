@@ -7,7 +7,8 @@ import {
   buildPremiumLink
 } from 'cozy-client/dist/models/instance'
 import flag from 'cozy-flags'
-import { Button } from 'cozy-ui/transpiled/react/deprecated/Button'
+import Button from 'cozy-ui/transpiled/react/Buttons'
+import Icon from 'cozy-ui/transpiled/react/Icon'
 import GearIcon from 'cozy-ui/transpiled/react/Icons/Gear'
 import ClickAwayListener from 'cozy-ui/transpiled/react/ClickAwayListener'
 
@@ -57,14 +58,13 @@ const SettingsWithQuery = ({ onLogOut }) => {
     <ClickAwayListener onClickAway={() => setOpen(false)}>
       <div className="coz-nav coz-nav-settings" ref={rootRef}>
         <Button
-          type="button"
-          theme="text"
-          onClick={() => setOpen(v => !v)}
-          className="coz-nav-settings-btn"
+          variant="text"
           aria-controls="coz-nav-pop--settings"
+          color="default"
           busy={!isLoaded}
-          icon={GearIcon}
+          startIcon={<Icon icon={GearIcon} />}
           label={t('menu.settings')}
+          onClick={() => setOpen(v => !v)}
         />
         {isLoaded && (
           <SettingsMenu

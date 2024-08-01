@@ -1,11 +1,3 @@
-[role=banner] .coz-nav-settings-btn {
-  color: var(--primaryTextColor);
-}
-[role=banner] .coz-nav-settings-btn:hover,
-[role=banner] .coz-nav-settings-btn:focus {
-  background-color: var(--actionColorHover);
-}
-
 [role=banner] .coz-nav-pop--settings {
   right: 0;
 }
