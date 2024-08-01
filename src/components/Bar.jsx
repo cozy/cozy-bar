@@ -57,6 +57,7 @@ export const Bar = ({
   const { isMobile } = useBreakpoints()
   const [drawerVisible, setDrawerVisible] = useState(false)
   const showDrawerAndBurger = !isPublic && isMobile
+  const showSettings = !isPublic && !isMobile
 
   const fetchInitialData = useCallback(() => {
     if (!isPublic) {
@@ -125,7 +126,7 @@ export const Bar = ({
   }
 
   const renderRight = () => {
-    return !isPublic ? <Settings onLogOut={onLogOut} /> : null
+    return showSettings ? <Settings onLogOut={onLogOut} /> : null
   }
 
   return (
