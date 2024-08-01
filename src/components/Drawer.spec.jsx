@@ -2,12 +2,27 @@ import React from 'react'
 
 import { render, screen, fireEvent, act } from '@testing-library/react'
 
+import { useInstanceInfo } from 'cozy-client'
+
 import { Drawer } from './Drawer'
 import { BarLike } from 'test/lib/BarLike'
+
+jest.mock('cozy-client', () => ({
+  ...require.requireActual('cozy-client'),
+  useInstanceInfo: jest.fn()
+}))
 
 const sleep = duration => new Promise(resolve => setTimeout(resolve, duration))
 
 describe('bar', () => {
+  beforeEach(() => {
+    jest.resetAllMocks()
+    useInstanceInfo.mockReturnValue({
+      isLoaded: true,
+      diskUsage: { data: { attributes: { used: 0 } } }
+    })
+  })
+
   describe('logout', () => {
     const findLogoutButton = () => {
       return screen.getByText('Log out')
