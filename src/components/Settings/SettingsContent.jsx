@@ -3,7 +3,12 @@ import PropTypes from 'prop-types'
 import flag from 'cozy-flags'
 
 import { isFlagshipApp } from 'cozy-device-helper'
-import { useClient } from 'cozy-client'
+import { useClient, useInstanceInfo, generateWebLink } from 'cozy-client'
+import {
+  hasAnOffer,
+  shouldDisplayOffers,
+  buildPremiumLink
+} from 'cozy-client/dist/models/instance'
 import { useWebviewIntent } from 'cozy-intent'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import OpenwithIcon from 'cozy-ui/transpiled/react/Icons/Openwith'
@@ -44,15 +49,25 @@ const NavItem = ({ children }) => {
   return <li className="coz-nav-settings-item">{children}</li>
 }
 
-const SettingsContent = ({
-  onLogOut,
-  isDrawer,
-  shoulDisplayViewOfferButton,
-  managerUrlPremiumLink
-}) => {
+const SettingsContent = ({ instanceInfo, onLogOut, isDrawer }) => {
   const { t } = useI18n()
   const client = useClient()
   const webviewIntent = useWebviewIntent()
+  const hasSubscription = flag('settings.subscription')
+
+  const shouldDisplayViewOfferButton =
+    shouldDisplayOffers(instanceInfo) || hasAnOffer(instanceInfo)
+
+  const managerUrlPremiumLink =
+    hasSubscription && client
+      ? generateWebLink({
+          cozyUrl: client.getStackClient().uri,
+          hash: '/subscription',
+          pathname: '/',
+          slug: 'settings',
+          subDomainType: client.getInstanceOptions().subdomain
+        })
+      : buildPremiumLink(instanceInfo)
 
   const logOut = useCallback(async () => {
     await client.logout()
@@ -102,7 +117,7 @@ const SettingsContent = ({
             </a>
           </NavItem>
         )}
-        {shoulDisplayViewOfferButton && (
+        {shouldDisplayViewOfferButton && (
           <NavItem>
             <a
               role="menuitem"
@@ -209,15 +224,27 @@ const SettingsContent = ({
   )
 }
 
-SettingsContent.defaultProps = {
-  isDrawer: false,
-  shoulDisplayViewOfferButton: false
-}
-
 SettingsContent.propTypes = {
-  shoulDisplayViewOfferButton: PropTypes.bool,
-  managerUrlPremiumLink: PropTypes.string,
+  instanceInfo: PropTypes.object,
   onLogOut: PropTypes.func,
   isDrawer: PropTypes.bool
 }
-export default SettingsContent
+
+const SettingsContentWithQuery = props => {
+  const { isLoaded, ...instanceInfo } = useInstanceInfo()
+
+  if (!isLoaded) return null
+
+  return <SettingsContent instanceInfo={instanceInfo} {...props} />
+}
+
+SettingsContentWithQuery.defaultProps = {
+  isDrawer: false
+}
+
+SettingsContentWithQuery.propTypes = {
+  onLogOut: PropTypes.func,
+  isDrawer: PropTypes.bool
+}
+
+export default SettingsContentWithQuery
