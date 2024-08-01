@@ -92,14 +92,6 @@
   margin-right: 0.25em;
 }
 
-@media (min-width: 48.0625em) {
-  [role=banner] .coz-bar-burger,
-  [role=banner] .coz-drawer-wrapper {
-    display: none;
-  }
-}
-
-
 @media (max-width: 48em) {
   [role=banner] .coz-bar-hide-sm {
     display: none;

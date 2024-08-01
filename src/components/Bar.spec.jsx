@@ -5,6 +5,7 @@ import { BarLike } from 'test/lib/BarLike'
 import { Bar } from './Bar'
 import { fireEvent, render, screen } from '@testing-library/react'
 import { createMockClient } from 'cozy-client'
+import { useBreakpoints } from 'cozy-ui/transpiled/react/providers/Breakpoints'
 
 jest.mock('cozy-device-helper', () => ({
   ...require.requireActual('cozy-device-helper'),
@@ -12,10 +13,17 @@ jest.mock('cozy-device-helper', () => ({
   isFlagshipApp: jest.fn()
 }))
 
+jest.mock('cozy-ui/transpiled/react/providers/Breakpoints', () => ({
+  ...require.requireActual('cozy-ui/transpiled/react/providers/Breakpoints'),
+  __esModule: true,
+  useBreakpoints: jest.fn()
+}))
+
 describe('Bar', () => {
   beforeEach(() => {
     jest.resetAllMocks()
     isMobileApp.mockReturnValue(false)
+    useBreakpoints.mockReturnValue({ isMobile: true })
   })
 
   afterEach(() => {
@@ -80,8 +88,8 @@ describe('Bar', () => {
     const toogleButton = await screen.getByText('Show menu drawer')
     fireEvent.click(toogleButton)
 
-    // wait the drawer and the settings menu to be opened
-    await screen.getAllByText('Contact us')
+    // wait the drawer to be opened
+    await screen.getByText('Contact us')
 
     expect(mockFetchApps).not.toHaveBeenCalled()
   })
@@ -94,8 +102,8 @@ describe('Bar', () => {
     const toogleButton = await screen.getByText('Show menu drawer')
     fireEvent.click(toogleButton)
 
-    // wait the drawer and the settings menu to be opened
-    await screen.getAllByText('Contact us')
+    // wait the drawer to be opened
+    await screen.getByText('Contact us')
 
     expect(mockFetchApps).toHaveBeenCalledTimes(2)
   })

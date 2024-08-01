@@ -2,6 +2,7 @@ import React, { useEffect, useState, useCallback } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
+import { useBreakpoints } from 'cozy-ui/transpiled/react/providers/Breakpoints'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import { isFlagshipApp } from 'cozy-device-helper'
 import flag from 'cozy-flags'
@@ -53,8 +54,9 @@ export const Bar = ({
 }) => {
   const client = useClient()
   const { t } = useI18n()
-
+  const { isMobile } = useBreakpoints()
   const [drawerVisible, setDrawerVisible] = useState(false)
+  const showDrawerAndBurger = !isPublic && isMobile
 
   const fetchInitialData = useCallback(() => {
     if (!isPublic) {
@@ -109,7 +111,7 @@ export const Bar = ({
     }
 
     // data-tutorial attribute allows to be targeted in an application tutorial
-    return !isPublic ? (
+    return showDrawerAndBurger ? (
       <button
         type="button"
         className="coz-bar-btn coz-bar-burger"
@@ -134,7 +136,7 @@ export const Bar = ({
         {barCenter || renderCenter()}
         <div className="u-flex-grow">{barSearch}</div>
         {barRight || renderRight()}
-        {!isPublic ? (
+        {showDrawerAndBurger ? (
           <Drawer
             visible={drawerVisible}
             onClose={toggleDrawer}
