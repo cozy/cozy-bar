@@ -3,6 +3,9 @@ import { connect } from 'react-redux'
 import Hammer from 'hammerjs'
 import PropTypes from 'prop-types'
 
+import Divider from 'cozy-ui/transpiled/react/Divider'
+import List from 'cozy-ui/transpiled/react/List'
+import Paper from 'cozy-ui/transpiled/react/Paper'
 import AppsContent from 'components/Apps/AppsContent'
 import SettingsContent from 'components/Settings/SettingsContent'
 import { fetchSettingsData } from 'lib/reducers'
@@ -166,9 +169,13 @@ class Drawer extends Component {
               isInvertedTheme={isInvertedTheme}
             />
           </nav>
-          <hr className="coz-sep-flex" />
+          <Divider />
           <nav className="coz-drawer--settings">
-            <SettingsContent isDrawer onLogOut={onLogOut} />
+            <Paper elevation={0} square>
+              <List>
+                <SettingsContent isDrawer onLogOut={onLogOut} />
+              </List>
+            </Paper>
           </nav>
         </aside>
       </div>
