@@ -140,7 +140,7 @@ const BarComponent = ({
       wrapperElement={wrapperElement}
       setWrapperElement={setWrapperElement}
     >
-      <CozyTheme variant={themeVariant}>
+      <CozyTheme variant={themeVariant} ignoreCozySettings={options.isPublic}>
         {disableInternalStore ? (
           <Bar
             {...options}
