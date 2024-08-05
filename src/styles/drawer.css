@@ -65,16 +65,6 @@
   list-style-type: none;
 }
 
-[role=banner] .coz-drawer-wrapper nav hr {
-  margin: 0;
-  border: none;
-  border-bottom: solid 1px var(--borderMainColor);
-}
-
-[role=banner] .coz-drawer-wrapper .coz-nav-icon {
-  margin-right: .5em;
-}
-
 [role=banner] .coz-drawer--apps {
   flex: 0 1 100%;
   /* IMPORTANT: on Chrome, the `overflow-y: scroll` property on .coz-drawer--apps prevented
