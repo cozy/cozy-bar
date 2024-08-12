@@ -158,7 +158,6 @@ You can reach the Cozy Community by:
 
 cozy-bar is developed by Cozy Cloud and distributed under the [MIT].
 
-
 [cozy]: https://cozy.io "Cozy Cloud"
 [setup]: https://dev.cozy.io/#set-up-the-development-environment "Cozy dev docs: Set up the Development Environment"
 [doctypes]: https://dev.cozy.io/#main-document-types
