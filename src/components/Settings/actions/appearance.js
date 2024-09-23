@@ -1,6 +1,5 @@
 import React, { forwardRef } from 'react'
 
-import flag from 'cozy-flags'
 import ActionsMenuItem from 'cozy-ui/transpiled/react/ActionsMenu/ActionsMenuItem'
 import ListItemIcon from 'cozy-ui/transpiled/react/ListItemIcon'
 import ListItemText from 'cozy-ui/transpiled/react/ListItemText'
@@ -30,7 +29,6 @@ export const appearance = ({ t }) => {
     name: 'appearance',
     icon,
     label,
-    displayCondition: () => flag('ui.darkmode.enabled'),
     action: (_, { client }) => {
       const link = getSettingsLink({ client, hash: 'appearance' })
       window.open(link, '_self')
