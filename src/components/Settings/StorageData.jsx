@@ -14,9 +14,9 @@ const StorageData = () => {
 
   // we used this default quota set in getStorageData, we just reuse it here
   const storageData = makeDiskInfos(
-    diskUsage.data.attributes.used,
-    diskUsage.data.attributes.quota ||
-      Math.max(10 ** 12, 10 * parseInt(diskUsage.data.attributes.used, 10))
+    diskUsage.data.used,
+    diskUsage.data.quota ||
+      Math.max(10 ** 12, 10 * parseInt(diskUsage.data.used, 10))
   )
 
   return (
