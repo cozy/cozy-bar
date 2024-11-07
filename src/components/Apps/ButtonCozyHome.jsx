@@ -17,6 +17,7 @@ export const ButtonCozyHome = ({ homeHref, isInvertedTheme }) => {
           webviewIntent.call('backToHome')
         }}
         className="coz-nav-apps-btns-home coz-nav-apps-btns-home--is-flagship"
+        data-testid="buttonCozyHome"
       >
         <IconCozyHome
           className="coz-nav-apps-btns-home-svg"
