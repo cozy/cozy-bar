@@ -12,6 +12,7 @@
   "contact": "Contact us",
   "logout": "Log out",
   "soon": "soon",
+  "termsOfService": "Terms of Service",
   "error_UnavailableStack": "The stack is unreachable (connection timed-out).",
   "error_UnauthorizedStack": "Some permissions are missing, the application can't access the requested resource on the stack.",
   "no_apps": "No applications found on the Cozy.",
