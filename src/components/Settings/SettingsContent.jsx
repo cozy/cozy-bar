@@ -21,6 +21,7 @@ import {
   contact,
   logout
 } from 'components/Settings/actions'
+import { termsOfService } from 'components/Settings/actions/termsOfService'
 import useI18n from 'components/useI18n'
 
 const SettingsContent = ({
@@ -45,6 +46,7 @@ const SettingsContent = ({
       divider,
       help,
       contact,
+      termsOfService,
       logout
     ],
     {
