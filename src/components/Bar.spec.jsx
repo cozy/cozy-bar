@@ -38,7 +38,7 @@ describe('Bar', () => {
     shouldDisplayOffers.mockReturnValue(false)
     useInstanceInfo.mockReturnValue({
       isLoaded: true,
-      diskUsage: { data: { attributes: { used: 0 } } }
+      diskUsage: { data: { used: 0 } }
     })
   })
 

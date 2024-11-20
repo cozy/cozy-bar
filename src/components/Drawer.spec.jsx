@@ -19,7 +19,7 @@ describe('bar', () => {
     jest.resetAllMocks()
     useInstanceInfo.mockReturnValue({
       isLoaded: true,
-      diskUsage: { data: { attributes: { used: 0 } } }
+      diskUsage: { data: { used: 0 } }
     })
   })
 
