@@ -50,7 +50,7 @@ export const fetchApps = () => async dispatch => {
     const excludedApps = flag('apps.hidden') || []
     const apps = rawAppList
       .map(mapApp)
-      .filter(app => !excludedApps.includes(app))
+      .filter(app => !excludedApps.includes(app.slug))
     if (!rawAppList.length)
       throw new Error('No installed apps found by the bar')
     // TODO load only one time icons
