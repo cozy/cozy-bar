@@ -1,6 +1,7 @@
 /* global __VERSION__ */
 
 import './styles/index.styl'
+import 'cozy-search/dist/stylesheet.css'
 
 export { BarComponent } from './components/BarComponent'
 export { BarLeft } from './components/BarLeft'
