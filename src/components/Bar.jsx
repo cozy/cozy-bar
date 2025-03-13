@@ -20,6 +20,7 @@ import {
 } from 'lib/reducers'
 import useI18n from 'components/useI18n'
 import { useClient } from 'cozy-client'
+import { AssistantDesktop } from 'cozy-search'
 
 /* Generated with node_modules/.bin/svgr src/assets/sprites/icon-apps.svg */
 function SvgIconApps(props) {
@@ -45,6 +46,7 @@ export const Bar = ({
   barSearch,
   onLogOut,
   userActionRequired,
+  searchOptions,
   isInvertedTheme,
   appName,
   appNamePrefix,
@@ -129,13 +131,23 @@ export const Bar = ({
     return showSettings ? <Settings onLogOut={onLogOut} /> : null
   }
 
+  const renderSearch = () => {
+    return searchOptions.enabled && !isMobile ? (
+      <div className="u-flex-grow u-mh-2">
+        <AssistantDesktop
+          componentsProps={{ SearchBarDesktop: { size: 'small' } }}
+        />
+      </div>
+    ) : null
+  }
+
   return (
     <div className="coz-bar-wrapper" data-testid="coz-bar-wrapper">
       <div id="cozy-bar-modal-dom-place" />
       <div className="coz-bar-container">
         {barLeft || renderLeft()}
         {barCenter || renderCenter()}
-        <div className="u-flex-grow">{barSearch}</div>
+        <div className="u-flex-grow">{barSearch || renderSearch()}</div>
         {barRight || renderRight()}
         {showDrawerAndBurger ? (
           <Drawer
