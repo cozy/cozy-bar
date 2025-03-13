@@ -90,7 +90,8 @@ const BarComponent = ({
   isInvertedTheme,
   isPublic = false,
   onLogOut,
-  disableInternalStore = false
+  disableInternalStore = false,
+  searchOptions = { enabled: false }
 }) => {
   const barContext = useBarContext()
   const { barSearch, barLeft, barCenter, barRight, themeVariant } =
@@ -130,6 +131,7 @@ const BarComponent = ({
     isPublic: isPublicForce || isPublic,
     onLogOut,
     userActionRequired: getUserActionRequired(),
+    searchOptions,
     onDrawer: visible => {
       wrapperElement.dataset.visible = visible
     }
