@@ -25,7 +25,6 @@
     "prewatch": "npm-run-all clean",
     "tx": "tx pull --all || true",
     "test": "jest",
-    "travis-deploy-once": "travis-deploy-once",
     "start": "yarn build --watch"
   },
   "devDependencies": {
