@@ -73,6 +73,7 @@ describe('Bar', () => {
           isPublic={isPublic}
           hasFetchedApps={hasFetchedApps}
           onDrawer={jest.fn()}
+          searchOptions={{ enabled: false }}
         />
       </BarLike>
     )

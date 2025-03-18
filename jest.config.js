@@ -11,6 +11,7 @@ module.exports = {
     '^config/(.*)': '<rootDir>/src/config/$1',
     '\\.(png|gif|jpe?g|svg)$': '<rootDir>/test/__mocks__/fileMock.js',
     '\\.styl$': 'identity-obj-proxy',
+    '\\.css$': 'identity-obj-proxy',
     '^test/(.*)': '<rootDir>/test/$1'
   },
   browser: true,
