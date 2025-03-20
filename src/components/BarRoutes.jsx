@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { RealTimeQueries } from 'cozy-client'
-import { AssistantDialog } from 'cozy-search'
+import { AssistantDialog, SearchDialog } from 'cozy-search'
 import { Route } from 'react-router-dom'
 
 export const BarRoutes = [
@@ -14,5 +14,6 @@ export const BarRoutes = [
         <AssistantDialog />
       </>
     }
-  />
+  />,
+  <Route key="search" path="search" element={<SearchDialog />} />
 ]

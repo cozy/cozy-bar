@@ -21,6 +21,7 @@ import {
 import useI18n from 'components/useI18n'
 import { useClient } from 'cozy-client'
 import { AssistantDesktop } from 'cozy-search'
+import SearchButton from './Search/SearchButton'
 
 /* Generated with node_modules/.bin/svgr src/assets/sprites/icon-apps.svg */
 function SvgIconApps(props) {
@@ -148,6 +149,7 @@ export const Bar = ({
         {barLeft || renderLeft()}
         {barCenter || renderCenter()}
         <div className="u-flex-grow">{barSearch || renderSearch()}</div>
+        {searchOptions.enabled && isMobile ? <SearchButton /> : null}
         {barRight || renderRight()}
         {showDrawerAndBurger ? (
           <Drawer
