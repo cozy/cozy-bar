@@ -6,12 +6,13 @@ import { useBreakpoints } from 'cozy-ui/transpiled/react/providers/Breakpoints'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import { isFlagshipApp } from 'cozy-device-helper'
 import flag from 'cozy-flags'
-
+import { isTwakeTheme } from 'cozy-ui/transpiled/react/helpers/isTwakeTheme'
 import { ButtonCozyHome } from 'components/Apps/ButtonCozyHome'
 import Banner from 'components/Banner'
 import Drawer from 'components/Drawer'
 import Settings from 'components/Settings'
 import Apps from 'components/Apps'
+import AppsMenu from 'components/AppsMenu'
 import {
   hasFetched,
   fetchApps,
@@ -97,7 +98,9 @@ export const Bar = ({
   }
 
   const renderCenter = () => {
-    return (
+    return isTwakeTheme() ? (
+      <AppsMenu />
+    ) : (
       <Apps
         appName={appName}
         appNamePrefix={appNamePrefix}
