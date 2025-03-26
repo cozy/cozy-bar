@@ -49,5 +49,13 @@
     "moved": {
       "description": "Ce Cozy a été déplacé vers une nouvelle adresse"
     }
+  },
+  "userMenu": {
+    "addAccount": "Ajouter un compte",
+    "manageProfile": "Gérer mon profil",
+    "createBusinessAccount": "Créer un compte entreprise",
+    "storage": "Stockage",
+    "storageAvailable": "%{smart_count} Go disponible",
+    "logOut": "Se déconnecter"
   }
 }

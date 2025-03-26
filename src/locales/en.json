@@ -49,5 +49,13 @@
     "moved": {
       "description": "The Cozy has been moved to a new address"
     }
+  },
+  "userMenu": {
+    "addAccount": "Add account",
+    "manageProfile": "Manage profile",
+    "createBusinessAccount": "Create business account",
+    "storage": "Storage",
+    "storageAvailable": "%{smart_count} GB available",
+    "logOut": "Log out"
   }
 }
