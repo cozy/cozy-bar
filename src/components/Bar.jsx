@@ -13,6 +13,7 @@ import Drawer from 'components/Drawer'
 import Settings from 'components/Settings'
 import Apps from 'components/Apps'
 import AppsMenu from 'components/AppsMenu'
+import UserMenu from 'components/UserMenu'
 import {
   hasFetched,
   fetchApps,
@@ -132,6 +133,10 @@ export const Bar = ({
   }
 
   const renderRight = () => {
+    if (isTwakeTheme()) {
+      return <UserMenu />
+    }
+
     return showSettings ? <Settings onLogOut={onLogOut} /> : null
   }
 
