@@ -9,7 +9,7 @@ import { useInstanceInfo } from 'cozy-client'
 import UserMenuContent from 'components/UserMenu/UserMenuContent'
 import AvatarMyself from './components/AvatarMyself'
 
-const UserMenu = () => {
+const UserMenu = ({ onLogOut }) => {
   const [isOpen, setOpen] = useState(false)
   const buttonRef = useRef()
 
@@ -37,7 +37,11 @@ const UserMenu = () => {
           size="small"
           onClose={toggleMenu}
           content={
-            <UserMenuContent instance={instance} diskUsage={diskUsage} />
+            <UserMenuContent
+              onLogOut={onLogOut}
+              instance={instance}
+              diskUsage={diskUsage}
+            />
           }
         />
       ) : (
@@ -55,7 +59,11 @@ const UserMenu = () => {
             vertical: -10
           }}
         >
-          <UserMenuContent instance={instance} diskUsage={diskUsage} />
+          <UserMenuContent
+            onLogOut={onLogOut}
+            instance={instance}
+            diskUsage={diskUsage}
+          />
         </Menu>
       )}
     </nav>
