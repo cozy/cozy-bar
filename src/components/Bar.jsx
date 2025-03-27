@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 
 import { useBreakpoints } from 'cozy-ui/transpiled/react/providers/Breakpoints'
 import Icon from 'cozy-ui/transpiled/react/Icon'
+import AppTitle from 'cozy-ui/transpiled/react/AppTitle'
 import { isFlagshipApp } from 'cozy-device-helper'
 import flag from 'cozy-flags'
 import { isTwakeTheme } from 'cozy-ui/transpiled/react/helpers/isTwakeTheme'
@@ -14,7 +15,9 @@ import Settings from 'components/Settings'
 import Apps from 'components/Apps'
 import AppsMenu from 'components/AppsMenu'
 import UserMenu from 'components/UserMenu'
+import HelpLink from 'components/HelpLink'
 import {
+  getHomeApp,
   hasFetched,
   fetchApps,
   fetchContext,
@@ -55,13 +58,14 @@ export const Bar = ({
   appNamePrefix,
   appSlug,
   iconPath,
-  hasFetchedApps
+  hasFetchedApps,
+  homeApp
 }) => {
   const client = useClient()
   const { t } = useI18n()
   const { isMobile } = useBreakpoints()
   const [drawerVisible, setDrawerVisible] = useState(false)
-  const showDrawerAndBurger = !isPublic && isMobile
+  const showDrawerAndBurger = !isPublic && isMobile && !isTwakeTheme()
   const showSettings = !isPublic && !isMobile
 
   const fetchInitialData = useCallback(() => {
@@ -99,9 +103,7 @@ export const Bar = ({
   }
 
   const renderCenter = () => {
-    return isTwakeTheme() ? (
-      <AppsMenu />
-    ) : (
+    return isTwakeTheme() ? null : (
       <Apps
         appName={appName}
         appNamePrefix={appNamePrefix}
@@ -116,6 +118,22 @@ export const Bar = ({
   const renderLeft = () => {
     if (isFlagshipApp() || flag('flagship.debug')) {
       return <ButtonCozyHome isInvertedTheme={isInvertedTheme} />
+    }
+
+    if (isTwakeTheme()) {
+      const homeHref = !isPublic && homeApp && homeApp.href
+
+      if (isMobile) {
+        return <ButtonCozyHome homeHref={homeHref} />
+      }
+
+      return (
+        <>
+          <ButtonCozyHome homeHref={homeHref} />
+          <span className="coz-nav-apps-btns-sep u-mr-half" />
+          <AppTitle slug={appSlug} />
+        </>
+      )
     }
 
     // data-tutorial attribute allows to be targeted in an application tutorial
@@ -133,11 +151,22 @@ export const Bar = ({
   }
 
   const renderRight = () => {
-    if (isTwakeTheme()) {
-      return <UserMenu onLogOut={onLogOut} />
-    }
-
     return showSettings ? <Settings onLogOut={onLogOut} /> : null
+  }
+
+  const renderTwakeRight = () => {
+    // Special case because search on Drive still rely on old search UI
+    // that modifies the cozy-bar
+    // Can be removed when https://github.com/cozy/cozy-drive/pull/3320 is merged
+    if (appSlug === 'drive' && isMobile && barSearch) return null
+
+    return (
+      <>
+        <HelpLink />
+        <AppsMenu />
+        <UserMenu onLogOut={onLogOut} />
+      </>
+    )
   }
 
   const renderSearch = () => {
@@ -158,7 +187,14 @@ export const Bar = ({
         {barCenter || renderCenter()}
         <div className="u-flex-grow">{barSearch || renderSearch()}</div>
         {searchOptions.enabled && isMobile ? <SearchButton /> : null}
-        {barRight || renderRight()}
+        {isTwakeTheme() ? (
+          <>
+            {barRight}
+            {renderTwakeRight()}
+          </>
+        ) : (
+          barRight || renderRight()
+        )}
         {showDrawerAndBurger ? (
           <Drawer
             visible={drawerVisible}
@@ -187,7 +223,8 @@ Bar.propTypes = {
 }
 
 export const mapStateToProps = state => ({
-  hasFetchedApps: hasFetched(state)
+  hasFetchedApps: hasFetched(state),
+  homeApp: getHomeApp(state)
 })
 
 export const mapDispatchToProps = dispatch => ({
