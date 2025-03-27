@@ -134,7 +134,7 @@ export const Bar = ({
 
   const renderRight = () => {
     if (isTwakeTheme()) {
-      return <UserMenu />
+      return <UserMenu onLogOut={onLogOut} />
     }
 
     return showSettings ? <Settings onLogOut={onLogOut} /> : null

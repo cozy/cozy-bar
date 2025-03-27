@@ -2,6 +2,8 @@ import React from 'react'
 import cx from 'classnames'
 
 import flag from 'cozy-flags'
+import { useWebviewIntent } from 'cozy-intent'
+import { useClient } from 'cozy-client'
 import { makeDiskInfos } from 'cozy-client/dist/models/instance'
 import List from 'cozy-ui/transpiled/react/List'
 import ListItem from 'cozy-ui/transpiled/react/ListItem'
@@ -21,8 +23,12 @@ import Typography from 'cozy-ui/transpiled/react/Typography'
 import useI18n from 'components/useI18n'
 import styles from 'styles/user-menu.styl'
 import AvatarMyself from './components/AvatarMyself'
+import { openProfileLink, openStorageLink, logOut } from './helpers'
 
-export const UserMenuContent = ({ instance, diskUsage }) => {
+export const UserMenuContent = ({ onLogOut, instance, diskUsage }) => {
+  const webviewIntent = useWebviewIntent()
+
+  const client = useClient()
   const { t } = useI18n()
 
   const {
@@ -50,7 +56,11 @@ export const UserMenuContent = ({ instance, diskUsage }) => {
         )}
       </div>
       <List className="u-pb-0">
-        <ListItem button size="small">
+        <ListItem
+          button
+          size="small"
+          onClick={() => openProfileLink({ client })}
+        >
           <ListItemIcon>
             <Icon icon={FromUserIcon} />
           </ListItemIcon>
@@ -64,7 +74,11 @@ export const UserMenuContent = ({ instance, diskUsage }) => {
             <ListItemText primary={t('userMenu.createBusinessAccount')} />
           </ListItem>
         )}
-        <ListItem button size="small">
+        <ListItem
+          button
+          size="small"
+          onClick={() => openStorageLink({ client })}
+        >
           <ListItemIcon>
             <Icon icon={CloudIcon} />
           </ListItemIcon>
@@ -82,7 +96,11 @@ export const UserMenuContent = ({ instance, diskUsage }) => {
 
         <Divider component="li" variant="inset" />
 
-        <ListItem button size="small">
+        <ListItem
+          button
+          size="small"
+          onClick={() => logOut({ client, webviewIntent, onLogOut })}
+        >
           <ListItemIcon>
             <Icon icon={LogoutIcon} />
           </ListItemIcon>
