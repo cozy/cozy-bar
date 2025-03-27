@@ -3,6 +3,7 @@ import { render, fireEvent } from '@testing-library/react'
 import { ButtonCozyHome } from './ButtonCozyHome'
 import { isFlagshipApp } from 'cozy-device-helper'
 import { useWebviewIntent } from 'cozy-intent'
+import { BarLike } from 'test/lib/BarLike'
 
 jest.mock('cozy-device-helper')
 jest.mock('cozy-intent', () => ({
@@ -19,7 +20,11 @@ describe('ButtonCozyHome', () => {
     // We need to use a testid because
     // - the a tag has no text to query it (just an icon)
     // - an "a" tag without href is not seen as a link by queryByRole
-    const { getByTestId } = render(<ButtonCozyHome />)
+    const { getByTestId } = render(
+      <BarLike>
+        <ButtonCozyHome />
+      </BarLike>
+    )
     const linkElement = getByTestId('buttonCozyHome')
 
     fireEvent.click(linkElement)
@@ -30,7 +35,11 @@ describe('ButtonCozyHome', () => {
   it('renders a link with homeHref for non-flagship apps with homeHref', () => {
     isFlagshipApp.mockReturnValue(false)
 
-    const { queryByRole } = render(<ButtonCozyHome homeHref="/home" />)
+    const { queryByRole } = render(
+      <BarLike>
+        <ButtonCozyHome homeHref="/home" />
+      </BarLike>
+    )
     const linkElement = queryByRole('link')
 
     expect(linkElement).toHaveAttribute('href', '/home')
@@ -39,7 +48,11 @@ describe('ButtonCozyHome', () => {
   it('renders a span without href for non-flagship apps without homeHref', () => {
     isFlagshipApp.mockReturnValue(false)
 
-    const { queryByRole } = render(<ButtonCozyHome />)
+    const { queryByRole } = render(
+      <BarLike>
+        <ButtonCozyHome />
+      </BarLike>
+    )
     const linkElement = queryByRole('link')
 
     expect(linkElement).toBeNull()
