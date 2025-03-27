@@ -3085,10 +3085,10 @@ cozy-realtime@^4.0.5:
     "@cozy/minilog" "^1.0.0"
     cozy-device-helper "^1.17.0"
 
-cozy-search@0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/cozy-search/-/cozy-search-0.1.0.tgz#559c752931ad1755367f2849ec2d8db1d20d8d8e"
-  integrity sha512-AP9Kbj7EvRa1190yBSADDErhYNLbJEsOllG4y6bTxzzpkULCYGelGOeAnClyzlNSnqowjTMMc5dTaEF+zUo9Lw==
+cozy-search@0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/cozy-search/-/cozy-search-0.2.0.tgz#716b96d49e3e6e6bd68308c6b3274ea9bd9a8926"
+  integrity sha512-IcYmNpxAMG+GwUCbImROaKZVHLrGU2K4c+9JY3Ngko1xXof0LxIMhDbW6QUxPnLUTADGfwi8HFlzZJtzM3NezQ==
   dependencies:
     classnames "2.5.1"
     lodash "4.17.21"
