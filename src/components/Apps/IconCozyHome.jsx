@@ -4,6 +4,9 @@ import PropTypes from 'prop-types'
 import AppIcon from 'cozy-ui/transpiled/react/AppIcon'
 
 import stack from 'lib/stack'
+import { isTwakeTheme } from 'cozy-ui/transpiled/react/helpers/isTwakeTheme'
+import Icon from 'cozy-ui/transpiled/react/Icon'
+import TwakeWorkplaceIcon from 'cozy-ui/transpiled/react/Icons/TwakeWorkplace'
 
 /* Generated with node_modules/.bin/svgr src/assets/sprites/icon-cozy-home.svg  */
 function SvgIconCozyHome(props) {
@@ -20,7 +23,17 @@ function SvgIconCozyHome(props) {
   )
 }
 
-const IconCozyHome = ({ className, isInvertedTheme }) => {
+const IconCozyHome = ({ className, isMobile, isInvertedTheme }) => {
+  if (isTwakeTheme()) {
+    return (
+      <Icon
+        icon={TwakeWorkplaceIcon}
+        size={isMobile ? 28 : 32}
+        className={isMobile ? 'u-ml-half' : undefined}
+      />
+    )
+  }
+
   const fetchIcon = () => {
     if (isInvertedTheme) {
       return `${stack.get.cozyURL()}/assets/images/icon-cozy-home-inverted.svg`
