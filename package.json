@@ -20,7 +20,9 @@
     "build": "env BABEL_ENV=transpilation babel ./src -d ./dist --extensions .js,.jsx --ignore '**/*.spec.jsx','**/*.spec.js' --copy-files",
     "prepublishOnly": "yarn build",
     "clean": "rm -rf ./dist/*",
-    "lint": "eslint '{config,src,examples,test}/**/*.{js,jsx}'",
+    "lint": "yarn lint:js && yarn lint:styles",
+    "lint:js": "eslint '{config,src,examples,test}/**/*.{js,jsx}'",
+    "lint:styles": "stylint src --config ./node_modules/stylus-config-cozy-app/.stylintrc",
     "prebuild": "npm-run-all clean",
     "prewatch": "npm-run-all clean",
     "tx": "tx pull --all || true",
@@ -58,7 +60,9 @@
     "react-dom": "16.10.1",
     "react-router-dom": "6.14.2",
     "semantic-release": "15.13.24",
-    "stylus": "0.57.0"
+    "stylint": "^2.0.0",
+    "stylus": "0.57.0",
+    "stylus-config-cozy-app": "^0.1.0"
   },
   "dependencies": {
     "cozy-search": "0.2.0",
