@@ -5,6 +5,7 @@ import AppIcon from 'cozy-ui/transpiled/react/AppIcon'
 
 import stack from 'lib/stack'
 import { isTwakeTheme } from 'cozy-ui/transpiled/react/helpers/isTwakeTheme'
+import { useBreakpoints } from 'cozy-ui/transpiled/react/providers/Breakpoints'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import TwakeWorkplaceIcon from 'cozy-ui/transpiled/react/Icons/TwakeWorkplace'
 
@@ -23,7 +24,9 @@ function SvgIconCozyHome(props) {
   )
 }
 
-const IconCozyHome = ({ className, isMobile, isInvertedTheme }) => {
+const IconCozyHome = ({ className, isInvertedTheme }) => {
+  const { isMobile } = useBreakpoints()
+
   if (isTwakeTheme()) {
     return (
       <Icon

@@ -4,13 +4,11 @@ import PropTypes from 'prop-types'
 import flag from 'cozy-flags'
 import { isFlagshipApp } from 'cozy-device-helper'
 import { useWebviewIntent } from 'cozy-intent'
-import { useBreakpoints } from 'cozy-ui/transpiled/react/providers/Breakpoints'
 
 import IconCozyHome from './IconCozyHome'
 
 export const ButtonCozyHome = ({ homeHref, isInvertedTheme }) => {
   const webviewIntent = useWebviewIntent()
-  const { isMobile } = useBreakpoints()
 
   if (isFlagshipApp() || flag('flagship.debug'))
     return (
@@ -23,7 +21,6 @@ export const ButtonCozyHome = ({ homeHref, isInvertedTheme }) => {
       >
         <IconCozyHome
           className="coz-nav-apps-btns-home-svg"
-          isMobile={isMobile}
           isInvertedTheme={isInvertedTheme}
         />
       </a>
@@ -34,7 +31,6 @@ export const ButtonCozyHome = ({ homeHref, isInvertedTheme }) => {
       <a href={homeHref} className="coz-nav-apps-btns-home">
         <IconCozyHome
           className="coz-nav-apps-btns-home-svg"
-          isMobile={isMobile}
           isInvertedTheme={isInvertedTheme}
         />
       </a>
@@ -45,7 +41,6 @@ export const ButtonCozyHome = ({ homeHref, isInvertedTheme }) => {
     <span className="coz-nav-apps-btns-home">
       <IconCozyHome
         className="coz-nav-apps-btns-home-svg"
-        isMobile={isMobile}
         isInvertedTheme={isInvertedTheme}
       />
     </span>
