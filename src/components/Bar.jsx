@@ -155,9 +155,14 @@ export const Bar = ({
   }
 
   const renderTwakeRight = () => {
-    // Special case because search on Drive still rely on old search UI
-    // that modifies the cozy-bar
-    // Can be removed when https://github.com/cozy/cozy-drive/pull/3320 is merged
+    // Special case because search on Drive on mobile still rely
+    // on old search UI that is injected in the cozy-bar and
+    // not in a modal as the new search UI
+    // So we need to hide these menu buttons when old search UI
+    // is injected in the cozy-bar
+    // When https://github.com/cozy/cozy-drive/pull/3320 will be merged
+    // Drive will rely on cozy-bar embedded search and we will be able
+    // to remove this special case
     if (appSlug === 'drive' && isMobile && barSearch) return null
 
     return (
