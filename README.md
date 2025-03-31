@@ -22,8 +22,17 @@ The CozyBar is a banner on the top of your application, responsible of cross-app
 The library requires your markup to contain an element with `role=application`. The DOM of the banner will be added before this element.
 
 ### Installation
+
+1. Add the package
+
 ```sh
 yarn add cozy-bar
+```
+
+2. Add the CSS
+
+```jsx
+import 'cozy-bar/dist/stylesheet.css'`
 ```
 
 ### How to use
