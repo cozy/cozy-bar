@@ -2,6 +2,8 @@ import React, { useEffect, useState, useCallback } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
+import Grid from 'cozy-ui/transpiled/react/Grid'
+import Divider from 'cozy-ui/transpiled/react/Divider'
 import { useBreakpoints } from 'cozy-ui/transpiled/react/providers/Breakpoints'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import AppTitle from 'cozy-ui/transpiled/react/AppTitle'
@@ -128,11 +130,11 @@ export const Bar = ({
       }
 
       return (
-        <>
+        <Grid container alignItems="center" className="u-w-auto">
           <ButtonCozyHome homeHref={homeHref} />
-          <span className="coz-nav-apps-btns-sep u-mr-half" />
+          <Divider orientation="vertical" className="u-mr-half" flexItem />
           <AppTitle slug={appSlug} />
-        </>
+        </Grid>
       )
     }
 
