@@ -30,7 +30,7 @@ export const AppItem = ({ app }) => {
             label={
               <div className={styles['apps-menu-grid-item']}>
                 <AppIcon app={app} key={app.slug} {...stack.get.iconProps()} />
-                <Typography variant="caption" noWrap className="u-mt-half">
+                <Typography variant="subtitle1" noWrap className="u-mt-half">
                   {appName}
                 </Typography>
               </div>
