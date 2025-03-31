@@ -11,6 +11,7 @@ import AvatarMyself from './components/AvatarMyself'
 
 const UserMenu = ({ onLogOut }) => {
   const [isOpen, setOpen] = useState(false)
+  const containerRef = useRef()
   const buttonRef = useRef()
 
   const { isMobile } = useBreakpoints()
@@ -22,7 +23,7 @@ const UserMenu = ({ onLogOut }) => {
   }
 
   return (
-    <nav>
+    <nav ref={containerRef}>
       <IconButton
         ref={buttonRef}
         onClick={toggleMenu}
@@ -47,7 +48,7 @@ const UserMenu = ({ onLogOut }) => {
         <Menu
           open={isOpen}
           anchorEl={buttonRef.current}
-          container={buttonRef.current}
+          container={containerRef.current}
           getContentAnchorEl={null}
           onClose={toggleMenu}
           anchorOrigin={{
@@ -55,7 +56,8 @@ const UserMenu = ({ onLogOut }) => {
             horizontal: 'left'
           }}
           transformOrigin={{
-            vertical: -10
+            vertical: -10,
+            horizontal: 0
           }}
         >
           <UserMenuContent
