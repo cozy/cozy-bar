@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
 import Typography from 'cozy-ui/transpiled/react/Typography'
+import { getAppDisplayName } from 'cozy-client/dist/models/applications'
 
 import AppItem from 'components/AppsMenu/components/AppItem'
 import AppItemPlaceholder from 'components/AppsMenu/components/AppItemPlaceholder'
@@ -14,7 +15,6 @@ const sorter = fn => (itemA, itemB) => fn(itemA) > fn(itemB)
 
 export const AppsMenuContent = ({ isFetchingApps, apps, homeApp }) => {
   const { t } = useI18n()
-  const translateAppWithLocales = translateApp(t)
 
   if (!isFetchingApps && (!apps || !apps.length)) {
     return (
@@ -38,7 +38,7 @@ export const AppsMenuContent = ({ isFetchingApps, apps, homeApp }) => {
 
   const displayedApps = apps
     .filter(app => app.slug !== homeSlug)
-    .sort(sorter(translateAppWithLocales))
+    .sort(sorter(getAppDisplayName))
 
   return (
     <div className={styles['apps-menu-grid']}>
@@ -58,14 +58,6 @@ AppsMenuContent.propTypes = {
     href: PropTypes.string
   }),
   className: PropTypes.string
-}
-
-const translateApp = t => app => {
-  const namePrefix = app.namePrefix
-    ? t(`${app.slug}.namePrefix`, { _: app.namePrefix })
-    : null
-  const name = t(`${app.slug}.name`, { _: app.name })
-  return namePrefix ? `${namePrefix} ${name}` : `${name}`
 }
 
 const mapStateToProps = state => ({

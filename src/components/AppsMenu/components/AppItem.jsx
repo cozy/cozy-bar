@@ -1,7 +1,6 @@
 import React from 'react'
-import get from 'lodash/get'
 
-import { models } from 'cozy-client'
+import { getAppDisplayName } from 'cozy-client/dist/models/applications'
 import Buttons from 'cozy-ui/transpiled/react/Buttons'
 import AppIcon from 'cozy-ui/transpiled/react/AppIcon'
 import AppLinker from 'cozy-ui/transpiled/react/AppLinker'
@@ -12,12 +11,6 @@ import { appShape } from 'proptypes/index'
 import stack from 'lib/stack'
 
 import styles from 'styles/apps-menu.styl'
-
-const getAppDisplayName = get(models, 'applications.getAppDisplayName', app => {
-  return app.namePrefix && app.namePrefix.toLowerCase() !== 'cozy'
-    ? `${app.namePrefix} ${app.name}`
-    : app.name
-})
 
 export const AppItem = ({ app }) => {
   const appName = getAppDisplayName(app)
