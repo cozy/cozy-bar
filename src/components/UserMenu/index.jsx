@@ -3,7 +3,7 @@ import React, { useRef, useState } from 'react'
 import IconButton from 'cozy-ui/transpiled/react/IconButton'
 import Menu from 'cozy-ui/transpiled/react/Menu'
 import { useBreakpoints } from 'cozy-ui/transpiled/react/providers/Breakpoints'
-import { Dialog } from 'cozy-ui/transpiled/react/CozyDialogs'
+import { ConfirmDialog } from 'cozy-ui/transpiled/react/CozyDialogs'
 import { useInstanceInfo } from 'cozy-client'
 
 import UserMenuContent from 'components/UserMenu/UserMenuContent'
@@ -32,9 +32,8 @@ const UserMenu = ({ onLogOut }) => {
         <AvatarMyself size={isMobile ? 's' : 'm'} />
       </IconButton>
       {isMobile ? (
-        <Dialog
+        <ConfirmDialog
           open={isOpen}
-          size="small"
           onClose={toggleMenu}
           content={
             <UserMenuContent

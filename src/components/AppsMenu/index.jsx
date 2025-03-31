@@ -7,7 +7,7 @@ import Icon from 'cozy-ui/transpiled/react/Icon'
 import Menu from 'cozy-ui/transpiled/react/Menu'
 import MosaicIcon from 'cozy-ui/transpiled/react/Icons/Mosaic'
 import { useBreakpoints } from 'cozy-ui/transpiled/react/providers/Breakpoints'
-import { Dialog } from 'cozy-ui/transpiled/react/CozyDialogs'
+import { ConfirmDialog } from 'cozy-ui/transpiled/react/CozyDialogs'
 
 const AppsMenu = () => {
   const [isOpen, setOpen] = useState(false)
@@ -25,9 +25,8 @@ const AppsMenu = () => {
         <Icon icon={MosaicIcon} size="18" />
       </IconButton>
       {isMobile ? (
-        <Dialog
+        <ConfirmDialog
           open={isOpen}
-          size="small"
           onClose={toggleMenu}
           content={<AppsMenuContent />}
         />
