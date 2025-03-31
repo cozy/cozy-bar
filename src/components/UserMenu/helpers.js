@@ -1,23 +1,13 @@
 import { generateWebLink } from 'cozy-client'
 import { isFlagshipApp } from 'cozy-device-helper'
 
-const getSettingsLink = ({ client, hash }) => {
+export const getSettingsLink = ({ client, hash }) => {
   return generateWebLink({
     cozyUrl: client.getStackClient().uri,
     slug: 'settings',
     hash,
     subDomainType: client.getInstanceOptions().subdomain
   })
-}
-
-export const openProfileLink = ({ client }) => {
-  const link = getSettingsLink({ client, hash: 'profile' })
-  window.open(link, '_self')
-}
-
-export const openStorageLink = ({ client }) => {
-  const link = getSettingsLink({ client, hash: 'storage' })
-  window.open(link, '_self')
 }
 
 export const logOut = async ({ client, webviewIntent, onLogOut }) => {

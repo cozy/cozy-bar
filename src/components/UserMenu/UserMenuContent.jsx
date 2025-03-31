@@ -23,7 +23,7 @@ import Typography from 'cozy-ui/transpiled/react/Typography'
 import useI18n from 'components/useI18n'
 import styles from 'styles/user-menu.styl'
 import AvatarMyself from './components/AvatarMyself'
-import { openProfileLink, openStorageLink, logOut } from './helpers'
+import { getSettingsLink, logOut } from './helpers'
 
 export const UserMenuContent = ({ onLogOut, instance, diskUsage }) => {
   const webviewIntent = useWebviewIntent()
@@ -39,6 +39,9 @@ export const UserMenuContent = ({ onLogOut, instance, diskUsage }) => {
     diskUsage.data.used,
     diskUsage.data.quota
   )
+
+  const profileLink = getSettingsLink({ client, hash: 'profile' })
+  const storageLink = getSettingsLink({ client, hash: 'storage' })
 
   return (
     <div className={cx(styles['user-menu-content'], 'u-flex u-flex-column')}>
@@ -56,11 +59,7 @@ export const UserMenuContent = ({ onLogOut, instance, diskUsage }) => {
         )}
       </div>
       <List className="u-pb-0">
-        <ListItem
-          button
-          size="small"
-          onClick={() => openProfileLink({ client })}
-        >
+        <ListItem button size="small" component="a" href={profileLink}>
           <ListItemIcon>
             <Icon icon={FromUserIcon} />
           </ListItemIcon>
@@ -74,11 +73,7 @@ export const UserMenuContent = ({ onLogOut, instance, diskUsage }) => {
             <ListItemText primary={t('userMenu.createBusinessAccount')} />
           </ListItem>
         )}
-        <ListItem
-          button
-          size="small"
-          onClick={() => openStorageLink({ client })}
-        >
+        <ListItem button size="small" component="a" href={storageLink}>
           <ListItemIcon>
             <Icon icon={CloudIcon} />
           </ListItemIcon>
