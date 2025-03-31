@@ -11,6 +11,7 @@ import { ConfirmDialog } from 'cozy-ui/transpiled/react/CozyDialogs'
 
 const AppsMenu = () => {
   const [isOpen, setOpen] = useState(false)
+  const containerRef = useRef()
   const buttonRef = useRef()
 
   const { isMobile } = useBreakpoints()
@@ -20,7 +21,7 @@ const AppsMenu = () => {
   }
 
   return (
-    <nav>
+    <nav ref={containerRef}>
       <IconButton ref={buttonRef} onClick={toggleMenu} className="u-p-half">
         <Icon icon={MosaicIcon} size="18" />
       </IconButton>
@@ -34,7 +35,7 @@ const AppsMenu = () => {
         <Menu
           open={isOpen}
           anchorEl={buttonRef.current}
-          container={buttonRef.current}
+          container={containerRef.current}
           getContentAnchorEl={null}
           onClose={toggleMenu}
           anchorOrigin={{
@@ -42,7 +43,8 @@ const AppsMenu = () => {
             horizontal: 'left'
           }}
           transformOrigin={{
-            vertical: -10
+            vertical: -10,
+            horizontal: 0
           }}
         >
           <AppsMenuContent />
