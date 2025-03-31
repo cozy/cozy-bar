@@ -12,7 +12,7 @@ import ListItemText from 'cozy-ui/transpiled/react/ListItemText'
 import PersonAddIcon from 'cozy-ui/transpiled/react/Icons/PersonAdd'
 import FromUserIcon from 'cozy-ui/transpiled/react/Icons/FromUser'
 import LogoutIcon from 'cozy-ui/transpiled/react/Icons/Logout'
-import CloudIcon from 'cozy-ui/transpiled/react/Icons/Cloud'
+import CloudRainbowIcon from 'cozy-ui/transpiled/react/Icons/CloudRainbow'
 import CompanyIcon from 'cozy-ui/transpiled/react/Icons/Company'
 import RightIcon from 'cozy-ui/transpiled/react/Icons/Right'
 import Icon from 'cozy-ui/transpiled/react/Icon'
@@ -75,7 +75,7 @@ export const UserMenuContent = ({ onLogOut, instance, diskUsage }) => {
         )}
         <ListItem button size="small" component="a" href={storageLink}>
           <ListItemIcon>
-            <Icon icon={CloudIcon} />
+            <Icon icon={CloudRainbowIcon} />
           </ListItemIcon>
           <ListItemText
             primary={t('userMenu.storage')}
