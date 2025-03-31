@@ -19,6 +19,7 @@ import Icon from 'cozy-ui/transpiled/react/Icon'
 import Divider from 'cozy-ui/transpiled/react/Divider'
 import Button from 'cozy-ui/transpiled/react/Buttons'
 import Typography from 'cozy-ui/transpiled/react/Typography'
+import { useBreakpoints } from 'cozy-ui/transpiled/react/providers/Breakpoints'
 
 import useI18n from 'components/useI18n'
 import styles from 'styles/user-menu.styl'
@@ -30,6 +31,7 @@ export const UserMenuContent = ({ onLogOut, instance, diskUsage }) => {
 
   const client = useClient()
   const { t } = useI18n()
+  const { isMobile } = useBreakpoints()
 
   const {
     data: { public_name, email }
@@ -42,6 +44,8 @@ export const UserMenuContent = ({ onLogOut, instance, diskUsage }) => {
 
   const profileLink = getSettingsLink({ client, hash: 'profile' })
   const storageLink = getSettingsLink({ client, hash: 'storage' })
+
+  const gutters = isMobile ? 'disabled' : undefined
 
   return (
     <div className={cx(styles['user-menu-content'], 'u-flex u-flex-column')}>
@@ -59,21 +63,33 @@ export const UserMenuContent = ({ onLogOut, instance, diskUsage }) => {
         )}
       </div>
       <List className="u-pb-0">
-        <ListItem button size="small" component="a" href={profileLink}>
+        <ListItem
+          button
+          gutters={gutters}
+          size="small"
+          component="a"
+          href={profileLink}
+        >
           <ListItemIcon>
             <Icon icon={FromUserIcon} />
           </ListItemIcon>
           <ListItemText primary={t('userMenu.manageProfile')} />
         </ListItem>
         {flag('cozy.b2b.enabled') && (
-          <ListItem button size="small">
+          <ListItem button gutters={gutters} size="small">
             <ListItemIcon>
               <Icon icon={CompanyIcon} />
             </ListItemIcon>
             <ListItemText primary={t('userMenu.createBusinessAccount')} />
           </ListItem>
         )}
-        <ListItem button size="small" component="a" href={storageLink}>
+        <ListItem
+          button
+          gutters={gutters}
+          size="small"
+          component="a"
+          href={storageLink}
+        >
           <ListItemIcon>
             <Icon icon={CloudRainbowIcon} />
           </ListItemIcon>
@@ -93,6 +109,7 @@ export const UserMenuContent = ({ onLogOut, instance, diskUsage }) => {
 
         <ListItem
           button
+          gutters={gutters}
           size="small"
           onClick={() => logOut({ client, webviewIntent, onLogOut })}
         >

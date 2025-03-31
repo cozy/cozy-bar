@@ -1,10 +1,14 @@
+@require 'settings/breakpoints'
+
 .apps-menu-grid
     display flex
     flex-wrap wrap
     width 100%
     box-sizing border-box
-    padding-left .5rem
-    padding-right .5rem
+
+    +desktop()
+        padding-left .5rem
+        padding-right .5rem
   
 .apps-menu-grid-item-wrapper
     width 33%
