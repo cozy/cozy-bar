@@ -1,12 +1,11 @@
 import React from 'react'
 
-import { useQuery, models } from 'cozy-client'
+import { useQuery } from 'cozy-client'
+import { getInitials } from 'cozy-client/dist/models/contact'
 import Avatar from 'cozy-ui/transpiled/react/Avatar'
 import Skeleton from 'cozy-ui/transpiled/react/Skeleton'
 
 import { buildMyselfQuery } from 'lib/queries'
-
-const { getInitials } = models.contact
 
 const AvatarMyself = ({ className, size = 'm' }) => {
   const myselfQuery = buildMyselfQuery()
