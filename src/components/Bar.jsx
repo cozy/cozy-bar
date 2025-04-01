@@ -29,6 +29,7 @@ import useI18n from 'components/useI18n'
 import { useClient } from 'cozy-client'
 import { AssistantDesktop } from 'cozy-search'
 import SearchButton from './Search/SearchButton'
+import cx from 'classnames'
 
 /* Generated with node_modules/.bin/svgr src/assets/sprites/icon-apps.svg */
 function SvgIconApps(props) {
@@ -61,7 +62,8 @@ export const Bar = ({
   appSlug,
   iconPath,
   hasFetchedApps,
-  homeApp
+  homeApp,
+  componentsProps
 }) => {
   const client = useClient()
   const { t } = useI18n()
@@ -193,7 +195,11 @@ export const Bar = ({
   }
 
   return (
-    <div className="coz-bar-wrapper" data-testid="coz-bar-wrapper">
+    <div
+      {...componentsProps?.Wrapper}
+      className={cx('coz-bar-wrapper', componentsProps?.Wrapper?.className)}
+      data-testid="coz-bar-wrapper"
+    >
       <div id="cozy-bar-modal-dom-place" />
       <div className="coz-bar-container">
         {barLeft || renderLeft()}
@@ -232,7 +238,12 @@ Bar.propTypes = {
   isInvertedTheme: PropTypes.bool,
   onLogOut: PropTypes.func,
   onDrawer: PropTypes.func,
-  userActionRequired: PropTypes.object
+  userActionRequired: PropTypes.object,
+  componentsProps: PropTypes.shape({
+    Wrapper: PropTypes.shape({
+      className: PropTypes.string
+    })
+  })
 }
 
 export const mapStateToProps = state => ({
