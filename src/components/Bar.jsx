@@ -129,10 +129,16 @@ export const Bar = ({
         return <ButtonCozyHome homeHref={homeHref} />
       }
 
+      const isHome = appSlug === 'home'
+
       return (
         <Grid container alignItems="center" className="u-w-auto">
-          <ButtonCozyHome homeHref={homeHref} />
-          <Divider orientation="vertical" className="u-mr-half" flexItem />
+          {!isHome && (
+            <>
+              <ButtonCozyHome homeHref={homeHref} />
+              <Divider orientation="vertical" className="u-mr-half" flexItem />
+            </>
+          )}
           <AppTitle slug={appSlug} />
         </Grid>
       )
