@@ -42,7 +42,7 @@ export const UserMenuContent = ({ onLogOut, instance, diskUsage }) => {
     diskUsage.data.quota
   )
 
-  const profileLink = getSettingsLink({ client, hash: 'profile' })
+  const profileLink = getSettingsLink({ client, hash: 'menu' })
   const storageLink = getSettingsLink({ client, hash: 'storage' })
 
   const gutters = isMobile ? 'disabled' : undefined
