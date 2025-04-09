@@ -98,9 +98,9 @@ You also need to disable the internal store onto the `BarComponent` with the pro
 <BarComponent disableInternalStore />
 ```
 
-## Enable search and AI assistant
+## Search and AI assistant
 
-Search and AI assistant is now proposed by the cozy-bar. To enable it, you need to : 
+Search and AI assistant is now proposed by the cozy-bar. They are enabled by default so you need to:
 
 1. Setup the search
 
@@ -109,13 +109,7 @@ In the app using the cozy-bar :
 - DataProxyProvider must be added before BarProvider
 - If you want to use the AI assistant, you need to add [the following permissions](https://github.com/cozy/cozy-libs/tree/master/packages/cozy-search#prerequisite-for-ai-components)
 
-2. Enable the search
-
-```jsx
-`<BarComponent searchOptions={{ enabled: true }} />`
-```
-
-3. Add the routes
+2. Add the routes
 
 These routes allow to display the search and AI assistant dialogs.
 
@@ -128,6 +122,12 @@ import { BarRoutes } from 'cozy-bar'
 
   {BarRoutes.map(BarRoute => BarRoute)}
 </Routes>
+```
+
+3. You can still disabled the search
+
+```jsx
+`<BarComponent searchOptions={{ enabled: false }} />`
 ```
 
 ## Change theme bar
