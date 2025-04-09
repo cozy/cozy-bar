@@ -91,7 +91,7 @@ const BarComponent = ({
   isPublic = false,
   onLogOut,
   disableInternalStore = false,
-  searchOptions = { enabled: false },
+  searchOptions = { enabled: true },
   componentsProps = {}
 }) => {
   const barContext = useBarContext()
