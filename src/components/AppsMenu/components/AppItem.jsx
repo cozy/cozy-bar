@@ -29,8 +29,14 @@ export const AppItem = ({ app }) => {
             className={cx(styles['apps-menu-grid-item-wrapper'], 'u-bdrs-5')}
             label={
               <div className={styles['apps-menu-grid-item']}>
-                <AppIcon app={app} key={app.slug} {...stack.get.iconProps()} />
-                <Typography variant="subtitle1" noWrap className="u-mt-half">
+                <div className={styles['apps-menu-grid-item-icon']}>
+                  <AppIcon
+                    app={app}
+                    key={app.slug}
+                    {...stack.get.iconProps()}
+                  />
+                </div>
+                <Typography variant="subtitle1" noWrap>
                   {appName}
                 </Typography>
               </div>
