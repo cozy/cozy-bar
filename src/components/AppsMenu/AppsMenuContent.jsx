@@ -2,16 +2,15 @@ import React from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
+import flag from 'cozy-flags'
 import Typography from 'cozy-ui/transpiled/react/Typography'
-import { getAppDisplayName } from 'cozy-client/dist/models/applications'
+import { sortApplicationsList } from 'cozy-client/dist/models/applications'
 
 import AppItem from 'components/AppsMenu/components/AppItem'
 import AppItemPlaceholder from 'components/AppsMenu/components/AppItemPlaceholder'
 import useI18n from 'components/useI18n'
 import { getApps, getHomeApp, isFetchingApps } from 'lib/reducers'
 import styles from 'styles/apps-menu.styl'
-
-const sorter = fn => (itemA, itemB) => fn(itemA) > fn(itemB)
 
 export const AppsMenuContent = ({ isFetchingApps, apps, homeApp }) => {
   const { t } = useI18n()
@@ -36,13 +35,15 @@ export const AppsMenuContent = ({ isFetchingApps, apps, homeApp }) => {
 
   const homeSlug = homeApp && homeApp.slug
 
-  const displayedApps = apps
-    .filter(app => app.slug !== homeSlug)
-    .sort(sorter(getAppDisplayName))
+  const displayedApps = apps.filter(app => app.slug !== homeSlug)
+
+  const sortedApps = flag('apps.sort')
+    ? sortApplicationsList(displayedApps, flag('apps.sort'))
+    : displayedApps
 
   return (
     <div className={styles['apps-menu-grid']}>
-      {displayedApps.map((app, index) => (
+      {sortedApps.map((app, index) => (
         <AppItem key={index} app={app} />
       ))}
     </div>
