@@ -7,8 +7,7 @@
 
     +desktop()
         width 15rem
-        margin-left .5rem
-        margin-right .5rem
+        margin 6px 10px
   
 .apps-menu-grid-item-wrapper
     width 33%
@@ -24,7 +23,7 @@
     justify-content center
     align-items center
     text-decoration none
-    gap .2rem // @stylint ignore Property is valid but unknown by stylint which is old and should be replaced
+    gap 4px // @stylint ignore Property is valid but unknown by stylint which is old and should be replaced
     width 100%
 
 .apps-menu-grid-item-icon
@@ -33,3 +32,8 @@
     +desktop()
         width 2.625rem
         height 2.625rem
+
+.apps-menu-grid-item-text
+    font-size 12px !important // @stylint ignore Special case not in Typography
+    font-weight 400 !important // @stylint ignore Special case not in Typography
+    line-height 22.5px !important // @stylint ignore Special case not in Typography

@@ -30,6 +30,9 @@ const AppsMenu = () => {
           open={isOpen}
           onClose={toggleMenu}
           content={<AppsMenuContent />}
+          classes={{
+            paper: 'u-bdrs-7'
+          }}
         />
       ) : (
         <Menu
@@ -45,6 +48,9 @@ const AppsMenu = () => {
           transformOrigin={{
             vertical: -10,
             horizontal: 0
+          }}
+          classes={{
+            paper: 'u-bdrs-7'
           }}
         >
           <AppsMenuContent />
