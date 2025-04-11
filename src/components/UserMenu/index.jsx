@@ -43,6 +43,9 @@ const UserMenu = ({ onLogOut }) => {
               diskUsage={diskUsage}
             />
           }
+          classes={{
+            paper: 'u-bdrs-7'
+          }}
         />
       ) : (
         <Menu
@@ -58,6 +61,9 @@ const UserMenu = ({ onLogOut }) => {
           transformOrigin={{
             vertical: -10,
             horizontal: 0
+          }}
+          classes={{
+            paper: 'u-bdrs-7'
           }}
         >
           <UserMenuContent

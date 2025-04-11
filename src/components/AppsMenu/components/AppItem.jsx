@@ -36,7 +36,10 @@ export const AppItem = ({ app }) => {
                     {...stack.get.iconProps()}
                   />
                 </div>
-                <Typography variant="subtitle1" noWrap>
+                <Typography
+                  noWrap
+                  className={styles['apps-menu-grid-item-text']}
+                >
                   {appName}
                 </Typography>
               </div>
