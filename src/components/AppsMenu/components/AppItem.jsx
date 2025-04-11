@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { getAppDisplayName } from 'cozy-client/dist/models/applications'
+import { makeStyles } from 'cozy-ui/transpiled/react/styles'
 import Buttons from 'cozy-ui/transpiled/react/Buttons'
 import AppIcon from 'cozy-ui/transpiled/react/AppIcon'
 import AppLinker from 'cozy-ui/transpiled/react/AppLinker'
@@ -12,8 +13,20 @@ import stack from 'lib/stack'
 
 import styles from 'styles/apps-menu.styl'
 
+const useStyles = makeStyles(() => {
+  return {
+    text: {
+      lineHeight: '22.5px',
+      fontSize: '12px',
+      fontWeight: 400
+    }
+  }
+})
+
 export const AppItem = ({ app }) => {
   const appName = getAppDisplayName(app)
+
+  const classes = useStyles()
 
   return (
     <AppLinker href={app.href || ''} app={app}>
@@ -36,7 +49,7 @@ export const AppItem = ({ app }) => {
                     {...stack.get.iconProps()}
                   />
                 </div>
-                <Typography variant="subtitle1" noWrap>
+                <Typography noWrap className={classes.text}>
                   {appName}
                 </Typography>
               </div>
