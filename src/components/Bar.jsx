@@ -209,7 +209,7 @@ export const Bar = ({
         {isTwakeTheme() ? (
           <>
             {barRight}
-            {isPublic && renderTwakeRight()}
+            {!isPublic && renderTwakeRight()}
           </>
         ) : (
           barRight || renderRight()
