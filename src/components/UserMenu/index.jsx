@@ -4,10 +4,21 @@ import IconButton from 'cozy-ui/transpiled/react/IconButton'
 import Menu from 'cozy-ui/transpiled/react/Menu'
 import { useBreakpoints } from 'cozy-ui/transpiled/react/providers/Breakpoints'
 import { ConfirmDialog } from 'cozy-ui/transpiled/react/CozyDialogs'
+import { makeStyles } from 'cozy-ui/transpiled/react/styles'
 import { useInstanceInfo } from 'cozy-client'
 
 import UserMenuContent from 'components/UserMenu/UserMenuContent'
 import AvatarMyself from './components/AvatarMyself'
+
+const useStyles = makeStyles({
+  root: {
+    '& .dialogContentInner': {
+      '& .dialogContentWrapper': {
+        paddingBottom: '0 !important'
+      }
+    }
+  }
+})
 
 const UserMenu = ({ onLogOut }) => {
   const [isOpen, setOpen] = useState(false)
@@ -21,6 +32,8 @@ const UserMenu = ({ onLogOut }) => {
   const toggleMenu = () => {
     setOpen(!isOpen)
   }
+
+  const styles = useStyles()
 
   return (
     <nav ref={containerRef}>
@@ -43,6 +56,11 @@ const UserMenu = ({ onLogOut }) => {
               diskUsage={diskUsage}
             />
           }
+          componentsProps={{
+            dialogContent: {
+              classes: styles
+            }
+          }}
           classes={{
             paper: 'u-bdrs-7'
           }}

@@ -8,6 +8,17 @@ import Menu from 'cozy-ui/transpiled/react/Menu'
 import MosaicIcon from 'cozy-ui/transpiled/react/Icons/Mosaic'
 import { useBreakpoints } from 'cozy-ui/transpiled/react/providers/Breakpoints'
 import { ConfirmDialog } from 'cozy-ui/transpiled/react/CozyDialogs'
+import { makeStyles } from 'cozy-ui/transpiled/react/styles'
+
+const useStyles = makeStyles({
+  root: {
+    '& .dialogContentInner': {
+      '& .dialogContentWrapper': {
+        paddingBottom: '0 !important'
+      }
+    }
+  }
+})
 
 const AppsMenu = () => {
   const [isOpen, setOpen] = useState(false)
@@ -20,6 +31,8 @@ const AppsMenu = () => {
     setOpen(!isOpen)
   }
 
+  const styles = useStyles()
+
   return (
     <nav ref={containerRef}>
       <IconButton ref={buttonRef} onClick={toggleMenu} className="u-p-half">
@@ -30,6 +43,11 @@ const AppsMenu = () => {
           open={isOpen}
           onClose={toggleMenu}
           content={<AppsMenuContent />}
+          componentsProps={{
+            dialogContent: {
+              classes: styles
+            }
+          }}
           classes={{
             paper: 'u-bdrs-7'
           }}
