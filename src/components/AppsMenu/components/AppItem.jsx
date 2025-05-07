@@ -23,13 +23,13 @@ const useStyles = makeStyles(() => {
   }
 })
 
-export const AppItem = ({ app }) => {
+export const AppItem = ({ app, onAppSwitch }) => {
   const appName = getAppDisplayName(app)
 
   const classes = useStyles()
 
   return (
-    <AppLinker href={app.href || ''} app={app}>
+    <AppLinker href={app.href || ''} app={app} onAppSwitch={onAppSwitch}>
       {({ onClick, href }) => {
         return (
           <Buttons

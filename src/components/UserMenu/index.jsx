@@ -54,6 +54,7 @@ const UserMenu = ({ onLogOut }) => {
               onLogOut={onLogOut}
               instance={instance}
               diskUsage={diskUsage}
+              closeMenu={toggleMenu}
             />
           }
           componentsProps={{
@@ -88,6 +89,7 @@ const UserMenu = ({ onLogOut }) => {
             onLogOut={onLogOut}
             instance={instance}
             diskUsage={diskUsage}
+            closeMenu={toggleMenu}
           />
         </Menu>
       )}
