@@ -26,7 +26,7 @@ import styles from 'styles/user-menu.styl'
 import AvatarMyself from './components/AvatarMyself'
 import { getSettingsLink, logOut } from './helpers'
 
-export const UserMenuContent = ({ onLogOut, instance, diskUsage }) => {
+const UserMenuContent = ({ onLogOut, instance, diskUsage, closeMenu }) => {
   const webviewIntent = useWebviewIntent()
 
   const client = useClient()
@@ -69,6 +69,7 @@ export const UserMenuContent = ({ onLogOut, instance, diskUsage }) => {
           size="small"
           component="a"
           href={profileLink}
+          onClick={closeMenu}
         >
           <ListItemIcon>
             <Icon icon={FromUserIcon} />
@@ -89,6 +90,7 @@ export const UserMenuContent = ({ onLogOut, instance, diskUsage }) => {
           size="small"
           component="a"
           href={storageLink}
+          onClick={closeMenu}
         >
           <ListItemIcon>
             <Icon icon={CloudRainbowIcon} />

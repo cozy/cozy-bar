@@ -12,7 +12,7 @@ import useI18n from 'components/useI18n'
 import { getApps, getHomeApp, isFetchingApps } from 'lib/reducers'
 import styles from 'styles/apps-menu.styl'
 
-export const AppsMenuContent = ({ isFetchingApps, apps, homeApp }) => {
+const AppsMenuContent = ({ isFetchingApps, apps, homeApp, closeMenu }) => {
   const { t } = useI18n()
 
   if (!isFetchingApps && (!apps || !apps.length)) {
@@ -44,21 +44,21 @@ export const AppsMenuContent = ({ isFetchingApps, apps, homeApp }) => {
   return (
     <div className={styles['apps-menu-grid']}>
       {sortedApps.map((app, index) => (
-        <AppItem key={index} app={app} />
+        <AppItem key={index} app={app} onAppSwitch={closeMenu} />
       ))}
     </div>
   )
 }
 
 AppsMenuContent.propTypes = {
-  apps: PropTypes.array,
   isFetchingApps: PropTypes.bool.isRequired,
+  apps: PropTypes.array,
   homeApp: PropTypes.shape({
     isCurrentApp: PropTypes.bool,
     slug: PropTypes.string,
     href: PropTypes.string
   }),
-  className: PropTypes.string
+  closeMenu: PropTypes.func
 }
 
 const mapStateToProps = state => ({

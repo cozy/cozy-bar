@@ -42,7 +42,7 @@ const AppsMenu = () => {
         <ConfirmDialog
           open={isOpen}
           onClose={toggleMenu}
-          content={<AppsMenuContent />}
+          content={<AppsMenuContent closeMenu={toggleMenu} />}
           componentsProps={{
             dialogContent: {
               classes: styles
@@ -71,7 +71,7 @@ const AppsMenu = () => {
             paper: 'u-bdrs-7'
           }}
         >
-          <AppsMenuContent />
+          <AppsMenuContent closeMenu={toggleMenu} />
         </Menu>
       )}
     </nav>
