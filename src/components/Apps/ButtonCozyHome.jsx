@@ -28,7 +28,11 @@ export const ButtonCozyHome = ({ homeHref, isInvertedTheme }) => {
 
   if (homeHref) {
     return (
-      <a href={homeHref} className="coz-nav-apps-btns-home">
+      <a
+        href={homeHref}
+        className="coz-nav-apps-btns-home"
+        data-testid="buttonCozyHome"
+      >
         <IconCozyHome
           className="coz-nav-apps-btns-home-svg"
           isInvertedTheme={isInvertedTheme}
@@ -38,7 +42,7 @@ export const ButtonCozyHome = ({ homeHref, isInvertedTheme }) => {
   }
 
   return (
-    <span className="coz-nav-apps-btns-home">
+    <span className="coz-nav-apps-btns-home" data-testid="buttonCozyHome">
       <IconCozyHome
         className="coz-nav-apps-btns-home-svg"
         isInvertedTheme={isInvertedTheme}

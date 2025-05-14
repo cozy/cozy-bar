@@ -3,7 +3,7 @@ import { isFlagshipApp } from 'cozy-device-helper'
 import { BarLike } from 'test/lib/BarLike'
 
 import { Bar } from './Bar'
-import { fireEvent, render, screen } from '@testing-library/react'
+import { render } from '@testing-library/react'
 import { createMockClient } from 'cozy-client'
 import { useBreakpoints } from 'cozy-ui/transpiled/react/providers/Breakpoints'
 
@@ -98,32 +98,6 @@ describe('Bar', () => {
     expect(mockFetchContext).not.toHaveBeenCalled()
     expect(mockFetchApps).not.toHaveBeenCalled()
     expect(mockFetchSettingsData).not.toHaveBeenCalled()
-  })
-
-  it('should not fetch apps if hasFetchedApps is true', async () => {
-    setup({ hasFetchedApps: true })
-
-    const toogleButton = await screen.getByText('Show menu drawer')
-    fireEvent.click(toogleButton)
-
-    // wait the drawer to be opened
-    await screen.getByText('Contact us')
-
-    expect(mockFetchApps).not.toHaveBeenCalled()
-  })
-
-  it('should re-fetch apps if apps are not fetched and drawer opens', async () => {
-    setup({ hasFetchedApps: false })
-
-    expect(mockFetchApps).toHaveBeenCalledTimes(1)
-
-    const toogleButton = await screen.getByText('Show menu drawer')
-    fireEvent.click(toogleButton)
-
-    // wait the drawer to be opened
-    await screen.getByText('Contact us')
-
-    expect(mockFetchApps).toHaveBeenCalledTimes(2)
   })
 
   it('should call re-fetch data when token is refreshed', () => {

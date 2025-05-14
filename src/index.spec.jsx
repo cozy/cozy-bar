@@ -1,7 +1,7 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
 
-import { BarComponent, BarProvider, BarRight } from './index'
+import { BarComponent, BarProvider, BarLeft } from './index'
 import { BarLike } from '../test/lib/BarLike'
 
 describe('The bar library', function() {
@@ -21,7 +21,7 @@ describe('The bar library', function() {
       </BarLike>
     )
 
-    const buttonElement = screen.queryByRole('button', { name: /settings/i })
+    const buttonElement = screen.queryByTestId('buttonCozyHome')
     expect(buttonElement).toBeInTheDocument()
   })
 
@@ -30,12 +30,12 @@ describe('The bar library', function() {
       <BarLike>
         <BarProvider>
           <BarComponent />
-          <BarRight>Custom text</BarRight>
+          <BarLeft>Custom text</BarLeft>
         </BarProvider>
       </BarLike>
     )
 
-    const buttonElement = screen.queryByRole('button', { name: /settings/i })
+    const buttonElement = screen.queryByTestId('buttonCozyHome')
     expect(buttonElement).not.toBeInTheDocument()
 
     const currentApp = screen.getByText('Custom text')
