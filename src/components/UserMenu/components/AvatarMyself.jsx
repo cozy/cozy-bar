@@ -8,13 +8,11 @@ const AvatarMyself = ({ className, size = 'm' }) => {
   const rootURL = client.getStackClient().uri
 
   return (
-    <Avatar className={className} size={size}>
-      <img
-        width="100%"
-        height="100%"
-        src={`${rootURL}/public/avatar?fallback=initials`}
-      />
-    </Avatar>
+    <Avatar
+      className={className}
+      size={size}
+      src={`${rootURL}/public/avatar?fallback=initials`}
+    />
   )
 }
 
