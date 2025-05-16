@@ -45,6 +45,7 @@ export const Bar = ({
 }) => {
   const client = useClient()
   const { isMobile } = useBreakpoints()
+  const isSearchEnabled = searchOptions.enabled && !isPublic
 
   const fetchInitialData = useCallback(() => {
     if (!isPublic) {
@@ -120,7 +121,7 @@ export const Bar = ({
   }
 
   const renderSearch = () => {
-    return searchOptions.enabled && !isMobile ? (
+    return isSearchEnabled && !isMobile ? (
       <div className="u-flex-grow u-mh-2">
         <AssistantDesktop
           componentsProps={{ SearchBarDesktop: { size: 'small' } }}
@@ -140,7 +141,7 @@ export const Bar = ({
         {barLeft || renderLeft()}
         {barCenter || renderCenter()}
         <div className="u-flex-grow">{barSearch || renderSearch()}</div>
-        {searchOptions.enabled && isMobile ? <SearchButton /> : null}
+        {isSearchEnabled && isMobile ? <SearchButton /> : null}
         {barRight}
         {!isPublic && renderTwakeRight()}
       </div>
