@@ -1,13 +1,17 @@
 import React from 'react'
+import { connect } from 'react-redux'
+
 import IconButton from 'cozy-ui/transpiled/react/IconButton'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import HelpOutlinedIcon from 'cozy-ui/transpiled/react/Icons/HelpOutlined'
 
-const HelpLink = () => {
+import { getHelpLink } from 'lib/reducers'
+
+const HelpLink = ({ helpLink }) => {
   return (
     <IconButton
       component="a"
-      href="https://support.cozy.io/"
+      href={helpLink}
       target="_blank"
       rel="noopener, noreferrer"
       className="u-p-half"
@@ -17,4 +21,8 @@ const HelpLink = () => {
   )
 }
 
-export default HelpLink
+const mapStateToProps = state => ({
+  helpLink: getHelpLink(state)
+})
+
+export default connect(mapStateToProps)(HelpLink)
