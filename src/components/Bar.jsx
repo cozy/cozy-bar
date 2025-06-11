@@ -8,11 +8,12 @@ import { useBreakpoints } from 'cozy-ui/transpiled/react/providers/Breakpoints'
 import AppTitle from 'cozy-ui/transpiled/react/AppTitle'
 import { isFlagshipApp } from 'cozy-device-helper'
 import flag from 'cozy-flags'
-import { ButtonCozyHome } from 'components/Apps/ButtonCozyHome'
 import Banner from 'components/Banner'
 import AppsMenu from 'components/AppsMenu'
 import UserMenu from 'components/UserMenu'
-import HelpLink from 'components/HelpLink'
+import ButtonCozyHome from 'components/utils/ButtonCozyHome'
+import SearchButton from 'components/utils/SearchButton'
+import HelpLink from 'components/utils/HelpLink'
 import {
   getHomeApp,
   hasFetched,
@@ -22,7 +23,6 @@ import {
 } from 'lib/reducers'
 import { useClient } from 'cozy-client'
 import { AssistantDesktop } from 'cozy-search'
-import SearchButton from './Search/SearchButton'
 import cx from 'classnames'
 
 export const Bar = ({

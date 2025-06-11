@@ -5,9 +5,9 @@ import flag from 'cozy-flags'
 import { isFlagshipApp } from 'cozy-device-helper'
 import { useWebviewIntent } from 'cozy-intent'
 
-import IconCozyHome from './IconCozyHome'
+import IconCozyHome from 'components/utils/IconCozyHome'
 
-export const ButtonCozyHome = ({ homeHref, isInvertedTheme }) => {
+const ButtonCozyHome = ({ homeHref, isInvertedTheme }) => {
   const webviewIntent = useWebviewIntent()
 
   if (isFlagshipApp() || flag('flagship.debug'))
@@ -55,3 +55,5 @@ ButtonCozyHome.propTypes = {
   homeHref: PropTypes.string,
   isInvertedTheme: PropTypes.bool
 }
+
+export default ButtonCozyHome

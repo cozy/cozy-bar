@@ -1,6 +1,6 @@
 import React from 'react'
 import { render, fireEvent } from '@testing-library/react'
-import { ButtonCozyHome } from './ButtonCozyHome'
+import ButtonCozyHome from './ButtonCozyHome'
 import { isFlagshipApp } from 'cozy-device-helper'
 import { useWebviewIntent } from 'cozy-intent'
 import { BarLike } from 'test/lib/BarLike'
