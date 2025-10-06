@@ -20,7 +20,7 @@ const useStyles = makeStyles({
   }
 })
 
-const AppsMenu = () => {
+const AppsMenu = ({ shortcuts }) => {
   const [isOpen, setOpen] = useState(false)
   const containerRef = useRef()
   const buttonRef = useRef()
@@ -71,7 +71,7 @@ const AppsMenu = () => {
             paper: 'u-bdrs-7'
           }}
         >
-          <AppsMenuContent closeMenu={toggleMenu} />
+          <AppsMenuContent shortcuts={shortcuts} closeMenu={toggleMenu} />
         </Menu>
       )}
     </nav>

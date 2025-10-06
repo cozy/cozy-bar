@@ -7,12 +7,19 @@ import Typography from 'cozy-ui/transpiled/react/Typography'
 import { sortApplicationsList } from 'cozy-client/dist/models/applications'
 
 import AppItem from 'components/AppsMenu/components/AppItem'
+import ShortcutItem from 'components/AppsMenu/components/ShortcutItem'
 import AppItemPlaceholder from 'components/AppsMenu/components/AppItemPlaceholder'
 import useI18n from 'components/useI18n'
 import { getApps, getHomeApp, isFetchingApps } from 'lib/reducers'
 import styles from 'styles/apps-menu.styl'
 
-const AppsMenuContent = ({ isFetchingApps, apps, homeApp, closeMenu }) => {
+const AppsMenuContent = ({
+  isFetchingApps,
+  apps,
+  shortcuts,
+  homeApp,
+  closeMenu
+}) => {
   const { t } = useI18n()
 
   if (!isFetchingApps && (!apps || !apps.length)) {
@@ -45,6 +52,9 @@ const AppsMenuContent = ({ isFetchingApps, apps, homeApp, closeMenu }) => {
     <div className={styles['apps-menu-grid']}>
       {sortedApps.map((app, index) => (
         <AppItem key={index} app={app} onAppSwitch={closeMenu} />
+      ))}
+      {shortcuts.map((shortcut, index) => (
+        <ShortcutItem key={index} shortcut={shortcut} />
       ))}
     </div>
   )
