@@ -21,7 +21,7 @@ import {
   fetchContext,
   fetchSettingsData
 } from 'lib/reducers'
-import { useClient } from 'cozy-client'
+import { useClient, useFetchHomeShortcuts } from 'cozy-client'
 import { AssistantDesktop } from 'cozy-search'
 import cx from 'classnames'
 
@@ -45,6 +45,8 @@ export const Bar = ({
 }) => {
   const client = useClient()
   const { isMobile } = useBreakpoints()
+  const shortcuts = useFetchHomeShortcuts()
+
   const isSearchEnabled = searchOptions.enabled && !isPublic
 
   const fetchInitialData = useCallback(() => {
@@ -114,7 +116,7 @@ export const Bar = ({
     return (
       <>
         <HelpLink />
-        <AppsMenu />
+        <AppsMenu shortcuts={shortcuts} />
         <UserMenu onLogOut={onLogOut} />
       </>
     )
