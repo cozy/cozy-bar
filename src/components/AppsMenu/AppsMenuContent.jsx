@@ -8,10 +8,12 @@ import { sortApplicationsList } from 'cozy-client/dist/models/applications'
 
 import AppItem from 'components/AppsMenu/components/AppItem'
 import ShortcutItem from 'components/AppsMenu/components/ShortcutItem'
+import EntrypointItem from 'components/AppsMenu/components/EntrypointItem'
 import AppItemPlaceholder from 'components/AppsMenu/components/AppItemPlaceholder'
 import useI18n from 'components/useI18n'
 import { getApps, getHomeApp, isFetchingApps } from 'lib/reducers'
 import styles from 'styles/apps-menu.styl'
+import { buildEntrypoints } from 'components/AppsMenu/helper'
 
 const AppsMenuContent = ({
   isFetchingApps,
@@ -48,6 +50,8 @@ const AppsMenuContent = ({
     ? sortApplicationsList(displayedApps, flag('apps.sort'))
     : displayedApps
 
+  const entrypoints = buildEntrypoints(apps)
+
   return (
     <div className={styles['apps-menu-grid']}>
       {sortedApps.map((app, index) => (
@@ -55,6 +59,9 @@ const AppsMenuContent = ({
       ))}
       {shortcuts.map((shortcut, index) => (
         <ShortcutItem key={index} shortcut={shortcut} />
+      ))}
+      {entrypoints.map(entrypoint => (
+        <EntrypointItem key={entrypoint.name} entrypoint={entrypoint} />
       ))}
     </div>
   )
