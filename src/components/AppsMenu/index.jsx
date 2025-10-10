@@ -42,7 +42,9 @@ const AppsMenu = ({ shortcuts }) => {
         <ConfirmDialog
           open={isOpen}
           onClose={toggleMenu}
-          content={<AppsMenuContent closeMenu={toggleMenu} />}
+          content={
+            <AppsMenuContent shortcuts={shortcuts} closeMenu={toggleMenu} />
+          }
           componentsProps={{
             dialogContent: {
               classes: styles
