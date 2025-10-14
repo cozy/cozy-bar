@@ -43,15 +43,9 @@ export const ShortcutItem = ({ shortcut }) => {
         <div className={styles['apps-menu-grid-item']}>
           <div className={styles['apps-menu-grid-item-icon']}>
             {shortcutImgSrc ? (
-              <img src={shortcutImgSrc} alt="" width={42} height={42} />
+              <img className="u-bdrs-5 u-w-100" src={shortcutImgSrc} alt="" />
             ) : (
-              <img
-                className="u-bdrs-5"
-                src={shortcutImg}
-                alt=""
-                width={42}
-                height={42}
-              />
+              <img className="u-bdrs-5 u-w-100" src={shortcutImg} alt="" />
             )}
           </div>
           <Typography noWrap className={classes.text}>
