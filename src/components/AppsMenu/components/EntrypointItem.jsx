@@ -51,11 +51,9 @@ export const EntrypointItem = ({ entrypoint }) => {
         <div className={styles['apps-menu-grid-item']}>
           <div className={styles['apps-menu-grid-item-icon']}>
             <img
-              className="u-bdrs-5"
+              className="u-bdrs-5 u-w-100"
               src={`data:image/svg+xml;base64,${entrypoint.icon}`}
               alt=""
-              width={42}
-              height={42}
             />
           </div>
           <Typography noWrap className={classes.text}>
