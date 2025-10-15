@@ -3388,10 +3388,10 @@ cosmiconfig@^5.0.1:
     js-yaml "^3.13.1"
     parse-json "^4.0.0"
 
-cozy-client@^60.12.1:
-  version "60.12.1"
-  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-60.12.1.tgz#30bbd442ed1493fa7d1b8ccf279bc937da34b4e8"
-  integrity sha512-2lS+cwcfZU7ZmcwvWjQ+4K6HG6pyW+hSbIDJyI+PRt9XJicZaQjVqHgNgczrSMVRK5XDI6hQWRxcQhiSv0auKA==
+cozy-client@^60.14.0:
+  version "60.14.0"
+  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-60.14.0.tgz#0befadcbed6956c68460785bdc6734e4ab9968ff"
+  integrity sha512-fn/ymAm1W0NqtV+YQt0/k/huRVyslacgfx/TVfU1vjRUNyOvxui9jRgWuxAWENj4+PSrmhvM6OzCSylDDHvtaw==
   dependencies:
     "@cozy/minilog" "1.0.0"
     "@fastify/deepmerge" "^2.0.2"
