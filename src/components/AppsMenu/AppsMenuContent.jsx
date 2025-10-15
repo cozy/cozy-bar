@@ -13,7 +13,7 @@ import AppItemPlaceholder from 'components/AppsMenu/components/AppItemPlaceholde
 import useI18n from 'components/useI18n'
 import { getApps, getHomeApp, isFetchingApps } from 'lib/reducers'
 import styles from 'styles/apps-menu.styl'
-import { buildEntrypoints } from 'components/AppsMenu/helper'
+import { getEntrypoints } from 'components/AppsMenu/helper'
 
 const AppsMenuContent = ({
   isFetchingApps,
@@ -50,7 +50,7 @@ const AppsMenuContent = ({
     ? sortApplicationsList(displayedApps, flag('apps.sort'))
     : displayedApps
 
-  const entrypoints = buildEntrypoints(apps)
+  const entrypoints = getEntrypoints(apps)
 
   return (
     <div className={styles['apps-menu-grid']}>
