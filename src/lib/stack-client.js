@@ -1,6 +1,5 @@
 /* eslint-env browser */
 import { Intents } from 'cozy-interapp'
-import getIcon from 'lib/icon'
 import initializeRealtime from 'lib/realtime'
 
 import {
@@ -11,7 +10,6 @@ import {
   UnavailableStackException,
   UnauthorizedStackException
 } from 'lib/exceptions'
-import { isMobileApp } from 'cozy-device-helper'
 
 const errorStatuses = {
   '401': UnauthorizedStackException,
@@ -261,39 +259,18 @@ const getStorageData = function() {
 }
 
 /**
- * Fetch an icon data from its path
- *
- * The purpose of this function is to be sent
- * to AppIcon components for mobile devices.
- *
- * @private
- * @function
- * @param {string} iconPath - path of the icon in the stack
- * @returns {Blob}
- */
-const iconFetcher = function(iconPath) {
-  return getStackClient().fetch('GET', iconPath)
-}
-
-/**
  * Get a props object that can be sent to an AppIcon component
- *
- * Mobile devices and web browsers need different props
  *
  * @function
  * @returns {Object}
  */
 const getAppIconProps = function() {
-  const mobileAppIconProps = {
-    fetchIcon: app => getIcon(iconFetcher, app, true)
-  }
-
   const browserAppIconProps = {
     // we mustn't give the protocol here
     domain: getCozyURL().host,
     secure: getCozyURL().protocol === 'https:'
   }
-  return isMobileApp() ? mobileAppIconProps : browserAppIconProps
+  return browserAppIconProps
 }
 
 /**

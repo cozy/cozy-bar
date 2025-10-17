@@ -15,7 +15,6 @@ import {
 import Bar from './Bar'
 import { Provider } from 'react-redux'
 import { useClient } from 'cozy-client'
-import { isMobileApp } from 'cozy-device-helper'
 import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
 
 import stack from 'lib/stack'
@@ -23,11 +22,10 @@ import stack from 'lib/stack'
 import { useBarContext } from './BarProvider'
 
 const createBarElement = () => {
-  const targetName = isMobileApp() ? 'mobile' : 'browser'
   const barNode = document.createElement('div')
   barNode.setAttribute('id', 'coz-bar')
   barNode.setAttribute('role', 'banner')
-  barNode.classList.add(`coz-target--${targetName}`)
+  barNode.classList.add(`coz-target--browser`)
   return barNode
 }
 
