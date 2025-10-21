@@ -48,7 +48,11 @@ export const ShortcutItem = ({ shortcut }) => {
               <img className="u-bdrs-5 u-w-100" src={shortcutImg} alt="" />
             )}
           </div>
-          <Typography noWrap className={classes.text}>
+          <Typography
+            noWrap
+            align="center"
+            className={`u-w-100 ${classes.text}`}
+          >
             {filename}
           </Typography>
         </div>

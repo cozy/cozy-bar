@@ -49,7 +49,11 @@ export const AppItem = ({ app, onAppSwitch }) => {
                     {...stack.get.iconProps()}
                   />
                 </div>
-                <Typography noWrap className={classes.text}>
+                <Typography
+                  noWrap
+                  align="center"
+                  className={`u-w-100 ${classes.text}`}
+                >
                   {appName}
                 </Typography>
               </div>
