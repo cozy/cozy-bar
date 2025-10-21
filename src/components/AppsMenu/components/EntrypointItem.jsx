@@ -56,7 +56,11 @@ export const EntrypointItem = ({ entrypoint }) => {
               alt=""
             />
           </div>
-          <Typography noWrap className={classes.text}>
+          <Typography
+            noWrap
+            align="center"
+            className={`u-w-100  ${classes.text}`}
+          >
             {title}
           </Typography>
         </div>
