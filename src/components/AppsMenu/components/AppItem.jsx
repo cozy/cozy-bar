@@ -35,6 +35,7 @@ export const AppItem = ({ app, onAppSwitch }) => {
           <Buttons
             height="auto"
             component="a"
+            target="_blank"
             variant="text"
             href={href}
             title={appName}
