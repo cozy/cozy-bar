@@ -3680,10 +3680,10 @@ cozy-stack-client@^60.6.0:
     mime "^2.4.0"
     qs "^6.7.0"
 
-cozy-ui-plus@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/cozy-ui-plus/-/cozy-ui-plus-1.2.0.tgz#d910d0691cd511832257c1c2f47b8faa43c81554"
-  integrity sha512-4OtBn7hQ8iws9HDBt/PuJsLyfY7ToN9kxzMCOgB2xc1Iqh7/Kzhb2eQr2HatbMesLoDEaiP+wRwiEfX5qGK/PQ==
+cozy-ui-plus@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/cozy-ui-plus/-/cozy-ui-plus-2.1.0.tgz#cf01f3d9e0ead4a6763f9d3da84e17bd247350c2"
+  integrity sha512-d0vvXKMtNpHcrjSuAiTPLWVnK0R5DZ3C81VqSjDYSe56VwAe6DwsVOkUEShh/OhqXopUF1xsczXUjHNaq2BOXQ==
   dependencies:
     classnames "^2.5.1"
     cozy-interapp "^0.5.4"

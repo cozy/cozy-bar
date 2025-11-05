@@ -15,7 +15,7 @@ import {
 import Bar from './Bar'
 import { Provider } from 'react-redux'
 import { useClient } from 'cozy-client'
-import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
+import CozyTheme from 'cozy-ui-plus/dist/providers/CozyTheme'
 
 import stack from 'lib/stack'
 
