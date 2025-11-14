@@ -54,8 +54,8 @@ const AppsMenuContent = ({
 
   return (
     <div className={styles['apps-menu-grid']}>
-      {sortedApps.map((app, index) => (
-        <AppItem key={index} app={app} onAppSwitch={closeMenu} />
+      {sortedApps.map(app => (
+        <AppItem key={app.slug} app={app} onAppSwitch={closeMenu} />
       ))}
       {shortcuts.map((shortcut, index) => (
         <ShortcutItem key={index} shortcut={shortcut} />
