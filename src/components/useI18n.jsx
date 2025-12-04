@@ -1,4 +1,4 @@
-import { createUseI18n } from 'cozy-ui/transpiled/react/providers/I18n'
+import { createUseI18n } from 'twake-i18n'
 
 import enLocale from 'locales/en.json'
 import frLocale from 'locales/fr.json'

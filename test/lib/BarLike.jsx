@@ -1,7 +1,7 @@
 import React from 'react'
 import { Provider } from 'react-redux'
 
-import I18n from 'cozy-ui/transpiled/react/providers/I18n'
+import I18n from 'twake-i18n'
 import { CozyProvider, createMockClient } from 'cozy-client'
 import { BreakpointsProvider } from 'cozy-ui/transpiled/react/providers/Breakpoints'
 import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
