@@ -77,7 +77,14 @@ const UserMenuContent = ({ onLogOut, instance, diskUsage, closeMenu }) => {
           <ListItemText primary={t('userMenu.manageProfile')} />
         </ListItem>
         {flag('cozy.b2b.enabled') && (
-          <ListItem button gutters={gutters} size="small">
+          <ListItem
+            button
+            gutters={gutters}
+            size="small"
+            component="a"
+            href={flag('cozy.b2b.createBusinessAccountUrl')}
+            onClick={closeMenu}
+          >
             <ListItemIcon>
               <Icon icon={CompanyIcon} />
             </ListItemIcon>
