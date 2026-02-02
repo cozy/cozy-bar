@@ -11,6 +11,7 @@ const FETCH_APPS = 'FETCH_APPS'
 const FETCH_APPS_FAILURE = 'FETCH_APPS_FAILURE'
 const FETCH_APPS_SUCCESS = 'FETCH_APPS_SUCCESS'
 const SET_INFOS = 'SET_INFOS'
+const SET_IS_SETTINGS_APP_INSTALLED = 'SET_IS_SETTINGS_APP_INSTALLED'
 
 export const isCurrentApp = (state, app) => app.slug === state.appSlug
 
@@ -28,6 +29,10 @@ export const isFetchingApps = state => {
   return state ? state.isFetching : false
 }
 
+export const getIsSettingsAppInstalled = state => {
+  return state ? state.isSettingsAppInstalled : false
+}
+
 export const hasFetched = state => state.hasFetched
 
 // actions
@@ -41,18 +46,29 @@ export const setInfos = (appName, appNamePrefix, appSlug) => ({
   appNamePrefix,
   appSlug
 })
+export const setIsSettingsAppInstalled = isSettingsAppInstalled => ({
+  type: SET_IS_SETTINGS_APP_INSTALLED,
+  isSettingsAppInstalled
+})
 
 // actions async
 export const fetchApps = () => async dispatch => {
   try {
     dispatch({ type: FETCH_APPS })
     const rawAppList = await stack.get.apps()
+    if (!rawAppList.length)
+      throw new Error('No installed apps found by the bar')
+
+    // We need to store if settings app is installed because it maybe be filtered because of apps.hidden
+    const isSettingsAppInstalled = rawAppList.some(
+      app => app?.attributes?.slug === 'settings'
+    )
+    await dispatch(setIsSettingsAppInstalled(isSettingsAppInstalled))
+
     const excludedApps = flag('apps.hidden') || []
     const apps = rawAppList
       .map(mapApp)
       .filter(app => !excludedApps.includes(app.slug))
-    if (!rawAppList.length)
-      throw new Error('No installed apps found by the bar')
     // TODO load only one time icons
     await dispatch(setDefaultApp(apps))
     await dispatch(receiveAppList(apps))
@@ -89,7 +105,8 @@ const defaultState = {
   appName: null,
   appNamePrefix: null,
   appSlug: null,
-  hasFetched: false
+  hasFetched: false,
+  isSettingsAppInstalled: false
 }
 
 const reducer = (state = defaultState, action) => {
@@ -136,6 +153,11 @@ const reducer = (state = defaultState, action) => {
         appName: action.appName,
         appNamePrefix: action.appNamePrefix,
         appSlug: action.appSlug
+      }
+    case SET_IS_SETTINGS_APP_INSTALLED:
+      return {
+        ...state,
+        isSettingsAppInstalled: action.isSettingsAppInstalled
       }
     default:
       return state
