@@ -1,5 +1,6 @@
 import React from 'react'
 import cx from 'classnames'
+import { connect } from 'react-redux'
 
 import flag from 'cozy-flags'
 import { useWebviewIntent } from 'cozy-intent'
@@ -21,12 +22,19 @@ import Button from 'cozy-ui/transpiled/react/Buttons'
 import Typography from 'cozy-ui/transpiled/react/Typography'
 import { useBreakpoints } from 'cozy-ui/transpiled/react/providers/Breakpoints'
 
+import { getIsSettingsAppInstalled } from 'lib/reducers'
 import useI18n from 'components/useI18n'
 import styles from 'styles/user-menu.styl'
 import AvatarMyself from './components/AvatarMyself'
 import { getSettingsLink, logOut } from './helpers'
 
-const UserMenuContent = ({ onLogOut, instance, diskUsage, closeMenu }) => {
+const UserMenuContent = ({
+  onLogOut,
+  instance,
+  diskUsage,
+  isSettingsAppInstalled,
+  closeMenu
+}) => {
   const webviewIntent = useWebviewIntent()
 
   const client = useClient()
@@ -63,19 +71,21 @@ const UserMenuContent = ({ onLogOut, instance, diskUsage, closeMenu }) => {
         )}
       </div>
       <List className="u-pb-0">
-        <ListItem
-          button
-          gutters={gutters}
-          size="small"
-          component="a"
-          href={profileLink}
-          onClick={closeMenu}
-        >
-          <ListItemIcon>
-            <Icon icon={FromUserIcon} />
-          </ListItemIcon>
-          <ListItemText primary={t('userMenu.manageProfile')} />
-        </ListItem>
+        {isSettingsAppInstalled && (
+          <ListItem
+            button
+            gutters={gutters}
+            size="small"
+            component="a"
+            href={profileLink}
+            onClick={closeMenu}
+          >
+            <ListItemIcon>
+              <Icon icon={FromUserIcon} />
+            </ListItemIcon>
+            <ListItemText primary={t('userMenu.manageProfile')} />
+          </ListItem>
+        )}
         {flag('cozy.b2b.enabled') && (
           <ListItem
             button
@@ -91,28 +101,30 @@ const UserMenuContent = ({ onLogOut, instance, diskUsage, closeMenu }) => {
             <ListItemText primary={t('userMenu.createBusinessAccount')} />
           </ListItem>
         )}
-        <ListItem
-          button
-          gutters={gutters}
-          size="small"
-          component="a"
-          href={storageLink}
-          onClick={closeMenu}
-        >
-          <ListItemIcon>
-            <Icon icon={CloudRainbowIcon} />
-          </ListItemIcon>
-          <ListItemText
-            primary={t('userMenu.storage')}
-            secondary={t(
-              'userMenu.storageAvailable',
-              humanDiskQuota - humanDiskUsage
-            )}
-          />
-          <ListItemIcon>
-            <Icon icon={RightIcon} />
-          </ListItemIcon>
-        </ListItem>
+        {isSettingsAppInstalled && (
+          <ListItem
+            button
+            gutters={gutters}
+            size="small"
+            component="a"
+            href={storageLink}
+            onClick={closeMenu}
+          >
+            <ListItemIcon>
+              <Icon icon={CloudRainbowIcon} />
+            </ListItemIcon>
+            <ListItemText
+              primary={t('userMenu.storage')}
+              secondary={t(
+                'userMenu.storageAvailable',
+                humanDiskQuota - humanDiskUsage
+              )}
+            />
+            <ListItemIcon>
+              <Icon icon={RightIcon} />
+            </ListItemIcon>
+          </ListItem>
+        )}
 
         <Divider component="li" variant="inset" />
 
@@ -132,4 +144,8 @@ const UserMenuContent = ({ onLogOut, instance, diskUsage, closeMenu }) => {
   )
 }
 
-export default UserMenuContent
+const mapStateToProps = state => ({
+  isSettingsAppInstalled: getIsSettingsAppInstalled(state)
+})
+
+export default connect(mapStateToProps)(UserMenuContent)

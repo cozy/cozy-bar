@@ -16,6 +16,10 @@ const logOut = settings.logOut
 const fetchContext = context.fetchContext
 export { fetchApps, setInfos, fetchSettingsData, logOut, fetchContext }
 
+export const getIsSettingsAppInstalled = proxy(
+  'apps',
+  apps.getIsSettingsAppInstalled
+)
 export const getApps = proxy('apps', apps.getApps)
 export const getHomeApp = proxy('apps', apps.getHomeApp)
 export const isFetchingApps = proxy('apps', apps.isFetchingApps)
