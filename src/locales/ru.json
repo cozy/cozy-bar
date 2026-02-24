@@ -51,7 +51,6 @@
     }
   },
   "userMenu": {
-    "addAccount": "Добавить аккаунт",
     "manageProfile": "Управление профилем",
     "createBusinessAccount": "Создать бизнес-аккаунт",
     "storage": "Хранилище",

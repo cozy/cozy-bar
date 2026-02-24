@@ -51,7 +51,6 @@
     }
   },
   "userMenu": {
-    "addAccount": "Thêm tài khoản",
     "manageProfile": "Quản lý hồ sơ",
     "createBusinessAccount": "Tạo tài khoản doanh nghiệp",
     "storage": "Lưu trữ",

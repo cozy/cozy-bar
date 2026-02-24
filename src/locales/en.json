@@ -51,7 +51,6 @@
     }
   },
   "userMenu": {
-    "addAccount": "Add account",
     "manageProfile": "Manage profile",
     "createBusinessAccount": "Create business account",
     "storage": "Storage",
