@@ -10,7 +10,6 @@ import List from 'cozy-ui/transpiled/react/List'
 import ListItem from 'cozy-ui/transpiled/react/ListItem'
 import ListItemIcon from 'cozy-ui/transpiled/react/ListItemIcon'
 import ListItemText from 'cozy-ui/transpiled/react/ListItemText'
-import PersonAddIcon from 'cozy-ui/transpiled/react/Icons/PersonAdd'
 import FromUserIcon from 'cozy-ui/transpiled/react/Icons/FromUser'
 import LogoutIcon from 'cozy-ui/transpiled/react/Icons/Logout'
 import CloudRainbowIcon from 'cozy-ui/transpiled/react/Icons/CloudRainbow'
@@ -18,7 +17,6 @@ import CompanyIcon from 'cozy-ui/transpiled/react/Icons/Company'
 import RightIcon from 'cozy-ui/transpiled/react/Icons/Right'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import Divider from 'cozy-ui/transpiled/react/Divider'
-import Button from 'cozy-ui/transpiled/react/Buttons'
 import Typography from 'cozy-ui/transpiled/react/Typography'
 import { useBreakpoints } from 'cozy-ui/transpiled/react/providers/Breakpoints'
 
@@ -61,14 +59,6 @@ const UserMenuContent = ({
         <AvatarMyself className="u-mb-half" />
         <Typography variant="h4">{public_name}</Typography>
         <Typography variant="body2">{email}</Typography>
-        {flag('cozy.b2b.enabled') && (
-          <Button
-            label={t('userMenu.addAccount')}
-            variant="secondary"
-            startIcon={<Icon icon={PersonAddIcon} />}
-            className={cx(styles['user-menu-content-add-account'], 'u-mt-1')}
-          />
-        )}
       </div>
       <List className="u-pb-0">
         {isSettingsAppInstalled && (
