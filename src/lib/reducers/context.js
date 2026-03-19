@@ -1,5 +1,5 @@
 import stack from 'lib/stack'
-import { LOG_OUT } from 'lib/reducers/settings'
+const LOG_OUT = 'LOG_OUT'
 
 const FETCH_CONTEXT = 'FETCH_CONTEXT'
 const FETCH_CONTEXT_SUCCESS = 'FETCH_CONTEXT_SUCCESS'
