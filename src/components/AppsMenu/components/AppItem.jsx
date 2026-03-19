@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { getAppDisplayName } from 'cozy-client/dist/models/applications'
+import { useClient } from 'cozy-client'
 import { makeStyles } from 'cozy-ui/transpiled/react/styles'
 import Buttons from 'cozy-ui/transpiled/react/Buttons'
 import AppIcon from 'cozy-ui-plus/dist/AppIcon'
@@ -9,7 +10,6 @@ import Typography from 'cozy-ui/transpiled/react/Typography'
 import cx from 'classnames'
 
 import { appShape } from 'proptypes/index'
-import stack from 'lib/stack'
 
 import styles from 'styles/apps-menu.styl'
 
@@ -24,6 +24,12 @@ const useStyles = makeStyles(() => {
 })
 
 export const AppItem = ({ app, onAppSwitch }) => {
+  const client = useClient()
+  const cozyURL = new URL(client.getStackClient().uri)
+  const iconProps = {
+    domain: cozyURL.host,
+    secure: cozyURL.protocol === 'https:'
+  }
   const appName = getAppDisplayName(app)
 
   const classes = useStyles()
@@ -44,11 +50,7 @@ export const AppItem = ({ app, onAppSwitch }) => {
             label={
               <div className={styles['apps-menu-grid-item']}>
                 <div className={styles['apps-menu-grid-item-icon']}>
-                  <AppIcon
-                    app={app}
-                    key={app.slug}
-                    {...stack.get.iconProps()}
-                  />
+                  <AppIcon app={app} key={app.slug} {...iconProps} />
                 </div>
                 <Typography
                   noWrap
