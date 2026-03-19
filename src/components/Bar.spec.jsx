@@ -49,12 +49,10 @@ describe('Bar', () => {
 
   const mockFetchContext = jest.fn().mockResolvedValue({})
   const mockFetchApps = jest.fn().mockResolvedValue([])
-  const mockFetchSettingsData = jest.fn().mockResolvedValue({})
 
   const setup = ({
     fetchContext = mockFetchContext,
     fetchApps = mockFetchApps,
-    fetchSettingsData = mockFetchSettingsData,
     isPublic = false,
     hasFetchedApps = false
   } = {}) => {
@@ -69,7 +67,6 @@ describe('Bar', () => {
         <Bar
           fetchContext={fetchContext}
           fetchApps={fetchApps}
-          fetchSettingsData={fetchSettingsData}
           isPublic={isPublic}
           hasFetchedApps={hasFetchedApps}
           onDrawer={jest.fn()}
@@ -89,7 +86,6 @@ describe('Bar', () => {
 
     expect(mockFetchContext).toHaveBeenCalled()
     expect(mockFetchApps).toHaveBeenCalled()
-    expect(mockFetchSettingsData).toHaveBeenCalled()
   })
 
   it('should not fetch data if public', () => {
@@ -97,7 +93,6 @@ describe('Bar', () => {
 
     expect(mockFetchContext).not.toHaveBeenCalled()
     expect(mockFetchApps).not.toHaveBeenCalled()
-    expect(mockFetchSettingsData).not.toHaveBeenCalled()
   })
 
   it('should call re-fetch data when token is refreshed', () => {
@@ -106,6 +101,5 @@ describe('Bar', () => {
 
     expect(mockFetchContext).toHaveBeenCalledTimes(2)
     expect(mockFetchApps).toHaveBeenCalledTimes(2)
-    expect(mockFetchSettingsData).toHaveBeenCalledTimes(2)
   })
 })
