@@ -14,13 +14,12 @@ import UserMenu from 'components/UserMenu'
 import ButtonCozyHome from 'components/utils/ButtonCozyHome'
 import SearchButton from 'components/utils/SearchButton'
 import HelpLink from 'components/utils/HelpLink'
-import { getHomeApp, hasFetched, fetchApps, fetchContext } from 'lib/reducers'
+import { getHomeApp, hasFetched, fetchApps } from 'lib/reducers'
 import { useClient, useFetchHomeShortcuts } from 'cozy-client'
 import { AssistantDesktop } from 'cozy-search'
 import cx from 'classnames'
 
 export const Bar = ({
-  fetchContext,
   fetchApps,
   isPublic,
   barLeft,
@@ -46,12 +45,11 @@ export const Bar = ({
 
   const fetchInitialData = useCallback(() => {
     if (!isPublic) {
-      fetchContext()
       if (!hasFetchedApps) {
         fetchApps()
       }
     }
-  }, [fetchApps, fetchContext, hasFetchedApps, isPublic])
+  }, [fetchApps, hasFetchedApps, isPublic])
 
   useEffect(() => {
     const handleTokenRefreshed = () => {
@@ -165,8 +163,7 @@ export const mapStateToProps = state => ({
 })
 
 export const mapDispatchToProps = dispatch => ({
-  fetchApps: () => dispatch(fetchApps()),
-  fetchContext: () => dispatch(fetchContext())
+  fetchApps: () => dispatch(fetchApps())
 })
 
 export default connect(

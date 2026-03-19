@@ -39,7 +39,8 @@ describe('Bar', () => {
     useInstanceInfo.mockReturnValue({
       isLoaded: true,
       diskUsage: { data: { used: 0 } },
-      instance: { data: {} }
+      instance: { data: {} },
+      context: { data: {} }
     })
   })
 
@@ -47,11 +48,9 @@ describe('Bar', () => {
     isFlagshipApp.mockClear()
   })
 
-  const mockFetchContext = jest.fn().mockResolvedValue({})
   const mockFetchApps = jest.fn().mockResolvedValue([])
 
   const setup = ({
-    fetchContext = mockFetchContext,
     fetchApps = mockFetchApps,
     isPublic = false,
     hasFetchedApps = false
@@ -65,7 +64,6 @@ describe('Bar', () => {
     const result = render(
       <BarLike client={mockClient}>
         <Bar
-          fetchContext={fetchContext}
           fetchApps={fetchApps}
           isPublic={isPublic}
           hasFetchedApps={hasFetchedApps}
@@ -84,14 +82,12 @@ describe('Bar', () => {
   it('should fetch data when mounted', () => {
     setup()
 
-    expect(mockFetchContext).toHaveBeenCalled()
     expect(mockFetchApps).toHaveBeenCalled()
   })
 
   it('should not fetch data if public', () => {
     setup({ isPublic: true })
 
-    expect(mockFetchContext).not.toHaveBeenCalled()
     expect(mockFetchApps).not.toHaveBeenCalled()
   })
 
@@ -99,7 +95,6 @@ describe('Bar', () => {
     const { client } = setup()
     client.emit('tokenRefreshed')
 
-    expect(mockFetchContext).toHaveBeenCalledTimes(2)
     expect(mockFetchApps).toHaveBeenCalledTimes(2)
   })
 })
