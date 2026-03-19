@@ -1,13 +1,17 @@
 import React from 'react'
-import { connect } from 'react-redux'
 
 import IconButton from 'cozy-ui/transpiled/react/IconButton'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import HelpOutlinedIcon from 'cozy-ui/transpiled/react/Icons/HelpOutlined'
 
-import { getHelpLink } from 'lib/reducers'
+import { useInstanceInfo } from 'cozy-client'
 
-const HelpLink = ({ helpLink }) => {
+const HelpLink = () => {
+  const { context } = useInstanceInfo()
+  const helpLink = context.data?.attributes?.help_link || null
+
+  if (!helpLink) return null
+
   return (
     <IconButton
       component="a"
@@ -21,8 +25,4 @@ const HelpLink = ({ helpLink }) => {
   )
 }
 
-const mapStateToProps = state => ({
-  helpLink: getHelpLink(state)
-})
-
-export default connect(mapStateToProps)(HelpLink)
+export default HelpLink
