@@ -89,6 +89,8 @@ const BarComponent = ({
   isPublic = false,
   onLogOut,
   disableInternalStore = false,
+  appIcon,
+  appTextIcon,
   searchOptions = { enabled: true },
   componentsProps = {}
 }) => {
@@ -130,6 +132,8 @@ const BarComponent = ({
     isPublic: isPublicForce || isPublic,
     onLogOut,
     userActionRequired: getUserActionRequired(),
+    appIcon,
+    appTextIcon,
     searchOptions,
     componentsProps,
     onDrawer: visible => {

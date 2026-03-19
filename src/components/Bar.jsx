@@ -36,6 +36,8 @@ export const Bar = ({
   barSearch,
   onLogOut,
   userActionRequired,
+  appIcon,
+  appTextIcon,
   searchOptions,
   isInvertedTheme,
   appSlug,
@@ -97,7 +99,7 @@ export const Bar = ({
             <Divider orientation="vertical" className="u-mr-half" flexItem />
           </>
         )}
-        <AppTitle slug={appSlug} />
+        <AppTitle appIcon={appIcon} appTextIcon={appTextIcon} />
       </Grid>
     )
   }
