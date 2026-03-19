@@ -54,7 +54,6 @@
     "cozy-device-helper": "2.6.0",
     "cozy-flags": "^4.6.1",
     "cozy-intent": "^2.29.1",
-    "cozy-interapp": "0.4.9",
     "cozy-logger": "1.9.1",
     "cozy-realtime": "^4.0.5",
     "cozy-search": "^0.14.0",
@@ -75,13 +74,7 @@
   },
   "dependencies": {
     "lodash.set": "^4.3.2",
-    "lodash.unionwith": "4.6.0",
-    "prop-types": "15.7.2",
-    "react-redux": "5.1.1",
-    "redux": "4.1.2",
-    "redux-logger": "3.0.6",
-    "redux-persist": "5.10.0",
-    "redux-thunk": "2.3.0"
+    "prop-types": "15.7.2"
   },
   "peerDependencies": {
     "@cozy/minilog": ">=1.0.0",
@@ -90,7 +83,6 @@
     "cozy-device-helper": ">=2.6.0",
     "cozy-flags": ">=4.6.1",
     "cozy-intent": ">=2.29.1",
-    "cozy-interapp": ">=0.4.9",
     "cozy-realtime": ">=4.0.5",
     "cozy-search": ">=0.14.0",
     "cozy-ui": ">=137.0.0",
