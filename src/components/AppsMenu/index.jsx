@@ -20,7 +20,7 @@ const useStyles = makeStyles({
   }
 })
 
-const AppsMenu = ({ shortcuts }) => {
+const AppsMenu = ({ shortcuts, apps, homeApp, isFetchingApps }) => {
   const [isOpen, setOpen] = useState(false)
   const containerRef = useRef()
   const buttonRef = useRef()
@@ -43,7 +43,13 @@ const AppsMenu = ({ shortcuts }) => {
           open={isOpen}
           onClose={toggleMenu}
           content={
-            <AppsMenuContent shortcuts={shortcuts} closeMenu={toggleMenu} />
+            <AppsMenuContent
+              apps={apps}
+              homeApp={homeApp}
+              isFetchingApps={isFetchingApps}
+              shortcuts={shortcuts}
+              closeMenu={toggleMenu}
+            />
           }
           componentsProps={{
             dialogContent: {
@@ -73,7 +79,13 @@ const AppsMenu = ({ shortcuts }) => {
             paper: 'u-bdrs-7'
           }}
         >
-          <AppsMenuContent shortcuts={shortcuts} closeMenu={toggleMenu} />
+          <AppsMenuContent
+            apps={apps}
+            homeApp={homeApp}
+            isFetchingApps={isFetchingApps}
+            shortcuts={shortcuts}
+            closeMenu={toggleMenu}
+          />
         </Menu>
       )}
     </nav>

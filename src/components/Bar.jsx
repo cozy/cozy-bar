@@ -1,5 +1,4 @@
-import React, { useEffect, useCallback } from 'react'
-import { connect } from 'react-redux'
+import React, { useMemo } from 'react'
 import PropTypes from 'prop-types'
 
 import Grid from 'cozy-ui/transpiled/react/Grid'
@@ -14,13 +13,13 @@ import UserMenu from 'components/UserMenu'
 import ButtonCozyHome from 'components/utils/ButtonCozyHome'
 import SearchButton from 'components/utils/SearchButton'
 import HelpLink from 'components/utils/HelpLink'
-import { getHomeApp, hasFetched, fetchApps } from 'lib/reducers'
-import { useClient, useFetchHomeShortcuts } from 'cozy-client'
+import { useFetchHomeShortcuts, useQuery, RealTimeQueries } from 'cozy-client'
 import { AssistantDesktop } from 'cozy-search'
 import cx from 'classnames'
+import { buildAppsQuery } from 'queries'
+import { getAppsData } from 'components/helpers'
 
 export const Bar = ({
-  fetchApps,
   isPublic,
   barLeft,
   barRight,
@@ -33,36 +32,26 @@ export const Bar = ({
   searchOptions,
   isInvertedTheme,
   appSlug,
-  hasFetchedApps,
-  homeApp,
   componentsProps
 }) => {
-  const client = useClient()
   const { isMobile } = useBreakpoints()
   const shortcuts = useFetchHomeShortcuts()
 
+  const appsQuery = buildAppsQuery()
+  const appsResult = useQuery(appsQuery.definition, {
+    ...appsQuery.options,
+    enabled: !isPublic
+  })
+
+  const rawApps = appsResult.data || []
+  const isFetchingApps = appsResult.fetchStatus === 'loading'
+
+  const { apps, homeApp, isSettingsAppInstalled } = useMemo(
+    () => getAppsData(rawApps, appSlug),
+    [rawApps, appSlug]
+  )
+
   const isSearchEnabled = searchOptions.enabled && !isPublic
-
-  const fetchInitialData = useCallback(() => {
-    if (!isPublic) {
-      if (!hasFetchedApps) {
-        fetchApps()
-      }
-    }
-  }, [fetchApps, hasFetchedApps, isPublic])
-
-  useEffect(() => {
-    const handleTokenRefreshed = () => {
-      fetchInitialData()
-    }
-
-    fetchInitialData()
-    client.on('tokenRefreshed', handleTokenRefreshed)
-
-    return () => {
-      client.removeListener('tokenRefreshed', handleTokenRefreshed)
-    }
-  }, [client, fetchInitialData])
 
   const renderCenter = () => {
     return null
@@ -108,8 +97,16 @@ export const Bar = ({
     return (
       <>
         <HelpLink />
-        <AppsMenu shortcuts={shortcuts} />
-        <UserMenu onLogOut={onLogOut} />
+        <AppsMenu
+          apps={apps}
+          homeApp={homeApp}
+          isFetchingApps={isFetchingApps}
+          shortcuts={shortcuts}
+        />
+        <UserMenu
+          onLogOut={onLogOut}
+          isSettingsAppInstalled={isSettingsAppInstalled}
+        />
       </>
     )
   }
@@ -130,6 +127,7 @@ export const Bar = ({
       className={cx('coz-bar-wrapper', componentsProps?.Wrapper?.className)}
       data-testid="coz-bar-wrapper"
     >
+      {!isPublic && <RealTimeQueries doctype="io.cozy.apps" />}
       <div id="cozy-bar-modal-dom-place" />
       <div className="coz-bar-container">
         {barLeft || renderLeft()}
@@ -157,16 +155,4 @@ Bar.propTypes = {
   })
 }
 
-export const mapStateToProps = state => ({
-  hasFetchedApps: hasFetched(state),
-  homeApp: getHomeApp(state)
-})
-
-export const mapDispatchToProps = dispatch => ({
-  fetchApps: () => dispatch(fetchApps())
-})
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Bar)
+export default Bar

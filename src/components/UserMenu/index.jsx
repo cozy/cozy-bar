@@ -20,7 +20,7 @@ const useStyles = makeStyles({
   }
 })
 
-const UserMenu = ({ onLogOut }) => {
+const UserMenu = ({ onLogOut, isSettingsAppInstalled }) => {
   const [isOpen, setOpen] = useState(false)
   const containerRef = useRef()
   const buttonRef = useRef()
@@ -54,6 +54,7 @@ const UserMenu = ({ onLogOut }) => {
               onLogOut={onLogOut}
               instance={instance}
               diskUsage={diskUsage}
+              isSettingsAppInstalled={isSettingsAppInstalled}
               closeMenu={toggleMenu}
             />
           }
@@ -89,6 +90,7 @@ const UserMenu = ({ onLogOut }) => {
             onLogOut={onLogOut}
             instance={instance}
             diskUsage={diskUsage}
+            isSettingsAppInstalled={isSettingsAppInstalled}
             closeMenu={toggleMenu}
           />
         </Menu>

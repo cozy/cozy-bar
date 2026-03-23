@@ -1,6 +1,5 @@
 import React from 'react'
 import cx from 'classnames'
-import { connect } from 'react-redux'
 
 import flag from 'cozy-flags'
 import { useWebviewIntent } from 'cozy-intent'
@@ -20,7 +19,6 @@ import Divider from 'cozy-ui/transpiled/react/Divider'
 import Typography from 'cozy-ui/transpiled/react/Typography'
 import { useBreakpoints } from 'cozy-ui/transpiled/react/providers/Breakpoints'
 
-import { getIsSettingsAppInstalled } from 'lib/reducers'
 import useI18n from 'components/useI18n'
 import styles from 'styles/user-menu.styl'
 import AvatarMyself from './components/AvatarMyself'
@@ -134,8 +132,4 @@ const UserMenuContent = ({
   )
 }
 
-const mapStateToProps = state => ({
-  isSettingsAppInstalled: getIsSettingsAppInstalled(state)
-})
-
-export default connect(mapStateToProps)(UserMenuContent)
+export default UserMenuContent
