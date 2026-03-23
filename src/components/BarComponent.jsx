@@ -1,7 +1,5 @@
-import React, { useLayoutEffect, useState, useEffect } from 'react'
+import React, { useLayoutEffect, useState } from 'react'
 import { createPortal } from 'react-dom'
-
-import { onRealtimeCreate, onRealtimeDelete, setInfos } from 'lib/reducers'
 
 import {
   getAppName,
@@ -13,11 +11,8 @@ import {
 } from '../dom'
 
 import Bar from './Bar'
-import { Provider } from 'react-redux'
 import { useClient } from 'cozy-client'
 import CozyTheme from 'cozy-ui-plus/dist/providers/CozyTheme'
-
-import stack from 'lib/stack'
 
 import { useBarContext } from './BarProvider'
 
@@ -88,7 +83,6 @@ const BarComponent = ({
   isInvertedTheme,
   isPublic = false,
   onLogOut,
-  disableInternalStore = false,
   appIcon,
   appTextIcon,
   searchOptions = { enabled: true },
@@ -104,23 +98,6 @@ const BarComponent = ({
 
   // Force public mode in `/public` URLs
   let isPublicForce = !isPublic && /^\/public/.test(window.location.pathname)
-
-  const getOrCreateStore = require('lib/store').default
-  let store
-  if (disableInternalStore) {
-    store = cozyClient.store
-  } else {
-    store = getOrCreateStore()
-  }
-
-  useEffect(() => {
-    store.dispatch(setInfos(appName, appNamePrefix, appSlug))
-    stack.init({
-      cozyClient,
-      onCreate: data => store.dispatch(onRealtimeCreate(data)),
-      onDelete: data => store.dispatch(onRealtimeDelete(data))
-    })
-  }, [appName, appNamePrefix, appSlug, cozyClient, store])
 
   const options = {
     appName,
@@ -147,25 +124,13 @@ const BarComponent = ({
       setWrapperElement={setWrapperElement}
     >
       <CozyTheme variant={themeVariant} ignoreCozySettings={options.isPublic}>
-        {disableInternalStore ? (
-          <Bar
-            {...options}
-            barSearch={barSearch}
-            barLeft={barLeft}
-            barCenter={barCenter}
-            barRight={barRight}
-          />
-        ) : (
-          <Provider store={store}>
-            <Bar
-              {...options}
-              barSearch={barSearch}
-              barLeft={barLeft}
-              barCenter={barCenter}
-              barRight={barRight}
-            />
-          </Provider>
-        )}
+        <Bar
+          {...options}
+          barSearch={barSearch}
+          barLeft={barLeft}
+          barCenter={barCenter}
+          barRight={barRight}
+        />
       </CozyTheme>
     </ReactPortal>
   )

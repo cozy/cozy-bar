@@ -4,6 +4,18 @@ import { render, screen } from '@testing-library/react'
 import { BarComponent, BarProvider, BarLeft } from './index'
 import { BarLike } from '../test/lib/BarLike'
 
+jest.mock('cozy-client', () => ({
+  ...require.requireActual('cozy-client'),
+  useQuery: jest.fn().mockReturnValue({ data: [], fetchStatus: 'loaded' }),
+  RealTimeQueries: () => null,
+  useInstanceInfo: jest.fn().mockReturnValue({
+    isLoaded: true,
+    diskUsage: { data: { used: 0 } },
+    instance: { data: {} },
+    context: { data: {} }
+  })
+}))
+
 describe('The bar library', function() {
   beforeEach(() => {
     // Set up our document body

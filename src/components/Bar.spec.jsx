@@ -7,7 +7,7 @@ import { render } from '@testing-library/react'
 import { createMockClient } from 'cozy-client'
 import { useBreakpoints } from 'cozy-ui/transpiled/react/providers/Breakpoints'
 
-import { useInstanceInfo } from 'cozy-client'
+import { useInstanceInfo, useQuery } from 'cozy-client'
 import { shouldDisplayOffers } from 'cozy-client/dist/models/instance'
 
 jest.mock('cozy-device-helper', () => ({
@@ -17,7 +17,9 @@ jest.mock('cozy-device-helper', () => ({
 
 jest.mock('cozy-client', () => ({
   ...require.requireActual('cozy-client'),
-  useInstanceInfo: jest.fn()
+  useInstanceInfo: jest.fn(),
+  useQuery: jest.fn(),
+  RealTimeQueries: () => null
 }))
 
 jest.mock('cozy-client/dist/models/instance', () => ({
@@ -42,19 +44,17 @@ describe('Bar', () => {
       instance: { data: {} },
       context: { data: {} }
     })
+    useQuery.mockReturnValue({
+      data: [],
+      fetchStatus: 'loaded'
+    })
   })
 
   afterEach(() => {
     isFlagshipApp.mockClear()
   })
 
-  const mockFetchApps = jest.fn().mockResolvedValue([])
-
-  const setup = ({
-    fetchApps = mockFetchApps,
-    isPublic = false,
-    hasFetchedApps = false
-  } = {}) => {
+  const setup = ({ isPublic = false } = {}) => {
     const mockClient = createMockClient({
       clientOptions: {
         uri: 'http://cozy.localhost:8080'
@@ -64,9 +64,7 @@ describe('Bar', () => {
     const result = render(
       <BarLike client={mockClient}>
         <Bar
-          fetchApps={fetchApps}
           isPublic={isPublic}
-          hasFetchedApps={hasFetchedApps}
           onDrawer={jest.fn()}
           searchOptions={{ enabled: false }}
         />
@@ -79,22 +77,16 @@ describe('Bar', () => {
     }
   }
 
-  it('should fetch data when mounted', () => {
+  it('should render the bar', () => {
     setup()
-
-    expect(mockFetchApps).toHaveBeenCalled()
+    expect(useQuery).toHaveBeenCalled()
   })
 
-  it('should not fetch data if public', () => {
+  it('should not fetch apps if public', () => {
     setup({ isPublic: true })
-
-    expect(mockFetchApps).not.toHaveBeenCalled()
-  })
-
-  it('should call re-fetch data when token is refreshed', () => {
-    const { client } = setup()
-    client.emit('tokenRefreshed')
-
-    expect(mockFetchApps).toHaveBeenCalledTimes(2)
+    expect(useQuery).toHaveBeenCalledWith(
+      expect.anything(),
+      expect.objectContaining({ enabled: false })
+    )
   })
 })

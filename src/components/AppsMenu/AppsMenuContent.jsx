@@ -1,5 +1,4 @@
 import React from 'react'
-import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
 import flag from 'cozy-flags'
@@ -11,7 +10,6 @@ import ShortcutItem from 'components/AppsMenu/components/ShortcutItem'
 import EntrypointItem from 'components/AppsMenu/components/EntrypointItem'
 import AppItemPlaceholder from 'components/AppsMenu/components/AppItemPlaceholder'
 import useI18n from 'components/useI18n'
-import { getApps, getHomeApp, isFetchingApps } from 'lib/reducers'
 import styles from 'styles/apps-menu.styl'
 import { getEntrypoints } from 'components/AppsMenu/helper'
 
@@ -78,10 +76,4 @@ AppsMenuContent.propTypes = {
   closeMenu: PropTypes.func
 }
 
-const mapStateToProps = state => ({
-  isFetchingApps: isFetchingApps(state),
-  apps: getApps(state),
-  homeApp: getHomeApp(state)
-})
-
-export default connect(mapStateToProps)(AppsMenuContent)
+export default AppsMenuContent
