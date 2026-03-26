@@ -2,6 +2,7 @@
 [![NPM release version shield](https://img.shields.io/npm/v/cozy-bar.svg)](https://www.npmjs.com/package/cozy-bar)
 [![NPM Licence shield](https://img.shields.io/npm/l/cozy-bar.svg)](https://github.com/cozy/cozy-bar/blob/master/LICENSE)
 
+⚠️ This package has been migrated in cozy-libs monorepo : https://github.com/linagora/cozy-libs/tree/master/packages/cozy-bar ⚠️
 
 # [Cozy] Bar Library
 
